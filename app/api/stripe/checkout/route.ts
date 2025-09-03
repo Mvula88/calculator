@@ -4,7 +4,7 @@ import { createClient } from '@/lib/supabase/server'
 
 export async function POST(req: NextRequest) {
   try {
-    const { productId, userId } = await req.json()
+    const { productId } = await req.json()
     
     // Get product details
     const product = Object.values(PRODUCTS).find(p => p.id === productId)
@@ -59,31 +59,45 @@ export async function POST(req: NextRequest) {
         .eq('id', user.id)
     }
 
-    // Create checkout session
-    const session = await stripe.checkout.sessions.create({
+    // Create checkout session using Price ID if available
+    const sessionConfig: any = {
       customer: customerId,
       payment_method_types: ['card'],
-      line_items: [
-        {
-          price_data: {
-            currency: product.currency,
-            product_data: {
-              name: product.name,
-              description: product.description,
-            },
-            unit_amount: product.price,
-          },
-          quantity: 1,
-        },
-      ],
       mode: 'payment',
-      success_url: `${process.env.NEXT_PUBLIC_APP_URL}/dashboard?payment=success`,
+      success_url: `${process.env.NEXT_PUBLIC_APP_URL}/dashboard?payment=success&product=${productId}`,
       cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/pricing?payment=cancelled`,
       metadata: {
         user_id: user.id,
         product_id: productId
       }
-    })
+    }
+
+    // Check if we have a Stripe Price ID configured
+    if (product.priceId && product.priceId.startsWith('price_')) {
+      // Use the Stripe Price ID
+      sessionConfig.line_items = [{
+        price: product.priceId,
+        quantity: 1,
+      }]
+    } else {
+      // Fallback to price_data for custom pricing
+      sessionConfig.line_items = [{
+        price_data: {
+          currency: product.currency,
+          product_data: {
+            name: product.name,
+            description: product.description,
+            metadata: {
+              product_id: product.id
+            }
+          },
+          unit_amount: product.price,
+        },
+        quantity: 1,
+      }]
+    }
+
+    const session = await stripe.checkout.sessions.create(sessionConfig)
 
     return NextResponse.json({ url: session.url })
   } catch (error) {
