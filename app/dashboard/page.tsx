@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
+import { CONTACT_INFO } from '@/lib/constants'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -272,7 +273,7 @@ export default function DashboardPage() {
               <Phone className="h-4 w-4" />
               <AlertDescription>
                 <strong>WhatsApp Support:</strong> Join our exclusive group for direct support. 
-                Message +264 81 XXX XXXX with your email to be added.
+                Message {CONTACT_INFO.whatsapp.displayNumber} with your email to be added.
               </AlertDescription>
             </Alert>
           </TabsContent>

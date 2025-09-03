@@ -189,11 +189,11 @@ export default function CheckoutPage() {
                   </div>
                 </div>
                 
-                <Alert className="bg-green-50 border-green-300">
+                <Alert className="bg-yellow-50 border-yellow-300">
                   <Shield className="h-4 w-4" />
                   <AlertDescription>
-                    <strong>30-Day Money Back Guarantee</strong><br />
-                    If you don't find value, get a full refund
+                    <strong>Important: All Sales Are Final</strong><br />
+                    No refunds - Please review features before purchasing
                   </AlertDescription>
                 </Alert>
               </CardContent>

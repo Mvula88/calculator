@@ -488,10 +488,10 @@ export default function LandingPage() {
               <Card>
                 <CardHeader>
                   <Shield className="w-12 h-12 mx-auto text-green-500 mb-4" />
-                  <CardTitle>30-Day Money Back</CardTitle>
+                  <CardTitle>No Hidden Costs</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-gray-600">If you don't find value, get a full refund</p>
+                  <p className="text-gray-600">Every import fee revealed upfront - no surprises</p>
                 </CardContent>
               </Card>
               <Card>

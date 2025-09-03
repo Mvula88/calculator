@@ -218,7 +218,7 @@ export default function RegisterPage() {
                     <span>Secure Payment</span>
                   </div>
                   <span>•</span>
-                  <span>30-Day Money Back</span>
+                  <span>No Refunds</span>
                   <span>•</span>
                   <span>Lifetime Access</span>
                 </div>

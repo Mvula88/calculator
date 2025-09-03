@@ -173,7 +173,7 @@ export default function PricingPage() {
 
               <div className="mt-6 flex justify-center space-x-6 text-xs text-gray-500">
                 <span>✓ SSL Secure</span>
-                <span>✓ 30-Day Guarantee</span>
+                <span>✓ No Refunds</span>
                 <span>✓ Instant Access</span>
               </div>
             </CardContent>

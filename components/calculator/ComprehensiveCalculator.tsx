@@ -14,6 +14,7 @@ import { Calculator, AlertTriangle, Download, Save, RefreshCw, TrendingUp } from
 import type { VehicleDetails, HiddenCosts, CalculationResult } from '@/types/calculator.types'
 import { useCountry, getCountryImportCosts, formatLocalPrice } from '@/lib/country-context'
 import { Price } from '@/components/ui/Price'
+import { PDFExportButton } from './PDFReport'
 
 export default function ComprehensiveCalculator() {
   const { country } = useCountry()
@@ -136,22 +137,55 @@ export default function ComprehensiveCalculator() {
     return japanTotal + shippingTotal + namibiaTotal
   }
 
-  const saveCalculation = () => {
-    const result: CalculationResult = {
-      vehicleDetails,
-      costs,
-      totalCost: calculateTotal(),
-      estimatedTimelineDays: 45 + storageDays,
-      exchangeRates,
-      calculatedAt: new Date()
+  const [isSaving, setIsSaving] = useState(false)
+  
+  const saveCalculation = async () => {
+    setIsSaving(true)
+    try {
+      const totalCost = calculateTotal()
+      
+      const response = await fetch('/api/calculator/save', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          vehicle_details: vehicleDetails,
+          japan_costs: costs.japanCosts,
+          shipping_costs: costs.shippingCosts,
+          destination_costs: costs.namibiaCosts,
+          total_cost: totalCost,
+          country: country.name,
+          currency: country.currency
+        })
+      })
+
+      const data = await response.json()
+      
+      if (data.success) {
+        // Also save locally for immediate display
+        const result: CalculationResult = {
+          vehicleDetails,
+          costs,
+          totalCost,
+          estimatedTimelineDays: 45 + storageDays,
+          exchangeRates,
+          calculatedAt: new Date()
+        }
+        setSavedCalculations(prev => [...prev, result])
+        
+        // Show success message (you could add a toast here)
+        console.log('Calculation saved to database!')
+      } else {
+        console.error('Failed to save calculation:', data.error)
+      }
+    } catch (error) {
+      console.error('Error saving calculation:', error)
+    } finally {
+      setIsSaving(false)
     }
-    setSavedCalculations(prev => [...prev, result])
   }
 
-  const exportPDF = () => {
-    // This would integrate with @react-pdf/renderer
-    console.log('Exporting PDF...')
-  }
 
   return (
     <div className="max-w-7xl mx-auto p-6">
@@ -669,14 +703,16 @@ export default function ComprehensiveCalculator() {
               </div>
               
               <div className="flex gap-4">
-                <Button onClick={saveCalculation} className="flex-1">
+                <Button onClick={saveCalculation} disabled={isSaving} className="flex-1">
                   <Save className="w-4 h-4 mr-2" />
-                  Save Calculation
+                  {isSaving ? 'Saving...' : 'Save Calculation'}
                 </Button>
-                <Button onClick={exportPDF} variant="outline" className="flex-1">
-                  <Download className="w-4 h-4 mr-2" />
-                  Export PDF Report
-                </Button>
+                <PDFExportButton 
+                  vehicleDetails={vehicleDetails}
+                  costs={costs}
+                  country={country}
+                  totalCost={calculateTotal()}
+                />
                 <Button onClick={() => window.location.reload()} variant="outline">
                   <RefreshCw className="w-4 h-4 mr-2" />
                   New Calculation
