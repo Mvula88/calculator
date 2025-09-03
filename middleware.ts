@@ -58,7 +58,9 @@ export async function middleware(request: NextRequest) {
   
   // If still no country, detect from IP
   if (!country) {
-    const ip = request.ip || request.headers.get('x-forwarded-for')?.split(',')[0] || null
+    const ip = request.headers.get('x-forwarded-for')?.split(',')[0] || 
+               request.headers.get('x-real-ip') || 
+               null
     country = await detectCountryFromIP(ip)
   }
   
