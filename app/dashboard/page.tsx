@@ -16,14 +16,13 @@ import {
   Package, 
   Download,
   CheckCircle,
+  Check,
   Lock,
   TrendingUp,
   FileText,
   Phone,
   LogOut,
-  User,
-  Calendar,
-  DollarSign
+  Calendar
 } from 'lucide-react'
 
 export default function DashboardPage() {
