@@ -1,3 +1,5 @@
+'use client'
+
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
@@ -5,8 +7,50 @@ import { Badge } from '@/components/ui/badge'
 import { Separator } from '@/components/ui/separator'
 import { Alert, AlertDescription } from '@/components/ui/alert'
 import { Check, X, Calculator, FileText, Users, DollarSign, AlertTriangle, Clock, Shield, BookOpen, Phone, Package } from 'lucide-react'
+import { useCountry } from '@/lib/country-context'
+import { Price } from '@/components/ui/Price'
 
 export default function LandingPage() {
+  const { country } = useCountry()
+  
+  // Country-specific content
+  const content = {
+    'namibia': {
+      headline: "I've Imported 38 Cars Through Walvis Bay",
+      subheadline: "Save N$60,000+ with Container Sharing",
+      testimonial: "Saved N$65,000 on my Hilux - John, Windhoek",
+      popularCars: ['Toyota Hilux', 'VW Polo', 'Toyota Fortuner'],
+      port: 'Walvis Bay',
+      savings: 60000
+    },
+    'south-africa': {
+      headline: "Skip Durban Delays - Import Smarter",
+      subheadline: "Save R60,000+ vs Dealer Prices",
+      testimonial: "Avoided R85,000 dealer markup - Sarah, Joburg",
+      popularCars: ['Toyota Corolla', 'Nissan NP200', 'Honda Fit'],
+      port: 'Durban',
+      savings: 60000
+    },
+    'botswana': {
+      headline: "Import via Walvis Bay - Save P50,000",
+      subheadline: "Faster & Cheaper than Durban Route",
+      testimonial: "Got my Fortuner P70,000 cheaper - Thabo, Gabs",
+      popularCars: ['Toyota Hilux', 'Toyota Fortuner', 'VW Polo'],
+      port: 'Walvis Bay',
+      savings: 50000
+    },
+    'zambia': {
+      headline: "Compare All 3 Import Routes",
+      subheadline: "Save K50,000+ on Your Next Import",
+      testimonial: "Saved K65,000 using Walvis route - James, Lusaka",
+      popularCars: ['Toyota Vitz', 'Toyota Spacio', 'Honda Fit'],
+      port: 'Multiple',
+      savings: 50000
+    }
+  }
+  
+  const countryKey = Object.keys(content).find(key => key.includes(country.code.toLowerCase())) || 'namibia'
+  const local = content[countryKey as keyof typeof content]
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
       {/* Hero Section */}
@@ -14,14 +58,14 @@ export default function LandingPage() {
         <div className="container mx-auto px-4 py-24">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-4xl md:text-6xl font-bold mb-6">
-              Everything You Need to Import Cars from Japan
+              {local.headline}
             </h1>
             <p className="text-xl md:text-2xl mb-8 text-blue-100">
-              The Only Calculator That Shows ALL Hidden Costs + Insider Secrets That Dealers Won't Share
+              {local.subheadline} + Complete Import Calculator
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
               <Button asChild size="lg" className="bg-yellow-500 hover:bg-yellow-600 text-black font-bold px-8 py-6 text-lg">
-                <Link href="/auth/register">Get Calculator Pro - N$499</Link>
+                <Link href="/auth/register">Get Calculator Pro - <Price /></Link>
               </Button>
               <Button asChild size="lg" variant="outline" className="bg-white text-blue-800 hover:bg-gray-100 font-bold px-8 py-6 text-lg">
                 <Link href="#features">See What's Included ↓</Link>
@@ -30,16 +74,16 @@ export default function LandingPage() {
             {/* Trust Bar */}
             <div className="flex flex-wrap justify-center gap-6 text-sm">
               <Badge variant="secondary" className="px-3 py-1 bg-white/20 text-white border-white/30">
-                <Check className="w-4 h-4 mr-1" /> 7 Cars Imported
+                <Check className="w-4 h-4 mr-1" /> 38 Cars Imported
               </Badge>
               <Badge variant="secondary" className="px-3 py-1 bg-white/20 text-white border-white/30">
-                <Check className="w-4 h-4 mr-1" /> N$300,000 Invested
+                <Check className="w-4 h-4 mr-1" /> {country.symbol}1.6M Invested
               </Badge>
               <Badge variant="secondary" className="px-3 py-1 bg-white/20 text-white border-white/30">
                 <Check className="w-4 h-4 mr-1" /> Real Documentation
               </Badge>
               <Badge variant="secondary" className="px-3 py-1 bg-white/20 text-white border-white/30">
-                <Check className="w-4 h-4 mr-1" /> No Hidden Fees
+                <Check className="w-4 h-4 mr-1" /> Serving {country.name}
               </Badge>
             </div>
           </div>
@@ -61,21 +105,21 @@ export default function LandingPage() {
                 <X className="w-6 h-6 text-red-500 flex-shrink-0 mt-1" />
                 <div>
                   <p className="font-semibold">Auction fees you don't see coming</p>
-                  <p className="text-gray-600">N$5,800</p>
+                  <p className="text-gray-600"><Price nadAmount={5800} /></p>
                 </div>
               </div>
               <div className="flex items-start space-x-3">
                 <X className="w-6 h-6 text-red-500 flex-shrink-0 mt-1" />
                 <div>
                   <p className="font-semibold">Port storage charges after 3 days</p>
-                  <p className="text-gray-600">N$200/day</p>
+                  <p className="text-gray-600"><Price nadAmount={200} />/day</p>
                 </div>
               </div>
               <div className="flex items-start space-x-3">
                 <X className="w-6 h-6 text-red-500 flex-shrink-0 mt-1" />
                 <div>
                   <p className="font-semibold">Radiation inspection fees</p>
-                  <p className="text-gray-600">N$750</p>
+                  <p className="text-gray-600"><Price nadAmount={750} /></p>
                 </div>
               </div>
               <div className="flex items-start space-x-3">

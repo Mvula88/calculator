@@ -1,11 +1,16 @@
+'use client'
+
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Check, X, AlertTriangle, Lock } from 'lucide-react'
 import { Alert, AlertDescription } from '@/components/ui/alert'
+import { Price } from '@/components/ui/Price'
+import { useCountry } from '@/lib/country-context'
 
 export default function PricingPage() {
+  const { country } = useCountry()
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
       <div className="container mx-auto px-4 py-16">
@@ -90,7 +95,7 @@ export default function PricingPage() {
                 <Check className="w-6 h-6 text-green-500" />
                 What You'll Get Instantly
               </CardTitle>
-              <CardDescription>After N$499 payment:</CardDescription>
+              <CardDescription>After <Price /> payment:</CardDescription>
             </CardHeader>
             <CardContent className="pt-6">
               <ul className="space-y-3">
@@ -145,8 +150,8 @@ export default function PricingPage() {
             </CardHeader>
             <CardContent className="p-8">
               <div className="text-center mb-8">
-                <p className="text-5xl font-bold mb-2">N$499</p>
-                <p className="text-gray-600">Save N$15,000+ on your first import</p>
+                <p className="text-5xl font-bold mb-2"><Price className="text-5xl" /></p>
+                <p className="text-gray-600">Save <Price nadAmount={15000} />+ on your first import</p>
               </div>
 
               <div className="space-y-4">
@@ -161,8 +166,8 @@ export default function PricingPage() {
 
               <div className="mt-8 p-4 bg-yellow-50 rounded-lg">
                 <p className="text-sm text-center">
-                  <strong>⚠️ Price increases to N$699 next month</strong><br />
-                  Lock in lifetime access at N$499 today
+                  <strong>⚠️ Price increases to <Price nadAmount={1999} /> next month</strong><br />
+                  Lock in lifetime access at <Price /> today
                 </p>
               </div>
 

@@ -12,8 +12,12 @@ import { Badge } from '@/components/ui/badge'
 import { Separator } from '@/components/ui/separator'
 import { Calculator, AlertTriangle, Download, Save, RefreshCw, TrendingUp } from 'lucide-react'
 import type { VehicleDetails, HiddenCosts, CalculationResult } from '@/types/calculator.types'
+import { useCountry, getCountryImportCosts, formatLocalPrice } from '@/lib/country-context'
+import { Price } from '@/components/ui/Price'
 
 export default function ComprehensiveCalculator() {
+  const { country } = useCountry()
+  const countrySpecificCosts = getCountryImportCosts(country)
   const [vehicleDetails, setVehicleDetails] = useState<VehicleDetails>({
     make: '',
     model: '',
@@ -37,7 +41,7 @@ export default function ComprehensiveCalculator() {
       exportCustomsClearance: 1200
     },
     shippingCosts: {
-      oceanFreight: 21500,
+      oceanFreight: countrySpecificCosts.shipping,
       bunkerAdjustmentFactor: 2500,
       billOfLadingFee: 1125,
       shippingInsurance: 1800,
@@ -54,13 +58,13 @@ export default function ComprehensiveCalculator() {
       customsClearance: 1500,
       importVAT: 0,
       customsDuty: 0,
-      environmentalLevy: 1200,
+      environmentalLevy: countrySpecificCosts.environmentalLevy,
       fuelLevy: 0,
       roadworthyTest: 850,
       registration: 1200,
       numberPlates: 150,
       transportToWindhoek: 3500,
-      clearingAgentFee: 4000
+      clearingAgentFee: countrySpecificCosts.clearingAgent
     }
   })
 
@@ -92,19 +96,22 @@ export default function ComprehensiveCalculator() {
                     costs.japanCosts.exportCustomsClearance +
                     Object.values(costs.shippingCosts).reduce((a, b) => a + b, 0)
     
-    // Calculate customs duty (varies by age and engine size)
-    let dutyRate = 0
-    if (vehicleAge <= 5) {
-      dutyRate = vehicleDetails.engineSize <= 1500 ? 0.25 : 0.30
-    } else if (vehicleAge <= 10) {
-      dutyRate = vehicleDetails.engineSize <= 1500 ? 0.35 : 0.40
-    } else {
-      dutyRate = 0.45
+    // Calculate customs duty using country-specific rate
+    let dutyRate = countrySpecificCosts.dutyRate
+    // Additional rate adjustments based on vehicle age for some countries
+    if (country.code === 'NA' || country.code === 'ZA') {
+      if (vehicleAge <= 5) {
+        dutyRate = vehicleDetails.engineSize <= 1500 ? 0.20 : 0.25
+      } else if (vehicleAge <= 10) {
+        dutyRate = vehicleDetails.engineSize <= 1500 ? 0.30 : 0.35
+      } else {
+        dutyRate = 0.40
+      }
     }
     const customsDuty = cifValue * dutyRate
     
-    // Calculate VAT (15% of CIF + duty)
-    const importVAT = (cifValue + customsDuty) * 0.15
+    // Calculate VAT using country-specific rate
+    const importVAT = (cifValue + customsDuty) * countrySpecificCosts.vat
     
     // Calculate fuel levy (based on engine size)
     const fuelLevy = vehicleDetails.engineSize <= 1500 ? 750 : 

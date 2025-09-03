@@ -2,9 +2,78 @@ import { createServerClient } from '@supabase/ssr'
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
+// Country detection function
+async function detectCountryFromIP(ip: string | null): Promise<string> {
+  if (!ip) return 'namibia'
+  
+  // For local development, return default
+  if (ip === '::1' || ip === '127.0.0.1') return 'namibia'
+  
+  try {
+    // Use a free IP geolocation service
+    const response = await fetch(`https://ipapi.co/${ip}/country_code/`, {
+      signal: AbortSignal.timeout(3000) // 3 second timeout
+    })
+    
+    if (response.ok) {
+      const countryCode = await response.text()
+      
+      const countryMap: { [key: string]: string } = {
+        'NA': 'namibia',
+        'ZA': 'south-africa',
+        'BW': 'botswana',
+        'ZM': 'zambia'
+      }
+      
+      return countryMap[countryCode.trim()] || 'namibia'
+    }
+  } catch (error) {
+    console.error('Country detection failed:', error)
+  }
+  
+  return 'namibia' // Default fallback
+}
+
 export async function middleware(request: NextRequest) {
+  // Detect country from subdomain first, then IP
+  const hostname = request.headers.get('host') || ''
+  const subdomain = hostname.split('.')[0]
+  
+  const subdomainMap: { [key: string]: string } = {
+    'na': 'namibia',
+    'za': 'south-africa',
+    'bw': 'botswana',
+    'zm': 'zambia'
+  }
+  
+  let country = subdomainMap[subdomain]
+  
+  // If no valid subdomain, check cookie for saved preference
+  if (!country) {
+    const savedCountry = request.cookies.get('user-country')?.value
+    if (savedCountry) {
+      country = savedCountry
+    }
+  }
+  
+  // If still no country, detect from IP
+  if (!country) {
+    const ip = request.ip || request.headers.get('x-forwarded-for')?.split(',')[0] || null
+    country = await detectCountryFromIP(ip)
+  }
+  
   let supabaseResponse = NextResponse.next({
     request,
+  })
+  
+  // Set country in header for use in server components
+  supabaseResponse.headers.set('x-user-country', country)
+  
+  // Save country preference in cookie
+  supabaseResponse.cookies.set('user-country', country, {
+    maxAge: 60 * 60 * 24 * 30, // 30 days
+    sameSite: 'lax',
+    secure: process.env.NODE_ENV === 'production'
   })
 
   const supabase = createServerClient(
@@ -19,6 +88,13 @@ export async function middleware(request: NextRequest) {
           cookiesToSet.forEach(({ name, value, options }) => request.cookies.set(name, value))
           supabaseResponse = NextResponse.next({
             request,
+          })
+          // Preserve the country headers and cookies
+          supabaseResponse.headers.set('x-user-country', country)
+          supabaseResponse.cookies.set('user-country', country, {
+            maxAge: 60 * 60 * 24 * 30,
+            sameSite: 'lax',
+            secure: process.env.NODE_ENV === 'production'
           })
           cookiesToSet.forEach(({ name, value, options }) =>
             supabaseResponse.cookies.set(name, value, options)
