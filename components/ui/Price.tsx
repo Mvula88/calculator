@@ -1,36 +1,40 @@
 'use client'
 
-import { useCountry, formatLocalPrice } from '@/lib/country-context'
+import { useCountry } from '@/lib/country-context'
+import { getLocalPrice } from '@/lib/stripe/pricing'
 
 interface PriceProps {
+  productType?: 'calculator_pro' | 'avoid_mistake' | 'translation' | 'hidden_platforms'
   nadAmount?: number
   className?: string
   showCurrencyCode?: boolean
 }
 
 export function Price({ 
-  nadAmount = 1499, 
+  productType = 'calculator_pro',
+  nadAmount,
   className = '',
   showCurrencyCode = false 
 }: PriceProps) {
   const { country } = useCountry()
   
-  // For the main price of 1499, keep consistent across countries
-  if (nadAmount === 1499) {
+  // If specific NAD amount provided, convert it
+  if (nadAmount !== undefined) {
+    const localPrice = Math.round(nadAmount * country.exchangeRate)
     return (
       <span className={className}>
-        {country.symbol}1,499
+        {country.symbol}{localPrice.toLocaleString()}
         {showCurrencyCode && <span className="text-sm ml-1">{country.currency}</span>}
       </span>
     )
   }
   
-  // For other amounts, show converted price
-  const formattedPrice = formatLocalPrice(nadAmount, country)
+  // Otherwise use product pricing
+  const price = getLocalPrice(productType, country.code)
   
   return (
     <span className={className}>
-      {formattedPrice}
+      {price.display}
       {showCurrencyCode && <span className="text-sm ml-1">{country.currency}</span>}
     </span>
   )

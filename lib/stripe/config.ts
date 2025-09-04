@@ -9,7 +9,7 @@ export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
 // You'll need to create these products in your Stripe Dashboard
 // and replace these with your actual price IDs
 export const STRIPE_PRICE_IDS = {
-  calculatorPro: process.env.STRIPE_PRICE_CALCULATOR_PRO || 'price_calculator_pro', // N$499
+  calculatorPro: process.env.STRIPE_PRICE_CALCULATOR_PRO || 'price_calculator_pro', // N$1,499
   avoidMistake: process.env.STRIPE_PRICE_AVOID_MISTAKE || 'price_avoid_mistake', // N$499
   translationProvider: process.env.STRIPE_PRICE_TRANSLATION || 'price_translation', // N$150
   hiddenPlatforms: process.env.STRIPE_PRICE_HIDDEN_PLATFORMS || 'price_hidden_platforms', // N$14,999
@@ -20,7 +20,7 @@ export const PRODUCTS = {
     id: 'calculator_pro',
     priceId: STRIPE_PRICE_IDS.calculatorPro,
     name: 'Calculator Pro + Import Guide',
-    price: 49900, // Price in cents (N$499)
+    price: 149900, // Price in cents (N$1,499)
     currency: 'nad',
     description: 'Complete import calculator with all 27 hidden costs + import mastery guide',
     features: [

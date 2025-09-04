@@ -10,6 +10,9 @@ import { Badge } from '@/components/ui/badge'
 import { Separator } from '@/components/ui/separator'
 import { Check, Lock, Shield, CreditCard, AlertTriangle } from 'lucide-react'
 import { loadStripe } from '@stripe/stripe-js'
+import { useCountry } from '@/lib/country-context'
+import { getLocalPrice } from '@/lib/stripe/pricing'
+import { Price } from '@/components/ui/Price'
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!)
 
@@ -17,6 +20,9 @@ export default function CheckoutPage() {
   const router = useRouter()
   const [loading, setLoading] = useState(false)
   const [user, setUser] = useState<any>(null)
+  const [error, setError] = useState<string | null>(null)
+  const { country } = useCountry()
+  const price = getLocalPrice('calculator_pro', country.code)
 
   useEffect(() => {
     checkUser()
@@ -48,6 +54,7 @@ export default function CheckoutPage() {
 
   const handleCheckout = async () => {
     setLoading(true)
+    setError(null)
     
     try {
       const response = await fetch('/api/stripe/checkout', {
@@ -57,17 +64,25 @@ export default function CheckoutPage() {
         },
         body: JSON.stringify({
           productId: 'calculator_pro',
+          country: country.code,
           userId: user?.id
         }),
       })
       
-      const { url } = await response.json()
+      const data = await response.json()
       
-      if (url) {
-        window.location.href = url
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to create checkout session')
+      }
+      
+      if (data.url) {
+        window.location.href = data.url
+      } else {
+        throw new Error('No checkout URL received')
       }
     } catch (error) {
       console.error('Checkout error:', error)
+      setError(error instanceof Error ? error.message : 'Something went wrong')
       setLoading(false)
     }
   }
@@ -115,7 +130,7 @@ export default function CheckoutPage() {
                     </li>
                     <li className="flex items-start">
                       <Check className="w-4 h-4 text-green-500 mr-2 mt-0.5" />
-                      <span className="text-sm">Verified agent list (avoid N$45,000 mistakes)</span>
+                      <span className="text-sm">Verified agent list (avoid <Price nadAmount={45000} /> mistakes)</span>
                     </li>
                     <li className="flex items-start">
                       <Check className="w-4 h-4 text-green-500 mr-2 mt-0.5" />
@@ -135,7 +150,7 @@ export default function CheckoutPage() {
                     <strong>Potential Savings:</strong>
                   </p>
                   <p className="text-2xl font-bold text-green-600">
-                    N$15,000+ per import
+                    <Price nadAmount={15000} />+ per import
                   </p>
                   <p className="text-xs text-gray-500 mt-1">
                     By knowing all hidden costs upfront
@@ -147,7 +162,7 @@ export default function CheckoutPage() {
                 <div className="flex justify-between items-center">
                   <span className="text-lg font-semibold">Total</span>
                   <div className="text-right">
-                    <p className="text-3xl font-bold">N$499</p>
+                    <p className="text-3xl font-bold">{price.display}</p>
                     <p className="text-sm text-gray-500">One-time payment</p>
                   </div>
                 </div>
@@ -168,13 +183,20 @@ export default function CheckoutPage() {
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
+                {error && (
+                  <Alert variant="destructive">
+                    <AlertTriangle className="h-4 w-4" />
+                    <AlertDescription>{error}</AlertDescription>
+                  </Alert>
+                )}
+                
                 <Button
                   onClick={handleCheckout}
-                  disabled={loading}
+                  disabled={loading || !user}
                   size="lg"
                   className="w-full py-6 text-lg font-bold"
                 >
-                  {loading ? 'Redirecting to payment...' : 'Pay N$499 Now'}
+                  {loading ? 'Redirecting to payment...' : `Pay ${price.display} Now`}
                 </Button>
                 
                 <div className="flex items-center justify-center space-x-4 text-xs text-gray-500">
@@ -207,7 +229,7 @@ export default function CheckoutPage() {
                   <li>2. Instant access to your dashboard</li>
                   <li>3. Start using the calculator immediately</li>
                   <li>4. Join WhatsApp support group</li>
-                  <li>5. Save N$15,000+ on your next import!</li>
+                  <li>5. Save <Price nadAmount={15000} />+ on your next import!</li>
                 </ol>
               </CardContent>
             </Card>
@@ -215,8 +237,8 @@ export default function CheckoutPage() {
             <Alert className="bg-orange-50 border-orange-300">
               <AlertTriangle className="h-4 w-4" />
               <AlertDescription>
-                <strong>Limited Time:</strong> Price increases to N$699 next month. 
-                Lock in lifetime access at N$499 today!
+                <strong>Limited Time:</strong> Price increases to <Price nadAmount={1999} /> next month. 
+                Lock in lifetime access at {price.display} today!
               </AlertDescription>
             </Alert>
           </div>
