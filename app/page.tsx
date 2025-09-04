@@ -1,5 +1,7 @@
 'use client'
 
+import { useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
@@ -9,9 +11,40 @@ import { Alert, AlertDescription } from '@/components/ui/alert'
 import { Check, X, Calculator, FileText, Users, DollarSign, AlertTriangle, Clock, Shield, BookOpen, Phone, Package } from 'lucide-react'
 import { useCountry } from '@/lib/country-context'
 import { Price } from '@/components/ui/Price'
+import { createClient } from '@/lib/supabase/client'
 
 export default function LandingPage() {
+  const router = useRouter()
   const { country } = useCountry()
+  
+  // Check if user is authenticated and has purchase - redirect to dashboard
+  useEffect(() => {
+    const checkAuthAndPurchase = async () => {
+      const supabase = createClient()
+      const { data: { user } } = await supabase.auth.getUser()
+      
+      if (user) {
+        // Check if user has purchase
+        const { data: purchase } = await supabase
+          .from('purchases')
+          .select('id')
+          .eq('user_id', user.id)
+          .or('status.eq.active,status.is.null')
+          .limit(1)
+          .maybeSingle()
+        
+        if (purchase) {
+          // User has paid - redirect to dashboard
+          router.push('/dashboard')
+        } else {
+          // User is authenticated but hasn't paid - redirect to pricing
+          router.push('/pricing')
+        }
+      }
+    }
+    
+    checkAuthAndPurchase()
+  }, [router])
   
   // Country-specific content
   const content = {

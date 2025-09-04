@@ -4,6 +4,7 @@ import { cookies, headers } from 'next/headers';
 import { CountryProvider } from '@/lib/country-context';
 import { CountrySelector } from '@/components/ui/CountrySelector';
 import { FloatingWhatsAppButton } from '@/components/ui/WhatsAppButton';
+import { ProfessionalNav } from '@/components/ProfessionalNav';
 import Link from 'next/link';
 import "./globals.css";
 
@@ -47,11 +48,7 @@ export default async function RootLayout({
                 
                 <div className="flex items-center gap-4">
                   <CountrySelector />
-                  <nav className="hidden md:flex items-center gap-6">
-                    <Link href="/calculator" className="hover:text-blue-600">Calculator</Link>
-                    <Link href="/pricing" className="hover:text-blue-600">Pricing</Link>
-                    <Link href="/dashboard" className="hover:text-blue-600">Dashboard</Link>
-                  </nav>
+                  <ProfessionalNav />
                 </div>
               </div>
             </div>

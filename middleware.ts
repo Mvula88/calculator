@@ -195,6 +195,30 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL('/dashboard', request.url))
   }
 
+  // PROFESSIONAL FLOW: Redirect paid users away from public/marketing pages
+  const publicPaths = ['/', '/pricing', '/about', '/contact']
+  const isPublicPath = publicPaths.includes(request.nextUrl.pathname)
+  
+  if (isPublicPath && user) {
+    // Check if user has purchased
+    const { data: purchase } = await supabase
+      .from('purchases')
+      .select('id')
+      .eq('user_id', user.id)
+      .or('status.eq.active,status.is.null')
+      .limit(1)
+      .maybeSingle()
+    
+    // If user has purchased, redirect to dashboard
+    if (purchase) {
+      return NextResponse.redirect(new URL('/dashboard', request.url))
+    }
+    // If authenticated but not paid, let them see pricing
+    else if (request.nextUrl.pathname === '/') {
+      return NextResponse.redirect(new URL('/pricing', request.url))
+    }
+  }
+
   return supabaseResponse
 }
 

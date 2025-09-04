@@ -1,5 +1,7 @@
 'use client'
 
+import { useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
@@ -8,9 +10,36 @@ import { Check, X, AlertTriangle, Lock } from 'lucide-react'
 import { Alert, AlertDescription } from '@/components/ui/alert'
 import { Price } from '@/components/ui/Price'
 import { useCountry } from '@/lib/country-context'
+import { createClient } from '@/lib/supabase/client'
 
 export default function PricingPage() {
+  const router = useRouter()
   const { country } = useCountry()
+  
+  // Check if user already has purchase - redirect to dashboard
+  useEffect(() => {
+    const checkPurchase = async () => {
+      const supabase = createClient()
+      const { data: { user } } = await supabase.auth.getUser()
+      
+      if (user) {
+        const { data: purchase } = await supabase
+          .from('purchases')
+          .select('id')
+          .eq('user_id', user.id)
+          .or('status.eq.active,status.is.null')
+          .limit(1)
+          .maybeSingle()
+        
+        if (purchase) {
+          // User already paid - redirect to dashboard
+          router.push('/dashboard')
+        }
+      }
+    }
+    
+    checkPurchase()
+  }, [router])
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
       <div className="container mx-auto px-4 py-16">
