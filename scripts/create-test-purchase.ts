@@ -19,10 +19,12 @@ async function createTestPurchase() {
   const testPassword = 'TestPassword123!'
   
   // Try to sign in first
-  let { data: authData, error: signInError } = await supabase.auth.signInWithPassword({
+  const { data: signInData, error: signInError } = await supabase.auth.signInWithPassword({
     email: testEmail,
     password: testPassword
   })
+  
+  let userId: string | null = null
   
   // If sign in fails, try to create a new user (but might be rate limited)
   if (signInError) {
@@ -44,30 +46,31 @@ async function createTestPurchase() {
         return
       }
       
-      // Use signUpData directly instead of reassigning
       if (!signUpData?.user) {
         console.error('No user data from signup')
         return
       }
-      authData = { user: signUpData.user, session: signUpData.session }
+      userId = signUpData.user.id
     } else {
       console.error('Sign in error:', signInError)
       return
     }
+  } else if (signInData?.user) {
+    userId = signInData.user.id
   }
   
-  if (!authData?.user) {
-    console.error('No user data available')
+  if (!userId) {
+    console.error('No user ID available')
     return
   }
   
-  console.log('User authenticated:', authData.user.email)
+  console.log('User authenticated with ID:', userId)
   
   // Check if purchase already exists
   const { data: existingPurchase } = await supabase
     .from('purchases')
     .select('*')
-    .eq('user_id', authData.user.id)
+    .eq('user_id', userId)
     .eq('product_type', 'calculator_pro')
     .single()
   
@@ -82,7 +85,7 @@ async function createTestPurchase() {
   const { data: purchase, error: purchaseError } = await supabase
     .from('purchases')
     .insert({
-      user_id: authData.user.id,
+      user_id: userId,
       product_type: 'calculator_pro',
       amount: 1499,
       stripe_payment_id: 'test_payment_' + Date.now(),
