@@ -43,6 +43,7 @@ export async function POST(req: NextRequest) {
           amount: session.amount_total || 0,
           currency: session.currency || 'nad',
           status: 'active',
+          purchased_at: new Date().toISOString(),
           metadata: {
             customer_email: session.customer_email,
             customer_name: session.customer_details?.name,
