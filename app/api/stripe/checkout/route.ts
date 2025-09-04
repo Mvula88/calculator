@@ -1,116 +1,127 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { stripe, PRODUCTS } from '@/lib/stripe/config'
+import { stripe } from '@/lib/stripe/config'
 import { createClient } from '@/lib/supabase/server'
 import { getStripePrice } from '@/lib/stripe/pricing'
+
+// Normalize country codes
+function normalizeCountry(country: string): 'na' | 'za' | 'bw' | 'zm' {
+  const countryMap: Record<string, 'na' | 'za' | 'bw' | 'zm'> = {
+    'namibia': 'na',
+    'na': 'na',
+    'south-africa': 'za',
+    'south_africa': 'za',
+    'za': 'za',
+    'botswana': 'bw',
+    'bw': 'bw',
+    'zambia': 'zm',
+    'zm': 'zm'
+  }
+  return countryMap[country.toLowerCase()] || 'na'
+}
+
+// Get price based on country and tier
+function getTierPrice(country: 'na' | 'za' | 'bw' | 'zm', tier: 'mistake' | 'mastery') {
+  const prices = {
+    na: {
+      mistake: { amount: 49900, currency: 'nad', display: 'N$499' },
+      mastery: { amount: 199900, currency: 'nad', display: 'N$1,999' }
+    },
+    za: {
+      mistake: { amount: 49900, currency: 'zar', display: 'R499' },
+      mastery: { amount: 249900, currency: 'zar', display: 'R2,499' }
+    },
+    bw: {
+      mistake: { amount: 49900, currency: 'bwp', display: 'P499' },
+      mastery: { amount: 199900, currency: 'bwp', display: 'P1,999' }
+    },
+    zm: {
+      mistake: { amount: 99900, currency: 'zmw', display: 'K999' },
+      mastery: { amount: 399900, currency: 'zmw', display: 'K3,999' }
+    }
+  }
+  return prices[country][tier]
+}
 
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json()
-    const { productId, country = 'namibia' } = body
+    const { country, tier, productId } = body
     
-    console.log('Checkout request:', { productId, country })
+    console.log('Checkout request:', { country, tier, productId })
     
-    // Get product details
-    const product = Object.values(PRODUCTS).find(p => p.id === productId)
-    if (!product) {
-      console.error('Product not found:', productId)
-      return NextResponse.json({ error: 'Invalid product' }, { status: 400 })
+    // Validate tier
+    if (!tier || !['mistake', 'mastery'].includes(tier)) {
+      return NextResponse.json({ error: 'Invalid tier' }, { status: 400 })
     }
-
-    // Get user from Supabase
+    
+    // Normalize country
+    const normalizedCountry = normalizeCountry(country || 'na')
+    
+    // Get user from Supabase (optional - can work without auth for funnel)
     const supabase = await createClient()
     const { data: { user } } = await supabase.auth.getUser()
     
-    if (!user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-    }
-
-    // Check if user already purchased this product
-    const { data: existingPurchase } = await supabase
-      .from('purchases')
-      .select('*')
-      .eq('user_id', user.id)
-      .eq('product_type', productId)
-      .single()
-
-    if (existingPurchase) {
-      return NextResponse.json({ error: 'Product already purchased' }, { status: 400 })
-    }
-
-    // Create Stripe customer (simplified - don't store in users table)
-    let customerId: string
+    // Get price for tier and country
+    const price = getTierPrice(normalizedCountry, tier as 'mistake' | 'mastery')
     
-    try {
-      // Always create a new customer for simplicity
-      const customer = await stripe.customers.create({
-        email: user.email || undefined,
-        metadata: {
-          supabase_user_id: user.id
-        }
-      })
-      customerId = customer.id
-      console.log('Created Stripe customer:', customerId)
-    } catch (customerError) {
-      console.error('Error creating Stripe customer:', customerError)
-      // If customer creation fails, proceed without customer ID
-      customerId = ''
+    // Product names based on tier
+    const productNames = {
+      mistake: `${normalizedCountry === 'na' ? 'Walvis Bay' : normalizedCountry === 'za' ? 'Durban' : 'Import'} Mistake Guide`,
+      mastery: 'Import Mastery + Calculator Access'
     }
-
-    // Create checkout session configuration
+    
+    // Create Stripe checkout session
     const sessionConfig: any = {
       payment_method_types: ['card'],
       mode: 'payment',
-      success_url: `${process.env.NEXT_PUBLIC_APP_URL}/dashboard?payment=success&product=${productId}`,
-      cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/pricing?payment=cancelled`,
-      metadata: {
-        user_id: user.id,
-        product_id: productId,
-        country: country
-      }
-    }
-    
-    // Only add customer if we have one
-    if (customerId) {
-      sessionConfig.customer = customerId
-    }
-
-    // Get dynamic price based on country
-    const dynamicPrice = getStripePrice(productId as any, country)
-    
-    console.log('Dynamic price:', dynamicPrice)
-    
-    // Always use dynamic pricing based on country
-    sessionConfig.line_items = [{
-      price_data: {
-        currency: dynamicPrice.currency,
-        product_data: {
-          name: product.name,
-          description: product.description,
-          metadata: {
-            product_id: product.id,
-            country: country
-          }
+      line_items: [{
+        price_data: {
+          currency: price.currency === 'nad' ? 'zar' : price.currency, // Stripe doesn't support NAD, use ZAR
+          product_data: {
+            name: productNames[tier as 'mistake' | 'mastery'],
+            description: tier === 'mistake' 
+              ? 'Avoid costly port mistakes with this essential guide'
+              : 'Complete import system with calculator, agents directory, and priority support',
+            metadata: {
+              product_id: productId || tier,
+              country: normalizedCountry,
+              tier: tier
+            }
+          },
+          unit_amount: price.amount,
         },
-        unit_amount: dynamicPrice.amount,
+        quantity: 1,
+      }],
+      metadata: {
+        user_id: user?.id || '',
+        product_id: productId || tier,
+        country: normalizedCountry,
+        tier: tier,
+        email: user?.email || ''
       },
-      quantity: 1,
-    }]
-
-    console.log('Creating Stripe session with config:', JSON.stringify(sessionConfig, null, 2))
-
+      success_url: `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/${normalizedCountry}/thank-you?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/${normalizedCountry}/${tier === 'mistake' ? 'guide' : 'upsell'}`
+    }
+    
+    // Add customer email if available
+    if (user?.email) {
+      sessionConfig.customer_email = user.email
+    }
+    
+    // Create the session
     const session = await stripe.checkout.sessions.create(sessionConfig)
-
-    console.log('Session created:', session.id)
-
-    return NextResponse.json({ url: session.url })
-  } catch (error) {
-    console.error('Stripe checkout error details:', error)
     
-    // Return more detailed error message
-    const errorMessage = error instanceof Error ? error.message : 'Failed to create checkout session'
+    console.log('Created checkout session:', session.id)
     
+    return NextResponse.json({ 
+      url: session.url,
+      sessionId: session.id 
+    })
+    
+  } catch (error: any) {
+    console.error('Checkout error:', error)
     return NextResponse.json(
-      { error: errorMessage },
+      { error: error.message || 'Failed to create checkout session' },
       { status: 500 }
     )
   }

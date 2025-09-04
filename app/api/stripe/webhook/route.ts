@@ -12,6 +12,7 @@ export async function POST(req: NextRequest) {
   let event: Stripe.Event
 
   try {
+    // Verify webhook signature
     event = stripe.webhooks.constructEvent(body, sig, endpointSecret)
   } catch (err) {
     console.error('Webhook signature verification failed:', err)
@@ -24,41 +25,85 @@ export async function POST(req: NextRequest) {
     case 'checkout.session.completed': {
       const session = event.data.object as Stripe.Checkout.Session
       
-      const userId = session.metadata?.user_id
+      // Extract metadata
+      const userId = session.metadata?.user_id || null
       const productId = session.metadata?.product_id
+      const country = session.metadata?.country || 'na'
+      const tier = session.metadata?.tier || 'mistake'
+      const email = session.customer_email || session.metadata?.email || session.customer_details?.email
       
-      if (!userId || !productId) {
-        console.error('Missing metadata in checkout session')
+      if (!productId || !email) {
+        console.error('Missing critical metadata in checkout session')
         break
       }
 
-      // Record the purchase directly (no need for users table)
+      console.log('Processing payment for:', { userId, email, productId, country, tier })
+
+      // 1. Record the purchase (keep existing table)
       const { error: purchaseError } = await supabase
         .from('purchases')
         .insert({
-          user_id: userId,
+          user_id: userId || null, // Can be null for guest checkouts
           product_type: productId,
           stripe_session_id: session.id,
           stripe_payment_intent: session.payment_intent as string,
           amount: session.amount_total || 0,
-          currency: session.currency || 'nad',
+          currency: session.currency || 'zar',
           status: 'active',
           purchased_at: new Date().toISOString(),
           metadata: {
-            customer_email: session.customer_email,
+            customer_email: email,
             customer_name: session.customer_details?.name,
-            country: session.metadata?.country || 'namibia'
+            country: country,
+            tier: tier
           }
         })
       
       if (purchaseError) {
         console.error('Error creating purchase record:', purchaseError)
       } else {
-        console.log(`Purchase record created for user ${userId}, product ${productId}`)
+        console.log('Purchase record created')
       }
 
-      // Send confirmation email (would implement with React Email)
-      console.log(`Payment successful for user ${userId}, product ${productId}`)
+      // 2. Create entitlement for portal access
+      const { error: entitlementError } = await supabase
+        .from('entitlements')
+        .insert({
+          user_id: userId || null,
+          email: email.toLowerCase(),
+          country: country,
+          tier: tier,
+          stripe_payment_intent_id: session.payment_intent as string,
+          active: true
+        })
+
+      if (entitlementError) {
+        console.error('Error creating entitlement:', entitlementError)
+      } else {
+        console.log(`Entitlement created for ${email}, tier: ${tier}, country: ${country}`)
+      }
+
+      // 3. Send confirmation email (you can implement with Resend/SendGrid)
+      console.log(`Payment successful for ${email}, product ${productId}`)
+      
+      // Optional: Create/update user account if email exists
+      if (email && !userId) {
+        // Check if user exists with this email
+        const { data: existingUser } = await supabase
+          .from('auth.users')
+          .select('id')
+          .eq('email', email.toLowerCase())
+          .single()
+
+        if (existingUser) {
+          // Update entitlement with user_id
+          await supabase
+            .from('entitlements')
+            .update({ user_id: existingUser.id })
+            .eq('email', email.toLowerCase())
+            .eq('stripe_payment_intent_id', session.payment_intent as string)
+        }
+      }
       
       break
     }
@@ -66,6 +111,13 @@ export async function POST(req: NextRequest) {
     case 'payment_intent.payment_failed': {
       const paymentIntent = event.data.object as Stripe.PaymentIntent
       console.error('Payment failed:', paymentIntent.last_payment_error?.message)
+      break
+    }
+
+    case 'customer.subscription.deleted': {
+      // Handle subscription cancellation if needed in future
+      const subscription = event.data.object as Stripe.Subscription
+      console.log('Subscription cancelled:', subscription.id)
       break
     }
 
