@@ -50,8 +50,11 @@ Sentry.init({
     if (event.exception) {
       const error = hint.originalException;
       // Filter out non-critical errors
-      if (error && error.message && error.message.includes('ResizeObserver')) {
-        return null;
+      if (error && typeof error === 'object' && 'message' in error) {
+        const errorMessage = (error as Error).message;
+        if (errorMessage && errorMessage.includes('ResizeObserver')) {
+          return null;
+        }
       }
     }
     return event;
