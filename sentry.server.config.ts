@@ -18,9 +18,6 @@ Sentry.init({
 
   // Uncomment the line below to enable Spotlight (https://spotlightjs.com)
   // spotlight: process.env.NODE_ENV === 'development',
-  
-  // Additional options for server-side
-  autoSessionTracking: true,
 
   // Filter sensitive data
   beforeSend(event, hint) {
