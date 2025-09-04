@@ -1,10 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { stripe, PRODUCTS } from '@/lib/stripe/config'
 import { createClient } from '@/lib/supabase/server'
+import { getStripePrice } from '@/lib/stripe/pricing'
 
 export async function POST(req: NextRequest) {
   try {
-    const { productId } = await req.json()
+    const { productId, country = 'namibia' } = await req.json()
     
     // Get product details
     const product = Object.values(PRODUCTS).find(p => p.id === productId)
@@ -72,30 +73,25 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    // Check if we have a Stripe Price ID configured
-    if (product.priceId && product.priceId.startsWith('price_')) {
-      // Use the Stripe Price ID
-      sessionConfig.line_items = [{
-        price: product.priceId,
-        quantity: 1,
-      }]
-    } else {
-      // Fallback to price_data for custom pricing
-      sessionConfig.line_items = [{
-        price_data: {
-          currency: product.currency,
-          product_data: {
-            name: product.name,
-            description: product.description,
-            metadata: {
-              product_id: product.id
-            }
-          },
-          unit_amount: product.price,
+    // Get dynamic price based on country
+    const dynamicPrice = getStripePrice(productId as any, country)
+    
+    // Always use dynamic pricing based on country
+    sessionConfig.line_items = [{
+      price_data: {
+        currency: dynamicPrice.currency,
+        product_data: {
+          name: product.name,
+          description: `${product.description} (${dynamicPrice.display})`,
+          metadata: {
+            product_id: product.id,
+            country: country
+          }
         },
-        quantity: 1,
-      }]
-    }
+        unit_amount: dynamicPrice.amount,
+      },
+      quantity: 1,
+    }]
 
     const session = await stripe.checkout.sessions.create(sessionConfig)
 
