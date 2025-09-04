@@ -44,7 +44,12 @@ async function createTestPurchase() {
         return
       }
       
-      authData = signUpData
+      // Use signUpData directly instead of reassigning
+      if (!signUpData?.user) {
+        console.error('No user data from signup')
+        return
+      }
+      authData = { user: signUpData.user, session: signUpData.session }
     } else {
       console.error('Sign in error:', signInError)
       return
