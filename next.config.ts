@@ -5,11 +5,8 @@ const nextConfig: NextConfig = {
   /* config options here */
 };
 
-// Sentry configuration wrapper
+// Sentry configuration wrapper with minimal required options
 export default withSentryConfig(nextConfig, {
-  // For all available options, see:
-  // https://github.com/getsentry/sentry-webpack-plugin#options
-
   // Suppresses source map uploading logs during build
   silent: true,
   
@@ -20,9 +17,8 @@ export default withSentryConfig(nextConfig, {
   // Auth token for uploading source maps (optional in development)
   authToken: process.env.SENTRY_AUTH_TOKEN,
 
-  // Hides source maps from generated client bundles
-  hideSourceMaps: true,
-
-  // Automatically tree-shake Sentry logger statements to reduce bundle size
-  disableLogger: true,
+  // Disable source map uploading if no auth token
+  sourcemaps: {
+    disable: !process.env.SENTRY_AUTH_TOKEN,
+  },
 });
