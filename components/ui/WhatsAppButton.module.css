@@ -1,0 +1,49 @@
+/* WhatsApp Button Mobile Optimizations */
+
+/* Ensure button is always accessible on mobile */
+@media (max-width: 640px) {
+  /* Floating button positioning for mobile */
+  .floating-whatsapp {
+    position: fixed;
+    bottom: env(safe-area-inset-bottom, 16px);
+    right: 16px;
+    z-index: 9999;
+  }
+
+  /* Ensure button is above iOS home indicator */
+  @supports (padding: max(0px)) {
+    .floating-whatsapp {
+      bottom: max(env(safe-area-inset-bottom, 16px), 16px);
+    }
+  }
+
+  /* Prevent button from being covered by mobile browser UI */
+  .floating-whatsapp-container {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}
+
+/* Improve touch target size for mobile */
+@media (hover: none) and (pointer: coarse) {
+  .whatsapp-button {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* Animation for mobile */
+@media (prefers-reduced-motion: no-preference) {
+  .whatsapp-pulse {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(0.95);
+  }
+}
