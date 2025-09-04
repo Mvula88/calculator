@@ -134,7 +134,10 @@ export async function middleware(request: NextRequest) {
   // DEVELOPMENT MODE: Skip payment check if in development
   const isDevelopment = process.env.NODE_ENV === 'development'
   
-  if (isProtectedPath && user && !isDevelopment) {
+  // Skip payment check if this is a successful payment redirect
+  const isPaymentSuccess = request.nextUrl.searchParams.get('payment') === 'success'
+  
+  if (isProtectedPath && user && !isDevelopment && !isPaymentSuccess) {
     const { data: purchase } = await supabase
       .from('purchases')
       .select('*')
