@@ -42,7 +42,7 @@ export const COUNTRIES: { [key: string]: Country } = {
     phone: '+267',
     flag: '🇧🇼',
     port: 'Walvis Bay',
-    exchangeRate: 0.73 // 1 BWP = 0.73 NAD approximately
+    exchangeRate: 1.37 // 1 NAD = 1.37 BWP approximately (1 BWP = 0.73 NAD)
   },
   'zambia': {
     code: 'ZM',
@@ -52,7 +52,7 @@ export const COUNTRIES: { [key: string]: Country } = {
     phone: '+260',
     flag: '🇿🇲',
     port: 'Multiple',
-    exchangeRate: 0.056 // 1 ZMW = 0.056 NAD approximately
+    exchangeRate: 1.06 // 1 NAD = 1.06 ZMW approximately
   }
 }
 

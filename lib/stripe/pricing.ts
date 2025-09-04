@@ -15,6 +15,7 @@ export function getLocalPrice(productType: keyof typeof BASE_PRICES, countryCode
   const country = COUNTRIES[countryCode] || COUNTRIES['namibia']
   
   // Convert from NAD to local currency
+  // exchangeRate represents how many units of foreign currency equal 1 NAD
   const localPrice = Math.round(basePrice * country.exchangeRate)
   
   return {

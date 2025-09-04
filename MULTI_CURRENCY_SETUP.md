@@ -7,8 +7,8 @@ Your platform now automatically shows prices in the visitor's local currency whi
 ### Currency Detection Flow:
 1. User visits from Namibia → Sees N$1,499
 2. User visits from South Africa → Sees R1,499  
-3. User visits from Botswana → Sees P1,499
-4. User visits from Zambia → Sees K24,999
+3. User visits from Botswana → Sees P2,054 (1,499 × 1.37)
+4. User visits from Zambia → Sees K1,589 (1,499 × 1.06)
 
 ### Payment Processing:
 1. Customer clicks "Get Access" 
@@ -31,11 +31,11 @@ export const BASE_PRICES = {
 ```
 
 ### 2. Exchange Rates (`lib/country-context.tsx`)
-Currently using 1:1 for NAD/ZAR/BWP and adjusted rate for ZMW:
-- Namibia (NAD): 1.0
-- South Africa (ZAR): 1.0  
-- Botswana (BWP): 1.0
-- Zambia (ZMW): 16.67 (approximation)
+Exchange rates (how many units of foreign currency per 1 NAD):
+- Namibia (NAD): 1.0 (base currency)
+- South Africa (ZAR): 1.0 (pegged to NAD)
+- Botswana (BWP): 1.37 (1 NAD = 1.37 BWP)
+- Zambia (ZMW): 1.06 (1 NAD = 1.06 ZMW)
 
 ## Stripe Configuration
 
