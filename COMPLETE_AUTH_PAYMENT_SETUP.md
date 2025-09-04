@@ -75,7 +75,7 @@ Run this to check:
 ```sql
 SELECT table_name, 
        (SELECT COUNT(*) FROM information_schema.columns 
-        WHERE c.table_name = tables.table_name) as column_count
+        WHERE columns.table_name = tables.table_name) as column_count
 FROM information_schema.tables 
 WHERE table_schema = 'public' 
 AND table_name IN ('purchases', 'calculations');
