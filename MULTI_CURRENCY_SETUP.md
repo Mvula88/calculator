@@ -7,8 +7,8 @@ Your platform now automatically shows prices in the visitor's local currency whi
 ### Currency Detection Flow:
 1. User visits from Namibia → Sees N$1,499
 2. User visits from South Africa → Sees R1,499  
-3. User visits from Botswana → Sees P2,054 (1,499 × 1.37)
-4. User visits from Zambia → Sees K1,589 (1,499 × 1.06)
+3. User visits from Botswana → Sees P1,139 (1,499 × 0.76)
+4. User visits from Zambia → Sees K2,015 (1,499 × 1.344)
 
 ### Payment Processing:
 1. Customer clicks "Get Access" 
@@ -34,8 +34,8 @@ export const BASE_PRICES = {
 Exchange rates (how many units of foreign currency per 1 NAD):
 - Namibia (NAD): 1.0 (base currency)
 - South Africa (ZAR): 1.0 (pegged to NAD)
-- Botswana (BWP): 1.37 (1 NAD = 1.37 BWP)
-- Zambia (ZMW): 1.06 (1 NAD = 1.06 ZMW)
+- Botswana (BWP): 0.76 (1 NAD = 0.76 BWP, or 1 BWP = 1.31 NAD)
+- Zambia (ZMW): 1.344 (1 NAD = 1.344 ZMW)
 
 ## Stripe Configuration
 
@@ -87,12 +87,20 @@ Edit `lib/country-context.tsx`:
 
 ## Revenue Calculations
 
-### Example Conversion:
-- Customer pays: R1,499 (South Africa)
-- Stripe converts to USD: ~$80 (at current rates)
+### Example Conversions:
+**Namibia/South Africa (N$1,499 / R1,499):**
+- Stripe converts to USD: ~$80
 - Stripe fees: ~$2.90 (2.9% + $0.30)
 - Currency conversion: ~$1.60 (2%)
 - You receive: ~$75.50 USD
+
+**Botswana (P1,139):**
+- Stripe converts to USD: ~$83
+- After fees: ~$78 USD
+
+**Zambia (K2,015):**
+- Stripe converts to USD: ~$74
+- After fees: ~$70 USD
 
 ### Monthly Revenue Estimate (100 sales):
 - Gross: $8,000 USD
