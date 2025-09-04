@@ -134,10 +134,15 @@ export async function middleware(request: NextRequest) {
   // DEVELOPMENT MODE: Skip payment check if in development
   const isDevelopment = process.env.NODE_ENV === 'development'
   
-  // Skip payment check if this is a successful payment redirect
+  // Skip payment check if this is a successful payment redirect or within grace period
   const isPaymentSuccess = request.nextUrl.searchParams.get('payment') === 'success'
   
-  if (isProtectedPath && user && !isDevelopment && !isPaymentSuccess) {
+  // Check for recent payment session cookie (set after successful payment)
+  const recentPaymentCookie = request.cookies.get('recent_payment')
+  const isRecentPayment = recentPaymentCookie && 
+    Date.now() - parseInt(recentPaymentCookie.value) < 60000 // 1 minute grace period
+  
+  if (isProtectedPath && user && !isDevelopment && !isPaymentSuccess && !isRecentPayment) {
     const { data: purchase } = await supabase
       .from('purchases')
       .select('*')
@@ -151,6 +156,16 @@ export async function middleware(request: NextRequest) {
       redirectUrl.pathname = '/pricing'
       return NextResponse.redirect(redirectUrl)
     }
+  }
+  
+  // Set cookie for recent payment if this is a payment success redirect
+  if (isPaymentSuccess && user) {
+    supabaseResponse.cookies.set('recent_payment', Date.now().toString(), {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      maxAge: 60 // 60 seconds
+    })
   }
 
   // Redirect authenticated users away from auth pages

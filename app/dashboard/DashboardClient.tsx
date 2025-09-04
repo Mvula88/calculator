@@ -42,10 +42,10 @@ export default function DashboardClient() {
     // Check for payment success message
     if (searchParams.get('payment') === 'success') {
       setShowSuccessMessage(true)
-      // Remove the query parameter after showing the message
+      // Remove the query parameter after showing the message (increased to 30 seconds)
       setTimeout(() => {
         router.replace('/dashboard')
-      }, 5000)
+      }, 30000) // 30 seconds to allow webhook to complete
     }
   }, [searchParams, router])
 
@@ -61,12 +61,28 @@ export default function DashboardClient() {
     
     setUser(user)
     
-    // Load user purchases
-    const { data: userPurchases } = await supabase
-      .from('purchases')
-      .select('*')
-      .eq('user_id', user.id)
-      .order('created_at', { ascending: false })
+    // Load user purchases with retry logic if payment was just made
+    let retryCount = 0
+    const maxRetries = searchParams.get('payment') === 'success' ? 5 : 1
+    let userPurchases = null
+    
+    while (retryCount < maxRetries) {
+      const { data } = await supabase
+        .from('purchases')
+        .select('*')
+        .eq('user_id', user.id)
+        .order('created_at', { ascending: false })
+      
+      userPurchases = data
+      
+      // If this is a payment success and no purchase found yet, wait and retry
+      if (searchParams.get('payment') === 'success' && (!data || data.length === 0) && retryCount < maxRetries - 1) {
+        await new Promise(resolve => setTimeout(resolve, 2000)) // Wait 2 seconds
+        retryCount++
+      } else {
+        break
+      }
+    }
     
     if (userPurchases) {
       setPurchases(userPurchases)
