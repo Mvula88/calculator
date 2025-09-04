@@ -144,7 +144,7 @@ export async function middleware(request: NextRequest) {
   
   // Check for verified purchase cookie (set after purchase is confirmed)
   const verifiedPurchaseCookie = request.cookies.get('verified_purchase')
-  const hasVerifiedPurchase = verifiedPurchaseCookie === 'true'
+  const hasVerifiedPurchase = verifiedPurchaseCookie?.value === 'true'
   
   if (isProtectedPath && user && !isDevelopment && !isPaymentSuccess && !isRecentPayment && !hasVerifiedPurchase) {
     // Try to find any purchase for this user (not just calculator_pro)
