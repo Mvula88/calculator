@@ -22,7 +22,10 @@ export default function CheckoutPage() {
   const [user, setUser] = useState<any>(null)
   const [error, setError] = useState<string | null>(null)
   const { country } = useCountry()
-  const price = getLocalPrice('calculator_pro', country.code)
+  
+  // Fallback to Namibia if country is not loaded
+  const safeCountry = country || { code: 'namibia', name: 'Namibia', currency: 'NAD', symbol: 'N$', exchangeRate: 1 }
+  const price = getLocalPrice('calculator_pro', safeCountry.code)
 
   useEffect(() => {
     checkUser()
@@ -64,7 +67,7 @@ export default function CheckoutPage() {
         },
         body: JSON.stringify({
           productId: 'calculator_pro',
-          country: country.code,
+          country: safeCountry.code,
           userId: user?.id
         }),
       })

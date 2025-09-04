@@ -18,24 +18,34 @@ export function Price({
 }: PriceProps) {
   const { country } = useCountry()
   
+  // Fallback to Namibia if country is not properly loaded
+  const safeCountry = country || {
+    code: 'namibia',
+    name: 'Namibia',
+    currency: 'NAD',
+    symbol: 'N$',
+    exchangeRate: 1
+  }
+  
   // If specific NAD amount provided, convert it
   if (nadAmount !== undefined) {
-    const localPrice = Math.round(nadAmount * country.exchangeRate)
+    const exchangeRate = safeCountry.exchangeRate || 1
+    const localPrice = Math.round(nadAmount * exchangeRate)
     return (
       <span className={className}>
-        {country.symbol}{localPrice.toLocaleString()}
-        {showCurrencyCode && <span className="text-sm ml-1">{country.currency}</span>}
+        {safeCountry.symbol}{localPrice.toLocaleString()}
+        {showCurrencyCode && <span className="text-sm ml-1">{safeCountry.currency}</span>}
       </span>
     )
   }
   
   // Otherwise use product pricing
-  const price = getLocalPrice(productType, country.code)
+  const price = getLocalPrice(productType, safeCountry.code)
   
   return (
     <span className={className}>
       {price.display}
-      {showCurrencyCode && <span className="text-sm ml-1">{country.currency}</span>}
+      {showCurrencyCode && <span className="text-sm ml-1">{safeCountry.currency}</span>}
     </span>
   )
 }

@@ -92,9 +92,15 @@ export function CountryProvider({
 
 export const useCountry = () => {
   const context = useContext(CountryContext)
+  
+  // Provide a default if context is not available
   if (!context) {
-    throw new Error('useCountry must be used within a CountryProvider')
+    return {
+      country: COUNTRIES['namibia'],
+      setCountry: () => console.warn('CountryProvider not found, using default Namibia')
+    }
   }
+  
   return context
 }
 

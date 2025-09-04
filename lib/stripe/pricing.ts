@@ -12,17 +12,21 @@ export const BASE_PRICES = {
 // Get price in local currency
 export function getLocalPrice(productType: keyof typeof BASE_PRICES, countryCode: string) {
   const basePrice = BASE_PRICES[productType]
+  
+  // Ensure we have a valid country, fallback to Namibia
   const country = COUNTRIES[countryCode] || COUNTRIES['namibia']
   
+  // Ensure exchangeRate exists, default to 1
+  const exchangeRate = country?.exchangeRate || 1
+  
   // Convert from NAD to local currency
-  // exchangeRate represents how many units of foreign currency equal 1 NAD
-  const localPrice = Math.round(basePrice * country.exchangeRate)
+  const localPrice = Math.round(basePrice * exchangeRate)
   
   return {
     amount: localPrice,
-    currency: country.currency,
-    symbol: country.symbol,
-    display: `${country.symbol}${localPrice.toLocaleString()}`
+    currency: country?.currency || 'NAD',
+    symbol: country?.symbol || 'N$',
+    display: `${country?.symbol || 'N$'}${localPrice.toLocaleString()}`
   }
 }
 
