@@ -147,19 +147,26 @@ export async function middleware(request: NextRequest) {
   const hasVerifiedPurchase = verifiedPurchaseCookie?.value === 'true'
   
   if (isProtectedPath && user && !isDevelopment && !isPaymentSuccess && !isRecentPayment && !hasVerifiedPurchase) {
-    // Try to find any purchase for this user (not just calculator_pro)
-    const { data: purchase } = await supabase
-      .from('purchases')
-      .select('*')
-      .eq('user_id', user.id)
-      .or('status.eq.active,status.is.null')
+    // Check for entitlements (new system)
+    const { data: entitlement } = await supabase
+      .from('entitlements')
+      .select('id')
+      .eq('email', user.email?.toLowerCase())
+      .eq('active', true)
       .limit(1)
       .maybeSingle()
 
-    if (!purchase) {
-      // User is authenticated but hasn't paid - redirect to pricing
+    if (!entitlement) {
+      // User is authenticated but has no entitlement - redirect to country guide
       const redirectUrl = request.nextUrl.clone()
-      redirectUrl.pathname = '/pricing'
+      const countryCode = country.toLowerCase()
+      if (countryCode.includes('na') || countryCode.includes('namibia')) {
+        redirectUrl.pathname = '/na/guide'
+      } else if (countryCode.includes('za') || countryCode.includes('south-africa')) {
+        redirectUrl.pathname = '/za/guide'
+      } else {
+        redirectUrl.pathname = '/na/guide'
+      }
       return NextResponse.redirect(redirectUrl)
     } else {
       // Set verified purchase cookie to avoid repeated database checks
@@ -195,27 +202,34 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL('/dashboard', request.url))
   }
 
-  // PROFESSIONAL FLOW: Redirect paid users away from public/marketing pages
+  // PROFESSIONAL FLOW: Redirect entitled users away from public/marketing pages
   const publicPaths = ['/', '/pricing', '/about', '/contact']
   const isPublicPath = publicPaths.includes(request.nextUrl.pathname)
   
   if (isPublicPath && user) {
-    // Check if user has purchased
-    const { data: purchase } = await supabase
-      .from('purchases')
+    // Check if user has entitlement
+    const { data: entitlement } = await supabase
+      .from('entitlements')
       .select('id')
-      .eq('user_id', user.id)
-      .or('status.eq.active,status.is.null')
+      .eq('email', user.email?.toLowerCase())
+      .eq('active', true)
       .limit(1)
       .maybeSingle()
     
-    // If user has purchased, redirect to dashboard
-    if (purchase) {
-      return NextResponse.redirect(new URL('/dashboard', request.url))
+    // If user has entitlement, redirect to portal
+    if (entitlement) {
+      return NextResponse.redirect(new URL('/portal', request.url))
     }
-    // If authenticated but not paid, let them see pricing
-    else if (request.nextUrl.pathname === '/') {
-      return NextResponse.redirect(new URL('/pricing', request.url))
+    // If authenticated but no entitlement, redirect to country guide
+    else if (request.nextUrl.pathname === '/' || request.nextUrl.pathname === '/pricing') {
+      const countryCode = country.toLowerCase()
+      if (countryCode.includes('na') || countryCode.includes('namibia')) {
+        return NextResponse.redirect(new URL('/na/guide', request.url))
+      } else if (countryCode.includes('za') || countryCode.includes('south-africa')) {
+        return NextResponse.redirect(new URL('/za/guide', request.url))
+      } else {
+        return NextResponse.redirect(new URL('/na/guide', request.url))
+      }
     }
   }
 
