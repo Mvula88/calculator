@@ -1,5 +1,6 @@
 'use client'
 
+import DashboardLayout from '@/components/DashboardLayout'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -65,24 +66,13 @@ export default function GuidesPage() {
   ]
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-blue-50">
-      {/* Hero Section */}
-      <div className="bg-gradient-to-r from-purple-600 to-blue-600 text-white">
-        <div className="container mx-auto px-4 py-16">
-          <div className="max-w-3xl">
-            <Badge className="bg-white/20 text-white mb-4">PRO GUIDES</Badge>
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">
-              Import Guides & Resources
-            </h1>
-            <p className="text-xl text-blue-100">
-              Step-by-step guides based on 38+ successful vehicle imports. 
-              Learn from real experience and avoid costly mistakes.
-            </p>
-          </div>
+    <DashboardLayout>
+      <div className="p-6 lg:p-8">
+        {/* Header */}
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold text-gray-900">Import Guides & Resources</h1>
+          <p className="text-gray-600 mt-1">Step-by-step guides based on 38+ successful vehicle imports.</p>
         </div>
-      </div>
-
-      <div className="container mx-auto px-4 py-8">
         <Tabs defaultValue="all-guides" className="space-y-6">
           <TabsList className="grid grid-cols-3 w-full max-w-xl">
             <TabsTrigger value="all-guides">All Guides</TabsTrigger>
@@ -229,6 +219,6 @@ export default function GuidesPage() {
           </Card>
         </div>
       </div>
-    </div>
+    </DashboardLayout>
   )
 }

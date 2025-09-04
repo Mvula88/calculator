@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import DashboardLayout from '@/components/DashboardLayout'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -113,24 +114,13 @@ export default function AgentsPage() {
   })
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-green-50">
-      {/* Hero Section */}
-      <div className="bg-gradient-to-r from-green-600 to-blue-600 text-white">
-        <div className="container mx-auto px-4 py-16">
-          <div className="max-w-3xl">
-            <Badge className="bg-white/20 text-white mb-4">VERIFIED NETWORK</Badge>
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">
-              Trusted Clearing Agents
-            </h1>
-            <p className="text-xl text-green-100">
-              Work with verified agents who won't overcharge. Avoid the N$45,000 
-              mistakes I made with dishonest agents.
-            </p>
-          </div>
+    <DashboardLayout>
+      <div className="p-6 lg:p-8">
+        {/* Header */}
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold text-gray-900">Trusted Clearing Agents</h1>
+          <p className="text-gray-600 mt-1">Work with verified agents who won't overcharge. Avoid costly mistakes.</p>
         </div>
-      </div>
-
-      <div className="container mx-auto px-4 py-8">
         {/* Warning Alert */}
         <Alert className="mb-6 bg-yellow-50 border-yellow-400">
           <AlertTriangle className="h-4 w-4" />
@@ -281,6 +271,6 @@ export default function AgentsPage() {
           </CardContent>
         </Card>
       </div>
-    </div>
+    </DashboardLayout>
   )
 }

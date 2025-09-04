@@ -1,27 +1,20 @@
+'use client'
+
+import DashboardLayout from '@/components/DashboardLayout'
 import ComprehensiveCalculator from '@/components/calculator/ComprehensiveCalculator'
-import Link from 'next/link'
-import { Button } from '@/components/ui/button'
-import { ArrowLeft } from 'lucide-react'
 
 export default function CalculatorPage() {
   return (
-    <div className="min-h-screen bg-gray-50">
-      <header className="bg-white shadow-sm border-b">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
-              <Button asChild variant="ghost" size="sm">
-                <Link href="/dashboard">
-                  <ArrowLeft className="w-4 h-4 mr-2" />
-                  Back to Dashboard
-                </Link>
-              </Button>
-            </div>
-          </div>
+    <DashboardLayout>
+      <div className="p-6 lg:p-8">
+        {/* Header */}
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold text-gray-900">Import Cost Calculator</h1>
+          <p className="text-gray-600 mt-1">Calculate your total vehicle import costs with precision</p>
         </div>
-      </header>
-      
-      <ComprehensiveCalculator />
-    </div>
+        
+        <ComprehensiveCalculator />
+      </div>
+    </DashboardLayout>
   )
 }
