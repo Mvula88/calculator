@@ -233,11 +233,11 @@ export default function DashboardClient() {
               <Phone className="h-4 w-4" />
               <AlertDescription>
                 <strong>Need help?</strong> Join our WhatsApp support group: 
-                <a href={`https://wa.me/${CONTACT_INFO.whatsapp}`} 
+                <a href={`https://wa.me/${CONTACT_INFO.whatsapp.number.replace('+', '')}`} 
                    className="text-blue-600 underline ml-1"
                    target="_blank"
                    rel="noopener noreferrer">
-                  {CONTACT_INFO.whatsapp}
+                  {CONTACT_INFO.whatsapp.displayNumber}
                 </a>
               </AlertDescription>
             </Alert>
