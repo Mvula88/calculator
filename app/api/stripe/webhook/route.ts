@@ -32,43 +32,29 @@ export async function POST(req: NextRequest) {
         break
       }
 
-      // Check if this is the first purchase (calculator_pro)
-      if (productId === 'calculator_pro') {
-        // Create or update user record
-        const { data: existingUser } = await supabase
-          .from('users')
-          .select('*')
-          .eq('id', userId)
-          .single()
-
-        if (!existingUser) {
-          // Get user details from auth
-          const { data: authUser } = await supabase.auth.admin.getUserById(userId)
-          
-          // Create user record with payment info
-          await supabase
-            .from('users')
-            .insert({
-              id: userId,
-              email: authUser?.user?.email || session.customer_email,
-              full_name: authUser?.user?.user_metadata?.full_name,
-              phone: authUser?.user?.user_metadata?.phone,
-              payment_date: new Date().toISOString(),
-              payment_amount: session.amount_total! / 100,
-              stripe_customer_id: session.customer as string
-            })
-        }
-      }
-
-      // Record the purchase
-      await supabase
+      // Record the purchase directly (no need for users table)
+      const { error: purchaseError } = await supabase
         .from('purchases')
         .insert({
           user_id: userId,
           product_type: productId,
-          amount: session.amount_total! / 100,
-          stripe_payment_intent: session.payment_intent as string
+          stripe_session_id: session.id,
+          stripe_payment_intent: session.payment_intent as string,
+          amount: session.amount_total || 0,
+          currency: session.currency || 'nad',
+          status: 'active',
+          metadata: {
+            customer_email: session.customer_email,
+            customer_name: session.customer_details?.name,
+            country: session.metadata?.country || 'namibia'
+          }
         })
+      
+      if (purchaseError) {
+        console.error('Error creating purchase record:', purchaseError)
+      } else {
+        console.log(`Purchase record created for user ${userId}, product ${productId}`)
+      }
 
       // Send confirmation email (would implement with React Email)
       console.log(`Payment successful for user ${userId}, product ${productId}`)
