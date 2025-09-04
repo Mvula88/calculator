@@ -12,6 +12,7 @@ import { Alert, AlertDescription } from '@/components/ui/alert'
 import { Badge } from '@/components/ui/badge'
 import { Separator } from '@/components/ui/separator'
 import { Check, AlertTriangle, Calculator, Lock } from 'lucide-react'
+import { Price } from '@/components/ui/Price'
 
 export default function RegisterPage() {
   const router = useRouter()
@@ -88,7 +89,7 @@ export default function RegisterPage() {
                 <Check className="w-5 h-5 text-green-500 mr-2 mt-0.5" />
                 <div>
                   <p className="font-semibold">Verified Agent List</p>
-                  <p className="text-sm text-gray-600">Avoid my N$45,000 mistake</p>
+                  <p className="text-sm text-gray-600">Avoid my <Price nadAmount={45000} /> mistake</p>
                 </div>
               </div>
               <div className="flex items-start">
@@ -105,7 +106,7 @@ export default function RegisterPage() {
             <AlertTriangle className="h-4 w-4" />
             <AlertDescription>
               <strong>No Free Trial</strong> - This platform is for serious importers only. 
-              N$499 one-time payment required after registration.
+              <Price /> one-time payment required after registration.
             </AlertDescription>
           </Alert>
         </div>
@@ -194,7 +195,7 @@ export default function RegisterPage() {
 
                   <div className="text-center">
                     <p className="text-sm text-gray-600">
-                      Next step: N$499 payment for full access
+                      Next step: <Price /> payment for full access
                     </p>
                   </div>
                 </div>
