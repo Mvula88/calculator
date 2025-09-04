@@ -140,31 +140,53 @@ export async function middleware(request: NextRequest) {
   // Check for recent payment session cookie (set after successful payment)
   const recentPaymentCookie = request.cookies.get('recent_payment')
   const isRecentPayment = recentPaymentCookie && 
-    Date.now() - parseInt(recentPaymentCookie.value) < 60000 // 1 minute grace period
+    Date.now() - parseInt(recentPaymentCookie.value) < 300000 // 5 minute grace period
   
-  if (isProtectedPath && user && !isDevelopment && !isPaymentSuccess && !isRecentPayment) {
+  // Check for verified purchase cookie (set after purchase is confirmed)
+  const verifiedPurchaseCookie = request.cookies.get('verified_purchase')
+  const hasVerifiedPurchase = verifiedPurchaseCookie === 'true'
+  
+  if (isProtectedPath && user && !isDevelopment && !isPaymentSuccess && !isRecentPayment && !hasVerifiedPurchase) {
+    // Try to find any purchase for this user (not just calculator_pro)
     const { data: purchase } = await supabase
       .from('purchases')
       .select('*')
       .eq('user_id', user.id)
-      .eq('product_type', 'calculator_pro')
-      .single()
+      .or('status.eq.active,status.is.null')
+      .limit(1)
+      .maybeSingle()
 
     if (!purchase) {
       // User is authenticated but hasn't paid - redirect to pricing
       const redirectUrl = request.nextUrl.clone()
       redirectUrl.pathname = '/pricing'
       return NextResponse.redirect(redirectUrl)
+    } else {
+      // Set verified purchase cookie to avoid repeated database checks
+      supabaseResponse.cookies.set('verified_purchase', 'true', {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'lax',
+        maxAge: 60 * 60 * 24 * 7 // 7 days
+      })
     }
   }
   
-  // Set cookie for recent payment if this is a payment success redirect
+  // Set cookies for recent payment if this is a payment success redirect
   if (isPaymentSuccess && user) {
     supabaseResponse.cookies.set('recent_payment', Date.now().toString(), {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',
-      maxAge: 60 // 60 seconds
+      maxAge: 300 // 5 minutes
+    })
+    
+    // Also set verified purchase cookie immediately
+    supabaseResponse.cookies.set('verified_purchase', 'true', {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      maxAge: 60 * 60 * 24 * 7 // 7 days
     })
   }
 
