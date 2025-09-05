@@ -1,21 +1,46 @@
 import { redirect } from 'next/navigation'
-import { createClient } from '@/lib/supabase/server'
+import { createClient, createServiceClient } from '@/lib/supabase/server'
 import Watermark from './Watermark'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Calculator, Users, BookOpen, Package, Home, LogOut } from 'lucide-react'
 
 async function checkEntitlement(email: string | undefined, userId: string | undefined) {
-  if (!email) return null
+  console.log('=== ENTITLEMENT CHECK START ===')
+  console.log('Checking for email:', email?.toLowerCase())
+  console.log('Checking for userId:', userId)
   
-  const supabase = await createClient()
+  if (!email && !userId) {
+    console.log('No email or userId provided')
+    return null
+  }
   
-  // Check if user has an active entitlement by email OR user_id
-  const { data: entitlements, error } = await supabase
+  // Use service client to bypass RLS
+  const supabase = createServiceClient()
+  
+  // Build the query conditionally
+  let query = supabase
     .from('entitlements')
-    .select('id, tier, country, active')
-    .or(`email.eq.${email.toLowerCase()},user_id.eq.${userId}`)
+    .select('*')
     .eq('active', true)
+  
+  // Create OR conditions array
+  const conditions = []
+  if (email) {
+    conditions.push(`email.eq.${email.toLowerCase()}`)
+  }
+  if (userId) {
+    conditions.push(`user_id.eq.${userId}`)
+  }
+  
+  // Apply OR condition if we have any
+  if (conditions.length > 0) {
+    query = query.or(conditions.join(','))
+  }
+  
+  const { data: entitlements, error } = await query
+  
+  console.log('Query result:', { entitlements, error })
   
   if (error) {
     console.error('Error checking entitlement:', error)
@@ -23,7 +48,9 @@ async function checkEntitlement(email: string | undefined, userId: string | unde
   }
   
   // Return the first active entitlement found
-  return entitlements && entitlements.length > 0 ? entitlements[0] : null
+  const result = entitlements && entitlements.length > 0 ? entitlements[0] : null
+  console.log('=== ENTITLEMENT CHECK END ===', result ? 'Found' : 'Not found')
+  return result
 }
 
 export default async function PortalLayout({
@@ -51,6 +78,15 @@ export default async function PortalLayout({
       userId: user.id 
     })
     
+    // Let's also check what's actually in the entitlements table for debugging
+    const serviceClient = createServiceClient()
+    const { data: allEntitlements } = await serviceClient
+      .from('entitlements')
+      .select('*')
+      .limit(10)
+    
+    console.log('All entitlements in table:', allEntitlements)
+    
     // No entitlement - show purchase options with debug info
     return (
       <div className="min-h-screen bg-gray-50">
@@ -60,15 +96,28 @@ export default async function PortalLayout({
             You need to purchase a guide or mastery package to access the portal.
           </p>
           
-          {/* Debug info in development */}
-          {process.env.NODE_ENV === 'development' && (
-            <div className="mb-6 p-4 bg-yellow-50 border border-yellow-200 rounded text-left text-sm">
-              <p className="font-semibold mb-2">Debug Info:</p>
-              <p>Email: {user.email}</p>
-              <p>User ID: {user.id}</p>
-              <p className="mt-2 text-xs">If you just made a payment, it may take a moment to process.</p>
-            </div>
-          )}
+          {/* Enhanced debug info */}
+          <div className="mb-6 p-4 bg-yellow-50 border border-yellow-200 rounded text-left text-sm">
+            <p className="font-semibold mb-2">Debug Info:</p>
+            <p>Your Email: {user.email}</p>
+            <p>Your User ID: {user.id}</p>
+            <p className="mt-2">Checking database for entitlements...</p>
+            
+            {allEntitlements && allEntitlements.length > 0 && (
+              <div className="mt-4 p-2 bg-white rounded">
+                <p className="font-semibold">Recent Entitlements in DB:</p>
+                {allEntitlements.map((ent: any, i: number) => (
+                  <div key={i} className="text-xs mt-1">
+                    Email: {ent.email} | UserID: {ent.user_id?.slice(0,8)}... | Active: {ent.active ? 'Yes' : 'No'}
+                  </div>
+                ))}
+              </div>
+            )}
+            
+            <p className="mt-4 text-xs text-red-600">
+              If you see your purchase above but can't access the portal, there may be an email mismatch.
+            </p>
+          </div>
           
           <div className="grid md:grid-cols-2 gap-4">
             <Button asChild size="lg">
