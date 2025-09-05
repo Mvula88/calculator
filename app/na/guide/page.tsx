@@ -43,6 +43,16 @@ export default function NamibiaGuidePage() {
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-orange-50 to-white">
+      {/* Simple Header */}
+      <header className="bg-white border-b">
+        <div className="max-w-6xl mx-auto px-6 py-4">
+          <div className="flex items-center justify-between">
+            <div className="font-bold text-xl">ImportCalc Pro</div>
+            <div className="text-sm text-gray-600">Trusted by 500+ Importers</div>
+          </div>
+        </div>
+      </header>
+      
       {/* Hero Section */}
       <div className="max-w-4xl mx-auto px-6 py-16">
         <div className="text-center mb-12">
