@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Card, CardContent } from '@/components/ui/card'
 import { CheckCircle, AlertTriangle, Ship, TrendingDown, Clock, Shield, MapPin, DollarSign } from 'lucide-react'
+import CountrySelector from '@/components/CountrySelector'
 
 export default function BotswanaGuidePage() {
   const [email, setEmail] = useState('')
@@ -44,6 +45,7 @@ export default function BotswanaGuidePage() {
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+      <CountrySelector />
       {/* Header */}
       <header className="bg-white border-b">
         <div className="max-w-6xl mx-auto px-6 py-4">
