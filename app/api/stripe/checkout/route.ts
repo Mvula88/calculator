@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { stripe } from '@/lib/stripe/config'
 import { createClient } from '@/lib/supabase/server'
-import { getStripePrice } from '@/lib/stripe/pricing'
 
 // Normalize country codes
 function normalizeCountry(country: string): 'na' | 'za' | 'bw' | 'zm' {
@@ -19,39 +18,21 @@ function normalizeCountry(country: string): 'na' | 'za' | 'bw' | 'zm' {
   return countryMap[country.toLowerCase()] || 'na'
 }
 
-// Get price based on country and tier
-function getTierPrice(country: 'na' | 'za' | 'bw' | 'zm', tier: 'mistake' | 'mastery') {
-  const prices = {
-    na: {
-      mistake: { amount: 49900, currency: 'nad', display: 'N$499' },
-      mastery: { amount: 199900, currency: 'nad', display: 'N$1,999' }
-    },
-    za: {
-      mistake: { amount: 49900, currency: 'zar', display: 'R499' },
-      mastery: { amount: 249900, currency: 'zar', display: 'R2,499' }
-    },
-    bw: {
-      mistake: { amount: 49900, currency: 'bwp', display: 'P499' },
-      mastery: { amount: 199900, currency: 'bwp', display: 'P1,999' }
-    },
-    zm: {
-      mistake: { amount: 99900, currency: 'zmw', display: 'K999' },
-      mastery: { amount: 399900, currency: 'zmw', display: 'K3,999' }
-    }
-  }
-  return prices[country][tier]
-}
-
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json()
-    const { country, tier, productId } = body
+    const { country, tier, productId, email } = body
     
-    console.log('Checkout request:', { country, tier, productId })
+    console.log('Checkout request:', { country, tier, productId, email })
     
     // Validate tier
     if (!tier || !['mistake', 'mastery'].includes(tier)) {
       return NextResponse.json({ error: 'Invalid tier' }, { status: 400 })
+    }
+    
+    // Validate email
+    if (!email) {
+      return NextResponse.json({ error: 'Email is required' }, { status: 400 })
     }
     
     // Normalize country
@@ -61,35 +42,43 @@ export async function POST(req: NextRequest) {
     const supabase = await createClient()
     const { data: { user } } = await supabase.auth.getUser()
     
-    // Get price for tier and country
-    const price = getTierPrice(normalizedCountry, tier as 'mistake' | 'mastery')
-    
-    // Product names based on tier
-    const productNames = {
-      mistake: `${normalizedCountry === 'na' ? 'Walvis Bay' : normalizedCountry === 'za' ? 'Durban' : 'Import'} Mistake Guide`,
-      mastery: 'Import Mastery + Calculator Access'
+    // Get the Stripe price ID based on country and tier
+    const getPriceId = (country: string, tier: string): string => {
+      const priceMap: Record<string, Record<string, string>> = {
+        na: {
+          mistake: process.env.STRIPE_PRODUCT_NA_MISTAKE!,
+          mastery: process.env.STRIPE_PRODUCT_NA_MASTERY!
+        },
+        za: {
+          mistake: process.env.STRIPE_PRODUCT_ZA_MISTAKE!,
+          mastery: process.env.STRIPE_PRODUCT_ZA_MASTERY!
+        },
+        bw: {
+          mistake: process.env.STRIPE_PRODUCT_BW_MISTAKE!,
+          mastery: process.env.STRIPE_PRODUCT_BW_MASTERY!
+        },
+        zm: {
+          mistake: process.env.STRIPE_PRODUCT_ZM_MISTAKE!,
+          mastery: process.env.STRIPE_PRODUCT_ZM_MASTERY!
+        }
+      }
+      
+      const priceId = priceMap[country]?.[tier]
+      if (!priceId) {
+        throw new Error(`No price ID found for ${country} ${tier}`)
+      }
+      return priceId
     }
     
-    // Create Stripe checkout session
+    // Get the price ID for this checkout
+    const priceId = getPriceId(normalizedCountry, tier)
+    
+    // Create Stripe checkout session with fixed price ID
     const sessionConfig: any = {
       payment_method_types: ['card'],
       mode: 'payment',
       line_items: [{
-        price_data: {
-          currency: price.currency === 'nad' ? 'zar' : price.currency, // Stripe doesn't support NAD, use ZAR
-          product_data: {
-            name: productNames[tier as 'mistake' | 'mastery'],
-            description: tier === 'mistake' 
-              ? 'Avoid costly port mistakes with this essential guide'
-              : 'Complete import system with calculator, agents directory, and priority support',
-            metadata: {
-              product_id: productId || tier,
-              country: normalizedCountry,
-              tier: tier
-            }
-          },
-          unit_amount: price.amount,
-        },
+        price: priceId,
         quantity: 1,
       }],
       metadata: {
@@ -97,15 +86,11 @@ export async function POST(req: NextRequest) {
         product_id: productId || tier,
         country: normalizedCountry,
         tier: tier,
-        email: user?.email || ''
+        email: email.toLowerCase()
       },
+      customer_email: email.toLowerCase(),
       success_url: `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/${normalizedCountry}/thank-you?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/${normalizedCountry}/${tier === 'mistake' ? 'guide' : 'upsell'}`
-    }
-    
-    // Add customer email if available
-    if (user?.email) {
-      sessionConfig.customer_email = user.email
+      cancel_url: `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/${normalizedCountry}/guide`
     }
     
     // Create the session

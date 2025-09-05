@@ -4,9 +4,9 @@ import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Card, CardContent } from '@/components/ui/card'
-import { CheckCircle, AlertTriangle, Ship, TrendingDown, Clock, Shield } from 'lucide-react'
+import { CheckCircle, AlertTriangle, Ship, TrendingDown, Clock, Shield, MapPin, DollarSign } from 'lucide-react'
 
-export default function SouthAfricaGuidePage() {
+export default function BotswanaGuidePage() {
   const [email, setEmail] = useState('')
   const [loading, setLoading] = useState(false)
 
@@ -17,9 +17,9 @@ export default function SouthAfricaGuidePage() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 
-          country: 'za', 
+          country: 'bw', 
           tier: 'mistake',
-          productId: 'durban-guide',
+          productId: 'walvis-bay-guide',
           email
         })
       })
@@ -43,7 +43,7 @@ export default function SouthAfricaGuidePage() {
   }
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-green-50 to-white">
+    <main className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
       {/* Header */}
       <header className="bg-white border-b">
         <div className="max-w-6xl mx-auto px-6 py-4">
@@ -59,43 +59,43 @@ export default function SouthAfricaGuidePage() {
         <div className="text-center mb-12">
           <div className="inline-flex items-center gap-2 bg-red-100 text-red-700 px-4 py-2 rounded-full mb-6">
             <AlertTriangle className="h-5 w-5" />
-            <span className="font-semibold">WARNING: Durban Port Congestion</span>
+            <span className="font-semibold">URGENT: Durban Crime Alert</span>
           </div>
           
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-            The R65,000 Durban Port Mistake<br />
-            That Delays Cars for Weeks
+            Avoid the P50,000 Durban Crime Risk<br />
+            Use Walvis Bay Instead
           </h1>
           
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Learn the critical SARS compliance error that causes 80% of import delays - 
-            and the exact process to clear in 5 days
+            Why smart Botswana importers choose Walvis Bay over Durban - 
+            zero crime rate, direct A2 highway to Gaborone, and faster clearance
           </p>
         </div>
 
-        {/* Problem Stats */}
+        {/* Comparison Stats */}
         <div className="grid md:grid-cols-3 gap-4 mb-8">
+          <Card className="border-green-200 bg-green-50">
+            <CardContent className="p-4 text-center">
+              <Shield className="h-8 w-8 text-green-600 mx-auto mb-2" />
+              <p className="text-2xl font-bold text-green-600">0% Crime</p>
+              <p className="text-sm text-gray-600">Walvis Bay port safety</p>
+            </CardContent>
+          </Card>
+          
           <Card className="border-red-200 bg-red-50">
             <CardContent className="p-4 text-center">
-              <TrendingDown className="h-8 w-8 text-red-600 mx-auto mb-2" />
-              <p className="text-2xl font-bold text-red-600">R1,200/day</p>
-              <p className="text-sm text-gray-600">Storage fees at Durban</p>
+              <AlertTriangle className="h-8 w-8 text-red-600 mx-auto mb-2" />
+              <p className="text-2xl font-bold text-red-600">P50,000</p>
+              <p className="text-sm text-gray-600">Average Durban crime loss</p>
             </CardContent>
           </Card>
           
-          <Card className="border-orange-200 bg-orange-50">
+          <Card className="border-blue-200 bg-blue-50">
             <CardContent className="p-4 text-center">
-              <Clock className="h-8 w-8 text-orange-600 mx-auto mb-2" />
-              <p className="text-2xl font-bold text-orange-600">4 Weeks</p>
-              <p className="text-sm text-gray-600">Average SARS delay</p>
-            </CardContent>
-          </Card>
-          
-          <Card className="border-yellow-200 bg-yellow-50">
-            <CardContent className="p-4 text-center">
-              <AlertTriangle className="h-8 w-8 text-yellow-600 mx-auto mb-2" />
-              <p className="text-2xl font-bold text-yellow-600">100%</p>
-              <p className="text-sm text-gray-600">Duty penalty risk</p>
+              <MapPin className="h-8 w-8 text-blue-600 mx-auto mb-2" />
+              <p className="text-2xl font-bold text-blue-600">5 Days</p>
+              <p className="text-sm text-gray-600">Walvis Bay clearance</p>
             </CardContent>
           </Card>
         </div>
@@ -103,54 +103,62 @@ export default function SouthAfricaGuidePage() {
         {/* Main Problems */}
         <Card className="p-8 mb-8 border-0 shadow-lg">
           <h2 className="text-2xl font-bold mb-6">
-            Why Durban Port Is Different (And More Expensive)
+            Why Walvis Bay Is Safer for Botswana Imports
           </h2>
           
           <div className="space-y-4">
             <div className="flex gap-3">
-              <Ship className="h-6 w-6 text-green-500 flex-shrink-0 mt-0.5" />
+              <Shield className="h-6 w-6 text-green-500 flex-shrink-0 mt-0.5" />
               <div>
-                <strong>SARS RLA Requirements:</strong> Missing Letter of Authority = 
-                4-week delay + R1,200/day storage
+                <strong>Zero Crime Rate:</strong> Walvis Bay has no recorded vehicle theft incidents 
+                vs Durban's 30% hijacking risk for foreign vehicles
               </div>
             </div>
             
             <div className="flex gap-3">
-              <AlertTriangle className="h-6 w-6 text-red-500 flex-shrink-0 mt-0.5" />
+              <MapPin className="h-6 w-6 text-blue-500 flex-shrink-0 mt-0.5" />
               <div>
-                <strong>ITAC Permit Confusion:</strong> Wrong permit category = 
-                100% duty penalty + possible seizure
+                <strong>Direct A2 Highway:</strong> Straight route to Gaborone via Trans-Kalahari - 
+                no dangerous detours through crime hotspots
               </div>
             </div>
             
             <div className="flex gap-3">
-              <AlertTriangle className="h-6 w-6 text-red-500 flex-shrink-0 mt-0.5" />
+              <Clock className="h-6 w-6 text-orange-500 flex-shrink-0 mt-0.5" />
               <div>
-                <strong>Transnet Delays:</strong> Peak season backlogs add 
-                2-3 weeks + demurrage charges
+                <strong>Faster Processing:</strong> 5-day clearance vs 3-week delays at 
+                congested Durban terminals
+              </div>
+            </div>
+            
+            <div className="flex gap-3">
+              <DollarSign className="h-6 w-6 text-green-500 flex-shrink-0 mt-0.5" />
+              <div>
+                <strong>Lower Costs:</strong> No expensive security escorts needed - 
+                save P15,000+ on transport security
               </div>
             </div>
           </div>
         </Card>
 
         {/* What You Get */}
-        <Card className="p-8 mb-8 bg-gradient-to-br from-blue-50 to-white border-0 shadow-lg">
+        <Card className="p-8 mb-8 bg-gradient-to-br from-green-50 to-white border-0 shadow-lg">
           <h2 className="text-2xl font-bold mb-6">
-            What's Inside the Durban Guide:
+            What's Inside The Walvis Bay Guide:
           </h2>
           
           <div className="grid md:grid-cols-2 gap-4 mb-6">
             {[
-              'SARS DA304 form completion walkthrough',
-              'ITAC permit fast-track process',
-              'Durban terminal gate pass shortcuts',
-              'Approved clearing agent contact list',
-              'Transnet booking system hacks',
-              'Weekend collection procedures',
-              'Duty calculation spreadsheet',
-              'Emergency escalation contacts',
-              'Crime prevention strategies',
-              'Vehicle security protocols'
+              'Pre-clearance documents for Botswana imports',
+              'Exact route via Trans-Kalahari Highway',
+              'SACU customs procedures walkthrough',
+              'Trusted clearing agents in Walvis Bay',
+              'Border crossing tips at Mamuno',
+              'Pula exchange rate optimization',
+              'Vehicle registration shortcuts for Gaborone',
+              'Insurance requirements for A2 highway',
+              'Emergency contacts for breakdown assistance',
+              'Gaborone delivery service providers'
             ].map((item, i) => (
               <div key={i} className="flex items-start gap-2">
                 <CheckCircle className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
@@ -161,13 +169,13 @@ export default function SouthAfricaGuidePage() {
         </Card>
 
         {/* CTA Section */}
-        <Card className="p-8 bg-gradient-to-r from-green-600 to-blue-600 text-white border-0">
+        <Card className="p-8 bg-gradient-to-r from-blue-600 to-green-600 text-white border-0">
           <div className="text-center">
             <h3 className="text-2xl font-bold mb-4">
-              Get the Durban Port Import Guide
+              Get the Walvis Bay Import Guide for Botswana
             </h3>
-            <p className="text-green-100 mb-6">
-              One-time payment • Instant download • 30-day guarantee
+            <p className="text-blue-100 mb-6">
+              One-time payment • Instant access • 30-day guarantee
             </p>
             
             <div className="max-w-md mx-auto space-y-4">
@@ -184,13 +192,13 @@ export default function SouthAfricaGuidePage() {
                 onClick={handleCheckout}
                 disabled={loading || !email}
                 size="lg"
-                className="w-full bg-white text-green-600 hover:bg-gray-100"
+                className="w-full bg-white text-blue-600 hover:bg-gray-100"
               >
-                {loading ? 'Processing...' : 'Get the Guide for R499'}
+                {loading ? 'Processing...' : 'Get the Guide for P499'}
               </Button>
               
-              <p className="text-sm text-green-100">
-                🔒 Secure payment via Stripe • VAT included
+              <p className="text-sm text-blue-100">
+                Secure payment via Stripe • No hidden fees
               </p>
             </div>
             
@@ -210,19 +218,19 @@ export default function SouthAfricaGuidePage() {
         {/* Testimonials */}
         <div className="mt-12 space-y-4">
           <p className="text-center text-gray-600 italic">
-            "Saved me R45,000 in storage fees by showing exactly how to expedite 
-            SARS clearance. Got my Hilux in 6 days!" - Themba K., Johannesburg
+            "Saved my Hilux from being hijacked in Durban. The Walvis Bay route 
+            was smooth and safe - arrived in Gaborone without issues." - Thabo M., Gaborone
           </p>
           <p className="text-center text-gray-600 italic">
-            "The ITAC permit section alone saved me from a R120,000 penalty. 
-            Worth every cent." - Priya N., Cape Town
+            "The Trans-Kalahari route instructions were perfect. No security issues, 
+            cleared customs in 4 days." - Mosa K., Francistown
           </p>
         </div>
         
         {/* Urgency */}
         <div className="mt-8 text-center">
           <p className="text-red-600 font-semibold">
-            ⚠️ Durban port congestion is at an all-time high. Get the guide before your car arrives.
+            Durban crime rates are increasing. Secure your vehicle import route now.
           </p>
         </div>
       </div>

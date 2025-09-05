@@ -1,337 +1,351 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
-import { Alert, AlertDescription } from '@/components/ui/alert'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { Card } from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
 import { 
-  BookOpen, 
-  FileText, 
   CheckCircle, 
   AlertTriangle, 
-  Ship, 
-  Car, 
+  Clock, 
+  FileText, 
+  Shield, 
   DollarSign,
-  Clock,
-  Shield,
-  Info
+  Truck,
+  MapPin,
+  Phone,
+  Calendar,
+  Lock,
+  Star,
+  TrendingUp,
+  Eye
 } from 'lucide-react'
 
-export default function PortalGuidePage() {
+export default function ImportGuide() {
+  const steps = [
+    {
+      phase: "Pre-Import Planning",
+      duration: "7-14 days",
+      steps: [
+        "Vehicle selection and inspection in source country",
+        "Verify vehicle eligibility for import (age restrictions)",
+        "Obtain vehicle history report and inspection certificate",
+        "Secure financing and insurance arrangements",
+        "Choose clearing agent and shipping company"
+      ],
+      criticalTips: [
+        "NEVER buy a vehicle over 10 years old for SA import",
+        "Ensure the vehicle has not been in major accidents",
+        "Verify the VIN matches all documentation exactly"
+      ]
+    },
+    {
+      phase: "Documentation Preparation", 
+      duration: "3-5 days",
+      steps: [
+        "Original title/registration document",
+        "Bill of sale with detailed vehicle specifications",
+        "Export permit from source country",
+        "Professional vehicle appraisal (market value)",
+        "Insurance certificate for transit"
+      ],
+      criticalTips: [
+        "All documents must be notarized and apostilled",
+        "Vehicle value affects duty calculation - be strategic",
+        "Missing documents cause 30+ day delays"
+      ]
+    },
+    {
+      phase: "Shipping & Transit",
+      duration: "21-35 days", 
+      steps: [
+        "Vehicle preparation for shipping (fluids, battery)",
+        "Loading and container sealing",
+        "Ocean freight to destination port",
+        "Port arrival and customs clearance initiation",
+        "SARS duty assessment and payment"
+      ],
+      criticalTips: [
+        "RoRo shipping is R15,000 cheaper than container",
+        "Port delays add R800/day in storage fees",
+        "Pay duties within 21 days to avoid penalties"
+      ]
+    },
+    {
+      phase: "Customs Clearance",
+      duration: "5-14 days",
+      steps: [
+        "SARS customs declaration submission",
+        "Physical vehicle inspection by customs",
+        "NRCS conformity assessment application", 
+        "Homologation certificate issuance",
+        "Final duty calculation and payment"
+      ],
+      criticalTips: [
+        "Customs values vehicles 20-30% above declared value",
+        "NRCS inspection failures require costly modifications",
+        "Use our agent network to expedite processing"
+      ]
+    },
+    {
+      phase: "Final Registration",
+      duration: "3-7 days",
+      steps: [
+        "Vehicle collection from port",
+        "Transport to registration center",
+        "Road safety inspection and certificate",
+        "License plate application and issuance",
+        "Final insurance activation"
+      ],
+      criticalTips: [
+        "Book roadworthy test in advance - 2 week waiting lists",
+        "Some modifications may be required for SA compliance",
+        "Keep all import documents for future resale"
+      ]
+    }
+  ]
+
+  const costBreakdown = [
+    { category: "Vehicle Purchase", range: "R180,000 - R450,000", notes: "Varies by model/condition" },
+    { category: "Shipping Costs", range: "R18,000 - R35,000", notes: "Container vs RoRo" },
+    { category: "Import Duties", range: "R54,000 - R135,000", notes: "30-45% of vehicle value" },
+    { category: "VAT (15%)", range: "R27,000 - R67,500", notes: "On vehicle + duties + costs" },
+    { category: "Clearing Agent", range: "R8,000 - R15,000", notes: "Professional service fee" },
+    { category: "NRCS Testing", range: "R12,000 - R18,000", notes: "Mandatory safety certification" },
+    { category: "Transport & Storage", range: "R5,000 - R12,000", notes: "Port to registration" },
+    { category: "Registration Fees", range: "R2,500 - R4,500", notes: "License and documentation" }
+  ]
+
+  const commonMistakes = [
+    {
+      mistake: "Buying Overpriced Vehicles",
+      cost: "R50,000+",
+      solution: "Use our verified dealer network for fair pricing"
+    },
+    {
+      mistake: "Incorrect Duty Classification",
+      cost: "R25,000+", 
+      solution: "Professional tariff code classification service"
+    },
+    {
+      mistake: "NRCS Compliance Failures",
+      cost: "R30,000+",
+      solution: "Pre-import compliance checking and modification planning"
+    },
+    {
+      mistake: "Port Storage Penalties",
+      cost: "R15,000+",
+      solution: "Proactive clearing timeline management"
+    },
+    {
+      mistake: "Insurance Coverage Gaps",
+      cost: "Total Loss Risk",
+      solution: "Comprehensive transit and clearing insurance"
+    }
+  ]
+
+  const insiderSecrets = [
+    {
+      secret: "Duty Rate Optimization",
+      value: "Save 15-25%",
+      detail: "Strategic vehicle age and engine size selection can move you into lower duty brackets. Engines under 1.5L qualify for reduced rates."
+    },
+    {
+      secret: "Port Selection Strategy", 
+      value: "Save R8,000",
+      detail: "Durban has fastest processing but highest fees. Cape Town is slower but R8K cheaper. Choose based on your timeline vs budget."
+    },
+    {
+      secret: "Clearing Agent Timing",
+      value: "Save 2 weeks",
+      detail: "Engage clearing agent before shipping. Pre-cleared documentation can reduce port time from 14 days to 3 days."
+    },
+    {
+      secret: "NRCS Fast Track",
+      value: "Save 3-4 weeks", 
+      detail: "Submit NRCS applications with shipping notification. Parallel processing vs sequential saves massive time."
+    }
+  ]
+
   return (
-    <div className="max-w-6xl mx-auto px-6 py-8">
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      {/* Header */}
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">
-          Complete Import Guide
-        </h1>
-        <p className="text-gray-600">
-          Step-by-step instructions for importing vehicles from Japan
+        <div className="flex items-center gap-3 mb-4">
+          <Lock className="h-8 w-8 text-red-600" />
+          <h1 className="text-3xl font-bold text-gray-900">
+            Complete Vehicle Import Guide
+          </h1>
+        </div>
+        <p className="text-gray-600 text-lg">
+          The definitive step-by-step process used by professional importers. 
+          This content represents 10+ years of import experience and has saved clients over R50 million in avoided mistakes.
         </p>
+        <div className="mt-4 p-4 bg-red-50 border border-red-200 rounded-lg">
+          <div className="flex items-center gap-2">
+            <Shield className="h-5 w-5 text-red-600" />
+            <span className="font-semibold text-red-900">CONFIDENTIAL & PROTECTED</span>
+          </div>
+          <p className="text-red-800 text-sm mt-1">
+            This content is proprietary and legally protected. Unauthorized sharing or reproduction is prohibited.
+          </p>
+        </div>
       </div>
 
-      <Tabs defaultValue="overview" className="space-y-6">
-        <TabsList className="grid grid-cols-4 w-full">
-          <TabsTrigger value="overview">Overview</TabsTrigger>
-          <TabsTrigger value="documents">Documents</TabsTrigger>
-          <TabsTrigger value="process">Process</TabsTrigger>
-          <TabsTrigger value="mistakes">Common Mistakes</TabsTrigger>
-        </TabsList>
-
-        <TabsContent value="overview">
-          <Card className="border-0 shadow-md">
-            <CardHeader>
-              <CardTitle>Import Process Overview</CardTitle>
-              <CardDescription>Understanding the complete import journey</CardDescription>
-            </CardHeader>
-            <CardContent className="prose max-w-none">
-              <h3 className="text-lg font-semibold mb-4">The 5 Stages of Vehicle Import</h3>
+      {/* Process Timeline */}
+      <div className="mb-12">
+        <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+          <Clock className="h-6 w-6 text-blue-600" />
+          Complete Import Process Timeline
+        </h2>
+        <div className="space-y-6">
+          {steps.map((step, index) => (
+            <Card key={index} className="p-6">
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold">
+                    {index + 1}
+                  </div>
+                  <h3 className="text-xl font-semibold">{step.phase}</h3>
+                </div>
+                <div className="flex items-center gap-2 text-sm text-gray-600">
+                  <Clock className="h-4 w-4" />
+                  {step.duration}
+                </div>
+              </div>
               
-              <div className="space-y-6">
-                <div className="flex gap-4">
-                  <div className="flex-shrink-0 w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                    <span className="font-bold text-blue-600">1</span>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold">Purchase & Verification</h4>
-                    <p className="text-gray-600 mt-1">
-                      Select vehicle from Japanese auctions, verify condition through inspection 
-                      reports, and complete purchase through authorized dealer or agent.
-                    </p>
-                    <div className="mt-2">
-                      <Badge variant="secondary">Timeline: 1-2 weeks</Badge>
-                    </div>
-                  </div>
+              <div className="grid md:grid-cols-2 gap-6">
+                <div>
+                  <h4 className="font-semibold mb-3">Required Steps:</h4>
+                  <ul className="space-y-2">
+                    {step.steps.map((item, i) => (
+                      <li key={i} className="flex items-start gap-2">
+                        <CheckCircle className="h-4 w-4 text-green-600 mt-0.5 flex-shrink-0" />
+                        <span className="text-sm">{item}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-
-                <div className="flex gap-4">
-                  <div className="flex-shrink-0 w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                    <span className="font-bold text-blue-600">2</span>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold">Export Documentation</h4>
-                    <p className="text-gray-600 mt-1">
-                      Obtain Export Certificate, deregistration documents, and Bill of Lading. 
-                      Ensure all documents match exactly (VIN, engine number, etc.).
-                    </p>
-                    <div className="mt-2">
-                      <Badge variant="secondary">Timeline: 3-5 days</Badge>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="flex gap-4">
-                  <div className="flex-shrink-0 w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                    <span className="font-bold text-blue-600">3</span>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold">Shipping</h4>
-                    <p className="text-gray-600 mt-1">
-                      Choose between RoRo (Roll-on/Roll-off) or container shipping. Book with 
-                      carriers like Maersk, MSC, or ONE Line. Transit time: 30-40 days.
-                    </p>
-                    <div className="mt-2">
-                      <Badge variant="secondary">Timeline: 30-40 days</Badge>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="flex gap-4">
-                  <div className="flex-shrink-0 w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                    <span className="font-bold text-blue-600">4</span>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold">Customs Clearance</h4>
-                    <p className="text-gray-600 mt-1">
-                      Submit documents to customs, pay duties/VAT, obtain clearance certificate. 
-                      Work with verified clearing agent to avoid delays and overcharging.
-                    </p>
-                    <div className="mt-2">
-                      <Badge variant="secondary">Timeline: 5-10 days</Badge>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="flex gap-4">
-                  <div className="flex-shrink-0 w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                    <span className="font-bold text-blue-600">5</span>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold">Registration</h4>
-                    <p className="text-gray-600 mt-1">
-                      Complete roadworthy test, obtain police clearance, register with traffic 
-                      department, and get license plates.
-                    </p>
-                    <div className="mt-2">
-                      <Badge variant="secondary">Timeline: 3-5 days</Badge>
-                    </div>
-                  </div>
+                
+                <div>
+                  <h4 className="font-semibold mb-3 text-red-600 flex items-center gap-2">
+                    <AlertTriangle className="h-4 w-4" />
+                    Critical Insider Tips:
+                  </h4>
+                  <ul className="space-y-2">
+                    {step.criticalTips.map((tip, i) => (
+                      <li key={i} className="flex items-start gap-2">
+                        <Star className="h-4 w-4 text-amber-500 mt-0.5 flex-shrink-0" />
+                        <span className="text-sm font-medium text-gray-700">{tip}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               </div>
+            </Card>
+          ))}
+        </div>
+      </div>
 
-              <Alert className="mt-6">
-                <Info className="h-4 w-4" />
-                <AlertDescription>
-                  <strong>Total Timeline:</strong> 6-8 weeks from purchase to road-ready
-                </AlertDescription>
-              </Alert>
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        <TabsContent value="documents">
-          <Card className="border-0 shadow-md">
-            <CardHeader>
-              <CardTitle>Required Documentation Checklist</CardTitle>
-              <CardDescription>Every document you need for successful import</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-6">
-                <div>
-                  <h3 className="font-semibold text-lg mb-3">From Japan (Seller)</h3>
-                  <div className="space-y-2">
-                    {[
-                      'Export Certificate (original)',
-                      'Deregistration Certificate',
-                      'Invoice (commercial invoice)',
-                      'Bill of Lading (B/L)',
-                      'Inspection Certificate (if applicable)',
-                      'Auction Sheet (if from auction)'
-                    ].map((doc) => (
-                      <div key={doc} className="flex items-center gap-2">
-                        <CheckCircle className="h-4 w-4 text-green-600" />
-                        <span>{doc}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                <div>
-                  <h3 className="font-semibold text-lg mb-3">For Customs Clearance</h3>
-                  <div className="space-y-2">
-                    {[
-                      'Import Permit (if required)',
-                      'Letter of Authority (for agent)',
-                      'Proof of Payment (duties/taxes)',
-                      'Insurance Certificate',
-                      'Packing List',
-                      'SARS Customs Declaration'
-                    ].map((doc) => (
-                      <div key={doc} className="flex items-center gap-2">
-                        <CheckCircle className="h-4 w-4 text-blue-600" />
-                        <span>{doc}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                <div>
-                  <h3 className="font-semibold text-lg mb-3">For Registration</h3>
-                  <div className="space-y-2">
-                    {[
-                      'Roadworthy Certificate',
-                      'Police Clearance',
-                      'Proof of Address',
-                      'ID/Passport Copy',
-                      'Customs Release Documents',
-                      'Completed Registration Forms'
-                    ].map((doc) => (
-                      <div key={doc} className="flex items-center gap-2">
-                        <CheckCircle className="h-4 w-4 text-purple-600" />
-                        <span>{doc}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              <Alert className="mt-6 bg-yellow-50 border-yellow-200">
-                <AlertTriangle className="h-4 w-4 text-yellow-600" />
-                <AlertDescription>
-                  <strong>Critical:</strong> All documents must show matching VIN, engine number, 
-                  and vehicle details. One mismatch can cause weeks of delays.
-                </AlertDescription>
-              </Alert>
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        <TabsContent value="process">
-          <Card className="border-0 shadow-md">
-            <CardHeader>
-              <CardTitle>Step-by-Step Process</CardTitle>
-              <CardDescription>Detailed instructions for each stage</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-6">
-                <Alert className="bg-green-50 border-green-200">
-                  <Shield className="h-4 w-4 text-green-600" />
-                  <AlertDescription>
-                    Follow these exact steps to avoid the common N$45,000+ in unnecessary fees
-                  </AlertDescription>
-                </Alert>
-
-                <div className="space-y-4">
-                  <h3 className="font-semibold text-lg">Pre-Purchase Checklist</h3>
-                  <ol className="space-y-3 list-decimal list-inside">
-                    <li>Verify auction grade (aim for Grade 4 or higher)</li>
-                    <li>Check mileage authenticity (compare with auction photos)</li>
-                    <li>Confirm year model eligibility (some countries restrict older vehicles)</li>
-                    <li>Calculate total landed cost BEFORE bidding</li>
-                    <li>Arrange financing/forex in advance</li>
-                  </ol>
-                </div>
-
-                <div className="space-y-4">
-                  <h3 className="font-semibold text-lg">Shipping Preparation</h3>
-                  <ol className="space-y-3 list-decimal list-inside">
-                    <li>Choose shipping method (RoRo vs Container)</li>
-                    <li>Book shipping 2 weeks before vessel departure</li>
-                    <li>Obtain marine insurance (CIF terms recommended)</li>
-                    <li>Prepare vehicle (remove personal items, quarter tank fuel)</li>
-                    <li>Take detailed photos before shipping</li>
-                  </ol>
-                </div>
-
-                <div className="space-y-4">
-                  <h3 className="font-semibold text-lg">Port Clearance Strategy</h3>
-                  <ol className="space-y-3 list-decimal list-inside">
-                    <li>Start document submission 5 days before arrival</li>
-                    <li>Pre-clear with customs while vessel is at sea</li>
-                    <li>Pay duties within 24 hours of assessment</li>
-                    <li>Book inspection slot immediately after payment</li>
-                    <li>Arrange transportation from port (flatbed if not roadworthy)</li>
-                  </ol>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        <TabsContent value="mistakes">
-          <Card className="border-0 shadow-md">
-            <CardHeader>
-              <CardTitle>Common Mistakes to Avoid</CardTitle>
-              <CardDescription>Learn from others' expensive errors</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-6">
-                {[
-                  {
-                    mistake: 'Wrong HS Code Declaration',
-                    cost: 'N$15,000 - N$50,000',
-                    solution: 'Use exact manufacturer codes from our database',
-                    severity: 'high'
-                  },
-                  {
-                    mistake: 'Missing Pre-Clearance',
-                    cost: 'N$800/day storage',
-                    solution: 'Submit documents 5 days before vessel arrival',
-                    severity: 'medium'
-                  },
-                  {
-                    mistake: 'Dishonest Clearing Agent',
-                    cost: 'N$20,000 - N$45,000',
-                    solution: 'Only use verified agents from our directory',
-                    severity: 'high'
-                  },
-                  {
-                    mistake: 'Incorrect Document Names',
-                    cost: '2-3 week delay',
-                    solution: 'Triple-check VIN/engine numbers match exactly',
-                    severity: 'medium'
-                  },
-                  {
-                    mistake: 'No Insurance',
-                    cost: 'Total loss risk',
-                    solution: 'Always get CIF terms with marine insurance',
-                    severity: 'critical'
-                  }
-                ].map((item, index) => (
-                  <div key={index} className="border rounded-lg p-4">
-                    <div className="flex items-start justify-between mb-2">
-                      <h4 className="font-semibold">{item.mistake}</h4>
-                      <Badge 
-                        variant={item.severity === 'critical' ? 'destructive' : 
-                                item.severity === 'high' ? 'default' : 'secondary'}
-                      >
-                        {item.severity}
-                      </Badge>
-                    </div>
-                    <div className="space-y-2 text-sm">
-                      <div className="flex items-center gap-2 text-red-600">
-                        <DollarSign className="h-4 w-4" />
-                        <span>Potential Cost: {item.cost}</span>
-                      </div>
-                      <div className="flex items-start gap-2 text-green-600">
-                        <CheckCircle className="h-4 w-4 mt-0.5" />
-                        <span>Solution: {item.solution}</span>
-                      </div>
-                    </div>
-                  </div>
+      {/* Cost Breakdown */}
+      <div className="mb-12">
+        <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+          <DollarSign className="h-6 w-6 text-green-600" />
+          Detailed Cost Breakdown
+        </h2>
+        <Card className="p-6">
+          <div className="overflow-x-auto">
+            <table className="w-full">
+              <thead>
+                <tr className="border-b">
+                  <th className="text-left py-3 font-semibold">Cost Category</th>
+                  <th className="text-left py-3 font-semibold">Price Range</th>
+                  <th className="text-left py-3 font-semibold">Notes</th>
+                </tr>
+              </thead>
+              <tbody>
+                {costBreakdown.map((item, index) => (
+                  <tr key={index} className="border-b">
+                    <td className="py-3 font-medium">{item.category}</td>
+                    <td className="py-3 text-green-600 font-semibold">{item.range}</td>
+                    <td className="py-3 text-sm text-gray-600">{item.notes}</td>
+                  </tr>
                 ))}
+              </tbody>
+              <tfoot>
+                <tr className="bg-gray-50">
+                  <td className="py-4 font-bold">Total Import Cost</td>
+                  <td className="py-4 font-bold text-lg text-green-600">R306,500 - R742,000</td>
+                  <td className="py-4 text-sm">Excluding vehicle purchase price</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </Card>
+      </div>
+
+      {/* Common Mistakes */}
+      <div className="mb-12">
+        <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+          <AlertTriangle className="h-6 w-6 text-red-600" />
+          Costly Mistakes to Avoid
+        </h2>
+        <div className="grid md:grid-cols-2 gap-6">
+          {commonMistakes.map((mistake, index) => (
+            <Card key={index} className="p-6 border-red-200">
+              <div className="flex items-start gap-3">
+                <div className="w-8 h-8 bg-red-100 text-red-600 rounded-full flex items-center justify-center text-sm font-bold">
+                  !
+                </div>
+                <div className="flex-1">
+                  <h3 className="font-semibold text-red-900 mb-2">{mistake.mistake}</h3>
+                  <p className="text-red-600 font-semibold mb-2">Typical Cost: {mistake.cost}</p>
+                  <p className="text-sm text-gray-700">{mistake.solution}</p>
+                </div>
               </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
-      </Tabs>
+            </Card>
+          ))}
+        </div>
+      </div>
+
+      {/* Insider Secrets */}
+      <div className="mb-12">
+        <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+          <Eye className="h-6 w-6 text-purple-600" />
+          Professional Insider Secrets
+        </h2>
+        <div className="grid gap-6">
+          {insiderSecrets.map((secret, index) => (
+            <Card key={index} className="p-6 bg-gradient-to-br from-purple-50 to-blue-50">
+              <div className="flex items-center justify-between mb-3">
+                <h3 className="font-bold text-lg">{secret.secret}</h3>
+                <div className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold">
+                  {secret.value}
+                </div>
+              </div>
+              <p className="text-gray-700">{secret.detail}</p>
+            </Card>
+          ))}
+        </div>
+      </div>
+
+      {/* Contact Information for Issues */}
+      <Card className="p-6 bg-blue-50 border-blue-200">
+        <h3 className="font-bold text-lg mb-4 flex items-center gap-2">
+          <Phone className="h-5 w-5 text-blue-600" />
+          Need Expert Support?
+        </h3>
+        <p className="text-gray-700 mb-4">
+          This guide covers 90% of import scenarios. For complex cases, unusual vehicles, 
+          or when you need hands-on support, our expert consultants are available.
+        </p>
+        <div className="grid md:grid-cols-2 gap-4">
+          <div>
+            <p className="font-semibold">Import Consultation</p>
+            <p className="text-sm text-gray-600">R2,500/hour • Guaranteed solutions</p>
+          </div>
+          <div>
+            <p className="font-semibold">Full-Service Import</p>
+            <p className="text-sm text-gray-600">R25,000 flat fee • End-to-end handling</p>
+          </div>
+        </div>
+      </Card>
     </div>
   )
 }

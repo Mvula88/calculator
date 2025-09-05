@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { stripe } from '@/lib/stripe/config'
-import { createClient, createServiceClient } from '@/lib/supabase/server'
+import { createServiceClient } from '@/lib/supabase/server'
 import Stripe from 'stripe'
 
 const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET!
@@ -19,7 +19,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Invalid signature' }, { status: 400 })
   }
 
-  // Use service client to bypass RLS for webhook operations
+  // USE SERVICE CLIENT TO BYPASS RLS - CRITICAL!
   const supabase = createServiceClient()
 
   switch (event.type) {
@@ -31,117 +31,87 @@ export async function POST(req: NextRequest) {
       const productId = session.metadata?.product_id
       const country = session.metadata?.country || 'na'
       const tier = session.metadata?.tier || 'mistake'
-      const email = session.customer_email || session.metadata?.email || session.customer_details?.email
+      const email = session.customer_email || session.metadata?.email
       
-      if (!productId || !email) {
-        console.error('Missing critical metadata in checkout session:', {
-          productId,
-          email,
-          customer_email: session.customer_email,
-          metadata_email: session.metadata?.email,
-          customer_details_email: session.customer_details?.email
-        })
+      if (!email) {
+        console.error('Missing email in checkout session')
         break
       }
 
-      console.log('Processing payment for:', { userId, email, productId, country, tier })
+      console.log('Processing payment for:', { 
+        userId, 
+        email, 
+        productId, 
+        country, 
+        tier,
+        amount: session.amount_total
+      })
 
-      // 1. Record the purchase (keep existing table)
-      const { error: purchaseError } = await supabase
-        .from('purchases')
-        .insert({
-          user_id: userId || null, // Can be null for guest checkouts
-          product_type: productId,
-          stripe_session_id: session.id,
-          stripe_payment_intent: session.payment_intent as string,
-          amount: session.amount_total || 0,
-          currency: session.currency || 'zar',
-          status: 'active',
-          purchased_at: new Date().toISOString(),
-          metadata: {
-            customer_email: email,
-            customer_name: session.customer_details?.name,
-            country: country,
-            tier: tier
-          }
-        })
-      
-      if (purchaseError) {
-        console.error('Error creating purchase record:', purchaseError)
-      } else {
-        console.log('Purchase record created')
-      }
-
-      // 2. Create entitlement for portal access
+      // Create entitlement record (PRIMARY ACCESS CONTROL)
       const entitlementData = {
-        user_id: userId || null,
+        user_id: userId,
         email: email.toLowerCase(),
-        country: country,
         tier: tier,
-        stripe_payment_intent_id: session.payment_intent as string,
-        active: true
+        country: country,
+        active: true,
+        stripe_session_id: session.id,
+        amount_paid: session.amount_total,
+        currency: session.currency
       }
-      
-      console.log('Creating entitlement with data:', entitlementData)
-      
-      const { data: entitlementResult, error: entitlementError } = await supabase
+
+      const { data: entitlement, error: entitlementError } = await supabase
         .from('entitlements')
         .insert(entitlementData)
         .select()
+        .single()
 
       if (entitlementError) {
-        console.error('Error creating entitlement:', {
-          error: entitlementError,
-          data: entitlementData
-        })
-        // Try to understand what went wrong
-        if (entitlementError.code === '23505') {
-          console.error('Duplicate entitlement - might already exist')
-        }
+        console.error('Failed to create entitlement:', entitlementError)
+        // Don't fail the webhook - log for manual recovery
+        console.error('Manual recovery needed for:', entitlementData)
       } else {
-        console.log(`Entitlement created successfully:`, entitlementResult)
+        console.log('Entitlement created successfully:', entitlement.id)
       }
 
-      // 3. Send confirmation email (you can implement with Resend/SendGrid)
-      console.log(`Payment successful for ${email}, product ${productId}`)
-      
-      // Optional: Create/update user account if email exists
-      if (email && !userId) {
-        // Check if user exists with this email
-        const { data: existingUser } = await supabase
-          .from('auth.users')
-          .select('id')
-          .eq('email', email.toLowerCase())
-          .single()
+      // Send confirmation email (optional - implement if needed)
+      // await sendConfirmationEmail(email, tier, country)
 
-        if (existingUser) {
-          // Update entitlement with user_id
-          await supabase
-            .from('entitlements')
-            .update({ user_id: existingUser.id })
-            .eq('email', email.toLowerCase())
-            .eq('stripe_payment_intent_id', session.payment_intent as string)
-        }
-      }
-      
+      break
+    }
+
+    case 'checkout.session.expired': {
+      const session = event.data.object as Stripe.Checkout.Session
+      console.log('Checkout session expired:', session.id)
+      break
+    }
+
+    case 'payment_intent.succeeded': {
+      const paymentIntent = event.data.object as Stripe.PaymentIntent
+      console.log('Payment succeeded:', paymentIntent.id)
       break
     }
 
     case 'payment_intent.payment_failed': {
       const paymentIntent = event.data.object as Stripe.PaymentIntent
-      console.error('Payment failed:', paymentIntent.last_payment_error?.message)
-      break
-    }
-
-    case 'customer.subscription.deleted': {
-      // Handle subscription cancellation if needed in future
-      const subscription = event.data.object as Stripe.Subscription
-      console.log('Subscription cancelled:', subscription.id)
+      console.log('Payment failed:', paymentIntent.id)
+      
+      // Could update entitlement status if needed
+      if (paymentIntent.metadata?.email) {
+        const { error } = await supabase
+          .from('entitlements')
+          .update({ active: false })
+          .eq('email', paymentIntent.metadata.email.toLowerCase())
+          .eq('stripe_session_id', paymentIntent.metadata.session_id)
+        
+        if (error) {
+          console.error('Failed to deactivate entitlement:', error)
+        }
+      }
       break
     }
 
     default:
-      console.log(`Unhandled event type ${event.type}`)
+      console.log(`Unhandled event type: ${event.type}`)
   }
 
   return NextResponse.json({ received: true })

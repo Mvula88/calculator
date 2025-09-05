@@ -1,233 +1,200 @@
 'use client'
 
 import { useState } from 'react'
-import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { Alert, AlertDescription } from '@/components/ui/alert'
-import { Badge } from '@/components/ui/badge'
-import { Separator } from '@/components/ui/separator'
-import { Check, AlertTriangle, Calculator, Lock } from 'lucide-react'
-import { Price } from '@/components/ui/Price'
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
+import { AlertTriangle, CheckCircle, Lock, Mail, User } from 'lucide-react'
 
 export default function RegisterPage() {
   const router = useRouter()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
   const [fullName, setFullName] = useState('')
-  const [phone, setPhone] = useState('')
+  const [error, setError] = useState('')
+  const [success, setSuccess] = useState(false)
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState<string | null>(null)
 
-  const handleSignUp = async (e: React.FormEvent) => {
+  async function handleRegister(e: React.FormEvent) {
     e.preventDefault()
     setLoading(true)
-    setError(null)
+    setError('')
 
-    const supabase = createClient()
-
-    // Create auth user
-    const { data: authData, error: authError } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        data: {
-          full_name: fullName,
-          phone: phone
-        }
-      }
-    })
-
-    if (authError) {
-      setError(authError.message)
+    // Validate passwords match
+    if (password !== confirmPassword) {
+      setError('Passwords do not match')
       setLoading(false)
       return
     }
 
-    // After successful signup, redirect to checkout for payment
-    router.push('/checkout')
+    // Validate password strength
+    if (password.length < 8) {
+      setError('Password must be at least 8 characters long')
+      setLoading(false)
+      return
+    }
+
+    const supabase = createClient()
+
+    const { data, error } = await supabase.auth.signUp({
+      email: email.toLowerCase(),
+      password,
+      options: {
+        data: {
+          full_name: fullName,
+        }
+      }
+    })
+
+    if (error) {
+      setError(error.message)
+      setLoading(false)
+      return
+    }
+
+    if (data.user) {
+      setSuccess(true)
+      // Redirect to guide page after 3 seconds
+      setTimeout(() => {
+        router.push('/na/guide')
+      }, 3000)
+    }
+  }
+
+  if (success) {
+    return (
+      <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white flex items-center justify-center px-4">
+        <Card className="w-full max-w-md">
+          <CardHeader className="text-center">
+            <CheckCircle className="h-12 w-12 text-green-500 mx-auto mb-4" />
+            <CardTitle className="text-2xl font-bold">
+              Account Created Successfully!
+            </CardTitle>
+            <CardDescription>
+              Please check your email to verify your account.
+              You'll be redirected to our import guides...
+            </CardDescription>
+          </CardHeader>
+        </Card>
+      </div>
+    )
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white flex items-center justify-center p-4">
-      <div className="w-full max-w-6xl grid md:grid-cols-2 gap-8">
-        {/* Left side - Value Proposition */}
-        <div className="flex flex-col justify-center">
-          <div className="mb-8">
-            <h1 className="text-4xl font-bold mb-4">
-              Join Serious Importers
-            </h1>
-            <p className="text-xl text-gray-600">
-              Get instant access to the complete import calculator and insider secrets
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white flex items-center justify-center px-4">
+      <Card className="w-full max-w-md">
+        <CardHeader className="space-y-1">
+          <CardTitle className="text-2xl font-bold text-center">
+            Create Your Account
+          </CardTitle>
+          <CardDescription className="text-center">
+            Start importing cars smarter today
+          </CardDescription>
+        </CardHeader>
+        
+        <form onSubmit={handleRegister}>
+          <CardContent className="space-y-4">
+            {error && (
+              <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-lg flex items-start gap-2">
+                <AlertTriangle className="h-5 w-5 flex-shrink-0 mt-0.5" />
+                <span className="text-sm">{error}</span>
+              </div>
+            )}
+            
+            <div className="space-y-2">
+              <Label htmlFor="name">Full Name</Label>
+              <div className="relative">
+                <User className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                <Input
+                  id="name"
+                  type="text"
+                  placeholder="John Doe"
+                  value={fullName}
+                  onChange={(e) => setFullName(e.target.value)}
+                  className="pl-10"
+                  required
+                />
+              </div>
+            </div>
+            
+            <div className="space-y-2">
+              <Label htmlFor="email">Email</Label>
+              <div className="relative">
+                <Mail className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                <Input
+                  id="email"
+                  type="email"
+                  placeholder="your@email.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="pl-10"
+                  required
+                />
+              </div>
+            </div>
+            
+            <div className="space-y-2">
+              <Label htmlFor="password">Password</Label>
+              <div className="relative">
+                <Lock className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                <Input
+                  id="password"
+                  type="password"
+                  placeholder="••••••••"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="pl-10"
+                  required
+                />
+              </div>
+              <p className="text-xs text-gray-500">
+                Must be at least 8 characters
+              </p>
+            </div>
+            
+            <div className="space-y-2">
+              <Label htmlFor="confirm-password">Confirm Password</Label>
+              <div className="relative">
+                <Lock className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                <Input
+                  id="confirm-password"
+                  type="password"
+                  placeholder="••••••••"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  className="pl-10"
+                  required
+                />
+              </div>
+            </div>
+          </CardContent>
+          
+          <CardFooter className="flex flex-col gap-4">
+            <Button 
+              type="submit" 
+              className="w-full" 
+              disabled={loading}
+            >
+              {loading ? 'Creating account...' : 'Create Account'}
+            </Button>
+            
+            <p className="text-sm text-center text-gray-600">
+              Already have an account?{' '}
+              <Link 
+                href="/auth/login" 
+                className="text-blue-600 hover:underline font-medium"
+              >
+                Sign in
+              </Link>
             </p>
-          </div>
-
-          <Card className="bg-gradient-to-r from-blue-50 to-purple-50 border-2 border-blue-200">
-            <CardHeader>
-              <CardTitle>What You'll Get Immediately</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-3">
-              <div className="flex items-start">
-                <Check className="w-5 h-5 text-green-500 mr-2 mt-0.5" />
-                <div>
-                  <p className="font-semibold">Complete Calculator Access</p>
-                  <p className="text-sm text-gray-600">All 27 hidden costs revealed</p>
-                </div>
-              </div>
-              <div className="flex items-start">
-                <Check className="w-5 h-5 text-green-500 mr-2 mt-0.5" />
-                <div>
-                  <p className="font-semibold">Import Master Guide</p>
-                  <p className="text-sm text-gray-600">Step-by-step process & documents</p>
-                </div>
-              </div>
-              <div className="flex items-start">
-                <Check className="w-5 h-5 text-green-500 mr-2 mt-0.5" />
-                <div>
-                  <p className="font-semibold">Verified Agent List</p>
-                  <p className="text-sm text-gray-600">Avoid my <Price nadAmount={45000} /> mistake</p>
-                </div>
-              </div>
-              <div className="flex items-start">
-                <Check className="w-5 h-5 text-green-500 mr-2 mt-0.5" />
-                <div>
-                  <p className="font-semibold">WhatsApp Support</p>
-                  <p className="text-sm text-gray-600">Direct access to me</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Alert className="mt-6 bg-yellow-50 border-yellow-300">
-            <AlertTriangle className="h-4 w-4" />
-            <AlertDescription>
-              <strong>No Free Trial</strong> - This platform is for serious importers only. 
-              <Price /> one-time payment required after registration.
-            </AlertDescription>
-          </Alert>
-        </div>
-
-        {/* Right side - Registration Form */}
-        <div>
-          <Card className="border-2">
-            <CardHeader>
-              <div className="flex items-center justify-between mb-2">
-                <CardTitle className="text-2xl">Create Your Account</CardTitle>
-                <Badge className="bg-red-500 text-white">NO FREE TIER</Badge>
-              </div>
-              <CardDescription>
-                Step 1 of 2: Account details (payment next)
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <form onSubmit={handleSignUp} className="space-y-4">
-                <div>
-                  <Label htmlFor="fullName">Full Name</Label>
-                  <Input
-                    id="fullName"
-                    type="text"
-                    placeholder="John Doe"
-                    value={fullName}
-                    onChange={(e) => setFullName(e.target.value)}
-                    required
-                  />
-                </div>
-
-                <div>
-                  <Label htmlFor="email">Email Address</Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    placeholder="john@example.com"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                  />
-                </div>
-
-                <div>
-                  <Label htmlFor="phone">Phone Number (WhatsApp)</Label>
-                  <Input
-                    id="phone"
-                    type="tel"
-                    placeholder="+264 81 234 5678"
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
-                    required
-                  />
-                  <p className="text-xs text-gray-500 mt-1">For WhatsApp support access</p>
-                </div>
-
-                <div>
-                  <Label htmlFor="password">Password</Label>
-                  <Input
-                    id="password"
-                    type="password"
-                    placeholder="••••••••"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                    minLength={6}
-                  />
-                  <p className="text-xs text-gray-500 mt-1">Minimum 6 characters</p>
-                </div>
-
-                {error && (
-                  <Alert className="bg-red-50 border-red-300">
-                    <AlertTriangle className="h-4 w-4" />
-                    <AlertDescription>{error}</AlertDescription>
-                  </Alert>
-                )}
-
-                <div className="space-y-4">
-                  <Button
-                    type="submit"
-                    className="w-full"
-                    size="lg"
-                    disabled={loading}
-                  >
-                    {loading ? 'Creating Account...' : 'Continue to Payment →'}
-                  </Button>
-
-                  <div className="text-center">
-                    <p className="text-sm text-gray-600">
-                      Next step: <Price /> payment for full access
-                    </p>
-                  </div>
-                </div>
-              </form>
-
-              <Separator className="my-6" />
-
-              <div className="text-center">
-                <p className="text-sm text-gray-600">
-                  Already have an account?{' '}
-                  <Link href="/auth/login" className="text-blue-600 hover:underline">
-                    Sign in
-                  </Link>
-                </p>
-              </div>
-
-              <div className="mt-6 p-4 bg-gray-50 rounded-lg">
-                <div className="flex items-center justify-center space-x-4 text-xs text-gray-500">
-                  <div className="flex items-center">
-                    <Lock className="w-3 h-3 mr-1" />
-                    <span>Secure Payment</span>
-                  </div>
-                  <span>•</span>
-                  <span>No Refunds</span>
-                  <span>•</span>
-                  <span>Lifetime Access</span>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      </div>
+          </CardFooter>
+        </form>
+      </Card>
     </div>
   )
 }
