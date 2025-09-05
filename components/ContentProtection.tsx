@@ -49,7 +49,7 @@ export default function ContentProtection({ children, tier = 'mistake' }: Conten
     }
     
     // Detect developer tools (aggressive)
-    let devtools = { open: false }
+    const devtools = { open: false }
     const threshold = 160
     const emitEvent = (state: boolean) => {
       if (state) {
