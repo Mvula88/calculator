@@ -5,20 +5,25 @@ import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Calculator, Users, BookOpen, Package, Home, LogOut } from 'lucide-react'
 
-async function checkEntitlement(email: string | undefined) {
-  if (!email) return false
+async function checkEntitlement(email: string | undefined, userId: string | undefined) {
+  if (!email) return null
   
   const supabase = await createClient()
   
-  // Check if user has an active entitlement
-  const { data: entitlement } = await supabase
+  // Check if user has an active entitlement by email OR user_id
+  const { data: entitlements, error } = await supabase
     .from('entitlements')
     .select('id, tier, country, active')
-    .eq('email', email.toLowerCase())
+    .or(`email.eq.${email.toLowerCase()},user_id.eq.${userId}`)
     .eq('active', true)
-    .single()
   
-  return entitlement
+  if (error) {
+    console.error('Error checking entitlement:', error)
+    return null
+  }
+  
+  // Return the first active entitlement found
+  return entitlements && entitlements.length > 0 ? entitlements[0] : null
 }
 
 export default async function PortalLayout({
@@ -36,11 +41,17 @@ export default async function PortalLayout({
     redirect('/auth/login?redirect=/portal')
   }
   
-  // Check entitlement
-  const entitlement = await checkEntitlement(user.email)
+  // Check entitlement - pass both email and user ID for better matching
+  const entitlement = await checkEntitlement(user.email, user.id)
   
   if (!entitlement) {
-    // No entitlement - show purchase options
+    // Debug: Log what we're looking for
+    console.log('No entitlement found for:', { 
+      email: user.email?.toLowerCase(), 
+      userId: user.id 
+    })
+    
+    // No entitlement - show purchase options with debug info
     return (
       <div className="min-h-screen bg-gray-50">
         <div className="max-w-2xl mx-auto px-6 py-16 text-center">
@@ -48,6 +59,16 @@ export default async function PortalLayout({
           <p className="text-gray-600 mb-8">
             You need to purchase a guide or mastery package to access the portal.
           </p>
+          
+          {/* Debug info in development */}
+          {process.env.NODE_ENV === 'development' && (
+            <div className="mb-6 p-4 bg-yellow-50 border border-yellow-200 rounded text-left text-sm">
+              <p className="font-semibold mb-2">Debug Info:</p>
+              <p>Email: {user.email}</p>
+              <p>User ID: {user.id}</p>
+              <p className="mt-2 text-xs">If you just made a payment, it may take a moment to process.</p>
+            </div>
+          )}
           
           <div className="grid md:grid-cols-2 gap-4">
             <Button asChild size="lg">

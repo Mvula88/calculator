@@ -1,9 +1,30 @@
+'use client'
+
 import { CheckCircle, ArrowRight, Package, Users } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import Link from 'next/link'
+import { useEffect, useState } from 'react'
+import { createClient } from '@/lib/supabase/client'
 
 export default function NamibiaThankYouPage() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [userEmail, setUserEmail] = useState<string | null>(null)
+  
+  useEffect(() => {
+    const checkUser = async () => {
+      const supabase = createClient()
+      const { data: { user } } = await supabase.auth.getUser()
+      
+      if (user) {
+        setIsLoggedIn(true)
+        setUserEmail(user.email || null)
+      }
+    }
+    
+    checkUser()
+  }, [])
+  
   return (
     <main className="min-h-screen bg-gradient-to-b from-green-50 to-white">
       <div className="max-w-3xl mx-auto px-6 py-16">
@@ -18,7 +39,9 @@ export default function NamibiaThankYouPage() {
           </h1>
           
           <p className="text-lg text-gray-600">
-            Check your inbox for login instructions. Your portal access is ready.
+            {isLoggedIn 
+              ? "Your portal access is ready! Click below to access your content."
+              : "Please sign in with your email to access the portal. Check your inbox for login instructions."}
           </p>
         </div>
 
@@ -30,12 +53,26 @@ export default function NamibiaThankYouPage() {
             member portal with exclusive resources.
           </p>
           
-          <Button asChild size="lg" className="w-full">
-            <Link href="/portal">
-              Go to Member Portal
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Link>
-          </Button>
+          {isLoggedIn ? (
+            <Button asChild size="lg" className="w-full">
+              <Link href="/portal">
+                Go to Member Portal
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Link>
+            </Button>
+          ) : (
+            <>
+              <Button asChild size="lg" className="w-full mb-3">
+                <Link href="/auth/login">
+                  Sign In to Access Portal
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Link>
+              </Button>
+              <p className="text-sm text-gray-500 text-center">
+                Use the email you provided during checkout: {userEmail || 'your purchase email'}
+              </p>
+            </>
+          )}
         </Card>
 
         {/* Container Slots CTA */}

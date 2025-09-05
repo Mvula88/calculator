@@ -40,8 +40,29 @@ export default function LoginClient() {
       return
     }
 
-    // Redirect to dashboard or originally requested page
-    router.push(redirectedFrom || '/dashboard')
+    // Check if user has entitlement and redirect accordingly
+    const { data: { user } } = await supabase.auth.getUser()
+    if (user) {
+      // Check for entitlements
+      const { data: entitlement } = await supabase
+        .from('entitlements')
+        .select('id')
+        .or(`email.eq.${user.email?.toLowerCase()},user_id.eq.${user.id}`)
+        .eq('active', true)
+        .limit(1)
+        .maybeSingle()
+      
+      if (entitlement) {
+        // Has entitlement - go to portal
+        router.push(redirectedFrom === '/portal' ? '/portal' : redirectedFrom || '/portal')
+      } else {
+        // No entitlement - redirect to country guide
+        router.push('/na/guide')
+      }
+    } else {
+      // Fallback
+      router.push(redirectedFrom || '/dashboard')
+    }
   }
 
   return (
