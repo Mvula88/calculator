@@ -51,15 +51,18 @@ export default function CountrySelector() {
 
   return (
     <>
-      {/* Floating Country Selector Button */}
+      {/* Floating Country Selector Button - More Prominent */}
       <div className="fixed bottom-6 right-6 z-50">
         <Button
           onClick={() => setIsOpen(!isOpen)}
-          className="rounded-full shadow-lg bg-white text-gray-900 border hover:bg-gray-50"
+          className="rounded-full shadow-2xl bg-gradient-to-r from-blue-600 to-purple-600 text-white border-2 border-white hover:from-blue-700 hover:to-purple-700 transform hover:scale-105 transition-all duration-200 animate-pulse"
           size="lg"
         >
-          <Globe className="h-5 w-5 mr-2" />
-          <span className="font-semibold">{current.flag} {current.name}</span>
+          <Globe className="h-6 w-6 mr-2 animate-spin-slow" />
+          <span className="font-bold text-lg">{current.flag} {current.name}</span>
+          <span className="ml-2 text-xs bg-white/20 px-2 py-1 rounded-full">
+            Switch
+          </span>
         </Button>
       </div>
 

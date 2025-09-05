@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input'
 import { Card, CardContent } from '@/components/ui/card'
 import { CheckCircle, AlertTriangle, Ship, TrendingDown, Clock, Shield } from 'lucide-react'
 import CountrySelector from '@/components/CountrySelector'
+import HeaderCountrySelector from '@/components/HeaderCountrySelector'
 
 export default function NamibiaGuidePage() {
   const [email, setEmail] = useState('')
@@ -51,7 +52,10 @@ export default function NamibiaGuidePage() {
         <div className="max-w-6xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="font-bold text-xl">ImportCalc Pro</div>
-            <div className="text-sm text-gray-600">Trusted by 500+ Importers</div>
+            <div className="flex items-center gap-4">
+              <div className="text-sm text-gray-600">Trusted by 500+ Importers</div>
+              <HeaderCountrySelector />
+            </div>
           </div>
         </div>
       </header>

@@ -54,6 +54,20 @@ body {
   color: hsl(var(--foreground));
 }
 
+/* Custom animations */
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 4s linear infinite;
+}
+
 /* Content protection styles */
 .no-select {
   -webkit-user-select: none;
