@@ -19,7 +19,7 @@ import {
 } from 'lucide-react'
 
 // This would normally be fetched from a database or API
-const dutyRates = {
+const dutyRates: Record<string, { duty: number; description: string }> = {
   'passenger_under_1500cc': {
     duty: 25,
     description: 'Passenger vehicles with engines under 1500cc'
