@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { stripe } from '@/lib/stripe/config'
-import { createClient } from '@/lib/supabase/server'
+import { createClient, createServiceClient } from '@/lib/supabase/server'
 import Stripe from 'stripe'
 
 const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET!
@@ -19,7 +19,8 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Invalid signature' }, { status: 400 })
   }
 
-  const supabase = await createClient()
+  // Use service client to bypass RLS for webhook operations
+  const supabase = createServiceClient()
 
   switch (event.type) {
     case 'checkout.session.completed': {
@@ -33,7 +34,13 @@ export async function POST(req: NextRequest) {
       const email = session.customer_email || session.metadata?.email || session.customer_details?.email
       
       if (!productId || !email) {
-        console.error('Missing critical metadata in checkout session')
+        console.error('Missing critical metadata in checkout session:', {
+          productId,
+          email,
+          customer_email: session.customer_email,
+          metadata_email: session.metadata?.email,
+          customer_details_email: session.customer_details?.email
+        })
         break
       }
 
@@ -66,21 +73,33 @@ export async function POST(req: NextRequest) {
       }
 
       // 2. Create entitlement for portal access
-      const { error: entitlementError } = await supabase
+      const entitlementData = {
+        user_id: userId || null,
+        email: email.toLowerCase(),
+        country: country,
+        tier: tier,
+        stripe_payment_intent_id: session.payment_intent as string,
+        active: true
+      }
+      
+      console.log('Creating entitlement with data:', entitlementData)
+      
+      const { data: entitlementResult, error: entitlementError } = await supabase
         .from('entitlements')
-        .insert({
-          user_id: userId || null,
-          email: email.toLowerCase(),
-          country: country,
-          tier: tier,
-          stripe_payment_intent_id: session.payment_intent as string,
-          active: true
-        })
+        .insert(entitlementData)
+        .select()
 
       if (entitlementError) {
-        console.error('Error creating entitlement:', entitlementError)
+        console.error('Error creating entitlement:', {
+          error: entitlementError,
+          data: entitlementData
+        })
+        // Try to understand what went wrong
+        if (entitlementError.code === '23505') {
+          console.error('Duplicate entitlement - might already exist')
+        }
       } else {
-        console.log(`Entitlement created for ${email}, tier: ${tier}, country: ${country}`)
+        console.log(`Entitlement created successfully:`, entitlementResult)
       }
 
       // 3. Send confirmation email (you can implement with Resend/SendGrid)
