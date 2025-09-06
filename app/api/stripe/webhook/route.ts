@@ -46,10 +46,11 @@ export async function POST(req: NextRequest) {
         amount: session.amount_total
       })
 
-      // First, check if user already exists
-      const { data: existingUser } = await supabase.auth.admin.getUserByEmail(email)
+      // First, check if user already exists by listing users with email filter
+      const { data: { users }, error: listError } = await supabase.auth.admin.listUsers()
+      const existingUser = users?.find(u => u.email?.toLowerCase() === email.toLowerCase())
       
-      let userId = existingUser?.user?.id
+      let userId = existingUser?.id
 
       // If user doesn't exist, create one
       if (!userId) {
