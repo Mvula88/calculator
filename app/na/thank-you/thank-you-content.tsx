@@ -44,8 +44,16 @@ export default function NamibiaThankYouContent() {
         })
         
         if (res.ok) {
+          const data = await res.json()
           setAccessGranted(true)
-          console.log('Portal access granted')
+          console.log('Portal access granted', data)
+          
+          // If auto-login was successful, reload to get the session
+          if (data.autoLogin) {
+            console.log('Auto-login successful, reloading...')
+            window.location.href = '/portal'
+            return
+          }
         }
       }
     } catch (error) {

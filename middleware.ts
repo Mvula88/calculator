@@ -90,9 +90,22 @@ export async function middleware(request: NextRequest) {
 
   const { data: { user } } = await supabase.auth.getUser()
 
+  // Check for portal session cookie (for post-payment access)
+  const portalSession = request.cookies.get('portal_session')?.value
+  let hasPortalAccess = false
+  
+  if (portalSession) {
+    try {
+      const session = JSON.parse(portalSession)
+      hasPortalAccess = !!session.email && !!session.sessionId
+    } catch (e) {
+      // Invalid session cookie
+    }
+  }
+
   // Protected portal routes
   if (request.nextUrl.pathname.startsWith('/portal')) {
-    if (!user) {
+    if (!user && !hasPortalAccess) {
       const redirectUrl = request.nextUrl.clone()
       redirectUrl.pathname = '/auth/login'
       redirectUrl.searchParams.set('redirect', request.nextUrl.pathname)

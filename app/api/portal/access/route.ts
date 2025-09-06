@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { createServiceClient } from '@/lib/supabase/server'
+import { createServiceClient, createClient } from '@/lib/supabase/server'
 import { cookies } from 'next/headers'
 
 export async function POST(req: NextRequest) {
@@ -12,6 +12,7 @@ export async function POST(req: NextRequest) {
 
     // Use service client to bypass RLS
     const supabase = createServiceClient()
+    const authClient = await createClient()
     
     // Verify the payment session exists
     const { data: entitlement, error } = await supabase
@@ -24,6 +25,46 @@ export async function POST(req: NextRequest) {
     
     if (error || !entitlement) {
       return NextResponse.json({ error: 'Invalid session or payment not found' }, { status: 404 })
+    }
+    
+    // Check if user exists and try to auto-login
+    let autoLoginSuccess = false
+    
+    if (entitlement.user_id) {
+      // User was created during payment, try to sign them in
+      const { data: { users }, error: listError } = await supabase.auth.admin.listUsers()
+      const user = users?.find(u => u.id === entitlement.user_id)
+      
+      if (user && user.email) {
+        // Generate a new magic link for immediate login
+        const { data: magicLink, error: linkError } = await supabase.auth.admin.generateLink({
+          type: 'magiclink',
+          email: user.email,
+          options: {
+            redirectTo: `${process.env.NEXT_PUBLIC_BASE_URL || ''}/portal`
+          }
+        })
+        
+        if (!linkError && magicLink) {
+          // Extract the token from the magic link URL
+          const url = new URL(magicLink.properties.action_link)
+          const token = url.searchParams.get('token')
+          const type = url.searchParams.get('type')
+          
+          if (token && type) {
+            // Verify the token and create a session
+            const { data: sessionData, error: sessionError } = await authClient.auth.verifyOtp({
+              token_hash: token,
+              type: type as any
+            })
+            
+            if (!sessionError && sessionData.session) {
+              autoLoginSuccess = true
+              console.log('Auto-login successful for user:', user.email)
+            }
+          }
+        }
+      }
     }
     
     // Set a temporary session cookie for portal access
@@ -42,10 +83,12 @@ export async function POST(req: NextRequest) {
     
     return NextResponse.json({ 
       success: true,
+      autoLogin: autoLoginSuccess,
       entitlement: {
         email: entitlement.email,
         tier: entitlement.tier,
-        country: entitlement.country
+        country: entitlement.country,
+        hasAccount: !!entitlement.user_id
       }
     })
   } catch (error) {

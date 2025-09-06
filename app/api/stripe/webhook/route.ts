@@ -76,14 +76,20 @@ export async function POST(req: NextRequest) {
           userId = newUser.user.id
           console.log('User account created:', userId)
           
-          // Send password reset email so user can set their own password
-          const { error: resetError } = await supabase.auth.admin.generateLink({
-            type: 'recovery',
-            email: email
+          // Generate a magic link for auto-login
+          const { data: magicLink, error: linkError } = await supabase.auth.admin.generateLink({
+            type: 'magiclink',
+            email: email,
+            options: {
+              redirectTo: `${process.env.NEXT_PUBLIC_BASE_URL}/portal`
+            }
           })
           
-          if (resetError) {
-            console.error('Failed to send password reset email:', resetError)
+          if (linkError) {
+            console.error('Failed to generate magic link:', linkError)
+          } else {
+            // Store the magic link token for auto-login from thank you page
+            console.log('Magic link generated for auto-login')
           }
         }
       }
