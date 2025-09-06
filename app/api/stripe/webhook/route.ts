@@ -54,7 +54,7 @@ export async function POST(req: NextRequest) {
 
       // If user doesn't exist, create one
       if (!userId) {
-        // Generate a random password (user will reset it later)
+        // Generate a random password (user won't need it - they'll use magic link)
         const tempPassword = Math.random().toString(36).slice(-12) + 'Aa1!'
         
         // Create user account
@@ -65,7 +65,9 @@ export async function POST(req: NextRequest) {
           user_metadata: {
             country: country,
             tier: tier,
-            stripe_session_id: session.id
+            stripe_session_id: session.id,
+            created_via: 'payment',
+            needs_password_reset: true
           }
         })
 
@@ -76,21 +78,9 @@ export async function POST(req: NextRequest) {
           userId = newUser.user.id
           console.log('User account created:', userId)
           
-          // Generate a magic link for auto-login
-          const { data: magicLink, error: linkError } = await supabase.auth.admin.generateLink({
-            type: 'magiclink',
-            email: email,
-            options: {
-              redirectTo: `${process.env.NEXT_PUBLIC_BASE_URL}/portal`
-            }
-          })
-          
-          if (linkError) {
-            console.error('Failed to generate magic link:', linkError)
-          } else {
-            // Store the magic link token for auto-login from thank you page
-            console.log('Magic link generated for auto-login')
-          }
+          // Note: User will receive Stripe receipt email with instructions
+          // They can login using magic link (email-only login) on the login page
+          console.log('User can now login with magic link using their email:', email)
         }
       }
 
