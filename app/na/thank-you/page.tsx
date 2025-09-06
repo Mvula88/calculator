@@ -1,111 +1,17 @@
-'use client'
-
-import { useEffect, useState } from 'react'
-import { useRouter, useSearchParams } from 'next/navigation'
-import { Card } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
-import Link from 'next/link'
-import { CheckCircle, Mail, ArrowRight, Loader2 } from 'lucide-react'
+import { Suspense } from 'react'
+import NamibiaThankYouContent from './thank-you-content'
+import { Loader2 } from 'lucide-react'
 
 export default function NamibiaThankYouPage() {
-  const router = useRouter()
-  const searchParams = useSearchParams()
-  const [isSettingAccess, setIsSettingAccess] = useState(false)
-  const [accessGranted, setAccessGranted] = useState(false)
-  
-  useEffect(() => {
-    // Get session ID from URL
-    const sessionId = searchParams.get('session_id')
-    
-    if (sessionId) {
-      // Grant portal access using the session
-      grantPortalAccess(sessionId)
-    }
-    
-    // Auto-redirect to portal after 10 seconds
-    const timer = setTimeout(() => {
-      router.push('/portal')
-    }, 10000)
-    
-    return () => clearTimeout(timer)
-  }, [router, searchParams])
-  
-  async function grantPortalAccess(sessionId: string) {
-    setIsSettingAccess(true)
-    try {
-      // Extract email from localStorage (set during checkout)
-      const email = localStorage.getItem('checkout_email')
-      
-      if (email) {
-        const res = await fetch('/api/portal/access', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ sessionId, email })
-        })
-        
-        if (res.ok) {
-          setAccessGranted(true)
-          console.log('Portal access granted')
-        }
-      }
-    } catch (error) {
-      console.error('Failed to grant portal access:', error)
-    } finally {
-      setIsSettingAccess(false)
-    }
-  }
-  
   return (
-    <main className="min-h-screen bg-gradient-to-b from-green-50 to-white">
-      <div className="max-w-2xl mx-auto px-6 py-16">
-        <Card className="p-8 text-center">
-          <div className="mb-6">
-            <CheckCircle className="h-16 w-16 text-green-500 mx-auto" />
-          </div>
-          
-          <h1 className="text-3xl font-bold mb-4">
-            Thank You for Your Purchase!
-          </h1>
-          
-          <p className="text-gray-600 mb-6">
-            Your payment has been processed successfully. You now have access to the 
-            Walvis Bay Import Guide.
-          </p>
-          
-          <div className="bg-blue-50 p-4 rounded-lg mb-6">
-            <Mail className="h-8 w-8 text-blue-600 mx-auto mb-2" />
-            <p className="text-sm text-gray-700">
-              Check your email for your receipt and access instructions.
-            </p>
-          </div>
-          
-          <Button asChild size="lg" className="w-full" disabled={isSettingAccess}>
-            <Link href="/portal">
-              {isSettingAccess ? (
-                <>
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Setting up your access...
-                </>
-              ) : (
-                <>
-                  Access Your Import Portal
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </>
-              )}
-            </Link>
-          </Button>
-          
-          {accessGranted && (
-            <p className="text-sm text-green-600 mt-2">
-              ✓ Portal access granted - click above to enter
-            </p>
-          )}
-          
-          <p className="text-xs text-gray-500 mt-6">
-            You'll be automatically redirected in a few seconds...
-          </p>
-        </Card>
-      </div>
-    </main>
+    <Suspense 
+      fallback={
+        <main className="min-h-screen bg-gradient-to-b from-green-50 to-white flex items-center justify-center">
+          <Loader2 className="h-8 w-8 animate-spin text-gray-600" />
+        </main>
+      }
+    >
+      <NamibiaThankYouContent />
+    </Suspense>
   )
 }
