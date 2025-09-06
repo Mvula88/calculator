@@ -44,30 +44,41 @@ export async function POST(req: NextRequest) {
     
     // Get the Stripe price ID based on country and tier
     const getPriceId = (country: string, tier: string): string => {
-      const priceMap: Record<string, Record<string, string>> = {
+      // Map environment variable names
+      const envVarName = `STRIPE_PRODUCT_${country.toUpperCase()}_${tier.toUpperCase()}`
+      const priceId = process.env[envVarName]
+      
+      console.log('Looking for env var:', envVarName)
+      console.log('Found price ID:', priceId)
+      
+      // Fallback to hardcoded values if env vars not available
+      const fallbackPrices: Record<string, Record<string, string>> = {
         na: {
-          mistake: process.env.STRIPE_PRODUCT_NA_MISTAKE!,
-          mastery: process.env.STRIPE_PRODUCT_NA_MASTERY!
+          mistake: 'price_1S3tjDK8Avs5uFkK6aBQNdWx',
+          mastery: 'price_1S3u8ZK8Avs5uFkKvpjaeLYA'
         },
         za: {
-          mistake: process.env.STRIPE_PRODUCT_ZA_MISTAKE!,
-          mastery: process.env.STRIPE_PRODUCT_ZA_MASTERY!
+          mistake: 'price_1S3tkXK8Avs5uFkKTXRCJJuk',
+          mastery: 'price_1S3u9pK8Avs5uFkKNAxA1GdK'
         },
         bw: {
-          mistake: process.env.STRIPE_PRODUCT_BW_MISTAKE!,
-          mastery: process.env.STRIPE_PRODUCT_BW_MASTERY!
+          mistake: 'price_1S3toYK8Avs5uFkKKRXTeM0g',
+          mastery: 'price_1S3uC8K8Avs5uFkKxL54iq8Q'
         },
         zm: {
-          mistake: process.env.STRIPE_PRODUCT_ZM_MISTAKE!,
-          mastery: process.env.STRIPE_PRODUCT_ZM_MASTERY!
+          mistake: 'price_1S3txCK8Avs5uFkKcxVrjVWP',
+          mastery: 'price_1S3uDaK8Avs5uFkKusc8RdlK'
         }
       }
       
-      const priceId = priceMap[country]?.[tier]
-      if (!priceId) {
-        throw new Error(`No price ID found for ${country} ${tier}`)
+      const finalPriceId = priceId || fallbackPrices[country]?.[tier]
+      
+      if (!finalPriceId) {
+        console.error('Available env vars:', Object.keys(process.env).filter(k => k.startsWith('STRIPE')))
+        throw new Error(`No price ID found for ${country} ${tier}. Env var ${envVarName} = ${priceId}`)
       }
-      return priceId
+      
+      return finalPriceId
     }
     
     // Get the price ID for this checkout
