@@ -1,0 +1,170 @@
+'use client'
+
+import { useState } from 'react'
+import { Button } from '@/components/ui/button'
+import { Card } from '@/components/ui/card'
+import { Star, Trophy, Users, Calculator, BookOpen, Shield } from 'lucide-react'
+import Link from 'next/link'
+
+export default function NamibiaUpsellPage() {
+  const [loading, setLoading] = useState(false)
+  
+  async function handleMasteryUpgrade() {
+    setLoading(true)
+    try {
+      const res = await fetch('/api/stripe/checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          country: 'na', 
+          tier: 'mastery',
+          productId: 'import-mastery-na',
+          email: '' // Will be filled from form or session
+        })
+      })
+      
+      const { url, error } = await res.json()
+      
+      if (error) {
+        alert(`Error: ${error}`)
+        return
+      }
+      
+      if (url) {
+        window.location.href = url
+      }
+    } catch (error) {
+      console.error('Checkout error:', error)
+      alert('Failed to start checkout')
+    } finally {
+      setLoading(false)
+    }
+  }
+  
+  return (
+    <main className="min-h-screen bg-gradient-to-b from-purple-50 to-white">
+      <div className="max-w-4xl mx-auto px-6 py-16">
+        {/* Special Offer Banner */}
+        <div className="text-center mb-12">
+          <div className="inline-flex items-center gap-2 bg-purple-100 text-purple-700 px-4 py-2 rounded-full mb-6">
+            <Trophy className="h-5 w-5" />
+            <span className="font-semibold">EXCLUSIVE OFFER - 60% OFF TODAY</span>
+          </div>
+          
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+            Congratulations! You Qualify for<br />
+            Import Mastery Package
+          </h1>
+          
+          <p className="text-xl text-gray-600">
+            Join 150 other Namibian importers who save N$60,000+ per year
+          </p>
+        </div>
+        
+        {/* What You Get */}
+        <Card className="p-8 mb-8 border-2 border-purple-200 shadow-xl">
+          <div className="text-center mb-6">
+            <h2 className="text-2xl font-bold">Import Mastery Includes Everything:</h2>
+            <p className="text-gray-600 mt-2">Lifetime access to all premium features</p>
+          </div>
+          
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="space-y-4">
+              <div className="flex gap-3">
+                <Star className="h-6 w-6 text-yellow-500 flex-shrink-0" />
+                <div>
+                  <strong>Container Sharing Network</strong>
+                  <p className="text-sm text-gray-600">Save N$15,000 per import</p>
+                </div>
+              </div>
+              
+              <div className="flex gap-3">
+                <Users className="h-6 w-6 text-blue-500 flex-shrink-0" />
+                <div>
+                  <strong>Verified Agent Directory</strong>
+                  <p className="text-sm text-gray-600">Pre-vetted, guaranteed rates</p>
+                </div>
+              </div>
+              
+              <div className="flex gap-3">
+                <Calculator className="h-6 w-6 text-green-500 flex-shrink-0" />
+                <div>
+                  <strong>Advanced Calculator</strong>
+                  <p className="text-sm text-gray-600">Exact duty with all fees</p>
+                </div>
+              </div>
+            </div>
+            
+            <div className="space-y-4">
+              <div className="flex gap-3">
+                <BookOpen className="h-6 w-6 text-purple-500 flex-shrink-0" />
+                <div>
+                  <strong>Complete Import Course</strong>
+                  <p className="text-sm text-gray-600">15 video lessons</p>
+                </div>
+              </div>
+              
+              <div className="flex gap-3">
+                <Shield className="h-6 w-6 text-red-500 flex-shrink-0" />
+                <div>
+                  <strong>Fraud Protection Guide</strong>
+                  <p className="text-sm text-gray-600">Avoid N$45,000+ scams</p>
+                </div>
+              </div>
+              
+              <div className="flex gap-3">
+                <Star className="h-6 w-6 text-yellow-500 flex-shrink-0" />
+                <div>
+                  <strong>WhatsApp Support Group</strong>
+                  <p className="text-sm text-gray-600">Direct help from experts</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </Card>
+        
+        {/* Pricing */}
+        <Card className="p-8 bg-gradient-to-r from-orange-600 to-red-600 text-white">
+          <div className="text-center">
+            <div className="mb-4">
+              <span className="text-xl line-through opacity-60">N$4,999</span>
+              <span className="text-4xl font-bold ml-3">N$1,999</span>
+              <span className="text-sm ml-2 opacity-80">One-time payment</span>
+            </div>
+            
+            <Button 
+              onClick={handleMasteryUpgrade}
+              disabled={loading}
+              size="lg"
+              className="w-full md:w-auto bg-white text-orange-600 hover:bg-gray-100"
+            >
+              {loading ? 'Processing...' : 'Upgrade to Import Mastery Now'}
+            </Button>
+            
+            <div className="mt-6 space-y-2">
+              <p className="text-sm opacity-90">
+                ✓ 30-day money-back guarantee
+              </p>
+              <p className="text-sm opacity-90">
+                ✓ Lifetime updates included
+              </p>
+              <p className="text-sm opacity-90">
+                ✓ Save N$60,000+ on your next import
+              </p>
+            </div>
+          </div>
+        </Card>
+        
+        {/* Skip Link */}
+        <div className="text-center mt-8">
+          <Link 
+            href="/portal" 
+            className="text-gray-500 underline text-sm hover:text-gray-700"
+          >
+            No thanks, take me to the basic portal
+          </Link>
+        </div>
+      </div>
+    </main>
+  )
+}
