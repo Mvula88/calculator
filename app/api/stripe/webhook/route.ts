@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { stripe } from '@/lib/stripe/config'
 import { createServiceClient } from '@/lib/supabase/server'
+import { createClient } from '@supabase/supabase-js'
 import Stripe from 'stripe'
 
 const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET!
@@ -27,7 +28,6 @@ export async function POST(req: NextRequest) {
       const session = event.data.object as Stripe.Checkout.Session
       
       // Extract metadata
-      const userId = session.metadata?.user_id || null
       const productId = session.metadata?.product_id
       const country = session.metadata?.country || 'na'
       const tier = session.metadata?.tier || 'mistake'
@@ -39,7 +39,6 @@ export async function POST(req: NextRequest) {
       }
 
       console.log('Processing payment for:', { 
-        userId, 
         email, 
         productId, 
         country, 
@@ -47,9 +46,50 @@ export async function POST(req: NextRequest) {
         amount: session.amount_total
       })
 
+      // First, check if user already exists
+      const { data: existingUser } = await supabase.auth.admin.getUserByEmail(email)
+      
+      let userId = existingUser?.user?.id
+
+      // If user doesn't exist, create one
+      if (!userId) {
+        // Generate a random password (user will reset it later)
+        const tempPassword = Math.random().toString(36).slice(-12) + 'Aa1!'
+        
+        // Create user account
+        const { data: newUser, error: userError } = await supabase.auth.admin.createUser({
+          email: email,
+          password: tempPassword,
+          email_confirm: true, // Auto-confirm email since they paid
+          user_metadata: {
+            country: country,
+            tier: tier,
+            stripe_session_id: session.id
+          }
+        })
+
+        if (userError) {
+          console.error('Failed to create user:', userError)
+          // Still create entitlement without user_id for manual recovery
+        } else {
+          userId = newUser.user.id
+          console.log('User account created:', userId)
+          
+          // Send password reset email so user can set their own password
+          const { error: resetError } = await supabase.auth.admin.generateLink({
+            type: 'recovery',
+            email: email
+          })
+          
+          if (resetError) {
+            console.error('Failed to send password reset email:', resetError)
+          }
+        }
+      }
+
       // Create entitlement record (PRIMARY ACCESS CONTROL)
       const entitlementData = {
-        user_id: userId,
+        user_id: userId || null,
         email: email.toLowerCase(),
         tier: tier,
         country: country,
@@ -72,9 +112,6 @@ export async function POST(req: NextRequest) {
       } else {
         console.log('Entitlement created successfully:', entitlement.id)
       }
-
-      // Send confirmation email (optional - implement if needed)
-      // await sendConfirmationEmail(email, tier, country)
 
       break
     }

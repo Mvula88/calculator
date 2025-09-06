@@ -15,6 +15,9 @@ export default function NamibiaGuidePage() {
   async function handleCheckout() {
     setLoading(true)
     try {
+      // Save email to localStorage for thank-you page
+      localStorage.setItem('checkout_email', email)
+      
       const res = await fetch('/api/stripe/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

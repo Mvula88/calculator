@@ -2,6 +2,7 @@ import { createClient, createServiceClient } from '@/lib/supabase/server'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
+import { cookies } from 'next/headers'
 import { 
   BookOpen, 
   Calculator, 
@@ -29,11 +30,55 @@ async function getUserEntitlement(userId: string) {
   return data
 }
 
+async function getSessionEntitlement() {
+  const cookieStore = await cookies()
+  const sessionCookie = cookieStore.get('portal_session')
+  
+  if (!sessionCookie) return null
+  
+  try {
+    const session = JSON.parse(sessionCookie.value)
+    
+    // Verify the session is still valid
+    const supabase = createServiceClient()
+    const { data } = await supabase
+      .from('entitlements')
+      .select('*')
+      .eq('stripe_session_id', session.sessionId)
+      .eq('email', session.email)
+      .eq('active', true)
+      .single()
+    
+    return data
+  } catch (error) {
+    console.error('Session parse error:', error)
+    return null
+  }
+}
+
 export default async function PortalHome() {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   
-  const entitlement = user ? await getUserEntitlement(user.id) : null
+  // Check both authenticated user and session-based access
+  let entitlement = null
+  let userEmail = null
+  
+  if (user) {
+    entitlement = await getUserEntitlement(user.id)
+    userEmail = user.email
+  } else {
+    // Try session-based access
+    entitlement = await getSessionEntitlement()
+    userEmail = entitlement?.email
+  }
+  
+  // If no access at all, redirect to login
+  if (!entitlement) {
+    // This will be handled by middleware
+    return null
+  }
+  
   const isMastery = entitlement?.tier === 'mastery'
 
   const stats = [
@@ -136,7 +181,7 @@ export default async function PortalHome() {
         <div className="mt-4 flex items-center gap-2">
           <Shield className="h-5 w-5 text-green-600" />
           <span className="text-sm text-gray-600">
-            Licensed to: {user?.email}
+            Licensed to: {userEmail}
           </span>
           {isMastery && (
             <div className="flex items-center gap-1 ml-4">
