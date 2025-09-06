@@ -185,9 +185,41 @@ export default async function PortalGuidePage() {
     userEmail = entitlement?.email
   }
   
-  // If no access at all, redirect to login
-  if (!entitlement) {
+  // If no user and no session, redirect to login
+  if (!user && !entitlement) {
     redirect('/auth/login?redirect=/portal/guide')
+  }
+  
+  // If user is logged in but has no entitlement, show purchase prompt
+  if (!entitlement) {
+    return (
+      <div className="max-w-4xl mx-auto px-6 py-12">
+        <Card className="p-8 text-center">
+          <Lock className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+          <h2 className="text-2xl font-bold mb-2">Guide Access Required</h2>
+          <p className="text-gray-600 mb-4">
+            You need to purchase the Mistake Guide or Import Mastery to access this content.
+          </p>
+          <p className="text-sm text-gray-500 mb-6">
+            Logged in as: {userEmail}
+          </p>
+          <div className="space-y-3">
+            <a 
+              href="/na/guide"
+              className="block bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
+            >
+              Purchase Guide Access →
+            </a>
+            <a 
+              href="/portal"
+              className="block text-gray-600 hover:underline"
+            >
+              Back to Portal
+            </a>
+          </div>
+        </Card>
+      </div>
+    )
   }
   
   // Check if user has at least mistake tier
@@ -198,15 +230,15 @@ export default async function PortalGuidePage() {
       <div className="max-w-4xl mx-auto px-6 py-12">
         <Card className="p-8 text-center">
           <Lock className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-          <h2 className="text-2xl font-bold mb-2">Guide Access Required</h2>
+          <h2 className="text-2xl font-bold mb-2">Upgrade Required</h2>
           <p className="text-gray-600 mb-4">
-            You need to purchase the Mistake Guide or Import Mastery to access this content.
+            Your current plan doesn't include guide access. Upgrade to Mistake Guide or Import Mastery.
           </p>
           <a 
-            href={`/${entitlement.country}/guide`}
-            className="text-blue-600 hover:underline"
+            href={`/${entitlement.country || 'na'}/guide`}
+            className="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
           >
-            Learn more about our guides →
+            View Upgrade Options →
           </a>
         </Card>
       </div>

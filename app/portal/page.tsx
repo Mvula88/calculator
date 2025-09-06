@@ -80,6 +80,7 @@ export default async function PortalHome() {
   }
   
   const isMastery = entitlement?.tier === 'mastery'
+  const hasMistakeOrMastery = entitlement?.tier === 'mistake' || entitlement?.tier === 'mastery'
 
   const stats = [
     {
@@ -118,7 +119,7 @@ export default async function PortalHome() {
       description: 'Step-by-step process for importing your vehicle',
       icon: BookOpen,
       href: '/portal/guide',
-      available: true,
+      available: hasMistakeOrMastery,
       premium: false
     },
     {
@@ -239,7 +240,7 @@ export default async function PortalHome() {
                   </Button>
                 ) : (
                   <Button variant="outline" className="w-full" disabled>
-                    Requires Mastery
+                    {action.premium ? 'Requires Mastery' : 'Purchase Required'}
                   </Button>
                 )}
               </div>
