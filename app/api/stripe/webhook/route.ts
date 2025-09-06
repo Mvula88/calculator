@@ -84,30 +84,64 @@ export async function POST(req: NextRequest) {
         }
       }
 
-      // Create entitlement record (PRIMARY ACCESS CONTROL)
-      const entitlementData = {
-        user_id: userId || null,
-        email: email.toLowerCase(),
-        tier: tier,
-        country: country,
-        active: true,
-        stripe_session_id: session.id,
-        amount_paid: session.amount_total,
-        currency: session.currency
-      }
-
-      const { data: entitlement, error: entitlementError } = await supabase
+      // Check for existing active entitlement first to prevent duplicates
+      const { data: existingEntitlement } = await supabase
         .from('entitlements')
-        .insert(entitlementData)
-        .select()
+        .select('*')
+        .eq('email', email.toLowerCase())
+        .eq('active', true)
         .single()
 
-      if (entitlementError) {
-        console.error('Failed to create entitlement:', entitlementError)
-        // Don't fail the webhook - log for manual recovery
-        console.error('Manual recovery needed for:', entitlementData)
+      if (existingEntitlement) {
+        console.log('Active entitlement already exists for:', email)
+        
+        // If upgrading from mistake to mastery, update the existing entitlement
+        if (existingEntitlement.tier === 'mistake' && tier === 'mastery') {
+          const { error: updateError } = await supabase
+            .from('entitlements')
+            .update({
+              tier: 'mastery',
+              amount_paid: session.amount_total,
+              currency: session.currency,
+              stripe_session_id: session.id,
+              updated_at: new Date().toISOString()
+            })
+            .eq('id', existingEntitlement.id)
+          
+          if (updateError) {
+            console.error('Failed to upgrade entitlement:', updateError)
+          } else {
+            console.log('Upgraded entitlement to mastery for:', email)
+          }
+        } else {
+          console.log('Skipping duplicate entitlement creation for:', email)
+        }
       } else {
-        console.log('Entitlement created successfully:', entitlement.id)
+        // Create new entitlement record (PRIMARY ACCESS CONTROL)
+        const entitlementData = {
+          user_id: userId || null,
+          email: email.toLowerCase(),
+          tier: tier,
+          country: country,
+          active: true,
+          stripe_session_id: session.id,
+          amount_paid: session.amount_total,
+          currency: session.currency
+        }
+
+        const { data: entitlement, error: entitlementError } = await supabase
+          .from('entitlements')
+          .insert(entitlementData)
+          .select()
+          .single()
+
+        if (entitlementError) {
+          console.error('Failed to create entitlement:', entitlementError)
+          // Don't fail the webhook - log for manual recovery
+          console.error('Manual recovery needed for:', entitlementData)
+        } else {
+          console.log('Entitlement created successfully:', entitlement.id)
+        }
       }
 
       break
