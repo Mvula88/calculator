@@ -9,16 +9,36 @@ import { TemplatesSection } from '@/components/guide/templates-section'
 import { EmergencyPlaybook } from '@/components/guide/emergency-playbook'
 import { AlertTriangle, CheckCircle, Info, TrendingDown, Lock, Shield } from 'lucide-react'
 
-async function getUserEntitlement(userId: string) {
+async function getUserEntitlement(userId: string, email?: string) {
   const supabase = createServiceClient()
-  const { data } = await supabase
+  
+  // Build query with OR condition for user_id or email
+  let query = supabase
     .from('entitlements')
     .select('*')
-    .eq('user_id', userId)
     .eq('active', true)
-    .single()
   
-  return data
+  const conditions = []
+  if (userId) {
+    conditions.push(`user_id.eq.${userId}`)
+  }
+  if (email) {
+    conditions.push(`email.eq.${email.toLowerCase()}`)
+  }
+  
+  if (conditions.length > 0) {
+    query = query.or(conditions.join(','))
+  }
+  
+  const { data: entitlements } = await query
+  
+  // If multiple entitlements, return the highest tier (mastery > mistake)
+  if (entitlements && entitlements.length > 0) {
+    const masteryEntitlement = entitlements.find(e => e.tier === 'mastery')
+    return masteryEntitlement || entitlements[0]
+  }
+  
+  return null
 }
 
 async function getSessionEntitlement() {
@@ -177,7 +197,7 @@ export default async function PortalGuidePage() {
   let userEmail = null
   
   if (user) {
-    entitlement = await getUserEntitlement(user.id)
+    entitlement = await getUserEntitlement(user.id, user.email)
     userEmail = user.email
   } else {
     // Try session-based access

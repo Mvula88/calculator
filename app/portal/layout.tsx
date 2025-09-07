@@ -38,7 +38,13 @@ async function checkEntitlement(email: string | undefined, userId: string | unde
     return null
   }
   
-  return entitlements && entitlements.length > 0 ? entitlements[0] : null
+  // If multiple entitlements, return the highest tier (mastery > mistake)
+  if (entitlements && entitlements.length > 0) {
+    const masteryEntitlement = entitlements.find(e => e.tier === 'mastery')
+    return masteryEntitlement || entitlements[0]
+  }
+  
+  return null
 }
 
 export default async function PortalLayout({
