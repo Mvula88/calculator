@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { stripe } from '@/lib/stripe/config'
 import { createClient } from '@/lib/supabase/server'
+import { paymentRateLimit } from '@/lib/rate-limit'
+import crypto from 'crypto'
 
 // Normalize country codes
 function normalizeCountry(country: string): 'na' | 'za' | 'bw' | 'zm' {
@@ -19,6 +21,26 @@ function normalizeCountry(country: string): 'na' | 'za' | 'bw' | 'zm' {
 }
 
 export async function POST(req: NextRequest) {
+  // Rate limiting
+  const rateLimitResult = await paymentRateLimit(req)
+  
+  if (!rateLimitResult.success) {
+    return NextResponse.json(
+      { 
+        error: 'Too many requests. Please try again later.',
+        retryAfter: rateLimitResult.reset 
+      },
+      { 
+        status: 429,
+        headers: {
+          'X-RateLimit-Limit': rateLimitResult.limit.toString(),
+          'X-RateLimit-Remaining': rateLimitResult.remaining.toString(),
+          'X-RateLimit-Reset': rateLimitResult.reset.toISOString()
+        }
+      }
+    )
+  }
+  
   try {
     const body = await req.json()
     const { country, tier, productId, email } = body
@@ -84,6 +106,12 @@ export async function POST(req: NextRequest) {
     // Get the price ID for this checkout
     const priceId = getPriceId(normalizedCountry, tier)
     
+    // Generate idempotency key for this request
+    const idempotencyKey = crypto
+      .createHash('sha256')
+      .update(`${email}-${tier}-${country}-${Date.now()}`)
+      .digest('hex')
+    
     // Create Stripe checkout session with fixed price ID
     const sessionConfig: any = {
       payment_method_types: ['card'],
@@ -97,15 +125,26 @@ export async function POST(req: NextRequest) {
         product_id: productId || tier,
         country: normalizedCountry,
         tier: tier,
-        email: email.toLowerCase()
+        email: email.toLowerCase(),
+        idempotency_key: idempotencyKey
       },
       customer_email: email.toLowerCase(),
       success_url: `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/${normalizedCountry}/thank-you?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/${normalizedCountry}/guide`
+      cancel_url: `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/${normalizedCountry}/guide`,
+      payment_intent_data: {
+        metadata: {
+          idempotency_key: idempotencyKey
+        }
+      }
     }
     
-    // Create the session
-    const session = await stripe.checkout.sessions.create(sessionConfig)
+    // Create the session with idempotency
+    const session = await stripe.checkout.sessions.create(
+      sessionConfig,
+      {
+        idempotencyKey: idempotencyKey
+      }
+    )
     
     console.log('Created checkout session:', session.id)
     

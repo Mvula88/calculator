@@ -7,6 +7,7 @@ import { Card, CardContent } from '@/components/ui/card'
 import { CheckCircle, AlertTriangle, Ship, TrendingDown, Clock, Shield, Star, Lock, DollarSign } from 'lucide-react'
 import CountrySelector from '@/components/CountrySelector'
 import HeaderCountrySelector from '@/components/HeaderCountrySelector'
+import LoginHeader from '@/components/LoginHeader'
 
 export default function NamibiaGuidePage() {
   const [email, setEmail] = useState('')
@@ -50,6 +51,7 @@ export default function NamibiaGuidePage() {
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-orange-50 to-white">
+      <LoginHeader country="na" />
       <CountrySelector />
       {/* Header */}
       <header className="bg-white border-b">

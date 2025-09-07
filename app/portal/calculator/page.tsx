@@ -72,10 +72,52 @@ export default function DutyCalculator() {
   const [vehicleAge, setVehicleAge] = useState<string>('')
   const [isLuxury, setIsLuxury] = useState<boolean>(false)
   const [result, setResult] = useState<CalculationResult | null>(null)
+  const [errors, setErrors] = useState<Record<string, string>>({})
+
+  const validateInputs = (): boolean => {
+    const newErrors: Record<string, string> = {}
+    
+    // Validate vehicle value
+    const value = parseFloat(vehicleValue)
+    if (!vehicleValue) {
+      newErrors.vehicleValue = 'Vehicle value is required'
+    } else if (isNaN(value) || value <= 0) {
+      newErrors.vehicleValue = 'Please enter a valid positive amount'
+    } else if (value > 50000000) {
+      newErrors.vehicleValue = 'Value exceeds maximum limit (R50,000,000)'
+    }
+    
+    // Validate engine size
+    const engine = parseFloat(engineSize)
+    if (!engineSize) {
+      newErrors.engineSize = 'Engine size is required'
+    } else if (isNaN(engine) || engine <= 0) {
+      newErrors.engineSize = 'Please enter a valid engine size'
+    } else if (engine > 10000) {
+      newErrors.engineSize = 'Engine size exceeds maximum limit (10,000cc)'
+    }
+    
+    // Validate vehicle type
+    if (!vehicleType) {
+      newErrors.vehicleType = 'Please select a vehicle type'
+    }
+    
+    // Validate vehicle age
+    const age = parseInt(vehicleAge)
+    if (!vehicleAge) {
+      newErrors.vehicleAge = 'Vehicle age is required'
+    } else if (isNaN(age) || age < 0) {
+      newErrors.vehicleAge = 'Please enter a valid age'
+    } else if (age > 50) {
+      newErrors.vehicleAge = 'Vehicle age exceeds maximum limit (50 years)'
+    }
+    
+    setErrors(newErrors)
+    return Object.keys(newErrors).length === 0
+  }
 
   const calculateDuty = () => {
-    if (!vehicleValue || !engineSize || !vehicleType || !vehicleAge) {
-      alert('Please fill in all required fields')
+    if (!validateInputs()) {
       return
     }
 
@@ -153,6 +195,7 @@ export default function DutyCalculator() {
     setVehicleAge('')
     setIsLuxury(false)
     setResult(null)
+    setErrors({})
   }
 
   return (
@@ -170,8 +213,8 @@ export default function DutyCalculator() {
           </div>
         </div>
         <p className="text-gray-600 text-lg">
-          Calculate exact import duties and fees using the same algorithms used by SARS customs officials. 
-          This calculator includes all hidden fees and provides optimization strategies.
+          Calculate estimated import duties and fees based on current South African customs regulations. 
+          This calculator provides comprehensive fee breakdowns and optimization strategies.
         </p>
         <div className="mt-4 p-4 bg-amber-50 border border-amber-200 rounded-lg">
           <div className="flex items-center gap-2">
@@ -179,7 +222,7 @@ export default function DutyCalculator() {
             <span className="font-semibold text-amber-900">PROFESSIONAL TOOL</span>
           </div>
           <p className="text-amber-800 text-sm mt-1">
-            This calculator uses real SARS tariff codes and includes insider knowledge not available publicly.
+            This calculator provides estimates based on publicly available tariff information. Always consult with a qualified clearing agent for final calculations.
           </p>
         </div>
       </div>
@@ -196,12 +239,21 @@ export default function DutyCalculator() {
                 type="number"
                 placeholder="e.g. 450000"
                 value={vehicleValue}
-                onChange={(e) => setVehicleValue(e.target.value)}
-                className="mt-2"
+                onChange={(e) => {
+                  setVehicleValue(e.target.value)
+                  if (errors.vehicleValue) {
+                    setErrors(prev => ({ ...prev, vehicleValue: '' }))
+                  }
+                }}
+                className={`mt-2 ${errors.vehicleValue ? 'border-red-500' : ''}`}
               />
-              <p className="text-xs text-gray-500 mt-1">
-                Market value in South African Rand (SARS may adjust this value)
-              </p>
+              {errors.vehicleValue ? (
+                <p className="text-xs text-red-500 mt-1">{errors.vehicleValue}</p>
+              ) : (
+                <p className="text-xs text-gray-500 mt-1">
+                  Market value in South African Rand (customs may adjust this value)
+                </p>
+              )}
             </div>
 
             <div>
@@ -211,12 +263,21 @@ export default function DutyCalculator() {
                 type="number"
                 placeholder="e.g. 2000"
                 value={engineSize}
-                onChange={(e) => setEngineSize(e.target.value)}
-                className="mt-2"
+                onChange={(e) => {
+                  setEngineSize(e.target.value)
+                  if (errors.engineSize) {
+                    setErrors(prev => ({ ...prev, engineSize: '' }))
+                  }
+                }}
+                className={`mt-2 ${errors.engineSize ? 'border-red-500' : ''}`}
               />
-              <p className="text-xs text-gray-500 mt-1">
-                Engine displacement in cubic centimeters
-              </p>
+              {errors.engineSize ? (
+                <p className="text-xs text-red-500 mt-1">{errors.engineSize}</p>
+              ) : (
+                <p className="text-xs text-gray-500 mt-1">
+                  Engine displacement in cubic centimeters
+                </p>
+              )}
             </div>
 
             <div>
@@ -224,14 +285,22 @@ export default function DutyCalculator() {
               <select
                 id="vehicleType"
                 value={vehicleType}
-                onChange={(e) => setVehicleType(e.target.value)}
-                className="mt-2 w-full p-2 border border-gray-300 rounded-md"
+                onChange={(e) => {
+                  setVehicleType(e.target.value)
+                  if (errors.vehicleType) {
+                    setErrors(prev => ({ ...prev, vehicleType: '' }))
+                  }
+                }}
+                className={`mt-2 w-full p-2 border rounded-md ${errors.vehicleType ? 'border-red-500' : 'border-gray-300'}`}
               >
                 <option value="">Select vehicle type</option>
                 <option value="passenger">Passenger Car</option>
                 <option value="suv">SUV/Light Truck</option>
                 <option value="sports">Sports Car</option>
               </select>
+              {errors.vehicleType && (
+                <p className="text-xs text-red-500 mt-1">{errors.vehicleType}</p>
+              )}
             </div>
 
             <div>
@@ -241,12 +310,21 @@ export default function DutyCalculator() {
                 type="number"
                 placeholder="e.g. 3"
                 value={vehicleAge}
-                onChange={(e) => setVehicleAge(e.target.value)}
-                className="mt-2"
+                onChange={(e) => {
+                  setVehicleAge(e.target.value)
+                  if (errors.vehicleAge) {
+                    setErrors(prev => ({ ...prev, vehicleAge: '' }))
+                  }
+                }}
+                className={`mt-2 ${errors.vehicleAge ? 'border-red-500' : ''}`}
               />
-              <p className="text-xs text-gray-500 mt-1">
-                Age affects duty rates significantly
-              </p>
+              {errors.vehicleAge ? (
+                <p className="text-xs text-red-500 mt-1">{errors.vehicleAge}</p>
+              ) : (
+                <p className="text-xs text-gray-500 mt-1">
+                  Age affects duty rates significantly
+                </p>
+              )}
             </div>
 
             <div className="flex items-center space-x-2">
@@ -365,7 +443,7 @@ export default function DutyCalculator() {
           <ul className="space-y-2 text-sm">
             <li className="flex items-start gap-2">
               <CheckCircle className="h-4 w-4 text-green-600 mt-0.5 flex-shrink-0" />
-              Uses actual SARS tariff classification system
+              Based on current customs tariff classifications
             </li>
             <li className="flex items-start gap-2">
               <CheckCircle className="h-4 w-4 text-green-600 mt-0.5 flex-shrink-0" />
@@ -388,7 +466,7 @@ export default function DutyCalculator() {
             Important Disclaimers
           </h3>
           <ul className="space-y-2 text-sm text-red-800">
-            <li>• SARS may adjust declared vehicle values</li>
+            <li>• Customs authorities may adjust declared vehicle values</li>
             <li>• Additional costs may apply for non-standard vehicles</li>
             <li>• Exchange rate fluctuations affect final costs</li>
             <li>• This calculator is for estimation purposes only</li>
