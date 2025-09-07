@@ -130,7 +130,7 @@ export default async function PortalLayout({
                     <Calculator className="h-5 w-5 text-white" />
                   </div>
                   <div>
-                    <h1 className="text-xl font-bold text-gray-900">Import Portal</h1>
+                    <h1 className="text-xl font-bold text-gray-900">IMPOTA</h1>
                     <span className={`text-xs font-medium ${
                       entitlement.tier === 'mastery' 
                         ? 'text-purple-600' 

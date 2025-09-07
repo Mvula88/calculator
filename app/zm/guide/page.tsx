@@ -53,7 +53,7 @@ export default function ZambiaGuidePage() {
       <header className="bg-white border-b">
         <div className="max-w-6xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
-            <div className="font-bold text-xl">ImportCalc Pro</div>
+            <div className="font-bold text-xl">IMPOTA</div>
             <div className="flex items-center gap-4">
               <div className="text-sm text-gray-600">Trusted by 500+ Importers</div>
               <HeaderCountrySelector />

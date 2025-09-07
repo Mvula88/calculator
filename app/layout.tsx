@@ -5,8 +5,8 @@ import './globals.css'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Import Calculator Pro - Save Thousands on Japanese Car Imports',
-  description: 'Professional car import calculator for Namibia, South Africa, Botswana & Zambia. Avoid costly mistakes.',
+  title: 'IMPOTA - Professional Car Import Portal for Southern Africa',
+  description: 'Save thousands on car imports to Namibia, South Africa, Botswana & Zambia. Professional calculator, guides, and agent network.',
 }
 
 export default function RootLayout({

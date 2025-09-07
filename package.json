@@ -1,6 +1,6 @@
 {
-  "name": "car-import-platform",
-  "version": "0.1.0",
+  "name": "impota",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
