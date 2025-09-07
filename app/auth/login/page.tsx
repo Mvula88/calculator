@@ -30,11 +30,15 @@ export default function LoginPage() {
     // The middleware will handle access control after login
     // This allows users who paid to always get a magic link
 
-    // Send magic link
+    // Send magic link with proper redirect URL through callback
+    const redirectUrl = process.env.NEXT_PUBLIC_APP_URL 
+      ? `${process.env.NEXT_PUBLIC_APP_URL}/auth/callback`
+      : `${window.location.origin}/auth/callback`
+    
     const { error } = await supabase.auth.signInWithOtp({
       email: email.toLowerCase(),
       options: {
-        emailRedirectTo: `${window.location.origin}/portal`,
+        emailRedirectTo: redirectUrl,
       }
     })
 
