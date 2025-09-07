@@ -1,16 +1,33 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Card, CardContent } from '@/components/ui/card'
-import { CheckCircle, Star, ArrowRight, Clock, Shield, TrendingUp } from 'lucide-react'
+import { CheckCircle, Star, ArrowRight, Clock, Shield, TrendingUp, Mail } from 'lucide-react'
 
 export default function BotswanaUpsellPage() {
   const [email, setEmail] = useState('')
   const [loading, setLoading] = useState(false)
+  const [showEmailInput, setShowEmailInput] = useState(false)
+
+  useEffect(() => {
+    // Try to get email from localStorage (saved during initial purchase)
+    const savedEmail = localStorage.getItem('checkout_email')
+    if (savedEmail) {
+      setEmail(savedEmail)
+    } else {
+      setShowEmailInput(true)
+    }
+  }, [])
 
   async function handleUpgrade() {
+    if (!email) {
+      setShowEmailInput(true)
+      alert('Please enter your email address')
+      return
+    }
+    
     setLoading(true)
     try {
       const res = await fetch('/api/stripe/checkout', {
@@ -19,8 +36,8 @@ export default function BotswanaUpsellPage() {
         body: JSON.stringify({ 
           country: 'bw', 
           tier: 'mastery',
-          productId: 'import-mastery-upgrade',
-          email
+          productId: 'import-mastery-bw',
+          email: email
         })
       })
       
@@ -195,14 +212,35 @@ export default function BotswanaUpsellPage() {
             </p>
             
             <div className="max-w-md mx-auto space-y-4">
-              <Input
-                type="email"
-                placeholder="Enter your email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="bg-white text-gray-900"
-                required
-              />
+              {showEmailInput && (
+                <div className="mb-4">
+                  <div className="relative">
+                    <Mail className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                    <Input
+                      type="email"
+                      placeholder="Enter your email address"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      className="pl-10 bg-white text-gray-900"
+                      required
+                    />
+                  </div>
+                  <p className="text-xs mt-2 text-purple-100">
+                    Use the same email from your initial purchase
+                  </p>
+                </div>
+              )}
+              
+              {!showEmailInput && (
+                <Input
+                  type="email"
+                  placeholder="Enter your email address"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="bg-white text-gray-900"
+                  required
+                />
+              )}
               
               <Button 
                 onClick={handleUpgrade}

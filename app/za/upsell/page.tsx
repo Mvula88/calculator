@@ -1,15 +1,34 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
-import { Star, Trophy, Users, Calculator, BookOpen, Shield } from 'lucide-react'
+import { Input } from '@/components/ui/input'
+import { Star, Trophy, Users, Calculator, BookOpen, Shield, Mail } from 'lucide-react'
 import Link from 'next/link'
 
 export default function SouthAfricaUpsellPage() {
   const [loading, setLoading] = useState(false)
+  const [email, setEmail] = useState('')
+  const [showEmailInput, setShowEmailInput] = useState(false)
+  
+  useEffect(() => {
+    // Try to get email from localStorage (saved during initial purchase)
+    const savedEmail = localStorage.getItem('checkout_email')
+    if (savedEmail) {
+      setEmail(savedEmail)
+    } else {
+      setShowEmailInput(true)
+    }
+  }, [])
   
   async function handleMasteryUpgrade() {
+    if (!email) {
+      setShowEmailInput(true)
+      alert('Please enter your email address')
+      return
+    }
+    
     setLoading(true)
     try {
       const res = await fetch('/api/stripe/checkout', {
@@ -19,7 +38,7 @@ export default function SouthAfricaUpsellPage() {
           country: 'za', 
           tier: 'mastery',
           productId: 'import-mastery-za',
-          email: '' // Will be filled from form or session
+          email: email
         })
       })
       
@@ -131,6 +150,25 @@ export default function SouthAfricaUpsellPage() {
               <span className="text-4xl font-bold ml-3">R2,499</span>
               <span className="text-sm ml-2 opacity-80">One-time payment</span>
             </div>
+            
+            {showEmailInput && (
+              <div className="mb-4 max-w-md mx-auto">
+                <div className="relative">
+                  <Mail className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                  <Input
+                    type="email"
+                    placeholder="Enter your email address"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="pl-10 bg-white text-gray-900"
+                    required
+                  />
+                </div>
+                <p className="text-xs mt-2 opacity-90">
+                  Use the same email from your initial purchase
+                </p>
+              </div>
+            )}
             
             <Button 
               onClick={handleMasteryUpgrade}
