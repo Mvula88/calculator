@@ -15,7 +15,9 @@ import {
   AlertCircle,
   CheckCircle,
   DollarSign,
-  Truck
+  Truck,
+  Star,
+  X
 } from 'lucide-react'
 
 async function getUserEntitlement(userId: string) {
@@ -276,29 +278,210 @@ export default async function PortalHome() {
         </div>
       </div>
 
+      {/* Feature Comparison Table */}
+      <div className="mb-8">
+        <h2 className="text-2xl font-bold text-gray-900 mb-6">Feature Comparison</h2>
+        <Card className="overflow-hidden">
+          <div className="overflow-x-auto">
+            <table className="w-full">
+              <thead className="bg-gray-50 border-b">
+                <tr>
+                  <th className="text-left px-6 py-4 text-sm font-semibold text-gray-900">Feature</th>
+                  <th className="text-center px-6 py-4 text-sm font-semibold text-blue-600">
+                    <div className="flex items-center justify-center gap-2">
+                      <BookOpen className="h-4 w-4" />
+                      Mistake Guide
+                    </div>
+                  </th>
+                  <th className="text-center px-6 py-4 text-sm font-semibold text-purple-600">
+                    <div className="flex items-center justify-center gap-2">
+                      <Star className="h-4 w-4" />
+                      Import Mastery
+                    </div>
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-200">
+                {/* Basic Features */}
+                <tr className="hover:bg-gray-50">
+                  <td className="px-6 py-4 text-sm text-gray-900">DIY Import Process Guide</td>
+                  <td className="text-center px-6 py-4">
+                    <CheckCircle className="h-5 w-5 text-green-600 mx-auto" />
+                  </td>
+                  <td className="text-center px-6 py-4">
+                    <CheckCircle className="h-5 w-5 text-green-600 mx-auto" />
+                  </td>
+                </tr>
+                <tr className="hover:bg-gray-50">
+                  <td className="px-6 py-4 text-sm text-gray-900">Scam Warning & Prevention</td>
+                  <td className="text-center px-6 py-4">
+                    <CheckCircle className="h-5 w-5 text-green-600 mx-auto" />
+                  </td>
+                  <td className="text-center px-6 py-4">
+                    <CheckCircle className="h-5 w-5 text-green-600 mx-auto" />
+                  </td>
+                </tr>
+                <tr className="hover:bg-gray-50">
+                  <td className="px-6 py-4 text-sm text-gray-900">Import Timeline & Checklist</td>
+                  <td className="text-center px-6 py-4">
+                    <CheckCircle className="h-5 w-5 text-green-600 mx-auto" />
+                  </td>
+                  <td className="text-center px-6 py-4">
+                    <CheckCircle className="h-5 w-5 text-green-600 mx-auto" />
+                  </td>
+                </tr>
+                <tr className="hover:bg-gray-50">
+                  <td className="px-6 py-4 text-sm text-gray-900">Cost Breakdown Examples</td>
+                  <td className="text-center px-6 py-4">
+                    <CheckCircle className="h-5 w-5 text-green-600 mx-auto" />
+                  </td>
+                  <td className="text-center px-6 py-4">
+                    <CheckCircle className="h-5 w-5 text-green-600 mx-auto" />
+                  </td>
+                </tr>
+                <tr className="hover:bg-gray-50">
+                  <td className="px-6 py-4 text-sm text-gray-900">Emergency Playbooks</td>
+                  <td className="text-center px-6 py-4">
+                    <CheckCircle className="h-5 w-5 text-green-600 mx-auto" />
+                  </td>
+                  <td className="text-center px-6 py-4">
+                    <CheckCircle className="h-5 w-5 text-green-600 mx-auto" />
+                  </td>
+                </tr>
+                
+                {/* Mastery Only Features */}
+                <tr className="hover:bg-gray-50 bg-purple-50">
+                  <td className="px-6 py-4 text-sm font-semibold text-gray-900">Premium Features</td>
+                  <td className="text-center px-6 py-4"></td>
+                  <td className="text-center px-6 py-4"></td>
+                </tr>
+                <tr className="hover:bg-gray-50">
+                  <td className="px-6 py-4 text-sm text-gray-900">Verified Service Provider Directory</td>
+                  <td className="text-center px-6 py-4">
+                    <X className="h-5 w-5 text-gray-400 mx-auto" />
+                  </td>
+                  <td className="text-center px-6 py-4">
+                    <CheckCircle className="h-5 w-5 text-green-600 mx-auto" />
+                  </td>
+                </tr>
+                <tr className="hover:bg-gray-50">
+                  <td className="px-6 py-4 text-sm text-gray-900">Japanese Auction Site Mastery</td>
+                  <td className="text-center px-6 py-4">
+                    <X className="h-5 w-5 text-gray-400 mx-auto" />
+                  </td>
+                  <td className="text-center px-6 py-4">
+                    <CheckCircle className="h-5 w-5 text-green-600 mx-auto" />
+                  </td>
+                </tr>
+                <tr className="hover:bg-gray-50">
+                  <td className="px-6 py-4 text-sm text-gray-900">Container Sharing Guide + ContShare Access</td>
+                  <td className="text-center px-6 py-4">
+                    <X className="h-5 w-5 text-gray-400 mx-auto" />
+                  </td>
+                  <td className="text-center px-6 py-4">
+                    <CheckCircle className="h-5 w-5 text-green-600 mx-auto" />
+                  </td>
+                </tr>
+                <tr className="hover:bg-gray-50">
+                  <td className="px-6 py-4 text-sm text-gray-900">Duty Calculator Tool</td>
+                  <td className="text-center px-6 py-4">
+                    <X className="h-5 w-5 text-gray-400 mx-auto" />
+                  </td>
+                  <td className="text-center px-6 py-4">
+                    <CheckCircle className="h-5 w-5 text-green-600 mx-auto" />
+                  </td>
+                </tr>
+                <tr className="hover:bg-gray-50">
+                  <td className="px-6 py-4 text-sm text-gray-900">IMPOTA Negotiated Rates</td>
+                  <td className="text-center px-6 py-4">
+                    <X className="h-5 w-5 text-gray-400 mx-auto" />
+                  </td>
+                  <td className="text-center px-6 py-4">
+                    <CheckCircle className="h-5 w-5 text-green-600 mx-auto" />
+                  </td>
+                </tr>
+                <tr className="hover:bg-gray-50">
+                  <td className="px-6 py-4 text-sm text-gray-900">Auction Bidding Strategies</td>
+                  <td className="text-center px-6 py-4">
+                    <X className="h-5 w-5 text-gray-400 mx-auto" />
+                  </td>
+                  <td className="text-center px-6 py-4">
+                    <CheckCircle className="h-5 w-5 text-green-600 mx-auto" />
+                  </td>
+                </tr>
+                
+                {/* Support */}
+                <tr className="hover:bg-gray-50 bg-gray-50">
+                  <td className="px-6 py-4 text-sm font-semibold text-gray-900">Support</td>
+                  <td className="text-center px-6 py-4"></td>
+                  <td className="text-center px-6 py-4"></td>
+                </tr>
+                <tr className="hover:bg-gray-50">
+                  <td className="px-6 py-4 text-sm text-gray-900">Email Support</td>
+                  <td className="text-center px-6 py-4">
+                    <span className="text-sm text-gray-600">48 hours</span>
+                  </td>
+                  <td className="text-center px-6 py-4">
+                    <span className="text-sm text-green-600 font-semibold">Priority (24h)</span>
+                  </td>
+                </tr>
+                <tr className="hover:bg-gray-50">
+                  <td className="px-6 py-4 text-sm text-gray-900">Lifetime Updates</td>
+                  <td className="text-center px-6 py-4">
+                    <CheckCircle className="h-5 w-5 text-green-600 mx-auto" />
+                  </td>
+                  <td className="text-center px-6 py-4">
+                    <CheckCircle className="h-5 w-5 text-green-600 mx-auto" />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          
+          {/* Upgrade CTA for Mistake tier users */}
+          {!isMastery && hasMistakeOrMastery && (
+            <div className="p-6 bg-gradient-to-r from-purple-50 to-blue-50 border-t">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h3 className="font-semibold text-gray-900">Unlock All Premium Features</h3>
+                  <p className="text-sm text-gray-600 mt-1">
+                    Upgrade to Import Mastery and get access to advanced tools and resources
+                  </p>
+                </div>
+                <Button asChild className="bg-purple-600 hover:bg-purple-700">
+                  <Link href={`/${entitlement?.country || 'na'}/upsell`}>
+                    Upgrade Now →
+                  </Link>
+                </Button>
+              </div>
+            </div>
+          )}
+        </Card>
+      </div>
+
       {/* Key Benefits Section */}
       <Card className="p-8 bg-gradient-to-br from-blue-50 to-purple-50">
-        <h2 className="text-2xl font-bold text-gray-900 mb-6">Why Use Our Portal?</h2>
+        <h2 className="text-2xl font-bold text-gray-900 mb-6">Why Use IMPOTA?</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="text-center">
             <Truck className="h-12 w-12 text-blue-600 mx-auto mb-4" />
-            <h3 className="font-semibold mb-2">Proven Process</h3>
+            <h3 className="font-semibold mb-2">DIY Import Education</h3>
             <p className="text-sm text-gray-600">
-              Battle-tested methods used by professional importers for over 10 years
+              Learn to import yourself and save 50-100K vs buying from dealers
             </p>
           </div>
           <div className="text-center">
             <Shield className="h-12 w-12 text-green-600 mx-auto mb-4" />
-            <h3 className="font-semibold mb-2">Compliance Guaranteed</h3>
+            <h3 className="font-semibold mb-2">Scam Protection</h3>
             <p className="text-sm text-gray-600">
-              Stay compliant with all SARS, NRCS, and DOT regulations
+              Avoid the costly mistakes and scams that trap first-time importers
             </p>
           </div>
           <div className="text-center">
             <DollarSign className="h-12 w-12 text-purple-600 mx-auto mb-4" />
-            <h3 className="font-semibold mb-2">Save Thousands</h3>
+            <h3 className="font-semibold mb-2">Real Savings</h3>
             <p className="text-sm text-gray-600">
-              Avoid costly mistakes and hidden fees that trap amateur importers
+              Average member saves 8,450 in fees and avoids 45,000+ in mistakes
             </p>
           </div>
         </div>
