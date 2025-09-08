@@ -116,7 +116,10 @@ export default function BotswanaGuidePage() {
         {/* What Our Guide Shows You */}
         <div className="mb-12">
           <h2 className="text-3xl font-bold text-center mb-2">OUR GUIDE SHOWS YOU EXACTLY HOW TO:</h2>
-          <p className="text-center text-gray-600 mb-10">No Prior Knowledge Required. No Agent Needed. No Dealer Markup.</p>
+          <p className="text-center text-gray-600 mb-3">No Prior Knowledge Required. No Agent Needed. No Dealer Markup.</p>
+          <p className="text-center text-red-600 font-semibold mb-10">
+            Avoid Costly Mistakes That Can Cost You Your Car or P100,000+
+          </p>
           
           {/* Step by Step Process */}
           <div className="bg-white rounded-lg shadow-lg p-8">
