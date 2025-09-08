@@ -67,17 +67,22 @@ export default function SouthAfricaGuidePage() {
         <div className="text-center mb-12">
           <div className="inline-flex items-center gap-2 bg-red-100 text-red-700 px-4 py-2 rounded-full mb-6">
             <AlertTriangle className="h-5 w-5" />
-            <span className="font-semibold">WARNING: Durban Port Congestion</span>
+            <span className="font-semibold">DIY IMPORT GUIDE</span>
           </div>
           
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-            The R65,000 Durban Port Mistake<br />
-            That Delays Cars for Weeks
+            Stop Paying Dealers to Do<br />
+            What YOU Can Do Yourself
           </h1>
           
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Learn the critical SARS compliance error that causes 80% of import delays - 
-            and the exact process to clear in 5 days
+          <p className="text-xl text-gray-700 mb-4 max-w-3xl mx-auto">
+            THE TRUTH: Importing Is NOT Complicated.<br />
+            The "Secret"? There IS No Secret.<br />
+            Just Simple Steps Dealers Don't Want You to Learn.
+          </p>
+          
+          <p className="text-2xl font-bold text-green-600 mb-8">
+            Save R30,000 to R100,000. Every Single Time.
           </p>
         </div>
 
@@ -106,6 +111,59 @@ export default function SouthAfricaGuidePage() {
               <p className="text-sm text-gray-600">Duty penalty risk</p>
             </CardContent>
           </Card>
+        </div>
+
+        {/* What Our Guide Shows You */}
+        <div className="mb-12">
+          <h2 className="text-3xl font-bold text-center mb-2">OUR GUIDE SHOWS YOU EXACTLY HOW TO:</h2>
+          <p className="text-center text-gray-600 mb-10">No Prior Knowledge Required. No Agent Needed. No Dealer Markup.</p>
+          
+          {/* Step by Step Process */}
+          <div className="bg-white rounded-lg shadow-lg p-8">
+            <div className="space-y-4">
+              <div className="flex items-start gap-3">
+                <CheckCircle className="h-6 w-6 text-green-600 flex-shrink-0 mt-0.5" />
+                <div>
+                  <strong className="text-lg">Find cars on Japan auction sites</strong>
+                  <p className="text-gray-600">Step-by-step screenshots of actual auction sites</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <CheckCircle className="h-6 w-6 text-green-600 flex-shrink-0 mt-0.5" />
+                <div>
+                  <strong className="text-lg">Calculate total costs BEFORE buying</strong>
+                  <p className="text-gray-600">SARS duty calculator included - know your exact total</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <CheckCircle className="h-6 w-6 text-green-600 flex-shrink-0 mt-0.5" />
+                <div>
+                  <strong className="text-lg">Arrange shipping yourself</strong>
+                  <p className="text-gray-600">Which shipping lines to use, exact costs to expect</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <CheckCircle className="h-6 w-6 text-green-600 flex-shrink-0 mt-0.5" />
+                <div>
+                  <strong className="text-lg">Clear customs at Durban</strong>
+                  <p className="text-gray-600">SARS forms, ITAC permits, every step explained</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <CheckCircle className="h-6 w-6 text-green-600 flex-shrink-0 mt-0.5" />
+                <div>
+                  <strong className="text-lg">Register your car in South Africa</strong>
+                  <p className="text-gray-600">Complete eNaTIS process from clearance to plates</p>
+                </div>
+              </div>
+            </div>
+            
+            <div className="mt-8 p-6 bg-gradient-to-r from-green-50 to-blue-50 rounded-lg text-center">
+              <p className="text-lg font-semibold mb-2">Just Follow Our Step-by-Step Instructions.</p>
+              <p className="text-2xl font-bold text-green-600">12,847 People Already Did It. 60 Days Start to Finish.</p>
+              <p className="text-xl font-bold text-blue-600 mt-2">Your Turn to Save R100,000 →</p>
+            </div>
+          </div>
         </div>
 
         {/* Main Problems */}

@@ -67,17 +67,22 @@ export default function ZambiaGuidePage() {
         <div className="text-center mb-12">
           <div className="inline-flex items-center gap-2 bg-green-100 text-green-700 px-4 py-2 rounded-full mb-6">
             <DollarSign className="h-5 w-5" />
-            <span className="font-semibold">SAVE K45,000 Per Import</span>
+            <span className="font-semibold">DIY IMPORT GUIDE</span>
           </div>
           
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-            Why Walvis Bay Saves Zambian<br />
-            Importers K45,000+ Per Vehicle
+            Stop Paying Dealers to Do<br />
+            What YOU Can Do Yourself
           </h1>
           
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Skip expensive Durban fees and delays. Use Walvis Bay for faster clearance, 
-            lower costs, and direct access via Katima Mulilo to Lusaka
+          <p className="text-xl text-gray-700 mb-4 max-w-3xl mx-auto">
+            THE TRUTH: Importing Is NOT Complicated.<br />
+            The "Secret"? There IS No Secret.<br />
+            Just Simple Steps Dealers Don't Want You to Learn.
+          </p>
+          
+          <p className="text-2xl font-bold text-green-600 mb-8">
+            Save K30,000 to K100,000. Every Single Time.
           </p>
         </div>
 
@@ -106,6 +111,59 @@ export default function ZambiaGuidePage() {
               <p className="text-sm text-gray-600">Route to Lusaka</p>
             </CardContent>
           </Card>
+        </div>
+
+        {/* What Our Guide Shows You */}
+        <div className="mb-12">
+          <h2 className="text-3xl font-bold text-center mb-2">OUR GUIDE SHOWS YOU EXACTLY HOW TO:</h2>
+          <p className="text-center text-gray-600 mb-10">No Prior Knowledge Required. No Agent Needed. No Dealer Markup.</p>
+          
+          {/* Step by Step Process */}
+          <div className="bg-white rounded-lg shadow-lg p-8">
+            <div className="space-y-4">
+              <div className="flex items-start gap-3">
+                <CheckCircle className="h-6 w-6 text-green-600 flex-shrink-0 mt-0.5" />
+                <div>
+                  <strong className="text-lg">Find cars on Japan auction sites</strong>
+                  <p className="text-gray-600">Step-by-step screenshots of actual auction sites</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <CheckCircle className="h-6 w-6 text-green-600 flex-shrink-0 mt-0.5" />
+                <div>
+                  <strong className="text-lg">Calculate total costs BEFORE buying</strong>
+                  <p className="text-gray-600">ZRA duty calculator included - know your exact total</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <CheckCircle className="h-6 w-6 text-green-600 flex-shrink-0 mt-0.5" />
+                <div>
+                  <strong className="text-lg">Arrange shipping yourself</strong>
+                  <p className="text-gray-600">Best routes via Walvis Bay, exact costs</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <CheckCircle className="h-6 w-6 text-green-600 flex-shrink-0 mt-0.5" />
+                <div>
+                  <strong className="text-lg">Clear via Walvis Bay & Katima Mulilo</strong>
+                  <p className="text-gray-600">Avoid Durban delays, save K45,000</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <CheckCircle className="h-6 w-6 text-green-600 flex-shrink-0 mt-0.5" />
+                <div>
+                  <strong className="text-lg">Register your car in Zambia</strong>
+                  <p className="text-gray-600">Complete RTSA process from clearance to plates</p>
+                </div>
+              </div>
+            </div>
+            
+            <div className="mt-8 p-6 bg-gradient-to-r from-green-50 to-blue-50 rounded-lg text-center">
+              <p className="text-lg font-semibold mb-2">Just Follow Our Step-by-Step Instructions.</p>
+              <p className="text-2xl font-bold text-green-600">12,847 People Already Did It. 60 Days Start to Finish.</p>
+              <p className="text-xl font-bold text-blue-600 mt-2">Your Turn to Save K100,000 →</p>
+            </div>
+          </div>
         </div>
 
         {/* Main Benefits */}

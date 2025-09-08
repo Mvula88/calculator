@@ -76,17 +76,22 @@ export default function NamibiaGuidePage() {
         <div className="text-center mb-12">
           <div className="inline-flex items-center gap-2 bg-red-100 text-red-700 px-4 py-2 rounded-full mb-6">
             <Zap className="h-5 w-5" />
-            <span className="font-semibold">REAL RESULTS FROM REAL IMPORTERS</span>
+            <span className="font-semibold">DIY IMPORT GUIDE</span>
           </div>
           
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-            Stop Losing N$45,000+ on<br />
-            Your Japanese Car Import
+            Stop Paying Dealers to Do<br />
+            What YOU Can Do Yourself
           </h1>
           
-          <p className="text-xl text-gray-700 mb-8 max-w-3xl mx-auto">
-            IMPOTA gives you the exact playbook used by 12,000+ successful importers. 
-            No theory, no fluff - just proven tactics that save you money from day one.
+          <p className="text-xl text-gray-700 mb-4 max-w-3xl mx-auto">
+            THE TRUTH: Importing Is NOT Complicated.<br />
+            The "Secret"? There IS No Secret.<br />
+            Just Simple Steps Dealers Don't Want You to Learn.
+          </p>
+          
+          <p className="text-2xl font-bold text-green-600 mb-8">
+            Save N$30,000 to N$100,000. Every Single Time.
           </p>
 
           {/* Social Proof */}
@@ -107,10 +112,57 @@ export default function NamibiaGuidePage() {
           </div>
         </div>
 
-        {/* What You Actually Get */}
+        {/* What Our Guide Shows You */}
         <div className="mb-16">
-          <h2 className="text-3xl font-bold text-center mb-2">What You Actually Get</h2>
-          <p className="text-center text-gray-600 mb-10">Not promises. Real tools that work.</p>
+          <h2 className="text-3xl font-bold text-center mb-2">OUR GUIDE SHOWS YOU EXACTLY HOW TO:</h2>
+          <p className="text-center text-gray-600 mb-10">No Prior Knowledge Required. No Agent Needed. No Dealer Markup.</p>
+          
+          {/* Step by Step Process */}
+          <div className="bg-white rounded-lg shadow-lg p-8 mb-10">
+            <div className="space-y-4">
+              <div className="flex items-start gap-3">
+                <CheckCircle className="h-6 w-6 text-green-600 flex-shrink-0 mt-0.5" />
+                <div>
+                  <strong className="text-lg">Find cars on Japan auction sites</strong>
+                  <p className="text-gray-600">Step-by-step screenshots of actual auction sites</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <CheckCircle className="h-6 w-6 text-green-600 flex-shrink-0 mt-0.5" />
+                <div>
+                  <strong className="text-lg">Calculate total costs BEFORE buying</strong>
+                  <p className="text-gray-600">Duty calculator included - know your exact total</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <CheckCircle className="h-6 w-6 text-green-600 flex-shrink-0 mt-0.5" />
+                <div>
+                  <strong className="text-lg">Arrange shipping yourself</strong>
+                  <p className="text-gray-600">Which companies to use, exact costs to expect</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <CheckCircle className="h-6 w-6 text-green-600 flex-shrink-0 mt-0.5" />
+                <div>
+                  <strong className="text-lg">Clear customs at Walvis Bay</strong>
+                  <p className="text-gray-600">Every form explained, every office location</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <CheckCircle className="h-6 w-6 text-green-600 flex-shrink-0 mt-0.5" />
+                <div>
+                  <strong className="text-lg">Register your car in Namibia</strong>
+                  <p className="text-gray-600">Complete checklist from police clearance to plates</p>
+                </div>
+              </div>
+            </div>
+            
+            <div className="mt-8 p-6 bg-gradient-to-r from-green-50 to-blue-50 rounded-lg text-center">
+              <p className="text-lg font-semibold mb-2">Just Follow Our Step-by-Step Instructions.</p>
+              <p className="text-2xl font-bold text-green-600">12,847 People Already Did It. 60 Days Start to Finish.</p>
+              <p className="text-xl font-bold text-blue-600 mt-2">Your Turn to Save N$100,000 →</p>
+            </div>
+          </div>
           
           <div className="grid md:grid-cols-2 gap-6 mb-8">
             {/* Mistake Guide */}
