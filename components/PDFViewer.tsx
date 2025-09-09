@@ -1,5 +1,5 @@
 'use client'
-
+// PDF Viewer component with custom modal implementation
 import { useState, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
 import { X, ZoomIn, ZoomOut, FileText, AlertCircle } from 'lucide-react'
