@@ -23,7 +23,8 @@ import {
   Truck,
   Award,
   BarChart3,
-  Zap
+  Zap,
+  Gavel
 } from 'lucide-react'
 
 export default function PortalPage() {
@@ -153,6 +154,16 @@ export default function PortalPage() {
       highlight: 'Popular'
     },
     {
+      title: 'Japan Auctions',
+      description: 'Master Japanese auction bidding',
+      icon: Gavel,
+      href: '/portal/japan-auctions',
+      color: 'from-red-500 to-red-600',
+      available: isMastery,
+      stats: '20 exporters',
+      highlight: 'NEW'
+    },
+    {
       title: 'Cost Calculator',
       description: 'Calculate total import costs instantly',
       icon: Calculator,
@@ -181,16 +192,6 @@ export default function PortalPage() {
       available: isMastery,
       stats: '10+ agents',
       highlight: 'Mastery'
-    },
-    {
-      title: 'Advanced Tools',
-      description: 'Premium import features & tools',
-      icon: Star,
-      href: '/portal/mastery',
-      color: 'from-yellow-500 to-yellow-600',
-      available: isMastery,
-      stats: 'Premium',
-      highlight: 'Exclusive'
     }
   ]
 

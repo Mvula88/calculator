@@ -14,7 +14,8 @@ import {
   FileText,
   Ship,
   Menu,
-  X 
+  X,
+  Gavel 
 } from 'lucide-react'
 
 async function checkEntitlement(email: string | undefined, userId: string | undefined) {
@@ -149,6 +150,12 @@ export default async function PortalLayout({
         href: '/portal/calculator', 
         icon: Calculator,
         description: 'Cost calculator'
+      },
+      { 
+        name: 'Japan Auctions', 
+        href: '/portal/japan-auctions', 
+        icon: Gavel,
+        description: 'Auction guide'
       },
       { 
         name: 'Shipping', 
