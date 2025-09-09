@@ -19,14 +19,10 @@ import {
   Clock,
   Shield,
   Globe,
-  Package,
   DollarSign,
-  AlertCircle,
   Truck,
-  X,
   Award,
   BarChart3,
-  FileCheck,
   Zap
 } from 'lucide-react'
 
@@ -198,37 +194,6 @@ export default function PortalPage() {
     }
   ]
 
-  // Recent updates
-  const recentUpdates = [
-    {
-      date: 'Dec 2024',
-      title: 'New Shipping Routes Added',
-      description: 'Direct routes from Yokohama to Walvis Bay now available with faster transit times',
-      type: 'feature',
-      icon: Ship
-    },
-    {
-      date: 'Dec 2024',
-      title: 'Updated Customs Forms',
-      description: 'All 2025 customs forms and requirements now available in documents section',
-      type: 'update',
-      icon: FileCheck
-    },
-    {
-      date: 'Nov 2024',
-      title: 'Calculator Enhanced',
-      description: 'Now includes insurance, inspection fees, and real-time exchange rates',
-      type: 'improvement',
-      icon: Calculator
-    },
-    {
-      date: 'Nov 2024',
-      title: 'Port Delays Warning',
-      description: 'Durban port experiencing 2-3 week delays due to congestion',
-      type: 'warning',
-      icon: AlertCircle
-    }
-  ]
 
   // Process steps
   const processSteps = [
@@ -369,79 +334,42 @@ export default function PortalPage() {
         </div>
       </div>
 
-      {/* Two Column Layout */}
-      <div className="grid lg:grid-cols-2 gap-6">
-        {/* Import Process */}
-        <Card className="p-6">
-          <h3 className="text-lg font-bold mb-4 flex items-center gap-2">
-            <BarChart3 className="h-5 w-5 text-blue-600" />
-            Your Import Journey
-          </h3>
-          <div className="space-y-3">
-            {processSteps.map((step, index) => (
-              <div key={step.step} className="flex items-center gap-3">
-                <div className="flex-shrink-0">
-                  <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-full flex items-center justify-center font-bold">
-                    {step.step}
-                  </div>
-                </div>
-                <div className="flex-1">
-                  <div className="flex items-center gap-2">
-                    <span className="text-lg">{step.icon}</span>
-                    <h4 className="font-medium">{step.title}</h4>
-                  </div>
-                  <p className="text-sm text-gray-600">{step.description}</p>
-                </div>
-                {index < processSteps.length - 1 && (
-                  <CheckCircle className="h-5 w-5 text-green-500 flex-shrink-0" />
-                )}
+      {/* Import Process - Full Width */}
+      <Card className="p-6">
+        <h3 className="text-lg font-bold mb-4 flex items-center gap-2">
+          <BarChart3 className="h-5 w-5 text-blue-600" />
+          Your Import Journey
+        </h3>
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
+          {processSteps.map((step, index) => (
+            <div key={step.step} className="flex flex-col items-center text-center">
+              <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-full flex items-center justify-center font-bold mb-2">
+                {step.step}
               </div>
-            ))}
-          </div>
-          <div className="mt-6 pt-4 border-t">
-            <Link href="/portal/guide">
-              <Button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700">
-                <BookOpen className="h-4 w-4 mr-2" />
-                View Complete Guide
-              </Button>
-            </Link>
-          </div>
-        </Card>
-
-        {/* Recent Updates */}
-        <Card className="p-6">
-          <h3 className="text-lg font-bold mb-4 flex items-center gap-2">
-            <AlertCircle className="h-5 w-5 text-orange-600" />
-            Latest Updates
-          </h3>
-          <div className="space-y-3">
-            {recentUpdates.map((update, index) => (
-              <div key={index} className="flex gap-3 pb-3 border-b last:border-0">
-                <div className={`p-2 rounded-lg flex-shrink-0 ${
-                  update.type === 'warning' ? 'bg-yellow-50' :
-                  update.type === 'feature' ? 'bg-green-50' :
-                  update.type === 'update' ? 'bg-blue-50' :
-                  'bg-purple-50'
-                }`}>
-                  <update.icon className={`h-4 w-4 ${
-                    update.type === 'warning' ? 'text-yellow-600' :
-                    update.type === 'feature' ? 'text-green-600' :
-                    update.type === 'update' ? 'text-blue-600' :
-                    'text-purple-600'
-                  }`} />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-start justify-between gap-2">
-                    <h4 className="font-medium text-gray-900 text-sm">{update.title}</h4>
-                    <span className="text-xs text-gray-500 flex-shrink-0">{update.date}</span>
-                  </div>
-                  <p className="text-xs text-gray-600 mt-1">{update.description}</p>
-                </div>
+              <div className="mb-1">
+                <span className="text-2xl">{step.icon}</span>
               </div>
-            ))}
-          </div>
-        </Card>
-      </div>
+              <h4 className="font-medium text-sm">{step.title}</h4>
+              <p className="text-xs text-gray-600 mt-1">{step.description}</p>
+              {index < processSteps.length - 1 && (
+                <div className="hidden md:block absolute top-6 left-full w-full">
+                  <div className="flex items-center justify-center">
+                    <ArrowRight className="h-4 w-4 text-gray-400" />
+                  </div>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+        <div className="mt-6 pt-4 border-t">
+          <Link href="/portal/guide">
+            <Button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700">
+              <BookOpen className="h-4 w-4 mr-2" />
+              View Complete Step-by-Step Guide
+            </Button>
+          </Link>
+        </div>
+      </Card>
 
       {/* Value Proposition */}
       <Card className="p-8 bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 border-2 border-purple-200">
