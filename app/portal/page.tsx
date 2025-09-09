@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { ClientAuthService } from '@/lib/auth/service'
+import { ClientAuthService } from '@/lib/auth/client-service'
 import { createClient } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
 import { Card } from '@/components/ui/card'

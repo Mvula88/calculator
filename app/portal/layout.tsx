@@ -1,4 +1,4 @@
-import { AuthService } from '@/lib/auth/service'
+import { AuthService } from '@/lib/auth/server-service'
 import ContentProtection from '@/components/ContentProtection'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
