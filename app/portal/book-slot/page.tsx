@@ -28,8 +28,16 @@ interface ShippingCompany {
   priceRange: string
   rating: number
   contact: {
-    phone: string
-    email: string
+    namibia?: {
+      phone: string
+      email: string
+      address?: string
+    }
+    southAfrica?: {
+      phone: string
+      email: string
+      address?: string
+    }
     website: string
   }
   features: string[]
@@ -46,8 +54,16 @@ const shippingCompanies: ShippingCompany[] = [
     priceRange: 'R28,000 - R42,000',
     rating: 4.5,
     contact: {
-      phone: '+27 21 408 6800',
-      email: 'southafrica@maersk.com',
+      namibia: {
+        phone: '+264 61 256 835',
+        email: 'nam.import@maersk.com',
+        address: 'Walvis Bay, Namibia'
+      },
+      southAfrica: {
+        phone: '+27 21 408 6800',
+        email: 'southafrica@maersk.com',
+        address: 'Cape Town, South Africa'
+      },
       website: 'https://www.maersk.com'
     },
     features: ['Largest fleet', 'Best tracking system', 'Premium insurance options'],
@@ -62,8 +78,16 @@ const shippingCompanies: ShippingCompany[] = [
     priceRange: 'R26,000 - R38,000',
     rating: 4.3,
     contact: {
-      phone: '+27 21 508 2200',
-      email: 'msc.southafrica@msc.com',
+      namibia: {
+        phone: '+264 64 206 695',
+        email: 'wvb.import@msc.com',
+        address: 'Port of Walvis Bay, Namibia'
+      },
+      southAfrica: {
+        phone: '+27 21 508 2200',
+        email: 'msc.southafrica@msc.com',
+        address: 'Cape Town & Durban, South Africa'
+      },
       website: 'https://www.msc.com'
     },
     features: ['Competitive pricing', 'Frequent sailings', 'Good Africa network'],
@@ -78,8 +102,16 @@ const shippingCompanies: ShippingCompany[] = [
     priceRange: 'R25,000 - R36,000',
     rating: 4.2,
     contact: {
-      phone: '+27 21 405 0500',
-      email: 'capetown.genmbox@cma-cgm.com',
+      namibia: {
+        phone: '+264 64 202 082',
+        email: 'walvisbay@cma-cgm.com',
+        address: 'Walvis Bay, Namibia'
+      },
+      southAfrica: {
+        phone: '+27 21 405 0500',
+        email: 'capetown.genmbox@cma-cgm.com',
+        address: 'Cape Town, South Africa'
+      },
       website: 'https://www.cma-cgm.com'
     },
     features: ['Eco-friendly vessels', 'French ports expertise', 'Flexible booking'],
@@ -94,8 +126,16 @@ const shippingCompanies: ShippingCompany[] = [
     priceRange: 'R27,000 - R40,000',
     rating: 4.4,
     contact: {
-      phone: '+27 21 421 6063',
-      email: 'sales.southafrica@hlag.com',
+      namibia: {
+        phone: '+264 64 274 800',
+        email: 'nam.sales@hlag.com',
+        address: 'Walvis Bay, Namibia'
+      },
+      southAfrica: {
+        phone: '+27 21 421 6063',
+        email: 'sales.southafrica@hlag.com',
+        address: 'Cape Town, South Africa'
+      },
       website: 'https://www.hapag-lloyd.com'
     },
     features: ['German reliability', 'Excellent customer service', 'Quality containers'],
@@ -110,8 +150,16 @@ const shippingCompanies: ShippingCompany[] = [
     priceRange: 'R30,000 - R45,000',
     rating: 4.6,
     contact: {
-      phone: '+27 11 880 0570',
-      email: 'mol.southafrica@molgroup.com',
+      namibia: {
+        phone: '+264 64 201 288',
+        email: 'namibia@molgroup.com',
+        address: 'Walvis Bay, Namibia'
+      },
+      southAfrica: {
+        phone: '+27 11 880 0570',
+        email: 'mol.southafrica@molgroup.com',
+        address: 'Johannesburg & Durban, South Africa'
+      },
       website: 'https://www.mol.co.jp'
     },
     features: ['Japan route specialist', 'Vehicle shipping expert', 'Careful handling'],
@@ -126,8 +174,16 @@ const shippingCompanies: ShippingCompany[] = [
     priceRange: 'R24,000 - R35,000',
     rating: 4.0,
     contact: {
-      phone: '+27 21 419 8672',
-      email: 'africa@cosco.com',
+      namibia: {
+        phone: '+264 64 209 266',
+        email: 'walvisbay@cosco.com',
+        address: 'Walvis Bay, Namibia'
+      },
+      southAfrica: {
+        phone: '+27 21 419 8672',
+        email: 'capetown@cosco.com',
+        address: 'Cape Town, South Africa'
+      },
       website: 'https://www.cosco-shipping.com'
     },
     features: ['Budget-friendly', 'China direct routes', 'Large capacity'],
@@ -272,22 +328,59 @@ export default function ShippingCompaniesPage() {
               </div>
             </div>
             
-            <div className="border-t pt-4 space-y-2">
+            <div className="border-t pt-4 space-y-3">
               <h4 className="font-semibold text-sm mb-2">Contact Information:</h4>
-              <div className="space-y-2 text-sm">
-                <a href={`tel:${company.contact.phone}`} className="flex items-center gap-2 text-gray-600 hover:text-blue-600">
-                  <Phone className="h-4 w-4" />
-                  {company.contact.phone}
-                </a>
-                <a href={`mailto:${company.contact.email}`} className="flex items-center gap-2 text-gray-600 hover:text-blue-600">
-                  <Mail className="h-4 w-4" />
-                  {company.contact.email}
-                </a>
+              
+              {company.contact.namibia && (
+                <div className="space-y-1">
+                  <p className="text-xs font-semibold text-gray-700">🇳🇦 Namibia Office:</p>
+                  <div className="pl-3 space-y-1 text-sm">
+                    <a href={`tel:${company.contact.namibia.phone}`} className="flex items-center gap-2 text-gray-600 hover:text-blue-600">
+                      <Phone className="h-3 w-3" />
+                      {company.contact.namibia.phone}
+                    </a>
+                    <a href={`mailto:${company.contact.namibia.email}`} className="flex items-center gap-2 text-gray-600 hover:text-blue-600">
+                      <Mail className="h-3 w-3" />
+                      {company.contact.namibia.email}
+                    </a>
+                    {company.contact.namibia.address && (
+                      <div className="flex items-center gap-2 text-gray-600">
+                        <MapPin className="h-3 w-3" />
+                        <span className="text-xs">{company.contact.namibia.address}</span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
+              
+              {company.contact.southAfrica && (
+                <div className="space-y-1">
+                  <p className="text-xs font-semibold text-gray-700">🇿🇦 South Africa Office:</p>
+                  <div className="pl-3 space-y-1 text-sm">
+                    <a href={`tel:${company.contact.southAfrica.phone}`} className="flex items-center gap-2 text-gray-600 hover:text-blue-600">
+                      <Phone className="h-3 w-3" />
+                      {company.contact.southAfrica.phone}
+                    </a>
+                    <a href={`mailto:${company.contact.southAfrica.email}`} className="flex items-center gap-2 text-gray-600 hover:text-blue-600">
+                      <Mail className="h-3 w-3" />
+                      {company.contact.southAfrica.email}
+                    </a>
+                    {company.contact.southAfrica.address && (
+                      <div className="flex items-center gap-2 text-gray-600">
+                        <MapPin className="h-3 w-3" />
+                        <span className="text-xs">{company.contact.southAfrica.address}</span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
+              
+              <div className="pt-2">
                 <a 
                   href={company.contact.website} 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-gray-600 hover:text-blue-600"
+                  className="flex items-center gap-2 text-gray-600 hover:text-blue-600 text-sm"
                 >
                   <Globe className="h-4 w-4" />
                   {company.contact.website}
