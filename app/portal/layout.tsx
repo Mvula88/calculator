@@ -3,7 +3,7 @@ import { createClient, createServiceClient } from '@/lib/supabase/server'
 import ContentProtection from '@/components/ContentProtection'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
-import { Calculator, Users, BookOpen, Package, Home, LogOut, Star } from 'lucide-react'
+import { Calculator, Users, BookOpen, Package, Home, LogOut, Star, FileText } from 'lucide-react'
 
 async function checkEntitlement(email: string | undefined, userId: string | undefined) {
   if (!email && !userId) {
@@ -109,6 +109,7 @@ export default async function PortalLayout({
   const navigation = [
     { name: 'Portal Home', href: '/portal', icon: Home },
     { name: 'Import Guide', href: '/portal/guide', icon: BookOpen },
+    { name: 'Real Documents', href: '/portal/documents', icon: FileText },
     ...(entitlement.tier === 'mastery' ? [
       { name: 'Mastery Tools', href: '/portal/mastery', icon: Star },
       { name: 'Calculator', href: '/portal/calculator', icon: Calculator },
