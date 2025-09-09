@@ -22,10 +22,8 @@ export default function NamibiaThankYouContent() {
       grantPortalAccess(sessionId)
     }
     
-    // Auto-redirect to portal after 10 seconds
-    const timer = setTimeout(() => {
-      router.push('/portal')
-    }, 10000)
+    // Auto-redirect to portal after successful access grant
+    // Don't auto-redirect until access is confirmed
     
     return () => clearTimeout(timer)
   }, [router, searchParams])
@@ -48,12 +46,13 @@ export default function NamibiaThankYouContent() {
           setAccessGranted(true)
           console.log('Portal access granted', data)
           
-          // If auto-login was successful, reload to get the session
-          if (data.autoLogin) {
-            console.log('Auto-login successful, reloading...')
+          // Redirect to portal after access is granted
+          console.log('Portal access granted, redirecting...')
+          
+          // Use a small delay to ensure cookies are set
+          setTimeout(() => {
             window.location.href = '/portal'
-            return
-          }
+          }, 500)
         }
       }
     } catch (error) {
@@ -109,9 +108,11 @@ export default function NamibiaThankYouContent() {
             </p>
           )}
           
-          <p className="text-xs text-gray-500 mt-6">
-            You'll be automatically redirected in a few seconds...
-          </p>
+          {accessGranted && (
+            <p className="text-xs text-gray-500 mt-6">
+              Redirecting to your portal...
+            </p>
+          )}
         </Card>
       </div>
     </main>

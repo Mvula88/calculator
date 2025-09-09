@@ -1,23 +1,66 @@
 'use client'
 
-import { useEffect } from 'react'
-import { useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
-import { CheckCircle, Mail, ArrowRight } from 'lucide-react'
+import { CheckCircle, Mail, ArrowRight, Loader2 } from 'lucide-react'
 
 export default function SouthAfricaThankYouPage() {
   const router = useRouter()
+  const searchParams = useSearchParams()
+  const [isSettingAccess, setIsSettingAccess] = useState(false)
+  const [accessGranted, setAccessGranted] = useState(false)
   
   useEffect(() => {
-    // Auto-redirect to portal after 10 seconds
-    const timer = setTimeout(() => {
-      router.push('/portal')
-    }, 10000)
+    // Get session ID from URL
+    const sessionId = searchParams.get('session_id')
+    
+    if (sessionId) {
+      // Grant portal access using the session
+      grantPortalAccess(sessionId)
+    }
+    
+    // Auto-redirect to portal after successful access grant
+    // Don't auto-redirect until access is confirmed
     
     return () => clearTimeout(timer)
-  }, [router])
+  }, [router, searchParams])
+  
+  async function grantPortalAccess(sessionId: string) {
+    setIsSettingAccess(true)
+    try {
+      // Extract email from localStorage (set during checkout)
+      const email = localStorage.getItem('checkout_email')
+      
+      if (email) {
+        const res = await fetch('/api/portal/access', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ sessionId, email })
+        })
+        
+        if (res.ok) {
+          const data = await res.json()
+          setAccessGranted(true)
+          console.log('Portal access granted', data)
+          
+          // Redirect to portal after access is granted
+          console.log('Portal access granted, redirecting...')
+          
+          // Use a small delay to ensure cookies are set
+          setTimeout(() => {
+            window.location.href = '/portal'
+          }, 500)
+        }
+      }
+    } catch (error) {
+      console.error('Failed to grant portal access:', error)
+    } finally {
+      setIsSettingAccess(false)
+    }
+  }
   
   return (
     <main className="min-h-screen bg-gradient-to-b from-green-50 to-white">
@@ -43,16 +86,33 @@ export default function SouthAfricaThankYouPage() {
             </p>
           </div>
           
-          <Button asChild size="lg" className="w-full">
+          <Button asChild size="lg" className="w-full" disabled={isSettingAccess}>
             <Link href="/portal">
-              Access Your Import Portal
-              <ArrowRight className="ml-2 h-4 w-4" />
+              {isSettingAccess ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Setting up your access...
+                </>
+              ) : (
+                <>
+                  Access Your Import Portal
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </>
+              )}
             </Link>
           </Button>
           
-          <p className="text-xs text-gray-500 mt-6">
-            You'll be automatically redirected in a few seconds...
-          </p>
+          {accessGranted && (
+            <p className="text-sm text-green-600 mt-2">
+              ✓ Portal access granted - click above to enter
+            </p>
+          )}
+          
+          {accessGranted && (
+            <p className="text-xs text-gray-500 mt-6">
+              Redirecting to your portal...
+            </p>
+          )}
         </Card>
       </div>
     </main>
