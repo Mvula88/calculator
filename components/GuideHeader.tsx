@@ -1,7 +1,8 @@
 'use client'
 
-import { BadgeCheck, Ship, User } from 'lucide-react'
+import { BadgeCheck, User } from 'lucide-react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import HeaderCountrySelector from '@/components/HeaderCountrySelector'
 
@@ -24,15 +25,16 @@ export default function GuideHeader({
         <div className="flex items-center justify-between h-16">
           {/* Logo Section */}
           <div className="flex items-center gap-3">
-            <div className={`bg-gradient-to-br from-${primaryColor} to-${secondaryColor} p-2 rounded-xl shadow-lg`}>
-              <Ship className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
-            </div>
-            <div>
-              <div className={`font-bold text-xl sm:text-2xl bg-gradient-to-r from-${primaryColor} to-${secondaryColor} bg-clip-text text-transparent`}>
-                IMPOTA
-              </div>
-              <div className="text-xs text-gray-500 font-medium hidden sm:block">Import Mastery Platform</div>
-            </div>
+            <Link href="/" className="flex items-center">
+              <Image 
+                src="/impota-logo.png" 
+                alt="IMPOTA" 
+                width={150} 
+                height={40}
+                className="h-8 sm:h-10 w-auto"
+                priority
+              />
+            </Link>
           </div>
 
           {/* Center Trust Badge - Hidden on mobile */}

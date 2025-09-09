@@ -17,6 +17,7 @@ import {
   X,
   Gavel 
 } from 'lucide-react'
+import Image from 'next/image'
 
 async function checkEntitlement(email: string | undefined, userId: string | undefined) {
   if (!email && !userId) {
@@ -185,19 +186,23 @@ export default async function PortalLayout({
                   <Menu className="h-6 w-6" />
                 </button>
                 <div className="flex items-center ml-4 lg:ml-0">
-                  <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-2 rounded-lg">
-                    <Calculator className="h-6 w-6 text-white" />
-                  </div>
-                  <div className="ml-3">
-                    <h1 className="text-xl font-bold text-gray-900">IMPOTA</h1>
-                    <span className={`text-xs font-medium ${
+                  <Link href="/portal" className="flex items-center gap-3">
+                    <Image 
+                      src="/impota-logo.png" 
+                      alt="IMPOTA" 
+                      width={120} 
+                      height={32}
+                      className="h-8 w-auto"
+                      priority
+                    />
+                    <span className={`text-xs font-medium px-2 py-1 rounded-full ${
                       entitlement.tier === 'mastery' 
-                        ? 'text-purple-600' 
-                        : 'text-blue-600'
+                        ? 'bg-purple-100 text-purple-700' 
+                        : 'bg-blue-100 text-blue-700'
                     }`}>
-                      {entitlement.tier === 'mastery' ? 'MASTERY EDITION' : 'GUIDE ACCESS'}
+                      {entitlement.tier === 'mastery' ? 'MASTERY' : 'GUIDE'}
                     </span>
-                  </div>
+                  </Link>
                 </div>
               </div>
               
@@ -276,10 +281,13 @@ export default async function PortalLayout({
               <div className="fixed inset-y-0 left-0 flex flex-col max-w-xs w-full bg-white">
                 <div className="flex items-center justify-between h-16 px-4 border-b border-gray-200">
                   <div className="flex items-center">
-                    <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-2 rounded-lg">
-                      <Calculator className="h-5 w-5 text-white" />
-                    </div>
-                    <span className="ml-2 text-lg font-semibold">IMPOTA</span>
+                    <Image 
+                      src="/impota-logo.png" 
+                      alt="IMPOTA" 
+                      width={100} 
+                      height={28}
+                      className="h-7 w-auto"
+                    />
                   </div>
                   <button className="p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100">
                     <X className="h-6 w-6" />
