@@ -52,6 +52,35 @@ export function useAuth(options?: {
       }
 
       if (!authUser) {
+        // Check for portal session cookie (post-payment access)
+        const portalSessionCookie = document.cookie
+          .split('; ')
+          .find(row => row.startsWith('portal_session='))
+        
+        if (portalSessionCookie) {
+          // User has portal access via payment but no Supabase account
+          // Try to get entitlement directly
+          if (options?.requireEntitlement) {
+            const response = await fetch('/api/auth/entitlement')
+            
+            if (response.ok) {
+              const { entitlement: userEntitlement } = await response.json()
+              
+              if (userEntitlement) {
+                // Set a pseudo-user for portal access
+                setUser({
+                  id: 'portal-session',
+                  email: userEntitlement.email,
+                  created_at: new Date().toISOString()
+                })
+                setEntitlement(userEntitlement)
+                setLoading(false)
+                return
+              }
+            }
+          }
+        }
+        
         if (options?.requireAuth) {
           const redirectPath = options.redirectTo || '/portal'
           router.push(`/auth/login?redirect=${encodeURIComponent(redirectPath)}`)

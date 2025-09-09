@@ -1,5 +1,6 @@
 import { createClient, createServiceClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
+import { cookies } from 'next/headers'
 
 export interface Entitlement {
   id: string
@@ -194,14 +195,51 @@ export class AuthService {
    * Redirects to purchase page if no entitlement
    */
   static async requireEntitlement(redirectTo: string = '/portal') {
-    const user = await this.requireAuth(redirectTo)
-    const entitlement = await this.getUserEntitlement(user.email, user.id)
+    // First try to get authenticated user
+    const user = await this.getUser()
     
-    if (!entitlement) {
-      redirect('/purchase')
+    if (user) {
+      // User is authenticated, check entitlement
+      const entitlement = await this.getUserEntitlement(user.email, user.id)
+      
+      if (!entitlement) {
+        redirect('/purchase')
+      }
+      
+      return { user, entitlement }
     }
     
-    return { user, entitlement }
+    // No authenticated user, check for portal session cookie
+    const cookieStore = await cookies()
+    const portalSessionCookie = cookieStore.get('portal_session')
+    
+    if (portalSessionCookie) {
+      try {
+        const portalSession = JSON.parse(portalSessionCookie.value)
+        
+        if (portalSession.email && portalSession.sessionId) {
+          // User has valid portal session from payment
+          const entitlement = await this.getUserEntitlement(portalSession.email)
+          
+          if (entitlement) {
+            // Return pseudo-user for portal access
+            return {
+              user: {
+                id: 'portal-session',
+                email: portalSession.email,
+                created_at: new Date().toISOString()
+              } as AuthUser,
+              entitlement
+            }
+          }
+        }
+      } catch (e) {
+        console.error('Invalid portal session cookie:', e)
+      }
+    }
+    
+    // No auth and no valid portal session
+    redirect(`/auth/login?redirect=${encodeURIComponent(redirectTo)}`)
   }
 
   /**
