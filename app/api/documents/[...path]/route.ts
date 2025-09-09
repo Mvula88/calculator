@@ -33,18 +33,23 @@ export async function GET(
     const fileName = filePath.split('/').pop() || 'document'
     
     // Direct mapping to exact file names in Supabase Storage
-    // These should match exactly what's shown in your Supabase bucket
+    // Map requested names to actual file names in storage
     const fileNameMapping: { [key: string]: string } = {
-      // Vehicle invoices - some use underscores, some use spaces
+      // Vehicle invoices - EXACT names from Supabase
       '2015_VOLKSWAGEN_GOLF_R_INVOICE.pdf': '2015_VOLKSWAGEN_GOLF_R_INVOICE.pdf',
       '2017 AUDI A3 INVOICE.pdf': '2017 AUDI A3 INVOICE.pdf',
       '2015 AUDI A5 SPORTBACK INVOICE.pdf': '2015 AUDI A5 SPORTBACK INVOICE.pdf',  
       '2012 AUDI A4 INVOICE.pdf': '2012 AUDI A4 INVOICE.pdf',
       
+      // Try alternate names for problematic files
+      '2015_AUDI_A5_SPORTBACK_INVOICE.pdf': '2015 AUDI A5 SPORTBACK INVOICE.pdf',
+      '2012_AUDI_A4_INVOICE.pdf': '2012 AUDI A4 INVOICE.pdf',
+      
       // Customs documents
       'SAD 500 CUSTOMS.pdf': 'SAD 500 CUSTOMS.pdf',
       'Assessment Notice.pdf': 'Assessment Notice.pdf',
       'Customs Clearance Certificate Motor Vehicle.pdf': 'Customs Clearance Certificate Motor Vehicle.pdf',
+      'Customs_Clearance_Certificate_Motor_Vehicle.pdf': 'Customs Clearance Certificate Motor Vehicle.pdf',
       'Release Order.pdf': 'Release Order.pdf',
       
       // Export documents
@@ -109,13 +114,35 @@ export async function GET(
       console.error('Storage error:', error)
       console.error('Tried to fetch:', actualFileName, 'original:', fileName)
       
-      // List files in bucket for debugging (remove in production)
+      // List files in bucket for debugging
       const { data: files } = await supabase.storage
         .from('documents')
         .list()
-      console.log('Available files in bucket:', files?.map(f => f.name))
       
-      return new NextResponse(`Document not found: ${fileName}`, { status: 404 })
+      // Find similar files that might match
+      const similarFiles = files?.filter(f => 
+        f.name.toLowerCase().includes('audi') || 
+        f.name.toLowerCase().includes('customs') ||
+        f.name.toLowerCase().includes('clearance')
+      ) || []
+      
+      console.log('Looking for:', fileName)
+      console.log('Tried:', actualFileName)
+      console.log('Similar files in bucket:', similarFiles.map(f => f.name))
+      console.log('All files:', files?.map(f => f.name))
+      
+      // Return more helpful error message
+      return new NextResponse(
+        JSON.stringify({
+          error: `Document not found: ${fileName}`,
+          tried: actualFileName,
+          similar: similarFiles.map(f => f.name)
+        }), 
+        { 
+          status: 404,
+          headers: { 'Content-Type': 'application/json' }
+        }
+      )
     }
 
     if (!data) {
