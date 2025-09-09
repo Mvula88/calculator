@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { ClientAuthService } from '@/lib/auth/service'
 import { createClient } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
 import { Card } from '@/components/ui/card'
@@ -40,28 +41,35 @@ export default function PortalPage() {
 
   async function checkAccess() {
     try {
-      const { data: { user } } = await supabase.auth.getUser()
+      // Get current user
+      const currentUser = await ClientAuthService.getUser()
       
-      if (!user) {
+      if (!currentUser) {
         router.push('/auth/login?redirect=/portal')
         return
       }
 
-      setUser(user)
+      setUser(currentUser)
 
-      // Check entitlement
-      const { data: entitlements } = await supabase
-        .from('entitlements')
-        .select('*')
-        .eq('active', true)
-        .or(`user_id.eq.${user.id},email.eq.${user.email}`)
-
-      if (entitlements && entitlements.length > 0) {
-        const masteryEntitlement = entitlements.find(e => e.tier === 'mastery')
-        setEntitlement(masteryEntitlement || entitlements[0])
+      // Check entitlement - fetch from API endpoint
+      const response = await fetch('/api/auth/entitlement')
+      
+      if (!response.ok) {
+        router.push('/purchase')
+        return
       }
+
+      const { entitlement } = await response.json()
+      
+      if (!entitlement) {
+        router.push('/purchase')
+        return
+      }
+
+      setEntitlement(entitlement)
     } catch (error) {
       console.error('Error checking access:', error)
+      router.push('/auth/login?redirect=/portal')
     } finally {
       setLoading(false)
     }
@@ -78,8 +86,7 @@ export default function PortalPage() {
     )
   }
 
-  if (!entitlement) {
-    router.push('/auth/login?redirect=/portal')
+  if (!entitlement || !user) {
     return null
   }
 
@@ -236,7 +243,7 @@ export default function PortalPage() {
             </div>
           ) : (
             <div className="text-right">
-              <Link href={`/${entitlement.country}/upsell`}>
+              <Link href={`/${entitlement.country}/guide`}>
                 <Button className="bg-white text-purple-600 hover:bg-gray-100">
                   <Zap className="h-4 w-4 mr-2" />
                   Upgrade to Mastery
@@ -321,7 +328,7 @@ export default function PortalPage() {
                     <h3 className="font-semibold text-lg mb-2 text-gray-500">{card.title}</h3>
                     <p className="text-sm text-gray-500 mb-4">{card.description}</p>
                     <Link 
-                      href={`/${entitlement.country}/upsell`}
+                      href={`/${entitlement.country}/guide`}
                       className="text-sm font-medium text-purple-600 hover:text-purple-700 flex items-center gap-1"
                     >
                       Upgrade to unlock
@@ -411,7 +418,7 @@ export default function PortalPage() {
                 Get access to the calculator, shipping partners, verified agents, and advanced tools
               </p>
             </div>
-            <Link href={`/${entitlement.country}/upsell`}>
+            <Link href={`/${entitlement.country}/guide`}>
               <Button size="lg" className="bg-white text-purple-600 hover:bg-gray-100">
                 Upgrade Now
                 <ArrowRight className="h-5 w-5 ml-2" />
