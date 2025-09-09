@@ -152,26 +152,19 @@ export default function PDFViewer({ isOpen, onClose, documentName, documentUrl }
                     }}
                   />
                 ) : (
-                  // Display PDF using object tag for better compatibility
-                  <object
-                    data={getViewerUrl(documentUrl)}
-                    type="application/pdf"
-                    className="w-full h-full min-h-[800px]"
+                  // Display PDF with download disabled
+                  <iframe
+                    src={`${getViewerUrl(documentUrl)}#toolbar=0&navpanes=0&scrollbar=1`}
+                    className="w-full h-full min-h-[800px] border-0"
+                    title={documentName}
                     onLoad={handleIframeLoad}
                     onError={handleIframeError}
-                  >
-                    <iframe
-                      src={getViewerUrl(documentUrl)}
-                      className="w-full h-full min-h-[800px] border-0"
-                      title={documentName}
-                      onLoad={handleIframeLoad}
-                      onError={handleIframeError}
-                      style={{
-                        pointerEvents: 'auto',
-                        userSelect: 'none'
-                      }}
-                    />
-                  </object>
+                    sandbox="allow-same-origin allow-scripts"
+                    style={{
+                      pointerEvents: 'auto',
+                      userSelect: 'none'
+                    }}
+                  />
                 )}
               </div>
             </div>

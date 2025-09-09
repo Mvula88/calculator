@@ -1,462 +1,346 @@
 'use client'
 
-import { useState } from 'react'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
 import { 
-  Package, 
   Ship, 
-  Calendar, 
+  Phone,
+  Mail,
+  Globe,
   MapPin,
-  Clock,
+  Users,
   DollarSign,
-  AlertTriangle,
-  CheckCircle,
+  Clock,
+  Star,
+  ExternalLink,
+  Info,
   TrendingUp,
-  Award,
   Shield,
-  Truck,
-  Anchor,
-  Waves,
-  Route,
-  Info
+  Package
 } from 'lucide-react'
 
-interface Slot {
-  id: string
-  vessel: string
-  departure: string
-  arrival: string
-  route: string
-  price: number
-  available: number
-  total: number
-  carrier: string
-  transitTime: string
+interface ShippingCompany {
+  name: string
+  logo: string
+  description: string
+  routes: string[]
+  avgTransitTime: string
+  priceRange: string
+  rating: number
+  contact: {
+    phone: string
+    email: string
+    website: string
+  }
   features: string[]
-  recommended?: boolean
+  color: string
 }
 
-const availableSlots: Slot[] = [
+const shippingCompanies: ShippingCompany[] = [
   {
-    id: 'MS001',
-    vessel: 'MSC Lucinda',
-    departure: '2024-03-15',
-    arrival: '2024-04-08', 
-    route: 'Southampton → Cape Town',
-    price: 32500,
-    available: 12,
-    total: 24,
-    carrier: 'MSC',
-    transitTime: '24 days',
-    features: ['Climate Control', 'Insurance Included', 'Priority Handling'],
-    recommended: true
+    name: 'Maersk Line',
+    logo: '🚢',
+    description: 'World\'s largest container shipping company with extensive African coverage',
+    routes: ['Europe → Southern Africa', 'Asia → Southern Africa', 'Americas → Africa'],
+    avgTransitTime: '21-28 days',
+    priceRange: 'R28,000 - R42,000',
+    rating: 4.5,
+    contact: {
+      phone: '+27 21 408 6800',
+      email: 'southafrica@maersk.com',
+      website: 'https://www.maersk.com'
+    },
+    features: ['Largest fleet', 'Best tracking system', 'Premium insurance options'],
+    color: 'bg-blue-600'
   },
   {
-    id: 'MS002',
-    vessel: 'Safmarine Meru',
-    departure: '2024-03-18',
-    arrival: '2024-04-12',
-    route: 'Hamburg → Durban',
-    price: 29800,
-    available: 8,
-    total: 20,
-    carrier: 'Safmarine',
-    transitTime: '25 days', 
-    features: ['Vehicle Tracking', 'Express Clearance', 'Door-to-Door']
+    name: 'MSC (Mediterranean Shipping)',
+    logo: '⚓',
+    description: 'Second largest global carrier with competitive rates to Africa',
+    routes: ['Europe → West Africa', 'Mediterranean → Southern Africa', 'Asia → Africa'],
+    avgTransitTime: '22-30 days',
+    priceRange: 'R26,000 - R38,000',
+    rating: 4.3,
+    contact: {
+      phone: '+27 21 508 2200',
+      email: 'msc.southafrica@msc.com',
+      website: 'https://www.msc.com'
+    },
+    features: ['Competitive pricing', 'Frequent sailings', 'Good Africa network'],
+    color: 'bg-yellow-600'
   },
   {
-    id: 'MS003',
-    vessel: 'Maersk Cardiff',
-    departure: '2024-03-22',
-    arrival: '2024-04-15',
-    route: 'Felixstowe → Cape Town',
-    price: 35200,
-    available: 15,
-    total: 28,
-    carrier: 'Maersk',
-    transitTime: '24 days',
-    features: ['Premium Security', 'Live GPS', 'Damage Protection']
+    name: 'CMA CGM',
+    logo: '🌊',
+    description: 'French carrier with strong Europe-Africa connections',
+    routes: ['France → West Africa', 'Europe → Southern Africa', 'Asia → Africa via Europe'],
+    avgTransitTime: '24-32 days',
+    priceRange: 'R25,000 - R36,000',
+    rating: 4.2,
+    contact: {
+      phone: '+27 21 405 0500',
+      email: 'capetown.genmbox@cma-cgm.com',
+      website: 'https://www.cma-cgm.com'
+    },
+    features: ['Eco-friendly vessels', 'French ports expertise', 'Flexible booking'],
+    color: 'bg-red-600'
   },
   {
-    id: 'MS004',
-    vessel: 'CMA CGM Marseille',
-    departure: '2024-03-25',
-    arrival: '2024-04-20',
-    route: 'Le Havre → Durban',
-    price: 28900,
-    available: 6,
-    total: 16,
-    carrier: 'CMA CGM',
-    transitTime: '26 days',
-    features: ['Budget Option', 'Standard Security', 'Basic Insurance']
+    name: 'Hapag-Lloyd',
+    logo: '🛳️',
+    description: 'German precision shipping with reliable Africa services',
+    routes: ['Germany → Southern Africa', 'Europe → East Africa', 'Middle East → Africa'],
+    avgTransitTime: '23-29 days',
+    priceRange: 'R27,000 - R40,000',
+    rating: 4.4,
+    contact: {
+      phone: '+27 21 421 6063',
+      email: 'sales.southafrica@hlag.com',
+      website: 'https://www.hapag-lloyd.com'
+    },
+    features: ['German reliability', 'Excellent customer service', 'Quality containers'],
+    color: 'bg-orange-600'
   },
   {
-    id: 'MS005',
-    vessel: 'ONE Innovation',
-    departure: '2024-03-28',
-    arrival: '2024-04-25',
-    route: 'Antwerp → Port Elizabeth',
-    price: 31200,
-    available: 18,
-    total: 32,
-    carrier: 'Ocean Network Express',
-    transitTime: '28 days',
-    features: ['Eco-Friendly', 'Digital Documentation', 'Port Storage']
+    name: 'MOL (Mitsui O.S.K. Lines)',
+    logo: '🇯🇵',
+    description: 'Japanese carrier ideal for Japan to Africa vehicle shipments',
+    routes: ['Japan → Southern Africa', 'Asia → Africa', 'Japan → East Africa'],
+    avgTransitTime: '28-35 days',
+    priceRange: 'R30,000 - R45,000',
+    rating: 4.6,
+    contact: {
+      phone: '+27 11 880 0570',
+      email: 'mol.southafrica@molgroup.com',
+      website: 'https://www.mol.co.jp'
+    },
+    features: ['Japan route specialist', 'Vehicle shipping expert', 'Careful handling'],
+    color: 'bg-purple-600'
+  },
+  {
+    name: 'COSCO Shipping',
+    logo: '🏴',
+    description: 'Chinese state-owned carrier with competitive Asia-Africa rates',
+    routes: ['China → Africa', 'Asia → Southern Africa', 'Far East → West Africa'],
+    avgTransitTime: '30-38 days',
+    priceRange: 'R24,000 - R35,000',
+    rating: 4.0,
+    contact: {
+      phone: '+27 21 419 8672',
+      email: 'africa@cosco.com',
+      website: 'https://www.cosco-shipping.com'
+    },
+    features: ['Budget-friendly', 'China direct routes', 'Large capacity'],
+    color: 'bg-green-600'
   }
 ]
 
-const ports = [
-  { name: 'Cape Town', code: 'CPT', congestion: 'Low', avgDelay: '2-3 days' },
-  { name: 'Durban', code: 'DUR', congestion: 'High', avgDelay: '5-7 days' },
-  { name: 'Port Elizabeth', code: 'PLZ', congestion: 'Medium', avgDelay: '3-4 days' },
-  { name: 'Walvis Bay', code: 'WVB', congestion: 'Low', avgDelay: '1-2 days' }
-]
-
-export default function BookContainerSlot() {
-  const [selectedSlot, setSelectedSlot] = useState<Slot | null>(null)
-  const [pickupLocation, setPickupLocation] = useState('')
-  const [vehicleDetails, setVehicleDetails] = useState({
-    make: '',
-    model: '',
-    year: '',
-    vin: ''
-  })
-  const [additionalServices, setAdditionalServices] = useState({
-    insurance: false,
-    tracking: false,
-    inspection: false,
-    express: false
-  })
-
-  const calculateTotal = () => {
-    if (!selectedSlot) return 0
-    
-    let total = selectedSlot.price
-    if (additionalServices.insurance) total += 2500
-    if (additionalServices.tracking) total += 800
-    if (additionalServices.inspection) total += 1500
-    if (additionalServices.express) total += 5000
-    
-    return total
-  }
-
-  const handleBooking = () => {
-    if (!selectedSlot || !pickupLocation || !vehicleDetails.make) {
-      alert('Please complete all required fields')
-      return
-    }
-    
-    alert(`Booking initiated for ${selectedSlot.vessel}. You will be contacted within 2 hours for payment and documentation.`)
-  }
-
+export default function ShippingCompaniesPage() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* Header */}
       <div className="mb-8">
         <div className="flex items-center gap-3 mb-4">
-          <Package className="h-8 w-8 text-blue-600" />
+          <Ship className="h-8 w-8 text-blue-600" />
           <h1 className="text-3xl font-bold text-gray-900">
-            Container Slot Booking
+            Shipping Companies & Container Booking
           </h1>
-          <div className="flex items-center gap-1 ml-4">
-            <Award className="h-5 w-5 text-purple-600" />
-            <span className="text-sm font-medium text-purple-600">MASTERY EXCLUSIVE</span>
-          </div>
         </div>
         <p className="text-gray-600 text-lg">
-          Reserve your vehicle's container slot with verified shipping partners. Real-time availability 
-          and guaranteed pricing with no hidden fees.
+          Connect with trusted shipping lines for your vehicle import. Compare rates, routes, and transit times.
         </p>
-        <div className="mt-4 p-4 bg-blue-50 border border-blue-200 rounded-lg">
-          <div className="flex items-center gap-2">
-            <Shield className="h-5 w-5 text-blue-600" />
-            <span className="font-semibold text-blue-900">EXCLUSIVE RATES</span>
-          </div>
-          <p className="text-blue-800 text-sm mt-1">
-            Members save 15-25% compared to public rates. Booking fees waived for Mastery members.
-          </p>
-        </div>
       </div>
 
-      {/* Port Status Dashboard */}
-      <div className="mb-8">
-        <h2 className="text-xl font-bold mb-4 flex items-center gap-2">
-          <Anchor className="h-5 w-5 text-blue-600" />
-          Live Port Status
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          {ports.map((port) => (
-            <Card key={port.code} className="p-4">
-              <div className="flex items-center justify-between mb-2">
-                <h3 className="font-semibold">{port.name}</h3>
-                <div className={`w-3 h-3 rounded-full ${
-                  port.congestion === 'Low' ? 'bg-green-400' :
-                  port.congestion === 'Medium' ? 'bg-yellow-400' : 'bg-red-400'
-                }`} />
+      {/* Container Sharing Platform */}
+      <Card className="mb-8 p-6 bg-gradient-to-r from-green-50 to-blue-50 border-green-200">
+        <div className="flex items-start justify-between">
+          <div className="flex-1">
+            <div className="flex items-center gap-3 mb-3">
+              <Users className="h-6 w-6 text-green-600" />
+              <h2 className="text-xl font-bold text-gray-900">Save Money with Container Sharing!</h2>
+              <span className="bg-green-600 text-white text-xs px-2 py-1 rounded-full">RECOMMENDED</span>
+            </div>
+            <p className="text-gray-700 mb-4">
+              Share container space with other importers and save 40-60% on shipping costs. Perfect for single vehicle imports.
+            </p>
+            <div className="flex flex-wrap gap-4 mb-4">
+              <div className="flex items-center gap-2">
+                <DollarSign className="h-5 w-5 text-green-600" />
+                <span className="text-sm font-medium">Save up to R15,000</span>
               </div>
-              <div className="text-sm text-gray-600">
-                <p>Congestion: <span className="font-medium">{port.congestion}</span></p>
-                <p>Avg Delay: <span className="font-medium">{port.avgDelay}</span></p>
+              <div className="flex items-center gap-2">
+                <Shield className="h-5 w-5 text-blue-600" />
+                <span className="text-sm font-medium">Secure & Insured</span>
               </div>
-            </Card>
-          ))}
-        </div>
-      </div>
-
-      <div className="grid lg:grid-cols-3 gap-8">
-        {/* Available Slots */}
-        <div className="lg:col-span-2">
-          <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
-            <Ship className="h-5 w-5 text-blue-600" />
-            Available Container Slots
-          </h2>
-          <div className="space-y-4">
-            {availableSlots.map((slot) => (
-              <Card 
-                key={slot.id} 
-                className={`p-6 cursor-pointer transition-all ${
-                  selectedSlot?.id === slot.id ? 'ring-2 ring-blue-500 bg-blue-50' : 'hover:shadow-md'
-                } ${slot.recommended ? 'border-green-400' : ''}`}
-                onClick={() => setSelectedSlot(slot)}
-              >
-                {slot.recommended && (
-                  <div className="flex items-center gap-2 mb-3">
-                    <TrendingUp className="h-4 w-4 text-green-600" />
-                    <span className="text-sm font-medium text-green-600">RECOMMENDED</span>
-                  </div>
-                )}
-                
-                <div className="grid md:grid-cols-3 gap-4">
-                  <div>
-                    <h3 className="font-bold text-lg mb-2">{slot.vessel}</h3>
-                    <div className="space-y-1 text-sm text-gray-600">
-                      <div className="flex items-center gap-2">
-                        <Waves className="h-4 w-4" />
-                        <span>{slot.carrier}</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <Route className="h-4 w-4" />
-                        <span>{slot.route}</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <Clock className="h-4 w-4" />
-                        <span>{slot.transitTime}</span>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div>
-                    <div className="space-y-1 text-sm">
-                      <div className="flex items-center gap-2">
-                        <Calendar className="h-4 w-4 text-blue-600" />
-                        <span>Departs: <strong>{new Date(slot.departure).toLocaleDateString()}</strong></span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <MapPin className="h-4 w-4 text-green-600" />
-                        <span>Arrives: <strong>{new Date(slot.arrival).toLocaleDateString()}</strong></span>
-                      </div>
-                      <div className="mt-3">
-                        <div className="text-xs text-gray-500">Availability</div>
-                        <div className="flex items-center gap-2">
-                          <div className="flex-1 bg-gray-200 rounded-full h-2">
-                            <div 
-                              className="bg-blue-600 h-2 rounded-full"
-                              style={{ width: `${(slot.available / slot.total) * 100}%` }}
-                            />
-                          </div>
-                          <span className="text-sm font-medium">{slot.available}/{slot.total}</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div className="text-right">
-                    <div className="text-2xl font-bold text-green-600">
-                      R{slot.price.toLocaleString()}
-                    </div>
-                    <div className="text-sm text-gray-500 mb-3">per vehicle</div>
-                    <div className="space-y-1">
-                      {slot.features.map((feature, index) => (
-                        <div key={index} className="flex items-center gap-1 text-xs text-gray-600">
-                          <CheckCircle className="h-3 w-3 text-green-600" />
-                          {feature}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </Card>
-            ))}
-          </div>
-        </div>
-
-        {/* Booking Form */}
-        <div className="lg:col-span-1">
-          <Card className="p-6 sticky top-8">
-            <h3 className="text-xl font-bold mb-6">Complete Booking</h3>
-            
-            {selectedSlot ? (
-              <div className="space-y-6">
-                {/* Selected Slot Summary */}
-                <div className="p-4 bg-blue-50 rounded-lg">
-                  <div className="font-semibold text-blue-900 mb-2">{selectedSlot.vessel}</div>
-                  <div className="text-sm text-blue-800">
-                    <div>Departure: {new Date(selectedSlot.departure).toLocaleDateString()}</div>
-                    <div>Route: {selectedSlot.route}</div>
-                    <div className="font-semibold mt-2">R{selectedSlot.price.toLocaleString()}</div>
-                  </div>
-                </div>
-
-                {/* Vehicle Details */}
-                <div>
-                  <h4 className="font-semibold mb-3">Vehicle Information</h4>
-                  <div className="space-y-3">
-                    <div>
-                      <Label htmlFor="make">Make *</Label>
-                      <Input
-                        id="make"
-                        value={vehicleDetails.make}
-                        onChange={(e) => setVehicleDetails({...vehicleDetails, make: e.target.value})}
-                        placeholder="e.g. BMW"
-                      />
-                    </div>
-                    <div>
-                      <Label htmlFor="model">Model *</Label>
-                      <Input
-                        id="model"
-                        value={vehicleDetails.model}
-                        onChange={(e) => setVehicleDetails({...vehicleDetails, model: e.target.value})}
-                        placeholder="e.g. X5"
-                      />
-                    </div>
-                    <div className="grid grid-cols-2 gap-3">
-                      <div>
-                        <Label htmlFor="year">Year *</Label>
-                        <Input
-                          id="year"
-                          value={vehicleDetails.year}
-                          onChange={(e) => setVehicleDetails({...vehicleDetails, year: e.target.value})}
-                          placeholder="2020"
-                        />
-                      </div>
-                      <div>
-                        <Label htmlFor="vin">VIN *</Label>
-                        <Input
-                          id="vin"
-                          value={vehicleDetails.vin}
-                          onChange={(e) => setVehicleDetails({...vehicleDetails, vin: e.target.value})}
-                          placeholder="17 digits"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Pickup Location */}
-                <div>
-                  <Label htmlFor="pickup">Pickup Location *</Label>
-                  <select
-                    id="pickup"
-                    value={pickupLocation}
-                    onChange={(e) => setPickupLocation(e.target.value)}
-                    className="mt-2 w-full p-2 border border-gray-300 rounded-md"
-                  >
-                    <option value="">Select pickup location</option>
-                    <option value="london">London, UK</option>
-                    <option value="manchester">Manchester, UK</option>
-                    <option value="hamburg">Hamburg, Germany</option>
-                    <option value="antwerp">Antwerp, Belgium</option>
-                    <option value="rotterdam">Rotterdam, Netherlands</option>
-                  </select>
-                </div>
-
-                {/* Additional Services */}
-                <div>
-                  <h4 className="font-semibold mb-3">Additional Services</h4>
-                  <div className="space-y-3">
-                    <label className="flex items-center gap-3">
-                      <input
-                        type="checkbox"
-                        checked={additionalServices.insurance}
-                        onChange={(e) => setAdditionalServices({...additionalServices, insurance: e.target.checked})}
-                      />
-                      <span className="text-sm">Premium Insurance (+R2,500)</span>
-                    </label>
-                    <label className="flex items-center gap-3">
-                      <input
-                        type="checkbox"
-                        checked={additionalServices.tracking}
-                        onChange={(e) => setAdditionalServices({...additionalServices, tracking: e.target.checked})}
-                      />
-                      <span className="text-sm">Live GPS Tracking (+R800)</span>
-                    </label>
-                    <label className="flex items-center gap-3">
-                      <input
-                        type="checkbox"
-                        checked={additionalServices.inspection}
-                        onChange={(e) => setAdditionalServices({...additionalServices, inspection: e.target.checked})}
-                      />
-                      <span className="text-sm">Pre-departure Inspection (+R1,500)</span>
-                    </label>
-                    <label className="flex items-center gap-3">
-                      <input
-                        type="checkbox"
-                        checked={additionalServices.express}
-                        onChange={(e) => setAdditionalServices({...additionalServices, express: e.target.checked})}
-                      />
-                      <span className="text-sm">Express Processing (+R5,000)</span>
-                    </label>
-                  </div>
-                </div>
-
-                {/* Total */}
-                <div className="border-t pt-4">
-                  <div className="flex justify-between items-center text-lg font-bold">
-                    <span>Total Cost:</span>
-                    <span className="text-green-600">R{calculateTotal().toLocaleString()}</span>
-                  </div>
-                </div>
-
-                {/* Booking Button */}
-                <Button onClick={handleBooking} className="w-full text-lg py-3">
-                  <Package className="h-5 w-5 mr-2" />
-                  Confirm Booking
-                </Button>
-                
-                <div className="text-xs text-gray-500 text-center">
-                  <p>By booking, you agree to our terms and conditions.</p>
-                  <p>Payment required within 24 hours to secure slot.</p>
-                </div>
-              </div>
-            ) : (
-              <div className="text-center text-gray-500 py-8">
-                <Ship className="h-16 w-16 mx-auto mb-4 text-gray-300" />
-                <p>Select a container slot to continue with booking</p>
-              </div>
-            )}
-          </Card>
-
-          {/* Important Info */}
-          <Card className="mt-6 p-4 bg-amber-50 border-amber-200">
-            <div className="flex items-start gap-2">
-              <Info className="h-5 w-5 text-amber-600 flex-shrink-0 mt-0.5" />
-              <div>
-                <h4 className="font-semibold text-amber-900 mb-2">Booking Process</h4>
-                <ul className="text-sm text-amber-800 space-y-1">
-                  <li>• Slots are held for 24 hours pending payment</li>
-                  <li>• Full payment required to confirm booking</li>
-                  <li>• Vehicle pickup arranged 48 hours before sailing</li>
-                  <li>• All documentation must be ready 7 days prior</li>
-                  <li>• Cancellations possible up to 14 days before departure</li>
-                </ul>
+              <div className="flex items-center gap-2">
+                <Clock className="h-5 w-5 text-purple-600" />
+                <span className="text-sm font-medium">Same transit times</span>
               </div>
             </div>
-          </Card>
+            <a 
+              href="https://www.contshare.com" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors"
+            >
+              Visit ContShare.com
+              <ExternalLink className="h-4 w-4" />
+            </a>
+          </div>
+          <div className="hidden md:block">
+            <Package className="h-24 w-24 text-green-600 opacity-20" />
+          </div>
         </div>
+      </Card>
+
+      {/* Important Tips */}
+      <Card className="mb-8 p-4 bg-amber-50 border-amber-200">
+        <div className="flex items-start gap-3">
+          <Info className="h-5 w-5 text-amber-600 flex-shrink-0 mt-0.5" />
+          <div>
+            <h3 className="font-semibold text-amber-900 mb-2">Booking Tips</h3>
+            <ul className="text-sm text-amber-800 space-y-1">
+              <li>• Always get quotes from at least 3 shipping companies</li>
+              <li>• Book 4-6 weeks in advance for better rates</li>
+              <li>• Ask about consolidation options if shipping a single vehicle</li>
+              <li>• Confirm insurance coverage and claim procedures</li>
+              <li>• Request references from other vehicle importers</li>
+            </ul>
+          </div>
+        </div>
+      </Card>
+
+      {/* Shipping Companies Grid */}
+      <h2 className="text-2xl font-bold mb-6">Major Shipping Lines Serving Africa</h2>
+      <div className="grid md:grid-cols-2 gap-6 mb-8">
+        {shippingCompanies.map((company) => (
+          <Card key={company.name} className="p-6 hover:shadow-lg transition-shadow">
+            <div className="flex items-start justify-between mb-4">
+              <div className="flex items-center gap-3">
+                <div className={`w-12 h-12 ${company.color} rounded-lg flex items-center justify-center text-white text-2xl`}>
+                  {company.logo}
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold">{company.name}</h3>
+                  <div className="flex items-center gap-1 mt-1">
+                    {[...Array(5)].map((_, i) => (
+                      <Star 
+                        key={i} 
+                        className={`h-4 w-4 ${i < Math.floor(company.rating) ? 'text-yellow-500 fill-yellow-500' : 'text-gray-300'}`} 
+                      />
+                    ))}
+                    <span className="text-sm text-gray-600 ml-1">({company.rating})</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <p className="text-gray-600 mb-4">{company.description}</p>
+            
+            <div className="space-y-3 mb-4">
+              <div>
+                <span className="text-sm font-semibold text-gray-700">Main Routes:</span>
+                <div className="flex flex-wrap gap-2 mt-1">
+                  {company.routes.map((route, index) => (
+                    <span key={index} className="text-xs bg-gray-100 px-2 py-1 rounded">
+                      {route}
+                    </span>
+                  ))}
+                </div>
+              </div>
+              
+              <div className="grid grid-cols-2 gap-4 text-sm">
+                <div>
+                  <span className="text-gray-500">Transit Time:</span>
+                  <p className="font-semibold">{company.avgTransitTime}</p>
+                </div>
+                <div>
+                  <span className="text-gray-500">Price Range:</span>
+                  <p className="font-semibold text-green-600">{company.priceRange}</p>
+                </div>
+              </div>
+              
+              <div>
+                <span className="text-sm font-semibold text-gray-700">Key Features:</span>
+                <div className="flex flex-wrap gap-2 mt-1">
+                  {company.features.map((feature, index) => (
+                    <span key={index} className="text-xs bg-blue-50 text-blue-700 px-2 py-1 rounded">
+                      {feature}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+            
+            <div className="border-t pt-4 space-y-2">
+              <h4 className="font-semibold text-sm mb-2">Contact Information:</h4>
+              <div className="space-y-2 text-sm">
+                <a href={`tel:${company.contact.phone}`} className="flex items-center gap-2 text-gray-600 hover:text-blue-600">
+                  <Phone className="h-4 w-4" />
+                  {company.contact.phone}
+                </a>
+                <a href={`mailto:${company.contact.email}`} className="flex items-center gap-2 text-gray-600 hover:text-blue-600">
+                  <Mail className="h-4 w-4" />
+                  {company.contact.email}
+                </a>
+                <a 
+                  href={company.contact.website} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-gray-600 hover:text-blue-600"
+                >
+                  <Globe className="h-4 w-4" />
+                  {company.contact.website}
+                  <ExternalLink className="h-3 w-3" />
+                </a>
+              </div>
+            </div>
+            
+            <div className="mt-4">
+              <a 
+                href={company.contact.website} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="w-full inline-flex items-center justify-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700 transition-colors"
+              >
+                Get Quote
+                <ExternalLink className="h-4 w-4" />
+              </a>
+            </div>
+          </Card>
+        ))}
       </div>
+
+      {/* How to Choose Section */}
+      <Card className="p-6 bg-gray-50">
+        <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
+          <TrendingUp className="h-5 w-5 text-blue-600" />
+          How to Choose the Right Shipping Company
+        </h3>
+        <div className="grid md:grid-cols-3 gap-6">
+          <div>
+            <h4 className="font-semibold mb-2">For Japan Imports</h4>
+            <p className="text-sm text-gray-600">
+              MOL is your best choice for vehicles from Japan. They specialize in RoRo (Roll-on/Roll-off) 
+              and have the most direct routes from Japanese ports.
+            </p>
+          </div>
+          <div>
+            <h4 className="font-semibold mb-2">For European Imports</h4>
+            <p className="text-sm text-gray-600">
+              Maersk, MSC, or Hapag-Lloyd offer the best coverage from European ports. 
+              Compare their schedules as they vary by departure port.
+            </p>
+          </div>
+          <div>
+            <h4 className="font-semibold mb-2">For Budget Imports</h4>
+            <p className="text-sm text-gray-600">
+              Consider COSCO for the lowest rates, or better yet, use ContShare.com to 
+              share container space and save significantly.
+            </p>
+          </div>
+        </div>
+      </Card>
     </div>
   )
 }
