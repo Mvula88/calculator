@@ -38,18 +38,12 @@ export async function GET(
       // Vehicle invoices - EXACT names from Supabase
       '2015_VOLKSWAGEN_GOLF_R_INVOICE.pdf': '2015_VOLKSWAGEN_GOLF_R_INVOICE.pdf',
       '2017 AUDI A3 INVOICE.pdf': '2017 AUDI A3 INVOICE.pdf',
-      '2015 AUDI A5 SPORTBACK INVOICE.pdf': '2015 AUDI A5 SPORTBACK INVOICE.pdf',  
-      '2012 AUDI A4 INVOICE.pdf': '2012 AUDI A4 INVOICE.pdf',
       
-      // Try alternate names for problematic files
-      '2015_AUDI_A5_SPORTBACK_INVOICE.pdf': '2015 AUDI A5 SPORTBACK INVOICE.pdf',
-      '2012_AUDI_A4_INVOICE.pdf': '2012 AUDI A4 INVOICE.pdf',
-      
-      // Customs documents
+      // Customs documents - EXACT names with dash
       'SAD 500 CUSTOMS.pdf': 'SAD 500 CUSTOMS.pdf',
       'Assessment Notice.pdf': 'Assessment Notice.pdf',
-      'Customs Clearance Certificate Motor Vehicle.pdf': 'Customs Clearance Certificate Motor Vehicle.pdf',
-      'Customs_Clearance_Certificate_Motor_Vehicle.pdf': 'Customs Clearance Certificate Motor Vehicle.pdf',
+      'Customs Clearance Certificate - Motor Vehicle.pdf': 'Customs Clearance Certificate - Motor Vehicle.pdf',
+      'Customs Clearance Certificate Motor Vehicle.pdf': 'Customs Clearance Certificate - Motor Vehicle.pdf', // Map without dash to with dash
       'Release Order.pdf': 'Release Order.pdf',
       
       // Export documents
