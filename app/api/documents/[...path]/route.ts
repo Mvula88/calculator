@@ -42,11 +42,16 @@ export async function GET(
       return new NextResponse('Document not found', { status: 404 })
     }
 
-    // Return PDF with headers to prevent downloads
+    // Determine content type based on file extension
+    const fileName = filePath.split('/').pop() || 'document'
+    const isImage = fileName.toLowerCase().match(/\.(png|jpg|jpeg|gif|webp)$/)
+    const contentType = isImage ? `image/${fileName.split('.').pop()}` : 'application/pdf'
+
+    // Return file with headers to prevent downloads
     return new NextResponse(data, {
       headers: {
-        'Content-Type': 'application/pdf',
-        'Content-Disposition': `inline; filename="${filePath.split('/').pop()}"`,
+        'Content-Type': contentType,
+        'Content-Disposition': `inline; filename="${fileName}"`,
         'X-Frame-Options': 'SAMEORIGIN',
         'X-Content-Type-Options': 'nosniff',
         'Cache-Control': 'private, max-age=3600',

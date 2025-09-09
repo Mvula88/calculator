@@ -41,6 +41,9 @@ export default function PDFViewer({ isOpen, onClose, documentName, documentUrl }
     setError(true)
   }
 
+  // Check if file is an image
+  const isImage = documentUrl.toLowerCase().match(/\.(png|jpg|jpeg|gif|webp)$/);
+
   // For production, you'll need to upload PDFs to a public storage service
   // and update these URLs. For now, using Google Docs Viewer as fallback
   const getViewerUrl = (url: string) => {
@@ -50,7 +53,7 @@ export default function PDFViewer({ isOpen, onClose, documentName, documentUrl }
     }
     // For local development, show a sample PDF
     // In production, this would be your actual PDF URL from Supabase Storage or similar
-    return `/api/documents${url}`
+    return `/api/documents/${url}`
   }
 
   return (
@@ -122,7 +125,7 @@ export default function PDFViewer({ isOpen, onClose, documentName, documentUrl }
             </div>
           )}
 
-          {/* PDF Viewer */}
+          {/* PDF/Image Viewer */}
           {!error && (
             <div className="h-full overflow-auto p-4">
               <div 
@@ -132,18 +135,34 @@ export default function PDFViewer({ isOpen, onClose, documentName, documentUrl }
                   minHeight: '100%'
                 }}
               >
-                <iframe
-                  src={getViewerUrl(documentUrl)}
-                  className="w-full h-full min-h-[800px] border-0"
-                  title={documentName}
-                  onLoad={handleIframeLoad}
-                  onError={handleIframeError}
-                  sandbox="allow-same-origin allow-scripts"
-                  style={{
-                    pointerEvents: 'auto',
-                    userSelect: 'none'
-                  }}
-                />
+                {isImage ? (
+                  // Display image directly
+                  <img
+                    src={getViewerUrl(documentUrl)}
+                    alt={documentName}
+                    className="w-full h-auto"
+                    onLoad={handleIframeLoad}
+                    onError={handleIframeError}
+                    style={{
+                      pointerEvents: 'none',
+                      userSelect: 'none'
+                    }}
+                  />
+                ) : (
+                  // Display PDF in iframe
+                  <iframe
+                    src={getViewerUrl(documentUrl)}
+                    className="w-full h-full min-h-[800px] border-0"
+                    title={documentName}
+                    onLoad={handleIframeLoad}
+                    onError={handleIframeError}
+                    sandbox="allow-same-origin allow-scripts"
+                    style={{
+                      pointerEvents: 'auto',
+                      userSelect: 'none'
+                    }}
+                  />
+                )}
               </div>
             </div>
           )}

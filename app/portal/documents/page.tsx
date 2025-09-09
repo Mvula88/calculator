@@ -123,14 +123,32 @@ export default function DocumentsPage() {
   // Document categories with descriptions
   const documentCategories: DocumentCategory[] = [
     {
-      title: "🚗 Actual Import Example",
-      description: "Real 2015 VW Golf R import from Japan to Namibia",
+      title: "🚗 Actual Import Examples",
+      description: "Real vehicle imports from Japan to Namibia",
       documents: [
         {
-          name: "Original Invoice",
+          name: "2015 VW Golf R Invoice",
           file: "2015_VOLKSWAGEN_GOLF_R_INVOICE.pdf",
           description: "Actual purchase invoice from Japanese auction",
-          highlight: "Shows real FOB price: ¥1,450,000 (N$120,000)"
+          highlight: "Total cost: ¥614,640 (Vehicle: ¥455,000 + fees)"
+        },
+        {
+          name: "2017 Audi A3 Invoice",
+          file: "2017 AUDI A3 INVOICE.pdf",
+          description: "Premium sedan import from Japan auction",
+          highlight: "Total cost: ¥335,340 (Vehicle: ¥201,000 + fees)"
+        },
+        {
+          name: "2015 Audi A5 Sportback Invoice",
+          file: "2015 AUDI A5 SPORTBACK INVOICE.pdf",
+          description: "Luxury sportback from Japanese auction",
+          highlight: "Total cost: ¥355,440 (Vehicle: ¥231,000 + fees)"
+        },
+        {
+          name: "2012 Audi A4 Invoice",
+          file: "2012 AUDI A4 INVOICE.pdf",
+          description: "Executive sedan import example",
+          highlight: "Total cost: ¥323,560 (Vehicle: ¥200,000 + fees)"
         }
       ]
     },
@@ -191,6 +209,18 @@ export default function DocumentsPage() {
           file: "ORIGINAL BILL OF LANDING.pdf",
           description: "Original B/L - your ownership proof",
           highlight: "NEVER lose this - it's your car's passport"
+        },
+        {
+          name: "Shipping Quote - Transworld Cargo",
+          file: "Transworld Cargo - signed quote.pdf",
+          description: "Actual shipping quote from Japan to Walvis Bay",
+          highlight: "Real costs: $1,850 for 40ft container"
+        },
+        {
+          name: "Ocean Freight Invoice (Per Car)",
+          file: "Ocean Freight INVOICE per car.pdf",
+          description: "Individual car shipping cost breakdown",
+          highlight: "Single vehicle shipping: N$18,500"
         }
       ]
     },
@@ -209,6 +239,12 @@ export default function DocumentsPage() {
           file: "Import Permit MIT.pdf",
           description: "Ministry of Trade permit",
           highlight: "Pre-approval before shipping"
+        },
+        {
+          name: "Import Permit Application Guide",
+          file: "Import permit screen.png",
+          description: "Screenshot showing exactly how to fill the online form",
+          highlight: "Shows all mandatory fields: Vehicle, Model, Year, VIN, Engine No, Value"
         },
         {
           name: "Payment Receipt",
