@@ -29,29 +29,32 @@ export default function SouthAfricaThankYouContent() {
   async function grantPortalAccess(sessionId: string) {
     setIsSettingAccess(true)
     try {
-      // Extract email from localStorage (set during checkout)
+      // Extract email from localStorage (optional - API will get from Stripe if not provided)
       const email = localStorage.getItem('checkout_email')
       
-      if (email) {
-        const res = await fetch('/api/portal/access', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ sessionId, email })
-        })
+      // Always call the API, even without email (API will retrieve from Stripe)
+      const res = await fetch('/api/portal/access', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ sessionId, email })
+      })
+      
+      if (res.ok) {
+        const data = await res.json()
+        setAccessGranted(true)
+        console.log('Portal access granted', data)
         
-        if (res.ok) {
-          const data = await res.json()
-          setAccessGranted(true)
-          console.log('Portal access granted', data)
-          
-          // Redirect to portal after access is granted
-          console.log('Portal access granted, redirecting...')
-          
-          // Use a small delay to ensure cookies are set
-          setTimeout(() => {
-            window.location.href = '/portal'
-          }, 500)
-        }
+        // Redirect to portal after access is granted
+        console.log('Portal access granted, redirecting...')
+        
+        // Use a small delay to ensure cookies are set
+        setTimeout(() => {
+          window.location.href = '/portal'
+        }, 500)
+      } else {
+        const error = await res.json()
+        console.error('Failed to grant portal access:', error)
+        setAccessGranted(false)
       }
     } catch (error) {
       console.error('Failed to grant portal access:', error)

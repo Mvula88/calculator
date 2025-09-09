@@ -1,13 +1,39 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createServiceClient, createClient } from '@/lib/supabase/server'
 import { cookies } from 'next/headers'
+import { stripe } from '@/lib/stripe/config'
 
 export async function POST(req: NextRequest) {
   try {
-    const { sessionId, email } = await req.json()
+    const { sessionId, email: providedEmail } = await req.json()
     
-    if (!sessionId || !email) {
-      return NextResponse.json({ error: 'Missing session ID or email' }, { status: 400 })
+    if (!sessionId) {
+      return NextResponse.json({ error: 'Missing session ID' }, { status: 400 })
+    }
+    
+    // Retrieve the session from Stripe to get the email
+    let email = providedEmail
+    try {
+      const stripeSession = await stripe.checkout.sessions.retrieve(sessionId)
+      
+      // Use email from Stripe session if available
+      if (stripeSession.customer_email) {
+        email = stripeSession.customer_email
+      } else if (stripeSession.customer_details?.email) {
+        email = stripeSession.customer_details.email
+      }
+      
+      // Verify payment was successful
+      if (stripeSession.payment_status !== 'paid') {
+        return NextResponse.json({ error: 'Payment not completed' }, { status: 400 })
+      }
+    } catch (stripeError) {
+      console.error('Error retrieving Stripe session:', stripeError)
+      // Continue with provided email if Stripe lookup fails
+    }
+    
+    if (!email) {
+      return NextResponse.json({ error: 'Unable to determine email for session' }, { status: 400 })
     }
 
     // Use service client to bypass RLS
