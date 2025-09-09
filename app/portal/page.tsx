@@ -1,491 +1,496 @@
-import { createClient, createServiceClient } from '@/lib/supabase/server'
+'use client'
+
+import { useState, useEffect } from 'react'
+import { createClient } from '@/lib/supabase/client'
+import { useRouter } from 'next/navigation'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
-import { cookies } from 'next/headers'
 import { 
   BookOpen, 
+  FileText, 
   Calculator, 
+  Ship, 
   Users, 
-  Package, 
-  TrendingUp, 
-  Clock, 
-  Shield, 
-  Award,
-  AlertCircle,
-  CheckCircle,
-  DollarSign,
-  Truck,
   Star,
-  X
+  TrendingUp,
+  CheckCircle,
+  ArrowRight,
+  Clock,
+  Shield,
+  Globe,
+  Package,
+  DollarSign,
+  AlertCircle,
+  Truck,
+  X,
+  Award,
+  BarChart3,
+  FileCheck,
+  Zap
 } from 'lucide-react'
 
-async function getUserEntitlement(userId: string) {
-  const supabase = createServiceClient()
-  const { data } = await supabase
-    .from('entitlements')
-    .select('*')
-    .eq('user_id', userId)
-    .eq('active', true)
-    .single()
-  
-  return data
-}
+export default function PortalPage() {
+  const [user, setUser] = useState<any>(null)
+  const [entitlement, setEntitlement] = useState<any>(null)
+  const [loading, setLoading] = useState(true)
+  const router = useRouter()
+  const supabase = createClient()
 
-async function getSessionEntitlement() {
-  const cookieStore = await cookies()
-  const sessionCookie = cookieStore.get('portal_session')
-  
-  if (!sessionCookie) return null
-  
-  try {
-    const session = JSON.parse(sessionCookie.value)
-    
-    // Verify the session is still valid
-    const supabase = createServiceClient()
-    const { data } = await supabase
-      .from('entitlements')
-      .select('*')
-      .eq('stripe_session_id', session.sessionId)
-      .eq('email', session.email)
-      .eq('active', true)
-      .single()
-    
-    return data
-  } catch (error) {
-    console.error('Session parse error:', error)
-    return null
-  }
-}
+  useEffect(() => {
+    checkAccess()
+  }, [])
 
-export default async function PortalHome() {
-  const supabase = await createClient()
-  const { data: { user } } = await supabase.auth.getUser()
-  
-  // Check both authenticated user and session-based access
-  let entitlement = null
-  let userEmail = null
-  
-  if (user) {
-    entitlement = await getUserEntitlement(user.id)
-    userEmail = user.email
-  } else {
-    // Try session-based access
-    entitlement = await getSessionEntitlement()
-    userEmail = entitlement?.email
+  async function checkAccess() {
+    try {
+      const { data: { user } } = await supabase.auth.getUser()
+      
+      if (!user) {
+        router.push('/auth/login?redirect=/portal')
+        return
+      }
+
+      setUser(user)
+
+      // Check entitlement
+      const { data: entitlements } = await supabase
+        .from('entitlements')
+        .select('*')
+        .eq('active', true)
+        .or(`user_id.eq.${user.id},email.eq.${user.email}`)
+
+      if (entitlements && entitlements.length > 0) {
+        const masteryEntitlement = entitlements.find(e => e.tier === 'mastery')
+        setEntitlement(masteryEntitlement || entitlements[0])
+      }
+    } catch (error) {
+      console.error('Error checking access:', error)
+    } finally {
+      setLoading(false)
+    }
   }
-  
-  // If no access at all, redirect to login
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-[60vh]">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
+          <p className="mt-4 text-gray-600">Loading your dashboard...</p>
+        </div>
+      </div>
+    )
+  }
+
   if (!entitlement) {
-    // This will be handled by middleware
+    router.push('/auth/login?redirect=/portal')
     return null
   }
-  
-  const isMastery = entitlement?.tier === 'mastery'
-  const hasMistakeOrMastery = entitlement?.tier === 'mistake' || entitlement?.tier === 'mastery'
 
+  const currency = entitlement.country === 'na' ? 'N$' :
+                   entitlement.country === 'za' ? 'R' :
+                   entitlement.country === 'bw' ? 'P' :
+                   entitlement.country === 'zm' ? 'K' : 'N$'
+
+  const countryName = entitlement.country === 'na' ? 'Namibia' :
+                      entitlement.country === 'za' ? 'South Africa' :
+                      entitlement.country === 'bw' ? 'Botswana' :
+                      entitlement.country === 'zm' ? 'Zambia' : 'Namibia'
+
+  const isMastery = entitlement.tier === 'mastery'
+
+  // Statistics
   const stats = [
     {
-      label: 'Cars Successfully Imported',
-      value: '12,847',
-      change: '+23%',
-      icon: TrendingUp,
-      color: 'text-green-600'
-    },
-    {
-      label: 'Average Duty Saved',
-      value: 'R8,450',
-      change: 'per vehicle',
+      label: 'Average Savings',
+      value: `${currency}${entitlement.country === 'zm' ? '500K' : '50K'}+`,
+      change: 'Per import',
       icon: DollarSign,
-      color: 'text-blue-600'
+      color: 'text-green-600',
+      bgColor: 'bg-green-50'
     },
     {
-      label: 'Processing Time',
-      value: '14 days',
-      change: 'average',
+      label: 'Import Time',
+      value: '4-6 weeks',
+      change: 'Japan to port',
       icon: Clock,
-      color: 'text-purple-600'
+      color: 'text-blue-600',
+      bgColor: 'bg-blue-50'
     },
     {
       label: 'Success Rate',
-      value: '98.7%',
-      change: 'clearance',
-      icon: CheckCircle,
-      color: 'text-green-600'
+      value: '98%',
+      change: 'First-time imports',
+      icon: TrendingUp,
+      color: 'text-purple-600',
+      bgColor: 'bg-purple-50'
+    },
+    {
+      label: 'Members',
+      value: '500+',
+      change: 'Active importers',
+      icon: Globe,
+      color: 'text-orange-600',
+      bgColor: 'bg-orange-50'
     }
   ]
 
-  const quickActions = [
+  // Quick access cards
+  const quickAccessCards = [
     {
       title: 'Import Guide',
-      description: 'Step-by-step process for importing your vehicle',
+      description: 'Complete step-by-step import process',
       icon: BookOpen,
       href: '/portal/guide',
-      available: hasMistakeOrMastery,
-      premium: false
+      color: 'from-blue-500 to-blue-600',
+      available: true,
+      stats: '15 chapters',
+      highlight: 'Start Here'
     },
     {
-      title: 'Duty Calculator',
-      description: 'Calculate exact duties and fees for your vehicle',
+      title: 'Real Documents',
+      description: 'Actual import paperwork examples',
+      icon: FileText,
+      href: '/portal/documents',
+      color: 'from-green-500 to-green-600',
+      available: true,
+      stats: '20+ samples',
+      highlight: 'Popular'
+    },
+    {
+      title: 'Cost Calculator',
+      description: 'Calculate total import costs instantly',
       icon: Calculator,
       href: '/portal/calculator',
+      color: 'from-purple-500 to-purple-600',
       available: isMastery,
-      premium: true
+      stats: 'Live rates',
+      highlight: 'Mastery'
     },
     {
-      title: 'Verified Agents',
-      description: 'Connect with trusted clearing agents',
+      title: 'Shipping Lines',
+      description: 'Verified shipping companies & rates',
+      icon: Ship,
+      href: '/portal/book-slot',
+      color: 'from-cyan-500 to-cyan-600',
+      available: isMastery,
+      stats: '6 partners',
+      highlight: 'Mastery'
+    },
+    {
+      title: 'Trusted Agents',
+      description: 'Pre-verified clearing agents',
       icon: Users,
       href: '/portal/agents',
+      color: 'from-orange-500 to-orange-600',
       available: isMastery,
-      premium: true
+      stats: '10+ agents',
+      highlight: 'Mastery'
     },
     {
-      title: 'Book Container Slot',
-      description: 'Reserve your container shipping slot',
-      icon: Package,
-      href: '/portal/book-slot',
+      title: 'Advanced Tools',
+      description: 'Premium import features & tools',
+      icon: Star,
+      href: '/portal/mastery',
+      color: 'from-yellow-500 to-yellow-600',
       available: isMastery,
-      premium: true
+      stats: 'Premium',
+      highlight: 'Exclusive'
     }
   ]
 
+  // Recent updates
   const recentUpdates = [
     {
-      title: 'New SARS Duty Rates Effective March 2024',
-      description: 'Updated duty calculation tables for all vehicle categories',
-      time: '2 days ago',
-      type: 'important'
+      date: 'Dec 2024',
+      title: 'New Shipping Routes Added',
+      description: 'Direct routes from Yokohama to Walvis Bay now available with faster transit times',
+      type: 'feature',
+      icon: Ship
     },
     {
-      title: 'Port Delays Expected at Durban',
-      description: 'Container congestion expected to last 2-3 weeks',
-      time: '1 week ago',
-      type: 'warning'
+      date: 'Dec 2024',
+      title: 'Updated Customs Forms',
+      description: 'All 2025 customs forms and requirements now available in documents section',
+      type: 'update',
+      icon: FileCheck
     },
     {
-      title: 'New Agent Partnership: Cape Town',
-      description: 'Premium clearing agent now available in Western Cape',
-      time: '2 weeks ago',
-      type: 'info'
+      date: 'Nov 2024',
+      title: 'Calculator Enhanced',
+      description: 'Now includes insurance, inspection fees, and real-time exchange rates',
+      type: 'improvement',
+      icon: Calculator
+    },
+    {
+      date: 'Nov 2024',
+      title: 'Port Delays Warning',
+      description: 'Durban port experiencing 2-3 week delays due to congestion',
+      type: 'warning',
+      icon: AlertCircle
     }
+  ]
+
+  // Process steps
+  const processSteps = [
+    { step: 1, title: 'Find Vehicle', description: 'Search Japanese auctions', icon: '🔍' },
+    { step: 2, title: 'Purchase', description: 'Buy through auction', icon: '💴' },
+    { step: 3, title: 'Ship', description: 'Arrange ocean freight', icon: '🚢' },
+    { step: 4, title: 'Clear', description: 'Handle customs', icon: '📋' },
+    { step: 5, title: 'Register', description: 'Get plates & license', icon: '🚗' }
   ]
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      {/* Welcome Section */}
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">
-          Welcome to Your Import Portal
-        </h1>
-        <p className="text-gray-600">
-          Your complete resource for importing vehicles into South Africa, Namibia, Botswana, and Zambia.
-        </p>
-        <div className="mt-4 flex items-center gap-2">
-          <Shield className="h-5 w-5 text-green-600" />
-          <span className="text-sm text-gray-600">
-            Licensed to: {userEmail}
-          </span>
-          {isMastery && (
-            <div className="flex items-center gap-1 ml-4">
-              <Award className="h-4 w-4 text-purple-600" />
-              <span className="text-sm font-medium text-purple-600">MASTERY ACCESS</span>
+    <div className="max-w-7xl mx-auto space-y-8">
+      {/* Welcome Hero Section */}
+      <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-8 text-white shadow-xl">
+        <div className="flex items-start justify-between">
+          <div>
+            <h1 className="text-3xl font-bold mb-2">
+              Welcome back, {user?.email?.split('@')[0]}! 👋
+            </h1>
+            <p className="text-blue-100 text-lg mb-4">
+              Your complete import portal for {countryName}
+            </p>
+            <div className="flex items-center gap-4">
+              <div className="flex items-center gap-2 bg-white/20 px-3 py-1.5 rounded-full">
+                <Shield className="h-4 w-4" />
+                <span className="text-sm font-medium">
+                  {isMastery ? 'MASTERY MEMBER' : 'GUIDE MEMBER'}
+                </span>
+              </div>
+              <div className="flex items-center gap-2 bg-white/20 px-3 py-1.5 rounded-full">
+                <Award className="h-4 w-4" />
+                <span className="text-sm">Lifetime Access</span>
+              </div>
+            </div>
+          </div>
+          {isMastery ? (
+            <div className="text-right">
+              <Star className="h-16 w-16 text-yellow-300 opacity-50" />
+            </div>
+          ) : (
+            <div className="text-right">
+              <Link href={`/${entitlement.country}/upsell`}>
+                <Button className="bg-white text-purple-600 hover:bg-gray-100">
+                  <Zap className="h-4 w-4 mr-2" />
+                  Upgrade to Mastery
+                </Button>
+              </Link>
             </div>
           )}
         </div>
       </div>
 
-      {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        {stats.map((stat, index) => (
-          <Card key={index} className="p-6">
-            <div className="flex items-center justify-between">
+      {/* Statistics Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {stats.map((stat) => (
+          <Card key={stat.label} className="p-6 hover:shadow-lg transition-shadow">
+            <div className="flex items-start justify-between">
               <div>
                 <p className="text-sm font-medium text-gray-600">{stat.label}</p>
-                <p className="text-3xl font-bold text-gray-900 mt-1">{stat.value}</p>
-                <p className={`text-sm ${stat.color} mt-1`}>
+                <p className="text-2xl font-bold text-gray-900 mt-1">{stat.value}</p>
+                <p className={`text-sm ${stat.color} mt-1 font-medium`}>
                   {stat.change}
                 </p>
               </div>
-              <stat.icon className={`h-8 w-8 ${stat.color}`} />
+              <div className={`p-3 rounded-lg ${stat.bgColor}`}>
+                <stat.icon className={`h-6 w-6 ${stat.color}`} />
+              </div>
             </div>
           </Card>
         ))}
       </div>
 
-      {/* Quick Actions */}
-      <div className="mb-8">
-        <h2 className="text-2xl font-bold text-gray-900 mb-6">Quick Actions</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {quickActions.map((action, index) => (
-            <Card key={index} className="p-6 hover:shadow-md transition-shadow">
-              <div className="text-center">
-                <action.icon className={`h-12 w-12 mx-auto mb-4 ${
-                  action.available ? 'text-blue-600' : 'text-gray-400'
-                }`} />
-                <h3 className="text-lg font-semibold mb-2">
-                  {action.title}
-                  {action.premium && (
-                    <span className="ml-2 px-2 py-1 text-xs bg-purple-100 text-purple-600 rounded">
-                      MASTERY
-                    </span>
-                  )}
-                </h3>
-                <p className="text-sm text-gray-600 mb-4">
-                  {action.description}
-                </p>
-                {action.available ? (
-                  <Button asChild className="w-full">
-                    <Link href={action.href}>
-                      Access Now
+      {/* Quick Access Grid */}
+      <div>
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="text-2xl font-bold text-gray-900">Quick Access</h2>
+          <span className="text-sm text-gray-500">
+            {isMastery ? 'Full access to all features' : `${quickAccessCards.filter(c => c.available).length} of ${quickAccessCards.length} features available`}
+          </span>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {quickAccessCards.map((card) => (
+            <div key={card.title} className="relative">
+              {card.available ? (
+                <Link href={card.href}>
+                  <Card className="p-6 h-full hover:shadow-xl transition-all cursor-pointer group border-2 hover:border-blue-200">
+                    <div className="absolute top-3 right-3">
+                      <span className={`text-xs font-bold px-2 py-1 rounded-full ${
+                        card.highlight === 'Start Here' ? 'bg-green-100 text-green-700' :
+                        card.highlight === 'Popular' ? 'bg-blue-100 text-blue-700' :
+                        card.highlight === 'Mastery' ? 'bg-purple-100 text-purple-700' :
+                        'bg-gray-100 text-gray-700'
+                      }`}>
+                        {card.highlight}
+                      </span>
+                    </div>
+                    <div className={`bg-gradient-to-r ${card.color} p-3 rounded-lg inline-block mb-4`}>
+                      <card.icon className="h-6 w-6 text-white" />
+                    </div>
+                    <h3 className="font-semibold text-lg mb-2 group-hover:text-blue-600 transition-colors">
+                      {card.title}
+                    </h3>
+                    <p className="text-sm text-gray-600 mb-4">{card.description}</p>
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-medium text-gray-500 bg-gray-100 px-2 py-1 rounded">
+                        {card.stats}
+                      </span>
+                      <ArrowRight className="h-4 w-4 text-blue-600 group-hover:translate-x-1 transition-transform" />
+                    </div>
+                  </Card>
+                </Link>
+              ) : (
+                <Card className="p-6 h-full opacity-60 border-2 border-gray-200 relative overflow-hidden">
+                  <div className="absolute inset-0 bg-gray-50/50"></div>
+                  <div className="relative">
+                    <div className="absolute top-0 right-3">
+                      <span className="text-xs font-bold px-2 py-1 rounded-full bg-yellow-100 text-yellow-700">
+                        Mastery Only
+                      </span>
+                    </div>
+                    <div className="bg-gray-300 p-3 rounded-lg inline-block mb-4">
+                      <card.icon className="h-6 w-6 text-white" />
+                    </div>
+                    <h3 className="font-semibold text-lg mb-2 text-gray-500">{card.title}</h3>
+                    <p className="text-sm text-gray-500 mb-4">{card.description}</p>
+                    <Link 
+                      href={`/${entitlement.country}/upsell`}
+                      className="text-sm font-medium text-purple-600 hover:text-purple-700 flex items-center gap-1"
+                    >
+                      Upgrade to unlock
+                      <ArrowRight className="h-3 w-3" />
                     </Link>
-                  </Button>
-                ) : (
-                  <Button variant="outline" className="w-full" disabled>
-                    {action.premium ? 'Requires Mastery' : 'Purchase Required'}
-                  </Button>
-                )}
-              </div>
-            </Card>
+                  </div>
+                </Card>
+              )}
+            </div>
           ))}
         </div>
       </div>
 
-      {/* Recent Updates */}
-      <div className="mb-8">
-        <h2 className="text-2xl font-bold text-gray-900 mb-6">Recent Updates</h2>
-        <div className="space-y-4">
-          {recentUpdates.map((update, index) => (
-            <Card key={index} className="p-6">
-              <div className="flex items-start space-x-4">
-                <div className={`p-2 rounded-full ${
-                  update.type === 'important' ? 'bg-red-100' :
-                  update.type === 'warning' ? 'bg-yellow-100' : 'bg-blue-100'
-                }`}>
-                  <AlertCircle className={`h-5 w-5 ${
-                    update.type === 'important' ? 'text-red-600' :
-                    update.type === 'warning' ? 'text-yellow-600' : 'text-blue-600'
-                  }`} />
+      {/* Two Column Layout */}
+      <div className="grid lg:grid-cols-2 gap-6">
+        {/* Import Process */}
+        <Card className="p-6">
+          <h3 className="text-lg font-bold mb-4 flex items-center gap-2">
+            <BarChart3 className="h-5 w-5 text-blue-600" />
+            Your Import Journey
+          </h3>
+          <div className="space-y-3">
+            {processSteps.map((step, index) => (
+              <div key={step.step} className="flex items-center gap-3">
+                <div className="flex-shrink-0">
+                  <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-full flex items-center justify-center font-bold">
+                    {step.step}
+                  </div>
                 </div>
                 <div className="flex-1">
-                  <h3 className="font-semibold text-gray-900">{update.title}</h3>
-                  <p className="text-gray-600 mt-1">{update.description}</p>
-                  <p className="text-sm text-gray-500 mt-2">{update.time}</p>
+                  <div className="flex items-center gap-2">
+                    <span className="text-lg">{step.icon}</span>
+                    <h4 className="font-medium">{step.title}</h4>
+                  </div>
+                  <p className="text-sm text-gray-600">{step.description}</p>
                 </div>
+                {index < processSteps.length - 1 && (
+                  <CheckCircle className="h-5 w-5 text-green-500 flex-shrink-0" />
+                )}
               </div>
-            </Card>
-          ))}
-        </div>
-      </div>
-
-      {/* Feature Comparison Table */}
-      <div className="mb-8">
-        <h2 className="text-2xl font-bold text-gray-900 mb-6">Feature Comparison</h2>
-        <Card className="overflow-hidden">
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead className="bg-gray-50 border-b">
-                <tr>
-                  <th className="text-left px-6 py-4 text-sm font-semibold text-gray-900">Feature</th>
-                  <th className="text-center px-6 py-4 text-sm font-semibold text-blue-600">
-                    <div className="flex items-center justify-center gap-2">
-                      <BookOpen className="h-4 w-4" />
-                      Mistake Guide
-                    </div>
-                  </th>
-                  <th className="text-center px-6 py-4 text-sm font-semibold text-purple-600">
-                    <div className="flex items-center justify-center gap-2">
-                      <Star className="h-4 w-4" />
-                      Import Mastery
-                    </div>
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-200">
-                {/* Basic Features */}
-                <tr className="hover:bg-gray-50">
-                  <td className="px-6 py-4 text-sm text-gray-900">DIY Import Process Guide</td>
-                  <td className="text-center px-6 py-4">
-                    <CheckCircle className="h-5 w-5 text-green-600 mx-auto" />
-                  </td>
-                  <td className="text-center px-6 py-4">
-                    <CheckCircle className="h-5 w-5 text-green-600 mx-auto" />
-                  </td>
-                </tr>
-                <tr className="hover:bg-gray-50">
-                  <td className="px-6 py-4 text-sm text-gray-900">Scam Warning & Prevention</td>
-                  <td className="text-center px-6 py-4">
-                    <CheckCircle className="h-5 w-5 text-green-600 mx-auto" />
-                  </td>
-                  <td className="text-center px-6 py-4">
-                    <CheckCircle className="h-5 w-5 text-green-600 mx-auto" />
-                  </td>
-                </tr>
-                <tr className="hover:bg-gray-50">
-                  <td className="px-6 py-4 text-sm text-gray-900">Import Timeline & Checklist</td>
-                  <td className="text-center px-6 py-4">
-                    <CheckCircle className="h-5 w-5 text-green-600 mx-auto" />
-                  </td>
-                  <td className="text-center px-6 py-4">
-                    <CheckCircle className="h-5 w-5 text-green-600 mx-auto" />
-                  </td>
-                </tr>
-                <tr className="hover:bg-gray-50">
-                  <td className="px-6 py-4 text-sm text-gray-900">Cost Breakdown Examples</td>
-                  <td className="text-center px-6 py-4">
-                    <CheckCircle className="h-5 w-5 text-green-600 mx-auto" />
-                  </td>
-                  <td className="text-center px-6 py-4">
-                    <CheckCircle className="h-5 w-5 text-green-600 mx-auto" />
-                  </td>
-                </tr>
-                <tr className="hover:bg-gray-50">
-                  <td className="px-6 py-4 text-sm text-gray-900">Emergency Playbooks</td>
-                  <td className="text-center px-6 py-4">
-                    <CheckCircle className="h-5 w-5 text-green-600 mx-auto" />
-                  </td>
-                  <td className="text-center px-6 py-4">
-                    <CheckCircle className="h-5 w-5 text-green-600 mx-auto" />
-                  </td>
-                </tr>
-                
-                {/* Mastery Only Features */}
-                <tr className="hover:bg-gray-50 bg-purple-50">
-                  <td className="px-6 py-4 text-sm font-semibold text-gray-900">Premium Features</td>
-                  <td className="text-center px-6 py-4"></td>
-                  <td className="text-center px-6 py-4"></td>
-                </tr>
-                <tr className="hover:bg-gray-50">
-                  <td className="px-6 py-4 text-sm text-gray-900">Verified Service Provider Directory</td>
-                  <td className="text-center px-6 py-4">
-                    <X className="h-5 w-5 text-gray-400 mx-auto" />
-                  </td>
-                  <td className="text-center px-6 py-4">
-                    <CheckCircle className="h-5 w-5 text-green-600 mx-auto" />
-                  </td>
-                </tr>
-                <tr className="hover:bg-gray-50">
-                  <td className="px-6 py-4 text-sm text-gray-900">Japanese Auction Site Mastery</td>
-                  <td className="text-center px-6 py-4">
-                    <X className="h-5 w-5 text-gray-400 mx-auto" />
-                  </td>
-                  <td className="text-center px-6 py-4">
-                    <CheckCircle className="h-5 w-5 text-green-600 mx-auto" />
-                  </td>
-                </tr>
-                <tr className="hover:bg-gray-50">
-                  <td className="px-6 py-4 text-sm text-gray-900">Container Sharing Guide + ContShare Access</td>
-                  <td className="text-center px-6 py-4">
-                    <X className="h-5 w-5 text-gray-400 mx-auto" />
-                  </td>
-                  <td className="text-center px-6 py-4">
-                    <CheckCircle className="h-5 w-5 text-green-600 mx-auto" />
-                  </td>
-                </tr>
-                <tr className="hover:bg-gray-50">
-                  <td className="px-6 py-4 text-sm text-gray-900">Duty Calculator Tool</td>
-                  <td className="text-center px-6 py-4">
-                    <X className="h-5 w-5 text-gray-400 mx-auto" />
-                  </td>
-                  <td className="text-center px-6 py-4">
-                    <CheckCircle className="h-5 w-5 text-green-600 mx-auto" />
-                  </td>
-                </tr>
-                <tr className="hover:bg-gray-50">
-                  <td className="px-6 py-4 text-sm text-gray-900">IMPOTA Negotiated Rates</td>
-                  <td className="text-center px-6 py-4">
-                    <X className="h-5 w-5 text-gray-400 mx-auto" />
-                  </td>
-                  <td className="text-center px-6 py-4">
-                    <CheckCircle className="h-5 w-5 text-green-600 mx-auto" />
-                  </td>
-                </tr>
-                <tr className="hover:bg-gray-50">
-                  <td className="px-6 py-4 text-sm text-gray-900">Auction Bidding Strategies</td>
-                  <td className="text-center px-6 py-4">
-                    <X className="h-5 w-5 text-gray-400 mx-auto" />
-                  </td>
-                  <td className="text-center px-6 py-4">
-                    <CheckCircle className="h-5 w-5 text-green-600 mx-auto" />
-                  </td>
-                </tr>
-                
-                {/* Support */}
-                <tr className="hover:bg-gray-50 bg-gray-50">
-                  <td className="px-6 py-4 text-sm font-semibold text-gray-900">Support</td>
-                  <td className="text-center px-6 py-4"></td>
-                  <td className="text-center px-6 py-4"></td>
-                </tr>
-                <tr className="hover:bg-gray-50">
-                  <td className="px-6 py-4 text-sm text-gray-900">Email Support</td>
-                  <td className="text-center px-6 py-4">
-                    <span className="text-sm text-gray-600">48 hours</span>
-                  </td>
-                  <td className="text-center px-6 py-4">
-                    <span className="text-sm text-green-600 font-semibold">Priority (24h)</span>
-                  </td>
-                </tr>
-                <tr className="hover:bg-gray-50">
-                  <td className="px-6 py-4 text-sm text-gray-900">Lifetime Updates</td>
-                  <td className="text-center px-6 py-4">
-                    <CheckCircle className="h-5 w-5 text-green-600 mx-auto" />
-                  </td>
-                  <td className="text-center px-6 py-4">
-                    <CheckCircle className="h-5 w-5 text-green-600 mx-auto" />
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+            ))}
           </div>
-          
-          {/* Upgrade CTA for Mistake tier users */}
-          {!isMastery && hasMistakeOrMastery && (
-            <div className="p-6 bg-gradient-to-r from-purple-50 to-blue-50 border-t">
-              <div className="flex items-center justify-between">
-                <div>
-                  <h3 className="font-semibold text-gray-900">Unlock All Premium Features</h3>
-                  <p className="text-sm text-gray-600 mt-1">
-                    Upgrade to Import Mastery and get access to advanced tools and resources
-                  </p>
+          <div className="mt-6 pt-4 border-t">
+            <Link href="/portal/guide">
+              <Button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700">
+                <BookOpen className="h-4 w-4 mr-2" />
+                View Complete Guide
+              </Button>
+            </Link>
+          </div>
+        </Card>
+
+        {/* Recent Updates */}
+        <Card className="p-6">
+          <h3 className="text-lg font-bold mb-4 flex items-center gap-2">
+            <AlertCircle className="h-5 w-5 text-orange-600" />
+            Latest Updates
+          </h3>
+          <div className="space-y-3">
+            {recentUpdates.map((update, index) => (
+              <div key={index} className="flex gap-3 pb-3 border-b last:border-0">
+                <div className={`p-2 rounded-lg flex-shrink-0 ${
+                  update.type === 'warning' ? 'bg-yellow-50' :
+                  update.type === 'feature' ? 'bg-green-50' :
+                  update.type === 'update' ? 'bg-blue-50' :
+                  'bg-purple-50'
+                }`}>
+                  <update.icon className={`h-4 w-4 ${
+                    update.type === 'warning' ? 'text-yellow-600' :
+                    update.type === 'feature' ? 'text-green-600' :
+                    update.type === 'update' ? 'text-blue-600' :
+                    'text-purple-600'
+                  }`} />
                 </div>
-                <Button asChild className="bg-purple-600 hover:bg-purple-700">
-                  <Link href={`/${entitlement?.country || 'na'}/upsell`}>
-                    Upgrade Now →
-                  </Link>
-                </Button>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-start justify-between gap-2">
+                    <h4 className="font-medium text-gray-900 text-sm">{update.title}</h4>
+                    <span className="text-xs text-gray-500 flex-shrink-0">{update.date}</span>
+                  </div>
+                  <p className="text-xs text-gray-600 mt-1">{update.description}</p>
+                </div>
               </div>
-            </div>
-          )}
+            ))}
+          </div>
         </Card>
       </div>
 
-      {/* Key Benefits Section */}
-      <Card className="p-8 bg-gradient-to-br from-blue-50 to-purple-50">
-        <h2 className="text-2xl font-bold text-gray-900 mb-6">Why Use IMPOTA?</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="text-center">
-            <Truck className="h-12 w-12 text-blue-600 mx-auto mb-4" />
-            <h3 className="font-semibold mb-2">DIY Import Education</h3>
-            <p className="text-sm text-gray-600">
-              Learn to import yourself and save 50-100K vs buying from dealers
-            </p>
-          </div>
-          <div className="text-center">
-            <Shield className="h-12 w-12 text-green-600 mx-auto mb-4" />
-            <h3 className="font-semibold mb-2">Scam Protection</h3>
-            <p className="text-sm text-gray-600">
-              Avoid the costly mistakes and scams that trap first-time importers
-            </p>
-          </div>
-          <div className="text-center">
-            <DollarSign className="h-12 w-12 text-purple-600 mx-auto mb-4" />
-            <h3 className="font-semibold mb-2">Real Savings</h3>
-            <p className="text-sm text-gray-600">
-              Average member saves 8,450 in fees and avoids 45,000+ in mistakes
-            </p>
+      {/* Value Proposition */}
+      <Card className="p-8 bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 border-2 border-purple-200">
+        <div className="text-center">
+          <Truck className="h-12 w-12 text-purple-600 mx-auto mb-4" />
+          <h2 className="text-2xl font-bold mb-3">Why Members Save {currency}{entitlement.country === 'zm' ? '500,000+' : '50,000+'}</h2>
+          <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
+            Our step-by-step guides eliminate costly mistakes, connect you with verified partners, 
+            and show you exactly how to import vehicles yourself - no middleman needed.
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-3xl mx-auto">
+            <div className="bg-white/80 rounded-lg p-4">
+              <CheckCircle className="h-6 w-6 text-green-600 mx-auto mb-2" />
+              <h3 className="font-semibold text-sm mb-1">Avoid Scams</h3>
+              <p className="text-xs text-gray-600">Learn red flags & verified dealers</p>
+            </div>
+            <div className="bg-white/80 rounded-lg p-4">
+              <CheckCircle className="h-6 w-6 text-green-600 mx-auto mb-2" />
+              <h3 className="font-semibold text-sm mb-1">Skip Agent Fees</h3>
+              <p className="text-xs text-gray-600">DIY with our guides</p>
+            </div>
+            <div className="bg-white/80 rounded-lg p-4">
+              <CheckCircle className="h-6 w-6 text-green-600 mx-auto mb-2" />
+              <h3 className="font-semibold text-sm mb-1">Best Rates</h3>
+              <p className="text-xs text-gray-600">Pre-negotiated shipping</p>
+            </div>
           </div>
         </div>
       </Card>
+
+      {/* Upgrade CTA for Guide members */}
+      {!isMastery && (
+        <Card className="p-6 bg-gradient-to-r from-purple-600 to-blue-600 text-white">
+          <div className="flex items-center justify-between">
+            <div>
+              <h3 className="text-xl font-bold mb-2">🚀 Unlock Full Import Mastery</h3>
+              <p className="text-white/90">
+                Get access to the calculator, shipping partners, verified agents, and advanced tools
+              </p>
+            </div>
+            <Link href={`/${entitlement.country}/upsell`}>
+              <Button size="lg" className="bg-white text-purple-600 hover:bg-gray-100">
+                Upgrade Now
+                <ArrowRight className="h-5 w-5 ml-2" />
+              </Button>
+            </Link>
+          </div>
+        </Card>
+      )}
     </div>
   )
 }
