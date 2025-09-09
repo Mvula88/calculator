@@ -130,25 +130,25 @@ export default function DocumentsPage() {
           name: "2015 VW Golf R Invoice",
           file: "2015_VOLKSWAGEN_GOLF_R_INVOICE.pdf",
           description: "Actual purchase invoice from Japanese auction",
-          highlight: "Total cost: ¥614,640 (Vehicle: ¥455,000 + fees)"
+          highlight: "¥614,640 • N$102,440 • R102,440 • P102,440 • K1,844k"
         },
         {
           name: "2017 Audi A3 Invoice",
           file: "2017 AUDI A3 INVOICE.pdf",
           description: "Premium sedan import from Japan auction",
-          highlight: "Total cost: ¥335,340 (Vehicle: ¥201,000 + fees)"
+          highlight: "¥335,340 • N$55,890 • R55,890 • P55,890 • K1,006k"
         },
         {
           name: "2015 Audi A5 Sportback Invoice",
           file: "2015 AUDI A5 SPORTBACK INVOICE.pdf",
           description: "Luxury sportback from Japanese auction",
-          highlight: "Total cost: ¥355,440 (Vehicle: ¥231,000 + fees)"
+          highlight: "¥355,440 • N$59,240 • R59,240 • P59,240 • K1,066k"
         },
         {
           name: "2012 Audi A4 Invoice",
           file: "2012 AUDI A4 INVOICE.pdf",
           description: "Executive sedan import example",
-          highlight: "Total cost: ¥323,560 (Vehicle: ¥200,000 + fees)"
+          highlight: "¥323,560 • N$53,927 • R53,927 • P53,927 • K971k"
         }
       ]
     },
@@ -300,6 +300,9 @@ export default function DocumentsPage() {
                 <li>• Understand what customs officers actually check for</li>
                 <li>• Never get scammed with "missing documents" delays</li>
               </ul>
+              <div className="mt-3 p-2 bg-white/50 rounded text-xs text-gray-600">
+                💱 Currency conversions: ¥1 = N$0.167 = R0.167 = P0.167 = K3.0
+              </div>
             </div>
           </div>
         </Card>
