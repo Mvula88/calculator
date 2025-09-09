@@ -8,7 +8,7 @@ export async function GET() {
     
     if (!user) {
       return NextResponse.json(
-        { error: 'Not authenticated' },
+        { error: 'Not authenticated', user: null, entitlement: null },
         { status: 401 }
       )
     }
@@ -17,17 +17,31 @@ export async function GET() {
     const entitlement = await AuthService.getUserEntitlement(user.email, user.id)
     
     if (!entitlement) {
+      // User is authenticated but has no entitlement
       return NextResponse.json(
-        { error: 'No entitlement found' },
+        { 
+          error: 'No entitlement found', 
+          user,
+          entitlement: null 
+        },
         { status: 404 }
       )
     }
     
-    return NextResponse.json({ entitlement })
+    // Success - user has entitlement
+    return NextResponse.json({ 
+      user,
+      entitlement,
+      error: null 
+    })
   } catch (error) {
     console.error('Error fetching entitlement:', error)
     return NextResponse.json(
-      { error: 'Internal server error' },
+      { 
+        error: error instanceof Error ? error.message : 'Internal server error',
+        user: null,
+        entitlement: null 
+      },
       { status: 500 }
     )
   }

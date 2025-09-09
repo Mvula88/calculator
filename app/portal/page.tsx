@@ -1,9 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import { ClientAuthService } from '@/lib/auth/client-service'
-import { createClient } from '@/lib/supabase/client'
-import { useRouter } from 'next/navigation'
+import { useAuth } from '@/lib/auth/hooks'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
@@ -29,51 +26,11 @@ import {
 } from 'lucide-react'
 
 export default function PortalPage() {
-  const [user, setUser] = useState<any>(null)
-  const [entitlement, setEntitlement] = useState<any>(null)
-  const [loading, setLoading] = useState(true)
-  const router = useRouter()
-  const supabase = createClient()
-
-  useEffect(() => {
-    checkAccess()
-  }, [])
-
-  async function checkAccess() {
-    try {
-      // Get current user
-      const currentUser = await ClientAuthService.getUser()
-      
-      if (!currentUser) {
-        router.push('/auth/login?redirect=/portal')
-        return
-      }
-
-      setUser(currentUser)
-
-      // Check entitlement - fetch from API endpoint
-      const response = await fetch('/api/auth/entitlement')
-      
-      if (!response.ok) {
-        router.push('/purchase')
-        return
-      }
-
-      const { entitlement } = await response.json()
-      
-      if (!entitlement) {
-        router.push('/purchase')
-        return
-      }
-
-      setEntitlement(entitlement)
-    } catch (error) {
-      console.error('Error checking access:', error)
-      router.push('/auth/login?redirect=/portal')
-    } finally {
-      setLoading(false)
-    }
-  }
+  const { user, entitlement, loading, isMastery } = useAuth({
+    requireAuth: true,
+    requireEntitlement: true,
+    redirectTo: '/portal'
+  })
 
   if (loading) {
     return (
@@ -100,7 +57,6 @@ export default function PortalPage() {
                       entitlement.country === 'bw' ? 'Botswana' :
                       entitlement.country === 'zm' ? 'Zambia' : 'Namibia'
 
-  const isMastery = entitlement.tier === 'mastery'
 
   // Statistics
   const stats = [

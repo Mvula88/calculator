@@ -113,6 +113,14 @@ export async function middleware(request: NextRequest) {
     }
   }
 
+  // API routes - pass through authentication status
+  if (request.nextUrl.pathname.startsWith('/api')) {
+    if (user) {
+      supabaseResponse.headers.set('x-user-id', user.id)
+      supabaseResponse.headers.set('x-user-email', user.email || '')
+    }
+  }
+
   // Redirect authenticated users from auth pages
   if (user && request.nextUrl.pathname.startsWith('/auth')) {
     return NextResponse.redirect(new URL('/portal', request.url))

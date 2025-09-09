@@ -1,8 +1,7 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import { createClient } from '@/lib/supabase/client'
-import { useRouter } from 'next/navigation'
+import { useState } from 'react'
+import { useAuth } from '@/lib/auth/hooks'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import PDFViewer from '@/components/PDFViewer'
@@ -30,50 +29,12 @@ interface DocumentCategory {
 }
 
 export default function DocumentsPage() {
-  const [user, setUser] = useState<any>(null)
-  const [entitlement, setEntitlement] = useState<any>(null)
-  const [loading, setLoading] = useState(true)
+  const { user, entitlement, loading } = useAuth({
+    requireAuth: true,
+    requireEntitlement: true,
+    redirectTo: '/portal/documents'
+  })
   const [selectedDocument, setSelectedDocument] = useState<{name: string, url: string} | null>(null)
-  const router = useRouter()
-  const supabase = createClient()
-
-  useEffect(() => {
-    checkAccess()
-  }, [])
-
-  async function checkAccess() {
-    try {
-      const { data: { user } } = await supabase.auth.getUser()
-      
-      if (!user) {
-        router.push('/auth/login?redirect=/portal/documents')
-        return
-      }
-
-      setUser(user)
-      
-      // Store user email for watermark
-      if (typeof window !== 'undefined' && user.email) {
-        window.localStorage.setItem('userEmail', user.email)
-      }
-
-      // Check entitlement
-      const { data: entitlements } = await supabase
-        .from('entitlements')
-        .select('*')
-        .eq('active', true)
-        .or(`user_id.eq.${user.id},email.eq.${user.email}`)
-
-      if (entitlements && entitlements.length > 0) {
-        const masteryEntitlement = entitlements.find(e => e.tier === 'mastery')
-        setEntitlement(masteryEntitlement || entitlements[0])
-      }
-    } catch (error) {
-      console.error('Error checking access:', error)
-    } finally {
-      setLoading(false)
-    }
-  }
 
   const handleViewDocument = (docName: string, fileName: string) => {
     // In production, this would be the actual URL to your PDF
