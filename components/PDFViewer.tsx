@@ -38,6 +38,8 @@ export default function PDFViewer({ isOpen, onClose, documentName, documentUrl }
   const handleIframeError = () => {
     setLoading(false)
     setError(true)
+    // Automatically try to open in new tab if embed fails
+    window.open(getViewerUrl(documentUrl), '_blank')
   }
 
   // Check if file is an image
@@ -116,14 +118,26 @@ export default function PDFViewer({ isOpen, onClose, documentName, documentUrl }
           {error && (
             <div className="absolute inset-0 flex items-center justify-center bg-white z-10">
               <div className="text-center max-w-md">
-                <AlertCircle className="h-12 w-12 text-red-500 mx-auto mb-4" />
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">Document Preview Unavailable</h3>
+                <AlertCircle className="h-12 w-12 text-amber-500 mx-auto mb-4" />
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">Browser Blocking Issue</h3>
                 <p className="text-sm text-gray-600 mb-4">
-                  This document is being prepared for viewing. Please check back later or contact support if the issue persists.
+                  Chrome may be blocking the embedded document viewer. Click below to open the document in a new tab.
                 </p>
-                <Button onClick={onClose} variant="outline">
-                  Close
-                </Button>
+                <div className="space-y-3">
+                  <a 
+                    href={getViewerUrl(documentUrl)} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+                  >
+                    Open Document in New Tab
+                  </a>
+                  <div>
+                    <Button onClick={onClose} variant="outline">
+                      Close
+                    </Button>
+                  </div>
+                </div>
               </div>
             </div>
           )}
@@ -152,18 +166,12 @@ export default function PDFViewer({ isOpen, onClose, documentName, documentUrl }
                     }}
                   />
                 ) : (
-                  // Display PDF with download disabled
-                  <iframe
-                    src={`${getViewerUrl(documentUrl)}#toolbar=0&navpanes=0&scrollbar=1`}
-                    className="w-full h-full min-h-[800px] border-0"
-                    title={documentName}
+                  // Display PDF directly without restrictions
+                  <embed
+                    src={`${getViewerUrl(documentUrl)}#toolbar=0&navpanes=0&scrollbar=1&view=FitH`}
+                    type="application/pdf"
+                    className="w-full h-full min-h-[800px]"
                     onLoad={handleIframeLoad}
-                    onError={handleIframeError}
-                    sandbox="allow-same-origin allow-scripts"
-                    style={{
-                      pointerEvents: 'auto',
-                      userSelect: 'none'
-                    }}
                   />
                 )}
               </div>

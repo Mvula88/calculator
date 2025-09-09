@@ -126,14 +126,15 @@ export async function GET(
     const isImage = actualFileName.toLowerCase().match(/\.(png|jpg|jpeg|gif|webp)$/)
     const contentType = isImage ? `image/${actualFileName.split('.').pop()}` : 'application/pdf'
 
-    // Return file with headers to prevent downloads and allow viewing
+    // Return file with headers optimized for viewing
     return new NextResponse(data, {
       headers: {
         'Content-Type': contentType,
         'Content-Disposition': `inline; filename="${actualFileName}"`,
-        'X-Frame-Options': 'SAMEORIGIN',
-        'X-Content-Type-Options': 'nosniff',
-        'Cache-Control': 'private, max-age=3600',
+        // Remove X-Frame-Options to allow embedding
+        'Cache-Control': 'public, max-age=3600',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET',
       },
     })
   } catch (error) {
