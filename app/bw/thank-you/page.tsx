@@ -24,8 +24,6 @@ export default function BotswanaThankYouPage() {
     
     // Auto-redirect to portal after successful access grant
     // Don't auto-redirect until access is confirmed
-    
-    return () => clearTimeout(timer)
   }, [router, searchParams])
   
   async function grantPortalAccess(sessionId: string) {
