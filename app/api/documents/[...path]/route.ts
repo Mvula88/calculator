@@ -34,7 +34,7 @@ export async function GET(
     
     // Remove the file extension to match Supabase storage naming
     // Convert underscores to spaces and match the actual file names in storage
-    let storageFileName = fileName
+    const storageFileName = fileName
       .replace(/_/g, ' ')  // Replace underscores with spaces
       .replace(/\.pdf$/i, '')  // Remove .pdf extension if present
     
