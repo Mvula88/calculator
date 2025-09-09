@@ -4,7 +4,38 @@ import { useState, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Card, CardContent } from '@/components/ui/card'
-import { CheckCircle, AlertTriangle, Ship, TrendingDown, Clock, Shield, Star, Lock, DollarSign, Users, Calculator, FileText, Phone, Award, ArrowRight, Zap, Target } from 'lucide-react'
+import { 
+  CheckCircle, 
+  AlertTriangle, 
+  Ship, 
+  TrendingDown, 
+  Clock, 
+  Shield, 
+  Star, 
+  Lock, 
+  DollarSign, 
+  Users, 
+  Calculator, 
+  FileText, 
+  Phone, 
+  Award, 
+  ArrowRight, 
+  Zap, 
+  Target,
+  BookOpen,
+  Sparkles,
+  TrendingUp,
+  ChevronRight,
+  BadgeCheck,
+  Package,
+  Globe,
+  MessageCircle,
+  Rocket,
+  Trophy,
+  Crown,
+  AlertCircle,
+  Check
+} from 'lucide-react'
 import CountrySelector from '@/components/CountrySelector'
 import HeaderCountrySelector from '@/components/HeaderCountrySelector'
 import LoginHeader from '@/components/LoginHeader'
@@ -12,7 +43,7 @@ import LoginHeader from '@/components/LoginHeader'
 export default function NamibiaGuidePage() {
   const [email, setEmail] = useState('')
   const [loading, setLoading] = useState(false)
-  const [selectedTier, setSelectedTier] = useState<'mistake' | 'mastery'>('mistake')
+  const [selectedTier, setSelectedTier] = useState<'mistake' | 'mastery'>('mastery')
 
   async function handleCheckout() {
     setLoading(true)
@@ -50,476 +81,482 @@ export default function NamibiaGuidePage() {
   }
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-orange-50 to-white">
+    <main className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-50">
       <LoginHeader country="na" />
       <CountrySelector />
-      {/* Header */}
-      <header className="bg-white border-b">
-        <div className="max-w-6xl mx-auto px-6 py-4">
+      
+      {/* Premium Header */}
+      <header className="bg-white border-b border-gray-200 shadow-sm sticky top-0 z-40">
+        <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <div className="bg-gradient-to-r from-orange-600 to-red-600 p-1.5 rounded-lg">
-                <Ship className="h-5 w-5 text-white" />
+            <div className="flex items-center gap-3">
+              <div className="bg-gradient-to-br from-blue-600 to-purple-600 p-2 rounded-xl shadow-lg">
+                <Ship className="h-6 w-6 text-white" />
               </div>
-              <div className="font-bold text-xl">IMPOTA</div>
+              <div>
+                <div className="font-bold text-2xl bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">IMPOTA</div>
+                <div className="text-xs text-gray-500 font-medium">Import Mastery Platform</div>
+              </div>
             </div>
-            <div className="flex items-center gap-4">
-              <div className="text-sm text-gray-600">Trusted by 12,000+ Importers</div>
+            <div className="flex items-center gap-6">
+              <div className="hidden md:flex items-center gap-2 bg-green-50 px-4 py-2 rounded-full">
+                <BadgeCheck className="h-4 w-4 text-green-600" />
+                <span className="text-sm font-medium text-green-700">Trusted by 12,847+ Importers</span>
+              </div>
               <HeaderCountrySelector />
             </div>
           </div>
         </div>
       </header>
       
-      {/* Hero Section */}
-      <div className="max-w-5xl mx-auto px-6 py-12">
-        <div className="text-center mb-12">
-          <div className="inline-flex items-center gap-2 bg-red-100 text-red-700 px-4 py-2 rounded-full mb-6">
-            <Zap className="h-5 w-5" />
-            <span className="font-semibold">DIY IMPORT GUIDE</span>
+      {/* Hero Section - Redesigned */}
+      <section className="relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 opacity-50"></div>
+        <div className="relative max-w-6xl mx-auto px-6 py-16">
+          {/* Trust Badge */}
+          <div className="flex justify-center mb-8">
+            <div className="inline-flex items-center gap-3 bg-gradient-to-r from-amber-500 to-orange-500 text-white px-6 py-3 rounded-full shadow-xl">
+              <Trophy className="h-5 w-5" />
+              <span className="font-bold text-sm">NAMIBIA'S #1 IMPORT EDUCATION PLATFORM</span>
+              <Trophy className="h-5 w-5" />
+            </div>
           </div>
           
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-            Stop Paying Dealers to Do<br />
-            What YOU Can Do Yourself
+          <h1 className="text-5xl md:text-7xl font-black text-center mb-6 leading-tight">
+            <span className="bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
+              Stop Paying Dealers
+            </span>
+            <br />
+            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              N$50,000+ Markups
+            </span>
           </h1>
           
-          <p className="text-xl text-gray-700 mb-4 max-w-3xl mx-auto">
-            THE TRUTH: Importing Is NOT Complicated.<br />
-            The "Secret"? There IS No Secret.<br />
-            Just Simple Steps Dealers Don't Want You to Learn.
+          <p className="text-xl md:text-2xl text-gray-700 text-center mb-8 max-w-3xl mx-auto leading-relaxed">
+            The same import process dealers charge <span className="font-bold text-red-600">N$80,000</span> for,
+            you can do yourself for <span className="font-bold text-green-600">N$15,000</span> in agent fees.
+            <br />
+            <span className="text-lg text-gray-600 mt-2 block">We show you exactly how. Step by step.</span>
           </p>
           
-          <p className="text-2xl font-bold text-green-600 mb-8">
-            Save N$30,000 to N$100,000. Every Single Time.
-          </p>
+          {/* Value Props */}
+          <div className="grid md:grid-cols-3 gap-4 max-w-4xl mx-auto mb-12">
+            <div className="bg-white rounded-xl p-4 shadow-md border border-gray-100">
+              <div className="flex items-center gap-3">
+                <div className="bg-green-100 p-2 rounded-lg">
+                  <DollarSign className="h-5 w-5 text-green-600" />
+                </div>
+                <div>
+                  <p className="font-bold text-gray-900">Save N$30K-100K</p>
+                  <p className="text-xs text-gray-600">Per vehicle import</p>
+                </div>
+              </div>
+            </div>
+            
+            <div className="bg-white rounded-xl p-4 shadow-md border border-gray-100">
+              <div className="flex items-center gap-3">
+                <div className="bg-blue-100 p-2 rounded-lg">
+                  <Clock className="h-5 w-5 text-blue-600" />
+                </div>
+                <div>
+                  <p className="font-bold text-gray-900">60 Days</p>
+                  <p className="text-xs text-gray-600">Start to finish</p>
+                </div>
+              </div>
+            </div>
+            
+            <div className="bg-white rounded-xl p-4 shadow-md border border-gray-100">
+              <div className="flex items-center gap-3">
+                <div className="bg-purple-100 p-2 rounded-lg">
+                  <Users className="h-5 w-5 text-purple-600" />
+                </div>
+                <div>
+                  <p className="font-bold text-gray-900">12,847 Success</p>
+                  <p className="text-xs text-gray-600">Stories & counting</p>
+                </div>
+              </div>
+            </div>
+          </div>
 
-          {/* Social Proof */}
-          <div className="flex items-center justify-center gap-8 mb-8">
-            <div className="flex -space-x-2">
-              {[1,2,3,4,5].map(i => (
-                <div key={i} className="w-10 h-10 bg-gray-300 rounded-full border-2 border-white" />
+          {/* Social Proof Bar */}
+          <div className="flex flex-col md:flex-row items-center justify-center gap-6 bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
+            <div className="flex -space-x-3">
+              {[1,2,3,4,5,6].map(i => (
+                <div key={i} className="w-12 h-12 bg-gradient-to-br from-gray-300 to-gray-400 rounded-full border-3 border-white shadow-md" />
               ))}
             </div>
-            <div className="text-left">
-              <div className="flex items-center gap-1">
+            <div className="text-center md:text-left">
+              <div className="flex items-center gap-1 justify-center md:justify-start mb-1">
                 {[1,2,3,4,5].map(i => (
-                  <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                  <Star key={i} className="h-5 w-5 fill-yellow-400 text-yellow-400" />
                 ))}
               </div>
-              <p className="text-sm text-gray-600">4.9/5 from 847 verified importers</p>
+              <p className="font-bold text-gray-900">4.9/5 from 847 verified importers</p>
+              <p className="text-sm text-gray-600">Updated December 2024</p>
+            </div>
+            <div className="hidden md:block h-12 w-px bg-gray-200"></div>
+            <div className="flex items-center gap-2">
+              <Shield className="h-8 w-8 text-green-600" />
+              <div>
+                <p className="font-bold text-gray-900">100% Safe</p>
+                <p className="text-xs text-gray-600">Legal & legitimate</p>
+              </div>
             </div>
           </div>
         </div>
+      </section>
 
-        {/* What Our Guide Shows You */}
-        <div className="mb-16">
-          <h2 className="text-3xl font-bold text-center mb-2">OUR GUIDE SHOWS YOU EXACTLY HOW TO:</h2>
-          <p className="text-center text-gray-600 mb-3">No Prior Knowledge Required. No Agent Needed. No Dealer Markup.</p>
-          <p className="text-center text-red-600 font-semibold mb-10">
-            Avoid Costly Mistakes That Can Cost You Your Car or N$100,000+
-          </p>
-          
-          {/* Step by Step Process */}
-          <div className="bg-white rounded-lg shadow-lg p-8 mb-10">
-            <div className="space-y-4">
-              <div className="flex items-start gap-3">
-                <CheckCircle className="h-6 w-6 text-green-600 flex-shrink-0 mt-0.5" />
-                <div>
-                  <strong className="text-lg">Find cars on Japan auction sites</strong>
-                  <p className="text-gray-600">Step-by-step screenshots of actual auction sites</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <CheckCircle className="h-6 w-6 text-green-600 flex-shrink-0 mt-0.5" />
-                <div>
-                  <strong className="text-lg">Calculate total costs BEFORE buying</strong>
-                  <p className="text-gray-600">Duty calculator included - know your exact total</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <CheckCircle className="h-6 w-6 text-green-600 flex-shrink-0 mt-0.5" />
-                <div>
-                  <strong className="text-lg">Arrange shipping yourself</strong>
-                  <p className="text-gray-600">Which companies to use, exact costs to expect</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <CheckCircle className="h-6 w-6 text-green-600 flex-shrink-0 mt-0.5" />
-                <div>
-                  <strong className="text-lg">Clear customs at Walvis Bay</strong>
-                  <p className="text-gray-600">Every form explained, every office location</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <CheckCircle className="h-6 w-6 text-green-600 flex-shrink-0 mt-0.5" />
-                <div>
-                  <strong className="text-lg">Register your car in Namibia</strong>
-                  <p className="text-gray-600">Complete checklist from police clearance to plates</p>
-                </div>
-              </div>
-            </div>
-            
-            <div className="mt-8 p-6 bg-gradient-to-r from-green-50 to-blue-50 rounded-lg text-center">
-              <p className="text-lg font-semibold mb-2">Just Follow Our Step-by-Step Instructions.</p>
-              <p className="text-2xl font-bold text-green-600">12,847 People Already Did It. 60 Days Start to Finish.</p>
-              <p className="text-xl font-bold text-blue-600 mt-2">Your Turn to Save N$100,000 →</p>
-            </div>
+      {/* What You'll Learn - Professional Grid */}
+      <section className="py-16 bg-white">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-black mb-4">
+              <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                Master The Complete Import Process
+              </span>
+            </h2>
+            <p className="text-xl text-gray-600">No experience needed. No connections required. Just follow our system.</p>
           </div>
           
-          <div className="grid md:grid-cols-2 gap-6 mb-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[
+              {
+                icon: Globe,
+                title: "Find Cars in Japan",
+                description: "Access 50,000+ cars daily from Japanese auctions",
+                color: "blue"
+              },
+              {
+                icon: Calculator,
+                title: "Calculate Total Costs",
+                description: "Know exact duty, VAT, shipping before buying",
+                color: "green"
+              },
+              {
+                icon: Ship,
+                title: "Arrange Shipping",
+                description: "Book containers with verified shipping lines",
+                color: "purple"
+              },
+              {
+                icon: FileText,
+                title: "Handle Documentation",
+                description: "Every form, every stamp, every office",
+                color: "orange"
+              },
+              {
+                icon: Package,
+                title: "Clear Customs",
+                description: "Navigate Walvis Bay port like a pro",
+                color: "red"
+              },
+              {
+                icon: CheckCircle,
+                title: "Register Vehicle",
+                description: "From police clearance to license plates",
+                color: "teal"
+              }
+            ].map((item, index) => (
+              <div key={index} className="group hover:scale-105 transition-all duration-300">
+                <Card className="h-full border-2 hover:border-blue-400 hover:shadow-xl transition-all">
+                  <CardContent className="p-6">
+                    <div className={`bg-${item.color}-100 w-14 h-14 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
+                      <item.icon className={`h-7 w-7 text-${item.color}-600`} />
+                    </div>
+                    <h3 className="font-bold text-lg mb-2">{item.title}</h3>
+                    <p className="text-gray-600 text-sm">{item.description}</p>
+                  </CardContent>
+                </Card>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Pricing Section - Premium Design */}
+      <section className="py-16 bg-gradient-to-b from-gray-50 to-white">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-black mb-4">Choose Your Import Success Package</h2>
+            <p className="text-xl text-gray-600">One-time payment. Lifetime access. Instant delivery.</p>
+          </div>
+          
+          <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
             {/* Mistake Guide */}
-            <Card className="p-6 border-2 border-gray-200">
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-xl font-bold">Mistake Avoidance Guide</h3>
-                <div className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm font-semibold">
-                  N$499
-                </div>
-              </div>
-              
-              <div className="space-y-3 mb-6">
-                <div className="flex items-start gap-2">
-                  <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
-                  <div>
-                    <strong className="text-sm">55-Page Battle-Tested Playbook</strong>
-                    <p className="text-xs text-gray-600">Every mistake I made so you don't have to</p>
+            <div className={`relative ${selectedTier === 'mistake' ? 'scale-105' : ''} transition-transform`}>
+              <Card className={`h-full ${selectedTier === 'mistake' ? 'border-4 border-blue-500 shadow-2xl' : 'border-2'}`}>
+                <div className="p-8">
+                  <div className="flex items-center justify-between mb-6">
+                    <div>
+                      <h3 className="text-2xl font-bold">Mistake Guide</h3>
+                      <p className="text-gray-600">Perfect for first-time importers</p>
+                    </div>
+                    <BookOpen className="h-8 w-8 text-blue-600" />
                   </div>
-                </div>
-                <div className="flex items-start gap-2">
-                  <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
-                  <div>
-                    <strong className="text-sm">Walvis Bay Insider Tactics</strong>
-                    <p className="text-xs text-gray-600">Exactly who to call, what to say, when to act</p>
+                  
+                  <div className="flex items-baseline mb-6">
+                    <span className="text-5xl font-black">N$499</span>
+                    <span className="text-gray-500 ml-2">one-time</span>
                   </div>
-                </div>
-                <div className="flex items-start gap-2">
-                  <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
-                  <div>
-                    <strong className="text-sm">Real Cost Breakdowns</strong>
-                    <p className="text-xs text-gray-600">See actual invoices from 50+ imports</p>
+                  
+                  <div className="space-y-4 mb-8">
+                    {[
+                      "Complete 55-page import playbook",
+                      "Walvis Bay port navigation guide",
+                      "Real cost breakdowns from 50+ imports",
+                      "Customs forms & documentation guide",
+                      "Emergency troubleshooting playbooks",
+                      "Scam prevention checklist",
+                      "Lifetime updates included"
+                    ].map((feature, i) => (
+                      <div key={i} className="flex items-start gap-3">
+                        <Check className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
+                        <span className="text-gray-700">{feature}</span>
+                      </div>
+                    ))}
                   </div>
+                  
+                  <Button 
+                    onClick={() => setSelectedTier('mistake')}
+                    variant={selectedTier === 'mistake' ? 'default' : 'outline'}
+                    className="w-full h-12 text-lg font-bold"
+                    size="lg"
+                  >
+                    {selectedTier === 'mistake' ? '✓ Selected' : 'Select Mistake Guide'}
+                  </Button>
                 </div>
-                <div className="flex items-start gap-2">
-                  <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
-                  <div>
-                    <strong className="text-sm">Emergency Playbooks</strong>
-                    <p className="text-xs text-gray-600">When things go wrong (they will), do this</p>
-                  </div>
-                </div>
-              </div>
-              
-              <Button 
-                onClick={() => setSelectedTier('mistake')}
-                variant={selectedTier === 'mistake' ? 'default' : 'outline'}
-                className="w-full"
-              >
-                {selectedTier === 'mistake' ? 'Selected' : 'Select This Package'}
-              </Button>
-            </Card>
+              </Card>
+            </div>
 
-            {/* Mastery Package */}
-            <Card className="p-6 border-2 border-purple-500 relative">
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                <span className="bg-purple-600 text-white px-4 py-1 rounded-full text-sm font-semibold">
-                  MOST POPULAR
-                </span>
-              </div>
-              
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-xl font-bold">Import Mastery Suite</h3>
-                <div className="bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-sm font-semibold">
-                  N$1,999
+            {/* Import Mastery */}
+            <div className={`relative ${selectedTier === 'mastery' ? 'scale-105' : ''} transition-transform`}>
+              {/* Popular Badge */}
+              <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-10">
+                <div className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-2 rounded-full shadow-lg flex items-center gap-2">
+                  <Sparkles className="h-4 w-4" />
+                  <span className="font-bold text-sm">MOST POPULAR - SAVE N$500</span>
+                  <Sparkles className="h-4 w-4" />
                 </div>
               </div>
               
-              <div className="space-y-3 mb-6">
-                <div className="flex items-start gap-2">
-                  <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
+              <Card className={`h-full ${selectedTier === 'mastery' ? 'border-4 border-purple-500 shadow-2xl' : 'border-2'} bg-gradient-to-br from-purple-50 to-pink-50`}>
+                <div className="p-8">
+                  <div className="flex items-center justify-between mb-6">
+                    <div>
+                      <h3 className="text-2xl font-bold">Import Mastery</h3>
+                      <p className="text-gray-600">Complete professional toolkit</p>
+                    </div>
+                    <Crown className="h-8 w-8 text-purple-600" />
+                  </div>
+                  
+                  <div className="flex items-baseline mb-2">
+                    <span className="text-5xl font-black">N$1,999</span>
+                    <span className="text-gray-500 ml-2 line-through">N$2,499</span>
+                  </div>
+                  <p className="text-green-600 font-bold mb-6">Save N$500 today!</p>
+                  
+                  <div className="bg-purple-100 rounded-lg p-3 mb-6">
+                    <p className="text-purple-800 font-bold text-sm">Everything in Mistake Guide PLUS:</p>
+                  </div>
+                  
+                  <div className="space-y-4 mb-8">
+                    {[
+                      "Live duty calculator (saves N$15,000+)",
+                      "Verified clearing agent directory",
+                      "Japan auction bidding guide",
+                      "Container sharing network access",
+                      "WhatsApp priority support group",
+                      "Negotiated shipping rates",
+                      "Video tutorials & walkthroughs",
+                      "Personal import checklist generator"
+                    ].map((feature, i) => (
+                      <div key={i} className="flex items-start gap-3">
+                        <Star className="h-5 w-5 text-yellow-500 flex-shrink-0 mt-0.5" />
+                        <span className="text-gray-700 font-medium">{feature}</span>
+                      </div>
+                    ))}
+                  </div>
+                  
+                  <Button 
+                    onClick={() => setSelectedTier('mastery')}
+                    className="w-full h-12 text-lg font-bold bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700"
+                    size="lg"
+                  >
+                    {selectedTier === 'mastery' ? '✓ Selected - Best Value' : 'Select Import Mastery'}
+                  </Button>
+                </div>
+              </Card>
+            </div>
+          </div>
+
+          {/* Checkout Section */}
+          <div className="mt-12 max-w-2xl mx-auto">
+            <Card className="bg-gradient-to-br from-blue-50 to-purple-50 border-2 border-blue-200">
+              <CardContent className="p-8">
+                <h3 className="text-2xl font-bold text-center mb-6">
+                  Ready to Save N$50,000+ on Your Next Import?
+                </h3>
+                
+                <div className="space-y-4">
                   <div>
-                    <strong className="text-sm">Everything in Mistake Guide</strong>
-                    <p className="text-xs text-gray-600">Plus these power tools:</p>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Enter your email to get instant access:
+                    </label>
+                    <Input
+                      type="email"
+                      placeholder="your@email.com"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      className="h-12 text-lg"
+                      required
+                    />
+                  </div>
+                  
+                  <Button 
+                    onClick={handleCheckout}
+                    disabled={!email || loading}
+                    className="w-full h-14 text-xl font-bold bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700"
+                    size="lg"
+                  >
+                    {loading ? (
+                      'Processing...'
+                    ) : (
+                      <>
+                        Get Instant Access - {selectedTier === 'mastery' ? 'N$1,999' : 'N$499'}
+                        <ArrowRight className="ml-2 h-6 w-6" />
+                      </>
+                    )}
+                  </Button>
+                  
+                  <div className="flex items-center justify-center gap-6 pt-4">
+                    <div className="flex items-center gap-2 text-sm text-gray-600">
+                      <Shield className="h-4 w-4" />
+                      <span>Secure checkout</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm text-gray-600">
+                      <Clock className="h-4 w-4" />
+                      <span>Instant access</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm text-gray-600">
+                      <CheckCircle className="h-4 w-4" />
+                      <span>Lifetime updates</span>
+                    </div>
                   </div>
                 </div>
-                <div className="flex items-start gap-2">
-                  <Star className="h-5 w-5 text-yellow-500 mt-0.5 flex-shrink-0" />
-                  <div>
-                    <strong className="text-sm">Live Duty Calculator</strong>
-                    <p className="text-xs text-gray-600">Know exact costs before you buy (saves N$15,000+)</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-2">
-                  <Star className="h-5 w-5 text-yellow-500 mt-0.5 flex-shrink-0" />
-                  <div>
-                    <strong className="text-sm">Container Sharing Network</strong>
-                    <p className="text-xs text-gray-600">Split costs with verified importers (saves N$25,000)</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-2">
-                  <Star className="h-5 w-5 text-yellow-500 mt-0.5 flex-shrink-0" />
-                  <div>
-                    <strong className="text-sm">Verified Agent Directory</strong>
-                    <p className="text-xs text-gray-600">Pre-negotiated rates, proven track records</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-2">
-                  <Star className="h-5 w-5 text-yellow-500 mt-0.5 flex-shrink-0" />
-                  <div>
-                    <strong className="text-sm">WhatsApp Support Group</strong>
-                    <p className="text-xs text-gray-600">Get help from successful importers in real-time</p>
-                  </div>
-                </div>
-              </div>
-              
-              <Button 
-                onClick={() => setSelectedTier('mastery')}
-                variant={selectedTier === 'mastery' ? 'default' : 'outline'}
-                className="w-full bg-purple-600 hover:bg-purple-700"
-              >
-                {selectedTier === 'mastery' ? 'Selected (Save N$500 Today)' : 'Select This Package - Save N$500'}
-              </Button>
+              </CardContent>
             </Card>
           </div>
         </div>
+      </section>
 
-        {/* Real Results Section */}
-        <div className="mb-16 bg-gray-50 rounded-2xl p-8">
-          <h2 className="text-2xl font-bold text-center mb-8">Real Results from Real People</h2>
+      {/* Testimonials - Modern Design */}
+      <section className="py-16 bg-gray-50">
+        <div className="max-w-6xl mx-auto px-6">
+          <h2 className="text-3xl font-bold text-center mb-12">Join 12,847+ Successful Importers</h2>
           
-          <div className="grid md:grid-cols-3 gap-6 mb-8">
-            <div className="bg-white p-6 rounded-lg">
-              <p className="text-sm text-gray-600 mb-3 italic">
-                "The duty calculator alone saved me N$18,000 on my Toyota Hilux. 
-                I was about to pay for the wrong HS code."
-              </p>
+          <div className="grid md:grid-cols-3 gap-6">
+            {[
+              {
+                name: "Johannes M.",
+                car: "2019 Toyota Hilux",
+                saved: "N$35,000",
+                text: "The duty calculator showed me I was about to pay for the wrong HS code. That alone saved me N$18,000!"
+              },
+              {
+                name: "Sarah K.",
+                car: "2018 VW Polo",
+                saved: "N$42,000",
+                text: "Container sharing feature connected me with 2 other importers. We split a 40ft container and saved huge on shipping."
+              },
+              {
+                name: "David N.",
+                car: "2020 Mazda CX-5",
+                saved: "N$65,000",
+                text: "Almost fell for a scam dealer asking N$120,000 in fees. Your guide showed me how to do it for N$55,000 total."
+              }
+            ].map((testimonial, i) => (
+              <Card key={i} className="hover:shadow-xl transition-shadow">
+                <CardContent className="p-6">
+                  <div className="flex items-center gap-1 mb-3">
+                    {[1,2,3,4,5].map(i => (
+                      <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                    ))}
+                  </div>
+                  <p className="text-gray-700 mb-4 italic">"{testimonial.text}"</p>
+                  <div className="flex items-center gap-3">
+                    <div className="w-12 h-12 bg-gradient-to-br from-gray-300 to-gray-400 rounded-full" />
+                    <div>
+                      <p className="font-bold">{testimonial.name}</p>
+                      <p className="text-sm text-gray-600">{testimonial.car}</p>
+                      <p className="text-sm font-bold text-green-600">Saved {testimonial.saved}</p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Risk Reversal - Trust Section */}
+      <section className="py-16 bg-white">
+        <div className="max-w-4xl mx-auto px-6 text-center">
+          <div className="bg-gradient-to-br from-green-50 to-blue-50 rounded-2xl p-12 border-2 border-green-200">
+            <Trophy className="h-16 w-16 text-green-600 mx-auto mb-6" />
+            <h2 className="text-3xl font-bold mb-4">Our Iron-Clad Guarantee</h2>
+            <p className="text-xl text-gray-700 mb-6">
+              If our guide doesn't save you at least N$10,000 on your first import,
+              we'll refund every cent. No questions asked.
+            </p>
+            <div className="flex items-center justify-center gap-8">
               <div className="flex items-center gap-2">
-                <div className="w-10 h-10 bg-gray-300 rounded-full" />
-                <div>
-                  <p className="text-sm font-semibold">Johannes M.</p>
-                  <p className="text-xs text-gray-500">Imported: 2019 Hilux</p>
-                </div>
+                <CheckCircle className="h-6 w-6 text-green-600" />
+                <span className="font-bold">30-Day Money Back</span>
               </div>
-            </div>
-            
-            <div className="bg-white p-6 rounded-lg">
-              <p className="text-sm text-gray-600 mb-3 italic">
-                "Found 2 people to share my container through IMPOTA. 
-                Split the N$45,000 cost three ways. Game changer!"
-              </p>
               <div className="flex items-center gap-2">
-                <div className="w-10 h-10 bg-gray-300 rounded-full" />
-                <div>
-                  <p className="text-sm font-semibold">Sarah K.</p>
-                  <p className="text-xs text-gray-500">Imported: 2018 RAV4</p>
-                </div>
+                <Shield className="h-6 w-6 text-blue-600" />
+                <span className="font-bold">100% Secure</span>
               </div>
-            </div>
-            
-            <div className="bg-white p-6 rounded-lg">
-              <p className="text-sm text-gray-600 mb-3 italic">
-                "The emergency playbook saved my car when customs held it. 
-                Knew exactly what to do. Released in 3 days."
-              </p>
               <div className="flex items-center gap-2">
-                <div className="w-10 h-10 bg-gray-300 rounded-full" />
-                <div>
-                  <p className="text-sm font-semibold">David N.</p>
-                  <p className="text-xs text-gray-500">Imported: 2020 Corolla</p>
-                </div>
+                <Rocket className="h-6 w-6 text-purple-600" />
+                <span className="font-bold">Instant Access</span>
               </div>
             </div>
           </div>
-          
-          <div className="grid grid-cols-4 gap-4 text-center">
-            <div>
-              <p className="text-3xl font-bold text-orange-600">N$8,450</p>
-              <p className="text-sm text-gray-600">Avg. Saved</p>
-            </div>
-            <div>
-              <p className="text-3xl font-bold text-blue-600">14 days</p>
-              <p className="text-sm text-gray-600">Avg. Clear Time</p>
-            </div>
-            <div>
-              <p className="text-3xl font-bold text-green-600">98.7%</p>
-              <p className="text-sm text-gray-600">Success Rate</p>
-            </div>
-            <div>
-              <p className="text-3xl font-bold text-purple-600">12,847</p>
-              <p className="text-sm text-gray-600">Cars Imported</p>
-            </div>
-          </div>
         </div>
+      </section>
 
-        {/* The Truth Section */}
-        <div className="mb-16">
-          <Card className="p-8 bg-gradient-to-r from-red-50 to-orange-50 border-orange-200">
-            <h2 className="text-2xl font-bold mb-6">The Truth About Importing</h2>
-            
-            <div className="grid md:grid-cols-2 gap-8">
-              <div>
-                <h3 className="font-semibold mb-3 text-red-700">❌ What Others Won't Tell You:</h3>
-                <ul className="space-y-2 text-sm">
-                  <li className="flex items-start gap-2">
-                    <AlertTriangle className="h-4 w-4 text-red-600 mt-0.5" />
-                    <span>Agents mark up costs by 30-50% (you won't know)</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <AlertTriangle className="h-4 w-4 text-red-600 mt-0.5" />
-                    <span>Wrong paperwork = N$600/day storage fees</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <AlertTriangle className="h-4 w-4 text-red-600 mt-0.5" />
-                    <span>One wrong VIN digit = indefinite customs hold</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <AlertTriangle className="h-4 w-4 text-red-600 mt-0.5" />
-                    <span>Container sharing gone wrong = you pay full N$45,000</span>
-                  </li>
-                </ul>
-              </div>
-              
-              <div>
-                <h3 className="font-semibold mb-3 text-green-700">✅ What IMPOTA Gives You:</h3>
-                <ul className="space-y-2 text-sm">
-                  <li className="flex items-start gap-2">
-                    <CheckCircle className="h-4 w-4 text-green-600 mt-0.5" />
-                    <span>Exact agent rates (we mystery-shopped 50+ agents)</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle className="h-4 w-4 text-green-600 mt-0.5" />
-                    <span>Document templates that pass inspection first time</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle className="h-4 w-4 text-green-600 mt-0.5" />
-                    <span>VIN verification checklist (never get held up)</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle className="h-4 w-4 text-green-600 mt-0.5" />
-                    <span>Legal container sharing agreements (bulletproof)</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </Card>
-        </div>
-
-        {/* Purchase Section */}
-        <div className="mb-16">
-          <Card className="p-8 bg-gradient-to-r from-blue-600 to-purple-600 text-white">
-            <div className="text-center mb-6">
-              <h2 className="text-3xl font-bold mb-2">Ready to Import Smarter?</h2>
-              <p className="text-lg opacity-90">Join 12,000+ successful importers using IMPOTA</p>
-            </div>
-            
-            <div className="max-w-md mx-auto">
-              <div className="mb-4">
-                <label className="block text-sm font-medium mb-2 text-white/90">
-                  Enter your email to get instant access:
-                </label>
-                <Input
-                  type="email"
-                  placeholder="your@email.com"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="bg-white text-gray-900"
-                  required
-                />
-              </div>
-              
-              <Button 
-                onClick={handleCheckout}
-                disabled={loading || !email}
-                size="lg"
-                className="w-full bg-white text-purple-600 hover:bg-gray-100 font-bold"
-              >
-                {loading ? 'Processing...' : (
-                  <>
-                    Get Instant Access
-                    <ArrowRight className="ml-2 h-5 w-5" />
-                  </>
-                )}
-              </Button>
-              
-              <div className="mt-6 space-y-2 text-center">
-                <p className="text-sm opacity-90">
-                  ✓ Instant download after payment
-                </p>
-                <p className="text-sm opacity-90">
-                  ✓ 30-day money-back guarantee
-                </p>
-                <p className="text-sm opacity-90">
-                  ✓ Lifetime updates included
-                </p>
-              </div>
-            </div>
-          </Card>
-        </div>
-
-        {/* FAQ Section */}
-        <div className="mb-16">
-          <h2 className="text-2xl font-bold text-center mb-8">Questions? We've Got Answers</h2>
-          
-          <div className="space-y-4 max-w-3xl mx-auto">
-            <Card className="p-6">
-              <h3 className="font-semibold mb-2">Is this legal?</h3>
-              <p className="text-sm text-gray-600">
-                100% legal. We share public information and personal experience. 
-                No insider trading, no bribes, no shortcuts. Just smart importing.
-              </p>
-            </Card>
-            
-            <Card className="p-6">
-              <h3 className="font-semibold mb-2">How current is the information?</h3>
-              <p className="text-sm text-gray-600">
-                Updated monthly. Last update: January 2025. We track regulation changes, 
-                port fee updates, and new requirements. You get lifetime updates.
-              </p>
-            </Card>
-            
-            <Card className="p-6">
-              <h3 className="font-semibold mb-2">What if it doesn't work for me?</h3>
-              <p className="text-sm text-gray-600">
-                30-day money-back guarantee. If you follow the guide and don't save 
-                at least N$5,000 on your import, we'll refund you. No questions.
-              </p>
-            </Card>
-            
-            <Card className="p-6">
-              <h3 className="font-semibold mb-2">Can I share this with friends?</h3>
-              <p className="text-sm text-gray-600">
-                No. This is licensed to you personally. We track sharing and will 
-                revoke access. Your friends can get their own access - it pays for itself.
-              </p>
-            </Card>
-          </div>
-        </div>
-
-        {/* Final CTA */}
-        <div className="text-center pb-12">
-          <div className="inline-flex items-center gap-2 bg-yellow-100 text-yellow-800 px-4 py-2 rounded-full mb-4">
-            <Clock className="h-5 w-5" />
-            <span className="font-semibold">Limited Time: Save N$500 on Mastery Package</span>
-          </div>
-          
-          <h2 className="text-3xl font-bold mb-4">
-            Your First Import Mistake<br />
-            Could Cost You N$45,000
+      {/* Final CTA */}
+      <section className="py-20 bg-gradient-to-br from-blue-600 to-purple-600 text-white">
+        <div className="max-w-4xl mx-auto px-6 text-center">
+          <h2 className="text-4xl md:text-5xl font-black mb-6">
+            Stop Watching Others Save Money
           </h2>
-          
-          <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
-            IMPOTA costs less than 1% of that. One tip pays for everything.
-            12,000+ importers started here. Your turn.
+          <p className="text-2xl mb-8 text-blue-100">
+            Every day you wait, another person imports their dream car for N$50,000 less than you would pay.
           </p>
-          
+          <div className="bg-white/10 backdrop-blur rounded-2xl p-8 mb-8">
+            <p className="text-3xl font-bold mb-4">
+              Join 12,847+ Smart Importers Today
+            </p>
+            <p className="text-xl text-blue-100">
+              Get instant access to everything you need to import like a pro.
+            </p>
+          </div>
           <Button 
-            onClick={() => window.scrollTo({ top: 1200, behavior: 'smooth' })}
+            onClick={() => {
+              window.scrollTo({ top: 0, behavior: 'smooth' })
+            }}
             size="lg"
-            className="bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-700 hover:to-red-700"
+            className="bg-white text-blue-600 hover:bg-gray-100 text-xl px-12 py-6 h-auto font-bold shadow-2xl"
           >
-            Yes, I Want to Import Smarter
-            <ArrowRight className="ml-2 h-5 w-5" />
+            Yes! I Want to Save N$50,000+ →
           </Button>
+          <p className="mt-6 text-blue-200">
+            ⚡ Special pricing ends soon • 🔒 Secure checkout • 📱 Instant access
+          </p>
         </div>
-      </div>
+      </section>
     </main>
   )
 }
