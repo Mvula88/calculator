@@ -294,7 +294,7 @@ export default function ZambiaGuidePage() {
                   </div>
                   
                   <div className="flex items-baseline mb-6">
-                    <span className="text-5xl font-black">K499</span>
+                    <span className="text-5xl font-black">K669</span>
                     <span className="text-gray-500 ml-2">one-time</span>
                   </div>
                   
@@ -349,8 +349,8 @@ export default function ZambiaGuidePage() {
                   </div>
                   
                   <div className="flex items-baseline mb-2">
-                    <span className="text-5xl font-black">K1,999</span>
-                    <span className="text-gray-500 ml-2 line-through">K2,499</span>
+                    <span className="text-5xl font-black">K2,676</span>
+                    <span className="text-gray-500 ml-2 line-through">K3,176</span>
                   </div>
                   <p className="text-emerald-600 font-bold mb-6">Save K500 today!</p>
                   
@@ -421,7 +421,7 @@ export default function ZambiaGuidePage() {
                       'Processing...'
                     ) : (
                       <>
-                        Get Instant Access - {selectedTier === 'mastery' ? 'K1,999' : 'K499'}
+                        Get Instant Access - {selectedTier === 'mastery' ? 'K2,676' : 'K669'}
                         <ArrowRight className="ml-2 h-6 w-6" />
                       </>
                     )}
