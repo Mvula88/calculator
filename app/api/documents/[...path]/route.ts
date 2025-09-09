@@ -3,9 +3,12 @@ import { createClient } from '@/lib/supabase/server'
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { path: string[] } }
+  { params }: { params: Promise<{ path: string[] }> }
 ) {
   try {
+    // Await params in Next.js 15
+    const { path } = await params
+    
     // Check authentication
     const supabase = await createClient()
     const { data: { user } } = await supabase.auth.getUser()
@@ -26,7 +29,7 @@ export async function GET(
     }
 
     // Construct the file path
-    const filePath = params.path.join('/')
+    const filePath = path.join('/')
     
     // Fetch the PDF from Supabase Storage
     const { data, error } = await supabase.storage
