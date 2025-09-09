@@ -138,8 +138,18 @@ export default function DocumentsPage() {
           description: "Premium sedan import from Japan auction",
           highlight: "Total cost: ¥335,340 (Vehicle: ¥201,000 + fees)"
         },
-        // Removed A5 and A4 as they don't exist in storage
-        // You can upload these files to Supabase to enable them
+        {
+          name: "2015 Audi A5 Sportback Invoice",
+          file: "2015 AUDI A5 SPORTBACK INVOICE.pdf",
+          description: "Luxury sportback from Japanese auction",
+          highlight: "Total cost: ¥355,440 (Vehicle: ¥231,000 + fees)"
+        },
+        {
+          name: "2012 Audi A4 Invoice",
+          file: "2012 AUDI A4 INVOICE.pdf",
+          description: "Executive sedan import example",
+          highlight: "Total cost: ¥323,560 (Vehicle: ¥200,000 + fees)"
+        }
       ]
     },
     {

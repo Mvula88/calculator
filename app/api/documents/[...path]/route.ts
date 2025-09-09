@@ -38,6 +38,8 @@ export async function GET(
       // Vehicle invoices - EXACT names from Supabase
       '2015_VOLKSWAGEN_GOLF_R_INVOICE.pdf': '2015_VOLKSWAGEN_GOLF_R_INVOICE.pdf',
       '2017 AUDI A3 INVOICE.pdf': '2017 AUDI A3 INVOICE.pdf',
+      '2015 AUDI A5 SPORTBACK INVOICE.pdf': '2015 AUDI A5 SPORTBACK INVOICE.pdf',
+      '2012 AUDI A4 INVOICE.pdf': '2012 AUDI A4 INVOICE.pdf',
       
       // Customs documents - EXACT names with dash
       'SAD 500 CUSTOMS.pdf': 'SAD 500 CUSTOMS.pdf',
