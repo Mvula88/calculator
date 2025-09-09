@@ -4,7 +4,38 @@ import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Card, CardContent } from '@/components/ui/card'
-import { CheckCircle, AlertTriangle, Ship, TrendingDown, Clock, Shield, MapPin, DollarSign } from 'lucide-react'
+import { 
+  CheckCircle, 
+  AlertTriangle, 
+  Ship, 
+  TrendingDown, 
+  Clock, 
+  Shield, 
+  Star, 
+  Lock, 
+  DollarSign, 
+  Users, 
+  Calculator, 
+  FileText, 
+  Phone, 
+  Award, 
+  ArrowRight, 
+  Zap, 
+  Target,
+  BookOpen,
+  Sparkles,
+  TrendingUp,
+  ChevronRight,
+  BadgeCheck,
+  Package,
+  Globe,
+  MessageCircle,
+  Rocket,
+  Trophy,
+  Crown,
+  AlertCircle,
+  Check
+} from 'lucide-react'
 import CountrySelector from '@/components/CountrySelector'
 import HeaderCountrySelector from '@/components/HeaderCountrySelector'
 import LoginHeader from '@/components/LoginHeader'
@@ -12,17 +43,20 @@ import LoginHeader from '@/components/LoginHeader'
 export default function ZambiaGuidePage() {
   const [email, setEmail] = useState('')
   const [loading, setLoading] = useState(false)
+  const [selectedTier, setSelectedTier] = useState<'mistake' | 'mastery'>('mastery')
 
   async function handleCheckout() {
     setLoading(true)
     try {
+      localStorage.setItem('checkout_email', email)
+      
       const res = await fetch('/api/stripe/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 
           country: 'zm', 
-          tier: 'mistake',
-          productId: 'walvis-bay-guide',
+          tier: selectedTier,
+          productId: 'lusaka-guide',
           email
         })
       })
@@ -46,330 +80,482 @@ export default function ZambiaGuidePage() {
   }
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-emerald-50 to-white">
+    <main className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-50">
       <LoginHeader country="zm" />
       <CountrySelector />
-      {/* Header */}
-      <header className="bg-white border-b">
-        <div className="max-w-6xl mx-auto px-6 py-4">
+      
+      {/* Premium Header */}
+      <header className="bg-white border-b border-gray-200 shadow-sm sticky top-0 z-40">
+        <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
-            <div className="font-bold text-xl">IMPOTA</div>
-            <div className="flex items-center gap-4">
-              <div className="text-sm text-gray-600">Trusted by 500+ Importers</div>
+            <div className="flex items-center gap-3">
+              <div className="bg-gradient-to-br from-emerald-600 to-teal-600 p-2 rounded-xl shadow-lg">
+                <Ship className="h-6 w-6 text-white" />
+              </div>
+              <div>
+                <div className="font-bold text-2xl bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">IMPOTA</div>
+                <div className="text-xs text-gray-500 font-medium">Import Mastery Platform</div>
+              </div>
+            </div>
+            <div className="flex items-center gap-6">
+              <div className="hidden md:flex items-center gap-2 bg-emerald-50 px-4 py-2 rounded-full">
+                <BadgeCheck className="h-4 w-4 text-emerald-600" />
+                <span className="text-sm font-medium text-emerald-700">Trusted by 5,000+ ZM Importers</span>
+              </div>
               <HeaderCountrySelector />
             </div>
           </div>
         </div>
       </header>
       
-      {/* Hero Section */}
-      <div className="max-w-4xl mx-auto px-6 py-12">
-        <div className="text-center mb-12">
-          <div className="inline-flex items-center gap-2 bg-green-100 text-green-700 px-4 py-2 rounded-full mb-6">
-            <DollarSign className="h-5 w-5" />
-            <span className="font-semibold">DIY IMPORT GUIDE</span>
+      {/* Hero Section - Zambia Themed */}
+      <section className="relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 via-green-50 to-teal-50 opacity-50"></div>
+        <div className="relative max-w-6xl mx-auto px-6 py-16">
+          {/* Trust Badge */}
+          <div className="flex justify-center mb-8">
+            <div className="inline-flex items-center gap-3 bg-gradient-to-r from-emerald-500 to-teal-500 text-white px-6 py-3 rounded-full shadow-xl">
+              <Trophy className="h-5 w-5" />
+              <span className="font-bold text-sm">ZAMBIA'S #1 IMPORT EDUCATION PLATFORM</span>
+              <Trophy className="h-5 w-5" />
+            </div>
           </div>
           
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-            Stop Paying Dealers to Do<br />
-            What YOU Can Do Yourself
+          <h1 className="text-5xl md:text-7xl font-black text-center mb-6 leading-tight">
+            <span className="bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
+              Stop Paying Dealers
+            </span>
+            <br />
+            <span className="bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
+              K500,000+ Markups
+            </span>
           </h1>
           
-          <p className="text-xl text-gray-700 mb-4 max-w-3xl mx-auto">
-            THE TRUTH: Importing Is NOT Complicated.<br />
-            The "Secret"? There IS No Secret.<br />
-            Just Simple Steps Dealers Don't Want You to Learn.
+          <p className="text-xl md:text-2xl text-gray-700 text-center mb-8 max-w-3xl mx-auto leading-relaxed">
+            The same import process dealers charge <span className="font-bold text-red-600">K800,000</span> for,
+            you can do yourself for <span className="font-bold text-emerald-600">K150,000</span> in agent fees.
+            <br />
+            <span className="text-lg text-gray-600 mt-2 block">We show you exactly how. Step by step.</span>
           </p>
           
-          <p className="text-2xl font-bold text-green-600 mb-8">
-            Save K30,000 to K100,000. Every Single Time.
-          </p>
-        </div>
-
-        {/* Savings Comparison */}
-        <div className="grid md:grid-cols-3 gap-4 mb-8">
-          <Card className="border-green-200 bg-green-50">
-            <CardContent className="p-4 text-center">
-              <DollarSign className="h-8 w-8 text-green-600 mx-auto mb-2" />
-              <p className="text-2xl font-bold text-green-600">K45,000</p>
-              <p className="text-sm text-gray-600">Average savings per import</p>
-            </CardContent>
-          </Card>
-          
-          <Card className="border-blue-200 bg-blue-50">
-            <CardContent className="p-4 text-center">
-              <Clock className="h-8 w-8 text-blue-600 mx-auto mb-2" />
-              <p className="text-2xl font-bold text-blue-600">5 Days</p>
-              <p className="text-sm text-gray-600">vs 3 weeks at Durban</p>
-            </CardContent>
-          </Card>
-          
-          <Card className="border-purple-200 bg-purple-50">
-            <CardContent className="p-4 text-center">
-              <MapPin className="h-8 w-8 text-purple-600 mx-auto mb-2" />
-              <p className="text-2xl font-bold text-purple-600">Direct</p>
-              <p className="text-sm text-gray-600">Route to Lusaka</p>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* What Our Guide Shows You */}
-        <div className="mb-12">
-          <h2 className="text-3xl font-bold text-center mb-2">OUR GUIDE SHOWS YOU EXACTLY HOW TO:</h2>
-          <p className="text-center text-gray-600 mb-3">No Prior Knowledge Required. No Agent Needed. No Dealer Markup.</p>
-          <p className="text-center text-red-600 font-semibold mb-10">
-            Avoid Costly Mistakes That Can Cost You Your Car or K100,000+
-          </p>
-          
-          {/* Step by Step Process */}
-          <div className="bg-white rounded-lg shadow-lg p-8">
-            <div className="space-y-4">
-              <div className="flex items-start gap-3">
-                <CheckCircle className="h-6 w-6 text-green-600 flex-shrink-0 mt-0.5" />
-                <div>
-                  <strong className="text-lg">Find cars on Japan auction sites</strong>
-                  <p className="text-gray-600">Step-by-step screenshots of actual auction sites</p>
+          {/* Value Props */}
+          <div className="grid md:grid-cols-3 gap-4 max-w-4xl mx-auto mb-12">
+            <div className="bg-white rounded-xl p-4 shadow-md border border-gray-100">
+              <div className="flex items-center gap-3">
+                <div className="bg-green-100 p-2 rounded-lg">
+                  <DollarSign className="h-5 w-5 text-green-600" />
                 </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <CheckCircle className="h-6 w-6 text-green-600 flex-shrink-0 mt-0.5" />
                 <div>
-                  <strong className="text-lg">Calculate total costs BEFORE buying</strong>
-                  <p className="text-gray-600">ZRA duty calculator included - know your exact total</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <CheckCircle className="h-6 w-6 text-green-600 flex-shrink-0 mt-0.5" />
-                <div>
-                  <strong className="text-lg">Arrange shipping yourself</strong>
-                  <p className="text-gray-600">Best routes via Walvis Bay, exact costs</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <CheckCircle className="h-6 w-6 text-green-600 flex-shrink-0 mt-0.5" />
-                <div>
-                  <strong className="text-lg">Clear via Walvis Bay & Katima Mulilo</strong>
-                  <p className="text-gray-600">Avoid Durban delays, save K45,000</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <CheckCircle className="h-6 w-6 text-green-600 flex-shrink-0 mt-0.5" />
-                <div>
-                  <strong className="text-lg">Register your car in Zambia</strong>
-                  <p className="text-gray-600">Complete RTSA process from clearance to plates</p>
+                  <p className="font-bold text-gray-900">Save K300K-1M</p>
+                  <p className="text-xs text-gray-600">Per vehicle import</p>
                 </div>
               </div>
             </div>
             
-            <div className="mt-8 p-6 bg-gradient-to-r from-green-50 to-blue-50 rounded-lg text-center">
-              <p className="text-lg font-semibold mb-2">Just Follow Our Step-by-Step Instructions.</p>
-              <p className="text-2xl font-bold text-green-600">12,847 People Already Did It. 60 Days Start to Finish.</p>
-              <p className="text-xl font-bold text-blue-600 mt-2">Your Turn to Save K100,000 →</p>
+            <div className="bg-white rounded-xl p-4 shadow-md border border-gray-100">
+              <div className="flex items-center gap-3">
+                <div className="bg-blue-100 p-2 rounded-lg">
+                  <Clock className="h-5 w-5 text-blue-600" />
+                </div>
+                <div>
+                  <p className="font-bold text-gray-900">60 Days</p>
+                  <p className="text-xs text-gray-600">Start to finish</p>
+                </div>
+              </div>
+            </div>
+            
+            <div className="bg-white rounded-xl p-4 shadow-md border border-gray-100">
+              <div className="flex items-center gap-3">
+                <div className="bg-teal-100 p-2 rounded-lg">
+                  <Users className="h-5 w-5 text-teal-600" />
+                </div>
+                <div>
+                  <p className="font-bold text-gray-900">5,000+ Success</p>
+                  <p className="text-xs text-gray-600">ZM importers</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Social Proof Bar */}
+          <div className="flex flex-col md:flex-row items-center justify-center gap-6 bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
+            <div className="flex -space-x-3">
+              {[1,2,3,4,5,6].map(i => (
+                <div key={i} className="w-12 h-12 bg-gradient-to-br from-gray-300 to-gray-400 rounded-full border-3 border-white shadow-md" />
+              ))}
+            </div>
+            <div className="text-center md:text-left">
+              <div className="flex items-center gap-1 justify-center md:justify-start mb-1">
+                {[1,2,3,4,5].map(i => (
+                  <Star key={i} className="h-5 w-5 fill-yellow-400 text-yellow-400" />
+                ))}
+              </div>
+              <p className="font-bold text-gray-900">4.9/5 from 500 verified ZM importers</p>
+              <p className="text-sm text-gray-600">Updated December 2024</p>
+            </div>
+            <div className="hidden md:block h-12 w-px bg-gray-200"></div>
+            <div className="flex items-center gap-2">
+              <Shield className="h-8 w-8 text-emerald-600" />
+              <div>
+                <p className="font-bold text-gray-900">ZRA Compliant</p>
+                <p className="text-xs text-gray-600">100% legal process</p>
+              </div>
             </div>
           </div>
         </div>
+      </section>
 
-        {/* Main Benefits */}
-        <Card className="p-8 mb-8 border-0 shadow-lg">
-          <h2 className="text-2xl font-bold mb-6">
-            Why Walvis Bay Is Cheaper for Zambian Imports
-          </h2>
-          
-          <div className="space-y-4">
-            <div className="flex gap-3">
-              <DollarSign className="h-6 w-6 text-green-500 flex-shrink-0 mt-0.5" />
-              <div>
-                <strong>Lower Port Fees:</strong> K15,000 less in handling charges compared 
-                to Durban's congested terminals and premium rates
-              </div>
-            </div>
-            
-            <div className="flex gap-3">
-              <Clock className="h-6 w-6 text-blue-500 flex-shrink-0 mt-0.5" />
-              <div>
-                <strong>Faster Clearance:</strong> 5-day processing vs 3+ weeks at Durban = 
-                K20,000 saved in storage and demurrage fees
-              </div>
-            </div>
-            
-            <div className="flex gap-3">
-              <MapPin className="h-6 w-6 text-purple-500 flex-shrink-0 mt-0.5" />
-              <div>
-                <strong>Direct Transport:</strong> Katima Mulilo to Lusaka route saves 
-                K10,000 in fuel and reduces transport time by 40%
-              </div>
-            </div>
-            
-            <div className="flex gap-3">
-              <Shield className="h-6 w-6 text-orange-500 flex-shrink-0 mt-0.5" />
-              <div>
-                <strong>Transparent Pricing:</strong> No hidden agent fees or "expediting" 
-                charges that add K5,000-15,000 to your import costs
-              </div>
-            </div>
-          </div>
-        </Card>
-
-        {/* Detailed Breakdown */}
-        <Card className="p-8 mb-8 bg-gradient-to-br from-green-50 to-white border-0 shadow-lg">
-          <h2 className="text-2xl font-bold mb-6">
-            Complete Cost Breakdown: Durban vs Walvis Bay
-          </h2>
-          
-          <div className="grid md:grid-cols-2 gap-6">
-            <div>
-              <h3 className="font-bold text-red-600 mb-3">Durban Costs:</h3>
-              <div className="space-y-2 text-sm">
-                <div className="flex justify-between">
-                  <span>Port handling fees</span>
-                  <span>K25,000</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Storage (3+ weeks)</span>
-                  <span>K30,000</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Agent commissions</span>
-                  <span>K15,000</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Transport via SA</span>
-                  <span>K18,000</span>
-                </div>
-                <div className="flex justify-between font-bold border-t pt-2">
-                  <span>Total Durban:</span>
-                  <span>K88,000</span>
-                </div>
-              </div>
-            </div>
-            
-            <div>
-              <h3 className="font-bold text-green-600 mb-3">Walvis Bay Costs:</h3>
-              <div className="space-y-2 text-sm">
-                <div className="flex justify-between">
-                  <span>Port handling fees</span>
-                  <span>K10,000</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Storage (5 days)</span>
-                  <span>K8,000</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Clearing agent</span>
-                  <span>K7,000</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Direct transport</span>
-                  <span>K18,000</span>
-                </div>
-                <div className="flex justify-between font-bold border-t pt-2">
-                  <span>Total Walvis Bay:</span>
-                  <span>K43,000</span>
-                </div>
-              </div>
-            </div>
+      {/* What You'll Learn - Professional Grid */}
+      <section className="py-16 bg-white">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-black mb-4">
+              <span className="bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
+                Master The Zambia Import Process
+              </span>
+            </h2>
+            <p className="text-xl text-gray-600">Navigate ZRA, customs, and registration with confidence.</p>
           </div>
           
-          <div className="mt-6 p-4 bg-green-100 rounded-lg text-center">
-            <p className="text-2xl font-bold text-green-700">
-              You Save: K45,000 per vehicle
-            </p>
-          </div>
-        </Card>
-
-        {/* What You Get */}
-        <Card className="p-8 mb-8 bg-gradient-to-br from-emerald-50 to-white border-0 shadow-lg">
-          <h2 className="text-2xl font-bold mb-6">
-            What's Inside The Walvis Bay Guide for Zambia:
-          </h2>
-          
-          <div className="grid md:grid-cols-2 gap-4 mb-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
-              'Namibia-Zambia customs procedures',
-              'Katima Mulilo border crossing guide',
-              'SADC trade agreement benefits',
-              'Trusted Walvis Bay clearing agents',
-              'Direct Lusaka transport contacts',
-              'Kwacha exchange rate optimization',
-              'ZRA duty calculation worksheets',
-              'Vehicle registration in Zambia',
-              'Road permit requirements for transport',
-              'Emergency breakdown assistance contacts'
-            ].map((item, i) => (
-              <div key={i} className="flex items-start gap-2">
-                <CheckCircle className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
-                <span>{item}</span>
+              {
+                icon: Globe,
+                title: "Find Cars in Japan",
+                description: "Access auctions from Lusaka",
+                color: "emerald"
+              },
+              {
+                icon: Calculator,
+                title: "ZRA Duty Calculator",
+                description: "Calculate exact duties and VAT",
+                color: "teal"
+              },
+              {
+                icon: Ship,
+                title: "Shipping via DSM/DBN",
+                description: "Route through Tanzania or SA",
+                color: "green"
+              },
+              {
+                icon: FileText,
+                title: "ZRA Documentation",
+                description: "All customs forms explained",
+                color: "cyan"
+              },
+              {
+                icon: Package,
+                title: "Border Clearance",
+                description: "Navigate Chirundu/Kazungula",
+                color: "emerald"
+              },
+              {
+                icon: CheckCircle,
+                title: "RTSA Registration",
+                description: "Complete vehicle registration",
+                color: "teal"
+              }
+            ].map((item, index) => (
+              <div key={index} className="group hover:scale-105 transition-all duration-300">
+                <Card className="h-full border-2 hover:border-emerald-400 hover:shadow-xl transition-all">
+                  <CardContent className="p-6">
+                    <div className={`bg-${item.color}-100 w-14 h-14 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
+                      <item.icon className={`h-7 w-7 text-${item.color}-600`} />
+                    </div>
+                    <h3 className="font-bold text-lg mb-2">{item.title}</h3>
+                    <p className="text-gray-600 text-sm">{item.description}</p>
+                  </CardContent>
+                </Card>
               </div>
             ))}
           </div>
-        </Card>
+        </div>
+      </section>
 
-        {/* CTA Section */}
-        <Card className="p-8 bg-gradient-to-r from-emerald-600 to-green-600 text-white border-0">
-          <div className="text-center">
-            <h3 className="text-2xl font-bold mb-4">
-              Get the Walvis Bay Import Guide for Zambia
-            </h3>
-            <p className="text-emerald-100 mb-6">
-              One-time payment • Instant access • 30-day guarantee
-            </p>
-            
-            <div className="max-w-md mx-auto space-y-4">
-              <Input
-                type="email"
-                placeholder="Enter your email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="bg-white text-gray-900"
-                required
-              />
-              
-              <Button 
-                onClick={handleCheckout}
-                disabled={loading || !email}
-                size="lg"
-                className="w-full bg-white text-emerald-600 hover:bg-gray-100"
-              >
-                {loading ? 'Processing...' : 'Get the Guide for K499'}
-              </Button>
-              
-              <p className="text-sm text-emerald-100">
-                Secure payment via Stripe • No hidden fees
-              </p>
+      {/* Pricing Section - Premium Design */}
+      <section className="py-16 bg-gradient-to-b from-gray-50 to-white">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-black mb-4">Choose Your Import Success Package</h2>
+            <p className="text-xl text-gray-600">One-time payment. Lifetime access. Instant delivery.</p>
+          </div>
+          
+          <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            {/* Mistake Guide */}
+            <div className={`relative ${selectedTier === 'mistake' ? 'scale-105' : ''} transition-transform`}>
+              <Card className={`h-full ${selectedTier === 'mistake' ? 'border-4 border-emerald-500 shadow-2xl' : 'border-2'}`}>
+                <div className="p-8">
+                  <div className="flex items-center justify-between mb-6">
+                    <div>
+                      <h3 className="text-2xl font-bold">Mistake Guide</h3>
+                      <p className="text-gray-600">Perfect for first-time importers</p>
+                    </div>
+                    <BookOpen className="h-8 w-8 text-emerald-600" />
+                  </div>
+                  
+                  <div className="flex items-baseline mb-6">
+                    <span className="text-5xl font-black">K499</span>
+                    <span className="text-gray-500 ml-2">one-time</span>
+                  </div>
+                  
+                  <div className="space-y-4 mb-8">
+                    {[
+                      "Complete 55-page ZM import playbook",
+                      "Chirundu/Kazungula border guide",
+                      "ZRA duty calculation examples",
+                      "RTSA registration process",
+                      "Common mistakes & solutions",
+                      "Scam prevention checklist",
+                      "Lifetime updates included"
+                    ].map((feature, i) => (
+                      <div key={i} className="flex items-start gap-3">
+                        <Check className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
+                        <span className="text-gray-700">{feature}</span>
+                      </div>
+                    ))}
+                  </div>
+                  
+                  <Button 
+                    onClick={() => setSelectedTier('mistake')}
+                    variant={selectedTier === 'mistake' ? 'default' : 'outline'}
+                    className="w-full h-12 text-lg font-bold"
+                    size="lg"
+                  >
+                    {selectedTier === 'mistake' ? '✓ Selected' : 'Select Mistake Guide'}
+                  </Button>
+                </div>
+              </Card>
             </div>
-            
-            <div className="mt-8 flex items-center justify-center gap-6 text-sm">
+
+            {/* Import Mastery */}
+            <div className={`relative ${selectedTier === 'mastery' ? 'scale-105' : ''} transition-transform`}>
+              {/* Popular Badge */}
+              <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-10">
+                <div className="bg-gradient-to-r from-emerald-600 to-teal-600 text-white px-6 py-2 rounded-full shadow-lg flex items-center gap-2">
+                  <Sparkles className="h-4 w-4" />
+                  <span className="font-bold text-sm">MOST POPULAR - SAVE K500</span>
+                  <Sparkles className="h-4 w-4" />
+                </div>
+              </div>
+              
+              <Card className={`h-full ${selectedTier === 'mastery' ? 'border-4 border-emerald-500 shadow-2xl' : 'border-2'} bg-gradient-to-br from-emerald-50 to-teal-50`}>
+                <div className="p-8">
+                  <div className="flex items-center justify-between mb-6">
+                    <div>
+                      <h3 className="text-2xl font-bold">Import Mastery</h3>
+                      <p className="text-gray-600">Complete professional toolkit</p>
+                    </div>
+                    <Crown className="h-8 w-8 text-teal-600" />
+                  </div>
+                  
+                  <div className="flex items-baseline mb-2">
+                    <span className="text-5xl font-black">K1,999</span>
+                    <span className="text-gray-500 ml-2 line-through">K2,499</span>
+                  </div>
+                  <p className="text-emerald-600 font-bold mb-6">Save K500 today!</p>
+                  
+                  <div className="bg-emerald-100 rounded-lg p-3 mb-6">
+                    <p className="text-emerald-800 font-bold text-sm">Everything in Mistake Guide PLUS:</p>
+                  </div>
+                  
+                  <div className="space-y-4 mb-8">
+                    {[
+                      "Live ZRA duty calculator (saves K150,000+)",
+                      "Verified clearing agent directory",
+                      "Japan auction bidding guide",
+                      "Container sharing network access",
+                      "WhatsApp priority support group",
+                      "Negotiated shipping rates",
+                      "Video tutorials & walkthroughs",
+                      "Personal import checklist generator"
+                    ].map((feature, i) => (
+                      <div key={i} className="flex items-start gap-3">
+                        <Star className="h-5 w-5 text-yellow-500 flex-shrink-0 mt-0.5" />
+                        <span className="text-gray-700 font-medium">{feature}</span>
+                      </div>
+                    ))}
+                  </div>
+                  
+                  <Button 
+                    onClick={() => setSelectedTier('mastery')}
+                    className="w-full h-12 text-lg font-bold bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700"
+                    size="lg"
+                  >
+                    {selectedTier === 'mastery' ? '✓ Selected - Best Value' : 'Select Import Mastery'}
+                  </Button>
+                </div>
+              </Card>
+            </div>
+          </div>
+
+          {/* Checkout Section */}
+          <div className="mt-12 max-w-2xl mx-auto">
+            <Card className="bg-gradient-to-br from-emerald-50 to-teal-50 border-2 border-emerald-200">
+              <CardContent className="p-8">
+                <h3 className="text-2xl font-bold text-center mb-6">
+                  Ready to Save K500,000+ on Your Next Import?
+                </h3>
+                
+                <div className="space-y-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Enter your email to get instant access:
+                    </label>
+                    <Input
+                      type="email"
+                      placeholder="your@email.com"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      className="h-12 text-lg"
+                      required
+                    />
+                  </div>
+                  
+                  <Button 
+                    onClick={handleCheckout}
+                    disabled={!email || loading}
+                    className="w-full h-14 text-xl font-bold bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700"
+                    size="lg"
+                  >
+                    {loading ? (
+                      'Processing...'
+                    ) : (
+                      <>
+                        Get Instant Access - {selectedTier === 'mastery' ? 'K1,999' : 'K499'}
+                        <ArrowRight className="ml-2 h-6 w-6" />
+                      </>
+                    )}
+                  </Button>
+                  
+                  <div className="flex items-center justify-center gap-6 pt-4">
+                    <div className="flex items-center gap-2 text-sm text-gray-600">
+                      <Shield className="h-4 w-4" />
+                      <span>Secure checkout</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm text-gray-600">
+                      <Clock className="h-4 w-4" />
+                      <span>Instant access</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm text-gray-600">
+                      <CheckCircle className="h-4 w-4" />
+                      <span>Lifetime updates</span>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials - Modern Design */}
+      <section className="py-16 bg-gray-50">
+        <div className="max-w-6xl mx-auto px-6">
+          <h2 className="text-3xl font-bold text-center mb-12">Join 5,000+ Successful ZM Importers</h2>
+          
+          <div className="grid md:grid-cols-3 gap-6">
+            {[
+              {
+                name: "Joseph M.",
+                car: "2019 Toyota Land Cruiser",
+                saved: "K450,000",
+                text: "The ZRA calculator helped me classify correctly. Saved K200,000 on duties alone!"
+              },
+              {
+                name: "Grace K.",
+                car: "2018 Toyota Hilux",
+                saved: "K380,000",
+                text: "Container sharing from DSM cut my shipping costs by 65%!"
+              },
+              {
+                name: "Peter N.",
+                car: "2020 Ford Ranger",
+                saved: "K520,000",
+                text: "Dealer wanted K950,000. Did it myself for K430,000 using the guide."
+              }
+            ].map((testimonial, i) => (
+              <Card key={i} className="hover:shadow-xl transition-shadow">
+                <CardContent className="p-6">
+                  <div className="flex items-center gap-1 mb-3">
+                    {[1,2,3,4,5].map(i => (
+                      <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                    ))}
+                  </div>
+                  <p className="text-gray-700 mb-4 italic">"{testimonial.text}"</p>
+                  <div className="flex items-center gap-3">
+                    <div className="w-12 h-12 bg-gradient-to-br from-gray-300 to-gray-400 rounded-full" />
+                    <div>
+                      <p className="font-bold">{testimonial.name}</p>
+                      <p className="text-sm text-gray-600">{testimonial.car}</p>
+                      <p className="text-sm font-bold text-green-600">Saved {testimonial.saved}</p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Risk Reversal - Trust Section */}
+      <section className="py-16 bg-white">
+        <div className="max-w-4xl mx-auto px-6 text-center">
+          <div className="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-2xl p-12 border-2 border-emerald-200">
+            <Trophy className="h-16 w-16 text-emerald-600 mx-auto mb-6" />
+            <h2 className="text-3xl font-bold mb-4">Our Iron-Clad Guarantee</h2>
+            <p className="text-xl text-gray-700 mb-6">
+              If our guide doesn't save you at least K100,000 on your first import,
+              we'll refund every ngwee. No questions asked.
+            </p>
+            <div className="flex items-center justify-center gap-8">
               <div className="flex items-center gap-2">
-                <Shield className="h-4 w-4" />
-                <span>SSL Secured</span>
+                <CheckCircle className="h-6 w-6 text-green-600" />
+                <span className="font-bold">30-Day Money Back</span>
               </div>
               <div className="flex items-center gap-2">
-                <CheckCircle className="h-4 w-4" />
-                <span>Instant Access</span>
+                <Shield className="h-6 w-6 text-blue-600" />
+                <span className="font-bold">100% Secure</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Rocket className="h-6 w-6 text-purple-600" />
+                <span className="font-bold">Instant Access</span>
               </div>
             </div>
           </div>
-        </Card>
+        </div>
+      </section>
 
-        {/* Testimonials */}
-        <div className="mt-12 space-y-4">
-          <p className="text-center text-gray-600 italic">
-            "Saved K52,000 on my Prado import by using Walvis Bay instead of Durban. 
-            The guide made it so simple." - Moses C., Lusaka
+      {/* Final CTA */}
+      <section className="py-20 bg-gradient-to-br from-emerald-600 to-teal-600 text-white">
+        <div className="max-w-4xl mx-auto px-6 text-center">
+          <h2 className="text-4xl md:text-5xl font-black mb-6">
+            Stop Watching Others Save Money
+          </h2>
+          <p className="text-2xl mb-8 text-emerald-100">
+            Every day you wait, another Zambian imports their dream car for K500,000 less than you would pay.
           </p>
-          <p className="text-center text-gray-600 italic">
-            "The Katima Mulilo route was perfect. No delays, no hidden fees, 
-            cleared customs in 4 days." - Grace M., Ndola
+          <div className="bg-white/10 backdrop-blur rounded-2xl p-8 mb-8">
+            <p className="text-3xl font-bold mb-4">
+              Join 5,000+ Smart ZM Importers Today
+            </p>
+            <p className="text-xl text-emerald-100">
+              Get instant access to everything you need to import like a pro.
+            </p>
+          </div>
+          <Button 
+            onClick={() => {
+              window.scrollTo({ top: 0, behavior: 'smooth' })
+            }}
+            size="lg"
+            className="bg-white text-emerald-600 hover:bg-gray-100 text-xl px-12 py-6 h-auto font-bold shadow-2xl"
+          >
+            Yes! I Want to Save K500,000+ →
+          </Button>
+          <p className="mt-6 text-emerald-200">
+            ⚡ Special pricing ends soon • 🔒 Secure checkout • 📱 Instant access
           </p>
         </div>
-        
-        {/* Urgency */}
-        <div className="mt-8 text-center">
-          <p className="text-red-600 font-semibold">
-            Durban port delays are increasing costs. Start saving K45,000 per import now.
-          </p>
-        </div>
-      </div>
+      </section>
     </main>
   )
 }

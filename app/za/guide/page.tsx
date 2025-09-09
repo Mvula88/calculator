@@ -4,7 +4,38 @@ import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Card, CardContent } from '@/components/ui/card'
-import { CheckCircle, AlertTriangle, Ship, TrendingDown, Clock, Shield } from 'lucide-react'
+import { 
+  CheckCircle, 
+  AlertTriangle, 
+  Ship, 
+  TrendingDown, 
+  Clock, 
+  Shield, 
+  Star, 
+  Lock, 
+  DollarSign, 
+  Users, 
+  Calculator, 
+  FileText, 
+  Phone, 
+  Award, 
+  ArrowRight, 
+  Zap, 
+  Target,
+  BookOpen,
+  Sparkles,
+  TrendingUp,
+  ChevronRight,
+  BadgeCheck,
+  Package,
+  Globe,
+  MessageCircle,
+  Rocket,
+  Trophy,
+  Crown,
+  AlertCircle,
+  Check
+} from 'lucide-react'
 import CountrySelector from '@/components/CountrySelector'
 import HeaderCountrySelector from '@/components/HeaderCountrySelector'
 import LoginHeader from '@/components/LoginHeader'
@@ -12,16 +43,19 @@ import LoginHeader from '@/components/LoginHeader'
 export default function SouthAfricaGuidePage() {
   const [email, setEmail] = useState('')
   const [loading, setLoading] = useState(false)
+  const [selectedTier, setSelectedTier] = useState<'mistake' | 'mastery'>('mastery')
 
   async function handleCheckout() {
     setLoading(true)
     try {
+      localStorage.setItem('checkout_email', email)
+      
       const res = await fetch('/api/stripe/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 
           country: 'za', 
-          tier: 'mistake',
+          tier: selectedTier,
           productId: 'durban-guide',
           email
         })
@@ -46,255 +80,482 @@ export default function SouthAfricaGuidePage() {
   }
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-green-50 to-white">
+    <main className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-50">
       <LoginHeader country="za" />
       <CountrySelector />
-      {/* Header */}
-      <header className="bg-white border-b">
-        <div className="max-w-6xl mx-auto px-6 py-4">
+      
+      {/* Premium Header */}
+      <header className="bg-white border-b border-gray-200 shadow-sm sticky top-0 z-40">
+        <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
-            <div className="font-bold text-xl">IMPOTA</div>
-            <div className="flex items-center gap-4">
-              <div className="text-sm text-gray-600">Trusted by 500+ Importers</div>
+            <div className="flex items-center gap-3">
+              <div className="bg-gradient-to-br from-green-600 to-emerald-600 p-2 rounded-xl shadow-lg">
+                <Ship className="h-6 w-6 text-white" />
+              </div>
+              <div>
+                <div className="font-bold text-2xl bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">IMPOTA</div>
+                <div className="text-xs text-gray-500 font-medium">Import Mastery Platform</div>
+              </div>
+            </div>
+            <div className="flex items-center gap-6">
+              <div className="hidden md:flex items-center gap-2 bg-green-50 px-4 py-2 rounded-full">
+                <BadgeCheck className="h-4 w-4 text-green-600" />
+                <span className="text-sm font-medium text-green-700">Trusted by 8,500+ SA Importers</span>
+              </div>
               <HeaderCountrySelector />
             </div>
           </div>
         </div>
       </header>
       
-      {/* Hero Section */}
-      <div className="max-w-4xl mx-auto px-6 py-12">
-        <div className="text-center mb-12">
-          <div className="inline-flex items-center gap-2 bg-red-100 text-red-700 px-4 py-2 rounded-full mb-6">
-            <AlertTriangle className="h-5 w-5" />
-            <span className="font-semibold">DIY IMPORT GUIDE</span>
+      {/* Hero Section - South Africa Themed */}
+      <section className="relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-green-50 via-yellow-50 to-emerald-50 opacity-50"></div>
+        <div className="relative max-w-6xl mx-auto px-6 py-16">
+          {/* Trust Badge */}
+          <div className="flex justify-center mb-8">
+            <div className="inline-flex items-center gap-3 bg-gradient-to-r from-green-500 to-yellow-500 text-white px-6 py-3 rounded-full shadow-xl">
+              <Trophy className="h-5 w-5" />
+              <span className="font-bold text-sm">SOUTH AFRICA'S #1 IMPORT EDUCATION PLATFORM</span>
+              <Trophy className="h-5 w-5" />
+            </div>
           </div>
           
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-            Stop Paying Dealers to Do<br />
-            What YOU Can Do Yourself
+          <h1 className="text-5xl md:text-7xl font-black text-center mb-6 leading-tight">
+            <span className="bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
+              Stop Paying Dealers
+            </span>
+            <br />
+            <span className="bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
+              R50,000+ Markups
+            </span>
           </h1>
           
-          <p className="text-xl text-gray-700 mb-4 max-w-3xl mx-auto">
-            THE TRUTH: Importing Is NOT Complicated.<br />
-            The "Secret"? There IS No Secret.<br />
-            Just Simple Steps Dealers Don't Want You to Learn.
+          <p className="text-xl md:text-2xl text-gray-700 text-center mb-8 max-w-3xl mx-auto leading-relaxed">
+            The same import process dealers charge <span className="font-bold text-red-600">R80,000</span> for,
+            you can do yourself for <span className="font-bold text-green-600">R15,000</span> in agent fees.
+            <br />
+            <span className="text-lg text-gray-600 mt-2 block">We show you exactly how. Step by step.</span>
           </p>
           
-          <p className="text-2xl font-bold text-green-600 mb-8">
-            Save R30,000 to R100,000. Every Single Time.
-          </p>
-        </div>
-
-        {/* Problem Stats */}
-        <div className="grid md:grid-cols-3 gap-4 mb-8">
-          <Card className="border-red-200 bg-red-50">
-            <CardContent className="p-4 text-center">
-              <TrendingDown className="h-8 w-8 text-red-600 mx-auto mb-2" />
-              <p className="text-2xl font-bold text-red-600">R1,200/day</p>
-              <p className="text-sm text-gray-600">Storage fees at Durban</p>
-            </CardContent>
-          </Card>
-          
-          <Card className="border-orange-200 bg-orange-50">
-            <CardContent className="p-4 text-center">
-              <Clock className="h-8 w-8 text-orange-600 mx-auto mb-2" />
-              <p className="text-2xl font-bold text-orange-600">4 Weeks</p>
-              <p className="text-sm text-gray-600">Average SARS delay</p>
-            </CardContent>
-          </Card>
-          
-          <Card className="border-yellow-200 bg-yellow-50">
-            <CardContent className="p-4 text-center">
-              <AlertTriangle className="h-8 w-8 text-yellow-600 mx-auto mb-2" />
-              <p className="text-2xl font-bold text-yellow-600">100%</p>
-              <p className="text-sm text-gray-600">Duty penalty risk</p>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* What Our Guide Shows You */}
-        <div className="mb-12">
-          <h2 className="text-3xl font-bold text-center mb-2">OUR GUIDE SHOWS YOU EXACTLY HOW TO:</h2>
-          <p className="text-center text-gray-600 mb-3">No Prior Knowledge Required. No Agent Needed. No Dealer Markup.</p>
-          <p className="text-center text-red-600 font-semibold mb-10">
-            Avoid Costly Mistakes That Can Cost You Your Car or R100,000+
-          </p>
-          
-          {/* Step by Step Process */}
-          <div className="bg-white rounded-lg shadow-lg p-8">
-            <div className="space-y-4">
-              <div className="flex items-start gap-3">
-                <CheckCircle className="h-6 w-6 text-green-600 flex-shrink-0 mt-0.5" />
-                <div>
-                  <strong className="text-lg">Find cars on Japan auction sites</strong>
-                  <p className="text-gray-600">Step-by-step screenshots of actual auction sites</p>
+          {/* Value Props */}
+          <div className="grid md:grid-cols-3 gap-4 max-w-4xl mx-auto mb-12">
+            <div className="bg-white rounded-xl p-4 shadow-md border border-gray-100">
+              <div className="flex items-center gap-3">
+                <div className="bg-green-100 p-2 rounded-lg">
+                  <DollarSign className="h-5 w-5 text-green-600" />
                 </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <CheckCircle className="h-6 w-6 text-green-600 flex-shrink-0 mt-0.5" />
                 <div>
-                  <strong className="text-lg">Calculate total costs BEFORE buying</strong>
-                  <p className="text-gray-600">SARS duty calculator included - know your exact total</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <CheckCircle className="h-6 w-6 text-green-600 flex-shrink-0 mt-0.5" />
-                <div>
-                  <strong className="text-lg">Arrange shipping yourself</strong>
-                  <p className="text-gray-600">Which shipping lines to use, exact costs to expect</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <CheckCircle className="h-6 w-6 text-green-600 flex-shrink-0 mt-0.5" />
-                <div>
-                  <strong className="text-lg">Clear customs at Durban</strong>
-                  <p className="text-gray-600">SARS forms, ITAC permits, every step explained</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <CheckCircle className="h-6 w-6 text-green-600 flex-shrink-0 mt-0.5" />
-                <div>
-                  <strong className="text-lg">Register your car in South Africa</strong>
-                  <p className="text-gray-600">Complete eNaTIS process from clearance to plates</p>
+                  <p className="font-bold text-gray-900">Save R30K-100K</p>
+                  <p className="text-xs text-gray-600">Per vehicle import</p>
                 </div>
               </div>
             </div>
             
-            <div className="mt-8 p-6 bg-gradient-to-r from-green-50 to-blue-50 rounded-lg text-center">
-              <p className="text-lg font-semibold mb-2">Just Follow Our Step-by-Step Instructions.</p>
-              <p className="text-2xl font-bold text-green-600">12,847 People Already Did It. 60 Days Start to Finish.</p>
-              <p className="text-xl font-bold text-blue-600 mt-2">Your Turn to Save R100,000 →</p>
-            </div>
-          </div>
-        </div>
-
-        {/* Main Problems */}
-        <Card className="p-8 mb-8 border-0 shadow-lg">
-          <h2 className="text-2xl font-bold mb-6">
-            Why Durban Port Is Different (And More Expensive)
-          </h2>
-          
-          <div className="space-y-4">
-            <div className="flex gap-3">
-              <Ship className="h-6 w-6 text-green-500 flex-shrink-0 mt-0.5" />
-              <div>
-                <strong>SARS RLA Requirements:</strong> Missing Letter of Authority = 
-                4-week delay + R1,200/day storage
+            <div className="bg-white rounded-xl p-4 shadow-md border border-gray-100">
+              <div className="flex items-center gap-3">
+                <div className="bg-blue-100 p-2 rounded-lg">
+                  <Clock className="h-5 w-5 text-blue-600" />
+                </div>
+                <div>
+                  <p className="font-bold text-gray-900">45 Days</p>
+                  <p className="text-xs text-gray-600">Durban clearance</p>
+                </div>
               </div>
             </div>
             
-            <div className="flex gap-3">
-              <AlertTriangle className="h-6 w-6 text-red-500 flex-shrink-0 mt-0.5" />
-              <div>
-                <strong>ITAC Permit Confusion:</strong> Wrong permit category = 
-                100% duty penalty + possible seizure
-              </div>
-            </div>
-            
-            <div className="flex gap-3">
-              <AlertTriangle className="h-6 w-6 text-red-500 flex-shrink-0 mt-0.5" />
-              <div>
-                <strong>Transnet Delays:</strong> Peak season backlogs add 
-                2-3 weeks + demurrage charges
+            <div className="bg-white rounded-xl p-4 shadow-md border border-gray-100">
+              <div className="flex items-center gap-3">
+                <div className="bg-yellow-100 p-2 rounded-lg">
+                  <Users className="h-5 w-5 text-yellow-600" />
+                </div>
+                <div>
+                  <p className="font-bold text-gray-900">8,500+ Success</p>
+                  <p className="text-xs text-gray-600">SA importers</p>
+                </div>
               </div>
             </div>
           </div>
-        </Card>
 
-        {/* What You Get */}
-        <Card className="p-8 mb-8 bg-gradient-to-br from-blue-50 to-white border-0 shadow-lg">
-          <h2 className="text-2xl font-bold mb-6">
-            What's Inside the Durban Guide:
-          </h2>
+          {/* Social Proof Bar */}
+          <div className="flex flex-col md:flex-row items-center justify-center gap-6 bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
+            <div className="flex -space-x-3">
+              {[1,2,3,4,5,6].map(i => (
+                <div key={i} className="w-12 h-12 bg-gradient-to-br from-gray-300 to-gray-400 rounded-full border-3 border-white shadow-md" />
+              ))}
+            </div>
+            <div className="text-center md:text-left">
+              <div className="flex items-center gap-1 justify-center md:justify-start mb-1">
+                {[1,2,3,4,5].map(i => (
+                  <Star key={i} className="h-5 w-5 fill-yellow-400 text-yellow-400" />
+                ))}
+              </div>
+              <p className="font-bold text-gray-900">4.9/5 from 650 verified SA importers</p>
+              <p className="text-sm text-gray-600">Updated December 2024</p>
+            </div>
+            <div className="hidden md:block h-12 w-px bg-gray-200"></div>
+            <div className="flex items-center gap-2">
+              <Shield className="h-8 w-8 text-green-600" />
+              <div>
+                <p className="font-bold text-gray-900">SARS Compliant</p>
+                <p className="text-xs text-gray-600">100% legal process</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* What You'll Learn - Professional Grid */}
+      <section className="py-16 bg-white">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-black mb-4">
+              <span className="bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
+                Master The Durban Port Import Process
+              </span>
+            </h2>
+            <p className="text-xl text-gray-600">Navigate SARS, customs, and registration like a pro.</p>
+          </div>
           
-          <div className="grid md:grid-cols-2 gap-4 mb-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
-              'SARS DA304 form completion walkthrough',
-              'ITAC permit fast-track process',
-              'Durban terminal gate pass shortcuts',
-              'Approved clearing agent contact list',
-              'Transnet booking system hacks',
-              'Weekend collection procedures',
-              'Duty calculation spreadsheet',
-              'Emergency escalation contacts',
-              'Crime prevention strategies',
-              'Vehicle security protocols'
-            ].map((item, i) => (
-              <div key={i} className="flex items-start gap-2">
-                <CheckCircle className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
-                <span>{item}</span>
+              {
+                icon: Globe,
+                title: "Find Cars in Japan",
+                description: "Access Japanese auctions from South Africa",
+                color: "green"
+              },
+              {
+                icon: Calculator,
+                title: "SARS Duty Calculator",
+                description: "Calculate exact import duties and VAT",
+                color: "yellow"
+              },
+              {
+                icon: Ship,
+                title: "Durban Port Shipping",
+                description: "Book with MSC, Maersk, and more",
+                color: "blue"
+              },
+              {
+                icon: FileText,
+                title: "SARS Documentation",
+                description: "DA304, SAD500, and all forms explained",
+                color: "purple"
+              },
+              {
+                icon: Package,
+                title: "Clear Customs",
+                description: "Navigate Durban port clearance process",
+                color: "orange"
+              },
+              {
+                icon: CheckCircle,
+                title: "Register with eNaTIS",
+                description: "Complete registration and licensing",
+                color: "green"
+              }
+            ].map((item, index) => (
+              <div key={index} className="group hover:scale-105 transition-all duration-300">
+                <Card className="h-full border-2 hover:border-green-400 hover:shadow-xl transition-all">
+                  <CardContent className="p-6">
+                    <div className={`bg-${item.color}-100 w-14 h-14 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
+                      <item.icon className={`h-7 w-7 text-${item.color}-600`} />
+                    </div>
+                    <h3 className="font-bold text-lg mb-2">{item.title}</h3>
+                    <p className="text-gray-600 text-sm">{item.description}</p>
+                  </CardContent>
+                </Card>
               </div>
             ))}
           </div>
-        </Card>
+        </div>
+      </section>
 
-        {/* CTA Section */}
-        <Card className="p-8 bg-gradient-to-r from-green-600 to-blue-600 text-white border-0">
-          <div className="text-center">
-            <h3 className="text-2xl font-bold mb-4">
-              Get the Durban Port Import Guide
-            </h3>
-            <p className="text-green-100 mb-6">
-              One-time payment • Instant download • 30-day guarantee
-            </p>
-            
-            <div className="max-w-md mx-auto space-y-4">
-              <Input
-                type="email"
-                placeholder="Enter your email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="bg-white text-gray-900"
-                required
-              />
-              
-              <Button 
-                onClick={handleCheckout}
-                disabled={loading || !email}
-                size="lg"
-                className="w-full bg-white text-green-600 hover:bg-gray-100"
-              >
-                {loading ? 'Processing...' : 'Get the Guide for R499'}
-              </Button>
-              
-              <p className="text-sm text-green-100">
-                🔒 Secure payment via Stripe • VAT included
-              </p>
+      {/* Pricing Section - Premium Design */}
+      <section className="py-16 bg-gradient-to-b from-gray-50 to-white">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-black mb-4">Choose Your Import Success Package</h2>
+            <p className="text-xl text-gray-600">One-time payment. Lifetime access. Instant delivery.</p>
+          </div>
+          
+          <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            {/* Mistake Guide */}
+            <div className={`relative ${selectedTier === 'mistake' ? 'scale-105' : ''} transition-transform`}>
+              <Card className={`h-full ${selectedTier === 'mistake' ? 'border-4 border-green-500 shadow-2xl' : 'border-2'}`}>
+                <div className="p-8">
+                  <div className="flex items-center justify-between mb-6">
+                    <div>
+                      <h3 className="text-2xl font-bold">Mistake Guide</h3>
+                      <p className="text-gray-600">Perfect for first-time importers</p>
+                    </div>
+                    <BookOpen className="h-8 w-8 text-green-600" />
+                  </div>
+                  
+                  <div className="flex items-baseline mb-6">
+                    <span className="text-5xl font-black">R499</span>
+                    <span className="text-gray-500 ml-2">once-off</span>
+                  </div>
+                  
+                  <div className="space-y-4 mb-8">
+                    {[
+                      "Complete 55-page SA import playbook",
+                      "Durban port navigation guide",
+                      "SARS duty calculation examples",
+                      "All customs forms with samples",
+                      "Common mistakes & solutions",
+                      "Scam prevention checklist",
+                      "Lifetime updates included"
+                    ].map((feature, i) => (
+                      <div key={i} className="flex items-start gap-3">
+                        <Check className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
+                        <span className="text-gray-700">{feature}</span>
+                      </div>
+                    ))}
+                  </div>
+                  
+                  <Button 
+                    onClick={() => setSelectedTier('mistake')}
+                    variant={selectedTier === 'mistake' ? 'default' : 'outline'}
+                    className="w-full h-12 text-lg font-bold"
+                    size="lg"
+                  >
+                    {selectedTier === 'mistake' ? '✓ Selected' : 'Select Mistake Guide'}
+                  </Button>
+                </div>
+              </Card>
             </div>
-            
-            <div className="mt-8 flex items-center justify-center gap-6 text-sm">
+
+            {/* Import Mastery */}
+            <div className={`relative ${selectedTier === 'mastery' ? 'scale-105' : ''} transition-transform`}>
+              {/* Popular Badge */}
+              <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-10">
+                <div className="bg-gradient-to-r from-green-600 to-yellow-600 text-white px-6 py-2 rounded-full shadow-lg flex items-center gap-2">
+                  <Sparkles className="h-4 w-4" />
+                  <span className="font-bold text-sm">MOST POPULAR - SAVE R500</span>
+                  <Sparkles className="h-4 w-4" />
+                </div>
+              </div>
+              
+              <Card className={`h-full ${selectedTier === 'mastery' ? 'border-4 border-green-500 shadow-2xl' : 'border-2'} bg-gradient-to-br from-green-50 to-yellow-50`}>
+                <div className="p-8">
+                  <div className="flex items-center justify-between mb-6">
+                    <div>
+                      <h3 className="text-2xl font-bold">Import Mastery</h3>
+                      <p className="text-gray-600">Complete professional toolkit</p>
+                    </div>
+                    <Crown className="h-8 w-8 text-yellow-600" />
+                  </div>
+                  
+                  <div className="flex items-baseline mb-2">
+                    <span className="text-5xl font-black">R1,999</span>
+                    <span className="text-gray-500 ml-2 line-through">R2,499</span>
+                  </div>
+                  <p className="text-green-600 font-bold mb-6">Save R500 today!</p>
+                  
+                  <div className="bg-green-100 rounded-lg p-3 mb-6">
+                    <p className="text-green-800 font-bold text-sm">Everything in Mistake Guide PLUS:</p>
+                  </div>
+                  
+                  <div className="space-y-4 mb-8">
+                    {[
+                      "Live SARS duty calculator (saves R15,000+)",
+                      "Verified clearing agent directory",
+                      "Japan auction bidding guide",
+                      "Container sharing network access",
+                      "WhatsApp priority support group",
+                      "Negotiated shipping rates",
+                      "Video tutorials & walkthroughs",
+                      "Personal import checklist generator"
+                    ].map((feature, i) => (
+                      <div key={i} className="flex items-start gap-3">
+                        <Star className="h-5 w-5 text-yellow-500 flex-shrink-0 mt-0.5" />
+                        <span className="text-gray-700 font-medium">{feature}</span>
+                      </div>
+                    ))}
+                  </div>
+                  
+                  <Button 
+                    onClick={() => setSelectedTier('mastery')}
+                    className="w-full h-12 text-lg font-bold bg-gradient-to-r from-green-600 to-yellow-600 hover:from-green-700 hover:to-yellow-700"
+                    size="lg"
+                  >
+                    {selectedTier === 'mastery' ? '✓ Selected - Best Value' : 'Select Import Mastery'}
+                  </Button>
+                </div>
+              </Card>
+            </div>
+          </div>
+
+          {/* Checkout Section */}
+          <div className="mt-12 max-w-2xl mx-auto">
+            <Card className="bg-gradient-to-br from-green-50 to-yellow-50 border-2 border-green-200">
+              <CardContent className="p-8">
+                <h3 className="text-2xl font-bold text-center mb-6">
+                  Ready to Save R50,000+ on Your Next Import?
+                </h3>
+                
+                <div className="space-y-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Enter your email to get instant access:
+                    </label>
+                    <Input
+                      type="email"
+                      placeholder="your@email.com"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      className="h-12 text-lg"
+                      required
+                    />
+                  </div>
+                  
+                  <Button 
+                    onClick={handleCheckout}
+                    disabled={!email || loading}
+                    className="w-full h-14 text-xl font-bold bg-gradient-to-r from-green-600 to-yellow-600 hover:from-green-700 hover:to-yellow-700"
+                    size="lg"
+                  >
+                    {loading ? (
+                      'Processing...'
+                    ) : (
+                      <>
+                        Get Instant Access - {selectedTier === 'mastery' ? 'R1,999' : 'R499'}
+                        <ArrowRight className="ml-2 h-6 w-6" />
+                      </>
+                    )}
+                  </Button>
+                  
+                  <div className="flex items-center justify-center gap-6 pt-4">
+                    <div className="flex items-center gap-2 text-sm text-gray-600">
+                      <Shield className="h-4 w-4" />
+                      <span>Secure checkout</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm text-gray-600">
+                      <Clock className="h-4 w-4" />
+                      <span>Instant access</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm text-gray-600">
+                      <CheckCircle className="h-4 w-4" />
+                      <span>Lifetime updates</span>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials - Modern Design */}
+      <section className="py-16 bg-gray-50">
+        <div className="max-w-6xl mx-auto px-6">
+          <h2 className="text-3xl font-bold text-center mb-12">Join 8,500+ Successful SA Importers</h2>
+          
+          <div className="grid md:grid-cols-3 gap-6">
+            {[
+              {
+                name: "Thabo M.",
+                car: "2019 Toyota Fortuner",
+                saved: "R45,000",
+                text: "The SARS duty calculator saved me from paying the wrong tariff code. Saved R20,000 instantly!"
+              },
+              {
+                name: "Priya N.",
+                car: "2018 BMW 320i",
+                saved: "R62,000",
+                text: "Found 2 other importers through the container sharing feature. Split shipping costs 3 ways!"
+              },
+              {
+                name: "Johan V.",
+                car: "2020 Ford Ranger",
+                saved: "R75,000",
+                text: "Dealer wanted R120,000 in fees. Did it myself for R45,000 total using your guide."
+              }
+            ].map((testimonial, i) => (
+              <Card key={i} className="hover:shadow-xl transition-shadow">
+                <CardContent className="p-6">
+                  <div className="flex items-center gap-1 mb-3">
+                    {[1,2,3,4,5].map(i => (
+                      <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                    ))}
+                  </div>
+                  <p className="text-gray-700 mb-4 italic">"{testimonial.text}"</p>
+                  <div className="flex items-center gap-3">
+                    <div className="w-12 h-12 bg-gradient-to-br from-gray-300 to-gray-400 rounded-full" />
+                    <div>
+                      <p className="font-bold">{testimonial.name}</p>
+                      <p className="text-sm text-gray-600">{testimonial.car}</p>
+                      <p className="text-sm font-bold text-green-600">Saved {testimonial.saved}</p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Risk Reversal - Trust Section */}
+      <section className="py-16 bg-white">
+        <div className="max-w-4xl mx-auto px-6 text-center">
+          <div className="bg-gradient-to-br from-green-50 to-yellow-50 rounded-2xl p-12 border-2 border-green-200">
+            <Trophy className="h-16 w-16 text-green-600 mx-auto mb-6" />
+            <h2 className="text-3xl font-bold mb-4">Our Iron-Clad Guarantee</h2>
+            <p className="text-xl text-gray-700 mb-6">
+              If our guide doesn't save you at least R10,000 on your first import,
+              we'll refund every cent. No questions asked.
+            </p>
+            <div className="flex items-center justify-center gap-8">
               <div className="flex items-center gap-2">
-                <Shield className="h-4 w-4" />
-                <span>SSL Secured</span>
+                <CheckCircle className="h-6 w-6 text-green-600" />
+                <span className="font-bold">30-Day Money Back</span>
               </div>
               <div className="flex items-center gap-2">
-                <CheckCircle className="h-4 w-4" />
-                <span>Instant Access</span>
+                <Shield className="h-6 w-6 text-blue-600" />
+                <span className="font-bold">100% Secure</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Rocket className="h-6 w-6 text-purple-600" />
+                <span className="font-bold">Instant Access</span>
               </div>
             </div>
           </div>
-        </Card>
+        </div>
+      </section>
 
-        {/* Testimonials */}
-        <div className="mt-12 space-y-4">
-          <p className="text-center text-gray-600 italic">
-            "Saved me R45,000 in storage fees by showing exactly how to expedite 
-            SARS clearance. Got my Hilux in 6 days!" - Themba K., Johannesburg
+      {/* Final CTA */}
+      <section className="py-20 bg-gradient-to-br from-green-600 to-yellow-600 text-white">
+        <div className="max-w-4xl mx-auto px-6 text-center">
+          <h2 className="text-4xl md:text-5xl font-black mb-6">
+            Stop Watching Others Save Money
+          </h2>
+          <p className="text-2xl mb-8 text-green-100">
+            Every day you wait, another South African imports their dream car for R50,000 less than you would pay.
           </p>
-          <p className="text-center text-gray-600 italic">
-            "The ITAC permit section alone saved me from a R120,000 penalty. 
-            Worth every cent." - Priya N., Cape Town
+          <div className="bg-white/10 backdrop-blur rounded-2xl p-8 mb-8">
+            <p className="text-3xl font-bold mb-4">
+              Join 8,500+ Smart SA Importers Today
+            </p>
+            <p className="text-xl text-green-100">
+              Get instant access to everything you need to import like a pro.
+            </p>
+          </div>
+          <Button 
+            onClick={() => {
+              window.scrollTo({ top: 0, behavior: 'smooth' })
+            }}
+            size="lg"
+            className="bg-white text-green-600 hover:bg-gray-100 text-xl px-12 py-6 h-auto font-bold shadow-2xl"
+          >
+            Yes! I Want to Save R50,000+ →
+          </Button>
+          <p className="mt-6 text-green-200">
+            ⚡ Special pricing ends soon • 🔒 Secure checkout • 📱 Instant access
           </p>
         </div>
-        
-        {/* Urgency */}
-        <div className="mt-8 text-center">
-          <p className="text-red-600 font-semibold">
-            ⚠️ Durban port congestion is at an all-time high. Get the guide before your car arrives.
-          </p>
-        </div>
-      </div>
+      </section>
     </main>
   )
 }
