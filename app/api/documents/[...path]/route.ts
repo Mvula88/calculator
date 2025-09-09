@@ -28,94 +28,66 @@ export async function GET(
       return new NextResponse('No active entitlement', { status: 403 })
     }
 
-    // Construct the file path
+    // Construct the file path - the filename comes from the path parameter
     const filePath = path.join('/')
     const fileName = filePath.split('/').pop() || 'document'
     
-    // For now, return a placeholder HTML page since documents aren't uploaded yet
-    // In production, you would upload the actual PDFs to Supabase Storage
-    const placeholderHTML = `
-      <!DOCTYPE html>
-      <html lang="en">
-      <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>${fileName}</title>
-        <style>
-          body {
-            font-family: system-ui, -apple-system, sans-serif;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            margin: 0;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-          }
-          .container {
-            text-align: center;
-            padding: 2rem;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            max-width: 500px;
-            margin: 1rem;
-          }
-          h1 {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-          }
-          .icon {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-          }
-          .filename {
-            background: rgba(255, 255, 255, 0.2);
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            display: inline-block;
-            margin: 1rem 0;
-            font-family: monospace;
-          }
-          .message {
-            line-height: 1.6;
-            opacity: 0.9;
-          }
-          .watermark {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            opacity: 0.5;
-            font-size: 0.875rem;
-          }
-        </style>
-      </head>
-      <body>
-        <div class="container">
-          <div class="icon">📄</div>
-          <h1>Document Preview</h1>
-          <div class="filename">${fileName}</div>
-          <p class="message">
-            This is a sample document placeholder.<br>
-            The actual import documents will be available here once uploaded to the system.<br><br>
-            <strong>What you'll see:</strong><br>
-            • Real invoices from Japanese auctions<br>
-            • Actual customs documents<br>
-            • Step-by-step import paperwork<br>
-            • All fees and costs clearly shown
-          </p>
-        </div>
-        <div class="watermark">
-          Licensed to ${user.email || 'User'}
-        </div>
-      </body>
-      </html>
-    `
+    // Remove the file extension to match Supabase storage naming
+    // Convert underscores to spaces and match the actual file names in storage
+    let storageFileName = fileName
+      .replace(/_/g, ' ')  // Replace underscores with spaces
+      .replace(/\.pdf$/i, '')  // Remove .pdf extension if present
     
-    // Return HTML placeholder
-    return new NextResponse(placeholderHTML, {
+    // Map the file names from the frontend to actual Supabase storage names
+    const fileNameMapping: { [key: string]: string } = {
+      '2015_VOLKSWAGEN_GOLF_R_INVOICE.pdf': '2015_VOLKSWAGEN_GOLF_R_INVOICE.pdf',
+      '2017 AUDI A3 INVOICE.pdf': '2017 AUDI A3 INVOICE.pdf',
+      '2015 AUDI A5 SPORTBACK INVOICE.pdf': '2015 AUDI A5 SPORTBACK INVOICE.pdf',
+      '2012 AUDI A4 INVOICE.pdf': '2012 AUDI A4 INVOICE.pdf',
+      'SAD 500 CUSTOMS.pdf': 'SAD 500 CUSTOMS.pdf',
+      'Assessment Notice.pdf': 'Assessment Notice.pdf',
+      'Customs Clearance Certificate Motor Vehicle.pdf': 'Customs Clearance Certificate Motor Vehicle.pdf',
+      'Release Order.pdf': 'Release Order.pdf',
+      'Export Certificate Japanese.pdf': 'Export Certificate Japanese.pdf',
+      'Export Certificate - Sworn Translated.pdf': 'Export Certificate - Sworn Translated.pdf',
+      'ORIGINAL BILL OF LANDING.pdf': 'ORIGINAL BILL OF LANDING.pdf',
+      'Transworld Cargo - signed quote.pdf': 'Transworld Cargo - signed quote.pdf',
+      'Ocean Freight INVOICE per car.pdf': 'Ocean Freight INVOICE per car.pdf',
+      'Police Clearance.pdf': 'Police Clearance.pdf',
+      'Import Permit MIT.pdf': 'Import Permit MIT.pdf',
+      'Import permit screen.png': 'Import permit screen.png',
+      'Payment Receipt.pdf': 'Payment Receipt.pdf'
+    }
+    
+    // Use the mapped name or fall back to the original
+    const actualFileName = fileNameMapping[fileName] || fileName
+    
+    console.log('Fetching document:', actualFileName, 'from path:', filePath)
+    
+    // Fetch the PDF from Supabase Storage
+    const { data, error } = await supabase.storage
+      .from('documents')
+      .download(actualFileName)
+    
+    if (error) {
+      console.error('Storage error:', error)
+      console.error('Tried to fetch:', actualFileName)
+      return new NextResponse(`Document not found: ${actualFileName}`, { status: 404 })
+    }
+
+    if (!data) {
+      return new NextResponse('Document not found', { status: 404 })
+    }
+
+    // Determine content type based on file extension
+    const isImage = actualFileName.toLowerCase().match(/\.(png|jpg|jpeg|gif|webp)$/)
+    const contentType = isImage ? `image/${actualFileName.split('.').pop()}` : 'application/pdf'
+
+    // Return file with headers to prevent downloads and allow viewing
+    return new NextResponse(data, {
       headers: {
-        'Content-Type': 'text/html',
+        'Content-Type': contentType,
+        'Content-Disposition': `inline; filename="${actualFileName}"`,
         'X-Frame-Options': 'SAMEORIGIN',
         'X-Content-Type-Options': 'nosniff',
         'Cache-Control': 'private, max-age=3600',
