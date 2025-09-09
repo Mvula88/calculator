@@ -32,47 +32,90 @@ export async function GET(
     const filePath = path.join('/')
     const fileName = filePath.split('/').pop() || 'document'
     
-    // Remove the file extension to match Supabase storage naming
-    // Convert underscores to spaces and match the actual file names in storage
-    const storageFileName = fileName
-      .replace(/_/g, ' ')  // Replace underscores with spaces
-      .replace(/\.pdf$/i, '')  // Remove .pdf extension if present
-    
-    // Map the file names from the frontend to actual Supabase storage names
+    // Direct mapping to exact file names in Supabase Storage
+    // These should match exactly what's shown in your Supabase bucket
     const fileNameMapping: { [key: string]: string } = {
+      // Vehicle invoices - some use underscores, some use spaces
       '2015_VOLKSWAGEN_GOLF_R_INVOICE.pdf': '2015_VOLKSWAGEN_GOLF_R_INVOICE.pdf',
       '2017 AUDI A3 INVOICE.pdf': '2017 AUDI A3 INVOICE.pdf',
-      '2015 AUDI A5 SPORTBACK INVOICE.pdf': '2015 AUDI A5 SPORTBACK INVOICE.pdf',
+      '2015 AUDI A5 SPORTBACK INVOICE.pdf': '2015 AUDI A5 SPORTBACK INVOICE.pdf',  
       '2012 AUDI A4 INVOICE.pdf': '2012 AUDI A4 INVOICE.pdf',
+      
+      // Customs documents
       'SAD 500 CUSTOMS.pdf': 'SAD 500 CUSTOMS.pdf',
       'Assessment Notice.pdf': 'Assessment Notice.pdf',
       'Customs Clearance Certificate Motor Vehicle.pdf': 'Customs Clearance Certificate Motor Vehicle.pdf',
       'Release Order.pdf': 'Release Order.pdf',
+      
+      // Export documents
       'Export Certificate Japanese.pdf': 'Export Certificate Japanese.pdf',
       'Export Certificate - Sworn Translated.pdf': 'Export Certificate - Sworn Translated.pdf',
+      
+      // Shipping documents
       'ORIGINAL BILL OF LANDING.pdf': 'ORIGINAL BILL OF LANDING.pdf',
       'Transworld Cargo - signed quote.pdf': 'Transworld Cargo - signed quote.pdf',
       'Ocean Freight INVOICE per car.pdf': 'Ocean Freight INVOICE per car.pdf',
+      
+      // Registration documents
       'Police Clearance.pdf': 'Police Clearance.pdf',
       'Import Permit MIT.pdf': 'Import Permit MIT.pdf',
       'Import permit screen.png': 'Import permit screen.png',
       'Payment Receipt.pdf': 'Payment Receipt.pdf'
     }
     
-    // Use the mapped name or fall back to the original
-    const actualFileName = fileNameMapping[fileName] || fileName
+    // Try direct mapping first, then fallback to the filename as-is
+    let actualFileName = fileNameMapping[fileName] || fileName
     
-    console.log('Fetching document:', actualFileName, 'from path:', filePath)
+    // If still not found, try without spaces (convert spaces to underscores)
+    if (!fileNameMapping[fileName]) {
+      const underscoreVersion = fileName.replace(/ /g, '_')
+      if (fileNameMapping[underscoreVersion]) {
+        actualFileName = fileNameMapping[underscoreVersion]
+      }
+    }
     
-    // Fetch the PDF from Supabase Storage
-    const { data, error } = await supabase.storage
+    console.log('Fetching document:', actualFileName, 'from path:', filePath, 'original fileName:', fileName)
+    
+    // First, try to fetch with the exact filename
+    let { data, error } = await supabase.storage
       .from('documents')
       .download(actualFileName)
     
+    // If not found, try with underscores instead of spaces
+    if (error && actualFileName.includes(' ')) {
+      const underscoreName = actualFileName.replace(/ /g, '_')
+      console.log('Trying with underscores:', underscoreName)
+      const result = await supabase.storage
+        .from('documents')
+        .download(underscoreName)
+      data = result.data
+      error = result.error
+      if (!error) actualFileName = underscoreName
+    }
+    
+    // If still not found, try with spaces instead of underscores
+    if (error && actualFileName.includes('_')) {
+      const spaceName = actualFileName.replace(/_/g, ' ')
+      console.log('Trying with spaces:', spaceName)
+      const result = await supabase.storage
+        .from('documents')
+        .download(spaceName)
+      data = result.data
+      error = result.error
+      if (!error) actualFileName = spaceName
+    }
+    
     if (error) {
       console.error('Storage error:', error)
-      console.error('Tried to fetch:', actualFileName)
-      return new NextResponse(`Document not found: ${actualFileName}`, { status: 404 })
+      console.error('Tried to fetch:', actualFileName, 'original:', fileName)
+      
+      // List files in bucket for debugging (remove in production)
+      const { data: files } = await supabase.storage
+        .from('documents')
+        .list()
+      console.log('Available files in bucket:', files?.map(f => f.name))
+      
+      return new NextResponse(`Document not found: ${fileName}`, { status: 404 })
     }
 
     if (!data) {
