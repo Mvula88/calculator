@@ -43,15 +43,9 @@ export default function PDFViewer({ isOpen, onClose, documentName, documentUrl }
   // Check if file is an image
   const isImage = documentUrl.toLowerCase().match(/\.(png|jpg|jpeg|gif|webp)$/);
 
-  // For production, you'll need to upload PDFs to a public storage service
-  // and update these URLs. For now, using Google Docs Viewer as fallback
+  // Always use our API route which fetches from Supabase Storage
   const getViewerUrl = (url: string) => {
-    // If it's a full URL, use Google Docs Viewer
-    if (url.startsWith('http')) {
-      return `https://docs.google.com/viewer?url=${encodeURIComponent(url)}&embedded=true`
-    }
-    // For local development, show a sample PDF
-    // In production, this would be your actual PDF URL from Supabase Storage or similar
+    // Use our API route that fetches from Supabase
     return `/api/documents/${url}`
   }
 
@@ -158,19 +152,26 @@ export default function PDFViewer({ isOpen, onClose, documentName, documentUrl }
                     }}
                   />
                 ) : (
-                  // Display PDF in iframe
-                  <iframe
-                    src={getViewerUrl(documentUrl)}
-                    className="w-full h-full min-h-[800px] border-0"
-                    title={documentName}
+                  // Display PDF using object tag for better compatibility
+                  <object
+                    data={getViewerUrl(documentUrl)}
+                    type="application/pdf"
+                    className="w-full h-full min-h-[800px]"
                     onLoad={handleIframeLoad}
                     onError={handleIframeError}
-                    sandbox="allow-same-origin allow-scripts"
-                    style={{
-                      pointerEvents: 'auto',
-                      userSelect: 'none'
-                    }}
-                  />
+                  >
+                    <iframe
+                      src={getViewerUrl(documentUrl)}
+                      className="w-full h-full min-h-[800px] border-0"
+                      title={documentName}
+                      onLoad={handleIframeLoad}
+                      onError={handleIframeError}
+                      style={{
+                        pointerEvents: 'auto',
+                        userSelect: 'none'
+                      }}
+                    />
+                  </object>
                 )}
               </div>
             </div>
