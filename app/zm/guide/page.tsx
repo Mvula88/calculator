@@ -37,8 +37,7 @@ import {
   Check
 } from 'lucide-react'
 import CountrySelector from '@/components/CountrySelector'
-import HeaderCountrySelector from '@/components/HeaderCountrySelector'
-import LoginHeader from '@/components/LoginHeader'
+import GuideHeader from '@/components/GuideHeader'
 
 export default function ZambiaGuidePage() {
   const [email, setEmail] = useState('')
@@ -81,32 +80,13 @@ export default function ZambiaGuidePage() {
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-50">
-      <LoginHeader country="zm" />
       <CountrySelector />
-      
-      {/* Premium Header */}
-      <header className="bg-white border-b border-gray-200 shadow-sm sticky top-0 z-40">
-        <div className="max-w-7xl mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="bg-gradient-to-br from-emerald-600 to-teal-600 p-2 rounded-xl shadow-lg">
-                <Ship className="h-6 w-6 text-white" />
-              </div>
-              <div>
-                <div className="font-bold text-2xl bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">IMPOTA</div>
-                <div className="text-xs text-gray-500 font-medium">Import Mastery Platform</div>
-              </div>
-            </div>
-            <div className="flex items-center gap-6">
-              <div className="hidden md:flex items-center gap-2 bg-emerald-50 px-4 py-2 rounded-full">
-                <BadgeCheck className="h-4 w-4 text-emerald-600" />
-                <span className="text-sm font-medium text-emerald-700">Trusted by 5,000+ ZM Importers</span>
-              </div>
-              <HeaderCountrySelector />
-            </div>
-          </div>
-        </div>
-      </header>
+      <GuideHeader 
+        country="zm" 
+        trusted="5,000+ ZM Importers"
+        primaryColor="emerald-600"
+        secondaryColor="teal-600"
+      />
       
       {/* Hero Section - Zambia Themed */}
       <section className="relative overflow-hidden">

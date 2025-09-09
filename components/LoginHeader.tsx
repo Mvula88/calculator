@@ -6,21 +6,20 @@ import Link from 'next/link'
 
 interface LoginHeaderProps {
   country?: string
+  className?: string
 }
 
-export default function LoginHeader({ country = 'na' }: LoginHeaderProps) {
+export default function LoginHeader({ country = 'na', className = '' }: LoginHeaderProps) {
   return (
-    <div className="fixed top-4 right-4 z-50 flex gap-2">
-      <Link href="/auth/login">
-        <Button 
-          variant="default" 
-          size="sm" 
-          className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white shadow-lg"
-        >
-          <User className="h-4 w-4" />
-          Already Paid? Login
-        </Button>
-      </Link>
-    </div>
+    <Link href="/auth/login">
+      <Button 
+        variant="default" 
+        size="sm" 
+        className={`flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white shadow-lg ${className}`}
+      >
+        <User className="h-4 w-4" />
+        <span className="hidden sm:inline">Already Paid?</span> Login
+      </Button>
+    </Link>
   )
 }

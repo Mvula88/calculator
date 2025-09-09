@@ -37,8 +37,7 @@ import {
   Check
 } from 'lucide-react'
 import CountrySelector from '@/components/CountrySelector'
-import HeaderCountrySelector from '@/components/HeaderCountrySelector'
-import LoginHeader from '@/components/LoginHeader'
+import GuideHeader from '@/components/GuideHeader'
 
 export default function BotswanaGuidePage() {
   const [email, setEmail] = useState('')
@@ -81,32 +80,13 @@ export default function BotswanaGuidePage() {
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-50">
-      <LoginHeader country="bw" />
       <CountrySelector />
-      
-      {/* Premium Header */}
-      <header className="bg-white border-b border-gray-200 shadow-sm sticky top-0 z-40">
-        <div className="max-w-7xl mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="bg-gradient-to-br from-blue-600 to-sky-600 p-2 rounded-xl shadow-lg">
-                <Ship className="h-6 w-6 text-white" />
-              </div>
-              <div>
-                <div className="font-bold text-2xl bg-gradient-to-r from-blue-600 to-sky-600 bg-clip-text text-transparent">IMPOTA</div>
-                <div className="text-xs text-gray-500 font-medium">Import Mastery Platform</div>
-              </div>
-            </div>
-            <div className="flex items-center gap-6">
-              <div className="hidden md:flex items-center gap-2 bg-blue-50 px-4 py-2 rounded-full">
-                <BadgeCheck className="h-4 w-4 text-blue-600" />
-                <span className="text-sm font-medium text-blue-700">Trusted by 3,200+ BW Importers</span>
-              </div>
-              <HeaderCountrySelector />
-            </div>
-          </div>
-        </div>
-      </header>
+      <GuideHeader 
+        country="bw" 
+        trusted="3,200+ BW Importers"
+        primaryColor="blue-600"
+        secondaryColor="sky-600"
+      />
       
       {/* Hero Section - Botswana Themed */}
       <section className="relative overflow-hidden">
