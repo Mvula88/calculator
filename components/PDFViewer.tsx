@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
 import { X, ZoomIn, ZoomOut, FileText, AlertCircle } from 'lucide-react'
 
@@ -56,14 +55,24 @@ export default function PDFViewer({ isOpen, onClose, documentName, documentUrl }
     return `/api/documents/${url}`
   }
 
+  if (!isOpen) return null
+
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-7xl h-[90vh] p-0">
-        <DialogHeader className="px-6 py-4 border-b bg-white">
+    <div className="fixed inset-0 z-50 flex items-center justify-center">
+      {/* Backdrop */}
+      <div 
+        className="absolute inset-0 bg-black/50"
+        onClick={onClose}
+      />
+      
+      {/* Modal Content */}
+      <div className="relative bg-white rounded-lg shadow-xl max-w-7xl w-full mx-4 h-[90vh] flex flex-col">
+        {/* Header */}
+        <div className="px-6 py-4 border-b bg-white">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <FileText className="h-5 w-5 text-blue-600" />
-              <DialogTitle className="text-lg font-semibold">{documentName}</DialogTitle>
+              <h2 className="text-lg font-semibold">{documentName}</h2>
             </div>
             <div className="flex items-center gap-2">
               <Button
@@ -96,7 +105,7 @@ export default function PDFViewer({ isOpen, onClose, documentName, documentUrl }
               </Button>
             </div>
           </div>
-        </DialogHeader>
+        </div>
         
         <div className="relative flex-1 bg-gray-100 overflow-hidden">
           {/* Loading indicator */}
@@ -181,7 +190,7 @@ export default function PDFViewer({ isOpen, onClose, documentName, documentUrl }
             📋 This document is for viewing only • Downloads are disabled • Content is protected by copyright
           </p>
         </div>
-      </DialogContent>
-    </Dialog>
+      </div>
+    </div>
   )
 }
