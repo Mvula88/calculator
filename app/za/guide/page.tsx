@@ -42,7 +42,7 @@ import GuideHeader from '@/components/GuideHeader'
 export default function SouthAfricaGuidePage() {
   const [email, setEmail] = useState('')
   const [loading, setLoading] = useState(false)
-  const [selectedTier, setSelectedTier] = useState<'mistake' | 'mastery'>('mastery')
+  const [selectedTier, setSelectedTier] = useState<'mistake' | 'mastery'>('mistake')
 
   async function handleCheckout() {
     setLoading(true)
