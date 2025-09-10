@@ -13,29 +13,63 @@ interface PDFViewerProps {
 
 export default function PDFViewer({ isOpen, onClose, documentName, documentUrl }: PDFViewerProps) {
   const [scale, setScale] = useState(100)
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
-  const [openedInNewTab, setOpenedInNewTab] = useState(false)
+  const [documentContent, setDocumentContent] = useState<string | null>(null)
 
-  const handleOpenDocument = () => {
-    const url = getViewerUrl(documentUrl)
-    window.open(url, '_blank')
-    setOpenedInNewTab(true)
-    
-    // Auto close after opening
-    setTimeout(() => {
-      onClose()
-    }, 1500)
+  useEffect(() => {
+    if (isOpen && documentUrl) {
+      setLoading(true)
+      setError(false)
+      setDocumentContent(null)
+      
+      // Fetch the document content directly
+      fetchDocumentContent(documentUrl)
+    }
+  }, [isOpen, documentUrl])
+
+  const fetchDocumentContent = async (url: string) => {
+    try {
+      const response = await fetch(getViewerUrl(url))
+      
+      if (!response.ok) {
+        throw new Error('Failed to load document')
+      }
+      
+      // Check if it's an image or PDF
+      const contentType = response.headers.get('content-type')
+      
+      if (contentType?.includes('image')) {
+        // For images, convert to base64
+        const blob = await response.blob()
+        const reader = new FileReader()
+        reader.onloadend = () => {
+          setDocumentContent(reader.result as string)
+          setLoading(false)
+        }
+        reader.readAsDataURL(blob)
+      } else {
+        // For PDFs, create object URL
+        const blob = await response.blob()
+        const objectUrl = URL.createObjectURL(blob)
+        setDocumentContent(objectUrl)
+        setLoading(false)
+      }
+    } catch (err) {
+      console.error('Error loading document:', err)
+      setError(true)
+      setLoading(false)
+    }
   }
 
   useEffect(() => {
-    // Reset state when modal opens
-    if (isOpen) {
-      setOpenedInNewTab(false)
-      setError(false)
-      setLoading(false)
+    // Cleanup object URLs when component unmounts
+    return () => {
+      if (documentContent && documentContent.startsWith('blob:')) {
+        URL.revokeObjectURL(documentContent)
+      }
     }
-  }, [isOpen])
+  }, [documentContent])
 
   const handleZoomIn = () => {
     setScale(prev => Math.min(prev + 10, 200))
@@ -93,66 +127,124 @@ export default function PDFViewer({ isOpen, onClose, documentName, documentUrl }
         onClick={onClose}
       />
       
-      {/* Modal Content - Simplified */}
-      <div className="relative bg-white rounded-lg shadow-xl max-w-md w-full mx-4 p-6">
+      {/* Modal Content */}
+      <div className="relative bg-white rounded-lg shadow-xl max-w-7xl w-full mx-4 h-[90vh] flex flex-col">
         {/* Header */}
-        <div className="flex items-start justify-between mb-4">
-          <div className="flex items-center gap-3">
-            <FileText className="h-6 w-6 text-blue-600" />
-            <div>
+        <div className="px-6 py-4 border-b bg-white">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <FileText className="h-5 w-5 text-blue-600" />
               <h2 className="text-lg font-semibold">{documentName}</h2>
-              <p className="text-sm text-gray-600 mt-1">Click below to view the document</p>
+            </div>
+            <div className="flex items-center gap-2">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={handleZoomOut}
+                disabled={scale <= 50}
+                className="hover:bg-gray-100"
+              >
+                <ZoomOut className="h-4 w-4" />
+              </Button>
+              <span className="text-sm font-medium px-2 min-w-[50px] text-center">{scale}%</span>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={handleZoomIn}
+                disabled={scale >= 200}
+                className="hover:bg-gray-100"
+              >
+                <ZoomIn className="h-4 w-4" />
+              </Button>
+              <div className="w-px h-6 bg-gray-200 mx-1" />
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={onClose}
+                className="hover:bg-gray-100"
+              >
+                <X className="h-4 w-4" />
+              </Button>
             </div>
           </div>
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={onClose}
-            className="hover:bg-gray-100"
-          >
-            <X className="h-4 w-4" />
-          </Button>
         </div>
         
-        {/* Content */}
-        <div className="space-y-4">
-          {!openedInNewTab ? (
-            <>
-              <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                <div className="flex items-start gap-3">
-                  <AlertCircle className="h-5 w-5 text-blue-600 flex-shrink-0 mt-0.5" />
-                  <div className="text-sm">
-                    <p className="font-medium text-blue-900 mb-1">Document Viewer</p>
-                    <p className="text-blue-700">
-                      For security reasons, documents open in a new browser tab. 
-                      This ensures the best viewing experience and prevents browser blocking issues.
-                    </p>
-                  </div>
-                </div>
+        {/* Document Viewer */}
+        <div className="relative flex-1 bg-gray-100 overflow-hidden">
+          {/* Loading indicator */}
+          {loading && (
+            <div className="absolute inset-0 flex items-center justify-center bg-white z-10">
+              <div className="text-center">
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+                <p className="text-gray-600">Loading document...</p>
               </div>
-              
-              <Button 
-                onClick={handleOpenDocument}
-                className="w-full bg-blue-600 hover:bg-blue-700 text-white"
-              >
-                Open Document in New Tab
-              </Button>
-            </>
-          ) : (
-            <div className="text-center py-4">
-              <div className="inline-flex items-center justify-center w-12 h-12 bg-green-100 rounded-full mb-3">
-                <CheckCircle className="h-6 w-6 text-green-600" />
-              </div>
-              <p className="text-sm text-gray-600">Document opened in a new tab!</p>
-              <p className="text-xs text-gray-500 mt-1">You can close this window.</p>
             </div>
           )}
-          
-          <div className="pt-2 text-center">
-            <p className="text-xs text-gray-500">
-              📋 Documents are watermarked and protected
-            </p>
+
+          {/* Error state */}
+          {error && (
+            <div className="absolute inset-0 flex items-center justify-center bg-white z-10">
+              <div className="text-center max-w-md">
+                <AlertCircle className="h-12 w-12 text-amber-500 mx-auto mb-4" />
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">Unable to Load Document</h3>
+                <p className="text-sm text-gray-600 mb-4">
+                  The document could not be loaded. Please try again or contact support if the issue persists.
+                </p>
+                <Button onClick={onClose} variant="outline">
+                  Close
+                </Button>
+              </div>
+            </div>
+          )}
+
+          {/* Document Display */}
+          {!loading && !error && documentContent && (
+            <div className="h-full overflow-auto p-4">
+              <div 
+                className="mx-auto bg-white shadow-xl transition-all duration-200"
+                style={{ 
+                  width: `${scale}%`,
+                  minHeight: '100%'
+                }}
+              >
+                {isImage ? (
+                  // Display image
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={documentContent}
+                    alt={documentName}
+                    className="w-full h-auto"
+                    style={{
+                      pointerEvents: 'none',
+                      userSelect: 'none'
+                    }}
+                  />
+                ) : (
+                  // Display PDF
+                  <embed
+                    src={documentContent}
+                    type="application/pdf"
+                    className="w-full h-full min-h-[800px]"
+                    style={{ border: 'none' }}
+                  />
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* Watermark overlay */}
+          <div className="absolute bottom-4 right-4 pointer-events-none select-none opacity-50">
+            <div className="bg-gray-900 text-white px-3 py-1 rounded text-xs">
+              Licensed to {typeof window !== 'undefined' && localStorage.getItem('userEmail')?.replace(/"/g, '') || 'User'}
+            </div>
           </div>
+        </div>
+
+        {/* Footer notice */}
+        <div className="px-6 py-3 border-t bg-gray-50 text-center">
+          <p className="text-xs text-gray-500">
+            📋 This document is for viewing only • Downloads are disabled • Content is protected by copyright
+          </p>
         </div>
       </div>
     </div>
