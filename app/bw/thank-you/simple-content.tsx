@@ -36,10 +36,12 @@ export default function SimpleThankYouContent() {
       
       if (res.ok && data.success) {
         setStatus('success')
-        // Redirect to portal after 2 seconds
+        console.log('Access granted, will redirect in 3 seconds')
+        // Redirect to portal after 3 seconds to ensure cookie is set
         setTimeout(() => {
+          console.log('Redirecting to portal...')
           window.location.href = '/portal'
-        }, 2000)
+        }, 3000)
       } else {
         console.error('Grant access failed:', data)
         setStatus('error')

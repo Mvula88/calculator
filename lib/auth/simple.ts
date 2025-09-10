@@ -38,12 +38,16 @@ export function useSimpleAuth(options?: {
         .find(row => row.startsWith('impota_session='))
       
       if (!sessionCookie) {
+        console.log('[SimpleAuth] No session cookie found')
         if (options?.requireAuth) {
-          router.push(options.redirectTo || '/purchase')
+          // Instead of going to purchase, go to login
+          router.push('/portal/login')
         }
         setLoading(false)
         return
       }
+      
+      console.log('[SimpleAuth] Session cookie found:', sessionCookie)
 
       // Parse session
       try {
@@ -69,12 +73,14 @@ export function useSimpleAuth(options?: {
                   active: true
                 })
               } else {
-                // No entitlement
-                router.push('/purchase')
+                // No entitlement - go to login instead of purchase
+                console.log('[SimpleAuth] No entitlement found, redirecting to login')
+                router.push('/portal/login')
                 return
               }
             } else {
-              router.push('/purchase')
+              console.log('[SimpleAuth] Entitlement check failed')
+              router.push('/portal/login')
               return
             }
           }
