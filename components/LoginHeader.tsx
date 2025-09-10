@@ -11,7 +11,7 @@ interface LoginHeaderProps {
 
 export default function LoginHeader({ country = 'na', className = '' }: LoginHeaderProps) {
   return (
-    <Link href="/auth/login">
+    <Link href="/portal/login">
       <Button 
         variant="default" 
         size="sm" 

@@ -97,7 +97,8 @@ export async function middleware(request: NextRequest) {
   if (impotaSession) {
     try {
       const session = JSON.parse(impotaSession)
-      hasPortalAccess = !!session.email && !!session.sessionId
+      // Ultra-simple check - just need any session with an email
+      hasPortalAccess = !!session.email
     } catch (e) {
       // Invalid session cookie
     }
@@ -107,19 +108,26 @@ export async function middleware(request: NextRequest) {
   if (request.nextUrl.pathname.startsWith('/portal')) {
     // Allow access to login and activate pages
     if (request.nextUrl.pathname === '/portal/login' || 
-        request.nextUrl.pathname === '/portal/activate') {
+        request.nextUrl.pathname === '/portal/activate' ||
+        request.nextUrl.pathname === '/portal/activate-simple') {
       return supabaseResponse
     }
     
     // For other portal routes, check authentication
     if (!user && !hasPortalAccess) {
-      // Check if there's a session in the URL (for backwards compatibility)
+      // Check if there's a session in the URL
       const urlSession = request.nextUrl.searchParams.get('session')
-      if (urlSession) {
+      const sessionId = request.nextUrl.searchParams.get('session_id')
+      
+      if (urlSession || sessionId) {
         // Redirect to activate with the session
         const activateUrl = request.nextUrl.clone()
-        activateUrl.pathname = '/portal/activate'
-        activateUrl.searchParams.set('session', urlSession)
+        activateUrl.pathname = '/portal/activate-simple'
+        if (sessionId) {
+          activateUrl.searchParams.set('session', sessionId)
+        } else if (urlSession) {
+          activateUrl.searchParams.set('session', urlSession)
+        }
         return NextResponse.redirect(activateUrl)
       }
       

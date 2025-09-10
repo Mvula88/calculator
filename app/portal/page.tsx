@@ -1,6 +1,6 @@
 'use client'
 
-import { useSimpleAuth } from '@/lib/auth/simple'
+import { useUltraSimpleAuth } from '@/lib/auth/ultra-simple'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
@@ -26,11 +26,16 @@ import {
 } from 'lucide-react'
 
 export default function PortalPage() {
-  const { user, entitlement, loading, isMastery } = useSimpleAuth({
-    requireAuth: true,
-    requireEntitlement: true,
-    redirectTo: '/portal'
-  })
+  const { hasAccess, loading, userEmail } = useUltraSimpleAuth()
+  
+  // Mock entitlement data for display
+  const user = hasAccess ? { email: userEmail || 'user@example.com' } : null
+  const entitlement = hasAccess ? {
+    country: 'na',
+    tier: 'mastery' as const,
+    email: userEmail || 'user@example.com'
+  } : null
+  const isMastery = true // Give full access
 
   if (loading) {
     return (
@@ -43,7 +48,7 @@ export default function PortalPage() {
     )
   }
 
-  if (!entitlement || !user) {
+  if (!hasAccess || !user || !entitlement) {
     return null
   }
 

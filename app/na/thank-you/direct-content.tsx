@@ -16,7 +16,7 @@ export default function DirectThankYouContent() {
       console.log('[Thank You] Redirecting to portal activation with session:', sessionId)
       
       // Use replace to prevent back button issues
-      window.location.replace(`/portal/activate?session=${sessionId}`)
+      window.location.replace(`/portal/activate-simple?session=${sessionId}`)
     } else {
       // No session, go to login
       window.location.replace('/portal/login')

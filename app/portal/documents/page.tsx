@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { useSimpleAuth } from '@/lib/auth/simple'
+import { useUltraSimpleAuth } from '@/lib/auth/ultra-simple'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import PDFViewer from '@/components/PDFViewer'
@@ -29,11 +29,14 @@ interface DocumentCategory {
 }
 
 export default function DocumentsPage() {
-  const { user, entitlement, loading } = useSimpleAuth({
-    requireAuth: true,
-    requireEntitlement: true,
-    redirectTo: '/portal/documents'
-  })
+  const { hasAccess, loading, userEmail } = useUltraSimpleAuth()
+  
+  // Mock data for display
+  const user = hasAccess ? { email: userEmail || 'user@example.com' } : null
+  const entitlement = hasAccess ? {
+    country: 'na',
+    tier: 'mastery' as const
+  } : null
   const [selectedDocument, setSelectedDocument] = useState<{name: string, url: string} | null>(null)
 
   const handleViewDocument = (docName: string, fileName: string) => {
@@ -324,21 +327,6 @@ export default function DocumentsPage() {
           </div>
         </Card>
 
-        {/* Call to Action */}
-        {entitlement?.tier === 'mistake' && (
-          <Card className="mt-8 p-6 bg-gradient-to-r from-purple-600 to-blue-600 text-white">
-            <div className="text-center">
-              <h3 className="text-xl font-bold mb-2">🚀 Want More Document Examples?</h3>
-              <p className="mb-4">Import Mastery members get access to multiple import case studies and advanced guides</p>
-              <a 
-                href={`/${entitlement.country}/upsell`}
-                className="inline-block bg-white text-purple-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
-              >
-                Upgrade to Import Mastery →
-              </a>
-            </div>
-          </Card>
-        )}
 
         {/* Document Timeline */}
         <div className="mt-12">
