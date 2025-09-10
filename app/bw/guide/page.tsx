@@ -38,11 +38,14 @@ import {
 } from 'lucide-react'
 import CountrySelector from '@/components/CountrySelector'
 import GuideHeader from '@/components/GuideHeader'
+import StickySignupHeader from '@/components/StickySignupHeader'
+import FloatingSignupButton from '@/components/FloatingSignupButton'
+import QuickSignupForm from '@/components/QuickSignupForm'
 
 export default function BotswanaGuidePage() {
   const [email, setEmail] = useState('')
   const [loading, setLoading] = useState(false)
-  const [selectedTier, setSelectedTier] = useState<'mistake' | 'mastery'>('mistake')
+  const [selectedTier, setSelectedTier] = useState<'mistake' | 'mastery'>('mastery')
 
   async function handleCheckout() {
     setLoading(true)
@@ -80,6 +83,8 @@ export default function BotswanaGuidePage() {
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-50">
+      <StickySignupHeader country="bw" />
+      <FloatingSignupButton country="bw" />
       <CountrySelector />
       <GuideHeader 
         country="bw" 
@@ -155,6 +160,11 @@ export default function BotswanaGuidePage() {
                 </div>
               </div>
             </div>
+          </div>
+
+          {/* Quick Signup Form - Hero Variant */}
+          <div className="mb-8" id="signup">
+            <QuickSignupForm country="bw" variant="hero" />
           </div>
 
           {/* Social Proof Bar */}
@@ -368,44 +378,10 @@ export default function BotswanaGuidePage() {
             </div>
           </div>
 
-          {/* Checkout Section */}
-          <div className="mt-12 max-w-2xl mx-auto">
-            <Card className="bg-gradient-to-br from-blue-50 to-sky-50 border-2 border-blue-200">
-              <CardContent className="p-8">
-                <h3 className="text-2xl font-bold text-center mb-6">
-                  Ready to Save P50,000+ on Your Next Import?
-                </h3>
-                
-                <div className="space-y-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Enter your email to get instant access:
-                    </label>
-                    <Input
-                      type="email"
-                      placeholder="your@email.com"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      className="h-12 text-lg"
-                      required
-                    />
-                  </div>
-                  
-                  <Button 
-                    onClick={handleCheckout}
-                    disabled={!email || loading}
-                    className="w-full h-14 text-xl font-bold bg-gradient-to-r from-blue-600 to-sky-600 hover:from-blue-700 hover:to-sky-700"
-                    size="lg"
-                  >
-                    {loading ? (
-                      'Processing...'
-                    ) : (
-                      <>
-                        Get Instant Access - {selectedTier === 'mastery' ? 'P1,618' : 'P404'}
-                        <ArrowRight className="ml-2 h-6 w-6" />
-                      </>
-                    )}
-                  </Button>
+          {/* Simplified Checkout Section */}
+          <div className="mt-12 max-w-3xl mx-auto">
+            <QuickSignupForm country="bw" variant="default" />
+          </div>
                   
                   <div className="flex items-center justify-center gap-6 pt-4">
                     <div className="flex items-center gap-2 text-sm text-gray-600">

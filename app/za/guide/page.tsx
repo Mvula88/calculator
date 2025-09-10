@@ -38,11 +38,14 @@ import {
 } from 'lucide-react'
 import CountrySelector from '@/components/CountrySelector'
 import GuideHeader from '@/components/GuideHeader'
+import StickySignupHeader from '@/components/StickySignupHeader'
+import FloatingSignupButton from '@/components/FloatingSignupButton'
+import QuickSignupForm from '@/components/QuickSignupForm'
 
 export default function SouthAfricaGuidePage() {
   const [email, setEmail] = useState('')
   const [loading, setLoading] = useState(false)
-  const [selectedTier, setSelectedTier] = useState<'mistake' | 'mastery'>('mistake')
+  const [selectedTier, setSelectedTier] = useState<'mistake' | 'mastery'>('mastery')
 
   async function handleCheckout() {
     setLoading(true)
@@ -80,6 +83,8 @@ export default function SouthAfricaGuidePage() {
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-50">
+      <StickySignupHeader country="za" />
+      <FloatingSignupButton country="za" />
       <CountrySelector />
       <GuideHeader 
         country="za" 
@@ -155,6 +160,11 @@ export default function SouthAfricaGuidePage() {
                 </div>
               </div>
             </div>
+          </div>
+
+          {/* Quick Signup Form - Hero Variant */}
+          <div className="mb-8" id="signup">
+            <QuickSignupForm country="za" variant="hero" />
           </div>
 
           {/* Social Proof Bar */}
@@ -368,62 +378,9 @@ export default function SouthAfricaGuidePage() {
             </div>
           </div>
 
-          {/* Checkout Section */}
-          <div className="mt-12 max-w-2xl mx-auto">
-            <Card className="bg-gradient-to-br from-green-50 to-yellow-50 border-2 border-green-200">
-              <CardContent className="p-8">
-                <h3 className="text-2xl font-bold text-center mb-6">
-                  Ready to Save R50,000+ on Your Next Import?
-                </h3>
-                
-                <div className="space-y-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Enter your email to get instant access:
-                    </label>
-                    <Input
-                      type="email"
-                      placeholder="your@email.com"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      className="h-12 text-lg"
-                      required
-                    />
-                  </div>
-                  
-                  <Button 
-                    onClick={handleCheckout}
-                    disabled={!email || loading}
-                    className="w-full h-14 text-xl font-bold bg-gradient-to-r from-green-600 to-yellow-600 hover:from-green-700 hover:to-yellow-700"
-                    size="lg"
-                  >
-                    {loading ? (
-                      'Processing...'
-                    ) : (
-                      <>
-                        Get Instant Access - {selectedTier === 'mastery' ? 'R1,999' : 'R499'}
-                        <ArrowRight className="ml-2 h-6 w-6" />
-                      </>
-                    )}
-                  </Button>
-                  
-                  <div className="flex items-center justify-center gap-6 pt-4">
-                    <div className="flex items-center gap-2 text-sm text-gray-600">
-                      <Shield className="h-4 w-4" />
-                      <span>Secure checkout</span>
-                    </div>
-                    <div className="flex items-center gap-2 text-sm text-gray-600">
-                      <Clock className="h-4 w-4" />
-                      <span>Instant access</span>
-                    </div>
-                    <div className="flex items-center gap-2 text-sm text-gray-600">
-                      <CheckCircle className="h-4 w-4" />
-                      <span>Lifetime updates</span>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+          {/* Simplified Checkout Section */}
+          <div className="mt-12 max-w-3xl mx-auto">
+            <QuickSignupForm country="za" variant="default" />
           </div>
         </div>
       </section>
