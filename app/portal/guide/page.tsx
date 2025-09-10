@@ -120,18 +120,6 @@ const namibiaTimelineSteps = [
   }
 ]
 
-// Cost breakdown for Namibia
-const namibiaCosts = [
-  { category: 'Purchase & Shipping', label: 'Car Price (Japan)', amount: '¥800,000', local: 'N$85,000' },
-  { category: 'Purchase & Shipping', label: 'Shipping to Walvis', amount: '$1,200', local: 'N$22,000' },
-  { category: 'Duties & Taxes', label: 'Import Duty (30%)', amount: '', local: 'N$25,500' },
-  { category: 'Duties & Taxes', label: 'VAT (15%)', amount: '', local: 'N$19,875' },
-  { category: 'Clearance & Transport', label: 'Clearing Agent', amount: '', local: 'N$8,500' },
-  { category: 'Clearance & Transport', label: 'Port Charges', amount: '', local: 'N$4,500' },
-  { category: 'Clearance & Transport', label: 'Transport to Windhoek', amount: '', local: 'N$3,500' },
-  { category: 'Registration', label: 'Roadworthy & NaTIS', amount: '', local: 'N$2,800' },
-  { category: 'Registration', label: 'Number Plates', amount: '', local: 'N$450' }
-]
 
 // Common mistakes
 const commonMistakes = [
@@ -298,51 +286,19 @@ export default function GuidePage() {
         {/* Timeline Section */}
         <TimelineSection 
           steps={namibiaTimelineSteps}
-          countryName={countryName}
-          currency={currency}
         />
 
         {/* Cost Breakdown */}
-        <CostBreakdown 
-          costs={namibiaCosts}
-          currency={currency}
-          totalAmount="N$172,125"
-        />
+        <CostBreakdown />
 
         {/* Common Mistakes */}
         <MistakeCards mistakes={commonMistakes} />
 
         {/* Templates Section */}
-        <TemplatesSection 
-          country="na"
-          templates={[
-            { name: 'Purchase Agreement Template', file: 'purchase-agreement.docx' },
-            { name: 'Shipping Instructions', file: 'shipping-instructions.pdf' },
-            { name: 'Customs Declaration Guide', file: 'customs-guide.pdf' },
-            { name: 'Registration Checklist', file: 'registration-checklist.xlsx' }
-          ]}
-        />
+        <TemplatesSection />
 
         {/* Emergency Playbook */}
-        <EmergencyPlaybook 
-          scenarios={[
-            {
-              issue: 'Container delayed at port',
-              solution: 'Contact shipping line for new ETA. Notify clearing agent. May need storage extension.',
-              contacts: ['Shipping line customer service', 'Port authority', 'Clearing agent']
-            },
-            {
-              issue: 'Wrong VIN on documents',
-              solution: 'Stop all processes immediately. Get corrected invoice from seller. Submit amendment to customs.',
-              contacts: ['Japan seller/agent', 'Clearing agent', 'Customs office']
-            },
-            {
-              issue: 'Roadworthy test failed',
-              solution: 'Get detailed failure report. Fix listed issues at approved garage. Rebook test within 7 days.',
-              contacts: ['Testing station', 'Approved mechanics', 'NaTIS office']
-            }
-          ]}
-        />
+        <EmergencyPlaybook />
 
         {/* Success Tips */}
         <Card className="mt-8 p-6 bg-gradient-to-r from-green-50 to-blue-50 border-green-200">
