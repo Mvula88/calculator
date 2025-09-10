@@ -159,7 +159,13 @@ export default function GuidePage() {
     
     if (session && session.email) {
       setHasAccess(true)
-      setUserEmail(session.email)
+      // Clean up email display if it's a session-based email
+      const email = session.email
+      let cleanEmail = email
+      if (email.startsWith('user_cs_test_') || email.startsWith('user_') && email.endsWith('@impota.com')) {
+        cleanEmail = 'Portal User'
+      }
+      setUserEmail(cleanEmail)
     } else {
       setHasAccess(false)
     }

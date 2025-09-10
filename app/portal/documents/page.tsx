@@ -31,8 +31,15 @@ interface DocumentCategory {
 export default function DocumentsPage() {
   const { hasAccess, loading, userEmail } = useUltraSimpleAuth()
   
+  // Clean up email display if it's a session-based email
+  const displayEmail = userEmail || 'user@example.com'
+  let cleanEmail = displayEmail
+  if (displayEmail.startsWith('user_cs_test_') || (displayEmail.startsWith('user_') && displayEmail.endsWith('@impota.com'))) {
+    cleanEmail = 'Portal User'
+  }
+  
   // Mock data for display
-  const user = hasAccess ? { email: userEmail || 'user@example.com' } : null
+  const user = hasAccess ? { email: cleanEmail } : null
   const entitlement = hasAccess ? {
     country: 'na',
     tier: 'mastery' as const
