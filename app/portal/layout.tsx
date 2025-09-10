@@ -70,7 +70,10 @@ export default function SimplePortalLayout({
     
     if (session && session.email) {
       setHasAccess(true)
-      setUserEmail(session.email)
+      // Clean up email display if it's a session-based email
+      const email = session.email
+      const cleanEmail = email.startsWith('user_cs_test_') ? 'Portal User' : email
+      setUserEmail(cleanEmail)
     } else {
       setHasAccess(false)
       router.replace('/portal/login')

@@ -11,6 +11,7 @@ export default function ActivateSimplePage() {
   
   useEffect(() => {
     const sessionId = searchParams.get('session') || searchParams.get('session_id')
+    const email = searchParams.get('email')
     
     if (!sessionId) {
       // No session provided, redirect to login
@@ -18,9 +19,18 @@ export default function ActivateSimplePage() {
       return
     }
     
-    // Create a simple session object
+    // Check if session already exists with proper email
+    let existingSession = null
+    const storedSession = localStorage.getItem('impota_session')
+    if (storedSession) {
+      try {
+        existingSession = JSON.parse(storedSession)
+      } catch (e) {}
+    }
+    
+    // Create a session object with proper email
     const session = {
-      email: `user_${sessionId}@impota.com`, // Simple email based on session
+      email: email || existingSession?.email || 'Portal User',
       sessionId: sessionId,
       timestamp: Date.now()
     }
