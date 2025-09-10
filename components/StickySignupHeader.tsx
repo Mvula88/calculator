@@ -71,7 +71,7 @@ export default function StickySignupHeader({ country = 'na' }: StickySignupHeade
             </Link>
             <div className="hidden sm:flex items-center gap-1 text-xs">
               <Shield className="h-3 w-3" />
-              <span>30-day guarantee</span>
+              <span>Secure checkout</span>
             </div>
           </div>
         </div>

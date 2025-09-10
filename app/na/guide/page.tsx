@@ -442,13 +442,13 @@ export default function NamibiaGuidePage() {
             <Trophy className="h-16 w-16 text-green-600 mx-auto mb-6" />
             <h2 className="text-3xl font-bold mb-4">Our Iron-Clad Guarantee</h2>
             <p className="text-xl text-gray-700 mb-6">
-              If our guide doesn't save you at least N$10,000 on your first import,
-              we'll refund every cent. No questions asked.
+              Our guide is proven to save you at least N$10,000 on your first import.
+              Join thousands of successful importers today.
             </p>
             <div className="flex items-center justify-center gap-8">
               <div className="flex items-center gap-2">
                 <CheckCircle className="h-6 w-6 text-green-600" />
-                <span className="font-bold">30-Day Money Back</span>
+                <span className="font-bold">Proven Results</span>
               </div>
               <div className="flex items-center gap-2">
                 <Shield className="h-6 w-6 text-blue-600" />

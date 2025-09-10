@@ -285,7 +285,7 @@ export default function QuickSignupForm({
         </div>
         <div className="flex items-center gap-1 text-xs text-gray-600">
           <CheckCircle className="h-3 w-3" />
-          <span>30-day guarantee</span>
+          <span>Lifetime updates</span>
         </div>
       </div>
     </div>
