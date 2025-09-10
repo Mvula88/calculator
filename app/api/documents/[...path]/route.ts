@@ -43,6 +43,9 @@ export async function GET(
       return new NextResponse('Unauthorized - Please log in to access documents', { status: 401 })
     }
 
+    // Initialize Supabase client for storage access
+    const supabase = await createClient()
+
     // Construct the file path - the filename comes from the path parameter
     const filePath = path.join('/')
     const fileName = filePath.split('/').pop() || 'document'

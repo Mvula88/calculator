@@ -155,6 +155,7 @@ export default function PDFViewer({ isOpen, onClose, documentName, documentUrl }
               >
                 {isImage ? (
                   // Display image directly
+                  // eslint-disable-next-line @next/next/no-img-element
                   <img
                     src={getViewerUrl(documentUrl)}
                     alt={documentName}
