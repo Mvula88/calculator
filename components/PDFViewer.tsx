@@ -49,7 +49,24 @@ export default function PDFViewer({ isOpen, onClose, documentName, documentUrl }
   const getViewerUrl = (url: string) => {
     // Use our API route that fetches from Supabase
     // Add timestamp to prevent caching issues
-    return `/api/documents/${url}?t=${Date.now()}`
+    // Include session info in URL for authentication
+    const baseUrl = `/api/documents/${url}?t=${Date.now()}`
+    
+    // Try to get session from localStorage or cookies
+    if (typeof window !== 'undefined') {
+      const sessionStr = localStorage.getItem('impota-session')
+      if (sessionStr) {
+        try {
+          const session = JSON.parse(sessionStr)
+          // Add session ID as query param for authentication
+          return `${baseUrl}&sid=${session.sessionId}`
+        } catch (e) {
+          console.log('Could not parse session for document fetch')
+        }
+      }
+    }
+    
+    return baseUrl
   }
 
   if (!isOpen) return null
