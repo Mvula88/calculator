@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { useAuth } from '@/lib/auth/hooks'
+import { useSimpleAuth } from '@/lib/auth/simple'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import PDFViewer from '@/components/PDFViewer'
@@ -29,7 +29,7 @@ interface DocumentCategory {
 }
 
 export default function DocumentsPage() {
-  const { user, entitlement, loading } = useAuth({
+  const { user, entitlement, loading } = useSimpleAuth({
     requireAuth: true,
     requireEntitlement: true,
     redirectTo: '/portal/documents'

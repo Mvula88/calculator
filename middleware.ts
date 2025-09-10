@@ -90,13 +90,13 @@ export async function middleware(request: NextRequest) {
 
   const { data: { user } } = await supabase.auth.getUser()
 
-  // Check for portal session cookie (for post-payment access)
-  const portalSession = request.cookies.get('portal_session')?.value
+  // Check for simple session cookie (for post-payment access)
+  const impotaSession = request.cookies.get('impota_session')?.value
   let hasPortalAccess = false
   
-  if (portalSession) {
+  if (impotaSession) {
     try {
-      const session = JSON.parse(portalSession)
+      const session = JSON.parse(impotaSession)
       hasPortalAccess = !!session.email && !!session.sessionId
     } catch (e) {
       // Invalid session cookie
@@ -106,9 +106,9 @@ export async function middleware(request: NextRequest) {
   // Protected portal routes
   if (request.nextUrl.pathname.startsWith('/portal')) {
     if (!user && !hasPortalAccess) {
+      // Redirect to purchase page instead of login
       const redirectUrl = request.nextUrl.clone()
-      redirectUrl.pathname = '/auth/login'
-      redirectUrl.searchParams.set('redirect', request.nextUrl.pathname)
+      redirectUrl.pathname = '/purchase'
       return NextResponse.redirect(redirectUrl)
     }
   }

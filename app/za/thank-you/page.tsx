@@ -1,5 +1,5 @@
 import { Suspense } from 'react'
-import SouthAfricaThankYouContent from './thank-you-content'
+import SimpleThankYouContent from './simple-content'
 import { Loader2 } from 'lucide-react'
 
 export default function SouthAfricaThankYouPage() {
@@ -11,7 +11,7 @@ export default function SouthAfricaThankYouPage() {
         </main>
       }
     >
-      <SouthAfricaThankYouContent />
+      <SimpleThankYouContent />
     </Suspense>
   )
 }

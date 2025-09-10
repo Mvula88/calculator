@@ -1,6 +1,6 @@
 'use client'
 
-import { useAuth } from '@/lib/auth/hooks'
+import { useSimpleAuth } from '@/lib/auth/simple'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
@@ -26,7 +26,7 @@ import {
 } from 'lucide-react'
 
 export default function PortalPage() {
-  const { user, entitlement, loading, isMastery } = useAuth({
+  const { user, entitlement, loading, isMastery } = useSimpleAuth({
     requireAuth: true,
     requireEntitlement: true,
     redirectTo: '/portal'
