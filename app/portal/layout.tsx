@@ -30,6 +30,7 @@ export default function SimplePortalLayout({
   const pathname = usePathname()
   const [hasAccess, setHasAccess] = useState<boolean | null>(null)
   const [userEmail, setUserEmail] = useState<string>('')
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   
   useEffect(() => {
     // Don't check auth for activation or login pages
@@ -165,29 +166,32 @@ export default function SimplePortalLayout({
           <div className="flex justify-between items-center h-16">
             {/* Logo and Brand */}
             <div className="flex items-center">
-              <button className="lg:hidden p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100">
-                <Menu className="h-6 w-6" />
+              <button 
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="lg:hidden p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500"
+              >
+                {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
               </button>
-              <div className="flex items-center ml-4 lg:ml-0">
-                <Link href="/portal" className="flex items-center gap-3">
+              <div className="flex items-center ml-2 lg:ml-0">
+                <Link href="/portal" className="flex items-center gap-2 sm:gap-3">
                   <Image 
                     src="/impota-logo.png" 
                     alt="IMPOTA" 
                     width={120} 
                     height={32}
-                    className="h-8 w-auto"
+                    className="h-6 sm:h-8 w-auto"
                     priority
                   />
-                  <span className="text-xs font-medium px-2 py-1 rounded-full bg-green-100 text-green-700">
-                    PORTAL ACCESS
+                  <span className="hidden sm:inline-flex text-xs font-medium px-2 py-1 rounded-full bg-green-100 text-green-700">
+                    PORTAL
                   </span>
                 </Link>
               </div>
             </div>
             
             {/* User Menu */}
-            <div className="flex items-center space-x-4">
-              <div className="hidden sm:flex items-center space-x-3">
+            <div className="flex items-center space-x-2 sm:space-x-4">
+              <div className="hidden md:flex items-center space-x-3">
                 <div className="text-right">
                   <p className="text-sm font-medium text-gray-900">
                     {userEmail ? userEmail.split('@')[0] : 'User'}
@@ -200,14 +204,55 @@ export default function SimplePortalLayout({
                   </span>
                 </div>
               </div>
-              <Button onClick={handleSignOut} variant="outline" size="sm" className="text-gray-600 hover:text-gray-900">
-                <LogOut className="h-4 w-4 mr-2 hidden sm:block" />
-                Sign Out
+              <Button onClick={handleSignOut} variant="outline" size="sm" className="text-xs sm:text-sm text-gray-600 hover:text-gray-900">
+                <LogOut className="h-4 w-4 mr-1 sm:mr-2" />
+                <span className="hidden sm:inline">Sign Out</span>
+                <span className="sm:hidden">Exit</span>
               </Button>
             </div>
           </div>
         </div>
       </header>
+      
+      {/* Mobile Navigation Menu */}
+      {mobileMenuOpen && (
+        <div className="lg:hidden fixed inset-0 z-50 pt-16">
+          <div className="fixed inset-0 bg-black/30" onClick={() => setMobileMenuOpen(false)} />
+          <nav className="fixed left-0 top-16 bottom-0 w-full sm:w-80 bg-white shadow-xl overflow-y-auto">
+            <div className="p-4">
+              <div className="space-y-1">
+                {navigation.map((item) => (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="flex items-center px-4 py-3 text-base font-medium rounded-lg hover:bg-gray-50 active:bg-gray-100 transition-colors"
+                  >
+                    <item.icon className="mr-3 h-5 w-5 text-gray-400" />
+                    <div className="flex-1">
+                      <div className="text-gray-700">{item.name}</div>
+                      <div className="text-xs text-gray-500">{item.description}</div>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+              
+              {/* Mobile Menu Footer */}
+              <div className="mt-8 pt-8 border-t border-gray-200">
+                <div className="space-y-4">
+                  <div className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                    ✅ Portal Access Active
+                  </div>
+                  <div className="text-sm text-gray-500">
+                    <p>Licensed to:</p>
+                    <p className="font-medium text-gray-700 truncate">{userEmail || 'Portal User'}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </nav>
+        </div>
+      )}
       
       <div className="flex h-screen pt-16">
         {/* Sidebar Navigation */}
@@ -251,8 +296,8 @@ export default function SimplePortalLayout({
         
         {/* Main Content Area */}
         <main className="flex-1 overflow-y-auto">
-          <div className="py-6">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+          <div className="py-4 sm:py-6">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               {children}
             </div>
           </div>
