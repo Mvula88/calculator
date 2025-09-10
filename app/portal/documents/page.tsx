@@ -86,10 +86,10 @@ export default function DocumentsPage() {
     )
   }
 
-  const currency = entitlement.country === 'na' ? 'N$' :
-                   entitlement.country === 'za' ? 'R' :
-                   entitlement.country === 'bw' ? 'P' :
-                   entitlement.country === 'zm' ? 'K' : 'N$'
+  const currency = entitlement?.country === 'na' ? 'N$' :
+                   entitlement?.country === 'za' ? 'R' :
+                   entitlement?.country === 'bw' ? 'P' :
+                   entitlement?.country === 'zm' ? 'K' : 'N$'
 
   // Document categories with descriptions
   const documentCategories: DocumentCategory[] = [
