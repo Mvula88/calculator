@@ -9,23 +9,38 @@ export async function GET(
     // Await params in Next.js 15
     const { path } = await params
     
-    // Check authentication
-    const supabase = await createClient()
-    const { data: { user } } = await supabase.auth.getUser()
+    // Check authentication using session
+    const sessionCookie = request.cookies.get('impota-session')?.value
+    const authHeader = request.headers.get('authorization')
     
-    if (!user) {
-      return new NextResponse('Unauthorized', { status: 401 })
+    // Check for valid session in cookies or authorization header
+    let hasAccess = false
+    
+    if (sessionCookie) {
+      try {
+        const session = JSON.parse(sessionCookie)
+        if (session.email && session.sessionId) {
+          hasAccess = true
+        }
+      } catch (e) {
+        console.log('Invalid session cookie')
+      }
     }
-
-    // Check entitlement
-    const { data: entitlements } = await supabase
-      .from('entitlements')
-      .select('*')
-      .eq('active', true)
-      .or(`user_id.eq.${user.id},email.eq.${user.email}`)
-
-    if (!entitlements || entitlements.length === 0) {
-      return new NextResponse('No active entitlement', { status: 403 })
+    
+    // Also check authorization header for session
+    if (!hasAccess && authHeader) {
+      try {
+        const session = JSON.parse(authHeader.replace('Bearer ', ''))
+        if (session.email && session.sessionId) {
+          hasAccess = true
+        }
+      } catch (e) {
+        console.log('Invalid auth header')
+      }
+    }
+    
+    if (!hasAccess) {
+      return new NextResponse('Unauthorized - Please log in to access documents', { status: 401 })
     }
 
     // Construct the file path - the filename comes from the path parameter

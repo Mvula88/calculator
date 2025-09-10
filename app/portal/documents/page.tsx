@@ -66,7 +66,7 @@ export default function DocumentsPage() {
     )
   }
 
-  if (!entitlement) {
+  if (!hasAccess) {
     return (
       <div className="max-w-4xl mx-auto px-6 py-12">
         <Card className="p-8 text-center">

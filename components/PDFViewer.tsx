@@ -48,7 +48,8 @@ export default function PDFViewer({ isOpen, onClose, documentName, documentUrl }
   // Always use our API route which fetches from Supabase Storage
   const getViewerUrl = (url: string) => {
     // Use our API route that fetches from Supabase
-    return `/api/documents/${url}`
+    // Add timestamp to prevent caching issues
+    return `/api/documents/${url}?t=${Date.now()}`
   }
 
   if (!isOpen) return null
@@ -166,12 +167,14 @@ export default function PDFViewer({ isOpen, onClose, documentName, documentUrl }
                     }}
                   />
                 ) : (
-                  // Display PDF directly without restrictions
-                  <embed
-                    src={`${getViewerUrl(documentUrl)}#toolbar=0&navpanes=0&scrollbar=1&view=FitH`}
-                    type="application/pdf"
-                    className="w-full h-full min-h-[800px]"
+                  // Try iframe first for better compatibility
+                  <iframe
+                    src={getViewerUrl(documentUrl)}
+                    className="w-full h-full min-h-[800px] border-0"
                     onLoad={handleIframeLoad}
+                    onError={handleIframeError}
+                    title={documentName}
+                    sandbox="allow-same-origin allow-scripts"
                   />
                 )}
               </div>
