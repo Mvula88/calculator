@@ -382,25 +382,6 @@ export default function ZambiaGuidePage() {
           <div className="mt-12 max-w-3xl mx-auto">
             <QuickSignupForm country="zm" variant="default" />
           </div>
-                  
-                  <div className="flex items-center justify-center gap-6 pt-4">
-                    <div className="flex items-center gap-2 text-sm text-gray-600">
-                      <Shield className="h-4 w-4" />
-                      <span>Secure checkout</span>
-                    </div>
-                    <div className="flex items-center gap-2 text-sm text-gray-600">
-                      <Clock className="h-4 w-4" />
-                      <span>Instant access</span>
-                    </div>
-                    <div className="flex items-center gap-2 text-sm text-gray-600">
-                      <CheckCircle className="h-4 w-4" />
-                      <span>Lifetime updates</span>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
         </div>
       </section>
 
