@@ -24,7 +24,8 @@ export default function PortalLoginPage() {
     setMessage('')
 
     try {
-      const res = await fetch('/api/auth-simple/login', {
+      // Try the new v2 endpoint that checks both database and Stripe
+      const res = await fetch('/api/auth-simple/login-v2', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: email.toLowerCase() })
@@ -61,6 +62,9 @@ export default function PortalLoginPage() {
           <h1 className="text-2xl font-bold mb-2">Access Your Portal</h1>
           <p className="text-gray-600 text-sm">
             Enter the email you used to purchase the import guide
+          </p>
+          <p className="text-xs text-gray-500 mt-2">
+            We'll check both our database and Stripe for your purchase
           </p>
         </div>
 
