@@ -7,15 +7,33 @@ export async function POST(req: NextRequest) {
   try {
     const { sessionId } = await req.json()
     
+    console.log('[Grant Access] Processing session:', sessionId)
+    
     if (!sessionId) {
+      console.error('[Grant Access] No session ID provided')
       return NextResponse.json({ error: 'Missing session ID' }, { status: 400 })
     }
     
     // Get the Stripe session
-    const stripeSession = await stripe.checkout.sessions.retrieve(sessionId)
+    let stripeSession
+    try {
+      stripeSession = await stripe.checkout.sessions.retrieve(sessionId)
+      console.log('[Grant Access] Stripe session retrieved:', {
+        id: stripeSession.id,
+        payment_status: stripeSession.payment_status,
+        customer_email: stripeSession.customer_email,
+        metadata: stripeSession.metadata
+      })
+    } catch (stripeError) {
+      console.error('[Grant Access] Failed to retrieve Stripe session:', stripeError)
+      return NextResponse.json({ 
+        error: 'Invalid payment session. Please contact support with your receipt.' 
+      }, { status: 400 })
+    }
     
     // Verify payment was successful
     if (stripeSession.payment_status !== 'paid') {
+      console.error('[Grant Access] Payment not completed:', stripeSession.payment_status)
       return NextResponse.json({ error: 'Payment not completed' }, { status: 400 })
     }
     
@@ -23,8 +41,11 @@ export async function POST(req: NextRequest) {
     const email = stripeSession.customer_email || stripeSession.customer_details?.email
     
     if (!email) {
-      return NextResponse.json({ error: 'No email found in session' }, { status: 400 })
+      console.error('[Grant Access] No email found in Stripe session')
+      return NextResponse.json({ error: 'No email found in payment session' }, { status: 400 })
     }
+    
+    console.log('[Grant Access] Customer email:', email)
     
     // Get metadata from Stripe session
     const metadata = stripeSession.metadata || {}

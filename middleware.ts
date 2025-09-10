@@ -105,10 +105,15 @@ export async function middleware(request: NextRequest) {
 
   // Protected portal routes
   if (request.nextUrl.pathname.startsWith('/portal')) {
+    // Allow access to login page
+    if (request.nextUrl.pathname === '/portal/login') {
+      return supabaseResponse
+    }
+    
     if (!user && !hasPortalAccess) {
-      // Redirect to purchase page instead of login
+      // Redirect to portal login page
       const redirectUrl = request.nextUrl.clone()
-      redirectUrl.pathname = '/purchase'
+      redirectUrl.pathname = '/portal/login'
       return NextResponse.redirect(redirectUrl)
     }
   }
