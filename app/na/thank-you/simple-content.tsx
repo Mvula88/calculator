@@ -25,7 +25,7 @@ export default function SimpleThankYouContent() {
     try {
       console.log('Granting access for session:', sessionId)
       
-      const res = await fetch('/api/auth-simple/grant-access', {
+      const res = await fetch('/api/auth-simple/grant-access-v2', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ sessionId })
