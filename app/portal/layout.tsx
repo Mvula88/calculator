@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
+import SimpleContentProtection from '@/components/SimpleContentProtection'
 import { 
   Calculator, 
   Users, 
@@ -156,7 +157,8 @@ export default function SimplePortalLayout({
   ]
   
   return (
-    <div className="min-h-screen bg-gray-50">
+    <SimpleContentProtection userEmail={userEmail}>
+      <div className="min-h-screen bg-gray-50">
       {/* Top Header Bar */}
       <header className="bg-white border-b border-gray-200 fixed top-0 left-0 right-0 z-40">
         <div className="px-4 sm:px-6 lg:px-8">
@@ -257,5 +259,6 @@ export default function SimplePortalLayout({
         </main>
       </div>
     </div>
+    </SimpleContentProtection>
   )
 }
