@@ -62,9 +62,12 @@ export async function POST(req: NextRequest) {
       
       // Find sessions for this email
       const userSessions = sessions.data.filter(session => {
-        const sessionEmail = session.customer_email || 
-                           session.customer_details?.email || 
-                           (session.customer && typeof session.customer === 'object' && session.customer.email)
+        let sessionEmail = session.customer_email || session.customer_details?.email
+        
+        // Check if customer object has email (type guard for TypeScript)
+        if (!sessionEmail && session.customer && typeof session.customer === 'object' && 'email' in session.customer) {
+          sessionEmail = (session.customer as any).email
+        }
         
         return sessionEmail?.toLowerCase() === normalizedEmail && 
                session.payment_status === 'paid'
@@ -94,13 +97,20 @@ export async function POST(req: NextRequest) {
         
         // Try to create database record for future logins (but don't fail if it doesn't work)
         try {
+          let customerId = null
+          if (typeof latestSession.customer === 'string') {
+            customerId = latestSession.customer
+          } else if (latestSession.customer && typeof latestSession.customer === 'object' && 'id' in latestSession.customer) {
+            customerId = (latestSession.customer as any).id
+          }
+          
           await supabase.from('entitlements').insert({
             email: normalizedEmail,
             tier: 'mastery',
             country: 'na',
             active: true,
             stripe_session_id: latestSession.id,
-            stripe_customer_id: typeof latestSession.customer === 'string' ? latestSession.customer : latestSession.customer?.id,
+            stripe_customer_id: customerId,
             amount_paid: latestSession.amount_total,
             currency: latestSession.currency
           })
