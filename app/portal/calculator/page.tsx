@@ -275,41 +275,43 @@ export default function DutyCalculator() {
   }
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      {/* Header */}
-      <div className="mb-8">
-        <div className="flex items-center gap-3 mb-4">
-          <Calculator className="h-8 w-8 text-blue-600" />
-          <h1 className="text-3xl font-bold text-gray-900">
-            Professional Duty Calculator
-          </h1>
-          <div className="flex items-center gap-1 ml-4">
-            <Award className="h-5 w-5 text-purple-600" />
-            <span className="text-sm font-medium text-purple-600">MASTERY ONLY</span>
+    <div className="w-full pb-20">
+      {/* Header - Mobile Optimized */}
+      <div className="mb-6 px-4 sm:px-6">
+        <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
+          <div className="flex items-center gap-2">
+            <Calculator className="h-6 w-6 sm:h-8 sm:w-8 text-blue-600" />
+            <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900">
+              Duty Calculator
+            </h1>
+          </div>
+          <div className="flex items-center gap-1">
+            <Award className="h-4 w-4 sm:h-5 sm:w-5 text-purple-600" />
+            <span className="text-xs sm:text-sm font-medium text-purple-600">MASTERY ONLY</span>
           </div>
         </div>
-        <p className="text-gray-600 text-lg">
-          Calculate estimated import duties and fees based on current South African customs regulations. 
-          This calculator provides comprehensive fee breakdowns and optimization strategies.
+        <p className="text-sm sm:text-base lg:text-lg text-gray-600">
+          Calculate import duties and fees for South African customs.
         </p>
-        <div className="mt-4 p-4 bg-amber-50 border border-amber-200 rounded-lg">
+        <div className="mt-3 sm:mt-4 p-3 sm:p-4 bg-amber-50 border border-amber-200 rounded-lg">
           <div className="flex items-center gap-2">
-            <Shield className="h-5 w-5 text-amber-600" />
-            <span className="font-semibold text-amber-900">PROFESSIONAL TOOL</span>
+            <Shield className="h-4 w-4 sm:h-5 sm:w-5 text-amber-600" />
+            <span className="text-xs sm:text-sm font-semibold text-amber-900">PROFESSIONAL TOOL</span>
           </div>
-          <p className="text-amber-800 text-sm mt-1">
-            This calculator provides estimates based on publicly available tariff information. Always consult with a qualified clearing agent for final calculations.
+          <p className="text-amber-800 text-xs sm:text-sm mt-1">
+            Estimates only. Consult a clearing agent for final calculations.
           </p>
         </div>
       </div>
 
-      <div className="grid lg:grid-cols-2 gap-8">
-        {/* Calculator Form */}
-        <Card className="p-6">
-          <h2 className="text-xl font-bold mb-6">Vehicle Details</h2>
+      <div className="px-4 sm:px-6 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
+          {/* Calculator Form - Mobile Optimized */}
+          <Card className="p-4 sm:p-6">
+            <h2 className="text-lg sm:text-xl font-bold mb-4 sm:mb-6">Vehicle Details</h2>
           <div className="space-y-6">
             <div>
-              <Label htmlFor="vehicleValue">Vehicle Value (R)</Label>
+              <Label htmlFor="vehicleValue" className="text-sm sm:text-base">Vehicle Value (R)</Label>
               <Input
                 id="vehicleValue"
                 type="number"
@@ -321,13 +323,13 @@ export default function DutyCalculator() {
                     setErrors(prev => ({ ...prev, vehicleValue: '' }))
                   }
                 }}
-                className={`mt-2 ${errors.vehicleValue ? 'border-red-500' : ''}`}
+                className={`mt-1 sm:mt-2 text-sm sm:text-base ${errors.vehicleValue ? 'border-red-500' : ''}`}
               />
               {errors.vehicleValue ? (
                 <p className="text-xs text-red-500 mt-1">{errors.vehicleValue}</p>
               ) : (
                 <p className="text-xs text-gray-500 mt-1">
-                  Market value in South African Rand (customs may adjust this value)
+                  Market value in South African Rand
                 </p>
               )}
             </div>
@@ -414,25 +416,25 @@ export default function DutyCalculator() {
               <Label htmlFor="isLuxury">Luxury/High-Performance Vehicle</Label>
             </div>
 
-            <div className="flex gap-4">
-              <Button onClick={calculateDuty} className="flex-1">
-                <Calculator className="h-4 w-4 mr-2" />
-                Calculate Duties
+            <div className="flex gap-3 sm:gap-4">
+              <Button onClick={calculateDuty} className="flex-1 text-sm sm:text-base">
+                <Calculator className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
+                Calculate
               </Button>
-              <Button variant="outline" onClick={resetCalculator}>
+              <Button variant="outline" onClick={resetCalculator} className="text-sm sm:text-base">
                 Reset
               </Button>
             </div>
           </div>
         </Card>
 
-        {/* Results */}
-        {result ? (
-          <Card className="p-6">
-            <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
-              <FileText className="h-5 w-5" />
-              Detailed Cost Breakdown
-            </h2>
+          {/* Results - Mobile Optimized */}
+          {result ? (
+            <Card className="p-4 sm:p-6">
+              <h2 className="text-lg sm:text-xl font-bold mb-4 sm:mb-6 flex items-center gap-2">
+                <FileText className="h-4 w-4 sm:h-5 sm:w-5" />
+                Cost Breakdown
+              </h2>
             <div className="space-y-4">
               <div className="flex justify-between items-center py-2 border-b">
                 <span>Vehicle Value</span>
@@ -468,7 +470,7 @@ export default function DutyCalculator() {
                 <span className="font-semibold text-blue-600">R{result.vatAmount.toLocaleString()}</span>
               </div>
               
-              <div className="flex justify-between items-center py-3 bg-gray-50 px-4 rounded text-lg font-bold">
+              <div className="flex justify-between items-center py-2 sm:py-3 bg-gray-50 px-3 sm:px-4 rounded text-base sm:text-lg font-bold">
                 <span>Total Import Cost</span>
                 <span>R{result.totalCost.toLocaleString()}</span>
               </div>
@@ -498,57 +500,60 @@ export default function DutyCalculator() {
               )}
             </div>
           </Card>
-        ) : (
-          <Card className="p-6">
-            <div className="text-center text-gray-500">
-              <Calculator className="h-16 w-16 mx-auto mb-4 text-gray-300" />
-              <h3 className="text-lg font-semibold mb-2">Ready to Calculate</h3>
-              <p>Enter your vehicle details to see the complete cost breakdown and optimization opportunities.</p>
-            </div>
-          </Card>
-        )}
+          ) : (
+            <Card className="p-4 sm:p-6">
+              <div className="text-center text-gray-500">
+                <Calculator className="h-12 w-12 sm:h-16 sm:w-16 mx-auto mb-3 sm:mb-4 text-gray-300" />
+                <h3 className="text-base sm:text-lg font-semibold mb-2">Ready to Calculate</h3>
+                <p className="text-sm sm:text-base">Enter vehicle details to see cost breakdown.</p>
+              </div>
+            </Card>
+          )}
+        </div>
       </div>
 
-      {/* Additional Information */}
-      <div className="mt-12 grid md:grid-cols-2 gap-6">
-        <Card className="p-6">
-          <h3 className="font-bold text-lg mb-4 flex items-center gap-2">
-            <Info className="h-5 w-5 text-blue-600" />
-            How This Calculator Works
-          </h3>
-          <ul className="space-y-2 text-sm">
-            <li className="flex items-start gap-2">
-              <CheckCircle className="h-4 w-4 text-green-600 mt-0.5 flex-shrink-0" />
-              Based on current customs tariff classifications
-            </li>
-            <li className="flex items-start gap-2">
-              <CheckCircle className="h-4 w-4 text-green-600 mt-0.5 flex-shrink-0" />
-              Includes all mandatory fees and testing costs
-            </li>
-            <li className="flex items-start gap-2">
-              <CheckCircle className="h-4 w-4 text-green-600 mt-0.5 flex-shrink-0" />
-              Accounts for age-based duty penalties
-            </li>
-            <li className="flex items-start gap-2">
-              <CheckCircle className="h-4 w-4 text-green-600 mt-0.5 flex-shrink-0" />
-              Provides strategic optimization suggestions
-            </li>
-          </ul>
-        </Card>
+      {/* Additional Information - Mobile Optimized */}
+      <div className="mt-8 sm:mt-12 px-4 sm:px-6 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+          <Card className="p-4 sm:p-6">
+            <h3 className="font-bold text-base sm:text-lg mb-3 sm:mb-4 flex items-center gap-2">
+              <Info className="h-4 w-4 sm:h-5 sm:w-5 text-blue-600" />
+              How It Works
+            </h3>
+            <ul className="space-y-2 text-xs sm:text-sm">
+              <li className="flex items-start gap-2">
+                <CheckCircle className="h-3 w-3 sm:h-4 sm:w-4 text-green-600 mt-0.5 flex-shrink-0" />
+                Current customs tariffs
+              </li>
+              <li className="flex items-start gap-2">
+                <CheckCircle className="h-3 w-3 sm:h-4 sm:w-4 text-green-600 mt-0.5 flex-shrink-0" />
+                All mandatory fees included
+              </li>
+              <li className="flex items-start gap-2">
+                <CheckCircle className="h-3 w-3 sm:h-4 sm:w-4 text-green-600 mt-0.5 flex-shrink-0" />
+                Age-based penalties
+              </li>
+              <li className="flex items-start gap-2">
+                <CheckCircle className="h-3 w-3 sm:h-4 sm:w-4 text-green-600 mt-0.5 flex-shrink-0" />
+                Optimization tips
+              </li>
+            </ul>
+          </Card>
 
-        <Card className="p-6 bg-red-50 border-red-200">
-          <h3 className="font-bold text-lg mb-4 flex items-center gap-2 text-red-900">
-            <AlertTriangle className="h-5 w-5 text-red-600" />
-            Important Disclaimers
-          </h3>
-          <ul className="space-y-2 text-sm text-red-800">
-            <li>• Customs authorities may adjust declared vehicle values</li>
-            <li>• Additional costs may apply for non-standard vehicles</li>
-            <li>• Exchange rate fluctuations affect final costs</li>
-            <li>• This calculator is for estimation purposes only</li>
-            <li>• Always consult with a professional clearing agent</li>
-          </ul>
-        </Card>
+          <Card className="p-4 sm:p-6 bg-red-50 border-red-200">
+            <h3 className="font-bold text-base sm:text-lg mb-3 sm:mb-4 flex items-center gap-2 text-red-900">
+              <AlertTriangle className="h-4 w-4 sm:h-5 sm:w-5 text-red-600" />
+              Disclaimers
+            </h3>
+            <ul className="space-y-1 sm:space-y-2 text-xs sm:text-sm text-red-800">
+              <li>• Customs may adjust values</li>
+              <li>• Additional costs possible</li>
+              <li>• Exchange rates vary</li>
+              <li>• Estimates only</li>
+              <li>• Consult clearing agent</li>
+            </ul>
+          </Card>
+        </div>
       </div>
     </div>
   )

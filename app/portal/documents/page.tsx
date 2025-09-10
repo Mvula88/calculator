@@ -228,144 +228,150 @@ export default function DocumentsPage() {
   ]
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
-      <div className="max-w-5xl mx-auto px-6 py-12">
-        {/* Header */}
-        <div className="mb-8">
-          <div className="flex items-center justify-between mb-4">
+    <main className="min-h-screen bg-gradient-to-b from-gray-50 to-white pb-20">
+      <div className="w-full">
+        {/* Header - Mobile Optimized */}
+        <div className="mb-6 px-4 sm:px-6">
+          <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-4">
             <div>
-              <h1 className="text-3xl font-bold">Real Import Documents</h1>
-              <p className="text-gray-600 mt-2">Actual documents from successful imports - with explanations</p>
+              <h1 className="text-2xl sm:text-3xl font-bold">Real Import Documents</h1>
+              <p className="text-sm sm:text-base text-gray-600 mt-1 sm:mt-2">Actual documents from successful imports</p>
             </div>
-            <div className="flex items-center gap-2 text-sm text-gray-600">
-              <Shield className="h-4 w-4" />
-              <span>Licensed to: {user?.email}</span>
+            <div className="flex items-center gap-2 text-xs sm:text-sm text-gray-600">
+              <Shield className="h-3 w-3 sm:h-4 sm:w-4" />
+              <span className="truncate max-w-[150px] sm:max-w-none">Licensed to: {user?.email}</span>
             </div>
           </div>
           
-          <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+          <div className="bg-green-50 border border-green-200 rounded-lg p-3 sm:p-4">
             <div className="flex items-start gap-2">
-              <CheckCircle className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
+              <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5 text-green-600 flex-shrink-0 mt-0.5" />
               <div>
-                <p className="font-semibold text-green-900">These Are REAL Documents</p>
-                <p className="text-sm text-green-700">
-                  From actual vehicle imports. Names/details redacted for privacy. Save {currency}100,000+ by knowing exactly what you need.
+                <p className="text-sm sm:text-base font-semibold text-green-900">These Are REAL Documents</p>
+                <p className="text-xs sm:text-sm text-green-700">
+                  From actual vehicle imports. Save {currency}100K+ by knowing what you need.
                 </p>
                 <p className="text-xs text-green-600 mt-1">
-                  📖 View-only access • Study these examples to understand what you need
+                  📖 View-only • Study these examples
                 </p>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Document Value Box */}
-        <Card className="p-6 mb-8 bg-gradient-to-r from-blue-50 to-purple-50 border-purple-200">
-          <div className="flex items-start gap-4">
-            <Star className="h-8 w-8 text-purple-600 flex-shrink-0" />
-            <div>
-              <h2 className="text-xl font-bold mb-2">Why These Documents Are Gold</h2>
-              <ul className="space-y-1 text-sm text-gray-700">
-                <li>• Agents charge {currency}5,000 just to "handle paperwork" - now you can DIY</li>
-                <li>• See EXACTLY how each form should look when completed correctly</li>
-                <li>• Understand what customs officers actually check for</li>
-                <li>• Never get scammed with "missing documents" delays</li>
-              </ul>
-              <div className="mt-3 p-2 bg-white/50 rounded text-xs text-gray-600">
-                💱 Currency conversions: ¥1 = N$0.167 = R0.167 = P0.167 = K3.0
+        {/* Document Value Box - Mobile Optimized */}
+        <div className="px-4 sm:px-6 max-w-5xl mx-auto">
+          <Card className="p-4 sm:p-6 mb-6 sm:mb-8 bg-gradient-to-r from-blue-50 to-purple-50 border-purple-200">
+            <div className="flex items-start gap-3 sm:gap-4">
+              <Star className="h-6 w-6 sm:h-8 sm:w-8 text-purple-600 flex-shrink-0" />
+              <div className="flex-1">
+                <h2 className="text-lg sm:text-xl font-bold mb-2">Why These Documents Are Gold</h2>
+                <ul className="space-y-1 text-xs sm:text-sm text-gray-700">
+                  <li>• Agents charge {currency}5,000 for paperwork - now DIY</li>
+                  <li>• See EXACTLY how forms should look</li>
+                  <li>• Know what customs checks for</li>
+                  <li>• Avoid "missing documents" delays</li>
+                </ul>
+                <div className="mt-2 sm:mt-3 p-2 bg-white/50 rounded text-xs text-gray-600">
+                  💱 ¥1 = N$0.167 = R0.167 = P0.167 = K3.0
+                </div>
               </div>
             </div>
-          </div>
-        </Card>
+          </Card>
+        </div>
 
-        {/* Document Categories */}
-        {documentCategories.map((category, categoryIndex) => (
-          <div key={categoryIndex} className="mb-10">
-            <div className="mb-4">
-              <h2 className="text-2xl font-bold">{category.title}</h2>
-              <p className="text-gray-600">{category.description}</p>
-            </div>
-            
-            <div className="space-y-3">
-              {category.documents.map((doc, docIndex) => (
-                <Card key={docIndex} className="p-4 hover:shadow-lg transition-shadow">
-                  <div className="flex items-start justify-between">
-                    <div className="flex items-start gap-3">
-                      <FileText className="h-6 w-6 text-blue-600 flex-shrink-0 mt-1" />
-                      <div className="flex-1">
-                        <h3 className="font-semibold text-lg">{doc.name}</h3>
-                        <p className="text-sm text-gray-600 mb-2">{doc.description}</p>
-                        <div className="flex items-center gap-2 text-sm text-green-600">
-                          <CheckCircle className="h-4 w-4" />
-                          <span className="font-medium">{doc.highlight}</span>
+        {/* Document Categories - Mobile Optimized */}
+        <div className="px-4 sm:px-6 max-w-5xl mx-auto">
+          {documentCategories.map((category, categoryIndex) => (
+            <div key={categoryIndex} className="mb-8 sm:mb-10">
+              <div className="mb-3 sm:mb-4">
+                <h2 className="text-xl sm:text-2xl font-bold">{category.title}</h2>
+                <p className="text-sm sm:text-base text-gray-600">{category.description}</p>
+              </div>
+              
+              <div className="space-y-3">
+                {category.documents.map((doc, docIndex) => (
+                  <Card key={docIndex} className="p-3 sm:p-4 hover:shadow-lg transition-shadow">
+                    <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
+                      <div className="flex items-start gap-2 sm:gap-3 flex-1">
+                        <FileText className="h-5 w-5 sm:h-6 sm:w-6 text-blue-600 flex-shrink-0 mt-0.5 sm:mt-1" />
+                        <div className="flex-1">
+                          <h3 className="font-semibold text-base sm:text-lg">{doc.name}</h3>
+                          <p className="text-xs sm:text-sm text-gray-600 mb-1 sm:mb-2">{doc.description}</p>
+                          <div className="flex items-start sm:items-center gap-1 sm:gap-2 text-xs sm:text-sm text-green-600">
+                            <CheckCircle className="h-3 w-3 sm:h-4 sm:w-4 mt-0.5 sm:mt-0" />
+                            <span className="font-medium break-all">{doc.highlight}</span>
+                          </div>
                         </div>
                       </div>
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        className="w-full sm:w-auto flex items-center justify-center gap-1 text-xs sm:text-sm"
+                        onClick={() => handleViewDocument(doc.name, doc.file)}
+                      >
+                        <Eye className="h-3 w-3 sm:h-4 sm:w-4" />
+                        View Sample
+                      </Button>
                     </div>
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      className="flex items-center gap-1"
-                      onClick={() => handleViewDocument(doc.name, doc.file)}
-                    >
-                      <Eye className="h-4 w-4" />
-                      View Sample
-                    </Button>
-                  </div>
-                </Card>
-              ))}
+                  </Card>
+                ))}
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
 
-        {/* Important Notes */}
-        <Card className="p-6 bg-yellow-50 border-yellow-200">
-          <div className="flex items-start gap-3">
-            <AlertTriangle className="h-6 w-6 text-yellow-600 flex-shrink-0" />
-            <div>
-              <h3 className="font-bold text-yellow-900 mb-2">Important Notes About These Documents</h3>
-              <ul className="space-y-2 text-sm text-yellow-800">
-                <li>• <strong>Every country varies slightly</strong> - Use these as templates but verify local requirements</li>
-                <li>• <strong>Dates matter</strong> - Some documents expire (export certificate = 3 months)</li>
-                <li>• <strong>Keep originals safe</strong> - Make multiple copies, customs keeps originals</li>
-                <li>• <strong>Translation requirement</strong> - Japanese docs MUST be sworn translated</li>
-                <li>• <strong>Order matters</strong> - Can't get Release Order without Assessment Notice</li>
-              </ul>
-            </div>
-          </div>
-        </Card>
-
-
-        {/* Document Timeline */}
-        <div className="mt-12">
-          <h2 className="text-2xl font-bold mb-6">📅 When You Need Each Document</h2>
-          <div className="space-y-3">
-            <div className="flex items-center gap-3">
-              <div className="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold">1</div>
+        {/* Important Notes - Mobile Optimized */}
+        <div className="px-4 sm:px-6 max-w-5xl mx-auto">
+          <Card className="p-4 sm:p-6 bg-yellow-50 border-yellow-200">
+            <div className="flex items-start gap-2 sm:gap-3">
+              <AlertTriangle className="h-5 w-5 sm:h-6 sm:w-6 text-yellow-600 flex-shrink-0" />
               <div className="flex-1">
+                <h3 className="font-bold text-yellow-900 mb-2 text-sm sm:text-base">Important Notes</h3>
+                <ul className="space-y-1 sm:space-y-2 text-xs sm:text-sm text-yellow-800">
+                  <li>• <strong>Countries vary</strong> - Verify local requirements</li>
+                  <li>• <strong>Dates matter</strong> - Some docs expire (3 months)</li>
+                  <li>• <strong>Keep originals safe</strong> - Customs keeps them</li>
+                  <li>• <strong>Translation required</strong> - Japanese docs must be translated</li>
+                  <li>• <strong>Order matters</strong> - Follow the sequence</li>
+                </ul>
+              </div>
+            </div>
+          </Card>
+        </div>
+
+
+        {/* Document Timeline - Mobile Optimized */}
+        <div className="mt-8 sm:mt-12 px-4 sm:px-6 max-w-5xl mx-auto">
+          <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6">📅 When You Need Each Document</h2>
+          <div className="space-y-3">
+            <div className="flex items-start sm:items-center gap-3">
+              <div className="w-7 h-7 sm:w-8 sm:h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold text-sm">1</div>
+              <div className="flex-1 text-xs sm:text-sm">
                 <strong>Before Shipping:</strong> Invoice, Export Certificate, Import Permit
               </div>
             </div>
-            <div className="flex items-center gap-3">
-              <div className="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold">2</div>
-              <div className="flex-1">
+            <div className="flex items-start sm:items-center gap-3">
+              <div className="w-7 h-7 sm:w-8 sm:h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold text-sm">2</div>
+              <div className="flex-1 text-xs sm:text-sm">
                 <strong>During Shipping:</strong> Bill of Lading, Insurance docs
               </div>
             </div>
-            <div className="flex items-center gap-3">
-              <div className="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold">3</div>
-              <div className="flex-1">
+            <div className="flex items-start sm:items-center gap-3">
+              <div className="w-7 h-7 sm:w-8 sm:h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold text-sm">3</div>
+              <div className="flex-1 text-xs sm:text-sm">
                 <strong>At Port Arrival:</strong> SAD 500, Assessment Notice, Payment receipts
               </div>
             </div>
-            <div className="flex items-center gap-3">
-              <div className="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold">4</div>
-              <div className="flex-1">
+            <div className="flex items-start sm:items-center gap-3">
+              <div className="w-7 h-7 sm:w-8 sm:h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold text-sm">4</div>
+              <div className="flex-1 text-xs sm:text-sm">
                 <strong>For Release:</strong> Clearance Certificate, Release Order
               </div>
             </div>
-            <div className="flex items-center gap-3">
-              <div className="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold">5</div>
-              <div className="flex-1">
+            <div className="flex items-start sm:items-center gap-3">
+              <div className="w-7 h-7 sm:w-8 sm:h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold text-sm">5</div>
+              <div className="flex-1 text-xs sm:text-sm">
                 <strong>For Registration:</strong> Police Clearance, All previous docs
               </div>
             </div>

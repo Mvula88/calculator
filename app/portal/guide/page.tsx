@@ -195,22 +195,22 @@ export default function GuidePage() {
   const currency = 'N$'
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
-      <div className="max-w-4xl mx-auto px-6 py-12">
-        {/* Header with protection notice */}
-        <div className="mb-8">
-          <div className="flex items-center justify-between mb-4">
-            <h1 className="text-3xl font-bold">Your Import Guide</h1>
-            <div className="flex items-center gap-2 text-sm text-gray-600">
-              <Shield className="h-4 w-4" />
-              <span>Licensed to: {userEmail}</span>
+    <main className="min-h-screen bg-gradient-to-b from-gray-50 to-white pb-20">
+      <div className="w-full">
+        {/* Header with protection notice - Mobile Optimized */}
+        <div className="mb-6 px-4 sm:px-6">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
+            <h1 className="text-2xl sm:text-3xl font-bold">Your Import Guide</h1>
+            <div className="flex items-center gap-2 text-xs sm:text-sm text-gray-600">
+              <Shield className="h-3 w-3 sm:h-4 sm:w-4" />
+              <span className="truncate max-w-[200px]">Licensed to: {userEmail}</span>
             </div>
           </div>
-          <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+          <div className="bg-red-50 border border-red-200 rounded-lg p-3 sm:p-4">
             <div className="flex items-start gap-2">
-              <Lock className="h-5 w-5 text-red-600 flex-shrink-0 mt-0.5" />
+              <Lock className="h-4 w-4 sm:h-5 sm:w-5 text-red-600 flex-shrink-0 mt-0.5" />
               <div>
-                <p className="text-sm text-red-800 font-medium">Content Protection Active</p>
+                <p className="text-xs sm:text-sm text-red-800 font-medium">Content Protection Active</p>
                 <p className="text-xs text-red-700 mt-1">
                   This guide is licensed to {userEmail}. Sharing or redistributing this content violates the terms of service.
                 </p>
@@ -219,90 +219,94 @@ export default function GuidePage() {
           </div>
         </div>
 
-        {/* Quick Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-          <Card className="p-4">
+        {/* Quick Stats - Mobile Optimized Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mb-6 sm:mb-8 px-4 sm:px-6">
+          <Card className="p-3 sm:p-4">
             <div className="flex items-center gap-3">
               <div className="p-2 bg-blue-100 rounded-lg">
-                <Info className="h-5 w-5 text-blue-600" />
+                <Info className="h-4 w-4 sm:h-5 sm:w-5 text-blue-600" />
               </div>
-              <div>
-                <p className="text-sm text-gray-600">Total Timeline</p>
-                <p className="font-semibold">55-88 days</p>
+              <div className="flex-1">
+                <p className="text-xs sm:text-sm text-gray-600">Total Timeline</p>
+                <p className="text-sm sm:text-base font-semibold">55-88 days</p>
               </div>
             </div>
           </Card>
-          <Card className="p-4">
+          <Card className="p-3 sm:p-4">
             <div className="flex items-center gap-3">
               <div className="p-2 bg-green-100 rounded-lg">
-                <TrendingDown className="h-5 w-5 text-green-600" />
+                <TrendingDown className="h-4 w-4 sm:h-5 sm:w-5 text-green-600" />
               </div>
-              <div>
-                <p className="text-sm text-gray-600">Typical Total Cost</p>
-                <p className="font-semibold">{currency}172,000</p>
+              <div className="flex-1">
+                <p className="text-xs sm:text-sm text-gray-600">Total Cost</p>
+                <p className="text-sm sm:text-base font-semibold">{currency}172,000</p>
               </div>
             </div>
           </Card>
-          <Card className="p-4">
+          <Card className="p-3 sm:p-4">
             <div className="flex items-center gap-3">
               <div className="p-2 bg-purple-100 rounded-lg">
-                <CheckCircle className="h-5 w-5 text-purple-600" />
+                <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5 text-purple-600" />
               </div>
-              <div>
-                <p className="text-sm text-gray-600">Success Rate</p>
-                <p className="font-semibold">95% first time</p>
+              <div className="flex-1">
+                <p className="text-xs sm:text-sm text-gray-600">Success Rate</p>
+                <p className="text-sm sm:text-base font-semibold">95% first time</p>
               </div>
             </div>
           </Card>
         </div>
 
-        {/* Timeline Section */}
-        <TimelineSection 
-          steps={namibiaTimelineSteps}
-        />
+        <div className="px-4 sm:px-6 max-w-4xl mx-auto">
+          {/* Timeline Section */}
+          <TimelineSection 
+            steps={namibiaTimelineSteps}
+          />
 
-        {/* Cost Breakdown */}
-        <CostBreakdown />
+          {/* Cost Breakdown */}
+          <CostBreakdown />
 
-        {/* Common Mistakes */}
-        <MistakeCards />
+          {/* Common Mistakes */}
+          <MistakeCards />
 
-        {/* Templates Section */}
-        <TemplatesSection />
+          {/* Templates Section */}
+          <TemplatesSection />
 
-        {/* Emergency Playbook */}
-        <EmergencyPlaybook />
+          {/* Emergency Playbook */}
+          <EmergencyPlaybook />
+        </div>
 
-        {/* Success Tips */}
-        <Card className="mt-8 p-6 bg-gradient-to-r from-green-50 to-blue-50 border-green-200">
-          <h2 className="text-xl font-bold mb-4 flex items-center gap-2">
-            <CheckCircle className="h-6 w-6 text-green-600" />
-            Your Success Checklist
-          </h2>
-          <div className="grid md:grid-cols-2 gap-4">
-            <div>
-              <h3 className="font-semibold mb-2">Before Buying:</h3>
-              <ul className="space-y-1 text-sm">
-                <li>✓ Verify car is max 12 years old</li>
-                <li>✓ Confirm right-hand drive</li>
-                <li>✓ Get VIN & engine photos</li>
-                <li>✓ Check {countryName} import rules</li>
-              </ul>
+        {/* Success Tips - Mobile Optimized */}
+        <div className="px-4 sm:px-6 max-w-4xl mx-auto">
+          <Card className="mt-6 sm:mt-8 p-4 sm:p-6 bg-gradient-to-r from-green-50 to-blue-50 border-green-200">
+            <h2 className="text-lg sm:text-xl font-bold mb-3 sm:mb-4 flex items-center gap-2">
+              <CheckCircle className="h-5 w-5 sm:h-6 sm:w-6 text-green-600" />
+              Your Success Checklist
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <h3 className="font-semibold mb-2 text-sm sm:text-base">Before Buying:</h3>
+                <ul className="space-y-1 text-xs sm:text-sm">
+                  <li>✓ Verify car is max 12 years old</li>
+                  <li>✓ Confirm right-hand drive</li>
+                  <li>✓ Get VIN & engine photos</li>
+                  <li>✓ Check {countryName} import rules</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="font-semibold mb-2 text-sm sm:text-base">After Purchase:</h3>
+                <ul className="space-y-1 text-xs sm:text-sm">
+                  <li>✓ Start documentation immediately</li>
+                  <li>✓ Book clearing agent early</li>
+                  <li>✓ Track container weekly</li>
+                  <li>✓ Prepare all payments in advance</li>
+                </ul>
+              </div>
             </div>
-            <div>
-              <h3 className="font-semibold mb-2">After Purchase:</h3>
-              <ul className="space-y-1 text-sm">
-                <li>✓ Start documentation immediately</li>
-                <li>✓ Book clearing agent early</li>
-                <li>✓ Track container weekly</li>
-                <li>✓ Prepare all payments in advance</li>
-              </ul>
-            </div>
-          </div>
-        </Card>
+          </Card>
+        </div>
 
-        {/* Support Notice */}
-        <div className="mt-8 text-center text-sm text-gray-600">
+        {/* Support Notice - Mobile Optimized */}
+        <div className="mt-6 sm:mt-8 text-center text-xs sm:text-sm text-gray-600 px-4 sm:px-6">
           <p>Need help? Contact your clearing agent or visit the {countryName} Customs website.</p>
           <p className="mt-2">This guide is for {port} port. Other ports may have different procedures.</p>
         </div>
