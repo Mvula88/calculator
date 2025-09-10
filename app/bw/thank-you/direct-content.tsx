@@ -22,10 +22,11 @@ export default function DirectThankYouContent() {
       .then(res => res.json())
       .then(data => {
         if (data.success && data.email) {
-          // Store the session with proper email
+          // Store the session with proper email and tier
           const session = {
             email: data.email,
             sessionId: sessionId,
+            tier: data.tier || 'mistake',
             timestamp: Date.now()
           }
           

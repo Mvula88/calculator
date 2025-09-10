@@ -7,6 +7,7 @@ export function useUltraSimpleAuth() {
   const [hasAccess, setHasAccess] = useState(false)
   const [loading, setLoading] = useState(true)
   const [userEmail, setUserEmail] = useState('')
+  const [userTier, setUserTier] = useState<'mistake' | 'mastery'>('mistake')
   const router = useRouter()
 
   useEffect(() => {
@@ -31,6 +32,7 @@ export function useUltraSimpleAuth() {
               cleanEmail = 'Portal User'
             }
             setUserEmail(cleanEmail)
+            setUserTier(session.tier || 'mistake')
             setHasAccess(true)
             setLoading(false)
             return
@@ -54,6 +56,7 @@ export function useUltraSimpleAuth() {
               cleanEmail = 'Portal User'
             }
             setUserEmail(cleanEmail)
+            setUserTier(session.tier || 'mistake')
             setHasAccess(true)
             setLoading(false)
             return
@@ -96,5 +99,5 @@ export function useUltraSimpleAuth() {
     return () => clearTimeout(timer)
   }, [router])
 
-  return { hasAccess, loading, userEmail }
+  return { hasAccess, loading, userEmail, userTier }
 }

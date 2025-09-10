@@ -26,20 +26,20 @@ import {
 } from 'lucide-react'
 
 export default function PortalPage() {
-  const { hasAccess, loading, userEmail } = useUltraSimpleAuth()
+  const { hasAccess, loading, userEmail, userTier } = useUltraSimpleAuth()
   
   // Clean up the display email - if it looks like a session ID, show a cleaner version
   const displayEmail = userEmail || 'user@example.com'
   const cleanEmail = displayEmail.startsWith('user_cs_test_') ? 'Portal User' : displayEmail
   
-  // Mock entitlement data for display
+  // Use actual tier from session
   const user = hasAccess ? { email: cleanEmail } : null
   const entitlement = hasAccess ? {
     country: 'na',
-    tier: 'mastery' as const,
+    tier: userTier,
     email: cleanEmail
   } : null
-  const isMastery = true // Give full access
+  const isMastery = userTier === 'mastery'
 
   if (loading) {
     return (

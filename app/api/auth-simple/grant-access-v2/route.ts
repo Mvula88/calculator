@@ -37,6 +37,7 @@ export async function POST(req: NextRequest) {
         cookieStore.set('impota_session', JSON.stringify({
           email: 'test@example.com',
           sessionId: sessionId,
+          tier: 'mistake', // Default to mistake for test
           createdAt: new Date().toISOString()
         }), {
           httpOnly: false,
@@ -68,12 +69,15 @@ export async function POST(req: NextRequest) {
       }, { status: 400 })
     }
     
-    // Step 3: Get email
+    // Step 3: Get email and tier
     const email = stripeSession.customer_email || 
                   stripeSession.customer_details?.email || 
                   'default@example.com'
     
-    console.log('[Grant Access V2] Using email:', email)
+    // Get tier from metadata (default to mistake if not found)
+    const tier = stripeSession.metadata?.tier || 'mistake'
+    
+    console.log('[Grant Access V2] Using email:', email, 'tier:', tier)
     
     // Step 4: Try to work with database (but don't fail if it doesn't work)
     try {
@@ -121,6 +125,7 @@ export async function POST(req: NextRequest) {
     const sessionData = {
       email: email.toLowerCase(),
       sessionId: sessionId,
+      tier: tier as 'mistake' | 'mastery',
       createdAt: new Date().toISOString()
     }
     
@@ -137,6 +142,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ 
       success: true,
       email: email.toLowerCase(),
+      tier: tier,
       message: 'Access granted successfully'
     })
     

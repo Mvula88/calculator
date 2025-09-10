@@ -29,7 +29,7 @@ interface DocumentCategory {
 }
 
 export default function DocumentsPage() {
-  const { hasAccess, loading, userEmail } = useUltraSimpleAuth()
+  const { hasAccess, loading, userEmail, userTier } = useUltraSimpleAuth()
   
   // Clean up email display if it's a session-based email
   const displayEmail = userEmail || 'user@example.com'
@@ -38,11 +38,11 @@ export default function DocumentsPage() {
     cleanEmail = 'Portal User'
   }
   
-  // Mock data for display
+  // Use actual tier from session
   const user = hasAccess ? { email: cleanEmail } : null
   const entitlement = hasAccess ? {
     country: 'na',
-    tier: 'mastery' as const
+    tier: userTier
   } : null
   const [selectedDocument, setSelectedDocument] = useState<{name: string, url: string} | null>(null)
 

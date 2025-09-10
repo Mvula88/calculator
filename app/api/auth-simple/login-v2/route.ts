@@ -27,11 +27,12 @@ export async function POST(req: NextRequest) {
     if (entitlement) {
       console.log('[Login V2] Found database entitlement for:', normalizedEmail)
       
-      // Create session
+      // Create session with tier from database
       const cookieStore = await cookies()
       const sessionData = {
         email: normalizedEmail,
         sessionId: entitlement.stripe_session_id || `email-login-${Date.now()}`,
+        tier: entitlement.tier || 'mistake',
         createdAt: new Date().toISOString()
       }
       
@@ -79,11 +80,15 @@ export async function POST(req: NextRequest) {
         // Use the most recent session
         const latestSession = userSessions[0]
         
-        // Create session cookie
+        // Get tier from session metadata or default to mistake
+        const tier = latestSession.metadata?.tier || 'mistake'
+        
+        // Create session cookie with tier
         const cookieStore = await cookies()
         const sessionData = {
           email: normalizedEmail,
           sessionId: latestSession.id,
+          tier: tier as 'mistake' | 'mastery',
           createdAt: new Date().toISOString()
         }
         
@@ -106,8 +111,8 @@ export async function POST(req: NextRequest) {
           
           await supabase.from('entitlements').insert({
             email: normalizedEmail,
-            tier: 'mastery',
-            country: 'na',
+            tier: tier as 'mistake' | 'mastery',
+            country: latestSession.metadata?.country || 'na',
             active: true,
             stripe_session_id: latestSession.id,
             stripe_customer_id: customerId,
