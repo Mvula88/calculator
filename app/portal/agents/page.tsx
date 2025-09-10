@@ -1,3 +1,6 @@
+'use client'
+
+import MasteryOnlyGuard from '@/components/MasteryOnlyGuard'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { 
@@ -181,7 +184,8 @@ const getRatingStars = (rating: number) => {
 
 export default function VerifiedAgents() {
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <MasteryOnlyGuard feature="Verified Import Agents">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* Header */}
       <div className="mb-8">
         <div className="flex items-center gap-3 mb-4">
@@ -412,5 +416,6 @@ export default function VerifiedAgents() {
         </div>
       </Card>
     </div>
+    </MasteryOnlyGuard>
   )
 }
