@@ -121,39 +121,6 @@ const namibiaTimelineSteps = [
 ]
 
 
-// Common mistakes
-const commonMistakes = [
-  {
-    mistake: 'Wrong documentation timing',
-    severity: 'high' as const,
-    impact: 'N$800-2,500/day storage fees',
-    solution: 'Start paperwork 1 week before ship arrives. Have clearing agent ready.'
-  },
-  {
-    mistake: 'VIN/Engine mismatch',
-    severity: 'critical' as const,
-    impact: 'Complete rejection, may need to re-export',
-    solution: 'Photograph actual VIN plate and engine number. Match every document exactly.'
-  },
-  {
-    mistake: 'Undervaluing for duties',
-    severity: 'high' as const,
-    impact: 'Penalties, delays, possible seizure',
-    solution: 'Declare actual purchase price. Customs has access to auction prices.'
-  },
-  {
-    mistake: 'No clearing agent for first import',
-    severity: 'medium' as const,
-    impact: '2-4 weeks extra delay',
-    solution: 'Use a clearing firm for your first 2-3 imports. Learn the process, then consider DIY.'
-  },
-  {
-    mistake: 'Buying incompatible vehicle',
-    severity: 'critical' as const,
-    impact: 'Cannot register, must re-export',
-    solution: 'Check: Max 12 years old, right-hand drive, meets emissions standards.'
-  }
-]
 
 export default function GuidePage() {
   const router = useRouter()
@@ -292,7 +259,7 @@ export default function GuidePage() {
         <CostBreakdown />
 
         {/* Common Mistakes */}
-        <MistakeCards mistakes={commonMistakes} />
+        <MistakeCards />
 
         {/* Templates Section */}
         <TemplatesSection />
