@@ -38,6 +38,9 @@ import {
 } from 'lucide-react'
 import CountrySelector from '@/components/CountrySelector'
 import GuideHeader from '@/components/GuideHeader'
+import StickySignupHeader from '@/components/StickySignupHeader'
+import FloatingSignupButton from '@/components/FloatingSignupButton'
+import QuickSignupForm from '@/components/QuickSignupForm'
 
 export default function NamibiaGuidePage() {
   const [email, setEmail] = useState('')
@@ -81,6 +84,8 @@ export default function NamibiaGuidePage() {
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-50">
+      <StickySignupHeader country="na" />
+      <FloatingSignupButton country="na" />
       <CountrySelector />
       <GuideHeader 
         country="na" 
@@ -156,6 +161,11 @@ export default function NamibiaGuidePage() {
                 </div>
               </div>
             </div>
+          </div>
+
+          {/* Quick Signup Form - Hero Variant */}
+          <div className="mb-8" id="signup">
+            <QuickSignupForm country="na" variant="hero" />
           </div>
 
           {/* Social Proof Bar */}
@@ -369,62 +379,9 @@ export default function NamibiaGuidePage() {
             </div>
           </div>
 
-          {/* Checkout Section */}
-          <div className="mt-12 max-w-2xl mx-auto">
-            <Card className="bg-gradient-to-br from-blue-50 to-purple-50 border-2 border-blue-200">
-              <CardContent className="p-8">
-                <h3 className="text-2xl font-bold text-center mb-6">
-                  Ready to Save N$50,000+ on Your Next Import?
-                </h3>
-                
-                <div className="space-y-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Enter your email to get instant access:
-                    </label>
-                    <Input
-                      type="email"
-                      placeholder="your@email.com"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      className="h-12 text-lg"
-                      required
-                    />
-                  </div>
-                  
-                  <Button 
-                    onClick={handleCheckout}
-                    disabled={!email || loading}
-                    className="w-full h-14 text-xl font-bold bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700"
-                    size="lg"
-                  >
-                    {loading ? (
-                      'Processing...'
-                    ) : (
-                      <>
-                        Get Instant Access - {selectedTier === 'mastery' ? 'N$1,999' : 'N$499'}
-                        <ArrowRight className="ml-2 h-6 w-6" />
-                      </>
-                    )}
-                  </Button>
-                  
-                  <div className="flex items-center justify-center gap-6 pt-4">
-                    <div className="flex items-center gap-2 text-sm text-gray-600">
-                      <Shield className="h-4 w-4" />
-                      <span>Secure checkout</span>
-                    </div>
-                    <div className="flex items-center gap-2 text-sm text-gray-600">
-                      <Clock className="h-4 w-4" />
-                      <span>Instant access</span>
-                    </div>
-                    <div className="flex items-center gap-2 text-sm text-gray-600">
-                      <CheckCircle className="h-4 w-4" />
-                      <span>Lifetime updates</span>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+          {/* Simplified Checkout Section */}
+          <div className="mt-12 max-w-3xl mx-auto">
+            <QuickSignupForm country="na" variant="default" />
           </div>
         </div>
       </section>

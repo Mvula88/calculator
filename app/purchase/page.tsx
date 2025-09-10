@@ -2,8 +2,12 @@ import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Shield, Clock, CheckCircle, Star, TrendingUp, Users, Award } from 'lucide-react'
+import FloatingSignupButton from '@/components/FloatingSignupButton'
+import QuickSignupForm from '@/components/QuickSignupForm'
 
 export default function PurchasePage() {
+  // Show floating signup button
+  
   const countries = [
     { code: 'na', name: 'Namibia', flag: '🇳🇦', mistakePrice: 'N$499', masteryPrice: 'N$1,999', currency: 'N$' },
     { code: 'za', name: 'South Africa', flag: '🇿🇦', mistakePrice: 'R499', masteryPrice: 'R1,999', currency: 'R' },
@@ -13,6 +17,7 @@ export default function PurchasePage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-50">
+      <FloatingSignupButton />
       {/* Mobile-Optimized Header */}
       <header className="bg-white border-b border-gray-200 shadow-sm sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 py-3 sm:py-4">
@@ -37,15 +42,20 @@ export default function PurchasePage() {
       </header>
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-12">
+        {/* Quick Signup at Top */}
+        <div className="mb-8 sm:mb-12 max-w-4xl mx-auto">
+          <QuickSignupForm variant="hero" />
+        </div>
+
         {/* Mobile-Optimized Title Section */}
         <div className="text-center mb-8 sm:mb-12">
           <h1 className="text-2xl sm:text-4xl md:text-5xl font-black mb-3 sm:mb-4">
             <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              Choose Your Package
+              Or Choose Your Country Below
             </span>
           </h1>
           <p className="text-sm sm:text-xl text-gray-600 mb-2 px-4">
-            Get instant access to the complete import guide
+            Get instant access to country-specific import guides
           </p>
           <div className="flex flex-wrap justify-center gap-2 sm:gap-3 text-xs sm:text-sm">
             <span className="inline-flex items-center gap-1 bg-green-100 text-green-700 px-2 py-1 rounded-full">
