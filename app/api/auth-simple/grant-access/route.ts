@@ -26,27 +26,71 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'No email found in session' }, { status: 400 })
     }
     
-    // Verify entitlement exists in database
+    // Get metadata from Stripe session
+    const metadata = stripeSession.metadata || {}
+    const tier = metadata.tier || 'mistake'
+    const country = metadata.country || 'na'
+    
+    // Verify or create entitlement in database
     const supabase = createServiceClient()
-    const { data: entitlement } = await supabase
+    
+    // First try to find existing entitlement
+    let { data: entitlement } = await supabase
       .from('entitlements')
       .select('*')
-      .eq('stripe_session_id', sessionId)
       .eq('email', email.toLowerCase())
       .eq('active', true)
       .single()
     
     if (!entitlement) {
-      // Try to find by email only (in case webhook hasn't fired yet)
-      const { data: emailEntitlement } = await supabase
+      // Create new entitlement since payment was successful
+      console.log('Creating new entitlement for:', email, { tier, country, sessionId })
+      
+      const { data: newEntitlement, error: createError } = await supabase
         .from('entitlements')
-        .select('*')
-        .eq('email', email.toLowerCase())
-        .eq('active', true)
+        .insert({
+          email: email.toLowerCase(),
+          tier: tier as 'mistake' | 'mastery',
+          country: country,
+          active: true,
+          stripe_session_id: sessionId,
+          stripe_customer_id: stripeSession.customer as string || null,
+          created_at: new Date().toISOString()
+        })
+        .select()
         .single()
       
-      if (!emailEntitlement) {
-        return NextResponse.json({ error: 'No entitlement found' }, { status: 404 })
+      if (createError) {
+        console.error('Failed to create entitlement:', createError)
+        // Try to update existing inactive entitlement
+        const { data: updatedEntitlement } = await supabase
+          .from('entitlements')
+          .update({
+            active: true,
+            stripe_session_id: sessionId,
+            tier: tier as 'mistake' | 'mastery',
+            country: country
+          })
+          .eq('email', email.toLowerCase())
+          .select()
+          .single()
+        
+        if (!updatedEntitlement) {
+          return NextResponse.json({ 
+            error: 'Failed to create entitlement. Please contact support with your receipt.' 
+          }, { status: 500 })
+        }
+        entitlement = updatedEntitlement
+      } else {
+        entitlement = newEntitlement
+      }
+    } else {
+      // Update existing entitlement with session ID if not set
+      if (!entitlement.stripe_session_id) {
+        await supabase
+          .from('entitlements')
+          .update({ stripe_session_id: sessionId })
+          .eq('id', entitlement.id)
       }
     }
     

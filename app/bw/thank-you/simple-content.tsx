@@ -23,6 +23,8 @@ export default function SimpleThankYouContent() {
   
   async function grantAccess(sessionId: string) {
     try {
+      console.log('Granting access for session:', sessionId)
+      
       const res = await fetch('/api/auth-simple/grant-access', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -30,6 +32,7 @@ export default function SimpleThankYouContent() {
       })
       
       const data = await res.json()
+      console.log('Grant access response:', data)
       
       if (res.ok && data.success) {
         setStatus('success')
@@ -38,12 +41,14 @@ export default function SimpleThankYouContent() {
           window.location.href = '/portal'
         }, 2000)
       } else {
+        console.error('Grant access failed:', data)
         setStatus('error')
         setErrorMessage(data.error || 'Failed to activate your access')
       }
     } catch (error) {
+      console.error('Grant access error:', error)
       setStatus('error')
-      setErrorMessage('Something went wrong. Please contact support.')
+      setErrorMessage('Connection error. Please refresh the page and try again.')
     }
   }
   
