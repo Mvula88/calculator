@@ -25,7 +25,11 @@ export function useSimpleAuth(options?: {
   const router = useRouter()
 
   useEffect(() => {
-    checkAuth()
+    // Add a small delay to ensure cookies are set
+    const timer = setTimeout(() => {
+      checkAuth()
+    }, 100)
+    return () => clearTimeout(timer)
   }, [])
 
   async function checkAuth() {
@@ -38,7 +42,30 @@ export function useSimpleAuth(options?: {
         .find(row => row.startsWith('impota_session='))
       
       if (!sessionCookie) {
-        console.log('[SimpleAuth] No session cookie found')
+        console.log('[SimpleAuth] No session cookie found, checking localStorage')
+        
+        // Try localStorage as fallback
+        const storedSession = localStorage.getItem('impota_session')
+        if (storedSession) {
+          try {
+            const session = JSON.parse(storedSession)
+            if (session.email) {
+              console.log('[SimpleAuth] Found session in localStorage')
+              setUser({ email: session.email })
+              setEntitlement({
+                email: session.email,
+                country: 'na',
+                tier: 'mistake',
+                active: true
+              })
+              setLoading(false)
+              return
+            }
+          } catch (e) {
+            console.error('[SimpleAuth] localStorage parse error:', e)
+          }
+        }
+        
         if (options?.requireAuth) {
           // Instead of going to purchase, go to login
           router.push('/portal/login')

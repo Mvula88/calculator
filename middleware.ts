@@ -105,13 +105,25 @@ export async function middleware(request: NextRequest) {
 
   // Protected portal routes
   if (request.nextUrl.pathname.startsWith('/portal')) {
-    // Allow access to login page
-    if (request.nextUrl.pathname === '/portal/login') {
+    // Allow access to login and activate pages
+    if (request.nextUrl.pathname === '/portal/login' || 
+        request.nextUrl.pathname === '/portal/activate') {
       return supabaseResponse
     }
     
+    // For other portal routes, check authentication
     if (!user && !hasPortalAccess) {
-      // Redirect to portal login page
+      // Check if there's a session in the URL (for backwards compatibility)
+      const urlSession = request.nextUrl.searchParams.get('session')
+      if (urlSession) {
+        // Redirect to activate with the session
+        const activateUrl = request.nextUrl.clone()
+        activateUrl.pathname = '/portal/activate'
+        activateUrl.searchParams.set('session', urlSession)
+        return NextResponse.redirect(activateUrl)
+      }
+      
+      // Otherwise redirect to login
       const redirectUrl = request.nextUrl.clone()
       redirectUrl.pathname = '/portal/login'
       return NextResponse.redirect(redirectUrl)
