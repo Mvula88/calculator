@@ -131,7 +131,7 @@ export async function POST(req: NextRequest) {
     
     console.log('Base URL for redirects:', baseUrl)
     const successUrl = `${baseUrl}/auth/create-account?session_id={CHECKOUT_SESSION_ID}`
-    const cancelUrl = `${baseUrl}/pricing`
+    const cancelUrl = `${baseUrl}/packages`
     
     console.log('Success URL:', successUrl)
     console.log('Cancel URL:', cancelUrl)

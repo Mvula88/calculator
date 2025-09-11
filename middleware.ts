@@ -149,7 +149,7 @@ export async function middleware(request: NextRequest) {
     // Check if user has entitlements
     if (!userTier) {
       // User is authenticated but has no paid access
-      return NextResponse.redirect(new URL('/pricing', request.url))
+      return NextResponse.redirect(new URL('/packages', request.url))
     }
     
     // Check tier-specific access

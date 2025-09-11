@@ -10,7 +10,7 @@ export async function GET(req: NextRequest) {
     NODE_ENV: nodeEnv || 'NOT SET',
     VERCEL_URL: vercelUrl || 'NOT SET',
     expectedSuccessUrl: `${appUrl || 'NOT SET'}/auth/create-account?session_id=TEST_SESSION_ID`,
-    expectedCancelUrl: `${appUrl || 'NOT SET'}/pricing`,
+    expectedCancelUrl: `${appUrl || 'NOT SET'}/packages`,
     timestamp: new Date().toISOString()
   })
 }

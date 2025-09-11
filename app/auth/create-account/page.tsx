@@ -188,8 +188,8 @@ function CreateAccountForm() {
             <p>{error}</p>
           </CardContent>
           <CardFooter>
-            <Button onClick={() => router.push('/pricing')} className="w-full">
-              Go to Pricing Page
+            <Button onClick={() => router.push('/packages')} className="w-full">
+              Go to Packages
             </Button>
           </CardFooter>
         </Card>

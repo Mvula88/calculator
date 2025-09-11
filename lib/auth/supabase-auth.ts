@@ -62,7 +62,7 @@ export async function requireTier(requiredTier: 'mistake' | 'mastery') {
   const session = await requireAuth()
   
   if (!session.tier) {
-    redirect('/pricing')
+    redirect('/packages')
   }
   
   if (requiredTier === 'mastery' && session.tier === 'mistake') {

@@ -50,11 +50,11 @@ function TestRedirectContent() {
             </Button>
             
             <Button 
-              onClick={() => router.push('/pricing')}
+              onClick={() => router.push('/packages')}
               variant="outline"
               className="w-full"
             >
-              Back to Pricing
+              Back to Packages
             </Button>
           </div>
         </CardContent>
