@@ -135,18 +135,17 @@ export async function POST(req: NextRequest) {
     // Remove trailing slash if present
     baseUrl = baseUrl.replace(/\/$/, '')
     
-    // Ensure we have distinct success and cancel URLs
-    // TEMPORARILY using test-redirect to debug the issue
-    const successUrl = `${baseUrl}/test-redirect?session_id={CHECKOUT_SESSION_ID}&payment=success`
-    const cancelUrl = `${baseUrl}/packages?canceled=true`
+    // Ensure we have distinct success and cancel URLs with explicit domain
+    // Force using the production domain for redirects
+    const redirectBase = process.env.NEXT_PUBLIC_APP_URL || 'https://impota.vercel.app'
+    const successUrl = `${redirectBase}/auth/create-account?session_id={CHECKOUT_SESSION_ID}`
+    const cancelUrl = `${redirectBase}/packages?canceled=true`
     
     console.log('=== STRIPE CHECKOUT URLS ===')
-    console.log('Base URL:', baseUrl)
-    console.log('Success URL (after payment):', successUrl)
-    console.log('Cancel URL (if canceled):', cancelUrl)
-    console.log('Environment:', process.env.NODE_ENV)
-    console.log('NEXT_PUBLIC_APP_URL from env:', process.env.NEXT_PUBLIC_APP_URL)
-    console.log('Host header:', req.headers.get('host'))
+    console.log('Redirect Base:', redirectBase)
+    console.log('Success URL:', successUrl)
+    console.log('Cancel URL:', cancelUrl)
+    console.log('NEXT_PUBLIC_APP_URL:', process.env.NEXT_PUBLIC_APP_URL || 'NOT SET - USING FALLBACK')
     console.log('=========================')
     
     // Create Stripe checkout session with fixed price ID
