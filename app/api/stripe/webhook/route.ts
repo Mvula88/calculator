@@ -67,7 +67,7 @@ export async function POST(req: NextRequest) {
       const { data: { users }, error: listError } = await supabase.auth.admin.listUsers()
       const existingUser = users?.find(u => u.email?.toLowerCase() === email.toLowerCase())
       
-      let userId = existingUser?.id
+      const userId = existingUser?.id
       
       // Don't create user automatically - they'll create account after payment
       if (!userId) {
