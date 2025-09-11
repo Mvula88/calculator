@@ -2,6 +2,12 @@ import { createServerClient } from '@supabase/ssr'
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
+// Protected routes that require authentication
+const PROTECTED_ROUTES = ['/portal/calculator', '/portal/dashboard', '/portal/account']
+
+// Public auth routes
+const AUTH_ROUTES = ['/auth/login', '/auth/setup-account', '/auth/forgot-password', '/auth/callback']
+
 // Country detection function
 async function detectCountryFromIP(ip: string | null): Promise<string> {
   if (!ip || ip === '::1' || ip === '127.0.0.1') return 'namibia'
@@ -88,53 +94,68 @@ export async function middleware(request: NextRequest) {
     }
   )
 
+  // Get authenticated user
   const { data: { user } } = await supabase.auth.getUser()
 
-  // Check for simple session cookie (for post-payment access)
-  const impotaSession = request.cookies.get('impota_session')?.value
-  let hasPortalAccess = false
-  
-  if (impotaSession) {
-    try {
-      const session = JSON.parse(impotaSession)
-      // Ultra-simple check - just need any session with an email
-      hasPortalAccess = !!session.email
-    } catch (e) {
-      // Invalid session cookie
-    }
+  // Get user's entitlements if authenticated
+  let userTier = null
+  if (user) {
+    const { data: entitlements } = await supabase
+      .from('entitlements')
+      .select('tier')
+      .eq('user_id', user.id)
+      .single()
+    
+    userTier = entitlements?.tier
   }
 
-  // Protected portal routes
+  // Protected portal routes - SECURE AUTH CHECK
   if (request.nextUrl.pathname.startsWith('/portal')) {
-    // Allow access to login and activate pages
-    if (request.nextUrl.pathname === '/portal/login' || 
-        request.nextUrl.pathname === '/portal/activate' ||
-        request.nextUrl.pathname === '/portal/activate-simple') {
+    // Public portal routes that don't require auth
+    const publicPortalRoutes = ['/portal/login', '/portal/activate']
+    if (publicPortalRoutes.includes(request.nextUrl.pathname)) {
+      // If user is already authenticated, redirect to calculator
+      if (user && userTier) {
+        return NextResponse.redirect(new URL('/portal/calculator', request.url))
+      }
       return supabaseResponse
     }
     
-    // For other portal routes, check authentication
-    if (!user && !hasPortalAccess) {
-      // Check if there's a session in the URL
-      const urlSession = request.nextUrl.searchParams.get('session')
-      const sessionId = request.nextUrl.searchParams.get('session_id')
-      
-      if (urlSession || sessionId) {
-        // Redirect to activate with the session
-        const activateUrl = request.nextUrl.clone()
-        activateUrl.pathname = '/portal/activate-simple'
-        if (sessionId) {
-          activateUrl.searchParams.set('session', sessionId)
-        } else if (urlSession) {
-          activateUrl.searchParams.set('session', urlSession)
-        }
-        return NextResponse.redirect(activateUrl)
+    // All other portal routes require authentication
+    if (!user) {
+      // Check for Stripe session in URL (post-payment redirect)
+      const stripeSession = request.nextUrl.searchParams.get('session_id')
+      if (stripeSession) {
+        // Redirect to setup account with session
+        const setupUrl = new URL('/auth/setup-account', request.url)
+        setupUrl.searchParams.set('session_id', stripeSession)
+        return NextResponse.redirect(setupUrl)
       }
       
-      // Otherwise redirect to login
-      const redirectUrl = request.nextUrl.clone()
-      redirectUrl.pathname = '/portal/login'
-      return NextResponse.redirect(redirectUrl)
+      // Redirect to login
+      const loginUrl = new URL('/auth/login', request.url)
+      loginUrl.searchParams.set('redirectTo', request.nextUrl.pathname)
+      return NextResponse.redirect(loginUrl)
+    }
+    
+    // Check if user has completed setup
+    if (user.user_metadata?.needs_password_reset) {
+      // User needs to complete account setup
+      if (request.nextUrl.pathname !== '/auth/setup-account') {
+        return NextResponse.redirect(new URL('/auth/setup-account', request.url))
+      }
+    }
+    
+    // Check if user has entitlements
+    if (!userTier) {
+      // User is authenticated but has no paid access
+      return NextResponse.redirect(new URL('/pricing', request.url))
+    }
+    
+    // Check tier-specific access
+    if (request.nextUrl.pathname.includes('/calculator/advanced') && userTier !== 'mastery') {
+      // Advanced features require mastery tier
+      return NextResponse.redirect(new URL('/upgrade', request.url))
     }
   }
 
@@ -143,18 +164,26 @@ export async function middleware(request: NextRequest) {
     if (user) {
       supabaseResponse.headers.set('x-user-id', user.id)
       supabaseResponse.headers.set('x-user-email', user.email || '')
+      supabaseResponse.headers.set('x-user-tier', userTier || '')
     }
   }
 
-  // Redirect authenticated users from auth pages
+  // Redirect authenticated users from auth pages (except setup-account if needed)
   if (user && request.nextUrl.pathname.startsWith('/auth')) {
-    return NextResponse.redirect(new URL('/portal', request.url))
+    // Allow access to setup-account if user needs to complete setup
+    if (request.nextUrl.pathname === '/auth/setup-account' && 
+        user.user_metadata?.needs_password_reset) {
+      return supabaseResponse
+    }
+    
+    // Otherwise redirect to portal
+    return NextResponse.redirect(new URL('/portal/calculator', request.url))
   }
 
   // Root redirect based on auth and country
   if (request.nextUrl.pathname === '/') {
-    if (user) {
-      return NextResponse.redirect(new URL('/portal', request.url))
+    if (user && userTier) {
+      return NextResponse.redirect(new URL('/portal/calculator', request.url))
     } else {
       // Redirect to country-specific guide
       const countryCode = country.toLowerCase()

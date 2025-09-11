@@ -3,6 +3,7 @@ import { stripe } from '@/lib/stripe/config'
 import { createServiceClient } from '@/lib/supabase/server'
 import { createClient } from '@supabase/supabase-js'
 import Stripe from 'stripe'
+import { sendWelcomeEmail, sendPurchaseConfirmation } from '@/lib/email/send-email'
 
 const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET!
 
@@ -94,9 +95,9 @@ export async function POST(req: NextRequest) {
           userId = newUser.user.id
           console.log('User account created:', userId)
           
-          // Note: User will receive Stripe receipt email with instructions
-          // They can login using magic link (email-only login) on the login page
-          console.log('User can now login with magic link using their email:', email)
+          // Send welcome email
+          await sendWelcomeEmail(email, tier as 'mistake' | 'mastery')
+          console.log('Welcome email sent to:', email)
         }
       }
 
@@ -180,6 +181,16 @@ export async function POST(req: NextRequest) {
           console.error('Manual recovery needed for:', entitlementData)
         } else {
           console.log('Entitlement created successfully:', entitlement.id)
+          
+          // Send purchase confirmation email
+          const currency = session.currency?.toUpperCase() || 'USD'
+          await sendPurchaseConfirmation(
+            email, 
+            tier as 'mistake' | 'mastery',
+            session.amount_total || 0,
+            currency
+          )
+          console.log('Purchase confirmation email sent to:', email)
         }
       }
 
