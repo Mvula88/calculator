@@ -49,21 +49,49 @@ export default function CountrySelector() {
 
   const current = countries.find(c => c.code === currentCountry) || countries[0]
 
-  // Country-specific color classes
-  const getCountryColorClass = (code: string) => {
+  // Country-specific colors
+  const getCountryColors = (code: string) => {
     switch(code) {
       case 'na':
-        return 'bg-blue-600/20 hover:bg-blue-600/30 border-blue-600/30 text-blue-900'
+        return {
+          bg: 'rgba(37, 99, 235, 0.2)', // blue-600
+          hover: 'rgba(37, 99, 235, 0.3)',
+          border: 'rgba(37, 99, 235, 0.3)',
+          text: 'rgb(30, 58, 138)' // blue-900
+        }
       case 'za':
-        return 'bg-green-600/20 hover:bg-green-600/30 border-green-600/30 text-green-900'
+        return {
+          bg: 'rgba(22, 163, 74, 0.2)', // green-600
+          hover: 'rgba(22, 163, 74, 0.3)',
+          border: 'rgba(22, 163, 74, 0.3)',
+          text: 'rgb(20, 83, 45)' // green-900
+        }
       case 'bw':
-        return 'bg-sky-600/20 hover:bg-sky-600/30 border-sky-600/30 text-sky-900'
+        return {
+          bg: 'rgba(2, 132, 199, 0.2)', // sky-600
+          hover: 'rgba(2, 132, 199, 0.3)',
+          border: 'rgba(2, 132, 199, 0.3)',
+          text: 'rgb(12, 74, 110)' // sky-900
+        }
       case 'zm':
-        return 'bg-emerald-600/20 hover:bg-emerald-600/30 border-emerald-600/30 text-emerald-900'
+        return {
+          bg: 'rgba(5, 150, 105, 0.2)', // emerald-600
+          hover: 'rgba(5, 150, 105, 0.3)',
+          border: 'rgba(5, 150, 105, 0.3)',
+          text: 'rgb(6, 78, 59)' // emerald-900
+        }
       default:
-        return 'bg-blue-600/20 hover:bg-blue-600/30 border-blue-600/30 text-blue-900'
+        return {
+          bg: 'rgba(37, 99, 235, 0.2)',
+          hover: 'rgba(37, 99, 235, 0.3)',
+          border: 'rgba(37, 99, 235, 0.3)',
+          text: 'rgb(30, 58, 138)'
+        }
     }
   }
+
+  const [isHovered, setIsHovered] = useState(false)
+  const colors = getCountryColors(currentCountry)
 
   return (
     <>
@@ -71,7 +99,14 @@ export default function CountrySelector() {
       <div className="fixed top-4 right-4 z-40">
         <Button
           onClick={() => setIsOpen(!isOpen)}
-          className={`rounded-full shadow-md backdrop-blur-sm border transition-all duration-200 ${getCountryColorClass(currentCountry)}`}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+          className="rounded-full shadow-md backdrop-blur-sm transition-all duration-200"
+          style={{
+            backgroundColor: isHovered ? colors.hover : colors.bg,
+            borderColor: colors.border,
+            color: colors.text
+          }}
           size="sm"
         >
           <span className="text-lg mr-1">{current.flag}</span>
@@ -103,17 +138,18 @@ export default function CountrySelector() {
             <div className="grid gap-3">
               {countries.map((country) => {
                 const isSelected = currentCountry === country.code
-                const colorClass = getCountryColorClass(country.code)
+                const countryColors = getCountryColors(country.code)
                 return (
                   <Button
                     key={country.code}
                     onClick={() => handleCountryChange(country.code)}
                     variant="outline"
-                    className={`justify-start text-left transition-all ${
-                      isSelected 
-                        ? colorClass + ' ring-2 ring-offset-2' 
-                        : 'hover:' + colorClass.split(' ')[0]
-                    }`}
+                    className="justify-start text-left transition-all"
+                    style={isSelected ? {
+                      backgroundColor: countryColors.bg,
+                      borderColor: countryColors.border,
+                      color: countryColors.text
+                    } : {}}
                     size="lg"
                   >
                     <span className="text-2xl mr-3">{country.flag}</span>
