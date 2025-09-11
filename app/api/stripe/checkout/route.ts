@@ -136,7 +136,8 @@ export async function POST(req: NextRequest) {
     baseUrl = baseUrl.replace(/\/$/, '')
     
     // Ensure we have distinct success and cancel URLs
-    const successUrl = `${baseUrl}/auth/create-account?session_id={CHECKOUT_SESSION_ID}`
+    // TEMPORARILY using test-redirect to debug the issue
+    const successUrl = `${baseUrl}/test-redirect?session_id={CHECKOUT_SESSION_ID}&payment=success`
     const cancelUrl = `${baseUrl}/packages?canceled=true`
     
     console.log('=== STRIPE CHECKOUT URLS ===')
@@ -144,6 +145,8 @@ export async function POST(req: NextRequest) {
     console.log('Success URL (after payment):', successUrl)
     console.log('Cancel URL (if canceled):', cancelUrl)
     console.log('Environment:', process.env.NODE_ENV)
+    console.log('NEXT_PUBLIC_APP_URL from env:', process.env.NEXT_PUBLIC_APP_URL)
+    console.log('Host header:', req.headers.get('host'))
     console.log('=========================')
     
     // Create Stripe checkout session with fixed price ID
