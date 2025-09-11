@@ -100,7 +100,7 @@ export default function NamibiaGuidePage() {
         <div 
           className="absolute inset-0 z-0"
           style={{
-            backgroundImage: 'url(/japan-cars-hero.jpg)',
+            backgroundImage: 'url(/japan-cars-hero.png)',
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat'
