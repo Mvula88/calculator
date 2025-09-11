@@ -110,7 +110,7 @@ export default function HomePage() {
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               </Link>
-              <Link href="/pricing">
+              <Link href="/packages">
                 <Button 
                   size="lg" 
                   variant="outline"
