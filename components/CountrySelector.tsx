@@ -49,18 +49,34 @@ export default function CountrySelector() {
 
   const current = countries.find(c => c.code === currentCountry) || countries[0]
 
+  // Country-specific color classes
+  const getCountryColorClass = (code: string) => {
+    switch(code) {
+      case 'na':
+        return 'bg-blue-600/20 hover:bg-blue-600/30 border-blue-600/30 text-blue-900'
+      case 'za':
+        return 'bg-green-600/20 hover:bg-green-600/30 border-green-600/30 text-green-900'
+      case 'bw':
+        return 'bg-sky-600/20 hover:bg-sky-600/30 border-sky-600/30 text-sky-900'
+      case 'zm':
+        return 'bg-emerald-600/20 hover:bg-emerald-600/30 border-emerald-600/30 text-emerald-900'
+      default:
+        return 'bg-blue-600/20 hover:bg-blue-600/30 border-blue-600/30 text-blue-900'
+    }
+  }
+
   return (
     <>
-      {/* Subtle Country Selector - Top Right Corner */}
+      {/* Country-Themed Selector - Top Right Corner */}
       <div className="fixed top-4 right-4 z-40">
         <Button
           onClick={() => setIsOpen(!isOpen)}
-          className="rounded-full shadow-md bg-white/90 backdrop-blur-sm text-gray-700 border border-gray-200 hover:bg-white hover:shadow-lg transition-all duration-200"
+          className={`rounded-full shadow-md backdrop-blur-sm border transition-all duration-200 ${getCountryColorClass(currentCountry)}`}
           size="sm"
         >
           <span className="text-lg mr-1">{current.flag}</span>
-          <span className="font-medium text-sm">{current.code.toUpperCase()}</span>
-          <Globe className="h-3 w-3 ml-1.5 text-gray-400" />
+          <span className="font-semibold text-sm">{current.code.toUpperCase()}</span>
+          <Globe className="h-3 w-3 ml-1.5 opacity-60" />
         </Button>
       </div>
 
@@ -85,28 +101,36 @@ export default function CountrySelector() {
             </p>
 
             <div className="grid gap-3">
-              {countries.map((country) => (
-                <Button
-                  key={country.code}
-                  onClick={() => handleCountryChange(country.code)}
-                  variant={currentCountry === country.code ? "default" : "outline"}
-                  className="justify-start text-left"
-                  size="lg"
-                >
-                  <span className="text-2xl mr-3">{country.flag}</span>
-                  <div className="flex-1">
-                    <div className="font-semibold">{country.name}</div>
-                    <div className="text-xs opacity-75">
-                      Currency: {country.currency}
+              {countries.map((country) => {
+                const isSelected = currentCountry === country.code
+                const colorClass = getCountryColorClass(country.code)
+                return (
+                  <Button
+                    key={country.code}
+                    onClick={() => handleCountryChange(country.code)}
+                    variant="outline"
+                    className={`justify-start text-left transition-all ${
+                      isSelected 
+                        ? colorClass + ' ring-2 ring-offset-2' 
+                        : 'hover:' + colorClass.split(' ')[0]
+                    }`}
+                    size="lg"
+                  >
+                    <span className="text-2xl mr-3">{country.flag}</span>
+                    <div className="flex-1">
+                      <div className="font-semibold">{country.name}</div>
+                      <div className="text-xs opacity-75">
+                        Currency: {country.currency}
+                      </div>
                     </div>
-                  </div>
-                  {currentCountry === country.code && (
-                    <span className="text-xs bg-white/20 px-2 py-1 rounded">
-                      Current
-                    </span>
-                  )}
-                </Button>
-              ))}
+                    {isSelected && (
+                      <span className="text-xs font-bold">
+                        ✓ Current
+                      </span>
+                    )}
+                  </Button>
+                )
+              })}
             </div>
 
             <div className="mt-6 pt-4 border-t text-center text-xs text-gray-500">
