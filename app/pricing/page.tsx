@@ -71,6 +71,8 @@ export default function PricingPage() {
   const [email, setEmail] = useState('')
   const [loading, setLoading] = useState<string | null>(null)
   const [error, setError] = useState('')
+  
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
   const handlePurchase = async (tier: 'mistake' | 'mastery') => {
     setError('')
@@ -165,26 +167,43 @@ export default function PricingPage() {
           </div>
         </div>
 
-        {/* Email Input Section */}
-        <div className="max-w-md mx-auto mb-12">
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-center">Enter Your Email to Get Started</CardTitle>
-              <CardDescription className="text-center">
-                You'll use this email to create your account after payment
+        {/* Step 1: Email Input Section - PROMINENT */}
+        <div className="max-w-2xl mx-auto mb-12">
+          <div className="text-center mb-6">
+            <div className="inline-flex items-center gap-2 bg-blue-100 text-blue-700 px-4 py-2 rounded-full mb-4">
+              <span className="font-bold">Step 1</span>
+              <ArrowRight className="h-4 w-4" />
+              <span>Enter Your Email</span>
+            </div>
+          </div>
+          
+          <Card className="border-2 border-blue-400 shadow-xl bg-gradient-to-br from-blue-50 to-white">
+            <CardHeader className="text-center pb-2">
+              <CardTitle className="text-2xl">
+                <span className="text-blue-600">First,</span> Enter Your Email Address
+              </CardTitle>
+              <CardDescription className="text-lg mt-2">
+                This will be used for payment and account creation
               </CardDescription>
             </CardHeader>
             <CardContent>
               <div className="space-y-2">
-                <Label htmlFor="email">Email Address</Label>
+                <Label htmlFor="email" className="text-lg font-semibold">
+                  Your Email Address <span className="text-red-500">*</span>
+                </Label>
                 <Input
                   id="email"
                   type="email"
                   placeholder="john@example.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="text-lg"
+                  className="text-lg h-12 border-2 focus:border-blue-500"
+                  autoFocus
                 />
+                <p className="text-sm text-gray-600 mt-1">
+                  ✓ We'll send your purchase receipt here<br/>
+                  ✓ You'll use this to create your account after payment
+                </p>
               </div>
               {error && (
                 <Alert className="mt-4 border-red-200 bg-red-50">
@@ -192,8 +211,25 @@ export default function PricingPage() {
                   <AlertDescription className="text-red-800">{error}</AlertDescription>
                 </Alert>
               )}
+              {email && emailRegex.test(email) && (
+                <Alert className="mt-4 border-green-200 bg-green-50">
+                  <CheckCircle className="h-4 w-4 text-green-600" />
+                  <AlertDescription className="text-green-800">
+                    Great! Now choose your package below
+                  </AlertDescription>
+                </Alert>
+              )}
             </CardContent>
           </Card>
+        </div>
+        
+        {/* Step 2 Indicator */}
+        <div className="text-center mb-8">
+          <div className="inline-flex items-center gap-2 bg-purple-100 text-purple-700 px-4 py-2 rounded-full">
+            <span className="font-bold">Step 2</span>
+            <ArrowRight className="h-4 w-4" />
+            <span>Choose Your Package</span>
+          </div>
         </div>
 
         {/* Pricing Cards */}
@@ -242,12 +278,18 @@ export default function PricingPage() {
                   className={`w-full ${pkg.popular ? 'bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700' : ''}`}
                   size="lg"
                   onClick={() => handlePurchase(pkg.id as 'mistake' | 'mastery')}
-                  disabled={loading !== null}
+                  disabled={loading !== null || !email}
+                  title={!email ? 'Please enter your email above first' : ''}
                 >
                   {loading === pkg.id ? (
                     <>
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                       Processing...
+                    </>
+                  ) : !email ? (
+                    <>
+                      Enter Email Above First
+                      <AlertCircle className="ml-2 h-4 w-4" />
                     </>
                   ) : (
                     <>
