@@ -106,10 +106,11 @@ export async function POST(req: NextRequest) {
     // Get the price ID for this checkout
     const priceId = getPriceId(normalizedCountry, tier)
     
-    // Generate idempotency key for this request
+    // Generate idempotency key for this request with timestamp to ensure uniqueness
+    const timestamp = Date.now()
     const idempotencyKey = crypto
       .createHash('sha256')
-      .update(`${email}-${tier}-${country}-${Date.now()}`)
+      .update(`${email}-${tier}-${country}-${timestamp}`)
       .digest('hex')
     
     // Get the base URL - fallback to request headers if env var not set
@@ -129,13 +130,16 @@ export async function POST(req: NextRequest) {
     // Remove trailing slash if present
     baseUrl = baseUrl.replace(/\/$/, '')
     
-    console.log('Base URL for redirects:', baseUrl)
+    // Ensure we have distinct success and cancel URLs
     const successUrl = `${baseUrl}/auth/create-account?session_id={CHECKOUT_SESSION_ID}`
-    const cancelUrl = `${baseUrl}/packages`
+    const cancelUrl = `${baseUrl}/packages?canceled=true`
     
-    console.log('Success URL:', successUrl)
-    console.log('Cancel URL:', cancelUrl)
-    console.log('Environment NEXT_PUBLIC_APP_URL:', process.env.NEXT_PUBLIC_APP_URL)
+    console.log('=== STRIPE CHECKOUT URLS ===')
+    console.log('Base URL:', baseUrl)
+    console.log('Success URL (after payment):', successUrl)
+    console.log('Cancel URL (if canceled):', cancelUrl)
+    console.log('Environment:', process.env.NODE_ENV)
+    console.log('=========================')
     
     // Create Stripe checkout session with fixed price ID
     const sessionConfig: any = {
@@ -172,10 +176,16 @@ export async function POST(req: NextRequest) {
     )
     
     console.log('Created checkout session:', session.id)
+    console.log('Session success_url:', session.success_url)
+    console.log('Session cancel_url:', session.cancel_url)
     
     return NextResponse.json({ 
       url: session.url,
-      sessionId: session.id 
+      sessionId: session.id,
+      debug: {
+        success_url: session.success_url,
+        cancel_url: session.cancel_url
+      }
     })
     
   } catch (error: any) {
