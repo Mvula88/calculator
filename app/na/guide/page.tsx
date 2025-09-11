@@ -96,8 +96,24 @@ export default function NamibiaGuidePage() {
       
       {/* Hero Section - Redesigned */}
       <section className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 opacity-50"></div>
-        <div className="relative max-w-6xl mx-auto px-6 py-16">
+        {/* Background Image */}
+        <div 
+          className="absolute inset-0 z-0"
+          style={{
+            backgroundImage: 'url(/japan-cars-hero.jpg)',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat'
+          }}
+        >
+          {/* Dark overlay for text readability */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/70"></div>
+        </div>
+        
+        {/* Gradient overlay for brand colors */}
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 via-purple-600/10 to-pink-600/20 z-10"></div>
+        
+        <div className="relative max-w-6xl mx-auto px-6 py-16 z-20">
           {/* Trust Badge */}
           <div className="flex justify-center mb-8">
             <div className="inline-flex items-center gap-3 bg-gradient-to-r from-amber-500 to-orange-500 text-white px-6 py-3 rounded-full shadow-xl">
@@ -108,25 +124,25 @@ export default function NamibiaGuidePage() {
           </div>
           
           <h1 className="text-5xl md:text-7xl font-black text-center mb-6 leading-tight">
-            <span className="bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
+            <span className="text-white drop-shadow-2xl">
               Stop Paying Dealers
             </span>
             <br />
-            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent drop-shadow-2xl">
               N$50,000+ Markups
             </span>
           </h1>
           
-          <p className="text-xl md:text-2xl text-gray-700 text-center mb-8 max-w-3xl mx-auto leading-relaxed">
-            The same import process dealers charge <span className="font-bold text-red-600">N$80,000</span> for,
-            you can do yourself for <span className="font-bold text-green-600">N$15,000</span> in agent fees.
+          <p className="text-xl md:text-2xl text-white text-center mb-8 max-w-3xl mx-auto leading-relaxed drop-shadow-lg">
+            The same import process dealers charge <span className="font-bold text-red-400">N$80,000</span> for,
+            you can do yourself for <span className="font-bold text-green-400">N$15,000</span> in agent fees.
             <br />
-            <span className="text-lg text-gray-600 mt-2 block">We show you exactly how. Step by step.</span>
+            <span className="text-lg text-gray-200 mt-2 block">We show you exactly how. Step by step.</span>
           </p>
           
           {/* Value Props */}
           <div className="grid md:grid-cols-3 gap-4 max-w-4xl mx-auto mb-12">
-            <div className="bg-white rounded-xl p-4 shadow-md border border-gray-100">
+            <div className="bg-white/95 backdrop-blur-md rounded-xl p-4 shadow-xl border border-white/20">
               <div className="flex items-center gap-3">
                 <div className="bg-green-100 p-2 rounded-lg">
                   <DollarSign className="h-5 w-5 text-green-600" />
@@ -138,7 +154,7 @@ export default function NamibiaGuidePage() {
               </div>
             </div>
             
-            <div className="bg-white rounded-xl p-4 shadow-md border border-gray-100">
+            <div className="bg-white/95 backdrop-blur-md rounded-xl p-4 shadow-xl border border-white/20">
               <div className="flex items-center gap-3">
                 <div className="bg-blue-100 p-2 rounded-lg">
                   <Clock className="h-5 w-5 text-blue-600" />
@@ -150,7 +166,7 @@ export default function NamibiaGuidePage() {
               </div>
             </div>
             
-            <div className="bg-white rounded-xl p-4 shadow-md border border-gray-100">
+            <div className="bg-white/95 backdrop-blur-md rounded-xl p-4 shadow-xl border border-white/20">
               <div className="flex items-center gap-3">
                 <div className="bg-purple-100 p-2 rounded-lg">
                   <Users className="h-5 w-5 text-purple-600" />
@@ -169,7 +185,7 @@ export default function NamibiaGuidePage() {
           </div>
 
           {/* Social Proof Bar */}
-          <div className="flex flex-col md:flex-row items-center justify-center gap-6 bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
+          <div className="flex flex-col md:flex-row items-center justify-center gap-6 bg-white/95 backdrop-blur-md rounded-2xl p-6 shadow-2xl border border-white/20">
             <div className="flex -space-x-3">
               {[1,2,3,4,5,6].map(i => (
                 <div key={i} className="w-12 h-12 bg-gradient-to-br from-gray-300 to-gray-400 rounded-full border-3 border-white shadow-md" />
