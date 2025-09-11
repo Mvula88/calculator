@@ -38,13 +38,10 @@ export async function POST(req: NextRequest) {
       )
     }
     
-    // Check if user already exists
+    // Check if user already exists in Supabase Auth
     const supabase = createServiceClient()
-    const { data: existingUser } = await supabase
-      .from('profiles')
-      .select('id')
-      .eq('email', email.toLowerCase())
-      .single()
+    const { data: { users } } = await supabase.auth.admin.listUsers()
+    const existingUser = users?.find(u => u.email?.toLowerCase() === email.toLowerCase())
     
     // Get amount paid
     const amount = session.amount_total ? session.amount_total / 100 : 0

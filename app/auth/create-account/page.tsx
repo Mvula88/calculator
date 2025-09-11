@@ -47,13 +47,16 @@ function CreateAccountForm() {
   // Fetch session data on mount
   useEffect(() => {
     async function fetchSessionData() {
+      console.log('CreateAccount: Session ID:', sessionId)
+      
       if (!sessionId) {
-        setError('Invalid session. Please complete your purchase first.')
+        setError('No payment session found. Please complete your purchase first.')
         setLoading(false)
         return
       }
       
       try {
+        console.log('Verifying session with Stripe...')
         const response = await fetch('/api/stripe/verify-session', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -61,6 +64,7 @@ function CreateAccountForm() {
         })
         
         const data = await response.json()
+        console.log('Session verification response:', data)
         
         if (!response.ok) {
           throw new Error(data.error || 'Failed to verify payment')
@@ -184,8 +188,8 @@ function CreateAccountForm() {
             <p>{error}</p>
           </CardContent>
           <CardFooter>
-            <Button onClick={() => router.push('/purchase')} className="w-full">
-              Go to Purchase Page
+            <Button onClick={() => router.push('/pricing')} className="w-full">
+              Go to Pricing Page
             </Button>
           </CardFooter>
         </Card>

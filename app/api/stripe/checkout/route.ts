@@ -112,6 +112,11 @@ export async function POST(req: NextRequest) {
       .update(`${email}-${tier}-${country}-${Date.now()}`)
       .digest('hex')
     
+    // Log the URLs being used
+    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'
+    console.log('Base URL for redirects:', baseUrl)
+    console.log('Success URL will be:', `${baseUrl}/auth/create-account?session_id={CHECKOUT_SESSION_ID}`)
+    
     // Create Stripe checkout session with fixed price ID
     const sessionConfig: any = {
       payment_method_types: ['card'],
@@ -130,7 +135,7 @@ export async function POST(req: NextRequest) {
       },
       customer_email: email.toLowerCase(),
       success_url: `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/auth/create-account?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/${normalizedCountry}/guide`,
+      cancel_url: `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/pricing`,
       payment_intent_data: {
         metadata: {
           idempotency_key: idempotencyKey
