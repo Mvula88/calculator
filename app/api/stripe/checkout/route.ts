@@ -130,8 +130,7 @@ export async function POST(req: NextRequest) {
     baseUrl = baseUrl.replace(/\/$/, '')
     
     console.log('Base URL for redirects:', baseUrl)
-    // TEMPORARY: Using test redirect page to debug
-    const successUrl = `${baseUrl}/test-redirect?session_id={CHECKOUT_SESSION_ID}`
+    const successUrl = `${baseUrl}/auth/create-account?session_id={CHECKOUT_SESSION_ID}`
     const cancelUrl = `${baseUrl}/pricing`
     
     console.log('Success URL:', successUrl)
