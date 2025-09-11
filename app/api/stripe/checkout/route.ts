@@ -113,17 +113,21 @@ export async function POST(req: NextRequest) {
       .update(`${email}-${tier}-${country}-${timestamp}`)
       .digest('hex')
     
-    // Get the base URL - fallback to request headers if env var not set
+    // Get the base URL - use production URL in production
     let baseUrl = process.env.NEXT_PUBLIC_APP_URL
     
-    // If no env var, try to construct from request headers
+    // If no env var, check if we're in production and use the correct domain
     if (!baseUrl) {
       const host = req.headers.get('host')
-      const protocol = req.headers.get('x-forwarded-proto') || 'https'
-      if (host) {
-        baseUrl = `${protocol}://${host}`
+      
+      // If this is a Vercel deployment, use the production domain
+      if (host && host.includes('vercel.app')) {
+        baseUrl = 'https://impota.vercel.app'
+        console.log('Using hardcoded production URL:', baseUrl)
       } else {
-        baseUrl = 'http://localhost:3000'
+        // Fallback for local development
+        const protocol = req.headers.get('x-forwarded-proto') || 'https'
+        baseUrl = host ? `${protocol}://${host}` : 'http://localhost:3000'
       }
     }
     
