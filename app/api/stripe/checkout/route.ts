@@ -130,11 +130,13 @@ export async function POST(req: NextRequest) {
     baseUrl = baseUrl.replace(/\/$/, '')
     
     console.log('Base URL for redirects:', baseUrl)
-    const successUrl = `${baseUrl}/auth/create-account?session_id={CHECKOUT_SESSION_ID}`
+    // TEMPORARY: Using test redirect page to debug
+    const successUrl = `${baseUrl}/test-redirect?session_id={CHECKOUT_SESSION_ID}`
     const cancelUrl = `${baseUrl}/pricing`
     
     console.log('Success URL:', successUrl)
     console.log('Cancel URL:', cancelUrl)
+    console.log('Environment NEXT_PUBLIC_APP_URL:', process.env.NEXT_PUBLIC_APP_URL)
     
     // Create Stripe checkout session with fixed price ID
     const sessionConfig: any = {
