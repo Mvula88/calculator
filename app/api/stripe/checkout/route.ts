@@ -112,10 +112,29 @@ export async function POST(req: NextRequest) {
       .update(`${email}-${tier}-${country}-${Date.now()}`)
       .digest('hex')
     
-    // Log the URLs being used
-    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'
+    // Get the base URL - fallback to request headers if env var not set
+    let baseUrl = process.env.NEXT_PUBLIC_APP_URL
+    
+    // If no env var, try to construct from request headers
+    if (!baseUrl) {
+      const host = req.headers.get('host')
+      const protocol = req.headers.get('x-forwarded-proto') || 'https'
+      if (host) {
+        baseUrl = `${protocol}://${host}`
+      } else {
+        baseUrl = 'http://localhost:3000'
+      }
+    }
+    
+    // Remove trailing slash if present
+    baseUrl = baseUrl.replace(/\/$/, '')
+    
     console.log('Base URL for redirects:', baseUrl)
-    console.log('Success URL will be:', `${baseUrl}/auth/create-account?session_id={CHECKOUT_SESSION_ID}`)
+    const successUrl = `${baseUrl}/auth/create-account?session_id={CHECKOUT_SESSION_ID}`
+    const cancelUrl = `${baseUrl}/pricing`
+    
+    console.log('Success URL:', successUrl)
+    console.log('Cancel URL:', cancelUrl)
     
     // Create Stripe checkout session with fixed price ID
     const sessionConfig: any = {
@@ -134,8 +153,8 @@ export async function POST(req: NextRequest) {
         idempotency_key: idempotencyKey
       },
       customer_email: email.toLowerCase(),
-      success_url: `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/auth/create-account?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/pricing`,
+      success_url: successUrl,
+      cancel_url: cancelUrl,
       payment_intent_data: {
         metadata: {
           idempotency_key: idempotencyKey
