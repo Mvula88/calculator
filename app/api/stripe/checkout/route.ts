@@ -129,7 +129,7 @@ export async function POST(req: NextRequest) {
         idempotency_key: idempotencyKey
       },
       customer_email: email.toLowerCase(),
-      success_url: `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/${normalizedCountry}/thank-you?session_id={CHECKOUT_SESSION_ID}`,
+      success_url: `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/auth/create-account?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/${normalizedCountry}/guide`,
       payment_intent_data: {
         metadata: {

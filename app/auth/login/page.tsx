@@ -1,7 +1,7 @@
 'use client'
 
-import { useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { useState, useEffect } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
 import { Button } from '@/components/ui/button'
@@ -9,15 +9,29 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { Alert, AlertDescription } from '@/components/ui/alert'
 import { AlertTriangle, Mail, Send, CheckCircle, Lock, Loader2 } from 'lucide-react'
 
 export default function LoginPage() {
   const router = useRouter()
+  const searchParams = useSearchParams()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   const [magicLinkSent, setMagicLinkSent] = useState(false)
+  const [message, setMessage] = useState('')
+
+  useEffect(() => {
+    // Check for messages from redirect
+    const msg = searchParams.get('message')
+    const redirectEmail = searchParams.get('email')
+    
+    if (msg === 'account-exists' && redirectEmail) {
+      setMessage('You already have an account. Please login to access your purchase.')
+      setEmail(redirectEmail)
+    }
+  }, [searchParams])
 
   async function handlePasswordLogin(e: React.FormEvent) {
     e.preventDefault()
@@ -91,6 +105,12 @@ export default function LoginPage() {
         </CardHeader>
         
         <CardContent>
+          {message && (
+            <Alert className="mb-4 border-blue-200 bg-blue-50">
+              <AlertDescription className="text-blue-800">{message}</AlertDescription>
+            </Alert>
+          )}
+          
           {magicLinkSent ? (
             <div className="text-center py-8">
               <CheckCircle className="h-12 w-12 text-green-500 mx-auto mb-4" />

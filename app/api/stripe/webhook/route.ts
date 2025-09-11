@@ -63,42 +63,15 @@ export async function POST(req: NextRequest) {
         amount: session.amount_total
       })
 
-      // First, check if user already exists by listing users with email filter
+      // Check if user already exists (don't create automatically)
       const { data: { users }, error: listError } = await supabase.auth.admin.listUsers()
       const existingUser = users?.find(u => u.email?.toLowerCase() === email.toLowerCase())
       
       let userId = existingUser?.id
-
-      // If user doesn't exist, create one
+      
+      // Don't create user automatically - they'll create account after payment
       if (!userId) {
-        // Generate a random password (user won't need it - they'll use magic link)
-        const tempPassword = Math.random().toString(36).slice(-12) + 'Aa1!'
-        
-        // Create user account
-        const { data: newUser, error: userError } = await supabase.auth.admin.createUser({
-          email: email,
-          password: tempPassword,
-          email_confirm: true, // Auto-confirm email since they paid
-          user_metadata: {
-            country: country,
-            tier: tier,
-            stripe_session_id: session.id,
-            created_via: 'payment',
-            needs_password_reset: true
-          }
-        })
-
-        if (userError) {
-          console.error('Failed to create user:', userError)
-          // Still create entitlement without user_id for manual recovery
-        } else {
-          userId = newUser.user.id
-          console.log('User account created:', userId)
-          
-          // Send welcome email
-          await sendWelcomeEmail(email, tier as 'mistake' | 'mastery')
-          console.log('Welcome email sent to:', email)
-        }
+        console.log('User account not found for:', email, '- will be created after payment')
       }
 
       // Use idempotency key if available to prevent duplicates
