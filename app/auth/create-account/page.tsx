@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import { Button } from '@/components/ui/button'
@@ -17,7 +17,7 @@ interface SessionData {
   amount: number
 }
 
-export default function CreateAccountPage() {
+function CreateAccountForm() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const sessionId = searchParams.get('session_id')
@@ -345,5 +345,17 @@ export default function CreateAccountPage() {
         </form>
       </Card>
     </div>
+  )
+}
+
+export default function CreateAccountPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center">
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+      </div>
+    }>
+      <CreateAccountForm />
+    </Suspense>
   )
 }

@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
@@ -12,7 +12,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Alert, AlertDescription } from '@/components/ui/alert'
 import { AlertTriangle, Mail, Send, CheckCircle, Lock, Loader2 } from 'lucide-react'
 
-export default function LoginPage() {
+function LoginForm() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const [email, setEmail] = useState('')
@@ -287,5 +287,20 @@ export default function LoginPage() {
         </CardFooter>
       </Card>
     </div>
+  )
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white flex items-center justify-center px-4">
+        <div className="text-center">
+          <Loader2 className="h-8 w-8 animate-spin text-primary mx-auto" />
+          <p className="mt-2 text-gray-600">Loading...</p>
+        </div>
+      </div>
+    }>
+      <LoginForm />
+    </Suspense>
   )
 }
