@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { useUltraSimpleAuth } from '@/lib/auth/ultra-simple'
+import { useAuth } from '@/lib/hooks/use-auth'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -70,7 +70,7 @@ interface CalculationResult {
 }
 
 export default function DutyCalculator() {
-  const { hasAccess, loading, userTier } = useUltraSimpleAuth()
+  const { hasAccess, loading, userTier } = useAuth()
   const [vehicleValue, setVehicleValue] = useState<string>('')
   const [engineSize, setEngineSize] = useState<string>('')
   const [vehicleType, setVehicleType] = useState<string>('')

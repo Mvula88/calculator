@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
+import { useAuth } from '@/lib/hooks/use-auth'
 import SimpleContentProtection from '@/components/SimpleContentProtection'
 import { 
   Calculator, 
@@ -28,8 +29,7 @@ export default function SimplePortalLayout({
 }) {
   const router = useRouter()
   const pathname = usePathname()
-  const [hasAccess, setHasAccess] = useState<boolean | null>(null)
-  const [userEmail, setUserEmail] = useState<string>('')
+  const { user, userEmail, hasAccess, loading, signOut } = useAuth()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   
   useEffect(() => {
@@ -37,61 +37,30 @@ export default function SimplePortalLayout({
     if (pathname === '/portal/login' || 
         pathname === '/portal/activate' || 
         pathname === '/portal/activate-simple') {
-      setHasAccess(true)
       return
     }
     
-    // Check for session in cookie or localStorage
-    let session = null
-    
-    // Check cookie
-    const cookies = document.cookie.split(';')
-    for (const cookie of cookies) {
-      const [name, value] = cookie.trim().split('=')
-      if (name === 'impota_session') {
-        try {
-          session = JSON.parse(decodeURIComponent(value))
-          break
-        } catch (e) {
-          console.error('Invalid cookie session')
-        }
-      }
+    // Redirect to login if no access and not loading
+    if (!loading && !hasAccess) {
+      router.replace('/auth/login?redirectTo=/portal')
     }
-    
-    // Fallback to localStorage
-    if (!session) {
-      const stored = localStorage.getItem('impota_session')
-      if (stored) {
-        try {
-          session = JSON.parse(stored)
-        } catch (e) {
-          console.error('Invalid localStorage session')
-        }
-      }
-    }
-    
-    if (session && session.email) {
-      setHasAccess(true)
-      // Clean up email display if it's a session-based email
-      const email = session.email
-      const cleanEmail = email.startsWith('user_cs_test_') ? 'Portal User' : email
-      setUserEmail(cleanEmail)
-    } else {
-      setHasAccess(false)
-      router.replace('/portal/login')
-    }
-  }, [pathname, router])
+  }, [pathname, router, hasAccess, loading])
   
-  const handleSignOut = () => {
-    // Clear session
-    document.cookie = 'impota_session=; path=/; max-age=0'
-    localStorage.removeItem('impota_session')
-    router.replace('/portal/login')
+  const handleSignOut = async () => {
+    await signOut()
+    router.replace('/auth/login')
   }
   
-  // Don't render anything while checking access
-  if (hasAccess === null) {
-    return null
+  // Don't render anything while loading auth
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
+          <p className="mt-4 text-gray-600">Loading...</p>
+        </div>
+      </div>
+    )
   }
   
   // For activation/login pages, just render the content

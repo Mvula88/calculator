@@ -115,7 +115,9 @@ export async function middleware(request: NextRequest) {
     const publicPortalRoutes = ['/portal/login', '/portal/activate']
     if (publicPortalRoutes.includes(request.nextUrl.pathname)) {
       // If user is already authenticated, redirect to calculator
-      if (user && userTier) {
+      // UNLESS they're coming from a Stripe payment
+      const fromStripe = request.nextUrl.searchParams.get('session_id')
+      if (user && userTier && !fromStripe) {
         return NextResponse.redirect(new URL('/portal/calculator', request.url))
       }
       return supabaseResponse
@@ -123,15 +125,6 @@ export async function middleware(request: NextRequest) {
     
     // All other portal routes require authentication
     if (!user) {
-      // Check for Stripe session in URL (post-payment redirect)
-      const stripeSession = request.nextUrl.searchParams.get('session_id')
-      if (stripeSession) {
-        // Redirect to setup account with session
-        const setupUrl = new URL('/auth/setup-account', request.url)
-        setupUrl.searchParams.set('session_id', stripeSession)
-        return NextResponse.redirect(setupUrl)
-      }
-      
       // Redirect to login
       const loginUrl = new URL('/auth/login', request.url)
       loginUrl.searchParams.set('redirectTo', request.nextUrl.pathname)
@@ -168,12 +161,21 @@ export async function middleware(request: NextRequest) {
     }
   }
 
-  // Redirect authenticated users from auth pages (except setup-account if needed)
+  // Redirect authenticated users from auth pages (except setup-account if needed or create-account after payment)
   if (user && request.nextUrl.pathname.startsWith('/auth')) {
     // Allow access to setup-account if user needs to complete setup
     if (request.nextUrl.pathname === '/auth/setup-account' && 
         user.user_metadata?.needs_password_reset) {
       return supabaseResponse
+    }
+    
+    // Allow access to create-account if coming from Stripe payment
+    if (request.nextUrl.pathname === '/auth/create-account') {
+      const sessionId = request.nextUrl.searchParams.get('session_id')
+      if (sessionId) {
+        // Coming from Stripe payment, allow access
+        return supabaseResponse
+      }
     }
     
     // Otherwise redirect to portal
