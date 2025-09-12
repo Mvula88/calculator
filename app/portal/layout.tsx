@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
-import { useAuth } from '@/lib/hooks/use-auth'
+import { useAuthSimple } from '@/lib/hooks/use-auth-simple'
 import SimpleContentProtection from '@/components/SimpleContentProtection'
 import { 
   Calculator, 
@@ -29,7 +29,7 @@ export default function SimplePortalLayout({
 }) {
   const router = useRouter()
   const pathname = usePathname()
-  const { user, userEmail, hasAccess, loading, signOut } = useAuth()
+  const { user, userEmail, hasAccess, loading, error, signOut } = useAuthSimple()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   
   useEffect(() => {
@@ -59,6 +59,12 @@ export default function SimplePortalLayout({
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
           <p className="mt-4 text-gray-600">Loading...</p>
+          {error && (
+            <div className="mt-4 p-4 bg-red-50 text-red-700 rounded-lg max-w-md mx-auto">
+              <p className="text-sm font-semibold">Auth Error:</p>
+              <p className="text-xs">{error}</p>
+            </div>
+          )}
         </div>
       </div>
     )
