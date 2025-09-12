@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
+import Link from 'next/link'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { CheckCircle, Mail, ArrowRight, Loader2, AlertCircle } from 'lucide-react'
@@ -112,10 +113,10 @@ export default function SimpleThankYouContent() {
             </p>
             
             <Button asChild size="lg" className="w-full">
-              <a href="/portal">
+              <Link href="/portal">
                 Go to Portal Now
                 <ArrowRight className="ml-2 h-4 w-4" />
-              </a>
+              </Link>
             </Button>
           </div>
         </div>

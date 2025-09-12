@@ -1,4 +1,5 @@
 'use client'
+import Link from 'next/link'
 
 import { useState } from 'react'
 import { useAuth } from '@/lib/hooks/use-auth'
@@ -75,12 +76,12 @@ export default function DocumentsPage() {
           <p className="text-gray-600 mb-4">
             You need to purchase the Mistake Guide or Import Mastery to access these documents.
           </p>
-          <a 
+          <Link 
             href="/na/guide"
             className="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
           >
             Get Access →
-          </a>
+          </Link>
         </Card>
       </div>
     )

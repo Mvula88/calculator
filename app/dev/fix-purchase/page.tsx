@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Card } from '@/components/ui/card'
@@ -132,7 +133,7 @@ export default function FixPurchasePage() {
                         Your entitlement has been created. You can now:
                       </p>
                       <ul className="text-sm text-green-700 mt-2 space-y-1">
-                        <li>• Go to <a href="/auth/login" className="underline">Login Page</a></li>
+                        <li>• Go to <Link href="/auth/login" className="underline">Login Page</Link></li>
                         <li>• Use "Email Login" tab (magic link)</li>
                         <li>• Enter: {email}</li>
                         <li>• Check your email for the login link</li>
@@ -213,10 +214,10 @@ export default function FixPurchasePage() {
         <div className="mt-6 p-4 bg-yellow-50 border border-yellow-200 rounded">
           <p className="text-sm text-yellow-800">
             <strong>How to access after fix:</strong>
-            <br />1. Go to <a href="/auth/login" className="underline">Login Page</a>
+            <br />1. Go to <Link href="/auth/login" className="underline">Login Page</Link>
             <br />2. Click "Email Login" tab
             <br />3. Enter your email and get a magic link
-            <br />4. Access the portal at <a href="/portal" className="underline">/portal</a>
+            <br />4. Access the portal at <Link href="/portal" className="underline">/portal</Link>
           </p>
         </div>
       </Card>

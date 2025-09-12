@@ -1,4 +1,5 @@
 'use client'
+import Link from 'next/link'
 
 import { useState } from 'react'
 import { Card } from '@/components/ui/card'
@@ -121,7 +122,7 @@ export default function PortalLoginPage() {
 
         <div className="mt-6 pt-6 border-t border-gray-200">
           <p className="text-xs text-gray-500 text-center">
-            Don't have access? <a href="/purchase" className="text-blue-600 hover:underline">Purchase the guide</a>
+            Don't have access? <Link href="/purchase" className="text-blue-600 hover:underline">Purchase the guide</Link>
           </p>
         </div>
       </Card>

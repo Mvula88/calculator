@@ -1,4 +1,5 @@
 'use client'
+import Link from 'next/link'
 
 import { useEffect, useState } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
@@ -91,7 +92,7 @@ export default function SimplePortalLayout({
               className="text-blue-600 hover:underline text-sm"
             >
               Or click here if button doesn't work
-            </a>
+            </Link>
           </div>
         </div>
       </div>
