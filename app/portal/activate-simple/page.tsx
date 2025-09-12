@@ -1,11 +1,11 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, Suspense } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
 import { Card } from '@/components/ui/card'
 import { CheckCircle, AlertCircle } from 'lucide-react'
 
-export default function ActivateSimplePage() {
+function ActivateSimpleContent() {
   const searchParams = useSearchParams()
   const router = useRouter()
   
@@ -64,5 +64,23 @@ export default function ActivateSimplePage() {
         </div>
       </Card>
     </main>
+  )
+}
+
+export default function ActivateSimplePage() {
+  return (
+    <Suspense fallback={
+      <main className="min-h-screen bg-gradient-to-b from-blue-50 to-white flex items-center justify-center">
+        <Card className="p-8 max-w-md">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+            <h1 className="text-2xl font-bold mb-4">Loading...</h1>
+            <p className="text-gray-600">Please wait...</p>
+          </div>
+        </Card>
+      </main>
+    }>
+      <ActivateSimpleContent />
+    </Suspense>
   )
 }
