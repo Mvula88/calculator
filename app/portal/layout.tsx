@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
-import { useAuthSimple } from '@/lib/hooks/use-auth-simple'
+import { useAuthFallback } from '@/lib/hooks/use-auth-fallback'
 import SimpleContentProtection from '@/components/SimpleContentProtection'
 import { 
   Calculator, 
@@ -29,23 +29,25 @@ export default function SimplePortalLayout({
 }) {
   const router = useRouter()
   const pathname = usePathname()
-  const { user, userEmail, hasAccess, loading, error, signOut } = useAuthSimple()
+  const { user, userEmail, hasAccess, loading, error, signOut } = useAuthFallback()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   
   useEffect(() => {
     // Don't check auth for activation or login pages
     if (pathname === '/portal/login' || 
         pathname === '/portal/activate' || 
-        pathname === '/portal/activate-simple') {
+        pathname === '/portal/activate-simple' ||
+        pathname === '/portal/debug') {
       return
     }
     
-    // Redirect to login if no user and not loading (only check for user, not tier)
-    if (!loading && !user) {
+    // Only redirect if we're sure there's no user (not still loading)
+    if (!loading && !user && !error) {
       console.log('[Portal Layout] No user, redirecting to login')
-      router.replace('/auth/login?redirectTo=/portal')
+      // Use push instead of replace to avoid issues
+      router.push('/auth/login?redirectTo=/portal')
     }
-  }, [pathname, router, user, loading])
+  }, [pathname, router, user, loading, error])
   
   const handleSignOut = async () => {
     await signOut()

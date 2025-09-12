@@ -28,16 +28,8 @@ export function useAuthSimple(): UseAuthReturn {
       try {
         const supabase = createClient()
         
-        // Get user with timeout
-        const userPromise = supabase.auth.getUser()
-        const timeoutPromise = new Promise((_, reject) => 
-          setTimeout(() => reject(new Error('Auth timeout')), 5000)
-        )
-        
-        const { data: { user }, error: userError } = await Promise.race([
-          userPromise,
-          timeoutPromise
-        ]) as any
+        // Get user without timeout - let it complete naturally
+        const { data: { user }, error: userError } = await supabase.auth.getUser()
 
         if (!mounted) return
 
