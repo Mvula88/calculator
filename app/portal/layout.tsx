@@ -54,24 +54,6 @@ export default function SimplePortalLayout({
     router.replace('/auth/login')
   }
   
-  // Don't render anything while loading auth
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-          <p className="mt-4 text-gray-600">Loading...</p>
-          {error && (
-            <div className="mt-4 p-4 bg-red-50 text-red-700 rounded-lg max-w-md mx-auto">
-              <p className="text-sm font-semibold">Auth Error:</p>
-              <p className="text-xs">{error}</p>
-            </div>
-          )}
-        </div>
-      </div>
-    )
-  }
-  
   // For activation/login pages, just render the content
   if (pathname === '/portal/login' || 
       pathname === '/portal/activate' || 
@@ -79,9 +61,35 @@ export default function SimplePortalLayout({
     return <>{children}</>
   }
   
-  // No user - this shouldn't happen as we redirect above
-  if (!user) {
-    return null
+  // Show loading state briefly
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
+          <p className="mt-4 text-gray-600">Loading portal...</p>
+        </div>
+      </div>
+    )
+  }
+  
+  // If there's an error or no user, show a message with login link
+  if (error || !user) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-center max-w-md">
+          <h2 className="text-2xl font-bold mb-4">Portal Access Required</h2>
+          <p className="text-gray-600 mb-6">
+            {error || 'You need to be logged in to access the portal.'}
+          </p>
+          <Link href="/auth/login?redirectTo=/portal">
+            <Button>
+              Go to Login
+            </Button>
+          </Link>
+        </div>
+      </div>
+    )
   }
   
   const navigation = [
