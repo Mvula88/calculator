@@ -40,11 +40,12 @@ export default function SimplePortalLayout({
       return
     }
     
-    // Redirect to login if no access and not loading
-    if (!loading && !hasAccess) {
+    // Redirect to login if no user and not loading (only check for user, not tier)
+    if (!loading && !user) {
+      console.log('[Portal Layout] No user, redirecting to login')
       router.replace('/auth/login?redirectTo=/portal')
     }
-  }, [pathname, router, hasAccess, loading])
+  }, [pathname, router, user, loading])
   
   const handleSignOut = async () => {
     await signOut()
@@ -70,8 +71,8 @@ export default function SimplePortalLayout({
     return <>{children}</>
   }
   
-  // No access - this shouldn't happen as we redirect above
-  if (!hasAccess) {
+  // No user - this shouldn't happen as we redirect above
+  if (!user) {
     return null
   }
   

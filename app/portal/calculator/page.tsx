@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { useAuth } from '@/lib/hooks/use-auth'
+import { useAuthDebug } from '@/lib/hooks/use-auth-debug'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -70,7 +70,7 @@ interface CalculationResult {
 }
 
 export default function DutyCalculator() {
-  const { hasAccess, loading, userTier } = useAuth()
+  const { hasAccess, loading, userTier, debugInfo } = useAuthDebug()
   const [vehicleValue, setVehicleValue] = useState<string>('')
   const [engineSize, setEngineSize] = useState<string>('')
   const [vehicleType, setVehicleType] = useState<string>('')
@@ -86,6 +86,12 @@ export default function DutyCalculator() {
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
           <p className="mt-4 text-gray-600">Loading calculator...</p>
+          <div className="mt-4 text-xs text-gray-500">
+            <p>Debug Info:</p>
+            <p>User Checked: {debugInfo.userChecked ? 'Yes' : 'No'}</p>
+            <p>Entitlements Checked: {debugInfo.entitlementsChecked ? 'Yes' : 'No'}</p>
+            {debugInfo.error && <p className="text-red-500">Error: {debugInfo.error}</p>}
+          </div>
         </div>
       </div>
     )
