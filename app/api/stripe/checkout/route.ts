@@ -135,14 +135,13 @@ export async function POST(req: NextRequest) {
     // Remove trailing slash if present
     baseUrl = baseUrl.replace(/\/$/, '')
     
-    // Ensure we have distinct success and cancel URLs with explicit domain
-    // Force using the production domain for redirects
-    const redirectBase = 'https://impota.vercel.app'  // HARDCODED to ensure correct domain
-    const successUrl = `${redirectBase}/auth/create-account?session_id={CHECKOUT_SESSION_ID}&payment_status=success`
-    const cancelUrl = `${redirectBase}/packages?payment_status=canceled`
+    // Use environment variable with proper fallback
+    // After successful payment, user goes to portal directly since they already have an account
+    const successUrl = `${baseUrl}/portal?session_id={CHECKOUT_SESSION_ID}&payment_status=success&welcome=true`
+    const cancelUrl = `${baseUrl}/packages?payment_status=canceled`
     
     console.log('=== STRIPE CHECKOUT URLS ===')
-    console.log('Redirect Base:', redirectBase)
+    console.log('Base URL:', baseUrl)
     console.log('Success URL:', successUrl)
     console.log('Cancel URL:', cancelUrl)
     console.log('NEXT_PUBLIC_APP_URL:', process.env.NEXT_PUBLIC_APP_URL || 'NOT SET - USING FALLBACK')

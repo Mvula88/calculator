@@ -38,36 +38,15 @@ export default function QuickSignupForm({
     }
 
     setLoading(true)
-    try {
-      localStorage.setItem('checkout_email', email)
-      
-      const res = await fetch('/api/stripe/checkout', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ 
-          country, 
-          tier: selectedTier,
-          productId: 'import-guide',
-          email
-        })
-      })
-      
-      const { url, error } = await res.json()
-      
-      if (error) {
-        alert(`Error: ${error}`)
-        return
-      }
-      
-      if (url) {
-        window.location.href = url
-      }
-    } catch (error) {
-      console.error('Checkout error:', error)
-      alert('Failed to start checkout')
-    } finally {
-      setLoading(false)
-    }
+    
+    // Redirect to register page with email and package pre-filled
+    const params = new URLSearchParams({
+      email: email,
+      package: selectedTier,
+      country: country
+    })
+    
+    window.location.href = `/register?${params.toString()}`
   }
 
   if (variant === 'hero') {

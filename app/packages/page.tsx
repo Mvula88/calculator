@@ -59,9 +59,8 @@ export default function PackagesPage() {
   const router = useRouter()
 
   const handleSelectPackage = (tier: 'mistake' | 'mastery') => {
-    // Store the selected package and redirect to email collection
-    sessionStorage.setItem('selectedPackage', tier)
-    router.push('/checkout/email')
+    // Redirect to register page with package info
+    router.push(`/register?package=${tier}&country=na`)
   }
 
   return (
