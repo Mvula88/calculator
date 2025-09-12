@@ -17,9 +17,10 @@ export function useAuth(): UseAuthReturn {
   const [user, setUser] = useState<User | null>(null)
   const [userTier, setUserTier] = useState<'mistake' | 'mastery' | null>(null)
   const [loading, setLoading] = useState(true)
-  const supabase = createClient()
 
   useEffect(() => {
+    const supabase = createClient()
+    
     // Get initial session
     const getSession = async () => {
       try {
@@ -66,9 +67,10 @@ export function useAuth(): UseAuthReturn {
     })
 
     return () => subscription.unsubscribe()
-  }, [supabase])
+  }, [])
 
   const signOut = async () => {
+    const supabase = createClient()
     await supabase.auth.signOut()
     setUser(null)
     setUserTier(null)
