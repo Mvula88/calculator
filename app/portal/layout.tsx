@@ -1,5 +1,4 @@
 'use client'
-import Link from 'next/link'
 
 import { useEffect, useState } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
@@ -87,7 +86,7 @@ export default function SimplePortalLayout({
             Go to Login
           </Button>
           <div className="mt-4">
-            <a 
+            <Link 
               href="/auth/login?redirectTo=/portal" 
               className="text-blue-600 hover:underline text-sm"
             >

@@ -1,5 +1,4 @@
 'use client'
-import Link from 'next/link'
 
 import { useAuthImmediate } from '@/lib/hooks/use-auth-immediate'
 import { Card } from '@/components/ui/card'
@@ -64,7 +63,7 @@ export default function PortalPage() {
             Log In
           </Button>
           <div className="mt-4">
-            <a 
+            <Link 
               href="/auth/login" 
               className="text-blue-600 hover:underline text-sm"
             >
@@ -91,7 +90,7 @@ export default function PortalPage() {
             View Packages
           </Button>
           <div className="mt-4">
-            <a 
+            <Link 
               href="/packages" 
               className="text-blue-600 hover:underline text-sm"
             >
