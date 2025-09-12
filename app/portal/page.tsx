@@ -1,6 +1,6 @@
 'use client'
 
-import { useAuth } from '@/lib/hooks/use-auth'
+import { useAuthImmediate } from '@/lib/hooks/use-auth-immediate'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
@@ -25,7 +25,7 @@ import {
 } from 'lucide-react'
 
 export default function PortalPage() {
-  const { user, userEmail, hasAccess, loading, userTier } = useAuth()
+  const { user, userEmail, hasAccess, loading, userTier } = useAuthImmediate()
   
   const displayEmail = userEmail || 'user@example.com'
   const cleanEmail = displayEmail.startsWith('user_cs_test_') ? 'Portal User' : displayEmail

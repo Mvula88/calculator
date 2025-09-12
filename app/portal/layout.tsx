@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
-import { useAuthFallback } from '@/lib/hooks/use-auth-fallback'
+import { useAuthImmediate } from '@/lib/hooks/use-auth-immediate'
 import SimpleContentProtection from '@/components/SimpleContentProtection'
 import { 
   Calculator, 
@@ -29,7 +29,7 @@ export default function SimplePortalLayout({
 }) {
   const router = useRouter()
   const pathname = usePathname()
-  const { user, userEmail, hasAccess, loading, error, signOut } = useAuthFallback()
+  const { user, userEmail, hasAccess, loading, error, signOut } = useAuthImmediate()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   
   useEffect(() => {
