@@ -137,9 +137,9 @@ export async function POST(req: NextRequest) {
     
     // Ensure we have distinct success and cancel URLs with explicit domain
     // Force using the production domain for redirects
-    const redirectBase = process.env.NEXT_PUBLIC_APP_URL || 'https://impota.vercel.app'
-    const successUrl = `${redirectBase}/auth/create-account?session_id={CHECKOUT_SESSION_ID}`
-    const cancelUrl = `${redirectBase}/packages?canceled=true`
+    const redirectBase = 'https://impota.vercel.app'  // HARDCODED to ensure correct domain
+    const successUrl = `${redirectBase}/auth/create-account?session_id={CHECKOUT_SESSION_ID}&payment_status=success`
+    const cancelUrl = `${redirectBase}/packages?payment_status=canceled`
     
     console.log('=== STRIPE CHECKOUT URLS ===')
     console.log('Redirect Base:', redirectBase)
@@ -182,9 +182,14 @@ export async function POST(req: NextRequest) {
       }
     )
     
-    console.log('Created checkout session:', session.id)
+    console.log('=== CREATED STRIPE SESSION ===')
+    console.log('Session ID:', session.id)
     console.log('Session success_url:', session.success_url)
     console.log('Session cancel_url:', session.cancel_url)
+    console.log('URLs passed to Stripe:')
+    console.log('  - success_url:', successUrl)
+    console.log('  - cancel_url:', cancelUrl)
+    console.log('==============================')
     
     return NextResponse.json({ 
       url: session.url,
