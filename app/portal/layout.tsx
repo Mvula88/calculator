@@ -82,11 +82,11 @@ export default function SimplePortalLayout({
           <p className="text-gray-600 mb-6">
             {error || 'You need to be logged in to access the portal.'}
           </p>
-          <Link href="/auth/login?redirectTo=/portal">
-            <Button>
+          <Button asChild>
+            <Link href="/auth/login?redirectTo=/portal">
               Go to Login
-            </Button>
-          </Link>
+            </Link>
+          </Button>
         </div>
       </div>
     )
