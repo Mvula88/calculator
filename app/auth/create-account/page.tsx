@@ -56,6 +56,15 @@ function CreateAccountForm() {
       }
       
       try {
+        // First, sign out any existing user to prevent conflicts
+        const supabase = createClient()
+        const { data: { user: currentUser } } = await supabase.auth.getUser()
+        
+        if (currentUser) {
+          console.log('User already logged in, signing out to create new account...')
+          await supabase.auth.signOut()
+        }
+        
         console.log('Verifying session with Stripe...')
         const response = await fetch('/api/stripe/verify-session', {
           method: 'POST',
@@ -70,10 +79,13 @@ function CreateAccountForm() {
           throw new Error(data.error || 'Failed to verify payment')
         }
         
-        // Check if user already exists
+        // Check if user already exists with this email
         if (data.userExists) {
-          // Redirect to login with message
-          router.push(`/auth/login?message=account-exists&email=${encodeURIComponent(data.email)}`)
+          // Show message that account exists
+          setError(`An account already exists for ${data.email}. Please login instead.`)
+          setTimeout(() => {
+            router.push(`/auth/login?email=${encodeURIComponent(data.email)}`)
+          }, 3000)
           return
         }
         
