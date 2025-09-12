@@ -162,7 +162,10 @@ export async function middleware(request: NextRequest) {
   }
 
   // Redirect authenticated users from auth pages (except setup-account if needed or create-account after payment)
-  if (user && request.nextUrl.pathname.startsWith('/auth')) {
+  if (user && userTier && request.nextUrl.pathname.startsWith('/auth')) {
+    // Only redirect if user has full access (both user AND tier)
+    // This prevents issues where user exists but has no entitlements
+    
     // Allow access to setup-account if user needs to complete setup
     if (request.nextUrl.pathname === '/auth/setup-account' && 
         user.user_metadata?.needs_password_reset) {
@@ -178,7 +181,7 @@ export async function middleware(request: NextRequest) {
       }
     }
     
-    // Otherwise redirect to portal
+    // Only redirect if user has tier/entitlements
     return NextResponse.redirect(new URL('/portal', request.url))
   }
 

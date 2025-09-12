@@ -41,13 +41,9 @@ export default function SimplePortalLayout({
       return
     }
     
-    // Only redirect if we're sure there's no user (not still loading)
-    if (!loading && !user && !error) {
-      console.log('[Portal Layout] No user, redirecting to login')
-      // Use push instead of replace to avoid issues
-      router.push('/auth/login?redirectTo=/portal')
-    }
-  }, [pathname, router, user, loading, error])
+    // Don't auto-redirect - let the user click the login button
+    // This prevents redirect loops
+  }, [pathname])
   
   const handleSignOut = async () => {
     await signOut()
