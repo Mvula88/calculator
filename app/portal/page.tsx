@@ -55,11 +55,21 @@ export default function PortalPage() {
         <div className="text-center">
           <h2 className="text-2xl font-bold mb-4">Welcome to IMPOTA Portal</h2>
           <p className="text-gray-600 mb-6">Please log in to access your dashboard.</p>
-          <Button asChild>
-            <Link href="/auth/login">
-              Log In
-            </Link>
+          <Button 
+            onClick={() => {
+              window.location.href = '/auth/login'
+            }}
+          >
+            Log In
           </Button>
+          <div className="mt-4">
+            <a 
+              href="/auth/login" 
+              className="text-blue-600 hover:underline text-sm"
+            >
+              Or click here to login
+            </a>
+          </div>
         </div>
       </div>
     )
@@ -72,11 +82,21 @@ export default function PortalPage() {
         <div className="text-center">
           <h2 className="text-2xl font-bold mb-4">Welcome {userEmail}!</h2>
           <p className="text-gray-600 mb-6">You need to purchase a package to access the portal content.</p>
-          <Button asChild>
-            <Link href="/packages">
-              View Packages
-            </Link>
+          <Button 
+            onClick={() => {
+              window.location.href = '/packages'
+            }}
+          >
+            View Packages
           </Button>
+          <div className="mt-4">
+            <a 
+              href="/packages" 
+              className="text-blue-600 hover:underline text-sm"
+            >
+              Or click here to view packages
+            </a>
+          </div>
         </div>
       </div>
     )

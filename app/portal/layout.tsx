@@ -82,11 +82,21 @@ export default function SimplePortalLayout({
           <p className="text-gray-600 mb-6">
             {error || 'You need to be logged in to access the portal.'}
           </p>
-          <Button asChild>
-            <Link href="/auth/login?redirectTo=/portal">
-              Go to Login
-            </Link>
+          <Button 
+            onClick={() => {
+              window.location.href = '/auth/login?redirectTo=/portal'
+            }}
+          >
+            Go to Login
           </Button>
+          <div className="mt-4">
+            <a 
+              href="/auth/login?redirectTo=/portal" 
+              className="text-blue-600 hover:underline text-sm"
+            >
+              Or click here if button doesn't work
+            </a>
+          </div>
         </div>
       </div>
     )
