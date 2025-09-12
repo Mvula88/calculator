@@ -1,6 +1,6 @@
 'use client'
 
-import { useUltraSimpleAuth } from '@/lib/auth/ultra-simple'
+import { useAuth } from '@/lib/hooks/use-auth'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
@@ -8,7 +8,7 @@ import { Lock, Star, CheckCircle, Users } from 'lucide-react'
 import AgentsContent from './agents-content'
 
 export default function AgentsClientPage() {
-  const { hasAccess, loading, userTier } = useUltraSimpleAuth()
+  const { hasAccess, loading, userTier } = useAuth()
 
   // Always show loading first
   if (loading) {

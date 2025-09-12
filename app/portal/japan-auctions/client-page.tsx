@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { useUltraSimpleAuth } from '@/lib/auth/ultra-simple'
+import { useAuth } from '@/lib/hooks/use-auth'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
@@ -33,7 +33,7 @@ interface Exporter {
 }
 
 export default function JapanAuctionsClientPage() {
-  const { hasAccess, loading, userTier } = useUltraSimpleAuth()
+  const { hasAccess, loading, userTier } = useAuth()
   const [selectedTab, setSelectedTab] = useState<'guide' | 'exporters'>('guide')
 
   if (loading) {

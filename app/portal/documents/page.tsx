@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { useUltraSimpleAuth } from '@/lib/auth/ultra-simple'
+import { useAuth } from '@/lib/hooks/use-auth'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import PDFViewer from '@/components/PDFViewer'
@@ -29,7 +29,7 @@ interface DocumentCategory {
 }
 
 export default function DocumentsPage() {
-  const { hasAccess, loading, userEmail, userTier } = useUltraSimpleAuth()
+  const { hasAccess, loading, userEmail, userTier } = useAuth()
   
   // Clean up email display if it's a session-based email
   const displayEmail = userEmail || 'user@example.com'

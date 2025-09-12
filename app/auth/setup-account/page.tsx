@@ -47,7 +47,7 @@ export default function SetupAccountPage() {
       setEmail(user.email || '')
       // If user is logged in and doesn't need password reset, redirect
       if (!user.user_metadata?.needs_password_reset) {
-        router.push('/portal/calculator')
+        router.push('/portal')
       } else {
         // User is logged in but needs to set password
         setStep('password')
@@ -137,7 +137,7 @@ export default function SetupAccountPage() {
     
     // Redirect to calculator after 2 seconds
     setTimeout(() => {
-      router.push('/portal/calculator')
+      router.push('/portal')
     }, 2000)
   }
 

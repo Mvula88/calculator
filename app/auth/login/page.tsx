@@ -59,7 +59,7 @@ function LoginForm() {
     if (data.user?.user_metadata?.needs_password_reset) {
       router.push('/auth/setup-account')
     } else {
-      router.push('/portal/calculator')
+      router.push('/portal')
     }
   }
 

@@ -118,7 +118,7 @@ export async function middleware(request: NextRequest) {
       // UNLESS they're coming from a Stripe payment
       const fromStripe = request.nextUrl.searchParams.get('session_id')
       if (user && userTier && !fromStripe) {
-        return NextResponse.redirect(new URL('/portal/calculator', request.url))
+        return NextResponse.redirect(new URL('/portal', request.url))
       }
       return supabaseResponse
     }
@@ -179,13 +179,13 @@ export async function middleware(request: NextRequest) {
     }
     
     // Otherwise redirect to portal
-    return NextResponse.redirect(new URL('/portal/calculator', request.url))
+    return NextResponse.redirect(new URL('/portal', request.url))
   }
 
   // Root redirect based on auth and country
   if (request.nextUrl.pathname === '/') {
     if (user && userTier) {
-      return NextResponse.redirect(new URL('/portal/calculator', request.url))
+      return NextResponse.redirect(new URL('/portal', request.url))
     } else {
       // Redirect to country-specific guide
       const countryCode = country.toLowerCase()

@@ -1,6 +1,6 @@
 'use client'
 
-import { useUltraSimpleAuth } from '@/lib/auth/ultra-simple'
+import { useAuth } from '@/lib/hooks/use-auth'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
@@ -26,7 +26,7 @@ import {
 } from 'lucide-react'
 
 export default function PortalPage() {
-  const { hasAccess, loading, userEmail, userTier } = useUltraSimpleAuth()
+  const { hasAccess, loading, userEmail, userTier } = useAuth()
   
   // Clean up the display email - if it looks like a session ID, show a cleaner version
   const displayEmail = userEmail || 'user@example.com'
