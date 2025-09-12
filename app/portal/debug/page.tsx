@@ -3,9 +3,22 @@
 import { useState, useEffect } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { Button } from '@/components/ui/button'
+import { User, Session } from '@supabase/supabase-js'
+
+interface DebugStatus {
+  checking: boolean
+  user: User | null
+  session: Session | null
+  error: string | null
+  entitlements: any | null
+  envVars: {
+    url: string
+    anon: string
+  }
+}
 
 export default function DebugPage() {
-  const [status, setStatus] = useState<any>({
+  const [status, setStatus] = useState<DebugStatus>({
     checking: true,
     user: null,
     session: null,
@@ -23,7 +36,7 @@ export default function DebugPage() {
 
   async function checkAuth() {
     console.log('[Debug] Starting auth check...')
-    setStatus(prev => ({ ...prev, checking: true }))
+    setStatus((prev: DebugStatus) => ({ ...prev, checking: true }))
     
     try {
       const supabase = createClient()
@@ -34,7 +47,7 @@ export default function DebugPage() {
       
       if (sessionError) {
         console.error('[Debug] Session error:', sessionError)
-        setStatus(prev => ({ 
+        setStatus((prev: DebugStatus) => ({ 
           ...prev, 
           checking: false, 
           error: `Session error: ${sessionError.message}` 
@@ -50,7 +63,7 @@ export default function DebugPage() {
       
       if (userError) {
         console.error('[Debug] User error:', userError)
-        setStatus(prev => ({ 
+        setStatus((prev: DebugStatus) => ({ 
           ...prev, 
           checking: false, 
           session,
@@ -93,7 +106,7 @@ export default function DebugPage() {
       
     } catch (error) {
       console.error('[Debug] Unexpected error:', error)
-      setStatus(prev => ({ 
+      setStatus((prev: DebugStatus) => ({ 
         ...prev, 
         checking: false, 
         error: `Unexpected error: ${String(error)}` 
