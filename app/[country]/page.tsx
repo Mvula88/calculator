@@ -24,13 +24,14 @@ import Image from 'next/image'
 type CountryCode = 'na' | 'za' | 'bw' | 'zm'
 
 interface PageProps {
-  params: {
+  params: Promise<{
     country: CountryCode
-  }
+  }>
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  return generateCountryMetadata(params.country)
+  const { country } = await params
+  return generateCountryMetadata(country)
 }
 
 export async function generateStaticParams() {
@@ -141,8 +142,9 @@ const countryData = {
   }
 }
 
-export default function CountryLandingPage({ params }: PageProps) {
-  const country = countryData[params.country]
+export default async function CountryLandingPage({ params }: PageProps) {
+  const { country: countryCode } = await params
+  const country = countryData[countryCode]
   
   if (!country) {
     return <div>Country not found</div>
@@ -175,14 +177,14 @@ export default function CountryLandingPage({ params }: PageProps) {
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href={`/register?country=${params.country}&package=mastery`}>
+              <Link href={`/register?country=${countryCode}&package=mastery`}>
                 <Button size="lg" className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700">
                   <Calculator className="mr-2 h-5 w-5" />
                   Calculate Import Costs
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               </Link>
-              <Link href={`/${params.country}/guide`}>
+              <Link href={`/${countryCode}/guide`}>
                 <Button size="lg" variant="outline">
                   <FileText className="mr-2 h-5 w-5" />
                   View Free Import Guide
@@ -310,7 +312,7 @@ export default function CountryLandingPage({ params }: PageProps) {
                 Search Japan auction sites, calculate total landed cost in {country.currency}, 
                 and purchase through verified agents.
               </p>
-              <Link href={`/${params.country}/japan-auctions`}>
+              <Link href={`/${countryCode}/japan-auctions`}>
                 <Button variant="link" className="p-0">
                   Learn about Japan auctions →
                 </Button>
@@ -324,7 +326,7 @@ export default function CountryLandingPage({ params }: PageProps) {
                 Arrange shipping via RoRo or container. Track your vehicle during the 
                 {country.name === 'Zambia' ? ' journey via Dar es Salaam' : ` ${country.clearingTime} journey`}.
               </p>
-              <Link href={`/${params.country}/shipping-guide`}>
+              <Link href={`/${countryCode}/shipping-guide`}>
                 <Button variant="link" className="p-0">
                   View shipping options →
                 </Button>
@@ -338,7 +340,7 @@ export default function CountryLandingPage({ params }: PageProps) {
                 Clear customs at {country.port}, pay duties ({country.dutyRate}), 
                 and register with local authorities.
               </p>
-              <Link href={`/${params.country}/documentation`}>
+              <Link href={`/${countryCode}/documentation`}>
                 <Button variant="link" className="p-0">
                   Get documentation templates →
                 </Button>
@@ -359,13 +361,13 @@ export default function CountryLandingPage({ params }: PageProps) {
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href={`/register?country=${params.country}&package=mastery`}>
+            <Link href={`/register?country=${countryCode}&package=mastery`}>
               <Button size="lg" className="bg-white text-blue-600 hover:bg-gray-100">
                 <Award className="mr-2 h-5 w-5" />
                 Get Import Mastery - {country.currency}1,999
               </Button>
             </Link>
-            <Link href={`/register?country=${params.country}&package=mistake`}>
+            <Link href={`/register?country=${countryCode}&package=mistake`}>
               <Button size="lg" variant="outline" className="bg-transparent text-white border-white hover:bg-white/10">
                 Start with Mistake Guide - {country.currency}499
               </Button>
