@@ -158,8 +158,20 @@ export default function ZambiaGuidePage() {
           {/* Social Proof Bar */}
           <div className="flex flex-col md:flex-row items-center justify-center gap-6 bg-white/95 backdrop-blur-md rounded-2xl p-6 shadow-2xl border border-white/20">
             <div className="flex -space-x-3">
-              {[1,2,3,4,5,6].map(i => (
-                <div key={i} className="w-12 h-12 bg-gradient-to-br from-gray-300 to-gray-400 rounded-full border-3 border-white shadow-md" />
+              {[
+                'https://i.pravatar.cc/150?img=21',
+                'https://i.pravatar.cc/150?img=22', 
+                'https://i.pravatar.cc/150?img=23',
+                'https://i.pravatar.cc/150?img=24',
+                'https://i.pravatar.cc/150?img=25',
+                'https://i.pravatar.cc/150?img=26'
+              ].map((avatar, i) => (
+                <img 
+                  key={i} 
+                  src={avatar}
+                  alt={`Happy customer ${i + 1}`}
+                  className="w-12 h-12 rounded-full border-3 border-white shadow-md object-cover"
+                />
               ))}
             </div>
             <div className="text-center md:text-left">
