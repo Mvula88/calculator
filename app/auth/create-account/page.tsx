@@ -200,8 +200,8 @@ function CreateAccountForm() {
             <p>{error}</p>
           </CardContent>
           <CardFooter>
-            <Button onClick={() => router.push('/packages')} className="w-full">
-              Go to Packages
+            <Button onClick={() => router.push('/portal')} className="w-full">
+              Go to Portal
             </Button>
           </CardFooter>
         </Card>

@@ -38,11 +38,11 @@ function CallbackContent() {
           if (checkoutData.url) {
             window.location.href = checkoutData.url
           } else {
-            router.push('/packages')
+            router.push('/portal')
           }
         } catch (error) {
           console.error('Failed to create checkout:', error)
-          router.push('/packages')
+          router.push('/portal')
         }
       } else {
         // Not authenticated, redirect to register

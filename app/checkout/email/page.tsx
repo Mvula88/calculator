@@ -30,7 +30,7 @@ export default function CheckoutEmailPage() {
     const pkg = sessionStorage.getItem('selectedPackage')
     if (!pkg) {
       // If no package selected, redirect back to packages
-      router.push('/packages')
+      router.push('/portal')
     }
     setSelectedPackage(pkg)
   }, [router])
