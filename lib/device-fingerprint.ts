@@ -86,9 +86,11 @@ function getWebGLFingerprint(): string {
     const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl')
     if (!gl) return 'no-webgl'
     
-    const debugInfo = gl.getExtension('WEBGL_debug_renderer_info')
+    // Type assertion for WebGL context
+    const webgl = gl as WebGLRenderingContext
+    const debugInfo = webgl.getExtension('WEBGL_debug_renderer_info')
     if (debugInfo) {
-      return gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL) || 'unknown'
+      return String(webgl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL)) || 'unknown'
     }
     return 'no-debug-info'
   } catch {
