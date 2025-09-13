@@ -92,9 +92,9 @@ export default function ZambiaGuidePage() {
           </h1>
           
           <p className="text-xl md:text-2xl text-white text-center mb-8 max-w-3xl mx-auto leading-relaxed drop-shadow-lg">
-            <span className="font-bold text-yellow-300">50,000+ quality used cars</span> available in Japan RIGHT NOW.
+            <span className="font-bold text-yellow-300">3 MILLION+ quality used cars</span> available in Japan RIGHT NOW.
             <br />
-            <span className="text-lg mt-2 block">We're <span className="font-bold text-emerald-400">exposing the entire import process</span> with EXACT steps, forms, and contacts.</span>
+            <span className="text-lg mt-2 block">USS auctions alone sell <span className="font-bold text-yellow-300">20,000 cars DAILY</span>. We're <span className="font-bold text-emerald-400">exposing the entire import process</span> with EXACT steps.</span>
             <br />
             <span className="text-lg text-gray-200 block">IMPOTA teaches you how to import cars yourself — step by step.</span>
           </p>
