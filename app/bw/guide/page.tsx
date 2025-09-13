@@ -139,9 +139,23 @@ export default function BotswanaGuidePage() {
             </div>
           </div>
 
-          {/* Quick Signup Form - Hero Variant */}
+          {/* Hero CTA Buttons */}
           <div className="mb-8" id="signup">
-            <QuickSignupForm country="bw" variant="hero" />
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link href="/register?country=bw&package=mistake">
+                <Button size="lg" variant="outline" className="font-bold text-lg px-8 border-2">
+                  Get Mistake Guide - P404
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+              </Link>
+              <Link href="/register?country=bw&package=mastery">
+                <Button size="lg" className="font-bold text-lg px-8 bg-gradient-to-r from-blue-600 to-sky-600 hover:from-blue-700 hover:to-sky-700">
+                  Get Import Mastery - Save P400
+                  <Sparkles className="ml-2 h-5 w-5" />
+                </Button>
+              </Link>
+            </div>
+            <p className="text-sm text-gray-600 mt-4">Instant access • Lifetime updates • 30-day guarantee</p>
           </div>
 
           {/* Social Proof Bar */}
