@@ -39,7 +39,6 @@ import {
 import CountrySelector from '@/components/CountrySelector'
 import GuideHeader from '@/components/GuideHeader'
 import StickySignupHeader from '@/components/StickySignupHeader'
-import FloatingSignupButton from '@/components/FloatingSignupButton'
 
 // SEO-optimized FAQ data - General info only, specifics in paid guide
 const faqs = [
@@ -70,7 +69,6 @@ export default function NamibiaGuidePage() {
       
       <main className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-50" itemScope itemType="https://schema.org/Guide">
       <StickySignupHeader country="na" />
-      <FloatingSignupButton country="na" />
       <CountrySelector />
       <GuideHeader 
         country="na" 

@@ -38,14 +38,12 @@ import {
 import CountrySelector from '@/components/CountrySelector'
 import GuideHeader from '@/components/GuideHeader'
 import StickySignupHeader from '@/components/StickySignupHeader'
-import FloatingSignupButton from '@/components/FloatingSignupButton'
 
 export default function SouthAfricaGuidePage() {
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-50">
       <StickySignupHeader country="za" />
-      <FloatingSignupButton country="za" />
       <CountrySelector />
       <GuideHeader 
         country="za" 
