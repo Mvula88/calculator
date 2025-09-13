@@ -162,22 +162,22 @@ export default function SouthAfricaGuidePage() {
             <div className="flex -space-x-3">
               {[
                 {
-                  src: 'https://images.unsplash.com/photo-1507081323647-4d250478b919?w=150&h=150&fit=crop',
+                  src: '/avatars/namibia-1.png',
                   name: 'Thabo M.',
                   location: 'Johannesburg'
                 },
                 {
-                  src: 'https://images.unsplash.com/photo-1506277886164-e25aa3f4ef7f?w=150&h=150&fit=crop',
+                  src: '/avatars/namibia-2.png',
                   name: 'Sipho K.',
                   location: 'Cape Town'
                 },
                 {
-                  src: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop',
+                  src: '/avatars/namibia-3.png',
                   name: 'Lungi N.',
                   location: 'Durban'
                 },
                 {
-                  src: 'https://images.unsplash.com/photo-1589156280159-27698a70f29e?w=150&h=150&fit=crop',
+                  src: '/avatars/namibia-4.png',
                   name: 'Zanele P.',
                   location: 'Pretoria'
                 }

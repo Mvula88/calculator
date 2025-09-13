@@ -162,22 +162,22 @@ export default function BotswanaGuidePage() {
             <div className="flex -space-x-3">
               {[
                 {
-                  src: 'https://images.unsplash.com/photo-1507081323647-4d250478b919?w=150&h=150&fit=crop',
+                  src: '/avatars/namibia-1.png',
                   name: 'Kgosi T.',
                   location: 'Gaborone'
                 },
                 {
-                  src: 'https://images.unsplash.com/photo-1506277886164-e25aa3f4ef7f?w=150&h=150&fit=crop',
+                  src: '/avatars/namibia-2.png',
                   name: 'Mpho M.',
                   location: 'Francistown'
                 },
                 {
-                  src: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop',
+                  src: '/avatars/namibia-3.png',
                   name: 'Lesego K.',
                   location: 'Maun'
                 },
                 {
-                  src: 'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=150&h=150&fit=crop',
+                  src: '/avatars/namibia-4.png',
                   name: 'Boitumelo S.',
                   location: 'Kasane'
                 }
