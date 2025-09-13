@@ -232,8 +232,8 @@ export default function NamibiaGuidePage() {
                   location: 'Oshakati'
                 },
                 {
-                  src: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop',
-                  name: 'Elizabeth S.',
+                  src: 'https://images.unsplash.com/photo-1589156280159-27698a70f29e?w=150&h=150&fit=crop',
+                  name: 'Selma T.',
                   location: 'Walvis Bay'
                 }
               ].map((customer, i) => (
