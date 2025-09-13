@@ -12,6 +12,16 @@ interface StickySignupHeaderProps {
 export default function StickySignupHeader({ country = 'na' }: StickySignupHeaderProps) {
   const [isVisible, setIsVisible] = useState(false)
   const [timeLeft, setTimeLeft] = useState('')
+  
+  // Currency and pricing based on country
+  const pricing = {
+    na: { currency: 'N$', saving: '500', mistakePrice: '499', masteryPrice: '1,999' },
+    za: { currency: 'R', saving: '500', mistakePrice: '499', masteryPrice: '1,999' },
+    bw: { currency: 'P', saving: '400', mistakePrice: '404', masteryPrice: '1,618' },
+    zm: { currency: 'K', saving: '400', mistakePrice: '500', masteryPrice: '2,000' }
+  }
+  
+  const countryPricing = pricing[country as keyof typeof pricing] || pricing.na
 
   useEffect(() => {
     // Show header after user scrolls down 100px
@@ -50,28 +60,37 @@ export default function StickySignupHeader({ country = 'na' }: StickySignupHeade
             <Sparkles className="h-5 w-5 text-yellow-300 animate-pulse" />
             <div className="text-center sm:text-left">
               <p className="text-xs sm:text-sm font-medium">
-                LIMITED TIME: Save N$500 on Import Mastery
+                LIMITED TIME: Save {countryPricing.currency}{countryPricing.saving} on Import Mastery
               </p>
               <p className="text-xs opacity-90 flex items-center gap-2">
                 <Clock className="h-3 w-3" />
-                Offer ends in {timeLeft}
+                Offer ends in {timeLeft} • Join 12,847+ successful importers
               </p>
             </div>
           </div>
           
-          <div className="flex items-center gap-3">
-            <Link href={`/${country}/guide#signup`}>
+          <div className="flex items-center gap-2">
+            <Link href={`/register?country=${country}&package=mistake`}>
               <Button 
                 size="sm"
-                className="bg-white text-purple-600 hover:bg-gray-100 font-bold shadow-lg transform hover:scale-105 transition-all"
+                variant="outline"
+                className="bg-white/10 backdrop-blur text-white border-white/20 hover:bg-white/20 text-xs sm:text-sm"
               >
-                Get Instant Access
+                Mistake Guide - {countryPricing.currency}{countryPricing.mistakePrice}
+              </Button>
+            </Link>
+            <Link href={`/register?country=${country}&package=mastery`}>
+              <Button 
+                size="sm"
+                className="bg-white text-purple-600 hover:bg-gray-100 font-bold shadow-lg transform hover:scale-105 transition-all text-xs sm:text-sm"
+              >
+                Import Mastery - Save {countryPricing.currency}{countryPricing.saving}
                 <ArrowRight className="ml-1 h-4 w-4" />
               </Button>
             </Link>
             <div className="hidden sm:flex items-center gap-1 text-xs">
               <Shield className="h-3 w-3" />
-              <span>Secure checkout</span>
+              <span>Secure</span>
             </div>
           </div>
         </div>
