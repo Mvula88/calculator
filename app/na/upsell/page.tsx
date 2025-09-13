@@ -38,7 +38,8 @@ export default function NamibiaUpsellPage() {
           country: 'na', 
           tier: 'mastery',
           productId: 'import-mastery-na',
-          email: email
+          email: email,
+          isUpgrade: true  // Flag this as an upgrade
         })
       })
       

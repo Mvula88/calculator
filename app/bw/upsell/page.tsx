@@ -37,7 +37,8 @@ export default function BotswanaUpsellPage() {
           country: 'bw', 
           tier: 'mastery',
           productId: 'import-mastery-bw',
-          email: email
+          email: email,
+          isUpgrade: true  // Flag this as an upgrade
         })
       })
       

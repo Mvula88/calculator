@@ -37,7 +37,8 @@ export default function ZambiaUpsellPage() {
           country: 'zm', 
           tier: 'mastery',
           productId: 'import-mastery-zm',
-          email: email
+          email: email,
+          isUpgrade: true  // Flag this as an upgrade
         })
       })
       

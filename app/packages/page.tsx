@@ -64,6 +64,13 @@ export default function PackagesPage() {
   useEffect(() => {
     // Check if user already has access
     checkUserAccess()
+    
+    // Timeout after 5 seconds to prevent infinite loading
+    const timeout = setTimeout(() => {
+      setChecking(false)
+    }, 5000)
+    
+    return () => clearTimeout(timeout)
   }, [])
 
   const checkUserAccess = async () => {
@@ -71,26 +78,34 @@ export default function PackagesPage() {
       const supabase = createClient()
       const { data: { user } } = await supabase.auth.getUser()
       
-      if (user) {
-        // Check if user has any active entitlement
-        const { data: entitlements } = await supabase
+      if (user && user.email) {
+        console.log('Checking entitlements for:', user.email)
+        
+        // Check if user has any active entitlement - use OR condition for user_id or email
+        const { data: entitlements, error } = await supabase
           .from('entitlements')
           .select('*')
-          .eq('email', user.email || '')
+          .or(`email.eq.${user.email.toLowerCase()},user_id.eq.${user.id}`)
           .eq('active', true)
           .limit(1)
         
-        if (entitlements && entitlements.length > 0) {
+        if (error) {
+          console.error('Error fetching entitlements:', error)
+        } else if (entitlements && entitlements.length > 0) {
+          console.log('User has entitlement, redirecting to portal')
           // User already has access, redirect to portal
           router.push('/portal')
           return
+        } else {
+          console.log('No entitlements found for user')
         }
       }
     } catch (error) {
       console.error('Error checking user access:', error)
+    } finally {
+      // Always stop checking after the attempt
+      setChecking(false)
     }
-    
-    setChecking(false)
   }
 
   const handleSelectPackage = (tier: 'mistake' | 'mastery') => {

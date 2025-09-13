@@ -43,7 +43,7 @@ export async function POST(req: NextRequest) {
   
   try {
     const body = await req.json()
-    const { country, tier, productId, email } = body
+    const { country, tier, productId, email, isUpgrade } = body
     
     console.log('Checkout request:', { country, tier, productId, email })
     
@@ -137,8 +137,9 @@ export async function POST(req: NextRequest) {
     
     // Use environment variable with proper fallback
     // After successful payment, user goes to welcome page that handles the race condition
+    // For upgrades, use portal as cancel URL since user already has access
     const successUrl = `${baseUrl}/portal/welcome?session_id={CHECKOUT_SESSION_ID}&payment_status=success`
-    const cancelUrl = `${baseUrl}/packages?payment_status=canceled`
+    const cancelUrl = isUpgrade ? `${baseUrl}/portal?payment_status=canceled` : `${baseUrl}/packages?payment_status=canceled`
     
     console.log('=== STRIPE CHECKOUT URLS ===')
     console.log('Base URL:', baseUrl)

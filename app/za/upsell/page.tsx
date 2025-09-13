@@ -38,7 +38,8 @@ export default function SouthAfricaUpsellPage() {
           country: 'za', 
           tier: 'mastery',
           productId: 'import-mastery-za',
-          email: email
+          email: email,
+          isUpgrade: true  // Flag this as an upgrade
         })
       })
       
