@@ -139,12 +139,13 @@ export async function POST(req: NextRequest) {
     // After successful payment, user goes to welcome page that handles the race condition
     // For upgrades, use portal as cancel URL since user already has access
     const successUrl = `${baseUrl}/portal/welcome?session_id={CHECKOUT_SESSION_ID}&payment_status=success`
-    const cancelUrl = isUpgrade ? `${baseUrl}/portal?payment_status=canceled` : `${baseUrl}/packages?payment_status=canceled`
+    const cancelUrl = `${baseUrl}/portal?payment_status=canceled`
     
     console.log('=== STRIPE CHECKOUT URLS ===')
     console.log('Base URL:', baseUrl)
     console.log('Success URL:', successUrl)
     console.log('Cancel URL:', cancelUrl)
+    console.log('Is Upgrade:', isUpgrade)
     console.log('NEXT_PUBLIC_APP_URL:', process.env.NEXT_PUBLIC_APP_URL || 'NOT SET - USING FALLBACK')
     console.log('=========================')
     
