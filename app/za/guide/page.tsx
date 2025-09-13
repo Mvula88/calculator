@@ -161,17 +161,32 @@ export default function SouthAfricaGuidePage() {
           <div className="flex flex-col md:flex-row items-center justify-center gap-6 bg-white/95 backdrop-blur-md rounded-2xl p-6 shadow-2xl border border-white/20">
             <div className="flex -space-x-3">
               {[
-                'https://xsgames.co/randomusers/assets/avatars/male/2.jpg',
-                'https://xsgames.co/randomusers/assets/avatars/female/74.jpg', 
-                'https://xsgames.co/randomusers/assets/avatars/male/3.jpg',
-                'https://xsgames.co/randomusers/assets/avatars/female/46.jpg',
-                'https://xsgames.co/randomusers/assets/avatars/male/75.jpg',
-                'https://xsgames.co/randomusers/assets/avatars/female/2.jpg'
-              ].map((avatar, i) => (
+                {
+                  src: 'https://images.unsplash.com/photo-1507081323647-4d250478b919?w=150&h=150&fit=crop',
+                  name: 'Thabo M.',
+                  location: 'Johannesburg'
+                },
+                {
+                  src: 'https://images.unsplash.com/photo-1506277886164-e25aa3f4ef7f?w=150&h=150&fit=crop',
+                  name: 'Sipho K.',
+                  location: 'Cape Town'
+                },
+                {
+                  src: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop',
+                  name: 'Lungi N.',
+                  location: 'Durban'
+                },
+                {
+                  src: 'https://images.unsplash.com/photo-1589156280159-27698a70f29e?w=150&h=150&fit=crop',
+                  name: 'Zanele P.',
+                  location: 'Pretoria'
+                }
+              ].map((customer, i) => (
                 <img 
                   key={i} 
-                  src={avatar}
-                  alt={`Happy customer ${i + 1}`}
+                  src={customer.src}
+                  alt={`${customer.name} from ${customer.location}`}
+                  title={`${customer.name} - ${customer.location}`}
                   className="w-12 h-12 rounded-full border-3 border-white shadow-md object-cover"
                 />
               ))}

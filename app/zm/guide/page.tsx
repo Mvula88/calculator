@@ -159,17 +159,32 @@ export default function ZambiaGuidePage() {
           <div className="flex flex-col md:flex-row items-center justify-center gap-6 bg-white/95 backdrop-blur-md rounded-2xl p-6 shadow-2xl border border-white/20">
             <div className="flex -space-x-3">
               {[
-                'https://xsgames.co/randomusers/assets/avatars/male/5.jpg',
-                'https://xsgames.co/randomusers/assets/avatars/female/48.jpg', 
-                'https://xsgames.co/randomusers/assets/avatars/male/77.jpg',
-                'https://xsgames.co/randomusers/assets/avatars/female/4.jpg',
-                'https://xsgames.co/randomusers/assets/avatars/male/48.jpg',
-                'https://xsgames.co/randomusers/assets/avatars/female/77.jpg'
-              ].map((avatar, i) => (
+                {
+                  src: 'https://images.unsplash.com/photo-1507081323647-4d250478b919?w=150&h=150&fit=crop',
+                  name: 'Mwamba C.',
+                  location: 'Lusaka'
+                },
+                {
+                  src: 'https://images.unsplash.com/photo-1506277886164-e25aa3f4ef7f?w=150&h=150&fit=crop',
+                  name: 'Chanda M.',
+                  location: 'Ndola'
+                },
+                {
+                  src: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop',
+                  name: 'Bupe K.',
+                  location: 'Kitwe'
+                },
+                {
+                  src: 'https://images.unsplash.com/photo-1589156280159-27698a70f29e?w=150&h=150&fit=crop',
+                  name: 'Mutale N.',
+                  location: 'Livingstone'
+                }
+              ].map((customer, i) => (
                 <img 
                   key={i} 
-                  src={avatar}
-                  alt={`Happy customer ${i + 1}`}
+                  src={customer.src}
+                  alt={`${customer.name} from ${customer.location}`}
+                  title={`${customer.name} - ${customer.location}`}
                   className="w-12 h-12 rounded-full border-3 border-white shadow-md object-cover"
                 />
               ))}
