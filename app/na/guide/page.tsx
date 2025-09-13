@@ -216,12 +216,10 @@ export default function NamibiaGuidePage() {
           <div className="flex flex-col md:flex-row items-center justify-center gap-6 bg-white/95 backdrop-blur-md rounded-2xl p-6 shadow-2xl border border-white/20">
             <div className="flex -space-x-3">
               {[
-                'https://xsgames.co/randomusers/assets/avatars/male/74.jpg',
-                'https://xsgames.co/randomusers/assets/avatars/female/45.jpg', 
-                'https://xsgames.co/randomusers/assets/avatars/male/46.jpg',
-                'https://xsgames.co/randomusers/assets/avatars/female/76.jpg',
-                'https://xsgames.co/randomusers/assets/avatars/male/78.jpg',
-                'https://xsgames.co/randomusers/assets/avatars/female/1.jpg'
+                'https://randomuser.me/api/portraits/men/86.jpg', // Older professional man
+                'https://randomuser.me/api/portraits/women/72.jpg', // Professional woman
+                'https://randomuser.me/api/portraits/men/18.jpg', // Young professional man
+                'https://randomuser.me/api/portraits/women/17.jpg' // Young professional woman
               ].map((avatar, i) => (
                 <img 
                   key={i} 
