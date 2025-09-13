@@ -93,49 +93,56 @@ export default function ExitIntentPopup({ country }: ExitIntentPopupProps) {
         <div className="bg-gradient-to-r from-red-600 to-orange-600 text-white p-6 pb-8">
           <div className="flex items-center gap-3 mb-4">
             <AlertTriangle className="h-8 w-8 animate-pulse" />
-            <h2 className="text-2xl font-bold">WAIT! You're About to Miss This Forever!</h2>
+            <h2 className="text-2xl font-bold">WAIT! You're About to Lose {countryPricing.currency}3,000 in Savings!</h2>
           </div>
-          <p className="text-lg">These exclusive bonuses expire when you leave...</p>
+          <p className="text-lg">This special pricing expires when you leave this page...</p>
         </div>
 
         {/* Content */}
         <div className="p-6 -mt-4">
           <div className="bg-yellow-50 border-2 border-yellow-300 rounded-xl p-4 mb-6">
             <p className="text-2xl font-black text-center mb-2">
-              🎁 3 EXCLUSIVE BONUSES
+              ⚠️ YOU'RE LEAVING WITHOUT:
             </p>
             <p className="text-center text-gray-700 font-semibold">
-              Worth {countryPricing.currency}2,500+ (Not Sold Separately)
+              The Exact Tools That Save Importers {countryPricing.currency}65,000+
             </p>
           </div>
 
           <div className="space-y-4 mb-6">
             <div className="flex items-start gap-3">
-              <span className="text-2xl">🚫</span>
+              <span className="text-2xl">❌</span>
               <div>
-                <p className="font-bold text-red-600">BONUS #1: WhatsApp VIP Group Access</p>
-                <p className="text-sm text-gray-600">Direct access to successful importers & instant answers (Worth {countryPricing.currency}999)</p>
+                <p className="font-bold text-red-600">The LIVE Duty Calculator</p>
+                <p className="text-sm text-gray-600">That instantly shows you exact costs BEFORE buying (saves {countryPricing.currency}15,000+ on wrong calculations)</p>
               </div>
             </div>
             <div className="flex items-start gap-3">
-              <span className="text-2xl">🚫</span>
+              <span className="text-2xl">❌</span>
               <div>
-                <p className="font-bold text-red-600">BONUS #2: Verified Agent Black Book</p>
-                <p className="text-sm text-gray-600">Our private list of 23 trusted agents with negotiated rates (Worth {countryPricing.currency}799)</p>
+                <p className="font-bold text-red-600">Step-by-Step Walvis Bay/Durban Port Navigation</p>
+                <p className="text-sm text-gray-600">Exact offices, forms, and order to clear customs in 3 days instead of 2 weeks</p>
               </div>
             </div>
             <div className="flex items-start gap-3">
-              <span className="text-2xl">🚫</span>
+              <span className="text-2xl">❌</span>
               <div>
-                <p className="font-bold text-red-600">BONUS #3: 1-on-1 Import Review Call</p>
-                <p className="text-sm text-gray-600">30-min personal consultation for your first import (Worth {countryPricing.currency}750)</p>
+                <p className="font-bold text-red-600">The 5 Scams That Cost {countryPricing.currency}45,000</p>
+                <p className="text-sm text-gray-600">Real importer stories & exactly how to avoid each costly mistake</p>
+              </div>
+            </div>
+            <div className="flex items-start gap-3">
+              <span className="text-2xl">❌</span>
+              <div>
+                <p className="font-bold text-red-600">Lifetime Updates & New Regulations</p>
+                <p className="text-sm text-gray-600">Laws change monthly - one wrong form costs {countryPricing.currency}5,000 in penalties</p>
               </div>
             </div>
           </div>
           
           <div className="bg-red-50 border border-red-200 rounded-lg p-3 mb-4">
             <p className="text-sm text-red-700 font-medium text-center">
-              ⚠️ These bonuses are ONLY available right now. Once you leave, they're gone forever.
+              ⚠️ Remember: One mistake = {countryPricing.currency}45,000 lost. The guide pays for itself 20X over.
             </p>
           </div>
 
@@ -149,17 +156,17 @@ export default function ExitIntentPopup({ country }: ExitIntentPopupProps) {
 
           {/* CTA Buttons */}
           <div className="space-y-3">
-            <Link href={`/register?country=${country}&package=mastery&bonuses=vip`}>
+            <Link href={`/register?country=${country}&package=mastery`}>
               <Button className="w-full h-12 text-lg font-bold bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700">
-                Yes! Lock In My Bonuses Now
-                <Gift className="ml-2 h-5 w-5" />
+                Yes! I Want to Save {countryPricing.currency}65,000 on My Import
+                <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </Link>
             <button
               onClick={handleClose}
               className="w-full text-sm text-gray-500 hover:text-gray-700"
             >
-              No thanks, I'll figure it out alone without help
+              No thanks, I'll risk losing {countryPricing.currency}45,000 in mistakes
             </button>
           </div>
         </div>
