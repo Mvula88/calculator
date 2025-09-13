@@ -217,22 +217,22 @@ export default function NamibiaGuidePage() {
             <div className="flex -space-x-3">
               {[
                 {
-                  src: 'https://randomuser.me/api/portraits/men/86.jpg',
+                  src: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop',
                   name: 'Johannes M.',
                   location: 'Windhoek'
                 },
                 {
-                  src: 'https://randomuser.me/api/portraits/women/72.jpg',
+                  src: 'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=150&h=150&fit=crop',
                   name: 'Maria N.',
                   location: 'Swakopmund'
                 },
                 {
-                  src: 'https://randomuser.me/api/portraits/men/18.jpg',
+                  src: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&h=150&fit=crop',
                   name: 'Petrus K.',
                   location: 'Oshakati'
                 },
                 {
-                  src: 'https://randomuser.me/api/portraits/women/17.jpg',
+                  src: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop',
                   name: 'Elizabeth S.',
                   location: 'Walvis Bay'
                 }
