@@ -218,12 +218,20 @@ export default function PortalPage() {
               </div>
             </div>
             {!isMastery && (
-              <Link href="/na/upsell">
-                <Button size="sm" className="w-full sm:w-auto bg-white text-purple-600 hover:bg-gray-100">
-                  <Zap className="h-4 w-4 mr-1" />
-                  Upgrade
-                </Button>
-              </Link>
+              <Button 
+                size="sm" 
+                className="w-full sm:w-auto bg-white text-purple-600 hover:bg-gray-100"
+                onClick={() => {
+                  // Store the user's email before redirecting
+                  if (userEmail) {
+                    localStorage.setItem('checkout_email', userEmail)
+                  }
+                  window.location.href = '/na/upsell'
+                }}
+              >
+                <Zap className="h-4 w-4 mr-1" />
+                Upgrade
+              </Button>
             )}
           </div>
         </div>

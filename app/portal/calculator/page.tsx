@@ -138,12 +138,20 @@ export default function DutyCalculator() {
               </ul>
             </div>
             <div className="space-y-3">
-              <Link href="/na/upsell">
-                <Button className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700">
-                  <Star className="h-4 w-4 mr-2" />
-                  Upgrade to Import Mastery
-                </Button>
-              </Link>
+              <Button 
+                className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700"
+                onClick={() => {
+                  // Store the user's email before redirecting
+                  const email = userEmail || localStorage.getItem('userEmail')
+                  if (email) {
+                    localStorage.setItem('checkout_email', email)
+                  }
+                  window.location.href = '/na/upsell'
+                }}
+              >
+                <Star className="h-4 w-4 mr-2" />
+                Upgrade to Import Mastery
+              </Button>
               <div>
                 <Link href="/portal" className="text-sm text-gray-600 hover:underline">
                   Back to Portal

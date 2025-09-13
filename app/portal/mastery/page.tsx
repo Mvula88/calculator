@@ -86,12 +86,18 @@ export default async function PortalMasteryPage() {
           <p className="text-gray-600 mb-4">
             This section is exclusive to Import Mastery members. Upgrade to access premium tools and resources.
           </p>
-          <a 
-            href={`/${entitlement?.country || 'na'}/upsell`}
+          <button 
+            onClick={() => {
+              // Store the user's email before redirecting
+              if (userEmail) {
+                localStorage.setItem('checkout_email', userEmail)
+              }
+              window.location.href = `/${entitlement?.country || 'na'}/upsell`
+            }}
             className="inline-block bg-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-purple-700 transition-colors"
           >
             Upgrade to Import Mastery →
-          </a>
+          </button>
         </Card>
       </div>
     )
