@@ -19,6 +19,16 @@ export default function GuideHeader({
   primaryColor = 'blue-600',
   secondaryColor = 'purple-600'
 }: GuideHeaderProps) {
+  // Dynamic gradient based on country
+  const gradients = {
+    na: 'from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700',
+    za: 'from-green-600 to-yellow-600 hover:from-green-700 hover:to-yellow-700',
+    bw: 'from-blue-600 to-sky-600 hover:from-blue-700 hover:to-sky-700',
+    zm: 'from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700'
+  }
+  
+  const currentGradient = gradients[country as keyof typeof gradients] || gradients.na
+  
   return (
     <header className="bg-white border-b border-gray-200 shadow-sm sticky top-0 z-40">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
@@ -38,25 +48,25 @@ export default function GuideHeader({
           </div>
 
           {/* Center Trust Badge - Hidden on mobile */}
-          <div className="hidden lg:flex items-center gap-2 bg-green-50 px-4 py-2 rounded-full">
+          <div className="hidden lg:flex items-center gap-2 bg-gradient-to-r from-green-50 to-emerald-50 px-4 py-2 rounded-full border border-green-200">
             <BadgeCheck className="h-4 w-4 text-green-600" />
-            <span className="text-sm font-medium text-green-700">Trusted by {trusted}</span>
+            <span className="text-sm font-semibold text-green-700">Trusted by {trusted}</span>
           </div>
 
           {/* Right Section - Login and Country Selector */}
-          <div className="flex items-center gap-2 sm:gap-4">
+          <div className="flex items-center gap-2 sm:gap-3">
             <Link href="/auth/login">
               <Button 
                 variant="default" 
                 size="sm" 
-                className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white shadow-md text-xs sm:text-sm px-3 sm:px-4"
+                className={`flex items-center gap-1.5 sm:gap-2 bg-gradient-to-r ${currentGradient} text-white shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 text-xs sm:text-sm px-3 sm:px-5 py-2 sm:py-2.5 font-semibold rounded-lg border border-white/20`}
               >
-                <User className="h-3 w-3 sm:h-4 sm:w-4" />
+                <User className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                 <span className="hidden sm:inline">Already Paid?</span>
-                <span>Login</span>
+                <span className="font-bold">Login</span>
               </Button>
             </Link>
-            <HeaderCountrySelector />
+            <HeaderCountrySelector country={country} />
           </div>
         </div>
       </div>
