@@ -260,7 +260,7 @@ export default function ZambiaGuidePage() {
           
           <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
             {/* Mistake Guide */}
-            <div className={`relative ${selectedTier === 'mistake' ? 'scale-105' : ''} transition-transform`}>
+            <div className="relative">
               <Card className="h-full border-2 hover:shadow-xl transition-shadow">
                 <div className="p-8">
                   <div className="flex items-center justify-between mb-6">

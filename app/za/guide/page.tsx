@@ -263,8 +263,8 @@ export default function SouthAfricaGuidePage() {
           
           <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
             {/* Mistake Guide */}
-            <div className={`relative ${selectedTier === 'mistake' ? 'scale-105' : ''} transition-transform`}>
-              <Card className={`h-full ${selectedTier === 'mistake' ? 'border-4 border-green-500 shadow-2xl' : 'border-2'}`}>
+            <div className="relative">
+              <Card className="h-full border-2 hover:shadow-xl transition-shadow">
                 <div className="p-8">
                   <div className="flex items-center justify-between mb-6">
                     <div>
@@ -311,7 +311,7 @@ export default function SouthAfricaGuidePage() {
             </div>
 
             {/* Import Mastery */}
-            <div className={`relative ${selectedTier === 'mastery' ? 'scale-105' : ''} transition-transform`}>
+            <div className="relative">
               {/* Popular Badge */}
               <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-10">
                 <div className="bg-gradient-to-r from-green-600 to-yellow-600 text-white px-6 py-2 rounded-full shadow-lg flex items-center gap-2">
@@ -321,7 +321,7 @@ export default function SouthAfricaGuidePage() {
                 </div>
               </div>
               
-              <Card className={`h-full ${selectedTier === 'mastery' ? 'border-4 border-green-500 shadow-2xl' : 'border-2'} bg-gradient-to-br from-green-50 to-yellow-50`}>
+              <Card className="h-full border-2 border-green-400 shadow-xl bg-gradient-to-br from-green-50 to-yellow-50">
                 <div className="p-8">
                   <div className="flex items-center justify-between mb-6">
                     <div>
