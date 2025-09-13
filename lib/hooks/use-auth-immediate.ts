@@ -73,10 +73,14 @@ export function useAuthImmediate(): UseAuthReturn {
             
             // Try to get tier but don't wait long
             try {
+              // Check by both user_id AND email (since webhook might create with email only)
               const tierPromise = supabase
                 .from('entitlements')
                 .select('tier')
-                .eq('user_id', result.data.session.user.id)
+                .or(`user_id.eq.${result.data.session.user.id},email.eq.${result.data.session.user.email}`)
+                .eq('active', true)
+                .order('created_at', { ascending: false })
+                .limit(1)
                 .single()
               
               const tierTimeout = new Promise((_, reject) => 

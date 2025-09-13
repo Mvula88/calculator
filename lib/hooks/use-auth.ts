@@ -28,11 +28,14 @@ export function useAuth(): UseAuthReturn {
         setUser(user)
 
         if (user) {
-          // Get user's entitlements
+          // Get user's entitlements - check by both user_id and email
           const { data: entitlements } = await supabase
             .from('entitlements')
             .select('tier')
-            .eq('user_id', user.id)
+            .or(`user_id.eq.${user.id},email.eq.${user.email}`)
+            .eq('active', true)
+            .order('created_at', { ascending: false })
+            .limit(1)
             .single()
           
           setUserTier(entitlements?.tier || null)
@@ -51,11 +54,14 @@ export function useAuth(): UseAuthReturn {
       setUser(session?.user || null)
       
       if (session?.user) {
-        // Get user's entitlements
+        // Get user's entitlements - check by both user_id and email
         const { data: entitlements } = await supabase
           .from('entitlements')
           .select('tier')
-          .eq('user_id', session.user.id)
+          .or(`user_id.eq.${session.user.id},email.eq.${session.user.email}`)
+          .eq('active', true)
+          .order('created_at', { ascending: false })
+          .limit(1)
           .single()
         
         setUserTier(entitlements?.tier || null)
