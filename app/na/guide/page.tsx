@@ -217,8 +217,8 @@ export default function NamibiaGuidePage() {
             <div className="flex -space-x-3">
               {[
                 {
-                  src: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop',
-                  name: 'Johannes M.',
+                  src: 'https://images.unsplash.com/photo-1506277886164-e25aa3f4ef7f?w=150&h=150&fit=crop',
+                  name: 'Samuel K.',
                   location: 'Windhoek'
                 },
                 {
@@ -227,8 +227,8 @@ export default function NamibiaGuidePage() {
                   location: 'Swakopmund'
                 },
                 {
-                  src: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&h=150&fit=crop',
-                  name: 'Petrus K.',
+                  src: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop',
+                  name: 'Petrus T.',
                   location: 'Oshakati'
                 },
                 {
