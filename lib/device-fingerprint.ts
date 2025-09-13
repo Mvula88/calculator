@@ -1,7 +1,5 @@
 'use client'
 
-import { createHash } from 'crypto'
-
 interface DeviceInfo {
   fingerprint: string
   type: 'phone' | 'computer'

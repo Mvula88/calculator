@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { createClient } from '@/utils/supabase/server'
+import { createClient } from '@/lib/supabase/server'
 import { checkDeviceLimit, enforceSessionLimit } from '@/lib/device-enforcement'
 
 export async function POST(request: NextRequest) {
