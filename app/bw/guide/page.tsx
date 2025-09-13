@@ -83,19 +83,20 @@ export default function BotswanaGuidePage() {
           
           <h1 className="text-5xl md:text-7xl font-black text-center mb-6 leading-tight">
             <span className="text-white drop-shadow-2xl">
-              Stop Paying Dealers
+              Japanese Cars Are
             </span>
             <br />
             <span className="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent drop-shadow-2xl">
-              P50,000+ Markups
+              45% Cheaper
             </span>
           </h1>
           
           <p className="text-xl md:text-2xl text-white text-center mb-8 max-w-3xl mx-auto leading-relaxed drop-shadow-lg">
-            The same import process dealers charge <span className="font-bold text-red-400">P80,000</span> for,
-            you can do yourself for <span className="font-bold text-blue-400">P15,000</span> in agent fees.
+            <span className="font-bold text-yellow-300">50,000+ quality used cars</span> available in Japan RIGHT NOW.
             <br />
-            <span className="text-lg text-gray-200 mt-2 block">We show you exactly how. Step by step.</span>
+            <span className="text-lg mt-2 block">We're <span className="font-bold text-blue-400">exposing the entire import process</span> with EXACT steps, forms, and contacts.</span>
+            <br />
+            <span className="text-lg text-gray-200 block">IMPOTA teaches you how to import cars yourself — step by step.</span>
           </p>
           
           {/* Value Props */}
