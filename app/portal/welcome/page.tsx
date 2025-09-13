@@ -18,13 +18,23 @@ function WelcomeContent() {
   const sessionId = searchParams.get('session_id')
   const paymentStatus = searchParams.get('payment_status')
   
+  // Log the parameters for debugging
+  console.log('Welcome page loaded with:', { sessionId, paymentStatus })
+  
   useEffect(() => {
-    // If coming from a successful payment, check entitlement
-    if (paymentStatus === 'success' && sessionId) {
+    // Always check for payment success first
+    if (paymentStatus === 'success') {
+      // Even without sessionId, this is a successful payment redirect
+      console.log('Payment successful, checking entitlement...')
       checkEntitlement()
-    } else {
-      // If no payment info, still check if user has entitlement (they might be logged in)
+    } else if (!paymentStatus && !sessionId) {
+      // Only check general access if no payment parameters at all
+      console.log('No payment parameters, checking if user has access...')
       checkIfUserHasAccess()
+    } else {
+      // Has payment parameters but not success - likely canceled
+      console.log('Payment not successful or canceled')
+      setStatus('error')
     }
   }, [sessionId, paymentStatus])
   
@@ -36,25 +46,30 @@ function WelcomeContent() {
       if (user) {
         setUserEmail(user.email || null)
         
-        // Check if user has any active entitlement
+        // Check if user has any active entitlement - use OR for email/user_id
         const { data: entitlements } = await supabase
           .from('entitlements')
           .select('*')
-          .eq('email', user.email || '')
+          .or(`email.eq.${user.email?.toLowerCase()},user_id.eq.${user.id}`)
           .eq('active', true)
           .limit(1)
         
         if (entitlements && entitlements.length > 0) {
+          console.log('User has entitlement, redirecting to portal')
           // User has access, redirect to portal
           setStatus('success')
           setTimeout(() => {
             router.push('/portal')
           }, 1000)
         } else {
-          // User is logged in but has no access
-          setStatus('error')
+          console.log('No entitlements found for user, but they are logged in')
+          // For logged in users on welcome page, keep checking
+          // They might have just upgraded and webhook is processing
+          setStatus('waiting')
+          checkEntitlement()
         }
       } else {
+        console.log('No user logged in')
         // No user logged in, try to get them to login
         setStatus('error')
       }
@@ -77,14 +92,22 @@ function WelcomeContent() {
           setUserEmail(user.email || null)
         }
         
-        // Check for entitlement
-        const { data: entitlements, error } = await supabase
-          .from('entitlements')
-          .select('*')
-          .eq('email', user?.email || '')
-          .eq('active', true)
-          .order('created_at', { ascending: false })
-          .limit(1)
+        // Check for entitlement using both email and user_id
+        let entitlements = null
+        let error = null
+        
+        if (user?.email) {
+          const result = await supabase
+            .from('entitlements')
+            .select('*')
+            .or(`email.eq.${user.email.toLowerCase()},user_id.eq.${user.id}`)
+            .eq('active', true)
+            .order('created_at', { ascending: false })
+            .limit(1)
+          
+          entitlements = result.data
+          error = result.error
+        }
         
         if (entitlements && entitlements.length > 0) {
           setStatus('success')
