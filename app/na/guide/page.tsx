@@ -227,8 +227,8 @@ export default function NamibiaGuidePage() {
                   location: 'Swakopmund'
                 },
                 {
-                  src: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop',
-                  name: 'Petrus T.',
+                  src: 'https://images.unsplash.com/photo-1507081323647-4d250478b919?w=150&h=150&fit=crop',
+                  name: 'David N.',
                   location: 'Oshakati'
                 },
                 {
