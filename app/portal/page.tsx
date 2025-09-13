@@ -79,23 +79,30 @@ export default function PortalPage() {
   if (!entitlement || !userTier) {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
-        <div className="text-center">
-          <h2 className="text-2xl font-bold mb-4">Welcome {userEmail}!</h2>
-          <p className="text-gray-600 mb-6">You need to purchase a package to access the portal content.</p>
-          <Button 
-            onClick={() => {
-              window.location.href = '/packages'
-            }}
-          >
-            View Packages
-          </Button>
-          <div className="mt-4">
-            <Link 
-              href="/packages" 
-              className="text-blue-600 hover:underline text-sm"
+        <div className="text-center max-w-md">
+          <h2 className="text-2xl font-bold mb-4">Welcome to IMPOTA Portal!</h2>
+          <p className="text-gray-600 mb-6">
+            {userEmail ? `Hi ${userEmail}, ` : ''}
+            Choose a package to access our comprehensive import guides and tools.
+          </p>
+          <div className="space-y-4">
+            <Button 
+              onClick={() => {
+                window.location.href = '/na/guide'
+              }}
+              className="w-full"
             >
-              Or click here to view packages
-            </Link>
+              View Import Guide
+            </Button>
+            <Button 
+              onClick={() => {
+                window.location.href = '/auth/login'
+              }}
+              variant="outline"
+              className="w-full"
+            >
+              Login with Different Account
+            </Button>
           </div>
         </div>
       </div>
