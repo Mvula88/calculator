@@ -217,22 +217,22 @@ export default function NamibiaGuidePage() {
             <div className="flex -space-x-3">
               {[
                 {
-                  src: '/avatars/namibia-1.jpg',
+                  src: '/avatars/namibia-1.png',
                   name: 'Samuel K.',
                   location: 'Windhoek'
                 },
                 {
-                  src: '/avatars/namibia-2.jpg',
+                  src: '/avatars/namibia-2.png',
                   name: 'Maria N.',
                   location: 'Swakopmund'
                 },
                 {
-                  src: '/avatars/namibia-3.jpg',
+                  src: '/avatars/namibia-3.png',
                   name: 'David N.',
                   location: 'Oshakati'
                 },
                 {
-                  src: '/avatars/namibia-4.jpg',
+                  src: '/avatars/namibia-4.png',
                   name: 'Selma T.',
                   location: 'Walvis Bay'
                 }
