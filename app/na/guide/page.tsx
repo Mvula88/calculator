@@ -209,7 +209,7 @@ export default function NamibiaGuidePage() {
                 </Button>
               </Link>
             </div>
-            <p className="text-sm text-gray-600 mt-4">Instant access • Lifetime updates • 30-day guarantee</p>
+            <p className="text-sm text-white text-center mt-4">Instant access • Lifetime updates • 30-day guarantee</p>
           </div>
 
           {/* Social Proof Bar */}

@@ -152,6 +152,7 @@ export default function ZambiaGuidePage() {
                 </Button>
               </Link>
             </div>
+            <p className="text-sm text-white text-center mt-4">Instant access • Lifetime updates • 30-day guarantee</p>
           </div>
 
           {/* Social Proof Bar */}
