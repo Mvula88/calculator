@@ -161,12 +161,12 @@ export default function BotswanaGuidePage() {
           <div className="flex flex-col md:flex-row items-center justify-center gap-6 bg-white/95 backdrop-blur-md rounded-2xl p-6 shadow-2xl border border-white/20">
             <div className="flex -space-x-3">
               {[
-                'https://i.pravatar.cc/150?img=15',
-                'https://i.pravatar.cc/150?img=16', 
-                'https://i.pravatar.cc/150?img=17',
-                'https://i.pravatar.cc/150?img=18',
-                'https://i.pravatar.cc/150?img=19',
-                'https://i.pravatar.cc/150?img=20'
+                'https://xsgames.co/randomusers/assets/avatars/male/47.jpg',
+                'https://xsgames.co/randomusers/assets/avatars/female/3.jpg', 
+                'https://xsgames.co/randomusers/assets/avatars/male/76.jpg',
+                'https://xsgames.co/randomusers/assets/avatars/female/75.jpg',
+                'https://xsgames.co/randomusers/assets/avatars/male/4.jpg',
+                'https://xsgames.co/randomusers/assets/avatars/female/47.jpg'
               ].map((avatar, i) => (
                 <img 
                   key={i} 

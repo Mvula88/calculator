@@ -161,12 +161,12 @@ export default function SouthAfricaGuidePage() {
           <div className="flex flex-col md:flex-row items-center justify-center gap-6 bg-white/95 backdrop-blur-md rounded-2xl p-6 shadow-2xl border border-white/20">
             <div className="flex -space-x-3">
               {[
-                'https://i.pravatar.cc/150?img=7',
-                'https://i.pravatar.cc/150?img=10', 
-                'https://i.pravatar.cc/150?img=11',
-                'https://i.pravatar.cc/150?img=12',
-                'https://i.pravatar.cc/150?img=9',
-                'https://i.pravatar.cc/150?img=14'
+                'https://xsgames.co/randomusers/assets/avatars/male/2.jpg',
+                'https://xsgames.co/randomusers/assets/avatars/female/74.jpg', 
+                'https://xsgames.co/randomusers/assets/avatars/male/3.jpg',
+                'https://xsgames.co/randomusers/assets/avatars/female/46.jpg',
+                'https://xsgames.co/randomusers/assets/avatars/male/75.jpg',
+                'https://xsgames.co/randomusers/assets/avatars/female/2.jpg'
               ].map((avatar, i) => (
                 <img 
                   key={i} 

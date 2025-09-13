@@ -216,12 +216,12 @@ export default function NamibiaGuidePage() {
           <div className="flex flex-col md:flex-row items-center justify-center gap-6 bg-white/95 backdrop-blur-md rounded-2xl p-6 shadow-2xl border border-white/20">
             <div className="flex -space-x-3">
               {[
-                'https://i.pravatar.cc/150?img=1',
-                'https://i.pravatar.cc/150?img=2', 
-                'https://i.pravatar.cc/150?img=3',
-                'https://i.pravatar.cc/150?img=8',
-                'https://i.pravatar.cc/150?img=5',
-                'https://i.pravatar.cc/150?img=6'
+                'https://xsgames.co/randomusers/assets/avatars/male/74.jpg',
+                'https://xsgames.co/randomusers/assets/avatars/female/45.jpg', 
+                'https://xsgames.co/randomusers/assets/avatars/male/46.jpg',
+                'https://xsgames.co/randomusers/assets/avatars/female/76.jpg',
+                'https://xsgames.co/randomusers/assets/avatars/male/78.jpg',
+                'https://xsgames.co/randomusers/assets/avatars/female/1.jpg'
               ].map((avatar, i) => (
                 <img 
                   key={i} 

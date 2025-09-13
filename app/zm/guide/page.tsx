@@ -159,12 +159,12 @@ export default function ZambiaGuidePage() {
           <div className="flex flex-col md:flex-row items-center justify-center gap-6 bg-white/95 backdrop-blur-md rounded-2xl p-6 shadow-2xl border border-white/20">
             <div className="flex -space-x-3">
               {[
-                'https://i.pravatar.cc/150?img=21',
-                'https://i.pravatar.cc/150?img=22', 
-                'https://i.pravatar.cc/150?img=23',
-                'https://i.pravatar.cc/150?img=24',
-                'https://i.pravatar.cc/150?img=25',
-                'https://i.pravatar.cc/150?img=26'
+                'https://xsgames.co/randomusers/assets/avatars/male/5.jpg',
+                'https://xsgames.co/randomusers/assets/avatars/female/48.jpg', 
+                'https://xsgames.co/randomusers/assets/avatars/male/77.jpg',
+                'https://xsgames.co/randomusers/assets/avatars/female/4.jpg',
+                'https://xsgames.co/randomusers/assets/avatars/male/48.jpg',
+                'https://xsgames.co/randomusers/assets/avatars/female/77.jpg'
               ].map((avatar, i) => (
                 <img 
                   key={i} 
