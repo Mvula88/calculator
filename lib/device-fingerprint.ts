@@ -17,12 +17,16 @@ export function getDeviceFingerprint(): DeviceInfo {
     }
   }
 
+  // Check if we already have a device ID stored
+  let deviceId = localStorage.getItem('device_id')
+  
+  // If no device ID exists, generate one and store it
+  if (!deviceId) {
+    deviceId = generateDeviceId()
+    localStorage.setItem('device_id', deviceId)
+  }
+
   const userAgent = navigator.userAgent
-  const screenResolution = `${screen.width}x${screen.height}`
-  const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone
-  const language = navigator.language
-  const platform = navigator.platform
-  const vendor = navigator.vendor
   
   // Detect device type
   const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent)
@@ -38,29 +42,27 @@ export function getDeviceFingerprint(): DeviceInfo {
   else if (/Mac/.test(userAgent)) deviceName = 'Mac'
   else if (/Linux/.test(userAgent)) deviceName = 'Linux PC'
   
-  // Create fingerprint from multiple factors
-  const fingerprintData = [
-    userAgent,
-    screenResolution,
-    timezone,
-    language,
-    platform,
-    vendor,
-    // Add canvas fingerprint for extra uniqueness
-    getCanvasFingerprint(),
-    // Add WebGL info
-    getWebGLFingerprint()
-  ].join('|')
-  
-  // Hash the fingerprint for consistency
-  const fingerprint = hashString(fingerprintData)
-  
   return {
-    fingerprint,
+    fingerprint: deviceId,
     type: deviceType,
     name: deviceName,
     userAgent
   }
+}
+
+// Generate a unique device ID that persists
+function generateDeviceId(): string {
+  const random = Math.random().toString(36).substring(2, 15)
+  const timestamp = Date.now().toString(36)
+  const browserData = [
+    navigator.userAgent,
+    screen.width,
+    screen.height,
+    navigator.language,
+    new Date().getTimezoneOffset()
+  ].join('-')
+  
+  return `device-${timestamp}-${random}-${hashString(browserData)}`
 }
 
 function getCanvasFingerprint(): string {
