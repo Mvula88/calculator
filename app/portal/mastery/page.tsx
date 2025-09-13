@@ -4,6 +4,7 @@ import { redirect } from 'next/navigation'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Lock, Users, Calculator, Globe, AlertTriangle, Star, ExternalLink, Shield, DollarSign, Ship, CheckCircle } from 'lucide-react'
+import UpgradeButton from './upgrade-button'
 
 async function getUserEntitlement(userId: string, email?: string) {
   const supabase = createServiceClient()
@@ -86,18 +87,10 @@ export default async function PortalMasteryPage() {
           <p className="text-gray-600 mb-4">
             This section is exclusive to Import Mastery members. Upgrade to access premium tools and resources.
           </p>
-          <button 
-            onClick={() => {
-              // Store the user's email before redirecting
-              if (userEmail) {
-                localStorage.setItem('checkout_email', userEmail)
-              }
-              window.location.href = `/${entitlement?.country || 'na'}/upsell`
-            }}
-            className="inline-block bg-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-purple-700 transition-colors"
-          >
-            Upgrade to Import Mastery →
-          </button>
+          <UpgradeButton 
+            userEmail={userEmail} 
+            country={entitlement?.country || 'na'} 
+          />
         </Card>
       </div>
     )

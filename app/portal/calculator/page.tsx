@@ -70,7 +70,7 @@ interface CalculationResult {
 }
 
 export default function DutyCalculator() {
-  const { hasAccess, loading, userTier, debugInfo } = useAuthDebug()
+  const { hasAccess, loading, userTier, debugInfo, userEmail } = useAuthDebug()
   const [vehicleValue, setVehicleValue] = useState<string>('')
   const [engineSize, setEngineSize] = useState<string>('')
   const [vehicleType, setVehicleType] = useState<string>('')
