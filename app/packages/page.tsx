@@ -1,7 +1,9 @@
 'use client'
 
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
+import { createClient } from '@/lib/supabase/client'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import Link from 'next/link'
 import { 
@@ -57,10 +59,54 @@ const packages = [
 
 export default function PackagesPage() {
   const router = useRouter()
+  const [checking, setChecking] = useState(true)
+
+  useEffect(() => {
+    // Check if user already has access
+    checkUserAccess()
+  }, [])
+
+  const checkUserAccess = async () => {
+    try {
+      const supabase = createClient()
+      const { data: { user } } = await supabase.auth.getUser()
+      
+      if (user) {
+        // Check if user has any active entitlement
+        const { data: entitlements } = await supabase
+          .from('entitlements')
+          .select('*')
+          .eq('email', user.email || '')
+          .eq('active', true)
+          .limit(1)
+        
+        if (entitlements && entitlements.length > 0) {
+          // User already has access, redirect to portal
+          router.push('/portal')
+          return
+        }
+      }
+    } catch (error) {
+      console.error('Error checking user access:', error)
+    }
+    
+    setChecking(false)
+  }
 
   const handleSelectPackage = (tier: 'mistake' | 'mastery') => {
     // Redirect to register page with package info
     router.push(`/register?package=${tier}&country=na`)
+  }
+
+  if (checking) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
+          <p className="mt-4 text-gray-600">Loading...</p>
+        </div>
+      </div>
+    )
   }
 
   return (

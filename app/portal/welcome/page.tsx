@@ -19,14 +19,51 @@ function WelcomeContent() {
   const paymentStatus = searchParams.get('payment_status')
   
   useEffect(() => {
-    if (paymentStatus !== 'success' || !sessionId) {
-      router.push('/packages')
-      return
+    // If coming from a successful payment, check entitlement
+    if (paymentStatus === 'success' && sessionId) {
+      checkEntitlement()
+    } else {
+      // If no payment info, still check if user has entitlement (they might be logged in)
+      checkIfUserHasAccess()
     }
-    
-    checkEntitlement()
   }, [sessionId, paymentStatus])
   
+  const checkIfUserHasAccess = async () => {
+    try {
+      const supabase = createClient()
+      const { data: { user } } = await supabase.auth.getUser()
+      
+      if (user) {
+        setUserEmail(user.email || null)
+        
+        // Check if user has any active entitlement
+        const { data: entitlements } = await supabase
+          .from('entitlements')
+          .select('*')
+          .eq('email', user.email || '')
+          .eq('active', true)
+          .limit(1)
+        
+        if (entitlements && entitlements.length > 0) {
+          // User has access, redirect to portal
+          setStatus('success')
+          setTimeout(() => {
+            router.push('/portal')
+          }, 1000)
+        } else {
+          // User is logged in but has no access
+          setStatus('error')
+        }
+      } else {
+        // No user logged in, try to get them to login
+        setStatus('error')
+      }
+    } catch (error) {
+      console.error('Error checking user access:', error)
+      setStatus('error')
+    }
+  }
+
   const checkEntitlement = async () => {
     const maxAttempts = 20 // Check for up to 20 seconds
     
