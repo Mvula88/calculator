@@ -450,10 +450,9 @@ export default function NamibiaGuidePage() {
                       "Verified clearing agent directory",
                       "Japan auction bidding guide",
                       "Container sharing network access",
-                      "WhatsApp priority support group",
-                      "Negotiated shipping rates",
-                      "Video tutorials & walkthroughs",
-                      "Personal import checklist generator"
+                      "Personal import checklist generator",
+                      "Emergency troubleshooting guides",
+                      "Monthly regulation updates"
                     ].map((feature, i) => (
                       <div key={i} className="flex items-start gap-3">
                         <Star className="h-5 w-5 text-yellow-500 flex-shrink-0 mt-0.5" />
