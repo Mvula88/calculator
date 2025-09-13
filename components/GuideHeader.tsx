@@ -47,12 +47,6 @@ export default function GuideHeader({
             </Link>
           </div>
 
-          {/* Center Trust Badge - Hidden on mobile */}
-          <div className="hidden lg:flex items-center gap-2 bg-gradient-to-r from-green-50 to-emerald-50 px-4 py-2 rounded-full border border-green-200">
-            <BadgeCheck className="h-4 w-4 text-green-600" />
-            <span className="text-sm font-semibold text-green-700">Trusted by {trusted}</span>
-          </div>
-
           {/* Right Section - Login and Country Selector */}
           <div className="flex items-center gap-2 sm:gap-3">
             <Link href="/auth/login">
