@@ -40,6 +40,9 @@ import {
 import CountrySelector from '@/components/CountrySelector'
 import GuideHeader from '@/components/GuideHeader'
 import StickySignupHeader from '@/components/StickySignupHeader'
+import ExitIntentPopup from '@/components/ExitIntentPopup'
+import StockCounter from '@/components/StockCounter'
+import PurchaseNotifications from '@/components/PurchaseNotifications'
 
 // SEO-optimized FAQ data - General info only, specifics in paid guide
 const faqs = [
@@ -87,6 +90,12 @@ export default function NamibiaGuidePage() {
     <>
       {/* Hidden H1 for SEO */}
       <h1 className="sr-only">Import Cars from Japan to Namibia 2024 - Complete Walvis Bay Port Guide | Save N$65,000</h1>
+      
+      {/* Exit Intent Popup */}
+      <ExitIntentPopup country="na" />
+      
+      {/* Purchase Notifications */}
+      <PurchaseNotifications country="na" />
       
       <main className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-50" itemScope itemType="https://schema.org/Guide">
       <StickySignupHeader country="na" />
@@ -330,7 +339,11 @@ export default function NamibiaGuidePage() {
           <div className="text-center mb-12">
             <h2 className="text-4xl font-black mb-4">Choose Your Import Success Package</h2>
             <p className="text-xl text-gray-600">Join 12,847+ importers who saved thousands with our guides</p>
-            <p className="text-sm text-red-600 font-bold mt-2">⚠️ Only 23 discounted spots remaining today</p>
+            
+            {/* Stock Counter */}
+            <div className="mt-4 flex justify-center">
+              <StockCounter country="na" />
+            </div>
           </div>
           
           <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
