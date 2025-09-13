@@ -1,8 +1,7 @@
 'use client'
 
-import { useState } from 'react'
+import Link from 'next/link'
 import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
 import { Card, CardContent } from '@/components/ui/card'
 import { 
   CheckCircle, 
@@ -40,46 +39,8 @@ import CountrySelector from '@/components/CountrySelector'
 import GuideHeader from '@/components/GuideHeader'
 import StickySignupHeader from '@/components/StickySignupHeader'
 import FloatingSignupButton from '@/components/FloatingSignupButton'
-import QuickSignupForm from '@/components/QuickSignupForm'
 
 export default function BotswanaGuidePage() {
-  const [email, setEmail] = useState('')
-  const [loading, setLoading] = useState(false)
-  const [selectedTier, setSelectedTier] = useState<'mistake' | 'mastery'>('mastery')
-
-  async function handleCheckout() {
-    setLoading(true)
-    try {
-      localStorage.setItem('checkout_email', email)
-      
-      const res = await fetch('/api/stripe/checkout', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ 
-          country: 'bw', 
-          tier: selectedTier,
-          productId: 'gaborone-guide',
-          email
-        })
-      })
-      
-      const { url, error } = await res.json()
-      
-      if (error) {
-        alert(`Error: ${error}`)
-        return
-      }
-      
-      if (url) {
-        window.location.href = url
-      }
-    } catch (error) {
-      console.error('Checkout error:', error)
-      alert('Failed to start checkout')
-    } finally {
-      setLoading(false)
-    }
-  }
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-50">
@@ -321,20 +282,22 @@ export default function BotswanaGuidePage() {
                     ))}
                   </div>
                   
-                  <Button 
-                    onClick={() => setSelectedTier('mistake')}
-                    variant={selectedTier === 'mistake' ? 'default' : 'outline'}
-                    className="w-full h-12 text-lg font-bold"
-                    size="lg"
-                  >
-                    {selectedTier === 'mistake' ? '✓ Selected' : 'Select Mistake Guide'}
-                  </Button>
+                  <Link href="/register?country=bw&package=mistake">
+                    <Button 
+                      variant="outline"
+                      className="w-full h-12 text-lg font-bold hover:bg-blue-50 border-2 border-blue-200 hover:border-blue-400"
+                      size="lg"
+                    >
+                      Get Mistake Guide
+                      <ArrowRight className="ml-2 h-5 w-5" />
+                    </Button>
+                  </Link>
                 </div>
               </Card>
             </div>
 
             {/* Import Mastery */}
-            <div className={`relative ${selectedTier === 'mastery' ? 'scale-105' : ''} transition-transform`}>
+            <div className="relative">
               {/* Popular Badge */}
               <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-10">
                 <div className="bg-gradient-to-r from-blue-600 to-sky-600 text-white px-6 py-2 rounded-full shadow-lg flex items-center gap-2">
@@ -344,7 +307,7 @@ export default function BotswanaGuidePage() {
                 </div>
               </div>
               
-              <Card className={`h-full ${selectedTier === 'mastery' ? 'border-4 border-blue-500 shadow-2xl' : 'border-2'} bg-gradient-to-br from-blue-50 to-sky-50`}>
+              <Card className="h-full border-2 border-blue-400 shadow-xl bg-gradient-to-br from-blue-50 to-sky-50">
                 <div className="p-8">
                   <div className="flex items-center justify-between mb-6">
                     <div>
@@ -382,21 +345,36 @@ export default function BotswanaGuidePage() {
                     ))}
                   </div>
                   
-                  <Button 
-                    onClick={() => setSelectedTier('mastery')}
-                    className="w-full h-12 text-lg font-bold bg-gradient-to-r from-blue-600 to-sky-600 hover:from-blue-700 hover:to-sky-700"
-                    size="lg"
-                  >
-                    {selectedTier === 'mastery' ? '✓ Selected - Best Value' : 'Select Import Mastery'}
-                  </Button>
+                  <Link href="/register?country=bw&package=mastery">
+                    <Button 
+                      className="w-full h-12 text-lg font-bold bg-gradient-to-r from-blue-600 to-sky-600 hover:from-blue-700 hover:to-sky-700 shadow-lg hover:shadow-xl transition-all"
+                      size="lg"
+                    >
+                      Get Import Mastery - Save P400
+                      <Crown className="ml-2 h-5 w-5" />
+                    </Button>
+                  </Link>
                 </div>
               </Card>
             </div>
           </div>
 
-          {/* Simplified Checkout Section */}
-          <div className="mt-12 max-w-3xl mx-auto">
-            <QuickSignupForm country="bw" variant="default" />
+          {/* Trust Indicators */}
+          <div className="mt-12 text-center">
+            <div className="flex items-center justify-center gap-6 flex-wrap">
+              <div className="flex items-center gap-2">
+                <Shield className="h-5 w-5 text-blue-600" />
+                <span className="text-gray-700 font-medium">Secure Checkout</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Lock className="h-5 w-5 text-sky-600" />
+                <span className="text-gray-700 font-medium">256-bit Encryption</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <BadgeCheck className="h-5 w-5 text-blue-600" />
+                <span className="text-gray-700 font-medium">Instant Access</span>
+              </div>
+            </div>
           </div>
         </div>
       </section>

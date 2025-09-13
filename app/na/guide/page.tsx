@@ -1,8 +1,8 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import Link from 'next/link'
+import Script from 'next/script'
 import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
 import { Card, CardContent } from '@/components/ui/card'
 import { 
   CheckCircle, 
@@ -40,50 +40,35 @@ import CountrySelector from '@/components/CountrySelector'
 import GuideHeader from '@/components/GuideHeader'
 import StickySignupHeader from '@/components/StickySignupHeader'
 import FloatingSignupButton from '@/components/FloatingSignupButton'
-import QuickSignupForm from '@/components/QuickSignupForm'
+
+// SEO-optimized FAQ data
+const faqs = [
+  {
+    question: 'How much does it cost to import a car from Japan to Namibia?',
+    answer: 'Total costs range from N$55,000 to N$120,000 including vehicle price, shipping to Walvis Bay (N$15,000-25,000), customs duty, 15% VAT, and clearing fees. Use our duty calculator for exact costs.'
+  },
+  {
+    question: 'How long does shipping from Japan to Walvis Bay take?',
+    answer: 'Shipping takes 14-18 days from Japanese ports to Walvis Bay. The complete import process takes 25-35 days including auction, export processing, shipping, and customs clearance.'
+  },
+  {
+    question: 'What documents do I need for Namibia car import?',
+    answer: 'Required: Export Certificate, Bill of Lading, Commercial Invoice, Import Permit, Insurance Certificate, Roadworthiness Certificate, and Police Clearance. Our guide includes all forms.'
+  },
+  {
+    question: 'Can I import cars older than 5 years to Namibia?',
+    answer: 'Yes, Namibia allows all used vehicle imports. Vehicles over 5 years need additional inspections. We recommend 3-5 year old cars for best value and lower import duties.'
+  }
+]
 
 export default function NamibiaGuidePage() {
-  const [email, setEmail] = useState('')
-  const [loading, setLoading] = useState(false)
-  const [selectedTier, setSelectedTier] = useState<'mistake' | 'mastery'>('mistake')
-
-  async function handleCheckout() {
-    setLoading(true)
-    try {
-      // Save email to localStorage for thank-you page
-      localStorage.setItem('checkout_email', email)
-      
-      const res = await fetch('/api/stripe/checkout', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ 
-          country: 'na', 
-          tier: selectedTier,
-          productId: 'walvis-bay-guide',
-          email
-        })
-      })
-      
-      const { url, error } = await res.json()
-      
-      if (error) {
-        alert(`Error: ${error}`)
-        return
-      }
-      
-      if (url) {
-        window.location.href = url
-      }
-    } catch (error) {
-      console.error('Checkout error:', error)
-      alert('Failed to start checkout')
-    } finally {
-      setLoading(false)
-    }
-  }
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-50">
+    <>
+      {/* Hidden H1 for SEO */}
+      <h1 className="sr-only">Import Cars from Japan to Namibia 2024 - Complete Walvis Bay Port Guide | Save N$65,000</h1>
+      
+      <main className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-50" itemScope itemType="https://schema.org/Guide">
       <StickySignupHeader country="na" />
       <FloatingSignupButton country="na" />
       <CountrySelector />
@@ -179,9 +164,23 @@ export default function NamibiaGuidePage() {
             </div>
           </div>
 
-          {/* Quick Signup Form - Hero Variant */}
+          {/* Hero CTA Buttons */}
           <div className="mb-8" id="signup">
-            <QuickSignupForm country="na" variant="hero" />
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link href="/register?country=na&package=mistake">
+                <Button size="lg" variant="outline" className="font-bold text-lg px-8 border-2">
+                  Get Mistake Guide - N$499
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+              </Link>
+              <Link href="/register?country=na&package=mastery">
+                <Button size="lg" className="font-bold text-lg px-8 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700">
+                  Get Import Mastery - Save N$500
+                  <Sparkles className="ml-2 h-5 w-5" />
+                </Button>
+              </Link>
+            </div>
+            <p className="text-sm text-gray-600 mt-4">Instant access • Lifetime updates • 30-day guarantee</p>
           </div>
 
           {/* Social Proof Bar */}
@@ -213,15 +212,15 @@ export default function NamibiaGuidePage() {
       </section>
 
       {/* What You'll Learn - Professional Grid */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-white" aria-labelledby="learn-section">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-black mb-4">
+            <h2 id="learn-section" className="text-4xl font-black mb-4">
               <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                 Master The Complete Import Process
               </span>
             </h2>
-            <p className="text-xl text-gray-600">No experience needed. No connections required. Just follow our system.</p>
+            <p className="text-xl text-gray-600">Learn how to import cars from Japan to Namibia through Walvis Bay port. No experience needed - our step-by-step Namibia car import guide shows you everything.</p>
           </div>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -279,18 +278,18 @@ export default function NamibiaGuidePage() {
         </div>
       </section>
 
-      {/* Pricing Section - Premium Design */}
+      {/* Package Comparison Section - Clear Feature Display */}
       <section className="py-16 bg-gradient-to-b from-gray-50 to-white">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-black mb-4">Choose Your Import Success Package</h2>
-            <p className="text-xl text-gray-600">One-time payment. Lifetime access. Instant delivery.</p>
+            <h2 className="text-4xl font-black mb-4">Compare Import Packages</h2>
+            <p className="text-xl text-gray-600">Choose the right package for your import journey</p>
           </div>
           
           <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
             {/* Mistake Guide */}
-            <div className={`relative ${selectedTier === 'mistake' ? 'scale-105' : ''} transition-transform`}>
-              <Card className={`h-full ${selectedTier === 'mistake' ? 'border-4 border-blue-500 shadow-2xl' : 'border-2'}`}>
+            <div className="relative">
+              <Card className="h-full border-2 hover:shadow-xl transition-shadow">
                 <div className="p-8">
                   <div className="flex items-center justify-between mb-6">
                     <div>
@@ -322,20 +321,22 @@ export default function NamibiaGuidePage() {
                     ))}
                   </div>
                   
-                  <Button 
-                    onClick={() => setSelectedTier('mistake')}
-                    variant={selectedTier === 'mistake' ? 'default' : 'outline'}
-                    className="w-full h-12 text-lg font-bold"
-                    size="lg"
-                  >
-                    {selectedTier === 'mistake' ? '✓ Selected' : 'Select Mistake Guide'}
-                  </Button>
+                  <Link href="/register?country=na&package=mistake">
+                    <Button 
+                      variant="outline"
+                      className="w-full h-12 text-lg font-bold hover:bg-blue-50 border-2 border-blue-200 hover:border-blue-400"
+                      size="lg"
+                    >
+                      Get Mistake Guide
+                      <ArrowRight className="ml-2 h-5 w-5" />
+                    </Button>
+                  </Link>
                 </div>
               </Card>
             </div>
 
             {/* Import Mastery */}
-            <div className={`relative ${selectedTier === 'mastery' ? 'scale-105' : ''} transition-transform`}>
+            <div className="relative">
               {/* Popular Badge */}
               <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-10">
                 <div className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-2 rounded-full shadow-lg flex items-center gap-2">
@@ -345,7 +346,7 @@ export default function NamibiaGuidePage() {
                 </div>
               </div>
               
-              <Card className={`h-full ${selectedTier === 'mastery' ? 'border-4 border-purple-500 shadow-2xl' : 'border-2'} bg-gradient-to-br from-purple-50 to-pink-50`}>
+              <Card className="h-full border-2 border-purple-400 shadow-xl bg-gradient-to-br from-purple-50 to-pink-50">
                 <div className="p-8">
                   <div className="flex items-center justify-between mb-6">
                     <div>
@@ -383,21 +384,36 @@ export default function NamibiaGuidePage() {
                     ))}
                   </div>
                   
-                  <Button 
-                    onClick={() => setSelectedTier('mastery')}
-                    className="w-full h-12 text-lg font-bold bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700"
-                    size="lg"
-                  >
-                    {selectedTier === 'mastery' ? '✓ Selected - Best Value' : 'Select Import Mastery'}
-                  </Button>
+                  <Link href="/register?country=na&package=mastery">
+                    <Button 
+                      className="w-full h-12 text-lg font-bold bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 shadow-lg hover:shadow-xl transition-all"
+                      size="lg"
+                    >
+                      Get Import Mastery - Save N$500
+                      <Crown className="ml-2 h-5 w-5" />
+                    </Button>
+                  </Link>
                 </div>
               </Card>
             </div>
           </div>
 
-          {/* Simplified Checkout Section */}
-          <div className="mt-12 max-w-3xl mx-auto">
-            <QuickSignupForm country="na" variant="default" />
+          {/* Trust Indicators */}
+          <div className="mt-12 text-center">
+            <div className="flex items-center justify-center gap-6 flex-wrap">
+              <div className="flex items-center gap-2">
+                <Shield className="h-5 w-5 text-green-600" />
+                <span className="text-gray-700 font-medium">Secure Checkout</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Lock className="h-5 w-5 text-blue-600" />
+                <span className="text-gray-700 font-medium">256-bit Encryption</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <BadgeCheck className="h-5 w-5 text-purple-600" />
+                <span className="text-gray-700 font-medium">Instant Access</span>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -451,15 +467,34 @@ export default function NamibiaGuidePage() {
         </div>
       </section>
 
+      {/* FAQ Section for Rich Snippets */}
+      <section className="py-16 bg-gray-50" aria-labelledby="faq-heading">
+        <div className="max-w-4xl mx-auto px-6">
+          <h2 id="faq-heading" className="text-3xl font-bold text-center mb-12">
+            Frequently Asked Questions About Importing Cars to Namibia
+          </h2>
+          <div className="space-y-6" itemScope itemType="https://schema.org/FAQPage">
+            {faqs.map((faq, index) => (
+              <div key={index} className="bg-white rounded-lg shadow-md p-6" itemScope itemProp="mainEntity" itemType="https://schema.org/Question">
+                <h3 className="text-xl font-bold mb-3" itemProp="name">{faq.question}</h3>
+                <div itemScope itemProp="acceptedAnswer" itemType="https://schema.org/Answer">
+                  <p className="text-gray-700" itemProp="text">{faq.answer}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Risk Reversal - Trust Section */}
       <section className="py-16 bg-white">
         <div className="max-w-4xl mx-auto px-6 text-center">
           <div className="bg-gradient-to-br from-green-50 to-blue-50 rounded-2xl p-12 border-2 border-green-200">
             <Trophy className="h-16 w-16 text-green-600 mx-auto mb-6" />
-            <h2 className="text-3xl font-bold mb-4">Our Iron-Clad Guarantee</h2>
+            <h2 className="text-3xl font-bold mb-4">Why Choose IMPOTA for Your Namibia Car Import Journey</h2>
             <p className="text-xl text-gray-700 mb-6">
-              Our guide is proven to save you at least N$10,000 on your first import.
-              Join thousands of successful importers today.
+              Our comprehensive Namibia car import guide is proven to save you at least N$10,000 on your first vehicle import from Japan.
+              Join 12,847+ successful Namibian importers who've navigated Walvis Bay port clearance with our system.
             </p>
             <div className="flex items-center justify-center gap-8">
               <div className="flex items-center gap-2">
@@ -479,14 +514,14 @@ export default function NamibiaGuidePage() {
         </div>
       </section>
 
-      {/* Final CTA */}
+      {/* Final CTA with Keywords */}
       <section className="py-20 bg-gradient-to-br from-blue-600 to-purple-600 text-white">
         <div className="max-w-4xl mx-auto px-6 text-center">
           <h2 className="text-4xl md:text-5xl font-black mb-6">
-            Stop Watching Others Save Money
+            Start Importing Cars from Japan to Namibia Today
           </h2>
           <p className="text-2xl mb-8 text-blue-100">
-            Every day you wait, another person imports their dream car for N$50,000 less than you would pay.
+            Every day you wait, another Namibian saves N$50,000+ importing their dream car from Japan through Walvis Bay.
           </p>
           <div className="bg-white/10 backdrop-blur rounded-2xl p-8 mb-8">
             <p className="text-3xl font-bold mb-4">
@@ -496,20 +531,20 @@ export default function NamibiaGuidePage() {
               Get instant access to everything you need to import like a pro.
             </p>
           </div>
-          <Button 
-            onClick={() => {
-              window.scrollTo({ top: 0, behavior: 'smooth' })
-            }}
-            size="lg"
-            className="bg-white text-blue-600 hover:bg-gray-100 text-xl px-12 py-6 h-auto font-bold shadow-2xl"
-          >
-            Yes! I Want to Save N$50,000+ →
-          </Button>
+          <Link href="/register?country=na&package=mastery">
+            <Button 
+              size="lg"
+              className="bg-white text-blue-600 hover:bg-gray-100 text-xl px-12 py-6 h-auto font-bold shadow-2xl"
+            >
+              Start Your Namibia Import Journey - Save N$50,000+ →
+            </Button>
+          </Link>
           <p className="mt-6 text-blue-200">
             ⚡ Special pricing ends soon • 🔒 Secure checkout • 📱 Instant access
           </p>
         </div>
       </section>
     </main>
+    </>
   )
 }

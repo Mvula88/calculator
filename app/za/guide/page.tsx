@@ -1,8 +1,7 @@
 'use client'
 
-import { useState } from 'react'
+import Link from 'next/link'
 import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
 import { Card, CardContent } from '@/components/ui/card'
 import { 
   CheckCircle, 
@@ -40,46 +39,8 @@ import CountrySelector from '@/components/CountrySelector'
 import GuideHeader from '@/components/GuideHeader'
 import StickySignupHeader from '@/components/StickySignupHeader'
 import FloatingSignupButton from '@/components/FloatingSignupButton'
-import QuickSignupForm from '@/components/QuickSignupForm'
 
 export default function SouthAfricaGuidePage() {
-  const [email, setEmail] = useState('')
-  const [loading, setLoading] = useState(false)
-  const [selectedTier, setSelectedTier] = useState<'mistake' | 'mastery'>('mastery')
-
-  async function handleCheckout() {
-    setLoading(true)
-    try {
-      localStorage.setItem('checkout_email', email)
-      
-      const res = await fetch('/api/stripe/checkout', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ 
-          country: 'za', 
-          tier: selectedTier,
-          productId: 'durban-guide',
-          email
-        })
-      })
-      
-      const { url, error } = await res.json()
-      
-      if (error) {
-        alert(`Error: ${error}`)
-        return
-      }
-      
-      if (url) {
-        window.location.href = url
-      }
-    } catch (error) {
-      console.error('Checkout error:', error)
-      alert('Failed to start checkout')
-    } finally {
-      setLoading(false)
-    }
-  }
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-50">
@@ -321,14 +282,16 @@ export default function SouthAfricaGuidePage() {
                     ))}
                   </div>
                   
-                  <Button 
-                    onClick={() => setSelectedTier('mistake')}
-                    variant={selectedTier === 'mistake' ? 'default' : 'outline'}
-                    className="w-full h-12 text-lg font-bold"
-                    size="lg"
-                  >
-                    {selectedTier === 'mistake' ? '✓ Selected' : 'Select Mistake Guide'}
-                  </Button>
+                  <Link href="/register?country=za&package=mistake">
+                    <Button 
+                      variant="outline"
+                      className="w-full h-12 text-lg font-bold hover:bg-green-50 border-2 border-green-200 hover:border-green-400"
+                      size="lg"
+                    >
+                      Get Mistake Guide
+                      <ArrowRight className="ml-2 h-5 w-5" />
+                    </Button>
+                  </Link>
                 </div>
               </Card>
             </div>
@@ -382,21 +345,36 @@ export default function SouthAfricaGuidePage() {
                     ))}
                   </div>
                   
-                  <Button 
-                    onClick={() => setSelectedTier('mastery')}
-                    className="w-full h-12 text-lg font-bold bg-gradient-to-r from-green-600 to-yellow-600 hover:from-green-700 hover:to-yellow-700"
-                    size="lg"
-                  >
-                    {selectedTier === 'mastery' ? '✓ Selected - Best Value' : 'Select Import Mastery'}
-                  </Button>
+                  <Link href="/register?country=za&package=mastery">
+                    <Button 
+                      className="w-full h-12 text-lg font-bold bg-gradient-to-r from-green-600 to-yellow-600 hover:from-green-700 hover:to-yellow-700 shadow-lg hover:shadow-xl transition-all"
+                      size="lg"
+                    >
+                      Get Import Mastery - Save R500
+                      <Crown className="ml-2 h-5 w-5" />
+                    </Button>
+                  </Link>
                 </div>
               </Card>
             </div>
           </div>
 
-          {/* Simplified Checkout Section */}
-          <div className="mt-12 max-w-3xl mx-auto">
-            <QuickSignupForm country="za" variant="default" />
+          {/* Trust Indicators */}
+          <div className="mt-12 text-center">
+            <div className="flex items-center justify-center gap-6 flex-wrap">
+              <div className="flex items-center gap-2">
+                <Shield className="h-5 w-5 text-green-600" />
+                <span className="text-gray-700 font-medium">Secure Checkout</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Lock className="h-5 w-5 text-blue-600" />
+                <span className="text-gray-700 font-medium">256-bit Encryption</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <BadgeCheck className="h-5 w-5 text-green-600" />
+                <span className="text-gray-700 font-medium">Instant Access</span>
+              </div>
+            </div>
           </div>
         </div>
       </section>
