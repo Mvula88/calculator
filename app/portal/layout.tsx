@@ -6,7 +6,6 @@ import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { useAuthImmediate } from '@/lib/hooks/use-auth-immediate'
 import SimpleContentProtection from '@/components/SimpleContentProtection'
-import DeviceProtectedLayout from '@/components/DeviceProtectedLayout'
 import { 
   Calculator, 
   Users, 
@@ -152,7 +151,6 @@ export default function SimplePortalLayout({
   
   return (
     <SimpleContentProtection userEmail={userEmail}>
-      <DeviceProtectedLayout>
         <div className="min-h-screen bg-gray-50">
       {/* Top Header Bar */}
       <header className="bg-white border-b border-gray-200 fixed top-0 left-0 right-0 z-40">
@@ -298,7 +296,6 @@ export default function SimplePortalLayout({
         </main>
       </div>
     </div>
-      </DeviceProtectedLayout>
     </SimpleContentProtection>
   )
 }
