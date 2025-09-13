@@ -1,5 +1,6 @@
 'use client'
 
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Script from 'next/script'
 import { Button } from '@/components/ui/button'
@@ -61,6 +62,26 @@ const faqs = [
 ]
 
 export default function NamibiaGuidePage() {
+  const [timeLeft, setTimeLeft] = useState({ hours: 23, minutes: 59, seconds: 59 })
+  
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTimeLeft(prev => {
+        if (prev.seconds > 0) {
+          return { ...prev, seconds: prev.seconds - 1 }
+        } else if (prev.minutes > 0) {
+          return { ...prev, minutes: prev.minutes - 1, seconds: 59 }
+        } else if (prev.hours > 0) {
+          return { hours: prev.hours - 1, minutes: 59, seconds: 59 }
+        } else {
+          // Reset to 24 hours when timer reaches 0
+          return { hours: 23, minutes: 59, seconds: 59 }
+        }
+      })
+    }, 1000)
+    
+    return () => clearInterval(timer)
+  }, [])
 
   return (
     <>
@@ -279,14 +300,49 @@ export default function NamibiaGuidePage() {
       {/* Package Comparison Section - Clear Feature Display */}
       <section className="py-16 bg-gradient-to-b from-gray-50 to-white">
         <div className="max-w-6xl mx-auto px-6">
+          {/* Urgency Timer */}
+          <div className="bg-gradient-to-r from-red-600 to-orange-600 text-white rounded-xl p-4 mb-8 max-w-3xl mx-auto">
+            <div className="flex items-center justify-center gap-4">
+              <Clock className="h-6 w-6 animate-pulse" />
+              <div className="text-center">
+                <p className="text-sm font-medium mb-1">⚡ FLASH SALE ENDS IN ⚡</p>
+                <div className="flex items-center gap-2 justify-center">
+                  <div className="bg-white/20 backdrop-blur rounded px-3 py-1">
+                    <span className="text-2xl font-bold">{String(timeLeft.hours).padStart(2, '0')}</span>
+                    <span className="text-xs block">HOURS</span>
+                  </div>
+                  <span className="text-2xl font-bold">:</span>
+                  <div className="bg-white/20 backdrop-blur rounded px-3 py-1">
+                    <span className="text-2xl font-bold">{String(timeLeft.minutes).padStart(2, '0')}</span>
+                    <span className="text-xs block">MINS</span>
+                  </div>
+                  <span className="text-2xl font-bold">:</span>
+                  <div className="bg-white/20 backdrop-blur rounded px-3 py-1">
+                    <span className="text-2xl font-bold">{String(timeLeft.seconds).padStart(2, '0')}</span>
+                    <span className="text-xs block">SECS</span>
+                  </div>
+                </div>
+                <p className="text-xs mt-1 opacity-90">Prices increase to N$2,499 & N$4,999 at midnight!</p>
+              </div>
+            </div>
+          </div>
+          
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-black mb-4">Compare Import Packages</h2>
-            <p className="text-xl text-gray-600">Choose the right package for your import journey</p>
+            <h2 className="text-4xl font-black mb-4">Choose Your Import Success Package</h2>
+            <p className="text-xl text-gray-600">Join 12,847+ importers who saved thousands with our guides</p>
+            <p className="text-sm text-red-600 font-bold mt-2">⚠️ Only 23 discounted spots remaining today</p>
           </div>
           
           <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
             {/* Mistake Guide */}
             <div className="relative">
+              {/* Discount Badge */}
+              <div className="absolute -top-3 left-4 z-10">
+                <div className="bg-red-500 text-white px-3 py-1 rounded-full text-xs font-bold shadow-md">
+                  80% OFF TODAY
+                </div>
+              </div>
+              
               <Card className="h-full border-2 hover:shadow-xl transition-shadow">
                 <div className="p-8">
                   <div className="flex items-center justify-between mb-6">
@@ -297,9 +353,15 @@ export default function NamibiaGuidePage() {
                     <BookOpen className="h-8 w-8 text-blue-600" />
                   </div>
                   
-                  <div className="flex items-baseline mb-6">
-                    <span className="text-5xl font-black">N$499</span>
-                    <span className="text-gray-500 ml-2">one-time</span>
+                  <div className="mb-6">
+                    <div className="flex items-center gap-3 mb-2">
+                      <span className="text-2xl text-gray-400 line-through">N$2,499</span>
+                      <span className="bg-green-100 text-green-700 px-2 py-1 rounded-md text-sm font-bold">Save N$2,000</span>
+                    </div>
+                    <div className="flex items-baseline">
+                      <span className="text-5xl font-black text-blue-600">N$499</span>
+                      <span className="text-gray-500 ml-2">today only</span>
+                    </div>
                   </div>
                   
                   <div className="space-y-4 mb-8">
@@ -339,7 +401,7 @@ export default function NamibiaGuidePage() {
               <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-10">
                 <div className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-2 rounded-full shadow-lg flex items-center gap-2">
                   <Sparkles className="h-4 w-4" />
-                  <span className="font-bold text-sm">MOST POPULAR - SAVE N$500</span>
+                  <span className="font-bold text-sm">BEST VALUE - 60% OFF</span>
                   <Sparkles className="h-4 w-4" />
                 </div>
               </div>
@@ -354,11 +416,16 @@ export default function NamibiaGuidePage() {
                     <Crown className="h-8 w-8 text-purple-600" />
                   </div>
                   
-                  <div className="flex items-baseline mb-2">
-                    <span className="text-5xl font-black">N$1,999</span>
-                    <span className="text-gray-500 ml-2 line-through">N$2,499</span>
+                  <div className="mb-6">
+                    <div className="flex items-center gap-3 mb-2">
+                      <span className="text-2xl text-gray-400 line-through">N$4,999</span>
+                      <span className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-3 py-1 rounded-md text-sm font-bold">Save N$3,000!</span>
+                    </div>
+                    <div className="flex items-baseline">
+                      <span className="text-5xl font-black bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">N$1,999</span>
+                      <span className="text-gray-500 ml-2">limited time</span>
+                    </div>
                   </div>
-                  <p className="text-green-600 font-bold mb-6">Save N$500 today!</p>
                   
                   <div className="bg-purple-100 rounded-lg p-3 mb-6">
                     <p className="text-purple-800 font-bold text-sm">Everything in Mistake Guide PLUS:</p>
@@ -387,7 +454,7 @@ export default function NamibiaGuidePage() {
                       className="w-full h-12 text-lg font-bold bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 shadow-lg hover:shadow-xl transition-all"
                       size="lg"
                     >
-                      Get Import Mastery - Save N$500
+                      Get Import Mastery - Save N$3,000 Today
                       <Crown className="ml-2 h-5 w-5" />
                     </Button>
                   </Link>
