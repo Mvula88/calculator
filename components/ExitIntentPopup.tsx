@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { X, Gift, Clock, ArrowRight } from 'lucide-react'
+import { X, Gift, Clock, ArrowRight, AlertTriangle } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 
@@ -92,68 +92,74 @@ export default function ExitIntentPopup({ country }: ExitIntentPopupProps) {
         {/* Header with gradient */}
         <div className="bg-gradient-to-r from-red-600 to-orange-600 text-white p-6 pb-8">
           <div className="flex items-center gap-3 mb-4">
-            <Gift className="h-8 w-8 animate-bounce" />
-            <h2 className="text-2xl font-bold">WAIT! Don't Leave Empty-Handed!</h2>
+            <AlertTriangle className="h-8 w-8 animate-pulse" />
+            <h2 className="text-2xl font-bold">WAIT! You're About to Miss This Forever!</h2>
           </div>
-          <p className="text-lg">Here's an EXCLUSIVE offer just for you...</p>
+          <p className="text-lg">These exclusive bonuses expire when you leave...</p>
         </div>
 
         {/* Content */}
         <div className="p-6 -mt-4">
           <div className="bg-yellow-50 border-2 border-yellow-300 rounded-xl p-4 mb-6">
-            <p className="text-3xl font-black text-center mb-2">
-              EXTRA {countryPricing.currency}{countryPricing.extraSaving} OFF
+            <p className="text-2xl font-black text-center mb-2">
+              🎁 3 EXCLUSIVE BONUSES
             </p>
-            <p className="text-center text-gray-700">
-              On top of our already massive 60% discount!
+            <p className="text-center text-gray-700 font-semibold">
+              Worth {countryPricing.currency}2,500+ (Not Sold Separately)
             </p>
           </div>
 
           <div className="space-y-4 mb-6">
             <div className="flex items-start gap-3">
-              <span className="text-2xl">✅</span>
+              <span className="text-2xl">🚫</span>
               <div>
-                <p className="font-bold">Import Mastery Package</p>
-                <p className="text-sm text-gray-600">Everything you need to save thousands</p>
+                <p className="font-bold text-red-600">BONUS #1: WhatsApp VIP Group Access</p>
+                <p className="text-sm text-gray-600">Direct access to successful importers & instant answers (Worth {countryPricing.currency}999)</p>
               </div>
             </div>
             <div className="flex items-start gap-3">
-              <span className="text-2xl">✅</span>
+              <span className="text-2xl">🚫</span>
               <div>
-                <p className="font-bold">Lifetime Updates</p>
-                <p className="text-sm text-gray-600">Never pay again for new content</p>
+                <p className="font-bold text-red-600">BONUS #2: Verified Agent Black Book</p>
+                <p className="text-sm text-gray-600">Our private list of 23 trusted agents with negotiated rates (Worth {countryPricing.currency}799)</p>
               </div>
             </div>
             <div className="flex items-start gap-3">
-              <span className="text-2xl">✅</span>
+              <span className="text-2xl">🚫</span>
               <div>
-                <p className="font-bold">Priority Support</p>
-                <p className="text-sm text-gray-600">Get help when you need it most</p>
+                <p className="font-bold text-red-600">BONUS #3: 1-on-1 Import Review Call</p>
+                <p className="text-sm text-gray-600">30-min personal consultation for your first import (Worth {countryPricing.currency}750)</p>
               </div>
             </div>
+          </div>
+          
+          <div className="bg-red-50 border border-red-200 rounded-lg p-3 mb-4">
+            <p className="text-sm text-red-700 font-medium text-center">
+              ⚠️ These bonuses are ONLY available right now. Once you leave, they're gone forever.
+            </p>
           </div>
 
           {/* Timer */}
           <div className="bg-red-50 rounded-lg p-3 mb-6 flex items-center justify-center gap-2">
             <Clock className="h-5 w-5 text-red-600 animate-pulse" />
             <p className="text-red-600 font-bold">
-              This offer expires in {formatTime(timeLeft)}
+              Bonuses disappear in {formatTime(timeLeft)}
             </p>
           </div>
 
           {/* CTA Buttons */}
           <div className="space-y-3">
-            <Link href={`/register?country=${country}&package=mastery&discount=exit10`}>
+            <Link href={`/register?country=${country}&package=mastery&bonuses=vip`}>
               <Button className="w-full h-12 text-lg font-bold bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700">
-                Yes! Apply My Extra Discount
-                <ArrowRight className="ml-2 h-5 w-5" />
+                Yes! Lock In My Bonuses Now
+                <Gift className="ml-2 h-5 w-5" />
               </Button>
             </Link>
             <button
               onClick={handleClose}
               className="w-full text-sm text-gray-500 hover:text-gray-700"
             >
-              No thanks, I don't want to save more money
+              No thanks, I'll figure it out alone without help
             </button>
           </div>
         </div>
