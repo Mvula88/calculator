@@ -79,8 +79,8 @@ export default function ExitIntentPopup({ country }: ExitIntentPopupProps) {
         onClick={handleClose}
       />
       
-      {/* Popup */}
-      <div className="relative bg-white rounded-2xl shadow-2xl max-w-lg w-full overflow-hidden animate-slideUp">
+      {/* Popup - Compact & Mobile Friendly */}
+      <div className="relative bg-white rounded-xl shadow-2xl max-w-md w-full max-h-[85vh] overflow-hidden animate-slideUp flex flex-col">
         {/* Close button */}
         <button
           onClick={handleClose}
@@ -98,64 +98,49 @@ export default function ExitIntentPopup({ country }: ExitIntentPopupProps) {
           <p className="text-lg">This special pricing expires when you leave this page...</p>
         </div>
 
-        {/* Content */}
-        <div className="p-6 -mt-4">
-          <div className="bg-yellow-50 border-2 border-yellow-300 rounded-xl p-4 mb-6">
-            <p className="text-2xl font-black text-center mb-2">
-              ⚠️ YOU'RE LEAVING WITHOUT:
-            </p>
-            <p className="text-center text-gray-700 font-semibold">
-              The Exact Tools That Save Importers {countryPricing.currency}65,000+
+        {/* Content - Compact */}
+        <div className="p-4 overflow-y-auto flex-1 max-h-[50vh]">
+          <div className="bg-yellow-50 border-2 border-yellow-300 rounded-lg p-3 mb-3">
+            <p className="text-base font-black text-center">
+              ⚠️ LEAVING WITHOUT {countryPricing.currency}65,000 IN SAVINGS?
             </p>
           </div>
 
-          <div className="space-y-4 mb-6">
-            <div className="flex items-start gap-3">
-              <span className="text-2xl">❌</span>
+          <div className="space-y-3 mb-4">
+            <div className="flex items-start gap-2">
+              <span className="text-xl">❌</span>
               <div>
-                <p className="font-bold text-red-600">The LIVE Duty Calculator</p>
-                <p className="text-sm text-gray-600">That instantly shows you exact costs BEFORE buying (saves {countryPricing.currency}15,000+ on wrong calculations)</p>
+                <p className="font-bold text-red-600 text-sm">LIVE Duty Calculator</p>
+                <p className="text-xs text-gray-600">Save {countryPricing.currency}15,000+ on calculations</p>
               </div>
             </div>
-            <div className="flex items-start gap-3">
-              <span className="text-2xl">❌</span>
+            <div className="flex items-start gap-2">
+              <span className="text-xl">❌</span>
               <div>
-                <p className="font-bold text-red-600">Step-by-Step Walvis Bay/Durban Port Navigation</p>
-                <p className="text-sm text-gray-600">Exact offices, forms, and order to clear customs in 3 days instead of 2 weeks</p>
+                <p className="font-bold text-red-600 text-sm">Port Navigation Guide</p>
+                <p className="text-xs text-gray-600">Clear customs in 3 days not 2 weeks</p>
               </div>
             </div>
-            <div className="flex items-start gap-3">
-              <span className="text-2xl">❌</span>
+            <div className="flex items-start gap-2">
+              <span className="text-xl">❌</span>
               <div>
-                <p className="font-bold text-red-600">The 5 Scams That Cost {countryPricing.currency}45,000</p>
-                <p className="text-sm text-gray-600">Real importer stories & exactly how to avoid each costly mistake</p>
-              </div>
-            </div>
-            <div className="flex items-start gap-3">
-              <span className="text-2xl">❌</span>
-              <div>
-                <p className="font-bold text-red-600">Lifetime Updates & New Regulations</p>
-                <p className="text-sm text-gray-600">Laws change monthly - one wrong form costs {countryPricing.currency}5,000 in penalties</p>
+                <p className="font-bold text-red-600 text-sm">Scam Prevention ({countryPricing.currency}45,000)</p>
+                <p className="text-xs text-gray-600">Avoid the 5 costly mistakes</p>
               </div>
             </div>
           </div>
           
-          <div className="bg-red-50 border border-red-200 rounded-lg p-3 mb-4">
-            <p className="text-sm text-red-700 font-medium text-center">
-              ⚠️ Remember: One mistake = {countryPricing.currency}45,000 lost. The guide pays for itself 20X over.
+          <div className="bg-red-50 rounded-lg p-2 mb-2 flex items-center justify-center gap-2">
+            <Clock className="h-4 w-4 text-red-600 animate-pulse" />
+            <p className="text-red-600 font-bold text-sm">
+              Expires in {formatTime(timeLeft)}
             </p>
           </div>
 
-          {/* Timer */}
-          <div className="bg-red-50 rounded-lg p-3 mb-6 flex items-center justify-center gap-2">
-            <Clock className="h-5 w-5 text-red-600 animate-pulse" />
-            <p className="text-red-600 font-bold">
-              Bonuses disappear in {formatTime(timeLeft)}
-            </p>
-          </div>
-
-          {/* CTA Buttons */}
-          <div className="space-y-3">
+        </div>
+        
+        {/* CTA Buttons - Fixed at bottom */}
+        <div className="p-4 border-t bg-gray-50">
             <Link href={`/register?country=${country}&package=mastery`}>
               <Button className="w-full h-12 text-lg font-bold bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700">
                 Yes! I Want to Save {countryPricing.currency}65,000 on My Import
@@ -168,7 +153,6 @@ export default function ExitIntentPopup({ country }: ExitIntentPopupProps) {
             >
               No thanks, I'll risk losing {countryPricing.currency}45,000 in mistakes
             </button>
-          </div>
         </div>
       </div>
     </div>
