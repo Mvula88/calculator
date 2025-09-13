@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google'
 import { ErrorBoundary } from '@/components/ErrorBoundary'
 import { homepageMetadata } from '@/lib/seo/metadata'
 import StructuredData from '@/components/seo/StructuredData'
+import Footer from '@/components/Footer'
 import './globals.css'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -35,7 +36,12 @@ export default function RootLayout({
         <StructuredData type="organization" />
         <StructuredData type="faq" />
         <ErrorBoundary>
-          {children}
+          <div className="min-h-screen flex flex-col">
+            <div className="flex-grow">
+              {children}
+            </div>
+            <Footer />
+          </div>
         </ErrorBoundary>
       </body>
     </html>
