@@ -33,7 +33,7 @@ interface Exporter {
 }
 
 export default function JapanAuctionsClientPage() {
-  const { hasAccess, loading, userTier } = useAuth()
+  const { hasAccess, loading, userTier, userEmail } = useAuth()
   const [selectedTab, setSelectedTab] = useState<'guide' | 'exporters'>('guide')
 
   if (loading) {

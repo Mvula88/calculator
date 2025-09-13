@@ -8,7 +8,7 @@ import { Lock, Star, CheckCircle, Users } from 'lucide-react'
 import AgentsContent from './agents-content'
 
 export default function AgentsClientPage() {
-  const { hasAccess, loading, userTier } = useAuth()
+  const { hasAccess, loading, userTier, userEmail } = useAuth()
 
   // Always show loading first
   if (loading) {

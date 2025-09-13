@@ -8,7 +8,7 @@ import { Lock, Star, CheckCircle, Ship } from 'lucide-react'
 import ShippingContent from './shipping-content'
 
 export default function ShippingClientPage() {
-  const { hasAccess, loading, userTier } = useAuth()
+  const { hasAccess, loading, userTier, userEmail } = useAuth()
 
   // Always show loading first
   if (loading) {
