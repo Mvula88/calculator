@@ -216,15 +216,32 @@ export default function NamibiaGuidePage() {
           <div className="flex flex-col md:flex-row items-center justify-center gap-6 bg-white/95 backdrop-blur-md rounded-2xl p-6 shadow-2xl border border-white/20">
             <div className="flex -space-x-3">
               {[
-                'https://randomuser.me/api/portraits/men/86.jpg', // Older professional man
-                'https://randomuser.me/api/portraits/women/72.jpg', // Professional woman
-                'https://randomuser.me/api/portraits/men/18.jpg', // Young professional man
-                'https://randomuser.me/api/portraits/women/17.jpg' // Young professional woman
-              ].map((avatar, i) => (
+                {
+                  src: 'https://randomuser.me/api/portraits/men/86.jpg',
+                  name: 'Johannes M.',
+                  location: 'Windhoek'
+                },
+                {
+                  src: 'https://randomuser.me/api/portraits/women/72.jpg',
+                  name: 'Maria N.',
+                  location: 'Swakopmund'
+                },
+                {
+                  src: 'https://randomuser.me/api/portraits/men/18.jpg',
+                  name: 'Petrus K.',
+                  location: 'Oshakati'
+                },
+                {
+                  src: 'https://randomuser.me/api/portraits/women/17.jpg',
+                  name: 'Elizabeth S.',
+                  location: 'Walvis Bay'
+                }
+              ].map((customer, i) => (
                 <img 
                   key={i} 
-                  src={avatar}
-                  alt={`Happy customer ${i + 1}`}
+                  src={customer.src}
+                  alt={`${customer.name} from ${customer.location}`}
+                  title={`${customer.name} - ${customer.location}`}
                   className="w-12 h-12 rounded-full border-3 border-white shadow-md object-cover"
                 />
               ))}
@@ -235,7 +252,7 @@ export default function NamibiaGuidePage() {
                   <Star key={i} className="h-5 w-5 fill-yellow-400 text-yellow-400" />
                 ))}
               </div>
-              <p className="font-bold text-gray-900">4.9/5 from 847 verified importers</p>
+              <p className="font-bold text-gray-900">4.9/5 from 847 Namibian importers</p>
               <p className="text-sm text-gray-600">Updated December 2024</p>
             </div>
             <div className="hidden md:block h-12 w-px bg-gray-200"></div>
