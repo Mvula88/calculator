@@ -126,31 +126,31 @@ export const namibiaFAQJsonLd = {
       name: 'How much does it cost to import a car from Japan to Namibia?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'The total cost ranges from N$55,000 to N$120,000 depending on the vehicle value. This includes the car price, shipping (N$15,000-25,000), customs duty (varies by engine size), VAT (15%), and clearing fees. Our calculator helps you get exact costs before purchasing.'
+        text: 'Import costs vary based on multiple factors including vehicle type, shipping method, and current regulations. Our comprehensive guide provides exact cost breakdowns and reveals hidden fees that help you save N$65,000+ on your import.'
       }
     },
     {
       '@type': 'Question',
-      name: 'How long does it take to import a car from Japan to Walvis Bay?',
+      name: 'Is importing from Japan really cheaper than buying locally in Namibia?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'The entire process takes 25-35 days: 3-5 days for auction and payment, 7-10 days for export processing in Japan, 14-18 days shipping to Walvis Bay, and 3-5 days for customs clearance and registration in Namibia.'
+        text: 'Yes, most importers save 30-50% compared to local dealership prices. Our Import Mastery package includes exclusive tools and calculators to show your exact savings before making any commitment.'
       }
     },
     {
       '@type': 'Question',
-      name: 'What documents do I need to import a car to Namibia?',
+      name: 'Do I need experience or connections to import cars to Namibia?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Required documents include: Export Certificate from Japan, Bill of Lading, Commercial Invoice, Import Permit from Ministry of Trade, Insurance Certificate, Roadworthiness Certificate, and Police Clearance Certificate. Our guide includes all forms and samples.'
+        text: 'No prior experience needed. Our step-by-step guides provide everything you need including verified contacts, exact procedures, and insider strategies used by 12,847+ successful Namibian importers.'
       }
     },
     {
       '@type': 'Question',
-      name: 'Can I import cars older than 5 years to Namibia?',
+      name: 'What are the biggest mistakes when importing cars to Namibia?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Yes, Namibia allows importation of used vehicles regardless of age, but vehicles older than 5 years require additional inspections. Import duties may be higher for older vehicles. We recommend cars between 3-5 years old for best value.'
+        text: 'Common mistakes cost first-time importers an average of N$45,000 extra. Our Mistake Guide specifically addresses each pitfall with proven solutions to ensure your import goes smoothly and affordably.'
       }
     }
   ]

@@ -125,42 +125,42 @@ export const southAfricaFAQJsonLd = {
   mainEntity: [
     {
       '@type': 'Question',
-      name: 'How much does it cost to import a car from Japan to South Africa?',
+      name: 'How much can I save importing a car from Japan to South Africa?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Total costs range from R45,000 to R120,000 including vehicle price, shipping to Durban (R12,000-20,000), customs duty (0-25% based on vehicle type), 15% VAT, and clearing agent fees. Our SARS duty calculator provides exact costs before purchase.'
+        text: 'Most South African importers save R45,000 to R75,000 compared to local prices. Our comprehensive guides reveal the exact strategies and calculations to maximize your savings on every import.'
       }
     },
     {
       '@type': 'Question',
-      name: 'How long does shipping take from Japan to Durban port?',
+      name: 'Is the ITAC permit process complicated?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Shipping takes 18-21 days from Japanese ports to Durban. The complete import process takes 30-40 days including ITAC permit application, auction, shipping, SARS customs clearance, and eNaTIS registration.'
+        text: 'The ITAC permit process can be challenging without proper guidance. Our guide provides the exact steps, forms, and insider tips that have helped 8,500+ South Africans get approved quickly.'
       }
     },
     {
       '@type': 'Question',
-      name: 'What documents are needed to import a car to South Africa?',
+      name: 'What are SARS import duties and how can I minimize them?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Required documents: ITAC Import Permit, Export Certificate from Japan, Bill of Lading, Commercial Invoice, Letter of Authority for clearing agent, Roadworthiness Certificate, and Police Clearance Certificate. Our guide includes all forms and step-by-step instructions.'
+        text: 'Import duties vary significantly based on multiple factors. Our Import Mastery package includes an exclusive SARS duty calculator and legal strategies to minimize your total import costs.'
       }
     },
     {
       '@type': 'Question',
-      name: 'Do I need an ITAC permit to import a car to South Africa?',
+      name: 'Do I need a clearing agent or can I clear customs myself?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Yes, an ITAC (International Trade Administration Commission) permit is mandatory for importing vehicles to South Africa. The permit application takes 5-10 working days. Our guide shows you exactly how to apply and get approved quickly.'
+        text: 'While clearing agents are common, you can save thousands by doing it yourself. Our guide shows you exactly how, plus provides verified agent contacts if you prefer professional help.'
       }
     },
     {
       '@type': 'Question',
-      name: 'What is the import duty on cars in South Africa?',
+      name: 'What mistakes cost SA importers the most money?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Import duty varies: 0% for vehicles from certain trade agreement countries, 18% for vehicles under 1000cc, 25% for vehicles over 1000cc. Plus 15% VAT and ad valorem excise duty based on vehicle value. Use our SARS calculator for exact amounts.'
+        text: 'The top 5 mistakes cost importers an average of R45,000 extra. Our Mistake Guide reveals each one with specific solutions that have saved thousands for our 8,500+ successful members.'
       }
     }
   ]

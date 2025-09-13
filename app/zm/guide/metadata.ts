@@ -135,42 +135,42 @@ export const zambiaFAQJsonLd = {
   mainEntity: [
     {
       '@type': 'Question',
-      name: 'How much does it cost to import a car from Japan to Zambia?',
+      name: 'How much can I save importing a car to Zambia from Japan?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Total costs range from K30,000 to K100,000 including vehicle price, shipping to Dar es Salaam or Durban (K15,000-25,000), road transport to Zambia, customs duty (5-30% based on engine size), 16% VAT, and clearing fees. Our ZRA calculator provides exact costs.'
+        text: 'Zambian importers typically save K30,000 to K40,000 compared to local prices. Our comprehensive guides show you exactly how to achieve these savings while avoiding expensive mistakes.'
       }
     },
     {
       '@type': 'Question',
-      name: 'What is the best route to import cars to Zambia?',
+      name: 'Which border post is best - Nakonde or Chirundu?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Two main routes: 1) Via Dar es Salaam port (Tanzania) through Nakonde border - takes 40-45 days, often cheaper. 2) Via Durban port (South Africa) through Chirundu border - takes 35-40 days, more reliable. Choice depends on final destination in Zambia.'
+        text: 'Each border post has advantages and challenges. Our guide provides detailed comparisons and insider tips for both routes, helping you choose the most cost-effective option for your situation.'
       }
     },
     {
       '@type': 'Question',
-      name: 'What is the age limit for importing cars to Zambia?',
+      name: 'What are Zambia\'s vehicle age restrictions?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Zambia restricts importation of vehicles older than 5 years from date of manufacture. This applies to all personal and commercial vehicle imports. Vehicles must also meet emission standards and pass RTSA roadworthiness tests.'
+        text: 'Zambia has strict age limits that can catch importers off guard. Our guide explains exactly which vehicles qualify and how to ensure your import meets all ZRA and RTSA requirements.'
       }
     },
     {
       '@type': 'Question',
-      name: 'Do I need an import permit for cars in Zambia?',
+      name: 'How do I navigate ZRA customs clearance?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Yes, you need an Import Declaration Form (IDF) from the Ministry of Commerce before importing. The IDF is valid for 3 months and costs around K500. Our guide includes the complete IDF application process and requirements.'
+        text: 'ZRA clearance involves multiple steps and documents. Our proven system has helped 5,000+ Zambians import successfully, with step-by-step instructions for smooth border crossing.'
       }
     },
     {
       '@type': 'Question',
-      name: 'What documents are needed at Nakonde or Chirundu border?',
+      name: 'What mistakes do Zambian importers commonly make?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Required at border: Import Declaration Form, Bill of Lading, Export Certificate, Commercial Invoice, Insurance Certificate, Pre-shipment Inspection Certificate, and ZRA customs declaration. Having complete documentation speeds up clearance significantly.'
+        text: 'Common mistakes can add K20,000+ to your import costs. Our Mistake Guide identifies each pitfall and provides specific solutions that have saved thousands for our members.'
       }
     }
   ]

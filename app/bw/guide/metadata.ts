@@ -125,34 +125,34 @@ export const botswanaFAQJsonLd = {
   mainEntity: [
     {
       '@type': 'Question',
-      name: 'How much does it cost to import a car from Japan to Botswana?',
+      name: 'How much can I save importing a car to Botswana from Japan?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Total costs range from P35,000 to P100,000 including vehicle price, shipping (P18,000-25,000 via Durban or Walvis Bay), customs duty (varies by engine size), 14% VAT, and clearing fees. Our BURS calculator helps you get exact costs.'
+        text: 'Botswana importers typically save P30,000 to P40,000 compared to local dealership prices. Our guides reveal the exact strategies to maximize savings and avoid costly mistakes.'
       }
     },
     {
       '@type': 'Question',
-      name: 'What is the best route to import cars to Botswana?',
+      name: 'Which route is best for importing to Botswana?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Two main routes: 1) Via Durban port (South Africa) then road transport through Trans Kalahari Corridor - takes 35-40 days total. 2) Via Walvis Bay (Namibia) then road transport - takes 30-35 days. Durban route is usually cheaper for shipping.'
+        text: 'There are multiple routes with different costs and timeframes. Our comprehensive guide compares all options and reveals the most cost-effective route based on your specific situation.'
       }
     },
     {
       '@type': 'Question',
-      name: 'What documents do I need to import a car to Botswana?',
+      name: 'How complex is BURS customs clearance?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Required documents: Import Permit from Ministry of Trade, Export Certificate from Japan, Bill of Lading, Commercial Invoice, Insurance Certificate, Roadworthiness Certificate, Police Clearance, and BURS customs declaration forms.'
+        text: 'BURS clearance can be overwhelming without proper guidance. Our step-by-step system has helped 3,200+ Botswana importers navigate customs smoothly, saving time and avoiding penalties.'
       }
     },
     {
       '@type': 'Question',
-      name: 'Can I import cars older than 8 years to Botswana?',
+      name: 'What age restrictions apply to vehicle imports in Botswana?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Botswana restricts importation of vehicles older than 8 years for commercial use. However, personal imports have more flexibility. Vehicles must pass roadworthiness tests. We recommend 3-6 year old vehicles for best value and easier registration.'
+        text: 'Botswana has specific age restrictions that vary by vehicle type and use. Our guide explains exactly which vehicles qualify and how to ensure your import meets all requirements.'
       }
     }
   ]

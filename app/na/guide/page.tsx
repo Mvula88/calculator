@@ -41,23 +41,23 @@ import GuideHeader from '@/components/GuideHeader'
 import StickySignupHeader from '@/components/StickySignupHeader'
 import FloatingSignupButton from '@/components/FloatingSignupButton'
 
-// SEO-optimized FAQ data
+// SEO-optimized FAQ data - General info only, specifics in paid guide
 const faqs = [
   {
     question: 'How much does it cost to import a car from Japan to Namibia?',
-    answer: 'Total costs range from N$55,000 to N$120,000 including vehicle price, shipping to Walvis Bay (N$15,000-25,000), customs duty, 15% VAT, and clearing fees. Use our duty calculator for exact costs.'
+    answer: 'Import costs vary significantly based on vehicle type, shipping method, and current regulations. Our guide reveals exact cost breakdowns and hidden fees that can save you N$65,000+ on your first import.'
   },
   {
-    question: 'How long does shipping from Japan to Walvis Bay take?',
-    answer: 'Shipping takes 14-18 days from Japanese ports to Walvis Bay. The complete import process takes 25-35 days including auction, export processing, shipping, and customs clearance.'
+    question: 'Is it really cheaper to import than buying locally?',
+    answer: 'Most importers save 30-50% compared to local dealership prices. Our Import Mastery package includes a live calculator that shows your exact savings before you commit to any purchase.'
   },
   {
-    question: 'What documents do I need for Namibia car import?',
-    answer: 'Required: Export Certificate, Bill of Lading, Commercial Invoice, Import Permit, Insurance Certificate, Roadworthiness Certificate, and Police Clearance. Our guide includes all forms.'
+    question: 'What are the biggest mistakes first-time importers make?',
+    answer: 'The top 5 mistakes cost importers an average of N$45,000 extra. Our Mistake Guide specifically addresses each one with step-by-step solutions that have helped 12,847+ successful importers.'
   },
   {
-    question: 'Can I import cars older than 5 years to Namibia?',
-    answer: 'Yes, Namibia allows all used vehicle imports. Vehicles over 5 years need additional inspections. We recommend 3-5 year old cars for best value and lower import duties.'
+    question: 'Do I need connections or experience to import?',
+    answer: 'No prior experience needed! Our comprehensive guides provide everything from verified agent contacts to exact forms and procedures. You\'ll import like a pro from day one.'
   }
 ]
 
