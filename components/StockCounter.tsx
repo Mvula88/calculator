@@ -57,28 +57,5 @@ export default function StockCounter({ initialStock = 23, country }: StockCounte
     return 'text-green-600 bg-green-50'
   }
 
-  return (
-    <div className="space-y-3">
-      {/* Stock Counter */}
-      <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full ${getStockColor()}`}>
-        <TrendingDown className="h-4 w-4" />
-        <span className="font-bold text-sm">
-          {stock} guides available at current price
-        </span>
-      </div>
-      
-      {/* Viewing Now */}
-      <div className="inline-flex items-center gap-2 px-3 py-1 bg-blue-50 text-blue-600 rounded-full text-sm">
-        <Users className="h-4 w-4" />
-        <span>{viewingNow} people viewing this guide now</span>
-      </div>
-      
-      {/* Limited Stock Message */}
-      {stock <= 5 && (
-        <p className="text-orange-600 font-semibold text-sm">
-          Limited availability at this price
-        </p>
-      )}
-    </div>
-  )
+  return null // Component disabled - removes fake scarcity tactics
 }

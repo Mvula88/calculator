@@ -212,55 +212,29 @@ export default function NamibiaGuidePage() {
             <p className="text-sm text-white text-center mt-4">Instant access • Lifetime updates • 30-day guarantee</p>
           </div>
 
-          {/* Social Proof Bar */}
+          {/* Trust Bar */}
           <div className="flex flex-col md:flex-row items-center justify-center gap-6 bg-white/95 backdrop-blur-md rounded-2xl p-6 shadow-2xl border border-white/20">
-            <div className="flex -space-x-3">
-              {[
-                {
-                  src: '/avatars/namibia-1.png',
-                  name: 'Samuel K.',
-                  location: 'Windhoek'
-                },
-                {
-                  src: '/avatars/namibia-2.png',
-                  name: 'Maria N.',
-                  location: 'Swakopmund'
-                },
-                {
-                  src: '/avatars/namibia-3.png',
-                  name: 'David N.',
-                  location: 'Oshakati'
-                },
-                {
-                  src: '/avatars/namibia-4.png',
-                  name: 'Selma T.',
-                  location: 'Walvis Bay'
-                }
-              ].map((customer, i) => (
-                <img 
-                  key={i} 
-                  src={customer.src}
-                  alt={`${customer.name} from ${customer.location}`}
-                  title={`${customer.name} - ${customer.location}`}
-                  className="w-12 h-12 rounded-full border-3 border-white shadow-md object-cover"
-                />
-              ))}
-            </div>
-            <div className="text-center md:text-left">
-              <div className="flex items-center gap-1 justify-center md:justify-start mb-1">
-                {[1,2,3,4,5].map(i => (
-                  <Star key={i} className="h-5 w-5 fill-yellow-400 text-yellow-400" />
-                ))}
-              </div>
-              <p className="font-bold text-gray-900">4.9/5 from 847 Namibian importers</p>
-              <p className="text-sm text-gray-600">Updated December 2024</p>
-            </div>
-            <div className="hidden md:block h-12 w-px bg-gray-200"></div>
             <div className="flex items-center gap-2">
               <Shield className="h-8 w-8 text-green-600" />
               <div>
-                <p className="font-bold text-gray-900">100% Safe</p>
-                <p className="text-xs text-gray-600">Legal & legitimate</p>
+                <p className="font-bold text-gray-900">100% Legal</p>
+                <p className="text-xs text-gray-600">Government compliant process</p>
+              </div>
+            </div>
+            <div className="hidden md:block h-12 w-px bg-gray-200"></div>
+            <div className="flex items-center gap-2">
+              <CheckCircle className="h-8 w-8 text-blue-600" />
+              <div>
+                <p className="font-bold text-gray-900">Step-by-Step Guidance</p>
+                <p className="text-xs text-gray-600">Easy to follow instructions</p>
+              </div>
+            </div>
+            <div className="hidden md:block h-12 w-px bg-gray-200"></div>
+            <div className="flex items-center gap-2">
+              <DollarSign className="h-8 w-8 text-purple-600" />
+              <div>
+                <p className="font-bold text-gray-900">Save Thousands</p>
+                <p className="text-xs text-gray-600">On every import</p>
               </div>
             </div>
           </div>

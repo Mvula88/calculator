@@ -23,10 +23,10 @@ import Image from 'next/image'
 
 export default function HomePage() {
   const countries = [
-    { code: 'na', name: 'Namibia', flag: '🇳🇦', users: '8,234', currency: 'N$' },
-    { code: 'za', name: 'South Africa', flag: '🇿🇦', users: '3,421', currency: 'R' },
-    { code: 'bw', name: 'Botswana', flag: '🇧🇼', users: '892', currency: 'P' },
-    { code: 'zm', name: 'Zambia', flag: '🇿🇲', users: '300', currency: 'K' }
+    { code: 'na', name: 'Namibia', flag: '🇳🇦', currency: 'N$' },
+    { code: 'za', name: 'South Africa', flag: '🇿🇦', currency: 'R' },
+    { code: 'bw', name: 'Botswana', flag: '🇧🇼', currency: 'P' },
+    { code: 'zm', name: 'Zambia', flag: '🇿🇲', currency: 'K' }
   ]
 
   const benefits = [
@@ -50,8 +50,8 @@ export default function HomePage() {
     },
     {
       icon: Users,
-      title: '12,847+ Success',
-      description: 'Join thousands of successful importers',
+      title: 'Proven Success',
+      description: 'Join successful importers saving thousands',
       color: 'orange'
     }
   ]
@@ -127,12 +127,12 @@ export default function HomePage() {
                 {[1,2,3,4,5].map(i => (
                   <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
                 ))}
-                <span className="ml-1 font-semibold">4.9/5</span>
+                <span className="ml-1 font-semibold">Highly Rated</span>
               </div>
               <span className="text-gray-400">•</span>
-              <span className="font-semibold">12,847+ Members</span>
+              <span className="font-semibold">Comprehensive Guides</span>
               <span className="text-gray-400">•</span>
-              <span className="font-semibold">30-Day Guarantee</span>
+              <span className="font-semibold">Expert Support</span>
             </div>
           </div>
 
@@ -147,7 +147,7 @@ export default function HomePage() {
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <h2 className="text-3xl sm:text-4xl font-bold text-center mb-12">
-            Why 12,847+ People Trust IMPOTA
+            Why People Trust IMPOTA
           </h2>
           
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -182,11 +182,7 @@ export default function HomePage() {
                 <Card className="p-6 hover:shadow-xl transition-all hover:scale-105 cursor-pointer">
                   <div className="text-center">
                     <div className="text-5xl mb-3">{country.flag}</div>
-                    <h3 className="font-bold text-xl mb-2">{country.name}</h3>
-                    <div className="flex items-center justify-center gap-2 text-sm text-gray-600 mb-4">
-                      <Users className="h-4 w-4" />
-                      <span>{country.users} members</span>
-                    </div>
+                    <h3 className="font-bold text-xl mb-4">{country.name}</h3>
                     <Button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700">
                       Start Saving {country.currency}50K+
                       <ArrowRight className="ml-2 h-4 w-4" />
@@ -259,7 +255,7 @@ export default function HomePage() {
             Ready to Start Saving?
           </h2>
           <p className="text-xl mb-8 text-blue-100">
-            Join 12,847+ smart importers who are saving thousands on every car import
+            Start saving thousands on every car import
           </p>
           
           <div className="bg-white rounded-2xl p-8 max-w-2xl mx-auto">
@@ -267,7 +263,7 @@ export default function HomePage() {
           </div>
           
           <p className="mt-8 text-blue-200">
-            ⚡ Instant access • 🔒 Secure checkout • 💰 30-day money-back guarantee
+            ⚡ Instant access • 🔒 Secure checkout • 💯 Lifetime access
           </p>
         </div>
       </section>
