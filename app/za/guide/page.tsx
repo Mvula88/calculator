@@ -342,7 +342,7 @@ export default function SouthAfricaGuidePage() {
               <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-10">
                 <div className="bg-gradient-to-r from-green-600 to-yellow-600 text-white px-6 py-2 rounded-full shadow-lg flex items-center gap-2">
                   <Sparkles className="h-4 w-4" />
-                  <span className="font-bold text-sm">COMPREHENSIVE PACKAGE</span>
+                  <span className="font-bold text-sm">BEST VALUE</span>
                   <Sparkles className="h-4 w-4" />
                 </div>
               </div>
