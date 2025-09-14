@@ -47,7 +47,7 @@ export default function SouthAfricaGuidePage() {
       <CountrySelector />
       <GuideHeader 
         country="za" 
-        trusted="8,500+ SA Importers"
+        trusted="200+ SA Importers"
         primaryColor="green-600"
         secondaryColor="emerald-600"
       />
@@ -131,7 +131,7 @@ export default function SouthAfricaGuidePage() {
                   <Users className="h-5 w-5 text-yellow-600" />
                 </div>
                 <div>
-                  <p className="font-bold text-gray-900">8,500+ Success</p>
+                  <p className="font-bold text-gray-900">200+ Success</p>
                   <p className="text-xs text-gray-600">SA importers</p>
                 </div>
               </div>
@@ -149,7 +149,7 @@ export default function SouthAfricaGuidePage() {
               </Link>
               <Link href="/register?country=za&package=mastery">
                 <Button size="lg" className="font-bold text-lg px-8 bg-gradient-to-r from-green-600 to-yellow-600 hover:from-green-700 hover:to-yellow-700">
-                  Get Import Mastery - Save R500
+                  Get Import Mastery
                   <Sparkles className="ml-2 h-5 w-5" />
                 </Button>
               </Link>
@@ -163,22 +163,22 @@ export default function SouthAfricaGuidePage() {
               {[
                 {
                   src: '/avatars/namibia-1.png',
-                  name: 'Thabo M.',
+                  name: 'SA Customer',
                   location: 'Johannesburg'
                 },
                 {
                   src: '/avatars/namibia-2.png',
-                  name: 'Sipho K.',
+                  name: 'SA Customer',
                   location: 'Cape Town'
                 },
                 {
                   src: '/avatars/namibia-3.png',
-                  name: 'Lungi N.',
+                  name: 'SA Customer',
                   location: 'Durban'
                 },
                 {
                   src: '/avatars/namibia-4.png',
-                  name: 'Zanele P.',
+                  name: 'SA Customer',
                   location: 'Pretoria'
                 }
               ].map((customer, i) => (
@@ -197,7 +197,7 @@ export default function SouthAfricaGuidePage() {
                   <Star key={i} className="h-5 w-5 fill-yellow-400 text-yellow-400" />
                 ))}
               </div>
-              <p className="font-bold text-gray-900">4.9/5 from 650 verified SA importers</p>
+              <p className="font-bold text-gray-900">Customer testimonials available</p>
               <p className="text-sm text-gray-600">Updated December 2024</p>
             </div>
             <div className="hidden md:block h-12 w-px bg-gray-200"></div>
@@ -342,7 +342,7 @@ export default function SouthAfricaGuidePage() {
               <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-10">
                 <div className="bg-gradient-to-r from-green-600 to-yellow-600 text-white px-6 py-2 rounded-full shadow-lg flex items-center gap-2">
                   <Sparkles className="h-4 w-4" />
-                  <span className="font-bold text-sm">MOST POPULAR - SAVE R500</span>
+                  <span className="font-bold text-sm">COMPREHENSIVE PACKAGE</span>
                   <Sparkles className="h-4 w-4" />
                 </div>
               </div>
@@ -359,9 +359,8 @@ export default function SouthAfricaGuidePage() {
                   
                   <div className="flex items-baseline mb-2">
                     <span className="text-5xl font-black">R1,999</span>
-                    <span className="text-gray-500 ml-2 line-through">R2,499</span>
                   </div>
-                  <p className="text-green-600 font-bold mb-6">Save R500 today!</p>
+                  <p className="text-green-600 font-bold mb-6">Complete package available</p>
                   
                   <div className="bg-green-100 rounded-lg p-3 mb-6">
                     <p className="text-green-800 font-bold text-sm">Everything in Mistake Guide PLUS:</p>
@@ -389,7 +388,7 @@ export default function SouthAfricaGuidePage() {
                       className="w-full h-12 text-lg font-bold bg-gradient-to-r from-green-600 to-yellow-600 hover:from-green-700 hover:to-yellow-700 shadow-lg hover:shadow-xl transition-all"
                       size="lg"
                     >
-                      Get Import Mastery - Save R500
+                      Get Import Mastery
                       <Crown className="ml-2 h-5 w-5" />
                     </Button>
                   </Link>
@@ -421,27 +420,27 @@ export default function SouthAfricaGuidePage() {
       {/* Testimonials - Modern Design */}
       <section className="py-16 bg-gray-50">
         <div className="max-w-6xl mx-auto px-6">
-          <h2 className="text-3xl font-bold text-center mb-12">Join 8,500+ Successful SA Importers</h2>
+          <h2 className="text-3xl font-bold text-center mb-12">Join 200+ Successful SA Importers</h2>
           
           <div className="grid md:grid-cols-3 gap-6">
             {[
               {
-                name: "Thabo M.",
+                name: "SA Customer",
                 car: "2019 Toyota Fortuner",
                 saved: "R45,000",
-                text: "The SARS duty calculator saved me from paying the wrong tariff code. Saved R20,000 instantly!"
+                text: "The duty calculator helped me understand the import process better."
               },
               {
-                name: "Priya N.",
+                name: "SA Customer",
                 car: "2018 BMW 320i",
                 saved: "R62,000",
-                text: "Found 2 other importers through the container sharing feature. Split shipping costs 3 ways!"
+                text: "The guide provided clear information about container shipping options."
               },
               {
-                name: "Johan V.",
+                name: "SA Customer",
                 car: "2020 Ford Ranger",
                 saved: "R75,000",
-                text: "Dealer wanted R120,000 in fees. Did it myself for R45,000 total using your guide."
+                text: "The comprehensive guide helped me navigate the import process independently."
               }
             ].map((testimonial, i) => (
               <Card key={i} className="hover:shadow-xl transition-shadow">
@@ -506,7 +505,7 @@ export default function SouthAfricaGuidePage() {
           </p>
           <div className="bg-white/10 backdrop-blur rounded-2xl p-8 mb-8">
             <p className="text-3xl font-bold mb-4">
-              Join 8,500+ Smart SA Importers Today
+              Join 200+ Smart SA Importers Today
             </p>
             <p className="text-xl text-green-100">
               Get instant access to everything you need to import like a pro.
@@ -522,7 +521,7 @@ export default function SouthAfricaGuidePage() {
             Yes! I Want to Save R50,000+ →
           </Button>
           <p className="mt-6 text-green-200">
-            ⚡ Special pricing ends soon • 🔒 Secure checkout • 📱 Instant access
+            🔒 Secure checkout • 📱 Instant access
           </p>
         </div>
       </section>

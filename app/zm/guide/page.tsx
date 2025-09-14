@@ -47,7 +47,7 @@ export default function ZambiaGuidePage() {
       <CountrySelector />
       <GuideHeader 
         country="zm" 
-        trusted="5,000+ ZM Importers"
+        trusted="200+ ZM Importers"
         primaryColor="emerald-600"
         secondaryColor="teal-600"
       />
@@ -131,7 +131,7 @@ export default function ZambiaGuidePage() {
                   <Users className="h-5 w-5 text-teal-600" />
                 </div>
                 <div>
-                  <p className="font-bold text-gray-900">5,000+ Success</p>
+                  <p className="font-bold text-gray-900">200+ Success</p>
                   <p className="text-xs text-gray-600">ZM importers</p>
                 </div>
               </div>
@@ -148,7 +148,7 @@ export default function ZambiaGuidePage() {
               </Link>
               <Link href="/register?country=zm&package=mastery">
                 <Button size="lg" className="font-bold bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700">
-                  Get Import Mastery - Save K400
+                  Get Import Mastery
                 </Button>
               </Link>
             </div>
@@ -161,22 +161,22 @@ export default function ZambiaGuidePage() {
               {[
                 {
                   src: '/avatars/namibia-1.png',
-                  name: 'Mwamba C.',
+                  name: 'ZM Customer',
                   location: 'Lusaka'
                 },
                 {
                   src: '/avatars/namibia-2.png',
-                  name: 'Chanda M.',
+                  name: 'ZM Customer',
                   location: 'Ndola'
                 },
                 {
                   src: '/avatars/namibia-3.png',
-                  name: 'Bupe K.',
+                  name: 'ZM Customer',
                   location: 'Kitwe'
                 },
                 {
                   src: '/avatars/namibia-4.png',
-                  name: 'Mutale N.',
+                  name: 'ZM Customer',
                   location: 'Livingstone'
                 }
               ].map((customer, i) => (
@@ -195,7 +195,7 @@ export default function ZambiaGuidePage() {
                   <Star key={i} className="h-5 w-5 fill-yellow-400 text-yellow-400" />
                 ))}
               </div>
-              <p className="font-bold text-gray-900">4.9/5 from 500 verified ZM importers</p>
+              <p className="font-bold text-gray-900">Customer testimonials available</p>
               <p className="text-sm text-gray-600">Updated December 2024</p>
             </div>
             <div className="hidden md:block h-12 w-px bg-gray-200"></div>
@@ -340,7 +340,7 @@ export default function ZambiaGuidePage() {
               <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-10">
                 <div className="bg-gradient-to-r from-emerald-600 to-teal-600 text-white px-6 py-2 rounded-full shadow-lg flex items-center gap-2">
                   <Sparkles className="h-4 w-4" />
-                  <span className="font-bold text-sm">MOST POPULAR - SAVE K500</span>
+                  <span className="font-bold text-sm">COMPREHENSIVE PACKAGE</span>
                   <Sparkles className="h-4 w-4" />
                 </div>
               </div>
@@ -357,9 +357,8 @@ export default function ZambiaGuidePage() {
                   
                   <div className="flex items-baseline mb-2">
                     <span className="text-5xl font-black">K2,676</span>
-                    <span className="text-gray-500 ml-2 line-through">K3,176</span>
                   </div>
-                  <p className="text-emerald-600 font-bold mb-6">Save K500 today!</p>
+                  <p className="text-emerald-600 font-bold mb-6">Complete package available</p>
                   
                   <div className="bg-emerald-100 rounded-lg p-3 mb-6">
                     <p className="text-emerald-800 font-bold text-sm">Everything in Mistake Guide PLUS:</p>
@@ -387,7 +386,7 @@ export default function ZambiaGuidePage() {
                       className="w-full h-12 text-lg font-bold bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 shadow-lg hover:shadow-xl transition-all"
                       size="lg"
                     >
-                      Get Import Mastery - Save K400
+                      Get Import Mastery
                       <Crown className="ml-2 h-5 w-5" />
                     </Button>
                   </Link>
@@ -419,27 +418,27 @@ export default function ZambiaGuidePage() {
       {/* Testimonials - Modern Design */}
       <section className="py-16 bg-gray-50">
         <div className="max-w-6xl mx-auto px-6">
-          <h2 className="text-3xl font-bold text-center mb-12">Join 5,000+ Successful ZM Importers</h2>
+          <h2 className="text-3xl font-bold text-center mb-12">Join 200+ Successful ZM Importers</h2>
           
           <div className="grid md:grid-cols-3 gap-6">
             {[
               {
-                name: "Joseph M.",
+                name: "ZM Customer",
                 car: "2019 Toyota Land Cruiser",
                 saved: "K450,000",
-                text: "The ZRA calculator helped me classify correctly. Saved K200,000 on duties alone!"
+                text: "The duty calculator helped me understand the import process better."
               },
               {
-                name: "Grace K.",
+                name: "ZM Customer",
                 car: "2018 Toyota Hilux",
                 saved: "K380,000",
-                text: "Container sharing from DSM cut my shipping costs by 65%!"
+                text: "The guide provided clear information about container shipping options."
               },
               {
-                name: "Peter N.",
+                name: "ZM Customer",
                 car: "2020 Ford Ranger",
                 saved: "K520,000",
-                text: "Dealer wanted K950,000. Did it myself for K430,000 using the guide."
+                text: "The comprehensive guide helped me navigate the import process independently."
               }
             ].map((testimonial, i) => (
               <Card key={i} className="hover:shadow-xl transition-shadow">
@@ -504,7 +503,7 @@ export default function ZambiaGuidePage() {
           </p>
           <div className="bg-white/10 backdrop-blur rounded-2xl p-8 mb-8">
             <p className="text-3xl font-bold mb-4">
-              Join 5,000+ Smart ZM Importers Today
+              Join 200+ Smart ZM Importers Today
             </p>
             <p className="text-xl text-emerald-100">
               Get instant access to everything you need to import like a pro.
@@ -520,7 +519,7 @@ export default function ZambiaGuidePage() {
             Yes! I Want to Save K500,000+ →
           </Button>
           <p className="mt-6 text-emerald-200">
-            ⚡ Special pricing ends soon • 🔒 Secure checkout • 📱 Instant access
+            🔒 Secure checkout • 📱 Instant access
           </p>
         </div>
       </section>

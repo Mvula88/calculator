@@ -47,7 +47,7 @@ export default function BotswanaGuidePage() {
       <CountrySelector />
       <GuideHeader 
         country="bw" 
-        trusted="3,200+ BW Importers"
+        trusted="200+ BW Importers"
         primaryColor="blue-600"
         secondaryColor="sky-600"
       />
@@ -131,7 +131,7 @@ export default function BotswanaGuidePage() {
                   <Users className="h-5 w-5 text-sky-600" />
                 </div>
                 <div>
-                  <p className="font-bold text-gray-900">3,200+ Success</p>
+                  <p className="font-bold text-gray-900">200+ Success</p>
                   <p className="text-xs text-gray-600">BW importers</p>
                 </div>
               </div>
@@ -149,7 +149,7 @@ export default function BotswanaGuidePage() {
               </Link>
               <Link href="/register?country=bw&package=mastery">
                 <Button size="lg" className="font-bold text-lg px-8 bg-gradient-to-r from-blue-600 to-sky-600 hover:from-blue-700 hover:to-sky-700">
-                  Get Import Mastery - Save P400
+                  Get Import Mastery
                   <Sparkles className="ml-2 h-5 w-5" />
                 </Button>
               </Link>
@@ -163,22 +163,22 @@ export default function BotswanaGuidePage() {
               {[
                 {
                   src: '/avatars/namibia-1.png',
-                  name: 'Kgosi T.',
+                  name: 'BW Customer',
                   location: 'Gaborone'
                 },
                 {
                   src: '/avatars/namibia-2.png',
-                  name: 'Mpho M.',
+                  name: 'BW Customer',
                   location: 'Francistown'
                 },
                 {
                   src: '/avatars/namibia-3.png',
-                  name: 'Lesego K.',
+                  name: 'BW Customer',
                   location: 'Maun'
                 },
                 {
                   src: '/avatars/namibia-4.png',
-                  name: 'Boitumelo S.',
+                  name: 'BW Customer',
                   location: 'Kasane'
                 }
               ].map((customer, i) => (
@@ -197,7 +197,7 @@ export default function BotswanaGuidePage() {
                   <Star key={i} className="h-5 w-5 fill-yellow-400 text-yellow-400" />
                 ))}
               </div>
-              <p className="font-bold text-gray-900">4.8/5 from 320 verified BW importers</p>
+              <p className="font-bold text-gray-900">Customer testimonials available</p>
               <p className="text-sm text-gray-600">Updated December 2024</p>
             </div>
             <div className="hidden md:block h-12 w-px bg-gray-200"></div>
@@ -342,7 +342,7 @@ export default function BotswanaGuidePage() {
               <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-10">
                 <div className="bg-gradient-to-r from-blue-600 to-sky-600 text-white px-6 py-2 rounded-full shadow-lg flex items-center gap-2">
                   <Sparkles className="h-4 w-4" />
-                  <span className="font-bold text-sm">MOST POPULAR - SAVE P400</span>
+                  <span className="font-bold text-sm">COMPREHENSIVE PACKAGE</span>
                   <Sparkles className="h-4 w-4" />
                 </div>
               </div>
@@ -359,9 +359,8 @@ export default function BotswanaGuidePage() {
                   
                   <div className="flex items-baseline mb-2">
                     <span className="text-5xl font-black">P1,618</span>
-                    <span className="text-gray-500 ml-2 line-through">P2,018</span>
                   </div>
-                  <p className="text-blue-600 font-bold mb-6">Save P400 today!</p>
+                  <p className="text-blue-600 font-bold mb-6">Complete package available</p>
                   
                   <div className="bg-blue-100 rounded-lg p-3 mb-6">
                     <p className="text-blue-800 font-bold text-sm">Everything in Mistake Guide PLUS:</p>
@@ -389,7 +388,7 @@ export default function BotswanaGuidePage() {
                       className="w-full h-12 text-lg font-bold bg-gradient-to-r from-blue-600 to-sky-600 hover:from-blue-700 hover:to-sky-700 shadow-lg hover:shadow-xl transition-all"
                       size="lg"
                     >
-                      Get Import Mastery - Save P400
+                      Get Import Mastery
                       <Crown className="ml-2 h-5 w-5" />
                     </Button>
                   </Link>
@@ -421,27 +420,27 @@ export default function BotswanaGuidePage() {
       {/* Testimonials - Modern Design */}
       <section className="py-16 bg-gray-50">
         <div className="max-w-6xl mx-auto px-6">
-          <h2 className="text-3xl font-bold text-center mb-12">Join 3,200+ Successful BW Importers</h2>
+          <h2 className="text-3xl font-bold text-center mb-12">Join 200+ Successful BW Importers</h2>
           
           <div className="grid md:grid-cols-3 gap-6">
             {[
               {
-                name: "Kgosi M.",
+                name: "BW Customer",
                 car: "2019 Toyota Hilux DC",
                 saved: "P38,000",
-                text: "The BURS calculator helped me avoid wrong duty classification. Saved me P20,000!"
+                text: "The duty calculator helped me understand the import process better."
               },
               {
-                name: "Naledi K.",
+                name: "BW Customer",
                 car: "2018 VW Tiguan",
                 saved: "P45,000",
-                text: "Container sharing from Durban with 2 others cut my shipping costs by 60%!"
+                text: "The guide provided clear information about container shipping options."
               },
               {
-                name: "Thato B.",
+                name: "BW Customer",
                 car: "2020 Mazda BT-50",
                 saved: "P62,000",
-                text: "Agent wanted P95,000. Did it myself for P33,000 using the guide. Amazing!"
+                text: "The comprehensive guide helped me navigate the import process independently."
               }
             ].map((testimonial, i) => (
               <Card key={i} className="hover:shadow-xl transition-shadow">
@@ -506,7 +505,7 @@ export default function BotswanaGuidePage() {
           </p>
           <div className="bg-white/10 backdrop-blur rounded-2xl p-8 mb-8">
             <p className="text-3xl font-bold mb-4">
-              Join 3,200+ Smart BW Importers Today
+              Join 200+ Smart BW Importers Today
             </p>
             <p className="text-xl text-blue-100">
               Get instant access to everything you need to import like a pro.
@@ -522,7 +521,7 @@ export default function BotswanaGuidePage() {
             Yes! I Want to Save P50,000+ →
           </Button>
           <p className="mt-6 text-blue-200">
-            ⚡ Special pricing ends soon • 🔒 Secure checkout • 📱 Instant access
+            🔒 Secure checkout • 📱 Instant access
           </p>
         </div>
       </section>
