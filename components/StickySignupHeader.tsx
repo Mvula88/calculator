@@ -83,7 +83,7 @@ export default function StickySignupHeader({ country = 'na' }: StickySignupHeade
                 size="sm"
                 className="bg-white text-purple-600 hover:bg-gray-100 font-bold shadow-lg transform hover:scale-105 transition-all text-xs sm:text-sm"
               >
-                Import Mastery - Save {countryPricing.currency}{countryPricing.masterySaving}
+                Upgrade to Import Mastery
                 <ArrowRight className="ml-1 h-4 w-4" />
               </Button>
             </Link>
