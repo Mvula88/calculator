@@ -68,7 +68,7 @@ export default function SouthAfricaUpsellPage() {
         <div className="text-center mb-12">
           <div className="inline-flex items-center gap-2 bg-purple-100 text-purple-700 px-4 py-2 rounded-full mb-6">
             <Trophy className="h-5 w-5" />
-            <span className="font-semibold">LIMITED TIME - 50% DISCOUNT</span>
+            <span className="font-semibold">UPGRADE TO IMPORT MASTERY</span>
           </div>
           
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
@@ -77,7 +77,7 @@ export default function SouthAfricaUpsellPage() {
           </h1>
           
           <p className="text-xl text-gray-600">
-            Join 200+ South African importers saving R80,000+ annually
+            Join 200+ South African importers saving thousands annually
           </p>
         </div>
         
@@ -147,8 +147,7 @@ export default function SouthAfricaUpsellPage() {
         <Card className="p-8 bg-gradient-to-r from-green-600 to-blue-600 text-white">
           <div className="text-center">
             <div className="mb-4">
-              <span className="text-xl line-through opacity-60">R4,999</span>
-              <span className="text-4xl font-bold ml-3">R2,499</span>
+              <span className="text-4xl font-bold">R1,999</span>
               <span className="text-sm ml-2 opacity-80">One-time payment</span>
             </div>
             
@@ -182,13 +181,13 @@ export default function SouthAfricaUpsellPage() {
             
             <div className="mt-6 space-y-2">
               <p className="text-sm opacity-90">
-                ✓ 30-day money-back guarantee
+                ✓ Lifetime access & updates
               </p>
               <p className="text-sm opacity-90">
                 ✓ Free lifetime updates
               </p>
               <p className="text-sm opacity-90">
-                ✓ Save R80,000+ per import
+                ✓ Save thousands per import
               </p>
             </div>
           </div>

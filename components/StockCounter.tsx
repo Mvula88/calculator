@@ -63,7 +63,7 @@ export default function StockCounter({ initialStock = 23, country }: StockCounte
       <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full ${getStockColor()}`}>
         <TrendingDown className="h-4 w-4" />
         <span className="font-bold text-sm">
-          Only {stock} discounted spots remaining today!
+          {stock} guides available at current price
         </span>
       </div>
       
@@ -73,10 +73,10 @@ export default function StockCounter({ initialStock = 23, country }: StockCounte
         <span>{viewingNow} people viewing this guide now</span>
       </div>
       
-      {/* Urgency Message */}
+      {/* Limited Stock Message */}
       {stock <= 5 && (
-        <p className="text-red-600 font-bold text-sm animate-pulse">
-          ⚠️ High demand! These prices won't last long
+        <p className="text-orange-600 font-semibold text-sm">
+          Limited availability at this price
         </p>
       )}
     </div>

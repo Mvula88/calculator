@@ -68,7 +68,7 @@ export default function NamibiaUpsellPage() {
         <div className="text-center mb-12">
           <div className="inline-flex items-center gap-2 bg-purple-100 text-purple-700 px-4 py-2 rounded-full mb-6">
             <Trophy className="h-5 w-5" />
-            <span className="font-semibold">EXCLUSIVE OFFER - 60% OFF TODAY</span>
+            <span className="font-semibold">UPGRADE TO IMPORT MASTERY</span>
           </div>
           
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
@@ -77,7 +77,7 @@ export default function NamibiaUpsellPage() {
           </h1>
           
           <p className="text-xl text-gray-600">
-            Join 150 other Namibian importers who save N$60,000+ per year
+            Join 150+ Namibian importers who save thousands per year
           </p>
         </div>
         
@@ -94,7 +94,7 @@ export default function NamibiaUpsellPage() {
                 <Star className="h-6 w-6 text-yellow-500 flex-shrink-0" />
                 <div>
                   <strong>Container Sharing Network</strong>
-                  <p className="text-sm text-gray-600">Save N$15,000 per import</p>
+                  <p className="text-sm text-gray-600">Connect with other importers</p>
                 </div>
               </div>
               
@@ -128,7 +128,7 @@ export default function NamibiaUpsellPage() {
                 <Shield className="h-6 w-6 text-red-500 flex-shrink-0" />
                 <div>
                   <strong>Fraud Protection Guide</strong>
-                  <p className="text-sm text-gray-600">Avoid N$45,000+ scams</p>
+                  <p className="text-sm text-gray-600">Identify and avoid scams</p>
                 </div>
               </div>
               
@@ -147,8 +147,7 @@ export default function NamibiaUpsellPage() {
         <Card className="p-8 bg-gradient-to-r from-orange-600 to-red-600 text-white">
           <div className="text-center">
             <div className="mb-4">
-              <span className="text-xl line-through opacity-60">N$4,999</span>
-              <span className="text-4xl font-bold ml-3">N$1,999</span>
+              <span className="text-4xl font-bold">N$1,999</span>
               <span className="text-sm ml-2 opacity-80">One-time payment</span>
             </div>
             
@@ -182,13 +181,13 @@ export default function NamibiaUpsellPage() {
             
             <div className="mt-6 space-y-2">
               <p className="text-sm opacity-90">
-                ✓ 30-day money-back guarantee
+                ✓ Lifetime access & updates
               </p>
               <p className="text-sm opacity-90">
-                ✓ Lifetime updates included
+                ✓ Save thousands on every import
               </p>
               <p className="text-sm opacity-90">
-                ✓ Save N$60,000+ on your next import
+                ✓ Expert support included
               </p>
             </div>
           </div>

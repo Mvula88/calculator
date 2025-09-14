@@ -77,7 +77,7 @@ export default function ZambiaUpsellPage() {
         <div className="text-center mb-12">
           <div className="inline-flex items-center gap-2 bg-green-100 text-green-700 px-4 py-2 rounded-full mb-6">
             <DollarSign className="h-5 w-5" />
-            <span className="font-semibold">SAVE EVEN MORE - K75,000+ Per Import</span>
+            <span className="font-semibold">UPGRADE TO IMPORT MASTERY</span>
           </div>
           
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
@@ -86,8 +86,8 @@ export default function ZambiaUpsellPage() {
           </h1>
           
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            You're already saving K45,000 with Walvis Bay. Now discover the advanced 
-            strategies that can save you K75,000+ per vehicle import to Zambia.
+            You're already saving with Walvis Bay. Now discover the advanced 
+            strategies that can save you thousands per vehicle import to Zambia.
           </p>
         </div>
 
@@ -150,7 +150,7 @@ export default function ZambiaUpsellPage() {
         {/* Advanced Savings Breakdown */}
         <Card className="p-8 mb-8 bg-gradient-to-br from-yellow-50 to-white border-2 border-yellow-200">
           <h2 className="text-2xl font-bold mb-6 text-center">
-            Additional K30,000+ Savings with Mastery:
+            Additional Savings with Mastery:
           </h2>
           
           <div className="grid md:grid-cols-2 gap-6">
@@ -186,7 +186,7 @@ export default function ZambiaUpsellPage() {
           
           <div className="mt-6 p-4 bg-green-100 rounded-lg text-center">
             <p className="text-2xl font-bold text-green-700">
-              Total Savings: K75,000+ per vehicle
+              Total Savings: Thousands per vehicle
             </p>
           </div>
         </Card>
@@ -195,7 +195,7 @@ export default function ZambiaUpsellPage() {
         <div className="grid md:grid-cols-3 gap-6 mb-12">
           <Card className="p-6 text-center border-0 shadow-lg">
             <TrendingUp className="h-8 w-8 text-green-600 mx-auto mb-3" />
-            <h3 className="font-bold mb-2">K75,000+ Saved</h3>
+            <h3 className="font-bold mb-2">Save thousands</h3>
             <p className="text-sm text-gray-600">
               Advanced strategies for maximum cost reduction
             </p>
@@ -252,11 +252,10 @@ export default function ZambiaUpsellPage() {
               Upgrade Now - Limited Time
             </h3>
             <div className="text-2xl font-bold mb-2">
-              <span className="line-through text-green-200">K2,999</span>
-              <span className="ml-3">K1,499</span>
+              <span>K2,000</span>
             </div>
             <p className="text-green-100 mb-6">
-              Save K1,500 • Upgrade today only • 60-day guarantee
+              Lifetime access & updates
             </p>
             
             <div className="max-w-md mx-auto space-y-4">
@@ -298,14 +297,14 @@ export default function ZambiaUpsellPage() {
               >
                 {loading ? 'Processing...' : (
                   <span className="flex items-center gap-2">
-                    Upgrade to Mastery for K1,499
+                    Upgrade to Mastery for K2,000
                     <ArrowRight className="h-4 w-4" />
                   </span>
                 )}
               </Button>
               
               <p className="text-sm text-green-100">
-                Secure payment • Instant access • 60-day guarantee
+                Secure payment • Instant access • Lifetime access & updates
               </p>
             </div>
           </div>

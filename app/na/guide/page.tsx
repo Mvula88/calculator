@@ -359,7 +359,7 @@ export default function NamibiaGuidePage() {
                     <span className="text-xs block">SECS</span>
                   </div>
                 </div>
-                <p className="text-xs mt-1 opacity-90">Prices increase to N$2,499 & N$4,999 at midnight!</p>
+                <p className="text-xs mt-1 opacity-90">Start saving thousands on your imports today</p>
               </div>
             </div>
           </div>
@@ -395,14 +395,10 @@ export default function NamibiaGuidePage() {
                   </div>
                   
                   <div className="mb-6">
-                    <div className="flex items-center gap-3 mb-2">
-                      <span className="text-2xl text-gray-400 line-through">N$2,499</span>
-                      <span className="bg-green-100 text-green-700 px-2 py-1 rounded-md text-sm font-bold">Save N$2,000</span>
-                    </div>
                     <div className="flex items-baseline">
                       <span className="text-5xl font-black text-blue-600">N$499</span>
-                      <span className="text-gray-500 ml-2">today only</span>
                     </div>
+                    <p className="text-sm text-green-600 font-semibold mt-2">Save N$20,000+ on your first import</p>
                   </div>
                   
                   <div className="space-y-4 mb-8">
@@ -458,14 +454,10 @@ export default function NamibiaGuidePage() {
                   </div>
                   
                   <div className="mb-6">
-                    <div className="flex items-center gap-3 mb-2">
-                      <span className="text-2xl text-gray-400 line-through">N$4,999</span>
-                      <span className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-3 py-1 rounded-md text-sm font-bold">Save N$3,000!</span>
-                    </div>
                     <div className="flex items-baseline">
                       <span className="text-5xl font-black bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">N$1,999</span>
-                      <span className="text-gray-500 ml-2">limited time</span>
                     </div>
+                    <p className="text-sm text-purple-600 font-semibold mt-2">Save N$45,000+ on every import</p>
                   </div>
                   
                   <div className="bg-purple-100 rounded-lg p-3 mb-6">

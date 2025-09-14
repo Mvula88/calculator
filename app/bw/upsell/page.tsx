@@ -77,7 +77,7 @@ export default function BotswanaUpsellPage() {
         <div className="text-center mb-12">
           <div className="inline-flex items-center gap-2 bg-purple-100 text-purple-700 px-4 py-2 rounded-full mb-6">
             <Star className="h-5 w-5" />
-            <span className="font-semibold">LIMITED TIME UPGRADE</span>
+            <span className="font-semibold">UPGRADE TO IMPORT MASTERY</span>
           </div>
           
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
@@ -148,7 +148,7 @@ export default function BotswanaUpsellPage() {
         <div className="grid md:grid-cols-3 gap-6 mb-12">
           <Card className="p-6 text-center border-0 shadow-lg">
             <TrendingUp className="h-8 w-8 text-green-600 mx-auto mb-3" />
-            <h3 className="font-bold mb-2">Save P25,000+</h3>
+            <h3 className="font-bold mb-2">Save thousands</h3>
             <p className="text-sm text-gray-600">
               Advanced tax strategies and agent negotiations
             </p>
@@ -164,9 +164,9 @@ export default function BotswanaUpsellPage() {
           
           <Card className="p-6 text-center border-0 shadow-lg">
             <Shield className="h-8 w-8 text-purple-600 mx-auto mb-3" />
-            <h3 className="font-bold mb-2">Risk-Free</h3>
+            <h3 className="font-bold mb-2">Lifetime Value</h3>
             <p className="text-sm text-gray-600">
-              60-day money-back guarantee
+              Lifetime access & updates
             </p>
           </Card>
         </div>
@@ -205,11 +205,10 @@ export default function BotswanaUpsellPage() {
               Upgrade Now - Limited Time
             </h3>
             <div className="text-2xl font-bold mb-2">
-              <span className="line-through text-purple-200">P2,499</span>
-              <span className="ml-3">P1,499</span>
+              <span>P1,618</span>
             </div>
             <p className="text-purple-100 mb-6">
-              Save P1,000 • Upgrade today only • 60-day guarantee
+              Lifetime access & updates
             </p>
             
             <div className="max-w-md mx-auto space-y-4">
@@ -251,14 +250,14 @@ export default function BotswanaUpsellPage() {
               >
                 {loading ? 'Processing...' : (
                   <span className="flex items-center gap-2">
-                    Upgrade to Mastery for P1,499
+                    Upgrade to Mastery for P1,618
                     <ArrowRight className="h-4 w-4" />
                   </span>
                 )}
               </Button>
               
               <p className="text-sm text-purple-100">
-                Secure payment • Instant access • 60-day guarantee
+                Secure payment • Instant access • Lifetime access & updates
               </p>
             </div>
           </div>

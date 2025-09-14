@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
-import { ArrowRight, Sparkles, Clock, Shield } from 'lucide-react'
+import { ArrowRight, Sparkles, Shield } from 'lucide-react'
 import Link from 'next/link'
 
 interface StickySignupHeaderProps {
@@ -11,45 +11,28 @@ interface StickySignupHeaderProps {
 
 export default function StickySignupHeader({ country = 'na' }: StickySignupHeaderProps) {
   const [isVisible, setIsVisible] = useState(false)
-  const [timeLeft, setTimeLeft] = useState('')
   
-  // Currency and pricing based on country - showing massive discounts
+  // Currency and pricing based on country
   const pricing = {
     na: { 
       currency: 'N$', 
-      mistakeOriginal: '2,499',
       mistakePrice: '499',
-      mistakeSaving: '2,000',
-      masteryOriginal: '4,999', 
-      masteryPrice: '1,999',
-      masterySaving: '3,000'
+      masteryPrice: '1,999'
     },
     za: { 
       currency: 'R',
-      mistakeOriginal: '2,499',
       mistakePrice: '499',
-      mistakeSaving: '2,000',
-      masteryOriginal: '4,999',
-      masteryPrice: '1,999',
-      masterySaving: '3,000'
+      masteryPrice: '1,999'
     },
     bw: { 
       currency: 'P',
-      mistakeOriginal: '2,020',
       mistakePrice: '404',
-      mistakeSaving: '1,616',
-      masteryOriginal: '4,045',
-      masteryPrice: '1,618',
-      masterySaving: '2,427'
+      masteryPrice: '1,618'
     },
     zm: { 
       currency: 'K',
-      mistakeOriginal: '2,500',
       mistakePrice: '500',
-      mistakeSaving: '2,000',
-      masteryOriginal: '5,000',
-      masteryPrice: '2,000',
-      masterySaving: '3,000'
+      masteryPrice: '2,000'
     }
   }
   
@@ -65,22 +48,6 @@ export default function StickySignupHeader({ country = 'na' }: StickySignupHeade
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  useEffect(() => {
-    // Countdown timer for urgency
-    const calculateTimeLeft = () => {
-      const now = new Date()
-      const midnight = new Date()
-      midnight.setHours(24, 0, 0, 0)
-      const diff = midnight.getTime() - now.getTime()
-      const hours = Math.floor(diff / (1000 * 60 * 60))
-      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))
-      return `${hours}h ${minutes}m`
-    }
-
-    setTimeLeft(calculateTimeLeft())
-    const timer = setInterval(() => setTimeLeft(calculateTimeLeft()), 60000)
-    return () => clearInterval(timer)
-  }, [])
 
   if (!isVisible) return null
 
@@ -92,11 +59,11 @@ export default function StickySignupHeader({ country = 'na' }: StickySignupHeade
             <Sparkles className="h-5 w-5 text-yellow-300 animate-pulse" />
             <div className="text-center sm:text-left">
               <p className="text-xs sm:text-sm font-medium">
-                🔥 FLASH SALE: Up to {countryPricing.currency}{countryPricing.masterySaving} OFF - Ends at Midnight!
+                🚀 Import Mastery Guide - Save Thousands on Every Import
               </p>
               <p className="text-xs opacity-90 flex items-center gap-2">
-                <Clock className="h-3 w-3" />
-                Offer ends in {timeLeft} • Join 12,847+ successful importers
+                <Shield className="h-3 w-3" />
+                Join 12,847+ successful importers
               </p>
             </div>
           </div>

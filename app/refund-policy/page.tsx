@@ -14,25 +14,40 @@ export default function RefundPolicyPage() {
         <p className="text-sm text-gray-600 mb-8">Last updated: January 2025</p>
         
         <div className="prose prose-lg max-w-none space-y-8">
-          <section className="bg-yellow-50 border-l-4 border-yellow-400 p-6">
-            <h2 className="text-2xl font-semibold mb-4">No Refund Policy</h2>
+          <section className="bg-blue-50 border-l-4 border-blue-400 p-6">
+            <h2 className="text-2xl font-semibold mb-4">Our Refund Policy</h2>
             <p className="text-gray-700 font-semibold">
-              All sales are final. IMPOTA does not offer refunds on any purchases.
+              Due to the digital nature of our products, we generally do not offer refunds once you have accessed the content. 
+              However, we will consider refunds in specific circumstances outlined below.
             </p>
           </section>
 
           <section>
-            <h2 className="text-2xl font-semibold mb-4">Why We Don't Offer Refunds</h2>
+            <h2 className="text-2xl font-semibold mb-4">When We DO Offer Refunds</h2>
             <p className="text-gray-700 mb-4">
-              IMPOTA provides instant access to proprietary educational content, guides, and tools. 
-              Once you purchase and access our digital products, the value has been delivered immediately. 
-              Our no-refund policy helps us:
+              We will provide a full refund in the following situations:
             </p>
             <ul className="list-disc pl-6 text-gray-700 space-y-2">
-              <li>Protect our intellectual property from abuse</li>
-              <li>Maintain affordable pricing for all customers</li>
-              <li>Focus resources on improving content rather than processing refunds</li>
-              <li>Prevent fraudulent purchases and chargebacks</li>
+              <li><strong>Duplicate Purchases:</strong> If you accidentally purchase the same product twice</li>
+              <li><strong>Technical Issues:</strong> If you cannot access your purchased content and we cannot resolve the issue within 48 hours</li>
+              <li><strong>Payment Errors:</strong> If you were charged incorrectly or without authorization</li>
+              <li><strong>Pre-Access Refunds:</strong> If you request a refund before accessing any of the purchased content</li>
+              <li><strong>Service Unavailability:</strong> If our platform is down for more than 72 consecutive hours</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2 className="text-2xl font-semibold mb-4">When We DON'T Offer Refunds</h2>
+            <p className="text-gray-700 mb-4">
+              We cannot offer refunds in these situations:
+            </p>
+            <ul className="list-disc pl-6 text-gray-700 space-y-2">
+              <li>You've already accessed and viewed the digital content</li>
+              <li>You've downloaded the guides or materials</li>
+              <li>You changed your mind after purchasing</li>
+              <li>You claim the content didn't meet expectations (please review before buying)</li>
+              <li>You found the information elsewhere after purchasing</li>
+              <li>Your financial situation changed after purchase</li>
             </ul>
           </section>
 
@@ -50,11 +65,18 @@ export default function RefundPolicyPage() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-semibold mb-4">Digital Product Nature</h2>
-            <p className="text-gray-700">
-              Our products are digital educational materials that are delivered instantly upon purchase. 
-              Once you've accessed the content, it cannot be "returned" like a physical product. 
-              The knowledge and information provided have immediate value and cannot be unlearned.
+            <h2 className="text-2xl font-semibold mb-4">How to Request a Refund</h2>
+            <p className="text-gray-700 mb-4">
+              If you believe you qualify for a refund based on the criteria above:
+            </p>
+            <ol className="list-decimal pl-6 text-gray-700 space-y-2">
+              <li>Contact us within 7 days of purchase</li>
+              <li>Email support@impota.com with your order number and reason for refund</li>
+              <li>Include any relevant screenshots or error messages for technical issues</li>
+              <li>Allow up to 5 business days for review and processing</li>
+            </ol>
+            <p className="text-gray-700 mt-4">
+              Approved refunds will be credited to your original payment method within 5-10 business days.
             </p>
           </section>
 
@@ -72,29 +94,45 @@ export default function RefundPolicyPage() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-semibold mb-4">Technical Issues</h2>
-            <p className="text-gray-700">
-              If you experience technical difficulties accessing your purchased content, please contact 
-              our support team immediately. We will work to resolve any technical issues promptly. 
-              Technical support does not constitute a refund but ensures you can access what you've purchased.
+            <h2 className="text-2xl font-semibold mb-4">Our Commitment to You</h2>
+            <p className="text-gray-700 mb-4">
+              While we maintain a strict refund policy to protect our digital content, we are committed to:
             </p>
+            <ul className="list-disc pl-6 text-gray-700 space-y-2">
+              <li>Resolving all technical issues within 48 hours</li>
+              <li>Providing clear, accurate descriptions of all products</li>
+              <li>Offering customer support for any questions before purchase</li>
+              <li>Maintaining a fair and transparent refund process</li>
+              <li>Protecting both our customers and our business</li>
+            </ul>
           </section>
 
           <section>
-            <h2 className="text-2xl font-semibold mb-4">Duplicate Purchases</h2>
-            <p className="text-gray-700">
-              If you accidentally make a duplicate purchase, please contact us within 24 hours. 
-              While our general policy is no refunds, we may make exceptions for genuine duplicate 
-              transactions at our sole discretion.
+            <h2 className="text-2xl font-semibold mb-4">Dispute Resolution</h2>
+            <p className="text-gray-700 mb-4">
+              If your refund request is denied and you believe this was in error:
             </p>
+            <ol className="list-decimal pl-6 text-gray-700 space-y-2">
+              <li>You may appeal the decision by providing additional information</li>
+              <li>We will review appeals within 3 business days</li>
+              <li>Our management team will make the final decision</li>
+              <li>If still unsatisfied, you may pursue dispute resolution through your payment provider</li>
+            </ol>
           </section>
 
           <section>
             <h2 className="text-2xl font-semibold mb-4">Chargebacks</h2>
             <p className="text-gray-700">
-              Filing a chargeback instead of contacting us first will result in immediate account 
-              termination and you will be banned from all future purchases. We take fraud seriously 
-              and will pursue all available legal remedies.
+              Please contact us before filing a chargeback with your bank or credit card company. 
+              Filing a chargeback without first attempting to resolve the issue with us may result in:
+            </p>
+            <ul className="list-disc pl-6 text-gray-700 space-y-2">
+              <li>Immediate suspension of account access</li>
+              <li>Inability to make future purchases</li>
+              <li>Collection proceedings for fraudulent chargebacks</li>
+            </ul>
+            <p className="text-gray-700 mt-4">
+              We prefer to resolve all issues directly and fairly.
             </p>
           </section>
 
@@ -102,29 +140,35 @@ export default function RefundPolicyPage() {
             <h2 className="text-2xl font-semibold mb-4">Upgrades</h2>
             <p className="text-gray-700">
               If you purchase the Mistake Guide and later upgrade to Import Mastery, you pay only 
-              the difference. However, neither the original purchase nor the upgrade fee is refundable.
+              the difference. Refunds for upgrades are only available if you haven't accessed 
+              the additional Import Mastery content.
             </p>
           </section>
 
           <section>
             <h2 className="text-2xl font-semibold mb-4">Your Agreement</h2>
             <p className="text-gray-700">
-              By making a purchase on IMPOTA, you acknowledge and agree to this no-refund policy. 
-              You confirm that you have read and understood what you are purchasing and accept that 
-              all sales are final.
+              By making a purchase on IMPOTA, you acknowledge and agree to this refund policy. 
+              You understand that refunds are limited to the specific circumstances outlined above, 
+              and that accessing digital content generally makes you ineligible for a refund.
             </p>
           </section>
 
-          <section className="bg-blue-50 p-6 rounded-lg">
-            <h2 className="text-2xl font-semibold mb-4">Questions Before Purchase?</h2>
+          <section className="bg-green-50 p-6 rounded-lg">
+            <h2 className="text-2xl font-semibold mb-4">Need Help?</h2>
             <p className="text-gray-700 mb-4">
-              We want you to be confident in your purchase. If you have any questions or concerns 
-              before buying, please don't hesitate to contact us:
+              We're here to help! Contact us for:
             </p>
+            <ul className="list-disc pl-6 text-gray-700 space-y-2 mb-4">
+              <li>Questions before purchasing</li>
+              <li>Technical support issues</li>
+              <li>Refund requests</li>
+              <li>Account access problems</li>
+            </ul>
             <p className="text-gray-700">
-              Email: support@impota.com
-              <br />WhatsApp: +264 81 234 5678
-              <br />We typically respond within 24 hours
+              <strong>Email:</strong> support@impota.com
+              <br /><strong>WhatsApp:</strong> +264 81 234 5678
+              <br /><strong>Response Time:</strong> Within 24 hours (usually faster)
             </p>
           </section>
 
