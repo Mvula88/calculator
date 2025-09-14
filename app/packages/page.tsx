@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect } from 'react'
+import Link from 'next/link'
 import { Loader2 } from 'lucide-react'
 
 export default function PackagesPage() {
@@ -23,7 +24,7 @@ export default function PackagesPage() {
         <Loader2 className="h-8 w-8 animate-spin mx-auto mb-4" />
         <p className="text-gray-600">Redirecting to portal...</p>
         <p className="text-sm text-gray-500 mt-2">
-          If you are not redirected, <a href="/portal" className="text-blue-600 underline">click here</a>
+          If you are not redirected, <Link href="/portal" className="text-blue-600 underline">click here</Link>
         </p>
       </div>
     </div>
