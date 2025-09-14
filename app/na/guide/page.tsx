@@ -56,7 +56,7 @@ const faqs = [
   },
   {
     question: 'What are the biggest mistakes first-time importers make?',
-    answer: 'The top 5 mistakes cost importers an average of N$45,000 extra. Our Mistake Guide specifically addresses each one with step-by-step solutions that have helped 12,847+ successful importers.'
+    answer: 'The top 5 mistakes cost importers an average of N$45,000 extra. Our Mistake Guide specifically addresses each one with step-by-step solutions that have helped 200+ successful importers.'
   },
   {
     question: 'Do I need connections or experience to import?',
@@ -65,26 +65,7 @@ const faqs = [
 ]
 
 export default function NamibiaGuidePage() {
-  const [timeLeft, setTimeLeft] = useState({ hours: 23, minutes: 59, seconds: 59 })
-  
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setTimeLeft(prev => {
-        if (prev.seconds > 0) {
-          return { ...prev, seconds: prev.seconds - 1 }
-        } else if (prev.minutes > 0) {
-          return { ...prev, minutes: prev.minutes - 1, seconds: 59 }
-        } else if (prev.hours > 0) {
-          return { hours: prev.hours - 1, minutes: 59, seconds: 59 }
-        } else {
-          // Reset to 24 hours when timer reaches 0
-          return { hours: 23, minutes: 59, seconds: 59 }
-        }
-      })
-    }, 1000)
-    
-    return () => clearInterval(timer)
-  }, [])
+  // Countdown timer removed for compliance
 
   return (
     <>
@@ -102,7 +83,7 @@ export default function NamibiaGuidePage() {
       <CountrySelector />
       <GuideHeader 
         country="na" 
-        trusted="12,847+ Importers"
+        trusted="200+ Importers"
         primaryColor="blue-600"
         secondaryColor="purple-600"
       />
@@ -186,7 +167,7 @@ export default function NamibiaGuidePage() {
                   <Users className="h-5 w-5 text-purple-600" />
                 </div>
                 <div>
-                  <p className="font-bold text-gray-900">12,847 Success</p>
+                  <p className="font-bold text-gray-900">200+ Success Stories</p>
                   <p className="text-xs text-gray-600">Stories & counting</p>
                 </div>
               </div>
@@ -311,36 +292,10 @@ export default function NamibiaGuidePage() {
       {/* Package Comparison Section - Clear Feature Display */}
       <section className="py-16 bg-gradient-to-b from-gray-50 to-white">
         <div className="max-w-6xl mx-auto px-6">
-          {/* Urgency Timer */}
-          <div className="bg-gradient-to-r from-red-600 to-orange-600 text-white rounded-xl p-4 mb-8 max-w-3xl mx-auto">
-            <div className="flex items-center justify-center gap-4">
-              <Clock className="h-6 w-6 animate-pulse" />
-              <div className="text-center">
-                <p className="text-sm font-medium mb-1">⚡ FLASH SALE ENDS IN ⚡</p>
-                <div className="flex items-center gap-2 justify-center">
-                  <div className="bg-white/20 backdrop-blur rounded px-3 py-1">
-                    <span className="text-2xl font-bold">{String(timeLeft.hours).padStart(2, '0')}</span>
-                    <span className="text-xs block">HOURS</span>
-                  </div>
-                  <span className="text-2xl font-bold">:</span>
-                  <div className="bg-white/20 backdrop-blur rounded px-3 py-1">
-                    <span className="text-2xl font-bold">{String(timeLeft.minutes).padStart(2, '0')}</span>
-                    <span className="text-xs block">MINS</span>
-                  </div>
-                  <span className="text-2xl font-bold">:</span>
-                  <div className="bg-white/20 backdrop-blur rounded px-3 py-1">
-                    <span className="text-2xl font-bold">{String(timeLeft.seconds).padStart(2, '0')}</span>
-                    <span className="text-xs block">SECS</span>
-                  </div>
-                </div>
-                <p className="text-xs mt-1 opacity-90">Start saving thousands on your imports today</p>
-              </div>
-            </div>
-          </div>
           
           <div className="text-center mb-12">
             <h2 className="text-4xl font-black mb-4">Choose Your Import Success Package</h2>
-            <p className="text-xl text-gray-600">Join 12,847+ importers who saved thousands with our guides</p>
+            <p className="text-xl text-gray-600">Join 200+ importers who saved thousands with our guides</p>
             
             {/* Stock Counter */}
             <div className="mt-4 flex justify-center">
@@ -352,11 +307,6 @@ export default function NamibiaGuidePage() {
             {/* Mistake Guide */}
             <div className="relative">
               {/* Discount Badge */}
-              <div className="absolute -top-3 left-4 z-10">
-                <div className="bg-red-500 text-white px-3 py-1 rounded-full text-xs font-bold shadow-md">
-                  80% OFF TODAY
-                </div>
-              </div>
               
               <Card className="h-full border-2 hover:shadow-xl transition-shadow">
                 <div className="p-8">
@@ -492,7 +442,7 @@ export default function NamibiaGuidePage() {
       {/* Testimonials - Modern Design */}
       <section className="py-16 bg-gray-50">
         <div className="max-w-6xl mx-auto px-6">
-          <h2 className="text-3xl font-bold text-center mb-12">Join 12,847+ Successful Importers</h2>
+          <h2 className="text-3xl font-bold text-center mb-12">Join 200+ Successful Importers</h2>
           
           <div className="grid md:grid-cols-3 gap-6">
             {[
@@ -565,7 +515,7 @@ export default function NamibiaGuidePage() {
             <h2 className="text-3xl font-bold mb-4">Why Choose IMPOTA for Your Namibia Car Import Journey</h2>
             <p className="text-xl text-gray-700 mb-6">
               Our comprehensive Namibia car import guide is proven to save you at least N$10,000 on your first vehicle import from Japan.
-              Join 12,847+ successful Namibian importers who've navigated Walvis Bay port clearance with our system.
+              Join 200+ successful Namibian importers who've navigated Walvis Bay port clearance with our system.
             </p>
             <div className="flex items-center justify-center gap-8">
               <div className="flex items-center gap-2">
@@ -596,7 +546,7 @@ export default function NamibiaGuidePage() {
           </p>
           <div className="bg-white/10 backdrop-blur rounded-2xl p-8 mb-8">
             <p className="text-3xl font-bold mb-4">
-              Join 12,847+ Smart Importers Today
+              Join 200+ Smart Importers Today
             </p>
             <p className="text-xl text-blue-100">
               Get instant access to everything you need to import like a pro.

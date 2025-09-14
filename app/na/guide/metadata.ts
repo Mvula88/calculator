@@ -2,12 +2,12 @@ import { Metadata } from 'next'
 
 export const namibiaGuideMetadata: Metadata = {
   title: 'Import Cars to Namibia from Japan 2024 | Complete Walvis Bay Guide | Save N$65,000+',
-  description: 'Step-by-step guide to importing cars from Japan to Namibia through Walvis Bay port. Save up to N$65,000 with our proven system. Includes duty calculator, customs clearance, NaTIS registration, and scam prevention. Trusted by 12,847+ Namibian importers.',
+  description: 'Step-by-step guide to importing cars from Japan to Namibia through Walvis Bay port. Save up to N$65,000 with our proven system. Includes duty calculator, customs clearance, NaTIS registration, and scam prevention. Trusted by 200+ Namibian importers.',
   keywords: 'import cars Namibia, Japan car import Namibia, Walvis Bay port clearance, Namibia customs duty calculator, NaTIS vehicle registration, import duty Namibia 2024, Japanese used cars Namibia, car import costs Namibia, Namibia clearing agents, import permit Namibia, vehicle import process Namibia, Walvis Bay port fees, Namibia car import guide, Japanese auction cars Namibia, import taxes Namibia vehicles',
   
   openGraph: {
     title: 'Save N$65,000+ Importing Cars to Namibia | Complete 2024 Guide',
-    description: 'The only guide you need to import cars from Japan to Namibia. Walvis Bay port navigation, duty calculations, and step-by-step process. Join 12,847+ successful importers.',
+    description: 'The only guide you need to import cars from Japan to Namibia. Walvis Bay port navigation, duty calculations, and step-by-step process. Join 200+ successful importers.',
     url: 'https://www.impota.com/na/guide',
     siteName: 'IMPOTA - Namibia Car Import Guide',
     images: [
@@ -142,7 +142,7 @@ export const namibiaFAQJsonLd = {
       name: 'Do I need experience or connections to import cars to Namibia?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'No prior experience needed. Our step-by-step guides provide everything you need including verified contacts, exact procedures, and insider strategies used by 12,847+ successful Namibian importers.'
+        text: 'No prior experience needed. Our step-by-step guides provide everything you need including verified contacts, exact procedures, and insider strategies used by 200+ successful Namibian importers.'
       }
     },
     {
@@ -213,7 +213,7 @@ export const namibiaProductJsonLd = {
       aggregateRating: {
         '@type': 'AggregateRating',
         ratingValue: '4.9',
-        reviewCount: '847'
+        reviewCount: '200'
       }
     }
   ]

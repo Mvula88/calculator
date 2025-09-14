@@ -71,7 +71,7 @@ export default function FloatingSignupButton({ country = 'na' }: FloatingSignupB
                 </Button>
               </Link>
               <p className="text-xs text-gray-500 mt-3">
-                Join 12,847+ successful importers
+                Join 200+ successful importers
               </p>
             </div>
           </div>
