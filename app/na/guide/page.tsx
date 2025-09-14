@@ -42,7 +42,7 @@ import GuideHeader from '@/components/GuideHeader'
 import StickySignupHeader from '@/components/StickySignupHeader'
 import ExitIntentPopup from '@/components/ExitIntentPopup'
 import StockCounter from '@/components/StockCounter'
-import PurchaseNotifications from '@/components/PurchaseNotifications'
+import ImportSuccessNotifications from '@/components/PurchaseNotifications'
 
 // SEO-optimized FAQ data - General info only, specifics in paid guide
 const faqs = [
@@ -95,7 +95,7 @@ export default function NamibiaGuidePage() {
       <ExitIntentPopup country="na" />
       
       {/* Purchase Notifications */}
-      <PurchaseNotifications country="na" />
+      <ImportSuccessNotifications country="na" />
       
       <main className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-50" itemScope itemType="https://schema.org/Guide">
       <StickySignupHeader country="na" />
