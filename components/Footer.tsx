@@ -18,6 +18,7 @@ export default function Footer() {
       { name: 'Import Guide', href: '/na/guide' },
       { name: 'Portal', href: '/portal' },
       { name: 'Calculator', href: '/portal/calculator' },
+      { name: 'Support', href: '/support' },
     ],
     countries: [
       { name: 'Namibia', href: '/na/guide' },
