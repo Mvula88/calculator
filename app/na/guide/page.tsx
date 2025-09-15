@@ -210,8 +210,8 @@ export default function NamibiaGuidePage() {
             <div className="flex items-center gap-2">
               <DollarSign className="h-8 w-8 text-purple-600" />
               <div>
-                <p className="font-bold text-gray-900">Save Thousands</p>
-                <p className="text-xs text-gray-600">On every import</p>
+                <p className="font-bold text-gray-900">Expert Guidance</p>
+                <p className="text-xs text-gray-600">For every import</p>
               </div>
             </div>
           </div>

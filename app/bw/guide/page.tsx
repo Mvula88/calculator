@@ -108,7 +108,7 @@ export default function BotswanaGuidePage() {
                 </div>
                 <div>
                   <p className="font-bold text-gray-900">Expert Import Guidance</p>
-                  <p className="text-xs text-gray-600">Per vehicle import</p>
+                  <p className="text-xs text-gray-600">For every import</p>
                 </div>
               </div>
             </div>
