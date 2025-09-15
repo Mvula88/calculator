@@ -99,23 +99,9 @@ export default function SupportPage() {
     {
       icon: Mail,
       title: 'Email Support',
-      description: 'Get detailed responses to complex questions',
+      description: 'Get detailed responses to all your questions',
       contact: 'support@impota.com',
       responseTime: 'Response within 24 hours'
-    },
-    {
-      icon: MessageCircle,
-      title: 'WhatsApp',
-      description: 'Quick questions and urgent support',
-      contact: '+264 81 234 5678',
-      responseTime: 'Response within 2-4 hours'
-    },
-    {
-      icon: Users,
-      title: 'Community Forum',
-      description: 'Connect with other importers (Import Mastery only)',
-      contact: 'Access via portal',
-      responseTime: 'Community-driven support'
     }
   ]
 
@@ -242,10 +228,6 @@ export default function SupportPage() {
                 </p>
                 <p className="text-gray-700 flex items-center gap-2">
                   <CheckCircle className="h-4 w-4 text-green-600" />
-                  WhatsApp: 2-4 hours (business hours)
-                </p>
-                <p className="text-gray-700 flex items-center gap-2">
-                  <CheckCircle className="h-4 w-4 text-green-600" />
                   Urgent issues: Priority handling
                 </p>
               </div>
@@ -273,17 +255,11 @@ export default function SupportPage() {
           <p className="text-lg mb-6">
             Our support team is ready to assist you with any questions or concerns
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex justify-center">
             <Link href="mailto:support@impota.com">
               <Button size="lg" className="bg-white text-blue-600 hover:bg-gray-100">
                 <Mail className="mr-2 h-5 w-5" />
                 Email Support
-              </Button>
-            </Link>
-            <Link href="https://wa.me/264812345678" target="_blank">
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10">
-                <MessageCircle className="mr-2 h-5 w-5" />
-                WhatsApp Chat
               </Button>
             </Link>
           </div>

@@ -124,7 +124,7 @@ export default function Footer() {
         <div className="mt-8 pt-8 border-t border-gray-800">
           <div className="flex flex-col sm:flex-row justify-between items-center">
             <p className="text-xs text-gray-500">
-              Empowering Southern African importers since 2020
+              Empowering Southern African importers since 2024
             </p>
             <div className="flex gap-4 mt-4 sm:mt-0">
               <a 
@@ -132,13 +132,6 @@ export default function Footer() {
                 className="text-xs text-gray-400 hover:text-white transition-colors"
               >
                 support@impota.com
-              </a>
-              <span className="text-gray-600">|</span>
-              <a 
-                href="tel:+264812345678" 
-                className="text-xs text-gray-400 hover:text-white transition-colors"
-              >
-                +264 81 234 5678
               </a>
             </div>
           </div>
