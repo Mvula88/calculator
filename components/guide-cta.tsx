@@ -146,7 +146,7 @@ export default function GuideCTA({ country, mistakePrice, masteryPrice }: GuideC
             Get Instant Access
           </h3>
           <p className="text-blue-100 mb-6">
-            Join thousands of successful importers • 30-day money-back guarantee
+            Get expert import guidance • 30-day money-back guarantee
           </p>
           
           <div className="max-w-md mx-auto space-y-4">
@@ -188,7 +188,7 @@ export default function GuideCTA({ country, mistakePrice, masteryPrice }: GuideC
             </div>
             <div className="flex items-center gap-2">
               <TrendingUp className="h-4 w-4" />
-              <span>200+ Happy Customers</span>
+              <span>8 Successful Imports and Counting</span>
             </div>
           </div>
         </div>

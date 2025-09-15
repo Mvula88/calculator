@@ -54,7 +54,7 @@ export default function QuickSignupForm({
       <div className="bg-gradient-to-r from-white to-gray-50 rounded-2xl p-8 shadow-2xl border-2 border-purple-200">
         <div className="flex items-center justify-center gap-2 mb-4">
           <Trophy className="h-5 w-5 text-yellow-500" />
-          <span className="text-sm font-bold text-gray-600">200+ SUCCESSFUL IMPORTERS</span>
+          <span className="text-sm font-bold text-gray-600">EXPERT IMPORT GUIDANCE</span>
           <Trophy className="h-5 w-5 text-yellow-500" />
         </div>
         
@@ -150,7 +150,7 @@ export default function QuickSignupForm({
           </div>
           <div>
             <h4 className="font-bold">Quick Start</h4>
-            <p className="text-sm text-gray-600">Join 200+ importers</p>
+            <p className="text-sm text-gray-600">Start importing today</p>
           </div>
         </div>
         

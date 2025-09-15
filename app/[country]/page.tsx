@@ -50,7 +50,7 @@ const countryData = {
     currency: 'N$',
     port: 'Walvis Bay',
     avgSavings: '75,000',
-    members: '8,234',
+    members: '8 and counting',
     dutyRate: '25-45%',
     clearingTime: '7-14 days',
     popularCars: ['Toyota Hilux', 'Toyota Fortuner', 'Nissan NP300', 'Ford Ranger'],
@@ -60,13 +60,7 @@ const countryData = {
       'Strong Japanese car market presence',
       'Established clearing agent network'
     ],
-    testimonial: {
-      name: 'Johannes M.',
-      location: 'Windhoek',
-      saving: 'N$85,000',
-      car: '2019 Toyota Hilux',
-      text: 'The guide made everything so simple. I saved more than I expected and the process was smooth.'
-    }
+    testimonial: null // Testimonials will be added once we have more verified customer feedback
   },
   za: {
     name: 'South Africa',
@@ -74,7 +68,7 @@ const countryData = {
     currency: 'R',
     port: 'Durban',
     avgSavings: '120,000',
-    members: '3,421',
+    members: '8 and counting',
     dutyRate: '30-48%',
     clearingTime: '10-21 days',
     popularCars: ['Toyota Hilux', 'VW Polo', 'Toyota Corolla', 'Ford Ranger'],
@@ -84,13 +78,7 @@ const countryData = {
       'Multiple financing options available',
       'Strong regulatory framework'
     ],
-    testimonial: {
-      name: 'Thabo K.',
-      location: 'Johannesburg',
-      saving: 'R145,000',
-      car: '2020 Toyota Fortuner',
-      text: 'IMPOTA helped me navigate the homologation process perfectly. Highly recommended!'
-    }
+    testimonial: null // Testimonials will be added once we have more verified customer feedback
   },
   bw: {
     name: 'Botswana',
@@ -98,7 +86,7 @@ const countryData = {
     currency: 'P',
     port: 'via Durban/Walvis Bay',
     avgSavings: '65,000',
-    members: '892',
+    members: '8 and counting',
     dutyRate: '25-40%',
     clearingTime: '14-21 days',
     popularCars: ['Toyota Hilux', 'Land Cruiser', 'Nissan Navara', 'Mazda BT-50'],
@@ -108,13 +96,7 @@ const countryData = {
       'Simplified documentation',
       'Lower duty rates than neighbors'
     ],
-    testimonial: {
-      name: 'Kgosi T.',
-      location: 'Gaborone',
-      saving: 'P72,000',
-      car: '2018 Land Cruiser',
-      text: 'The calculator was spot on with costs. No surprises at customs!'
-    }
+    testimonial: null // Testimonials will be added once we have more verified customer feedback
   },
   zm: {
     name: 'Zambia',
@@ -122,7 +104,7 @@ const countryData = {
     currency: 'K',
     port: 'via Dar es Salaam',
     avgSavings: '180,000',
-    members: '456',
+    members: '8 and counting',
     dutyRate: '30-50%',
     clearingTime: '14-28 days',
     popularCars: ['Toyota Hilux', 'Toyota Vitz', 'Nissan X-Trail', 'Honda Fit'],
@@ -132,13 +114,7 @@ const countryData = {
       'Improving import processes',
       'Multiple border entry points'
     ],
-    testimonial: {
-      name: 'Mwila C.',
-      location: 'Lusaka',
-      saving: 'K195,000',
-      car: '2019 Nissan X-Trail',
-      text: 'Saved enough to import two cars instead of buying one locally!'
-    }
+    testimonial: null // Testimonials will be added once we have more verified customer feedback
   }
 }
 
@@ -271,27 +247,39 @@ export default async function CountryLandingPage({ params }: PageProps) {
               </div>
 
               {/* Testimonial */}
-              <Card className="p-6 bg-gradient-to-br from-purple-50 to-blue-50">
-                <div className="flex items-start gap-1 mb-3">
-                  {[1,2,3,4,5].map(i => (
-                    <Star key={i} className="h-5 w-5 fill-yellow-400 text-yellow-400" />
-                  ))}
-                </div>
-                <p className="text-gray-700 italic mb-4">"{country.testimonial.text}"</p>
-                <div className="flex items-center justify-between">
-                  <div>
-                    <div className="font-semibold">{country.testimonial.name}</div>
-                    <div className="text-sm text-gray-600">{country.testimonial.location}</div>
+              {country.testimonial ? (
+                <Card className="p-6 bg-gradient-to-br from-purple-50 to-blue-50">
+                  <div className="flex items-start gap-1 mb-3">
+                    {[1,2,3,4,5].map(i => (
+                      <Star key={i} className="h-5 w-5 fill-yellow-400 text-yellow-400" />
+                    ))}
                   </div>
-                  <div className="text-right">
-                    <div className="text-sm text-gray-600">Saved</div>
-                    <div className="font-bold text-green-600">{country.testimonial.saving}</div>
+                  <p className="text-gray-700 italic mb-4">"{country.testimonial.text}"</p>
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <div className="font-semibold">{country.testimonial.name}</div>
+                      <div className="text-sm text-gray-600">{country.testimonial.location}</div>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-sm text-gray-600">Saved</div>
+                      <div className="font-bold text-green-600">{country.testimonial.saving}</div>
+                    </div>
                   </div>
-                </div>
-                <div className="mt-3 pt-3 border-t">
-                  <span className="text-sm text-gray-600">Vehicle: {country.testimonial.car}</span>
-                </div>
-              </Card>
+                  <div className="mt-3 pt-3 border-t">
+                    <span className="text-sm text-gray-600">Vehicle: {country.testimonial.car}</span>
+                  </div>
+                </Card>
+              ) : (
+                <Card className="p-6 bg-gradient-to-br from-purple-50 to-blue-50">
+                  <div className="flex items-center justify-center h-full">
+                    <div className="text-center">
+                      <Award className="h-12 w-12 text-purple-400 mx-auto mb-3" />
+                      <h3 className="font-semibold text-lg mb-2">Real Success Stories Coming Soon</h3>
+                      <p className="text-gray-600">We're collecting verified testimonials from our growing community of successful imports</p>
+                    </div>
+                  </div>
+                </Card>
+              )}
             </div>
           </div>
         </div>
@@ -357,7 +345,7 @@ export default async function CountryLandingPage({ params }: PageProps) {
             Start Importing Cars to {country.name} Today
           </h2>
           <p className="text-xl mb-8 text-blue-100">
-            Join {country.members}+ successful importers saving millions on Japanese vehicles
+            Join our growing community - {country.members} successful imports
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">

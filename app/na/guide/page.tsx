@@ -55,7 +55,7 @@ const faqs = [
   },
   {
     question: 'What are the biggest mistakes first-time importers make?',
-    answer: 'The top 5 mistakes cost importers an average of N$45,000 extra. Our Mistake Guide specifically addresses each one with step-by-step solutions that have helped 200+ successful importers.'
+    answer: 'The top 5 mistakes cost importers an average of N$45,000 extra. Our Mistake Guide specifically addresses each one with step-by-step solutions based on real import experiences.'
   },
   {
     question: 'Do I need connections or experience to import?',
@@ -79,7 +79,7 @@ export default function NamibiaGuidePage() {
       <CountrySelector />
       <GuideHeader 
         country="na" 
-        trusted="200+ Importers"
+        trusted="8 Successful Imports and Counting"
         primaryColor="blue-600"
         secondaryColor="purple-600"
       />
@@ -163,7 +163,7 @@ export default function NamibiaGuidePage() {
                   <Users className="h-5 w-5 text-purple-600" />
                 </div>
                 <div>
-                  <p className="font-bold text-gray-900">200+ Active Members</p>
+                  <p className="font-bold text-gray-900">New Import Service</p>
                   <p className="text-xs text-gray-600">Growing community</p>
                 </div>
               </div>
@@ -291,7 +291,7 @@ export default function NamibiaGuidePage() {
           
           <div className="text-center mb-12">
             <h2 className="text-4xl font-black mb-4">Choose Your Import Success Package</h2>
-            <p className="text-xl text-gray-600">Join 200+ importers who saved thousands with our guides</p>
+            <p className="text-xl text-gray-600">Get expert guidance for your car import</p>
             
             {/* Stock Counter */}
             <div className="mt-4 flex justify-center">
@@ -463,7 +463,7 @@ export default function NamibiaGuidePage() {
             <h2 className="text-3xl font-bold mb-4">Why Choose IMPOTA for Your Namibia Car Import Journey</h2>
             <p className="text-xl text-gray-700 mb-6">
               Our comprehensive Namibia car import guide is proven to save you at least N$10,000 on your first vehicle import from Japan.
-              Join 200+ successful Namibian importers who've navigated Walvis Bay port clearance with our system.
+              Navigate Walvis Bay port clearance with our comprehensive system.
             </p>
             <div className="flex items-center justify-center gap-8">
               <div className="flex items-center gap-2">
@@ -494,7 +494,7 @@ export default function NamibiaGuidePage() {
           </p>
           <div className="bg-white/10 backdrop-blur rounded-2xl p-8 mb-8">
             <p className="text-3xl font-bold mb-4">
-              Join 200+ Smart Importers Today
+              Start Your Import Journey Today
             </p>
             <p className="text-xl text-blue-100">
               Get instant access to everything you need to import like a pro.

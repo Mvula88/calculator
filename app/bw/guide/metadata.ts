@@ -2,12 +2,12 @@ import { Metadata } from 'next'
 
 export const botswanaGuideMetadata: Metadata = {
   title: 'Import Cars to Botswana from Japan 2024 | Complete Guide | Save P40,000+',
-  description: 'Step-by-step guide to importing cars from Japan to Botswana. Save up to P40,000 with our proven system. Includes BURS duty calculator, customs clearance at Gaborone, vehicle registration, and container sharing. Trusted by 3,200+ Botswana importers.',
+  description: 'Step-by-step guide to importing cars from Japan to Botswana. Professional import guidance system. Includes BURS duty calculator, customs clearance at Gaborone, vehicle registration, and container sharing. Based on 8 successful imports and counting.',
   keywords: 'import cars Botswana, Japan car import Botswana, Gaborone customs clearance, BURS duty calculator, Botswana vehicle registration, import duty Botswana 2024, Japanese used cars Botswana, car import costs Botswana, Botswana clearing agents, import permit Botswana, vehicle import process Botswana, Botswana car import guide, Japanese auction cars Botswana, import taxes Botswana vehicles, Trans Kalahari Corridor, Kazungula border post',
   
   openGraph: {
     title: 'Save P40,000+ Importing Cars to Botswana | Complete 2024 Guide',
-    description: 'The complete guide to import cars from Japan to Botswana. BURS customs navigation, duty calculations, and proven import strategies. Join 3,200+ successful Botswana importers.',
+    description: 'The complete guide to import cars from Japan to Botswana. BURS customs navigation, duty calculations, and proven import strategies. Expert import guidance system.',
     url: 'https://www.impota.com/bw/guide',
     siteName: 'IMPOTA - Botswana Car Import Guide',
     images: [
@@ -144,7 +144,7 @@ export const botswanaFAQJsonLd = {
       name: 'How complex is BURS customs clearance?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'BURS clearance can be overwhelming without proper guidance. Our step-by-step system has helped 3,200+ Botswana importers navigate customs smoothly, saving time and avoiding penalties.'
+        text: 'BURS clearance can be overwhelming without proper guidance. Our step-by-step system provides expert guidance to navigate customs smoothly, saving time and avoiding penalties.'
       }
     },
     {
@@ -213,7 +213,7 @@ export const botswanaProductJsonLd = {
       aggregateRating: {
         '@type': 'AggregateRating',
         ratingValue: '4.8',
-        reviewCount: '312'
+        reviewCount: '8'
       }
     }
   ]

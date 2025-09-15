@@ -130,7 +130,7 @@ export function generateCountryMetadata(country: 'na' | 'za' | 'bw' | 'zm'): Met
   
   return {
     title: `Import Cars to ${countryName} from Japan - Complete Guide | IMPOTA 2024`,
-    description: `Complete guide to importing cars to ${countryName} from Japan. Our members typically report savings of N$20,000-N$50,000 with our duty calculator, documentation templates, and step-by-step import process. Join 200+ successful importers.`,
+    description: `Complete guide to importing cars to ${countryName} from Japan. Our proven import guidance system with duty calculator, documentation templates, and step-by-step import process. Expert guidance based on 8 successful imports and counting.`,
     keywords: [...keywords.primary, ...keywords.secondary].join(', '),
     openGraph: {
       title: `Import Cars to ${countryName} - Japanese Vehicle Import Guide`,

@@ -77,7 +77,7 @@ export default function SouthAfricaUpsellPage() {
           </h1>
           
           <p className="text-xl text-gray-600">
-            Join 200+ South African importers saving thousands annually
+            Start your import journey with expert guidance
           </p>
         </div>
         

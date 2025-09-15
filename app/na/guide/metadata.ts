@@ -2,12 +2,12 @@ import { Metadata } from 'next'
 
 export const namibiaGuideMetadata: Metadata = {
   title: 'Import Cars to Namibia from Japan 2024 | Complete Walvis Bay Guide | Save N$65,000+',
-  description: 'Step-by-step guide to importing cars from Japan to Namibia through Walvis Bay port. Save up to N$65,000 with our proven system. Includes duty calculator, customs clearance, NaTIS registration, and scam prevention. Trusted by 200+ Namibian importers.',
+  description: 'Step-by-step guide to importing cars from Japan to Namibia through Walvis Bay port. Professional import guidance system. Includes duty calculator, customs clearance, NaTIS registration, and scam prevention. Join our 8 successful imports and counting.',
   keywords: 'import cars Namibia, Japan car import Namibia, Walvis Bay port clearance, Namibia customs duty calculator, NaTIS vehicle registration, import duty Namibia 2024, Japanese used cars Namibia, car import costs Namibia, Namibia clearing agents, import permit Namibia, vehicle import process Namibia, Walvis Bay port fees, Namibia car import guide, Japanese auction cars Namibia, import taxes Namibia vehicles',
   
   openGraph: {
     title: 'Save N$65,000+ Importing Cars to Namibia | Complete 2024 Guide',
-    description: 'The only guide you need to import cars from Japan to Namibia. Walvis Bay port navigation, duty calculations, and step-by-step process. Join 200+ successful importers.',
+    description: 'The only guide you need to import cars from Japan to Namibia. Walvis Bay port navigation, duty calculations, and step-by-step process. Expert import guidance system.',
     url: 'https://www.impota.com/na/guide',
     siteName: 'IMPOTA - Namibia Car Import Guide',
     images: [
@@ -25,7 +25,7 @@ export const namibiaGuideMetadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Import Cars to Namibia from Japan | Save N$65,000+',
-    description: 'Complete guide to importing vehicles through Walvis Bay. Duty calculator, customs clearance, and proven strategies.',
+    description: 'Complete guide to importing vehicles through Walvis Bay. Duty calculator, customs clearance, and expert strategies.',
     images: ['https://www.impota.com/twitter-namibia-guide.jpg'],
   },
   
@@ -142,7 +142,7 @@ export const namibiaFAQJsonLd = {
       name: 'Do I need experience or connections to import cars to Namibia?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'No prior experience needed. Our step-by-step guides provide everything you need including verified contacts, exact procedures, and insider strategies used by 200+ successful Namibian importers.'
+        text: 'No prior experience needed. Our step-by-step guides provide everything you need including verified contacts, exact procedures, and proven strategies from our 8 successful imports and counting.'
       }
     },
     {
@@ -213,7 +213,7 @@ export const namibiaProductJsonLd = {
       aggregateRating: {
         '@type': 'AggregateRating',
         ratingValue: '4.9',
-        reviewCount: '200'
+        reviewCount: '8'
       }
     }
   ]

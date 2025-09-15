@@ -15,7 +15,7 @@ interface GuideHeaderProps {
 
 export default function GuideHeader({ 
   country, 
-  trusted = '200+ Importers',
+  trusted = '8 Successful Imports and Counting',
   primaryColor = 'blue-600',
   secondaryColor = 'purple-600'
 }: GuideHeaderProps) {

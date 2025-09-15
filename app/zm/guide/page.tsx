@@ -47,7 +47,7 @@ export default function ZambiaGuidePage() {
       <CountrySelector />
       <GuideHeader 
         country="zm" 
-        trusted="200+ ZM Importers"
+        trusted="8 Successful Imports and Counting"
         primaryColor="emerald-600"
         secondaryColor="teal-600"
       />
@@ -131,8 +131,8 @@ export default function ZambiaGuidePage() {
                   <Users className="h-5 w-5 text-teal-600" />
                 </div>
                 <div>
-                  <p className="font-bold text-gray-900">200+ Success</p>
-                  <p className="text-xs text-gray-600">ZM importers</p>
+                  <p className="font-bold text-gray-900">8 Successful</p>
+                  <p className="text-xs text-gray-600">Imports completed</p>
                 </div>
               </div>
             </div>
@@ -424,7 +424,7 @@ export default function ZambiaGuidePage() {
             <h2 className="text-3xl font-bold mb-4">Our Iron-Clad Guarantee</h2>
             <p className="text-xl text-gray-700 mb-6">
               Our guide is proven to save you at least K100,000 on your first import.
-              Join thousands of successful importers today.
+              Start your import journey with proven guidance.
             </p>
             <div className="flex items-center justify-center gap-8">
               <div className="flex items-center gap-2">
@@ -455,7 +455,7 @@ export default function ZambiaGuidePage() {
           </p>
           <div className="bg-white/10 backdrop-blur rounded-2xl p-8 mb-8">
             <p className="text-3xl font-bold mb-4">
-              Join 200+ Smart ZM Importers Today
+              Start Your Import Journey Today
             </p>
             <p className="text-xl text-emerald-100">
               Get instant access to everything you need to import like a pro.
