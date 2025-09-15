@@ -107,7 +107,7 @@ export default function SouthAfricaGuidePage() {
                   <DollarSign className="h-5 w-5 text-green-600" />
                 </div>
                 <div>
-                  <p className="font-bold text-gray-900">Save R30K-100K</p>
+                  <p className="font-bold text-gray-900">Expert Import Guidance</p>
                   <p className="text-xs text-gray-600">Per vehicle import</p>
                 </div>
               </div>
@@ -368,7 +368,7 @@ export default function SouthAfricaGuidePage() {
                   
                   <div className="space-y-4 mb-8">
                     {[
-                      "Live SARS duty calculator (saves R15,000+)",
+                      "Live SARS duty calculator for accurate estimates",
                       "Verified clearing agent directory",
                       "Japan auction bidding guide",
                       "Container sharing network access",
@@ -470,7 +470,7 @@ export default function SouthAfricaGuidePage() {
             size="lg"
             className="bg-white text-green-600 hover:bg-gray-100 text-xl px-12 py-6 h-auto font-bold shadow-2xl"
           >
-            Yes! I Want to Save R50,000+ →
+            Get Started Now →
           </Button>
           <p className="mt-6 text-green-200">
             🔒 Secure checkout • 📱 Instant access

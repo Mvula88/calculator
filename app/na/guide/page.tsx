@@ -47,7 +47,7 @@ import ImportSuccessNotifications from '@/components/PurchaseNotifications'
 const faqs = [
   {
     question: 'How much does it cost to import a car from Japan to Namibia?',
-    answer: 'Import costs vary significantly based on vehicle type, shipping method, and current regulations. Our guide reveals exact cost breakdowns and hidden fees that can save you N$65,000+ on your first import.'
+    answer: 'Import costs vary significantly based on vehicle type, shipping method, and current regulations. Our guide provides comprehensive cost breakdowns and reveals hidden fees to help you make informed decisions.'
   },
   {
     question: 'Is it really cheaper to import than buying locally?',
@@ -55,7 +55,7 @@ const faqs = [
   },
   {
     question: 'What are the biggest mistakes first-time importers make?',
-    answer: 'The top 5 mistakes cost importers an average of N$45,000 extra. Our Mistake Guide specifically addresses each one with step-by-step solutions based on real import experiences.'
+    answer: 'First-time importers often make costly mistakes. Our Mistake Guide specifically addresses the top 5 pitfalls with step-by-step solutions based on real import experiences.'
   },
   {
     question: 'Do I need connections or experience to import?',
@@ -318,7 +318,7 @@ export default function NamibiaGuidePage() {
                     <div className="flex items-baseline">
                       <span className="text-5xl font-black text-blue-600">N$499</span>
                     </div>
-                    <p className="text-sm text-green-600 font-semibold mt-2">Save N$20,000+ on your first import</p>
+                    <p className="text-sm text-green-600 font-semibold mt-2">Essential import guidance</p>
                   </div>
                   
                   <div className="space-y-4 mb-8">
@@ -377,7 +377,7 @@ export default function NamibiaGuidePage() {
                     <div className="flex items-baseline">
                       <span className="text-5xl font-black bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">N$1,999</span>
                     </div>
-                    <p className="text-sm text-purple-600 font-semibold mt-2">Save N$45,000+ on every import</p>
+                    <p className="text-sm text-purple-600 font-semibold mt-2">Complete import toolkit</p>
                   </div>
                   
                   <div className="bg-purple-100 rounded-lg p-3 mb-6">
@@ -386,7 +386,7 @@ export default function NamibiaGuidePage() {
                   
                   <div className="space-y-4 mb-8">
                     {[
-                      "Live duty calculator (saves N$15,000+)",
+                      "Live duty calculator for accurate estimates",
                       "Verified clearing agent directory",
                       "Japan auction bidding guide",
                       "Container sharing network access",
@@ -462,7 +462,7 @@ export default function NamibiaGuidePage() {
             <Trophy className="h-16 w-16 text-green-600 mx-auto mb-6" />
             <h2 className="text-3xl font-bold mb-4">Why Choose IMPOTA for Your Namibia Car Import Journey</h2>
             <p className="text-xl text-gray-700 mb-6">
-              Our comprehensive Namibia car import guide is proven to save you at least N$10,000 on your first vehicle import from Japan.
+              Our comprehensive Namibia car import guide provides expert insights for your vehicle import from Japan.
               Navigate Walvis Bay port clearance with our comprehensive system.
             </p>
             <div className="flex items-center justify-center gap-8">
@@ -490,7 +490,7 @@ export default function NamibiaGuidePage() {
             Start Importing Cars from Japan to Namibia Today
           </h2>
           <p className="text-2xl mb-8 text-blue-100">
-            Every day you wait, another Namibian saves N$50,000+ importing their dream car from Japan through Walvis Bay.
+            Start your import journey today and join our growing community of successful importers through Walvis Bay.
           </p>
           <div className="bg-white/10 backdrop-blur rounded-2xl p-8 mb-8">
             <p className="text-3xl font-bold mb-4">

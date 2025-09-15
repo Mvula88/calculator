@@ -107,7 +107,7 @@ export default function BotswanaGuidePage() {
                   <DollarSign className="h-5 w-5 text-green-600" />
                 </div>
                 <div>
-                  <p className="font-bold text-gray-900">Save P30K-100K</p>
+                  <p className="font-bold text-gray-900">Expert Import Guidance</p>
                   <p className="text-xs text-gray-600">Per vehicle import</p>
                 </div>
               </div>
@@ -368,7 +368,7 @@ export default function BotswanaGuidePage() {
                   
                   <div className="space-y-4 mb-8">
                     {[
-                      "Live BURS duty calculator (saves P15,000+)",
+                      "Live BURS duty calculator for accurate estimates",
                       "Verified clearing agent directory",
                       "Japan auction bidding guide",
                       "Container sharing network access",
@@ -470,7 +470,7 @@ export default function BotswanaGuidePage() {
             size="lg"
             className="bg-white text-blue-600 hover:bg-gray-100 text-xl px-12 py-6 h-auto font-bold shadow-2xl"
           >
-            Yes! I Want to Save P50,000+ →
+            Get Started Now →
           </Button>
           <p className="mt-6 text-blue-200">
             🔒 Secure checkout • 📱 Instant access

@@ -107,7 +107,7 @@ export default function ZambiaGuidePage() {
                   <DollarSign className="h-5 w-5 text-green-600" />
                 </div>
                 <div>
-                  <p className="font-bold text-gray-900">Save K300K-1M</p>
+                  <p className="font-bold text-gray-900">Expert Import Guidance</p>
                   <p className="text-xs text-gray-600">Per vehicle import</p>
                 </div>
               </div>
@@ -366,7 +366,7 @@ export default function ZambiaGuidePage() {
                   
                   <div className="space-y-4 mb-8">
                     {[
-                      "Live ZRA duty calculator (saves K150,000+)",
+                      "Live ZRA duty calculator for accurate estimates",
                       "Verified clearing agent directory",
                       "Japan auction bidding guide",
                       "Container sharing network access",
@@ -468,7 +468,7 @@ export default function ZambiaGuidePage() {
             size="lg"
             className="bg-white text-emerald-600 hover:bg-gray-100 text-xl px-12 py-6 h-auto font-bold shadow-2xl"
           >
-            Yes! I Want to Save K500,000+ →
+            Get Started Now →
           </Button>
           <p className="mt-6 text-emerald-200">
             🔒 Secure checkout • 📱 Instant access
