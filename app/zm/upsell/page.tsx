@@ -313,7 +313,7 @@ export default function ZambiaUpsellPage() {
         {/* Social Proof */}
         <div className="mt-12 text-center">
           <p className="text-gray-600 italic mb-4">
-            "The Mastery upgrade helped me save K89,000 on my first Land Cruiser import. 
+            "The Mastery upgrade helped me import successfully on my first Land Cruiser import. 
             The auction strategies and ZRA tips are gold." - Patrick L., Lusaka
           </p>
           <div className="flex justify-center mb-2">

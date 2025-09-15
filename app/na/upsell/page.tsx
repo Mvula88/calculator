@@ -77,7 +77,7 @@ export default function NamibiaUpsellPage() {
           </h1>
           
           <p className="text-xl text-gray-600">
-            Join 150+ Namibian importers who save thousands per year
+            Join our growing community of successful importers
           </p>
         </div>
         
@@ -184,7 +184,7 @@ export default function NamibiaUpsellPage() {
                 ✓ Lifetime access & updates
               </p>
               <p className="text-sm opacity-90">
-                ✓ Save thousands on every import
+                ✓ Import efficiently on every import
               </p>
               <p className="text-sm opacity-90">
                 ✓ Expert support included

@@ -1,13 +1,13 @@
 import { Metadata } from 'next'
 
 export const zambiaGuideMetadata: Metadata = {
-  title: 'Import Cars to Zambia from Japan 2024 | Lusaka Guide | Save K40,000+',
-  description: 'Complete guide to importing cars from Japan to Zambia. Save up to K40,000 with our proven system. Includes ZRA duty calculator, customs clearance, RTSA registration, and Nakonde/Chirundu border posts. Trusted by 5,000+ Zambian importers.',
+  title: 'Import Cars to Zambia from Japan 2024 | Lusaka Guide | Complete Import Guide',
+  description: 'Complete guide to importing cars from Japan to Zambia. Expert guidance with our proven system. Includes ZRA duty calculator, customs clearance, RTSA registration, and Nakonde/Chirundu border posts. Based on 8 successful imports and counting.',
   keywords: 'import cars Zambia, Japan car import Zambia, Lusaka customs clearance, ZRA duty calculator, RTSA vehicle registration, import duty Zambia 2024, Japanese used cars Zambia, car import costs Zambia, Zambia clearing agents, import permit Zambia, vehicle import process Zambia, Nakonde border post, Chirundu border crossing, Zambia car import guide, Japanese auction cars Zambia, import taxes Zambia vehicles',
   
   openGraph: {
-    title: 'Save K40,000+ Importing Cars to Zambia | Complete 2024 Guide',
-    description: 'The ultimate guide to import cars from Japan to Zambia. ZRA customs navigation, duty calculations, and border post procedures. Join 5,000+ successful Zambian importers.',
+    title: 'Complete Import Guide for Cars to Zambia | Complete 2024 Guide',
+    description: 'The ultimate guide to import cars from Japan to Zambia. ZRA customs navigation, duty calculations, and border post procedures. Join our growing community of successful importers.',
     url: 'https://www.impota.com/zm/guide',
     siteName: 'IMPOTA - Zambia Car Import Guide',
     images: [
@@ -24,7 +24,7 @@ export const zambiaGuideMetadata: Metadata = {
   
   twitter: {
     card: 'summary_large_image',
-    title: 'Import Cars to Zambia from Japan | Save K40,000+',
+    title: 'Import Cars to Zambia from Japan | Complete Import Guide',
     description: 'Complete guide to importing vehicles to Zambia. ZRA duty calculator, customs clearance, and proven strategies.',
     images: ['https://www.impota.com/twitter-zambia-guide.jpg'],
   },
@@ -138,7 +138,7 @@ export const zambiaFAQJsonLd = {
       name: 'How much can I save importing a car to Zambia from Japan?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Zambian importers typically save K30,000 to K40,000 compared to local prices. Our comprehensive guides show you exactly how to achieve these savings while avoiding expensive mistakes.'
+        text: 'Zambian importers typically reduce import costs compared to local prices. Our comprehensive guides show you exactly how to import successfully while avoiding expensive mistakes.'
       }
     },
     {
@@ -162,7 +162,7 @@ export const zambiaFAQJsonLd = {
       name: 'How do I navigate ZRA customs clearance?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'ZRA clearance involves multiple steps and documents. Our proven system has helped 5,000+ Zambians import successfully, with step-by-step instructions for smooth border crossing.'
+        text: 'ZRA clearance involves multiple steps and documents. Our proven system has helped our clients import successfully, with step-by-step instructions for smooth border crossing.'
       }
     },
     {
@@ -170,7 +170,7 @@ export const zambiaFAQJsonLd = {
       name: 'What mistakes do Zambian importers commonly make?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Common mistakes can add K20,000+ to your import costs. Our Mistake Guide identifies each pitfall and provides specific solutions that have saved thousands for our members.'
+        text: 'Common mistakes can add significantly to your import costs. Our Mistake Guide identifies each pitfall and provides specific solutions that have helped our clients import successfully.'
       }
     }
   ]

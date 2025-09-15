@@ -51,7 +51,7 @@ export default function HomePage() {
     {
       icon: Users,
       title: 'Proven Success',
-      description: 'Join successful importers saving thousands',
+      description: 'Join successful importers importing efficiently',
       color: 'orange'
     }
   ]
@@ -95,7 +95,7 @@ export default function HomePage() {
             
             <p className="text-lg sm:text-xl md:text-2xl text-gray-700 max-w-3xl mx-auto mb-8">
               The complete step-by-step system that shows you exactly how to import cars from Japan, 
-              legally, without middlemen. Members typically report significant savings.
+              legally, without middlemen. Members typically report successful imports.
             </p>
 
             {/* CTA Buttons - More Prominent */}
@@ -184,7 +184,7 @@ export default function HomePage() {
                     <div className="text-5xl mb-3">{country.flag}</div>
                     <h3 className="font-bold text-xl mb-4">{country.name}</h3>
                     <Button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700">
-                      Start Saving {country.currency}50K+
+                      Start Your Import Journey
                       <ArrowRight className="ml-2 h-4 w-4" />
                     </Button>
                   </div>
@@ -255,7 +255,7 @@ export default function HomePage() {
             Ready to Start Saving?
           </h2>
           <p className="text-xl mb-8 text-blue-100">
-            Start saving thousands on every car import
+            Start importing efficiently on every car import
           </p>
           
           <div className="bg-white rounded-2xl p-8 max-w-2xl mx-auto">

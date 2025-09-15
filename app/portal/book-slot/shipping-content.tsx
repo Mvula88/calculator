@@ -217,12 +217,12 @@ export default function ShippingContent() {
               <span className="bg-green-600 text-white text-xs px-2 py-1 rounded-full">RECOMMENDED</span>
             </div>
             <p className="text-gray-700 mb-4">
-              Share container space with other importers and save 40-60% on shipping costs. Perfect for single vehicle imports.
+              Share container space with other importers and reduce shipping costs significantly. Perfect for single vehicle imports.
             </p>
             <div className="flex flex-wrap gap-4 mb-4">
               <div className="flex items-center gap-2">
                 <DollarSign className="h-5 w-5 text-green-600" />
-                <span className="text-sm font-medium">Save up to R15,000</span>
+                <span className="text-sm font-medium">Optimize shipping costs</span>
               </div>
               <div className="flex items-center gap-2">
                 <Shield className="h-5 w-5 text-blue-600" />

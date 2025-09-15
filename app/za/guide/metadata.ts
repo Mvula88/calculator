@@ -1,13 +1,13 @@
 import { Metadata } from 'next'
 
 export const southAfricaGuideMetadata: Metadata = {
-  title: 'Import Cars to South Africa from Japan 2024 | Durban Port Guide | Save R75,000+',
-  description: 'Complete guide to importing cars from Japan to South Africa through Durban port. Save up to R75,000 with our proven system. Includes SARS duty calculator, customs clearance, eNaTIS registration, and verified clearing agents. Trusted by 8,500+ SA importers.',
+  title: 'Import Cars to South Africa from Japan 2024 | Durban Port Guide | Complete Import Guide',
+  description: 'Complete guide to importing cars from Japan to South Africa through Durban port. Expert guidance with our proven system. Includes SARS duty calculator, customs clearance, eNaTIS registration, and verified clearing agents. Based on 8 successful imports and counting.',
   keywords: 'import cars South Africa, Japan car import SA, Durban port clearance, SARS duty calculator, eNaTIS vehicle registration, import duty South Africa 2024, Japanese used cars SA, car import costs South Africa, SA clearing agents, import permit South Africa, vehicle import process SA, Durban port fees, South Africa car import guide, Japanese auction cars SA, import taxes South Africa vehicles, ITAC import permit, roadworthy certificate SA',
   
   openGraph: {
-    title: 'Save R75,000+ Importing Cars to South Africa | Complete 2024 Guide',
-    description: 'The definitive guide to import cars from Japan to South Africa. Durban port navigation, SARS duty calculations, and step-by-step process. Join 8,500+ successful SA importers.',
+    title: 'Complete Import Guide for Cars to South Africa | Complete 2024 Guide',
+    description: 'The definitive guide to import cars from Japan to South Africa. Durban port navigation, SARS duty calculations, and step-by-step process. Join our growing community of successful importers.',
     url: 'https://www.impota.com/za/guide',
     siteName: 'IMPOTA - South Africa Car Import Guide',
     images: [
@@ -24,7 +24,7 @@ export const southAfricaGuideMetadata: Metadata = {
   
   twitter: {
     card: 'summary_large_image',
-    title: 'Import Cars to South Africa from Japan | Save R75,000+',
+    title: 'Import Cars to South Africa from Japan | Complete Import Guide',
     description: 'Complete guide to importing vehicles through Durban port. SARS duty calculator, customs clearance, and proven strategies.',
     images: ['https://www.impota.com/twitter-sa-guide.jpg'],
   },
@@ -128,7 +128,7 @@ export const southAfricaFAQJsonLd = {
       name: 'How much can I save importing a car from Japan to South Africa?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Most South African importers save R45,000 to R75,000 compared to local prices. Our comprehensive guides reveal the exact strategies and calculations to maximize your savings on every import.'
+        text: 'Most South African importers reduce import costs compared to local prices. Our comprehensive guides reveal the exact strategies and calculations to optimize your import process on every import.'
       }
     },
     {
@@ -136,7 +136,7 @@ export const southAfricaFAQJsonLd = {
       name: 'Is the ITAC permit process complicated?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'The ITAC permit process can be challenging without proper guidance. Our guide provides the exact steps, forms, and insider tips that have helped 8,500+ South Africans get approved quickly.'
+        text: 'The ITAC permit process can be challenging without proper guidance. Our guide provides the exact steps, forms, and insider tips that have helped our clients import successfully and get approved quickly.'
       }
     },
     {
@@ -144,7 +144,7 @@ export const southAfricaFAQJsonLd = {
       name: 'What are SARS import duties and how can I minimize them?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Import duties vary significantly based on multiple factors. Our Import Mastery package includes an exclusive SARS duty calculator and legal strategies to minimize your total import costs.'
+        text: 'Import duties vary significantly based on multiple factors. Our Import Mastery package includes an exclusive SARS duty calculator and legal strategies to optimize costs on your total import.'
       }
     },
     {
@@ -152,7 +152,7 @@ export const southAfricaFAQJsonLd = {
       name: 'Do I need a clearing agent or can I clear customs myself?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'While clearing agents are common, you can save thousands by doing it yourself. Our guide shows you exactly how, plus provides verified agent contacts if you prefer professional help.'
+        text: 'While clearing agents are common, you can import efficiently by doing it yourself. Our guide shows you exactly how, plus provides verified agent contacts if you prefer professional help.'
       }
     },
     {
@@ -160,7 +160,7 @@ export const southAfricaFAQJsonLd = {
       name: 'What mistakes cost SA importers the most money?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'The top 5 mistakes cost importers an average of R45,000 extra. Our Mistake Guide reveals each one with specific solutions that have saved thousands for our 8,500+ successful members.'
+        text: 'The top 5 mistakes cost importers significantly. Our Mistake Guide reveals each one with specific solutions that have helped our clients import successfully.'
       }
     }
   ]

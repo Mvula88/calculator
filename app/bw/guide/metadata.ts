@@ -1,12 +1,12 @@
 import { Metadata } from 'next'
 
 export const botswanaGuideMetadata: Metadata = {
-  title: 'Import Cars to Botswana from Japan 2024 | Complete Guide | Save P40,000+',
+  title: 'Import Cars to Botswana from Japan 2024 | Complete Guide | Complete Import Guide',
   description: 'Step-by-step guide to importing cars from Japan to Botswana. Professional import guidance system. Includes BURS duty calculator, customs clearance at Gaborone, vehicle registration, and container sharing. Based on 8 successful imports and counting.',
   keywords: 'import cars Botswana, Japan car import Botswana, Gaborone customs clearance, BURS duty calculator, Botswana vehicle registration, import duty Botswana 2024, Japanese used cars Botswana, car import costs Botswana, Botswana clearing agents, import permit Botswana, vehicle import process Botswana, Botswana car import guide, Japanese auction cars Botswana, import taxes Botswana vehicles, Trans Kalahari Corridor, Kazungula border post',
   
   openGraph: {
-    title: 'Save P40,000+ Importing Cars to Botswana | Complete 2024 Guide',
+    title: 'Complete Import Guide for Cars to Botswana | Complete 2024 Guide',
     description: 'The complete guide to import cars from Japan to Botswana. BURS customs navigation, duty calculations, and proven import strategies. Expert import guidance system.',
     url: 'https://www.impota.com/bw/guide',
     siteName: 'IMPOTA - Botswana Car Import Guide',
@@ -24,7 +24,7 @@ export const botswanaGuideMetadata: Metadata = {
   
   twitter: {
     card: 'summary_large_image',
-    title: 'Import Cars to Botswana from Japan | Save P40,000+',
+    title: 'Import Cars to Botswana from Japan | Complete Import Guide',
     description: 'Complete guide to importing vehicles to Botswana. BURS duty calculator, customs clearance, and proven strategies.',
     images: ['https://www.impota.com/twitter-botswana-guide.jpg'],
   },
@@ -128,7 +128,7 @@ export const botswanaFAQJsonLd = {
       name: 'How much can I save importing a car to Botswana from Japan?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Botswana importers typically save P30,000 to P40,000 compared to local dealership prices. Our guides reveal the exact strategies to maximize savings and avoid costly mistakes.'
+        text: 'Botswana importers typically reduce import costs compared to local dealership prices. Our guides reveal the exact strategies to optimize costs and avoid costly mistakes.'
       }
     },
     {

@@ -94,7 +94,7 @@ export default function SouthAfricaUpsellPage() {
                 <Star className="h-6 w-6 text-yellow-500 flex-shrink-0" />
                 <div>
                   <strong>Container Consolidation</strong>
-                  <p className="text-sm text-gray-600">Save R20,000 per shipment</p>
+                  <p className="text-sm text-gray-600">Optimize shipping costs per shipment</p>
                 </div>
               </div>
               

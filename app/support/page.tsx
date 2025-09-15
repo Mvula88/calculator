@@ -99,7 +99,7 @@ export default function SupportPage() {
         },
         {
           q: 'Do you handle the import for me?',
-          a: 'We provide comprehensive guides and support, but you handle the import yourself. This is how you save thousands compared to using agents.'
+          a: 'We provide comprehensive guides and support, but you handle the import yourself. This is how you import efficiently compared to using agents.'
         }
       ]
     }
