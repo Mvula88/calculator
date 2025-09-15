@@ -134,7 +134,7 @@ export default function ZambiaUpsellPage() {
                 'Advanced duty minimization',
                 'Bulk shipping strategies',
                 'ZRA insider connections',
-                'Vehicle flip profit formulas',
+                'Vehicle resale strategies',
                 'Insurance claim optimization',
                 'Emergency resolution protocols'
               ].map((item, i) => (
@@ -233,7 +233,7 @@ export default function ZambiaUpsellPage() {
               'Lusaka dealer network and flip strategies',
               'Kwacha hedging for currency protection',
               'Emergency customs resolution protocols',
-              'VIP agent network with guaranteed service',
+              'VIP agent network with priority service',
               'Monthly market trend reports',
               'Private WhatsApp group for Zambian importers'
             ].map((item, i) => (

@@ -59,7 +59,7 @@ export default function QuickSignupForm({
         </div>
         
         <h3 className="text-2xl sm:text-3xl font-black text-center mb-4">
-          Start Saving N$50,000+ Today
+          Start Your Import Journey Today
         </h3>
         
         <div className="flex flex-col sm:flex-row gap-3 mb-4">
@@ -134,7 +134,7 @@ export default function QuickSignupForm({
           </div>
           <div className="flex items-center gap-1 text-xs text-gray-600">
             <CheckCircle className="h-3 w-3" />
-            <span>Guaranteed</span>
+            <span>Support</span>
           </div>
         </div>
       </div>

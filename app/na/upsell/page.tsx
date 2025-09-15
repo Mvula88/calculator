@@ -102,7 +102,7 @@ export default function NamibiaUpsellPage() {
                 <Users className="h-6 w-6 text-blue-500 flex-shrink-0" />
                 <div>
                   <strong>Verified Agent Directory</strong>
-                  <p className="text-sm text-gray-600">Pre-vetted, guaranteed rates</p>
+                  <p className="text-sm text-gray-600">Pre-vetted agents with transparent pricing</p>
                 </div>
               </div>
               

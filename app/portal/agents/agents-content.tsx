@@ -44,7 +44,7 @@ const agents = [
     services: ["Full Clearing", "NRCS Handling", "Transport Arrangement", "Documentation", "Express Service"],
     certifications: ["SAACA Certified", "NRCS Approved", "ISO 9001"],
     recentSuccess: "Cleared 45 vehicles last month with 100% success rate",
-    testimonial: "Exceptional service. They handled my BMW import flawlessly and saved me R25K in duties.",
+    testimonial: "Exceptional service. They handled my BMW import flawlessly and helped me optimize my import costs.",
     verified: true,
     tier: "Platinum"
   },
@@ -202,10 +202,10 @@ export default function AgentsContent() {
         <div className="mt-4 p-4 bg-green-50 border border-green-200 rounded-lg">
           <div className="flex items-center gap-2">
             <Shield className="h-5 w-5 text-green-600" />
-            <span className="font-semibold text-green-900">QUALITY GUARANTEED</span>
+            <span className="font-semibold text-green-900">QUALITY FOCUSED</span>
           </div>
           <p className="text-green-800 text-sm mt-1">
-            All agents are performance-monitored monthly. Guaranteed refund if service doesn't meet our standards.
+            All agents are performance-monitored monthly. We work to ensure service meets our quality standards.
           </p>
         </div>
       </div>

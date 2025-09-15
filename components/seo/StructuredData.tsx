@@ -43,7 +43,7 @@ export default function StructuredData({ type, data }: StructuredDataProps) {
         "@context": "https://schema.org",
         "@type": "Course",
         "name": data?.name || "Import Mastery - Complete Car Import Course",
-        "description": data?.description || "Professional car import training for African countries. Learn to import cars from Japan and save 50%.",
+        "description": data?.description || "Professional car import training for African countries. Learn to import cars from Japan. Members report significant savings compared to local dealerships.",
         "provider": {
           "@type": "Organization",
           "name": "IMPOTA",
@@ -98,7 +98,7 @@ export default function StructuredData({ type, data }: StructuredDataProps) {
             "name": "Is it legal to import cars from Japan?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Yes, importing cars from Japan is 100% legal in Namibia, South Africa, Botswana, and Zambia. Each country has specific regulations and requirements which our guides cover in detail."
+              "text": "Yes, importing cars from Japan is legal in Namibia, South Africa, Botswana, and Zambia. Each country has specific regulations and requirements which our guides are designed to help you understand and follow."
             }
           },
           {
@@ -224,7 +224,7 @@ export default function StructuredData({ type, data }: StructuredDataProps) {
               "@type": "Person",
               "name": "John M."
             },
-            "reviewBody": "Saved N$75,000 on my Toyota Hilux import. The guide paid for itself 150 times over!"
+            "reviewBody": "The guide helped me significantly reduce my import costs. Excellent value and comprehensive information."
           }
         ]
       }

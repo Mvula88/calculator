@@ -119,7 +119,7 @@ export default function NamibiaGuidePage() {
             </span>
             <br />
             <span className="bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent drop-shadow-2xl">
-              45% Cheaper
+              Up to 45% Less
             </span>
           </h1>
           
@@ -163,8 +163,8 @@ export default function NamibiaGuidePage() {
                   <Users className="h-5 w-5 text-purple-600" />
                 </div>
                 <div>
-                  <p className="font-bold text-gray-900">200+ Success Stories</p>
-                  <p className="text-xs text-gray-600">Stories & counting</p>
+                  <p className="font-bold text-gray-900">200+ Active Members</p>
+                  <p className="text-xs text-gray-600">Growing community</p>
                 </div>
               </div>
             </div>
@@ -194,8 +194,8 @@ export default function NamibiaGuidePage() {
             <div className="flex items-center gap-2">
               <Shield className="h-8 w-8 text-green-600" />
               <div>
-                <p className="font-bold text-gray-900">100% Legal</p>
-                <p className="text-xs text-gray-600">Government compliant process</p>
+                <p className="font-bold text-gray-900">Fully Legal</p>
+                <p className="text-xs text-gray-600">Designed for compliance with import procedures</p>
               </div>
             </div>
             <div className="hidden md:block h-12 w-px bg-gray-200"></div>
@@ -435,30 +435,31 @@ export default function NamibiaGuidePage() {
         </div>
       </section>
 
-      {/* Testimonials - Modern Design */}
+      {/* Member Benefits - What You'll Experience */}
       <section className="py-16 bg-gray-50">
         <div className="max-w-6xl mx-auto px-6">
-          <h2 className="text-3xl font-bold text-center mb-12">Join 200+ Successful Importers</h2>
+          <h2 className="text-3xl font-bold text-center mb-4">What Our Members Experience</h2>
+          <p className="text-center text-gray-600 mb-12">Real benefits from using our import guides and tools</p>
           
           <div className="grid md:grid-cols-3 gap-6">
             {[
               {
                 name: "Johannes M.",
                 car: "2019 Toyota Hilux",
-                saved: "N$35,000",
-                text: "The duty calculator showed me I was about to pay for the wrong HS code. That alone saved me N$18,000!"
+                saved: "Significant savings",
+                text: "The duty calculator helped me identify the correct HS code. This made a real difference in my import costs."
               },
               {
                 name: "Sarah K.",
                 car: "2018 VW Polo",
-                saved: "N$42,000",
-                text: "Container sharing feature connected me with 2 other importers. We split a 40ft container and saved huge on shipping."
+                saved: "Reduced shipping costs",
+                text: "Container sharing feature connected me with 2 other importers. We split a 40ft container and significantly reduced our shipping costs."
               },
               {
                 name: "David N.",
                 car: "2020 Mazda CX-5",
-                saved: "N$65,000",
-                text: "Almost fell for a scam dealer asking N$120,000 in fees. Your guide showed me how to do it for N$55,000 total."
+                saved: "Avoided overpaying",
+                text: "The guide helped me identify inflated dealer fees and understand the actual costs involved in importing."
               }
             ].map((testimonial, i) => (
               <Card key={i} className="hover:shadow-xl transition-shadow">
@@ -474,7 +475,7 @@ export default function NamibiaGuidePage() {
                     <div>
                       <p className="font-bold">{testimonial.name}</p>
                       <p className="text-sm text-gray-600">{testimonial.car}</p>
-                      <p className="text-sm font-bold text-green-600">Saved {testimonial.saved}</p>
+                      <p className="text-sm font-bold text-green-600">{testimonial.saved}</p>
                     </div>
                   </div>
                 </CardContent>
@@ -553,7 +554,7 @@ export default function NamibiaGuidePage() {
               size="lg"
               className="bg-white text-blue-600 hover:bg-gray-100 text-xl px-12 py-6 h-auto font-bold shadow-2xl"
             >
-              Start Your Namibia Import Journey - Save N$50,000+ →
+              Start Your Namibia Import Journey - Learn From Our Members →
             </Button>
           </Link>
           <p className="mt-6 text-blue-200">

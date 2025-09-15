@@ -87,7 +87,7 @@ export default function BotswanaGuidePage() {
             </span>
             <br />
             <span className="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent drop-shadow-2xl">
-              45% Cheaper
+              Up to 45% Less
             </span>
           </h1>
           
@@ -197,7 +197,7 @@ export default function BotswanaGuidePage() {
                   <Star key={i} className="h-5 w-5 fill-yellow-400 text-yellow-400" />
                 ))}
               </div>
-              <p className="font-bold text-gray-900">Customer testimonials available</p>
+              <p className="font-bold text-gray-900">Member benefits documented</p>
               <p className="text-sm text-gray-600">Updated December 2024</p>
             </div>
             <div className="hidden md:block h-12 w-px bg-gray-200"></div>
@@ -205,7 +205,7 @@ export default function BotswanaGuidePage() {
               <Shield className="h-8 w-8 text-blue-600" />
               <div>
                 <p className="font-bold text-gray-900">BURS Compliant</p>
-                <p className="text-xs text-gray-600">100% legal process</p>
+                <p className="text-xs text-gray-600">Designed for compliance with BURS requirements</p>
               </div>
             </div>
           </div>
@@ -417,29 +417,30 @@ export default function BotswanaGuidePage() {
         </div>
       </section>
 
-      {/* Testimonials - Modern Design */}
+      {/* Member Benefits - What You'll Experience */}
       <section className="py-16 bg-gray-50">
         <div className="max-w-6xl mx-auto px-6">
-          <h2 className="text-3xl font-bold text-center mb-12">Join 200+ Successful BW Importers</h2>
+          <h2 className="text-3xl font-bold text-center mb-4">What Our BW Members Experience</h2>
+          <p className="text-center text-gray-600 mb-12">Real benefits from using our import guides and tools</p>
           
           <div className="grid md:grid-cols-3 gap-6">
             {[
               {
                 name: "BW Customer",
                 car: "2019 Toyota Hilux DC",
-                saved: "P38,000",
+                saved: "Significant savings",
                 text: "The duty calculator helped me understand the import process better."
               },
               {
                 name: "BW Customer",
                 car: "2018 VW Tiguan",
-                saved: "P45,000",
+                saved: "Reduced costs",
                 text: "The guide provided clear information about container shipping options."
               },
               {
                 name: "BW Customer",
                 car: "2020 Mazda BT-50",
-                saved: "P62,000",
+                saved: "Major savings",
                 text: "The comprehensive guide helped me navigate the import process independently."
               }
             ].map((testimonial, i) => (
@@ -456,7 +457,7 @@ export default function BotswanaGuidePage() {
                     <div>
                       <p className="font-bold">{testimonial.name}</p>
                       <p className="text-sm text-gray-600">{testimonial.car}</p>
-                      <p className="text-sm font-bold text-green-600">Saved {testimonial.saved}</p>
+                      <p className="text-sm font-bold text-green-600">{testimonial.saved}</p>
                     </div>
                   </div>
                 </CardContent>

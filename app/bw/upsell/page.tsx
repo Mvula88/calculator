@@ -133,7 +133,7 @@ export default function BotswanaUpsellPage() {
                 'Tax minimization techniques',
                 'VIP clearing agent network',
                 'Emergency problem resolution',
-                'Profit maximization for dealers'
+                'Business strategies for dealers'
               ].map((item, i) => (
                 <div key={i} className="flex items-center gap-2 text-purple-700">
                   <CheckCircle className="h-4 w-4" />
@@ -185,7 +185,7 @@ export default function BotswanaUpsellPage() {
               'Insurance claims and damage protection',
               'SACU duty optimization for dealers',
               'Gaborone registration fast-track system',
-              'Profit margin calculators for resellers',
+              'Cost analysis tools for resellers',
               'Emergency 24/7 support hotline access',
               'Quarterly market updates and trends',
               'Private WhatsApp group with experts'
@@ -267,7 +267,7 @@ export default function BotswanaUpsellPage() {
         <div className="mt-12 text-center">
           <p className="text-gray-600 italic mb-4">
             "The Mastery upgrade paid for itself on my first import. The auction 
-            strategies alone saved me P18,000." - Keabetswe M., Gaborone
+            strategies made a significant difference in my costs." - Keabetswe M., Gaborone
           </p>
           <div className="flex justify-center">
             {[1,2,3,4,5].map(i => (

@@ -60,9 +60,9 @@ export default function FloatingSignupButton({ country = 'na' }: FloatingSignupB
               <div className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-r from-purple-100 to-blue-100 rounded-full mb-3">
                 <Sparkles className="h-6 w-6 text-purple-600" />
               </div>
-              <h3 className="font-bold text-lg mb-1">Save N$50,000+</h3>
+              <h3 className="font-bold text-lg mb-1">Members Report Savings</h3>
               <p className="text-sm text-gray-600 mb-4">
-                Learn to import cars yourself and skip dealer markups
+                Learn the import process used by our 200+ members
               </p>
               <Link href={`/${country}/guide#signup`}>
                 <Button className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700">
@@ -88,7 +88,7 @@ export default function FloatingSignupButton({ country = 'na' }: FloatingSignupB
             <div className="flex-1">
               <h3 className="font-bold text-lg mb-1">Ready to Import?</h3>
               <p className="text-sm text-white/90 mb-4">
-                Get instant access to our complete import guide and save thousands
+                Get instant access to our complete import guide and educational resources
               </p>
               <Link href={`/${country}/guide#signup`}>
                 <Button 

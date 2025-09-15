@@ -87,7 +87,7 @@ export default function SouthAfricaGuidePage() {
             </span>
             <br />
             <span className="bg-gradient-to-r from-yellow-400 to-green-400 bg-clip-text text-transparent drop-shadow-2xl">
-              45% Cheaper
+              Up to 45% Less
             </span>
           </h1>
           
@@ -197,7 +197,7 @@ export default function SouthAfricaGuidePage() {
                   <Star key={i} className="h-5 w-5 fill-yellow-400 text-yellow-400" />
                 ))}
               </div>
-              <p className="font-bold text-gray-900">Customer testimonials available</p>
+              <p className="font-bold text-gray-900">Member benefits documented</p>
               <p className="text-sm text-gray-600">Updated December 2024</p>
             </div>
             <div className="hidden md:block h-12 w-px bg-gray-200"></div>
@@ -205,7 +205,7 @@ export default function SouthAfricaGuidePage() {
               <Shield className="h-8 w-8 text-green-600" />
               <div>
                 <p className="font-bold text-gray-900">SARS Compliant</p>
-                <p className="text-xs text-gray-600">100% legal process</p>
+                <p className="text-xs text-gray-600">Designed for compliance with SARS requirements</p>
               </div>
             </div>
           </div>
@@ -417,29 +417,30 @@ export default function SouthAfricaGuidePage() {
         </div>
       </section>
 
-      {/* Testimonials - Modern Design */}
+      {/* Member Benefits - What You'll Experience */}
       <section className="py-16 bg-gray-50">
         <div className="max-w-6xl mx-auto px-6">
-          <h2 className="text-3xl font-bold text-center mb-12">Join 200+ Successful SA Importers</h2>
+          <h2 className="text-3xl font-bold text-center mb-4">What Our SA Members Experience</h2>
+          <p className="text-center text-gray-600 mb-12">Real benefits from using our import guides and tools</p>
           
           <div className="grid md:grid-cols-3 gap-6">
             {[
               {
                 name: "SA Customer",
                 car: "2019 Toyota Fortuner",
-                saved: "R45,000",
+                saved: "Significant savings",
                 text: "The duty calculator helped me understand the import process better."
               },
               {
                 name: "SA Customer",
                 car: "2018 BMW 320i",
-                saved: "R62,000",
+                saved: "Reduced costs",
                 text: "The guide provided clear information about container shipping options."
               },
               {
                 name: "SA Customer",
                 car: "2020 Ford Ranger",
-                saved: "R75,000",
+                saved: "Major savings",
                 text: "The comprehensive guide helped me navigate the import process independently."
               }
             ].map((testimonial, i) => (
@@ -456,7 +457,7 @@ export default function SouthAfricaGuidePage() {
                     <div>
                       <p className="font-bold">{testimonial.name}</p>
                       <p className="text-sm text-gray-600">{testimonial.car}</p>
-                      <p className="text-sm font-bold text-green-600">Saved {testimonial.saved}</p>
+                      <p className="text-sm font-bold text-green-600">{testimonial.saved}</p>
                     </div>
                   </div>
                 </CardContent>

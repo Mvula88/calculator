@@ -129,12 +129,12 @@ export function generateCountryMetadata(country: 'na' | 'za' | 'bw' | 'zm'): Met
   const keywords = countryKeywords[country]
   
   return {
-    title: `Import Cars to ${countryName} from Japan - Save 50% | IMPOTA Guide 2024`,
-    description: `Complete guide to importing cars to ${countryName} from Japan. Save N$50,000+ with our duty calculator, documentation templates, and step-by-step import process. Join 200+ successful importers.`,
+    title: `Import Cars to ${countryName} from Japan - Complete Guide | IMPOTA 2024`,
+    description: `Complete guide to importing cars to ${countryName} from Japan. Our members typically report savings of N$20,000-N$50,000 with our duty calculator, documentation templates, and step-by-step import process. Join 200+ successful importers.`,
     keywords: [...keywords.primary, ...keywords.secondary].join(', '),
     openGraph: {
-      title: `Import Cars to ${countryName} - Save 50% on Japanese Vehicles`,
-      description: `Learn how to import cars directly from Japan to ${countryName}. Professional import guides, duty calculators, and expert support. Save thousands by avoiding dealer markups.`,
+      title: `Import Cars to ${countryName} - Japanese Vehicle Import Guide`,
+      description: `Learn how to import cars directly from Japan to ${countryName}. Professional import guides, duty calculators, and expert support. Members typically report significant savings compared to local dealerships.`,
       type: 'website',
       locale: 'en_US',
       url: `https://impota.com/${country}`,
@@ -150,8 +150,8 @@ export function generateCountryMetadata(country: 'na' | 'za' | 'bw' | 'zm'): Met
     },
     twitter: {
       card: 'summary_large_image',
-      title: `Import Cars to ${countryName} from Japan - Save 50%`,
-      description: `Complete import guide with duty calculator. Save N$50,000+ on your next vehicle.`,
+      title: `Import Cars to ${countryName} from Japan - Import Guide`,
+      description: `Complete import guide with duty calculator. Members typically report savings of N$20,000-N$50,000 per vehicle.`,
       images: ['/twitter-card-import.jpg'],
       creator: '@impota_africa'
     },
@@ -174,13 +174,13 @@ export function generateCountryMetadata(country: 'na' | 'za' | 'bw' | 'zm'): Met
 
 // Homepage metadata
 export const homepageMetadata: Metadata = {
-  title: 'Import Cars from Japan to Africa - Save 50% | IMPOTA',
-  description: 'The complete platform for importing cars from Japan to Namibia, South Africa, Botswana & Zambia. Duty calculators, import guides, documentation templates. Save N$50,000+ per vehicle.',
+  title: 'Import Cars from Japan to Africa - Complete Platform | IMPOTA',
+  description: 'The complete platform for importing cars from Japan to Namibia, South Africa, Botswana & Zambia. Duty calculators, import guides, documentation templates. Members typically report savings of N$20,000-N$50,000 per vehicle.',
   keywords: 'import cars Africa, Japanese cars Africa, car import duty calculator, import vehicles Japan, Namibia car import, South Africa car import, Botswana car import, Zambia car import, Japan car auction, import guide Africa',
   metadataBase: new URL('https://impota.com'),
   openGraph: {
     title: 'IMPOTA - Africa\'s #1 Car Import Education Platform',
-    description: 'Learn to import cars from Japan and save 50%. Professional guides, calculators, and support for NA, ZA, BW, ZM.',
+    description: 'Learn to import cars from Japan. Professional guides, calculators, and support for NA, ZA, BW, ZM. Members report significant savings compared to local dealerships.',
     type: 'website',
     locale: 'en_US',
     url: 'https://impota.com',
@@ -196,7 +196,7 @@ export const homepageMetadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Import Cars from Japan - Save 50% | IMPOTA',
+    title: 'Import Cars from Japan - Import Platform | IMPOTA',
     description: 'Professional car import guides for Africa. Duty calculators, documentation, expert support.',
     images: ['/twitter-main.jpg'],
     site: '@impota_africa',

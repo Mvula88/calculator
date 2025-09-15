@@ -44,8 +44,8 @@ export default function HomePage() {
     },
     {
       icon: Shield,
-      title: '100% Legal',
-      description: 'Fully compliant with customs regulations',
+      title: 'Fully Legal',
+      description: 'Designed for compliance with customs regulations',
       color: 'purple'
     },
     {
@@ -89,13 +89,13 @@ export default function HomePage() {
               <span className="text-gray-900">Import Cars Yourself</span>
               <br />
               <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                Save 50,000+ Today
+                Members Report Significant Savings
               </span>
             </h1>
             
             <p className="text-lg sm:text-xl md:text-2xl text-gray-700 max-w-3xl mx-auto mb-8">
               The complete step-by-step system that shows you exactly how to import cars from Japan, 
-              legally and profitably, without middlemen.
+              legally, without middlemen. Members typically report significant savings.
             </p>
 
             {/* CTA Buttons - More Prominent */}
