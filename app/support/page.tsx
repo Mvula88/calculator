@@ -150,8 +150,8 @@ export default function SupportPage() {
           <p className="text-xl text-gray-600">We're here to help you succeed with your import journey</p>
         </div>
 
-        {/* Quick Support Cards */}
-        <div className="grid md:grid-cols-3 gap-6 mb-12">
+        {/* Quick Support Card */}
+        <div className="max-w-md mx-auto mb-12">
           {contactMethods.map((method, index) => (
             <Card key={index} className="p-6">
               <div className="flex items-start gap-4">
