@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { ArrowLeft, Mail, MessageSquare, Clock, MapPin } from 'lucide-react'
+import { ArrowLeft, Mail, Clock, MapPin } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
@@ -50,26 +50,29 @@ export default function ContactPage() {
               </div>
               
               <div className="flex items-start gap-4">
-                <MessageSquare className="h-5 w-5 text-blue-600 mt-1" />
-                <div>
-                  <h3 className="font-semibold">WhatsApp</h3>
-                  <p className="text-gray-600">+264 81 234 5678</p>
-                </div>
-              </div>
-              
-              <div className="flex items-start gap-4">
                 <Clock className="h-5 w-5 text-blue-600 mt-1" />
                 <div>
                   <h3 className="font-semibold">Support Hours</h3>
                   <p className="text-gray-600">Monday - Friday: 8AM - 6PM CAT</p>
-                  <p className="text-gray-600">Saturday: 9AM - 1PM CAT</p>
+                  <p className="text-gray-600">Saturday - Sunday: Closed</p>
                 </div>
               </div>
               
               <div className="flex items-start gap-4">
                 <MapPin className="h-5 w-5 text-blue-600 mt-1" />
                 <div>
-                  <h3 className="font-semibold">Office</h3>
+                  <h3 className="font-semibold">US Office</h3>
+                  <p className="text-gray-600">8195, 1021 E Lincolnway</p>
+                  <p className="text-gray-600">Cheyenne, WY, Laramie</p>
+                  <p className="text-gray-600">US, 82001</p>
+                </div>
+              </div>
+              
+              <div className="flex items-start gap-4">
+                <MapPin className="h-5 w-5 text-blue-600 mt-1" />
+                <div>
+                  <h3 className="font-semibold">Namibian Office</h3>
+                  <p className="text-gray-600">Independence Avenue</p>
                   <p className="text-gray-600">Windhoek, Namibia</p>
                 </div>
               </div>

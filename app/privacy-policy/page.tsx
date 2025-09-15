@@ -161,8 +161,8 @@ export default function PrivacyPolicyPage() {
             <p className="text-gray-700">
               If you have questions about this Privacy Policy, please contact us at:
               <br />Email: privacy@impota.com
-              <br />Address: Windhoek, Namibia
-              <br />Phone: +264 81 234 5678
+              <br />US Office: 8195, 1021 E Lincolnway, Cheyenne, WY, Laramie, US, 82001
+              <br />Namibian Office: Independence Avenue, Windhoek, Namibia
             </p>
           </section>
         </div>

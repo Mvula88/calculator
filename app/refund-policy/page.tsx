@@ -167,7 +167,6 @@ export default function RefundPolicyPage() {
             </ul>
             <p className="text-gray-700">
               <strong>Email:</strong> support@impota.com
-              <br /><strong>WhatsApp:</strong> +264 81 234 5678
               <br /><strong>Response Time:</strong> Within 24 hours (usually faster)
             </p>
           </section>
