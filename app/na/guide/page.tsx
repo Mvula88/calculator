@@ -40,7 +40,6 @@ import {
 import CountrySelector from '@/components/CountrySelector'
 import GuideHeader from '@/components/GuideHeader'
 import StickySignupHeader from '@/components/StickySignupHeader'
-import ExitIntentPopup from '@/components/ExitIntentPopup'
 import StockCounter from '@/components/StockCounter'
 import ImportSuccessNotifications from '@/components/PurchaseNotifications'
 
@@ -71,9 +70,6 @@ export default function NamibiaGuidePage() {
     <>
       {/* Hidden H1 for SEO */}
       <h1 className="sr-only">Import Cars from Japan to Namibia 2024 - Complete Walvis Bay Port Guide | Save N$65,000</h1>
-      
-      {/* Exit Intent Popup */}
-      <ExitIntentPopup country="na" />
       
       {/* Purchase Notifications */}
       <ImportSuccessNotifications country="na" />
