@@ -108,7 +108,7 @@ export default function NamibiaGuidePage() {
           <div className="flex justify-center mb-8">
             <div className="inline-flex items-center gap-3 bg-gradient-to-r from-amber-500 to-orange-500 text-white px-6 py-3 rounded-full shadow-xl">
               <Trophy className="h-5 w-5" />
-              <span className="font-bold text-sm">NAMIBIA'S #1 IMPORT EDUCATION PLATFORM</span>
+              <span className="font-bold text-sm">EXPERT IMPORT EDUCATION PLATFORM</span>
               <Trophy className="h-5 w-5" />
             </div>
           </div>
