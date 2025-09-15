@@ -72,7 +72,7 @@ export default function NamibiaGuidePage() {
       <h1 className="sr-only">Import Cars from Japan to Namibia 2024 - Complete Walvis Bay Port Guide | Save N$65,000</h1>
       
       {/* Purchase Notifications */}
-      <ImportSuccessNotifications country="na" />
+      <ImportSuccessNotifications />
       
       <main className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-50" itemScope itemType="https://schema.org/Guide">
       <StickySignupHeader country="na" />
