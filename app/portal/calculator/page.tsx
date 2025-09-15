@@ -260,7 +260,7 @@ export default function DutyCalculator() {
       savingsOpportunities.push(`Smaller engine could reduce costs by ${((value * 5) / 100).toLocaleString()}`)
     }
     if (age > 5) {
-      savingsOpportunities.push(`Newer vehicle could reduce costs by ${((value * (age > 8 ? 10 : 5)) / 100).toLocaleString()}`
+      savingsOpportunities.push(`Newer vehicle could reduce costs by ${((value * (age > 8 ? 10 : 5)) / 100).toLocaleString()}`)
     }
     if (isLuxury && value < 600000) {
       savingsOpportunities.push('Consider non-luxury variant for lower duty rate')
