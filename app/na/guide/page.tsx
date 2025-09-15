@@ -435,55 +435,6 @@ export default function NamibiaGuidePage() {
         </div>
       </section>
 
-      {/* Member Benefits - What You'll Experience */}
-      <section className="py-16 bg-gray-50">
-        <div className="max-w-6xl mx-auto px-6">
-          <h2 className="text-3xl font-bold text-center mb-4">What Our Members Experience</h2>
-          <p className="text-center text-gray-600 mb-12">Real benefits from using our import guides and tools</p>
-          
-          <div className="grid md:grid-cols-3 gap-6">
-            {[
-              {
-                name: "Johannes M.",
-                car: "2019 Toyota Hilux",
-                saved: "Significant savings",
-                text: "The duty calculator helped me identify the correct HS code. This made a real difference in my import costs."
-              },
-              {
-                name: "Sarah K.",
-                car: "2018 VW Polo",
-                saved: "Reduced shipping costs",
-                text: "Container sharing feature connected me with 2 other importers. We split a 40ft container and significantly reduced our shipping costs."
-              },
-              {
-                name: "David N.",
-                car: "2020 Mazda CX-5",
-                saved: "Avoided overpaying",
-                text: "The guide helped me identify inflated dealer fees and understand the actual costs involved in importing."
-              }
-            ].map((testimonial, i) => (
-              <Card key={i} className="hover:shadow-xl transition-shadow">
-                <CardContent className="p-6">
-                  <div className="flex items-center gap-1 mb-3">
-                    {[1,2,3,4,5].map(i => (
-                      <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                    ))}
-                  </div>
-                  <p className="text-gray-700 mb-4 italic">"{testimonial.text}"</p>
-                  <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 bg-gradient-to-br from-gray-300 to-gray-400 rounded-full" />
-                    <div>
-                      <p className="font-bold">{testimonial.name}</p>
-                      <p className="text-sm text-gray-600">{testimonial.car}</p>
-                      <p className="text-sm font-bold text-green-600">{testimonial.saved}</p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* FAQ Section for Rich Snippets */}
       <section className="py-16 bg-gray-50" aria-labelledby="faq-heading">
