@@ -131,7 +131,6 @@ export async function POST(req: NextRequest) {
           email: email.toLowerCase(),
           tier: tier,
           country: country,
-          active: true,
           stripe_session_id: session.id,
           amount_paid: session.amount_total,
           currency: session.currency,

@@ -46,7 +46,6 @@ export async function POST(req: NextRequest) {
       .select('*')
       .eq('stripe_session_id', sessionId)
       .eq('email', email.toLowerCase())
-      .eq('active', true)
       .single()
     
     if (error || !entitlement) {

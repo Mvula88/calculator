@@ -12,7 +12,6 @@ async function getUserEntitlement(userId: string, email?: string) {
   let query = supabase
     .from('entitlements')
     .select('*')
-    .eq('active', true)
   
   const conditions = []
   if (userId) {
@@ -50,7 +49,6 @@ async function getSessionEntitlement() {
       .select('*')
       .eq('stripe_session_id', session.sessionId)
       .eq('email', session.email)
-      .eq('active', true)
       .single()
     
     return data

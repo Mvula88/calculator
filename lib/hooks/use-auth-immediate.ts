@@ -78,7 +78,6 @@ export function useAuthImmediate(): UseAuthReturn {
                 .from('entitlements')
                 .select('tier')
                 .or(`user_id.eq.${result.data.session.user.id},email.eq.${result.data.session.user.email}`)
-                .eq('active', true)
                 .order('created_at', { ascending: false })
                 .limit(1)
                 .single()
