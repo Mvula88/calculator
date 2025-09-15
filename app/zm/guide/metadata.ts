@@ -2,7 +2,7 @@ import { Metadata } from 'next'
 
 export const zambiaGuideMetadata: Metadata = {
   title: 'Import Cars to Zambia from Japan 2024 | Lusaka Guide | Complete Import Guide',
-  description: 'Complete guide to importing cars from Japan to Zambia. Expert guidance with our proven system. Includes ZRA duty calculator, customs clearance, RTSA registration, and Nakonde/Chirundu border posts. Based on 8 successful imports and counting.',
+  description: 'Complete guide to importing cars from Japan to Zambia. Expert guidance with our proven system. Includes ZRA duty calculator, customs clearance, RTSA registration, and Nakonde/Chirundu border posts. Based on real import experience.',
   keywords: 'import cars Zambia, Japan car import Zambia, Lusaka customs clearance, ZRA duty calculator, RTSA vehicle registration, import duty Zambia 2024, Japanese used cars Zambia, car import costs Zambia, Zambia clearing agents, import permit Zambia, vehicle import process Zambia, Nakonde border post, Chirundu border crossing, Zambia car import guide, Japanese auction cars Zambia, import taxes Zambia vehicles',
   
   openGraph: {

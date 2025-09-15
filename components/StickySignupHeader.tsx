@@ -63,7 +63,7 @@ export default function StickySignupHeader({ country = 'na' }: StickySignupHeade
               </p>
               <p className="text-xs opacity-90 flex items-center gap-2">
                 <Shield className="h-3 w-3" />
-                8 successful imports and counting
+                Real Import Experience, Real Guidance
               </p>
             </div>
           </div>

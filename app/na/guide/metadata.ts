@@ -2,7 +2,7 @@ import { Metadata } from 'next'
 
 export const namibiaGuideMetadata: Metadata = {
   title: 'Import Cars to Namibia from Japan 2024 | Complete Walvis Bay Guide | Save N$65,000+',
-  description: 'Step-by-step guide to importing cars from Japan to Namibia through Walvis Bay port. Professional import guidance system. Includes duty calculator, customs clearance, NaTIS registration, and scam prevention. Join our 8 successful imports and counting.',
+  description: 'Step-by-step guide to importing cars from Japan to Namibia through Walvis Bay port. Professional import guidance system. Includes duty calculator, customs clearance, NaTIS registration, and scam prevention. Get real import guidance.',
   keywords: 'import cars Namibia, Japan car import Namibia, Walvis Bay port clearance, Namibia customs duty calculator, NaTIS vehicle registration, import duty Namibia 2024, Japanese used cars Namibia, car import costs Namibia, Namibia clearing agents, import permit Namibia, vehicle import process Namibia, Walvis Bay port fees, Namibia car import guide, Japanese auction cars Namibia, import taxes Namibia vehicles',
   
   openGraph: {
@@ -142,7 +142,7 @@ export const namibiaFAQJsonLd = {
       name: 'Do I need experience or connections to import cars to Namibia?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'No prior experience needed. Our step-by-step guides provide everything you need including verified contacts, exact procedures, and proven strategies from our 8 successful imports and counting.'
+        text: 'No prior experience needed. Our step-by-step guides provide everything you need including verified contacts, exact procedures, and proven strategies from real import experience.'
       }
     },
     {

@@ -42,7 +42,7 @@ export default function AboutPage() {
               <div>
                 <h3 className="font-semibold mb-2">Experience</h3>
                 <p className="text-gray-700">
-                  Over 5 years helping 8 successful imports and counting across Southern Africa.
+                  Over 5 years of real import experience providing real guidance across Southern Africa.
                 </p>
               </div>
               <div>

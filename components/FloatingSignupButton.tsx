@@ -62,7 +62,7 @@ export default function FloatingSignupButton({ country = 'na' }: FloatingSignupB
               </div>
               <h3 className="font-bold text-lg mb-1">Members Report Savings</h3>
               <p className="text-sm text-gray-600 mb-4">
-                Learn our proven import process - 8 successful imports and counting
+                Learn our proven import process - Real Import Experience, Real Guidance
               </p>
               <Link href={`/${country}/guide#signup`}>
                 <Button className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700">

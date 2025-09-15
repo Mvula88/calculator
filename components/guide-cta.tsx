@@ -188,7 +188,7 @@ export default function GuideCTA({ country, mistakePrice, masteryPrice }: GuideC
             </div>
             <div className="flex items-center gap-2">
               <TrendingUp className="h-4 w-4" />
-              <span>8 Successful Imports and Counting</span>
+              <span>Real Import Experience, Real Guidance</span>
             </div>
           </div>
         </div>

@@ -2,7 +2,7 @@ import { Metadata } from 'next'
 
 export const southAfricaGuideMetadata: Metadata = {
   title: 'Import Cars to South Africa from Japan 2024 | Durban Port Guide | Complete Import Guide',
-  description: 'Complete guide to importing cars from Japan to South Africa through Durban port. Expert guidance with our proven system. Includes SARS duty calculator, customs clearance, eNaTIS registration, and verified clearing agents. Based on 8 successful imports and counting.',
+  description: 'Complete guide to importing cars from Japan to South Africa through Durban port. Expert guidance with our proven system. Includes SARS duty calculator, customs clearance, eNaTIS registration, and verified clearing agents. Based on real import experience.',
   keywords: 'import cars South Africa, Japan car import SA, Durban port clearance, SARS duty calculator, eNaTIS vehicle registration, import duty South Africa 2024, Japanese used cars SA, car import costs South Africa, SA clearing agents, import permit South Africa, vehicle import process SA, Durban port fees, South Africa car import guide, Japanese auction cars SA, import taxes South Africa vehicles, ITAC import permit, roadworthy certificate SA',
   
   openGraph: {

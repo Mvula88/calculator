@@ -47,7 +47,7 @@ export default function SouthAfricaGuidePage() {
       <CountrySelector />
       <GuideHeader 
         country="za" 
-        trusted="8 Successful Imports and Counting"
+        trusted="Real Import Experience, Real Guidance"
         primaryColor="green-600"
         secondaryColor="emerald-600"
       />

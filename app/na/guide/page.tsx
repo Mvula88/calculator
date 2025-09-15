@@ -79,7 +79,7 @@ export default function NamibiaGuidePage() {
       <CountrySelector />
       <GuideHeader 
         country="na" 
-        trusted="8 Successful Imports and Counting"
+        trusted="Real Import Experience, Real Guidance"
         primaryColor="blue-600"
         secondaryColor="purple-600"
       />

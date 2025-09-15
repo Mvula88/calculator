@@ -47,7 +47,7 @@ export default function ZambiaGuidePage() {
       <CountrySelector />
       <GuideHeader 
         country="zm" 
-        trusted="8 Successful Imports and Counting"
+        trusted="Real Import Experience, Real Guidance"
         primaryColor="emerald-600"
         secondaryColor="teal-600"
       />

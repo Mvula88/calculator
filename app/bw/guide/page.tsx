@@ -47,7 +47,7 @@ export default function BotswanaGuidePage() {
       <CountrySelector />
       <GuideHeader 
         country="bw" 
-        trusted="8 Successful Imports and Counting"
+        trusted="Real Import Experience, Real Guidance"
         primaryColor="blue-600"
         secondaryColor="sky-600"
       />

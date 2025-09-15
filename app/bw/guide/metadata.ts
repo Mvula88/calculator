@@ -2,7 +2,7 @@ import { Metadata } from 'next'
 
 export const botswanaGuideMetadata: Metadata = {
   title: 'Import Cars to Botswana from Japan 2024 | Complete Guide | Complete Import Guide',
-  description: 'Step-by-step guide to importing cars from Japan to Botswana. Professional import guidance system. Includes BURS duty calculator, customs clearance at Gaborone, vehicle registration, and container sharing. Based on 8 successful imports and counting.',
+  description: 'Step-by-step guide to importing cars from Japan to Botswana. Professional import guidance system. Includes BURS duty calculator, customs clearance at Gaborone, vehicle registration, and container sharing. Based on real import experience.',
   keywords: 'import cars Botswana, Japan car import Botswana, Gaborone customs clearance, BURS duty calculator, Botswana vehicle registration, import duty Botswana 2024, Japanese used cars Botswana, car import costs Botswana, Botswana clearing agents, import permit Botswana, vehicle import process Botswana, Botswana car import guide, Japanese auction cars Botswana, import taxes Botswana vehicles, Trans Kalahari Corridor, Kazungula border post',
   
   openGraph: {
