@@ -60,7 +60,7 @@ const countryData = {
       'Strong Japanese car market presence',
       'Established clearing agent network'
     ],
-    testimonial: null // Testimonials will be added once we have more verified customer feedback
+    testimonial: null as null | { name: string; location: string; saving: string; car: string; text: string }
   },
   za: {
     name: 'South Africa',
@@ -78,7 +78,7 @@ const countryData = {
       'Multiple financing options available',
       'Strong regulatory framework'
     ],
-    testimonial: null // Testimonials will be added once we have more verified customer feedback
+    testimonial: null as null | { name: string; location: string; saving: string; car: string; text: string }
   },
   bw: {
     name: 'Botswana',
@@ -96,7 +96,7 @@ const countryData = {
       'Simplified documentation',
       'Lower duty rates than neighbors'
     ],
-    testimonial: null // Testimonials will be added once we have more verified customer feedback
+    testimonial: null as null | { name: string; location: string; saving: string; car: string; text: string }
   },
   zm: {
     name: 'Zambia',
@@ -114,7 +114,7 @@ const countryData = {
       'Improving import processes',
       'Multiple border entry points'
     ],
-    testimonial: null // Testimonials will be added once we have more verified customer feedback
+    testimonial: null as null | { name: string; location: string; saving: string; car: string; text: string }
   }
 }
 
