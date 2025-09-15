@@ -76,7 +76,7 @@ export default function ZambiaGuidePage() {
           <div className="flex justify-center mb-8">
             <div className="inline-flex items-center gap-3 bg-gradient-to-r from-emerald-500 to-teal-500 text-white px-6 py-3 rounded-full shadow-xl">
               <Trophy className="h-5 w-5" />
-              <span className="font-bold text-sm">ZAMBIA'S #1 IMPORT EDUCATION PLATFORM</span>
+              <span className="font-bold text-sm">EXPERT IMPORT EDUCATION PLATFORM</span>
               <Trophy className="h-5 w-5" />
             </div>
           </div>
@@ -155,50 +155,8 @@ export default function ZambiaGuidePage() {
             <p className="text-sm text-white text-center mt-4">Instant access • Lifetime updates • 30-day guarantee</p>
           </div>
 
-          {/* Social Proof Bar */}
-          <div className="flex flex-col md:flex-row items-center justify-center gap-6 bg-white/95 backdrop-blur-md rounded-2xl p-6 shadow-2xl border border-white/20">
-            <div className="flex -space-x-3">
-              {[
-                {
-                  src: '/avatars/namibia-1.png',
-                  name: 'ZM Customer',
-                  location: 'Lusaka'
-                },
-                {
-                  src: '/avatars/namibia-2.png',
-                  name: 'ZM Customer',
-                  location: 'Ndola'
-                },
-                {
-                  src: '/avatars/namibia-3.png',
-                  name: 'ZM Customer',
-                  location: 'Kitwe'
-                },
-                {
-                  src: '/avatars/namibia-4.png',
-                  name: 'ZM Customer',
-                  location: 'Livingstone'
-                }
-              ].map((customer, i) => (
-                <img 
-                  key={i} 
-                  src={customer.src}
-                  alt={`${customer.name} from ${customer.location}`}
-                  title={`${customer.name} - ${customer.location}`}
-                  className="w-12 h-12 rounded-full border-3 border-white shadow-md object-cover"
-                />
-              ))}
-            </div>
-            <div className="text-center md:text-left">
-              <div className="flex items-center gap-1 justify-center md:justify-start mb-1">
-                {[1,2,3,4,5].map(i => (
-                  <Star key={i} className="h-5 w-5 fill-yellow-400 text-yellow-400" />
-                ))}
-              </div>
-              <p className="font-bold text-gray-900">Member benefits documented</p>
-              <p className="text-sm text-gray-600">Updated December 2024</p>
-            </div>
-            <div className="hidden md:block h-12 w-px bg-gray-200"></div>
+          {/* Compliance Info */}
+          <div className="flex items-center justify-center gap-6 bg-white/95 backdrop-blur-md rounded-2xl p-6 shadow-2xl border border-white/20">
             <div className="flex items-center gap-2">
               <Shield className="h-8 w-8 text-emerald-600" />
               <div>
@@ -423,7 +381,7 @@ export default function ZambiaGuidePage() {
             <Trophy className="h-16 w-16 text-emerald-600 mx-auto mb-6" />
             <h2 className="text-3xl font-bold mb-4">Our Iron-Clad Guarantee</h2>
             <p className="text-xl text-gray-700 mb-6">
-              Our guide is proven to save you at least K100,000 on your first import.
+              Our guide provides comprehensive guidance for your first import.
               Start your import journey with proven guidance.
             </p>
             <div className="flex items-center justify-center gap-8">
@@ -448,10 +406,10 @@ export default function ZambiaGuidePage() {
       <section className="py-20 bg-gradient-to-br from-emerald-600 to-teal-600 text-white">
         <div className="max-w-4xl mx-auto px-6 text-center">
           <h2 className="text-4xl md:text-5xl font-black mb-6">
-            Stop Watching Others Save Money
+            Start Your Import Journey
           </h2>
           <p className="text-2xl mb-8 text-emerald-100">
-            Every day you wait, another Zambian imports their dream car for K500,000 less than you would pay.
+            Every day you wait, another Zambian imports their car efficiently.
           </p>
           <div className="bg-white/10 backdrop-blur rounded-2xl p-8 mb-8">
             <p className="text-3xl font-bold mb-4">
