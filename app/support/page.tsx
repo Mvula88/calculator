@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import Link from 'next/link'
 import { 
   ArrowLeft, 
@@ -14,12 +15,19 @@ import {
   HelpCircle,
   Users,
   Shield,
-  Zap
+  Zap,
+  ChevronDown,
+  ChevronRight
 } from 'lucide-react'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 
 export default function SupportPage() {
+  const [expandedIssue, setExpandedIssue] = useState<string | null>(null)
+  
+  const toggleIssue = (issueId: string) => {
+    setExpandedIssue(expandedIssue === issueId ? null : issueId)
+  }
   const faqs = [
     {
       category: 'Getting Started',
@@ -109,17 +117,65 @@ export default function SupportPage() {
     {
       icon: Package,
       title: 'Order Issues',
-      items: ['Order not received', 'Wrong product purchased', 'Duplicate charges']
+      items: [
+        {
+          id: 'order-not-received',
+          title: 'Order not received',
+          solution: 'Check your email (including spam folder) for the order confirmation. Your login credentials are sent immediately after purchase. If you still haven\'t received it after 30 minutes, contact support@impota.com with your payment receipt.'
+        },
+        {
+          id: 'wrong-product',
+          title: 'Wrong product purchased',
+          solution: 'If you purchased the wrong guide, contact us immediately at support@impota.com. We can help upgrade you to the right package or provide guidance on which guide best suits your needs.'
+        },
+        {
+          id: 'duplicate-charges',
+          title: 'Duplicate charges',
+          solution: 'If you see duplicate charges on your statement, this may be a pending authorization that will clear within 3-5 business days. If charges persist, email support@impota.com with your transaction details for immediate refund of the duplicate charge.'
+        }
+      ]
     },
     {
       icon: FileText,
       title: 'Access Problems',
-      items: ['Login not working', 'Forgot password', 'Content not loading']
+      items: [
+        {
+          id: 'login-not-working',
+          title: 'Login not working',
+          solution: 'Ensure you\'re using the email address you used during purchase. Check for typos and ensure caps lock is off. Try resetting your password using the "Forgot Password" link on the login page. Clear your browser cache and cookies if issues persist.'
+        },
+        {
+          id: 'forgot-password',
+          title: 'Forgot password',
+          solution: 'Go to impota.com/portal and click "Forgot Password". Enter your email address and check your inbox for reset instructions. The reset link expires after 1 hour. If you don\'t receive it, check spam folder or contact support.'
+        },
+        {
+          id: 'content-not-loading',
+          title: 'Content not loading',
+          solution: 'Try refreshing the page (Ctrl+F5 or Cmd+Shift+R). Clear your browser cache and cookies. Try a different browser (Chrome, Firefox, Safari). Disable browser extensions that might block content. Check your internet connection. If issues persist, contact support with browser details.'
+        }
+      ]
     },
     {
       icon: Book,
       title: 'Guide Questions',
-      items: ['Understanding content', 'Missing information', 'Update requests']
+      items: [
+        {
+          id: 'understanding-content',
+          title: 'Understanding content',
+          solution: 'Each guide section includes detailed explanations and examples. Start with the introduction chapter for overview. Use the table of contents to navigate to specific topics. For Import Mastery users, video tutorials provide visual walkthroughs. Email specific questions to support@impota.com.'
+        },
+        {
+          id: 'missing-information',
+          title: 'Missing information',
+          solution: 'Our guides are regularly updated with new information. Check the "Updates" section in your portal for recent additions. If you believe something is missing, email support@impota.com with details and we\'ll address it in the next update.'
+        },
+        {
+          id: 'update-requests',
+          title: 'Update requests',
+          solution: 'We welcome suggestions for guide improvements! Email your feedback to support@impota.com. Include specific sections you\'d like expanded or topics you want covered. Updates are released monthly and all users get free access to new content.'
+        }
+      ]
     }
   ]
 
@@ -158,24 +214,41 @@ export default function SupportPage() {
           ))}
         </div>
 
-        {/* Common Issues Quick Links */}
-        <div className="bg-white rounded-xl shadow-lg p-8 mb-12">
+        {/* Common Issues with Solutions */}
+        <div className="mb-12">
           <h2 className="text-2xl font-bold mb-6">Quick Solutions</h2>
-          <div className="grid md:grid-cols-3 gap-6">
-            {commonIssues.map((issue, index) => (
-              <div key={index}>
-                <div className="flex items-center gap-2 mb-3">
-                  <issue.icon className="h-5 w-5 text-gray-600" />
-                  <h3 className="font-semibold">{issue.title}</h3>
+          <div className="space-y-6">
+            {commonIssues.map((category, categoryIndex) => (
+              <Card key={categoryIndex} className="overflow-hidden">
+                <div className="p-6">
+                  <div className="flex items-center gap-3 mb-4">
+                    <category.icon className="h-6 w-6 text-blue-600" />
+                    <h3 className="text-xl font-bold">{category.title}</h3>
+                  </div>
+                  <div className="space-y-3">
+                    {category.items.map((item) => (
+                      <div key={item.id} className="border rounded-lg">
+                        <button
+                          onClick={() => toggleIssue(item.id)}
+                          className="w-full px-4 py-3 text-left flex items-center justify-between hover:bg-gray-50 transition-colors"
+                        >
+                          <span className="font-medium text-gray-800">{item.title}</span>
+                          {expandedIssue === item.id ? (
+                            <ChevronDown className="h-5 w-5 text-gray-400" />
+                          ) : (
+                            <ChevronRight className="h-5 w-5 text-gray-400" />
+                          )}
+                        </button>
+                        {expandedIssue === item.id && (
+                          <div className="px-4 pb-4 pt-2 bg-gray-50 border-t">
+                            <p className="text-sm text-gray-700 leading-relaxed">{item.solution}</p>
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
                 </div>
-                <ul className="space-y-2">
-                  {issue.items.map((item, i) => (
-                    <li key={i} className="text-sm text-gray-600 hover:text-blue-600 cursor-pointer">
-                      • {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              </Card>
             ))}
           </div>
         </div>
