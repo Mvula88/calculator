@@ -51,7 +51,6 @@ function WelcomeContent() {
           .from('entitlements')
           .select('*')
           .or(`email.eq.${user.email?.toLowerCase()},user_id.eq.${user.id}`)
-          .eq('active', true)
           .limit(1)
         
         if (entitlements && entitlements.length > 0) {
@@ -101,7 +100,6 @@ function WelcomeContent() {
             .from('entitlements')
             .select('*')
             .or(`email.eq.${user.email.toLowerCase()},user_id.eq.${user.id}`)
-            .eq('active', true)
             .order('created_at', { ascending: false })
             .limit(1)
           
@@ -124,7 +122,6 @@ function WelcomeContent() {
             .from('entitlements')
             .select('*')
             .eq('stripe_session_id', sessionId)
-            .eq('active', true)
             .single()
           
           if (sessionEntitlement) {
