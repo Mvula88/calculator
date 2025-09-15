@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { useAuthImmediate } from '@/lib/hooks/use-auth-immediate'
 import { Card } from '@/components/ui/card'
 import { TimelineSection } from '@/components/guide/timeline-section'
 import { CostBreakdown } from '@/components/guide/cost-breakdown'
@@ -124,55 +125,17 @@ const namibiaTimelineSteps = [
 
 export default function GuidePage() {
   const router = useRouter()
-  const [hasAccess, setHasAccess] = useState<boolean | null>(null)
-  const [userEmail, setUserEmail] = useState<string>('')
+  const { user, userEmail, hasAccess, loading, userTier } = useAuthImmediate()
   
-  useEffect(() => {
-    // Check for session in cookie or localStorage
-    let session = null
-    
-    // Check cookie
-    const cookies = document.cookie.split(';')
-    for (const cookie of cookies) {
-      const [name, value] = cookie.trim().split('=')
-      if (name === 'impota_session') {
-        try {
-          session = JSON.parse(decodeURIComponent(value))
-          break
-        } catch (e) {
-          console.error('Invalid cookie session')
-        }
-      }
-    }
-    
-    // Fallback to localStorage
-    if (!session) {
-      const stored = localStorage.getItem('impota_session')
-      if (stored) {
-        try {
-          session = JSON.parse(stored)
-        } catch (e) {
-          console.error('Invalid localStorage session')
-        }
-      }
-    }
-    
-    if (session && session.email) {
-      setHasAccess(true)
-      // Clean up email display if it's a session-based email
-      const email = session.email
-      let cleanEmail = email
-      if (email.startsWith('user_cs_test_') || email.startsWith('user_') && email.endsWith('@impota.com')) {
-        cleanEmail = 'Portal User'
-      }
-      setUserEmail(cleanEmail)
-    } else {
-      setHasAccess(false)
-    }
-  }, [])
+  // Clean up email display
+  const displayEmail = userEmail || 'Portal User'
+  const cleanEmail = displayEmail.startsWith('user_cs_test_') || 
+    (displayEmail.startsWith('user_') && displayEmail.endsWith('@impota.com')) 
+    ? 'Portal User' 
+    : displayEmail
   
   // Loading state
-  if (hasAccess === null) {
+  if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
@@ -183,10 +146,16 @@ export default function GuidePage() {
     )
   }
   
-  // No access - redirect to login
-  if (!hasAccess) {
-    router.replace('/portal/login')
-    return null
+  // No access - redirect to portal home or show message
+  if (!user || !userTier) {
+    router.replace('/portal')
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <p className="text-gray-600">Redirecting to portal...</p>
+        </div>
+      </div>
+    )
   }
   
   // Has access - show the guide
@@ -203,7 +172,7 @@ export default function GuidePage() {
             <h1 className="text-2xl sm:text-3xl font-bold">Your Import Guide</h1>
             <div className="flex items-center gap-2 text-xs sm:text-sm text-gray-600">
               <Shield className="h-3 w-3 sm:h-4 sm:w-4" />
-              <span className="truncate max-w-[200px]">Licensed to: {userEmail}</span>
+              <span className="truncate max-w-[200px]">Licensed to: {cleanEmail}</span>
             </div>
           </div>
           <div className="bg-red-50 border border-red-200 rounded-lg p-3 sm:p-4">
@@ -212,7 +181,7 @@ export default function GuidePage() {
               <div>
                 <p className="text-xs sm:text-sm text-red-800 font-medium">Content Protection Active</p>
                 <p className="text-xs text-red-700 mt-1">
-                  This guide is licensed to {userEmail}. Sharing or redistributing this content violates the terms of service.
+                  This guide is licensed to {cleanEmail}. Sharing or redistributing this content violates the terms of service.
                 </p>
               </div>
             </div>
