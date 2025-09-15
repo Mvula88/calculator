@@ -76,7 +76,7 @@ export default function SouthAfricaGuidePage() {
           <div className="flex justify-center mb-8">
             <div className="inline-flex items-center gap-3 bg-gradient-to-r from-green-500 to-yellow-500 text-white px-6 py-3 rounded-full shadow-xl">
               <Trophy className="h-5 w-5" />
-              <span className="font-bold text-sm">EXPERT IMPORT EDUCATION PLATFORM</span>
+              <span className="font-bold text-sm">EXCLUSIVE IMPORT KNOWLEDGE DEALERS WON'T SHARE</span>
               <Trophy className="h-5 w-5" />
             </div>
           </div>
@@ -94,9 +94,9 @@ export default function SouthAfricaGuidePage() {
           <p className="text-xl md:text-2xl text-white text-center mb-8 max-w-3xl mx-auto leading-relaxed drop-shadow-lg">
             <span className="font-bold text-yellow-300">3 MILLION+ quality used cars</span> available in Japan RIGHT NOW.
             <br />
-            <span className="text-lg mt-2 block">We're <span className="font-bold text-green-400">exposing the entire import process</span> with EXACT steps, forms, and contacts.</span>
+            <span className="text-lg mt-2 block">Access <span className="font-bold text-green-400">insider knowledge dealers won't tell you</span> with EXACT steps, forms, and contacts.</span>
             <br />
-            <span className="text-lg text-gray-200 block">IMPOTA teaches you how to import cars yourself — step by step.</span>
+            <span className="text-lg text-gray-200 block">The only comprehensive guide revealing what dealers keep secret.</span>
           </p>
           
           {/* Value Props */}
@@ -176,10 +176,10 @@ export default function SouthAfricaGuidePage() {
           <div className="text-center mb-12">
             <h2 className="text-4xl font-black mb-4">
               <span className="bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
-                Master The Durban Port Import Process
+                Discover What Dealers Won't Tell You
               </span>
             </h2>
-            <p className="text-xl text-gray-600">Navigate SARS, customs, and registration like a pro.</p>
+            <p className="text-xl text-gray-600">Learn the hidden import process dealers never reveal. Access insider knowledge dealers charge thousands to never tell.</p>
           </div>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -192,8 +192,8 @@ export default function SouthAfricaGuidePage() {
               },
               {
                 icon: Calculator,
-                title: "SARS Duty Calculator",
-                description: "Calculate exact import duties and VAT",
+                title: "Secret SARS Calculator",
+                description: "Hidden duty calculations dealers won't share",
                 color: "yellow"
               },
               {
@@ -204,8 +204,8 @@ export default function SouthAfricaGuidePage() {
               },
               {
                 icon: FileText,
-                title: "SARS Documentation",
-                description: "DA304, SAD500, and all forms explained",
+                title: "Secret SARS Documentation",
+                description: "Hidden forms and processes dealers keep secret",
                 color: "purple"
               },
               {
@@ -241,8 +241,8 @@ export default function SouthAfricaGuidePage() {
       <section className="py-16 bg-gradient-to-b from-gray-50 to-white">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-black mb-4">Choose Your Import Success Package</h2>
-            <p className="text-xl text-gray-600">One-time payment. Lifetime access. Instant delivery.</p>
+            <h2 className="text-4xl font-black mb-4">Get The Knowledge Dealers Keep Hidden</h2>
+            <p className="text-xl text-gray-600">Secrets dealers charge thousands to never tell - Real experience, not theory.</p>
           </div>
           
           <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
@@ -265,13 +265,13 @@ export default function SouthAfricaGuidePage() {
                   
                   <div className="space-y-4 mb-8">
                     {[
-                      "Complete 55-page SA import playbook",
-                      "Durban port navigation guide",
-                      "SARS duty calculation examples",
-                      "All customs forms with samples",
-                      "Common mistakes & solutions",
-                      "Scam prevention checklist",
-                      "Lifetime updates included"
+                      "Complete 55-page secret dealer playbook",
+                      "Hidden Durban port insider guide",
+                      "Secret SARS calculations dealers hide",
+                      "Hidden customs forms dealers won't share",
+                      "Dealer mistakes they never admit",
+                      "Dealer scam prevention insider knowledge",
+                      "Exclusive updates dealers don't share"
                     ].map((feature, i) => (
                       <div key={i} className="flex items-start gap-3">
                         <Check className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
@@ -326,13 +326,13 @@ export default function SouthAfricaGuidePage() {
                   
                   <div className="space-y-4 mb-8">
                     {[
-                      "Live SARS duty calculator for accurate estimates",
-                      "Verified clearing agent directory",
-                      "Japan auction bidding guide",
-                      "Container sharing network access",
-                      "Personal import checklist generator",
-                      "ITAC permit application guide",
-                      "Monthly SARS regulation updates"
+                      "Secret SARS calculator dealers won't share",
+                      "Insider clearing agent contacts dealers hide",
+                      "Japan auction secrets dealers keep hidden",
+                      "Exclusive container sharing network access",
+                      "Personal import secrets checklist",
+                      "Hidden ITAC permit insider knowledge",
+                      "Exclusive SARS updates dealers hide"
                     ].map((feature, i) => (
                       <div key={i} className="flex items-start gap-3">
                         <Star className="h-5 w-5 text-yellow-500 flex-shrink-0 mt-0.5" />
@@ -381,10 +381,10 @@ export default function SouthAfricaGuidePage() {
         <div className="max-w-4xl mx-auto px-6 text-center">
           <div className="bg-gradient-to-br from-green-50 to-yellow-50 rounded-2xl p-12 border-2 border-green-200">
             <Trophy className="h-16 w-16 text-green-600 mx-auto mb-6" />
-            <h2 className="text-3xl font-bold mb-4">Our Iron-Clad Guarantee</h2>
+            <h2 className="text-3xl font-bold mb-4">The Only Source For This Exclusive Import Knowledge</h2>
             <p className="text-xl text-gray-700 mb-6">
-              Our guide provides comprehensive guidance for your first import.
-              Start your import journey with proven guidance.
+              Real import experience sharing knowledge that's kept secret by dealers.
+              Access insider information unavailable anywhere else - what dealers won't tell you.
             </p>
             <div className="flex items-center justify-center gap-8">
               <div className="flex items-center gap-2">

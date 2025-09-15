@@ -32,8 +32,8 @@ export default function HomePage() {
   const benefits = [
     {
       icon: DollarSign,
-      title: 'Save 30-70%',
-      description: 'Skip dealer markups and import directly',
+      title: 'Secrets Dealers Hide',
+      description: 'Information dealers charge thousands to never tell',
       color: 'green'
     },
     {
@@ -44,14 +44,14 @@ export default function HomePage() {
     },
     {
       icon: Shield,
-      title: 'Fully Legal',
-      description: 'Designed for compliance with customs regulations',
+      title: 'Real Experience',
+      description: 'Not theory - real import experience sharing',
       color: 'purple'
     },
     {
       icon: Users,
-      title: 'Proven Success',
-      description: 'Join successful importers importing efficiently',
+      title: 'Exclusive Knowledge',
+      description: 'The complete process dealers hide from customers',
       color: 'orange'
     }
   ]
@@ -81,21 +81,21 @@ export default function HomePage() {
           <div className="text-center mb-8">
             <div className="inline-flex items-center gap-2 bg-gradient-to-r from-amber-500 to-orange-500 text-white px-4 py-2 rounded-full shadow-lg mb-6">
               <Trophy className="h-4 w-4" />
-              <span className="text-sm font-bold">#1 IMPORT EDUCATION PLATFORM IN AFRICA</span>
+              <span className="text-sm font-bold">EXCLUSIVE IMPORT KNOWLEDGE DEALERS WON'T SHARE</span>
               <Trophy className="h-4 w-4" />
             </div>
             
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black mb-6 leading-tight">
-              <span className="text-gray-900">Import Cars Yourself</span>
+              <span className="text-gray-900">Learn What Dealers</span>
               <br />
               <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                Members Report Significant Savings
+                Won't Tell You
               </span>
             </h1>
             
             <p className="text-lg sm:text-xl md:text-2xl text-gray-700 max-w-3xl mx-auto mb-8">
-              The complete step-by-step system that shows you exactly how to import cars from Japan, 
-              legally, without middlemen. Members typically report successful imports.
+              Access insider knowledge dealers charge thousands to never tell. The only comprehensive guide 
+              revealing what dealers keep secret - real experience, real guidance.
             </p>
 
             {/* CTA Buttons - More Prominent */}
@@ -106,7 +106,7 @@ export default function HomePage() {
                   className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-lg px-8 py-6 h-auto shadow-xl transform hover:scale-105 transition-all"
                 >
                   <Zap className="mr-2 h-5 w-5" />
-                  Get Instant Access
+                  Discover What Dealers Won't Tell You
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               </Link>
@@ -147,7 +147,7 @@ export default function HomePage() {
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <h2 className="text-3xl sm:text-4xl font-bold text-center mb-12">
-            Why People Trust IMPOTA
+            Information Unavailable Anywhere Else
           </h2>
           
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -204,19 +204,19 @@ export default function HomePage() {
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <h2 className="text-3xl sm:text-4xl font-bold text-center mb-12">
-            Everything You Need to Import Successfully
+            Get The Knowledge Dealers Keep Hidden
           </h2>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
             <div className="space-y-4">
               <h3 className="font-bold text-xl mb-4 text-blue-600">Mistake Guide (N$499)</h3>
               {[
-                'Complete 55-page import playbook',
-                'Step-by-step customs navigation',
-                'Real cost breakdowns from 50+ imports',
-                'Documentation templates & checklists',
-                'Scam prevention strategies',
-                'Emergency troubleshooting guide'
+                'Complete 55-page secret dealer playbook',
+                'Hidden customs process dealers won\'t share',
+                'Real cost breakdowns dealers hide',
+                'Secret documentation templates',
+                'Dealer scam prevention insider knowledge',
+                'Emergency fixes dealers charge for'
               ].map((item, i) => (
                 <div key={i} className="flex items-start gap-3">
                   <CheckCircle className="h-5 w-5 text-green-500 flex-shrink-0 mt-0.5" />
@@ -231,12 +231,12 @@ export default function HomePage() {
                 <p className="text-sm font-semibold text-purple-800">Everything in Mistake Guide PLUS:</p>
               </div>
               {[
-                'Live duty & tax calculator',
-                'Japan auction bidding guide',
-                'Verified agent directory',
-                'Container sharing network',
-                'WhatsApp priority support',
-                'Video tutorials & walkthroughs'
+                'Secret duty calculator dealers won\'t share',
+                'Japan auction secrets dealers keep hidden',
+                'Insider agent contacts dealers hide',
+                'Exclusive container sharing network',
+                'Priority access to dealer secrets',
+                'Video tutorials revealing insider knowledge'
               ].map((item, i) => (
                 <div key={i} className="flex items-start gap-3">
                   <Star className="h-5 w-5 text-yellow-500 flex-shrink-0 mt-0.5" />
@@ -252,10 +252,10 @@ export default function HomePage() {
       <section className="py-20 bg-gradient-to-r from-blue-600 to-purple-600 text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6">
-            Ready to Start Saving?
+            Ready to Learn What Dealers Won't Tell You?
           </h2>
           <p className="text-xl mb-8 text-blue-100">
-            Start importing efficiently on every car import
+            Access exclusive knowledge dealers charge thousands to never share
           </p>
           
           <div className="bg-white rounded-2xl p-8 max-w-2xl mx-auto">

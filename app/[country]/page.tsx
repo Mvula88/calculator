@@ -50,7 +50,7 @@ const countryData = {
     currency: 'N$',
     port: 'Walvis Bay',
     avgSavings: '75,000',
-    members: 'Real Experience',
+    members: 'Exclusive Knowledge',
     dutyRate: '25-45%',
     clearingTime: '7-14 days',
     popularCars: ['Toyota Hilux', 'Toyota Fortuner', 'Nissan NP300', 'Ford Ranger'],
@@ -68,7 +68,7 @@ const countryData = {
     currency: 'R',
     port: 'Durban',
     avgSavings: '120,000',
-    members: 'Real Experience',
+    members: 'Exclusive Knowledge',
     dutyRate: '30-48%',
     clearingTime: '10-21 days',
     popularCars: ['Toyota Hilux', 'VW Polo', 'Toyota Corolla', 'Ford Ranger'],
@@ -86,7 +86,7 @@ const countryData = {
     currency: 'P',
     port: 'via Durban/Walvis Bay',
     avgSavings: '65,000',
-    members: 'Real Experience',
+    members: 'Exclusive Knowledge',
     dutyRate: '25-40%',
     clearingTime: '14-21 days',
     popularCars: ['Toyota Hilux', 'Land Cruiser', 'Nissan Navara', 'Mazda BT-50'],
@@ -104,7 +104,7 @@ const countryData = {
     currency: 'K',
     port: 'via Dar es Salaam',
     avgSavings: '180,000',
-    members: 'Real Experience',
+    members: 'Exclusive Knowledge',
     dutyRate: '30-50%',
     clearingTime: '14-28 days',
     popularCars: ['Toyota Hilux', 'Toyota Vitz', 'Nissan X-Trail', 'Honda Fit'],
@@ -134,21 +134,20 @@ export default async function CountryLandingPage({ params }: PageProps) {
           <div className="text-center mb-8">
             <div className="inline-flex items-center gap-2 bg-green-100 text-green-700 px-4 py-2 rounded-full mb-6">
               <CheckCircle className="h-5 w-5" />
-              <span className="font-semibold">{country.members}+ Successful Importers</span>
+              <span className="font-semibold">Access {country.members} Dealers Won't Share</span>
             </div>
             
             {/* Strong H1 with primary keywords */}
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black mb-6">
               Import Cars to {country.name} from Japan
               <span className="block text-3xl sm:text-4xl lg:text-5xl mt-2 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                Save {country.currency}{country.avgSavings} Per Vehicle
+                Learn What Dealers Won't Tell You
               </span>
             </h1>
             
             {/* Strong H2 with secondary keywords */}
             <h2 className="text-xl sm:text-2xl text-gray-700 max-w-3xl mx-auto mb-8">
-              Complete {country.name} car import guide with duty calculator, documentation templates, 
-              and step-by-step customs clearance process for {country.port}
+              The only comprehensive guide revealing what dealers keep secret - insider knowledge dealers charge thousands to never tell. Real import experience, real guidance.
             </h2>
 
             {/* CTA Buttons */}
@@ -178,8 +177,8 @@ export default async function CountryLandingPage({ params }: PageProps) {
             </Card>
             <Card className="p-4 text-center">
               <Users className="h-8 w-8 mx-auto mb-2 text-blue-600" />
-              <div className="text-2xl font-bold">{country.members}+</div>
-              <div className="text-sm text-gray-600">Active Members</div>
+              <div className="text-2xl font-bold">{country.members}</div>
+              <div className="text-sm text-gray-600">Dealers Won't Share</div>
             </Card>
             <Card className="p-4 text-center">
               <Clock className="h-8 w-8 mx-auto mb-2 text-purple-600" />
@@ -205,14 +204,14 @@ export default async function CountryLandingPage({ params }: PageProps) {
               </h3>
               <div className="prose max-w-none text-gray-700">
                 <p className="mb-4">
-                  Importing cars directly from Japan to {country.name} offers significant cost savings 
-                  compared to buying from local dealerships. With average savings of {country.currency}{country.avgSavings} 
-                  per vehicle, the import process pays for itself many times over.
+                  Importing cars directly from Japan to {country.name} reveals insider knowledge dealers keep hidden. 
+                  Access secrets dealers charge thousands to never tell - information unavailable anywhere else 
+                  that could save you {country.currency}{country.avgSavings} per vehicle.
                 </p>
                 <p className="mb-4">
-                  Japanese vehicles are known for their reliability, low mileage, and excellent maintenance 
-                  records. The {country.name} market has embraced Japanese imports, with {country.port} serving 
-                  as the primary entry point for vehicles.
+                  Learn the hidden import process dealers never reveal. Our real import experience exposes 
+                  the complete process dealers hide from customers, with {country.port} serving 
+                  as your gateway to exclusive dealer knowledge.
                 </p>
                 <h4 className="text-xl font-semibold mt-6 mb-3">
                   Key Benefits for {country.name} Importers:
@@ -345,7 +344,7 @@ export default async function CountryLandingPage({ params }: PageProps) {
             Start Importing Cars to {country.name} Today
           </h2>
           <p className="text-xl mb-8 text-blue-100">
-            Join our growing community - {country.members} successful imports
+            Access exclusive knowledge - what dealers won't tell you about importing to {country.name}
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
