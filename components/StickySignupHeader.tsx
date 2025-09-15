@@ -59,11 +59,11 @@ export default function StickySignupHeader({ country = 'na' }: StickySignupHeade
             <Sparkles className="h-5 w-5 text-yellow-300 animate-pulse" />
             <div className="text-center sm:text-left">
               <p className="text-xs sm:text-sm font-medium">
-                🚀 Import Mastery Guide - Save Thousands on Every Import
+                🚀 Import Mastery Guide - Expert Import Education
               </p>
               <p className="text-xs opacity-90 flex items-center gap-2">
                 <Shield className="h-3 w-3" />
-                Join successful importers
+                8 successful imports and counting
               </p>
             </div>
           </div>
