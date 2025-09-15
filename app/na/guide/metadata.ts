@@ -126,7 +126,7 @@ export const namibiaFAQJsonLd = {
       name: 'How much does it cost to import a car from Japan to Namibia?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Import costs vary based on multiple factors including vehicle type, shipping method, and current regulations. Our comprehensive guide provides exact cost breakdowns and reveals hidden fees that help you save N$65,000+ on your import.'
+        text: 'Import costs vary based on multiple factors including vehicle type, shipping method, and current regulations. Our comprehensive guide provides exact cost breakdowns and reveals hidden fees that help you with comprehensive guidance for your import.'
       }
     },
     {

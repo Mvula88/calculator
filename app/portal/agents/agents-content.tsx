@@ -43,7 +43,7 @@ const agents = [
     },
     services: ["Full Clearing", "NRCS Handling", "Transport Arrangement", "Documentation", "Express Service"],
     certifications: ["SAACA Certified", "NRCS Approved", "ISO 9001"],
-    recentSuccess: "Cleared 45 vehicles last month with 100% success rate",
+    recentSuccess: "Cleared 45 vehicles last month with high success rate",
     testimonial: "Exceptional service. They handled my BMW import flawlessly and helped me optimize my import costs.",
     verified: true,
     tier: "Platinum"
@@ -151,7 +151,7 @@ const agents = [
     },
     services: ["Express Clearing", "First-Timer Support", "Hand-Holding Service", "Documentation Prep", "Insurance Facilitation"],
     certifications: ["SAACA Member", "First Aid Certified", "Customer Service Excellence"],
-    recentSuccess: "Cleared 34 first-time imports with 100% customer satisfaction",
+    recentSuccess: "Cleared 34 first-time imports with customer focused service",
     testimonial: "Perfect for beginners. They explained everything and made it stress-free.",
     verified: true,
     tier: "Silver"

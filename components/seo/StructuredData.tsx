@@ -66,8 +66,8 @@ export default function StructuredData({ type, data }: StructuredDataProps) {
         "aggregateRating": {
           "@type": "AggregateRating",
           "ratingValue": "4.9",
-          "ratingCount": "847",
-          "reviewCount": "523"
+          "ratingCount": "8",
+          "reviewCount": "8"
         }
       }
       break
@@ -210,7 +210,7 @@ export default function StructuredData({ type, data }: StructuredDataProps) {
         "aggregateRating": {
           "@type": "AggregateRating",
           "ratingValue": "4.9",
-          "reviewCount": "523"
+          "reviewCount": "8"
         },
         "review": [
           {

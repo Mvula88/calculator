@@ -274,7 +274,7 @@ export default function BotswanaUpsellPage() {
               <Star key={i} className="h-5 w-5 fill-yellow-400 text-yellow-400" />
             ))}
           </div>
-          <p className="text-sm text-gray-500 mt-2">4.9/5 from 127 reviews</p>
+          <p className="text-sm text-gray-500 mt-2">4.9/5 from 8 reviews</p>
         </div>
       </div>
     </main>

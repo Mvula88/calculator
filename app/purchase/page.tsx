@@ -68,7 +68,7 @@ export default function PurchasePage() {
             </span>
             <span className="inline-flex items-center gap-1 bg-purple-100 text-purple-700 px-2 py-1 rounded-full">
               <Shield className="h-3 w-3" />
-              30-day guarantee
+              Secure checkout
             </span>
           </div>
         </div>
@@ -214,7 +214,7 @@ export default function PurchasePage() {
         {/* Mobile CTA */}
         <div className="mt-8 sm:mt-12 text-center">
           <p className="text-xs sm:text-sm text-gray-500 mb-4">
-            🔒 Secure payment powered by Stripe • 30-day money-back guarantee
+            🔒 Secure payment powered by Stripe • Educational content
           </p>
           <div className="flex flex-wrap justify-center gap-2 text-xs">
             <span className="text-gray-400">Accepted:</span>

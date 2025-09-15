@@ -146,7 +146,7 @@ export default function GuideCTA({ country, mistakePrice, masteryPrice }: GuideC
             Get Instant Access
           </h3>
           <p className="text-blue-100 mb-6">
-            Get expert import guidance • 30-day money-back guarantee
+            Get expert import guidance • Educational content
           </p>
           
           <div className="max-w-md mx-auto space-y-4">

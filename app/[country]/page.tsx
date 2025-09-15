@@ -363,7 +363,7 @@ export default async function CountryLandingPage({ params }: PageProps) {
           </div>
           
           <p className="mt-8 text-blue-200">
-            ⚡ Instant access • 💰 30-day money-back guarantee • 📞 Local support
+            ⚡ Instant access • 💰 Secure checkout • 📞 Local support
           </p>
         </div>
       </section>
