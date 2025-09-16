@@ -59,7 +59,7 @@ import ImportSuccessNotifications from '@/components/PurchaseNotifications'
 // SEO-optimized FAQ data - General info only, specifics in paid guide
 const faqs = [
   {
-    question: 'How much does it cost to import a car from Japan to South Africa?',
+    question: 'How much does it cost to import a car from Japan to Namibia?',
     answer: 'Import costs vary significantly based on vehicle type, shipping method, and current regulations. Our guide provides comprehensive cost breakdowns and reveals hidden fees to help you make informed decisions.'
   },
   {
@@ -83,19 +83,19 @@ export default function SouthAfricaGuidePage() {
   return (
     <>
       {/* Hidden H1 for SEO */}
-      <h1 className="sr-only">Import Cars from Japan to South Africa 2024 - Complete Durban Port Guide | Save R65,000</h1>
+      <h1 className="sr-only">Import Cars from Japan to South Africa 2024 - Complete Durban Port Guide | Save R100,000</h1>
       
       {/* Purchase Notifications */}
       <ImportSuccessNotifications />
       
       <main className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-50" itemScope itemType="https://schema.org/Guide">
-      <StickySignupHeader country="za" />
+      <StickySignupHeader country="na" />
       <CountrySelector />
       <GuideHeader 
-        country="za" 
+        country="na" 
         trusted="Real Import Experience, Real Guidance"
-        primaryColor="green-600"
-        secondaryColor="emerald-600"
+        primaryColor="blue-600"
+        secondaryColor="purple-600"
       />
       
       {/* Modern Hero Section - Mobile Optimized */}
@@ -114,9 +114,9 @@ export default function SouthAfricaGuidePage() {
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-20 z-20">
           {/* Premium Trust Badge - Mobile Optimized */}
           <div className="flex justify-center mb-6 sm:mb-8">
-            <div className="inline-flex items-center gap-2 sm:gap-3 bg-gradient-to-r from-green-500 via-yellow-600 to-emerald-600 text-white px-4 sm:px-8 py-3 sm:py-4 rounded-xl sm:rounded-2xl shadow-2xl border border-white/20 backdrop-blur-sm text-center">
+            <div className="inline-flex items-center gap-2 sm:gap-3 bg-gradient-to-r from-emerald-500 via-blue-600 to-purple-600 text-white px-4 sm:px-8 py-3 sm:py-4 rounded-xl sm:rounded-2xl shadow-2xl border border-white/20 backdrop-blur-sm text-center">
               <Crown className="h-4 w-4 sm:h-6 sm:w-6" />
-              <span className="font-bold text-xs sm:text-base tracking-wide">SOUTH AFRICA'S PREMIER IMPORT EDUCATION PLATFORM</span>
+              <span className="font-bold text-xs sm:text-base tracking-wide">NAMIBIA'S PREMIER IMPORT EDUCATION PLATFORM</span>
               <Crown className="h-4 w-4 sm:h-6 sm:w-6" />
             </div>
           </div>
@@ -127,17 +127,17 @@ export default function SouthAfricaGuidePage() {
               <span className="text-white drop-shadow-2xl block mb-2">
                 Import Japanese Cars
               </span>
-              <span className="bg-gradient-to-r from-green-400 via-yellow-400 to-emerald-400 bg-clip-text text-transparent drop-shadow-2xl">
+              <span className="bg-gradient-to-r from-emerald-400 via-blue-400 to-purple-400 bg-clip-text text-transparent drop-shadow-2xl">
                 Save Up to 45%
               </span>
             </h1>
             
             <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-blue-100 mb-4 sm:mb-6 font-light leading-relaxed max-w-4xl mx-auto px-4">
-              Access <span className="font-bold text-yellow-300">3 million+ quality vehicles</span> from Japan with our complete step-by-step import mastery system.
+              Access <span className="font-bold text-emerald-300">3 million+ quality vehicles</span> from Japan with our complete step-by-step import mastery system.
             </p>
             
             <p className="text-base sm:text-lg md:text-xl text-gray-300 max-w-2xl mx-auto px-4">
-              Professional guidance for successful imports through Durban — no experience required.
+              Professional guidance for successful imports through Walvis Bay — no experience required.
             </p>
           </div>
           
@@ -151,8 +151,8 @@ export default function SouthAfricaGuidePage() {
                       <DollarSign className="h-6 w-6 sm:h-7 sm:w-7 text-white" />
                     </div>
                     <div>
-                      <h3 className="font-bold text-lg sm:text-xl text-white">Save R30K-100K</h3>
-                      <p className="text-yellow-300 font-medium text-sm sm:text-base">Per vehicle import</p>
+                      <h3 className="font-bold text-lg sm:text-xl text-white">Save N$30K-100K</h3>
+                      <p className="text-emerald-300 font-medium text-sm sm:text-base">Per vehicle import</p>
                     </div>
                   </div>
                   <p className="text-gray-300 text-xs sm:text-sm">Significant cost savings compared to local dealership prices</p>
@@ -168,11 +168,11 @@ export default function SouthAfricaGuidePage() {
                       <Clock className="h-6 w-6 sm:h-7 sm:w-7 text-white" />
                     </div>
                     <div>
-                      <h3 className="font-bold text-lg sm:text-xl text-white">45-60 Days</h3>
+                      <h3 className="font-bold text-lg sm:text-xl text-white">60-90 Days</h3>
                       <p className="text-blue-300 font-medium text-sm sm:text-base">Complete process</p>
                     </div>
                   </div>
-                  <p className="text-gray-300 text-xs sm:text-sm">From purchase to registration in South Africa</p>
+                  <p className="text-gray-300 text-xs sm:text-sm">From purchase to registration in Namibia</p>
                 </CardContent>
               </Card>
             </div>
@@ -189,7 +189,7 @@ export default function SouthAfricaGuidePage() {
                       <p className="text-purple-300 font-medium text-sm sm:text-base">Success stories daily</p>
                     </div>
                   </div>
-                  <p className="text-gray-300 text-xs sm:text-sm">Join successful importers across South Africa</p>
+                  <p className="text-gray-300 text-xs sm:text-sm">Join successful importers across Namibia</p>
                 </CardContent>
               </Card>
             </div>
@@ -199,27 +199,27 @@ export default function SouthAfricaGuidePage() {
           <div className="text-center mb-8 sm:mb-12" id="signup">
             <div className="bg-white/5 backdrop-blur-md rounded-2xl sm:rounded-3xl p-6 sm:p-8 border border-white/10 max-w-4xl mx-auto">
               <div className="flex flex-col gap-4 sm:gap-4 justify-center items-center">
-                <Link href="/register?country=za&package=mistake" className="group w-full sm:w-auto">
+                <Link href="/register?country=na&package=mistake" className="group w-full sm:w-auto">
                   <Button 
                     size="lg" 
                     variant="outline" 
                     className="w-full sm:w-auto font-bold text-base sm:text-lg px-6 sm:px-10 py-4 sm:py-6 h-auto border-2 border-white/30 text-white hover:bg-white hover:text-gray-900 transition-all duration-300 group-hover:scale-105 min-h-[44px]"
                   >
                     <BookOpen className="mr-2 sm:mr-3 h-5 w-5 sm:h-6 sm:w-6" />
-                    Essential Guide - R499
+                    Essential Guide - N$499
                     <ArrowRight className="ml-2 sm:ml-3 h-4 w-4 sm:h-5 sm:w-5 group-hover:translate-x-1 transition-transform" />
                   </Button>
                 </Link>
                 
                 <div className="text-white font-bold text-base sm:text-lg">OR</div>
                 
-                <Link href="/register?country=za&package=mastery" className="group w-full sm:w-auto">
+                <Link href="/register?country=na&package=mastery" className="group w-full sm:w-auto">
                   <Button 
                     size="lg" 
                     className="w-full sm:w-auto font-bold text-base sm:text-lg px-6 sm:px-10 py-4 sm:py-6 h-auto bg-gradient-to-r from-emerald-600 via-blue-600 to-purple-600 hover:from-emerald-700 hover:via-blue-700 hover:to-purple-700 shadow-2xl group-hover:scale-105 transition-all duration-300 group-hover:shadow-emerald-500/25 min-h-[44px]"
                   >
                     <Crown className="mr-2 sm:mr-3 h-5 w-5 sm:h-6 sm:w-6" />
-                    Complete Mastery - R1,999
+                    Complete Mastery - N$1,999
                     <Sparkles className="ml-2 sm:ml-3 h-4 w-4 sm:h-5 sm:w-5 group-hover:rotate-12 transition-transform" />
                   </Button>
                 </Link>
@@ -268,7 +268,7 @@ export default function SouthAfricaGuidePage() {
                       <Trophy className="h-6 w-6 sm:h-8 sm:w-8 text-purple-400" />
                       <h3 className="font-bold text-white text-base sm:text-lg">Proven Results</h3>
                     </div>
-                    <p className="text-gray-300 text-sm sm:text-base">Successful imports across South Africa</p>
+                    <p className="text-gray-300 text-sm sm:text-base">Successful imports across Namibia</p>
                   </div>
                 </div>
               </CardContent>
@@ -296,7 +296,7 @@ export default function SouthAfricaGuidePage() {
               </span>
             </h2>
             <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed px-4">
-              Professional guidance for importing vehicles from Japan to South Africa through Durban port. 
+              Professional guidance for importing vehicles from Japan to Namibia through Walvis Bay port. 
               <span className="font-semibold text-gray-800">No experience required</span> — our comprehensive system covers everything.
             </p>
           </div>
@@ -334,7 +334,7 @@ export default function SouthAfricaGuidePage() {
               },
               {
                 icon: MapPin,
-                title: "Navigate Durban Port",
+                title: "Navigate Walvis Bay Port",
                 description: "Professional port procedures guide. Clear customs efficiently with step-by-step instructions.",
                 color: "rose",
                 step: "05"
@@ -342,7 +342,7 @@ export default function SouthAfricaGuidePage() {
               {
                 icon: CheckCircle,
                 title: "Complete Registration",
-                description: "From police clearance to license plates. Final steps to get your vehicle road-ready in South Africa.",
+                description: "From police clearance to license plates. Final steps to get your vehicle road-ready in Namibia.",
                 color: "teal",
                 step: "06"
               }
@@ -391,7 +391,7 @@ export default function SouthAfricaGuidePage() {
                   Join hundreds of successful importers who've saved thousands using our proven system.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
-                  <Link href="/register?country=za&package=mistake">
+                  <Link href="/register?country=na&package=mistake">
                     <Button 
                       variant="outline" 
                       size="lg" 
@@ -401,7 +401,7 @@ export default function SouthAfricaGuidePage() {
                       <BookOpen className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
                     </Button>
                   </Link>
-                  <Link href="/register?country=za&package=mastery">
+                  <Link href="/register?country=na&package=mastery">
                     <Button 
                       size="lg" 
                       className="w-full sm:w-auto font-bold text-base sm:text-lg px-6 sm:px-8 bg-white text-blue-600 hover:bg-gray-100 shadow-lg min-h-[44px]"
@@ -441,7 +441,7 @@ export default function SouthAfricaGuidePage() {
             
             {/* Stock Counter */}
             <div className="flex justify-center">
-              <StockCounter country="za" />
+              <StockCounter country="na" />
             </div>
           </div>
           
@@ -460,7 +460,7 @@ export default function SouthAfricaGuidePage() {
                       <p className="text-gray-600 font-medium text-sm sm:text-base">Perfect for first-time importers</p>
                     </div>
                     <div className="text-left sm:text-right">
-                      <div className="text-2xl sm:text-3xl lg:text-4xl font-black text-blue-600 mb-1">R499</div>
+                      <div className="text-2xl sm:text-3xl lg:text-4xl font-black text-blue-600 mb-1">N$499</div>
                       <div className="text-xs sm:text-sm text-emerald-600 font-semibold bg-emerald-100 px-2 sm:px-3 py-1 rounded-full">
                         Essential Knowledge
                       </div>
@@ -472,7 +472,7 @@ export default function SouthAfricaGuidePage() {
                   <div className="space-y-3 sm:space-y-4 mb-6 sm:mb-8">
                     {[
                       "Complete 55-page import guide with step-by-step instructions",
-                      "Comprehensive Durban port procedures manual",
+                      "Comprehensive Walvis Bay port procedures manual",
                       "Real cost breakdowns and calculation worksheets",
                       "All customs forms & processes fully explained",
                       "Emergency troubleshooting solutions guide",
@@ -489,7 +489,7 @@ export default function SouthAfricaGuidePage() {
                   </div>
                   
                   <div className="space-y-3 sm:space-y-4">
-                    <Link href="/register?country=za&package=mistake">
+                    <Link href="/register?country=na&package=mistake">
                       <Button 
                         variant="outline"
                         className="w-full h-12 sm:h-14 text-base sm:text-lg font-bold border-2 border-blue-300 text-blue-600 hover:bg-blue-600 hover:text-white hover:shadow-lg transition-all duration-300 group-hover:scale-[1.02] min-h-[44px]"
@@ -531,7 +531,7 @@ export default function SouthAfricaGuidePage() {
                     </div>
                     <div className="text-left sm:text-right">
                       <div className="text-2xl sm:text-3xl lg:text-4xl font-black bg-gradient-to-r from-purple-600 via-pink-600 to-orange-500 bg-clip-text text-transparent mb-1">
-                        R1,999
+                        N$1,999
                       </div>
                       <div className="text-xs sm:text-sm text-purple-600 font-semibold bg-purple-100 px-2 sm:px-3 py-1 rounded-full">
                         Complete System
@@ -568,7 +568,7 @@ export default function SouthAfricaGuidePage() {
                   </div>
                   
                   <div className="space-y-3 sm:space-y-4">
-                    <Link href="/register?country=za&package=mastery">
+                    <Link href="/register?country=na&package=mastery">
                       <Button 
                         className="w-full h-12 sm:h-14 text-base sm:text-lg font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-orange-500 hover:from-purple-700 hover:via-pink-700 hover:to-orange-600 shadow-2xl hover:shadow-purple-500/30 transition-all duration-300 group-hover:scale-[1.02] min-h-[44px]"
                         size="lg"
@@ -649,7 +649,7 @@ export default function SouthAfricaGuidePage() {
               </span>
             </h2>
             <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-3xl mx-auto px-4">
-              Get instant answers to the most common questions about importing cars from Japan to South Africa.
+              Get instant answers to the most common questions about importing cars from Japan to Namibia.
             </p>
           </div>
           
@@ -715,7 +715,7 @@ export default function SouthAfricaGuidePage() {
                   Our comprehensive guides answer hundreds of detailed questions about every aspect of the import process.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
-                  <Link href="/register?country=za&package=mistake">
+                  <Link href="/register?country=na&package=mistake">
                     <Button 
                       variant="outline" 
                       size="lg" 
@@ -725,7 +725,7 @@ export default function SouthAfricaGuidePage() {
                       <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
                     </Button>
                   </Link>
-                  <Link href="/register?country=za&package=mastery">
+                  <Link href="/register?country=na&package=mastery">
                     <Button 
                       size="lg" 
                       className="w-full sm:w-auto font-bold text-base sm:text-lg px-6 sm:px-8 bg-white text-blue-600 hover:bg-gray-100 shadow-lg min-h-[44px]"
@@ -760,7 +760,7 @@ export default function SouthAfricaGuidePage() {
               </span>
             </h2>
             <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-3xl mx-auto px-4">
-              Real import experience shared through comprehensive educational materials. Professional guidance for successful vehicle imports from Japan to South Africa.
+              Real import experience shared through comprehensive educational materials. Professional guidance for successful vehicle imports from Japan to Namibia.
             </p>
           </div>
 
@@ -773,7 +773,7 @@ export default function SouthAfricaGuidePage() {
                 </div>
                 <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 sm:mb-4">Proven Track Record</h3>
                 <p className="text-gray-600 leading-relaxed text-sm sm:text-base">
-                  Hundreds of successful imports completed using our comprehensive system. Real results from real importers across South Africa.
+                  Hundreds of successful imports completed using our comprehensive system. Real results from real importers across Namibia.
                 </p>
               </CardContent>
             </Card>
@@ -785,7 +785,7 @@ export default function SouthAfricaGuidePage() {
                 </div>
                 <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 sm:mb-4">100% Secure & Legal</h3>
                 <p className="text-gray-600 leading-relaxed text-sm sm:text-base">
-                  All procedures designed for full compliance with South African import regulations. Secure payment processing with industry-standard encryption.
+                  All procedures designed for full compliance with Namibian import regulations. Secure payment processing with industry-standard encryption.
                 </p>
               </CardContent>
             </Card>
@@ -805,7 +805,7 @@ export default function SouthAfricaGuidePage() {
 
           {/* Guarantee Section - Mobile Optimized */}
           <div className="max-w-4xl mx-auto">
-            <Card className="bg-gradient-to-r from-green-500 via-yellow-600 to-emerald-600 border-0 overflow-hidden">
+            <Card className="bg-gradient-to-r from-emerald-500 via-blue-600 to-purple-600 border-0 overflow-hidden">
               <CardContent className="p-8 sm:p-12 text-center text-white relative">
                 <div className="absolute inset-0 bg-black/10"></div>
                 <div className="relative z-10">
@@ -816,7 +816,7 @@ export default function SouthAfricaGuidePage() {
                   </p>
                   <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 text-base sm:text-lg">
                     <div className="flex items-center gap-2 sm:gap-3">
-                      <CheckCircle className="h-5 w-5 sm:h-6 sm:w-6 text-yellow-300" />
+                      <CheckCircle className="h-5 w-5 sm:h-6 sm:w-6 text-emerald-300" />
                       <span>Risk-Free Purchase</span>
                     </div>
                     <div className="flex items-center gap-2 sm:gap-3">
@@ -857,13 +857,13 @@ export default function SouthAfricaGuidePage() {
               Start Your Import
             </span>
             <br />
-            <span className="bg-gradient-to-r from-green-400 via-yellow-400 to-emerald-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-emerald-400 via-blue-400 to-purple-400 bg-clip-text text-transparent">
               Success Story Today
             </span>
           </h2>
           
           <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl mb-8 sm:mb-12 text-blue-100 max-w-4xl mx-auto font-light leading-relaxed px-4">
-            Join the growing community of successful importers across South Africa who've saved thousands using our proven import system.
+            Join the growing community of successful importers across Namibia who've saved thousands using our proven import system.
           </p>
           
           {/* Value Proposition Cards - Mobile Optimized */}
@@ -883,7 +883,7 @@ export default function SouthAfricaGuidePage() {
             <div className="bg-white/10 backdrop-blur-md rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-white/20 sm:col-span-2 lg:col-span-1">
               <DollarSign className="h-10 w-10 sm:h-12 sm:w-12 text-purple-400 mx-auto mb-3 sm:mb-4" />
               <h3 className="text-lg sm:text-xl font-bold mb-2">Guaranteed Savings</h3>
-              <p className="text-sm sm:text-base text-blue-200">Save R30K-100K on every import</p>
+              <p className="text-sm sm:text-base text-blue-200">Save N$30K-100K on every import</p>
             </div>
           </div>
 
@@ -897,33 +897,33 @@ export default function SouthAfricaGuidePage() {
                     Your Import Journey Starts Now
                   </h3>
                   <p className="text-lg sm:text-xl md:text-2xl text-blue-100 max-w-2xl mx-auto px-4">
-                    Get instant access to everything you need to import Japanese cars to South Africa like a professional.
+                    Get instant access to everything you need to import Japanese cars to Namibia like a professional.
                   </p>
                 </div>
                 
                 {/* Premium CTA Buttons - Mobile Optimized */}
                 <div className="flex flex-col gap-4 sm:gap-6 justify-center items-center mb-6 sm:mb-8">
-                  <Link href="/register?country=za&package=mistake" className="group w-full sm:w-auto">
+                  <Link href="/register?country=na&package=mistake" className="group w-full sm:w-auto">
                     <Button 
                       variant="outline"
                       size="lg"
                       className="w-full sm:w-auto h-12 sm:h-16 px-8 sm:px-12 text-base sm:text-lg lg:text-xl font-bold border-2 border-white/30 text-white hover:bg-white hover:text-slate-900 transition-all duration-300 group-hover:scale-105 group-hover:shadow-2xl min-h-[44px]"
                     >
                       <BookOpen className="mr-3 sm:mr-4 h-5 w-5 sm:h-6 sm:w-6" />
-                      Essential Guide - R499
+                      Essential Guide - N$499
                       <ArrowRight className="ml-3 sm:ml-4 h-5 w-5 sm:h-6 sm:w-6 group-hover:translate-x-2 transition-transform" />
                     </Button>
                   </Link>
                   
                   <div className="text-white text-xl sm:text-2xl font-bold">OR</div>
                   
-                  <Link href="/register?country=za&package=mastery" className="group w-full sm:w-auto">
+                  <Link href="/register?country=na&package=mastery" className="group w-full sm:w-auto">
                     <Button 
                       size="lg"
-                      className="w-full sm:w-auto h-12 sm:h-16 px-8 sm:px-12 text-base sm:text-lg lg:text-xl font-bold bg-gradient-to-r from-green-500 via-yellow-600 to-emerald-600 hover:from-emerald-600 hover:via-blue-700 hover:to-purple-700 shadow-2xl group-hover:scale-105 transition-all duration-300 group-hover:shadow-emerald-500/30 min-h-[44px]"
+                      className="w-full sm:w-auto h-12 sm:h-16 px-8 sm:px-12 text-base sm:text-lg lg:text-xl font-bold bg-gradient-to-r from-emerald-500 via-blue-600 to-purple-600 hover:from-emerald-600 hover:via-blue-700 hover:to-purple-700 shadow-2xl group-hover:scale-105 transition-all duration-300 group-hover:shadow-emerald-500/30 min-h-[44px]"
                     >
                       <Crown className="mr-3 sm:mr-4 h-5 w-5 sm:h-6 sm:w-6" />
-                      Complete Mastery - R1,999
+                      Complete Mastery - N$1,999
                       <Sparkles className="ml-3 sm:ml-4 h-5 w-5 sm:h-6 sm:w-6 group-hover:rotate-12 transition-transform" />
                     </Button>
                   </Link>
@@ -931,7 +931,7 @@ export default function SouthAfricaGuidePage() {
                 
                 {/* Trust Indicators - Mobile Optimized */}
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 lg:gap-8 text-base sm:text-lg">
-                  <div className="flex items-center gap-2 sm:gap-3 text-yellow-300">
+                  <div className="flex items-center gap-2 sm:gap-3 text-emerald-300">
                     <Zap className="h-5 w-5 sm:h-6 sm:w-6" />
                     <span>Instant Access</span>
                   </div>
@@ -951,7 +951,7 @@ export default function SouthAfricaGuidePage() {
           {/* Final Trust Message - Mobile Optimized */}
           <div className="mt-8 sm:mt-12 max-w-3xl mx-auto">
             <p className="text-base sm:text-lg text-blue-200 leading-relaxed px-4">
-              Join the growing community of successful car importers in South Africa. Start your import journey with confidence, backed by our comprehensive guides and professional support system.
+              Join the growing community of successful car importers in Namibia. Start your import journey with confidence, backed by our comprehensive guides and professional support system.
             </p>
           </div>
         </div>
