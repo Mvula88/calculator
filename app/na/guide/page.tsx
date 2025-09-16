@@ -108,7 +108,7 @@ export default function NamibiaGuidePage() {
           <div className="flex justify-center mb-8">
             <div className="inline-flex items-center gap-3 bg-gradient-to-r from-amber-500 to-orange-500 text-white px-6 py-3 rounded-full shadow-xl">
               <Trophy className="h-5 w-5" />
-              <span className="font-bold text-sm">EXCLUSIVE IMPORT KNOWLEDGE DEALERS WON'T SHARE</span>
+              <span className="font-bold text-sm">NAMIBIA'S #1 IMPORT EDUCATION PLATFORM</span>
               <Trophy className="h-5 w-5" />
             </div>
           </div>
@@ -124,11 +124,9 @@ export default function NamibiaGuidePage() {
           </h1>
           
           <p className="text-xl md:text-2xl text-white text-center mb-8 max-w-3xl mx-auto leading-relaxed drop-shadow-lg">
-            <span className="font-bold text-yellow-300">3 MILLION+ quality used cars</span> available in Japan RIGHT NOW.
+            <span className="font-bold text-yellow-300">3 MILLION+ quality used cars</span> available in Japan RIGHT NOW. We're exposing the entire import process with EXACT steps, forms, and contacts.
             <br />
-            <span className="text-lg mt-2 block">Access <span className="font-bold text-green-400">insider knowledge dealers won't tell you</span> with EXACT steps, forms, and contacts.</span>
-            <br />
-            <span className="text-lg text-gray-200 block">The only comprehensive guide revealing what dealers keep secret.</span>
+            <span className="text-lg text-gray-200 block mt-2">IMPOTA teaches you how to import cars yourself — step by step.</span>
           </p>
           
           {/* Value Props */}
@@ -175,7 +173,7 @@ export default function NamibiaGuidePage() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/register?country=na&package=mistake">
                 <Button size="lg" variant="outline" className="font-bold text-lg px-8 border-2">
-                  Get The Knowledge Dealers Keep Hidden - N$499
+                  Get Mistake Guide - N$499
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               </Link>
@@ -186,7 +184,7 @@ export default function NamibiaGuidePage() {
                 </Button>
               </Link>
             </div>
-            <p className="text-sm text-white text-center mt-4">Instant access • Lifetime updates • Secure checkout</p>
+            <p className="text-sm text-white text-center mt-4">Instant access • Lifetime updates • 30-day guarantee</p>
           </div>
 
           {/* Trust Bar */}
@@ -210,8 +208,8 @@ export default function NamibiaGuidePage() {
             <div className="flex items-center gap-2">
               <DollarSign className="h-8 w-8 text-purple-600" />
               <div>
-                <p className="font-bold text-gray-900">Expert Guidance</p>
-                <p className="text-xs text-gray-600">For every import</p>
+                <p className="font-bold text-gray-900">Save Thousands</p>
+                <p className="text-xs text-gray-600">On every import</p>
               </div>
             </div>
           </div>
@@ -224,10 +222,10 @@ export default function NamibiaGuidePage() {
           <div className="text-center mb-12">
             <h2 id="learn-section" className="text-4xl font-black mb-4">
               <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                Discover What Dealers Won't Tell You
+                Master The Complete Import Process
               </span>
             </h2>
-            <p className="text-xl text-gray-600">Learn the hidden import process dealers never reveal. Access insider knowledge dealers charge thousands to never tell. Information unavailable anywhere else.</p>
+            <p className="text-xl text-gray-600">Learn how to import cars from Japan to Namibia through Walvis Bay port. No experience needed - our step-by-step Namibia car import guide shows you everything.</p>
           </div>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -240,8 +238,8 @@ export default function NamibiaGuidePage() {
               },
               {
                 icon: Calculator,
-                title: "Calculate Hidden Costs",
-                description: "Uncover fees dealers hide from customers",
+                title: "Calculate Total Costs",
+                description: "Know exact duty, VAT, shipping before buying",
                 color: "green"
               },
               {
@@ -252,8 +250,8 @@ export default function NamibiaGuidePage() {
               },
               {
                 icon: FileText,
-                title: "Secret Documentation Process",
-                description: "The complete process dealers hide from customers",
+                title: "Handle Documentation",
+                description: "Every form, every stamp, every office",
                 color: "orange"
               },
               {
@@ -290,8 +288,8 @@ export default function NamibiaGuidePage() {
         <div className="max-w-6xl mx-auto px-6">
           
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-black mb-4">Get The Knowledge Dealers Keep Hidden</h2>
-            <p className="text-xl text-gray-600">Secrets dealers charge thousands to never tell - Real experience, not theory</p>
+            <h2 className="text-4xl font-black mb-4">Choose Your Import Success Package</h2>
+            <p className="text-xl text-gray-600">Get expert guidance for your car import</p>
             
             {/* Stock Counter */}
             <div className="mt-4 flex justify-center">
@@ -323,13 +321,13 @@ export default function NamibiaGuidePage() {
                   
                   <div className="space-y-4 mb-8">
                     {[
-                      "Complete 55-page secret dealer playbook",
-                      "Hidden Walvis Bay port insider guide",
-                      "Real cost breakdowns dealers won't reveal",
-                      "Secret customs forms & hidden processes",
-                      "Emergency fixes dealers charge for",
-                      "Dealer scam prevention insider knowledge",
-                      "Exclusive updates dealers don't share"
+                      "Complete 55-page import guide",
+                      "Walvis Bay port procedures guide",
+                      "Real cost breakdowns and calculations",
+                      "All customs forms & processes explained",
+                      "Emergency troubleshooting solutions",
+                      "Common mistake prevention guide",
+                      "Regular updates and improvements"
                     ].map((feature, i) => (
                       <div key={i} className="flex items-start gap-3">
                         <Check className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
@@ -386,13 +384,13 @@ export default function NamibiaGuidePage() {
                   
                   <div className="space-y-4 mb-8">
                     {[
-                      "Secret duty calculator dealers won't share",
-                      "Insider clearing agent contacts dealers hide",
-                      "Japan auction secrets dealers keep hidden",
-                      "Exclusive container sharing network access",
-                      "Personal import secrets checklist",
-                      "Hidden troubleshooting dealer knowledge",
-                      "Exclusive regulation updates dealers hide"
+                      "Advanced duty calculator tool",
+                      "Verified clearing agent contacts",
+                      "Japan auction access strategies",
+                      "Container sharing network access",
+                      "Personal import master checklist",
+                      "Advanced troubleshooting guide",
+                      "Priority regulation updates"
                     ].map((feature, i) => (
                       <div key={i} className="flex items-start gap-3">
                         <Star className="h-5 w-5 text-yellow-500 flex-shrink-0 mt-0.5" />
@@ -460,10 +458,10 @@ export default function NamibiaGuidePage() {
         <div className="max-w-4xl mx-auto px-6 text-center">
           <div className="bg-gradient-to-br from-green-50 to-blue-50 rounded-2xl p-12 border-2 border-green-200">
             <Trophy className="h-16 w-16 text-green-600 mx-auto mb-6" />
-            <h2 className="text-3xl font-bold mb-4">The Only Source For This Exclusive Import Knowledge</h2>
+            <h2 className="text-3xl font-bold mb-4">Your Complete Import Education Resource</h2>
             <p className="text-xl text-gray-700 mb-6">
-              Real import experience sharing knowledge that's kept secret by dealers.
-              Access insider information unavailable anywhere else - what dealers won't tell you.
+              Real import experience shared through comprehensive educational materials.
+              Access detailed information and step-by-step guidance for successful imports.
             </p>
             <div className="flex items-center justify-center gap-8">
               <div className="flex items-center gap-2">

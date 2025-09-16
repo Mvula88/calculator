@@ -76,7 +76,7 @@ export default function ZambiaGuidePage() {
           <div className="flex justify-center mb-8">
             <div className="inline-flex items-center gap-3 bg-gradient-to-r from-emerald-500 to-teal-500 text-white px-6 py-3 rounded-full shadow-xl">
               <Trophy className="h-5 w-5" />
-              <span className="font-bold text-sm">EXCLUSIVE IMPORT KNOWLEDGE DEALERS WON'T SHARE</span>
+              <span className="font-bold text-sm">ZAMBIA'S #1 IMPORT EDUCATION PLATFORM</span>
               <Trophy className="h-5 w-5" />
             </div>
           </div>
@@ -92,11 +92,9 @@ export default function ZambiaGuidePage() {
           </h1>
           
           <p className="text-xl md:text-2xl text-white text-center mb-8 max-w-3xl mx-auto leading-relaxed drop-shadow-lg">
-            <span className="font-bold text-yellow-300">3 MILLION+ quality used cars</span> available in Japan RIGHT NOW.
+            <span className="font-bold text-yellow-300">3 MILLION+ quality used cars</span> available in Japan RIGHT NOW. We're exposing the entire import process with EXACT steps, forms, and contacts.
             <br />
-            <span className="text-lg mt-2 block">Access <span className="font-bold text-emerald-400">insider knowledge dealers won't tell you</span> with EXACT steps, forms, and contacts.</span>
-            <br />
-            <span className="text-lg text-gray-200 block">The only comprehensive guide revealing what dealers keep secret.</span>
+            <span className="text-lg text-gray-200 block mt-2">IMPOTA teaches you how to import cars yourself — step by step.</span>
           </p>
           
           {/* Value Props */}
@@ -107,8 +105,8 @@ export default function ZambiaGuidePage() {
                   <DollarSign className="h-5 w-5 text-green-600" />
                 </div>
                 <div>
-                  <p className="font-bold text-gray-900">Expert Import Guidance</p>
-                  <p className="text-xs text-gray-600">For every import</p>
+                  <p className="font-bold text-gray-900">Save K300K-1M</p>
+                  <p className="text-xs text-gray-600">Per vehicle import</p>
                 </div>
               </div>
             </div>
@@ -131,8 +129,8 @@ export default function ZambiaGuidePage() {
                   <Users className="h-5 w-5 text-teal-600" />
                 </div>
                 <div>
-                  <p className="font-bold text-gray-900">8 Successful</p>
-                  <p className="text-xs text-gray-600">Imports completed</p>
+                  <p className="font-bold text-gray-900">New Import Service</p>
+                  <p className="text-xs text-gray-600">Growing community</p>
                 </div>
               </div>
             </div>
@@ -152,16 +150,32 @@ export default function ZambiaGuidePage() {
                 </Button>
               </Link>
             </div>
-            <p className="text-sm text-white text-center mt-4">Instant access • Lifetime updates • Secure checkout</p>
+            <p className="text-sm text-white text-center mt-4">Instant access • Lifetime updates • 30-day guarantee</p>
           </div>
 
-          {/* Compliance Info */}
-          <div className="flex items-center justify-center gap-6 bg-white/95 backdrop-blur-md rounded-2xl p-6 shadow-2xl border border-white/20">
+          {/* Trust Bar */}
+          <div className="flex flex-col md:flex-row items-center justify-center gap-6 bg-white/95 backdrop-blur-md rounded-2xl p-6 shadow-2xl border border-white/20">
             <div className="flex items-center gap-2">
               <Shield className="h-8 w-8 text-emerald-600" />
               <div>
-                <p className="font-bold text-gray-900">ZRA Compliant</p>
-                <p className="text-xs text-gray-600">Designed for compliance with ZRA requirements</p>
+                <p className="font-bold text-gray-900">Fully Legal</p>
+                <p className="text-xs text-gray-600">Designed for compliance with import procedures</p>
+              </div>
+            </div>
+            <div className="hidden md:block h-12 w-px bg-gray-200"></div>
+            <div className="flex items-center gap-2">
+              <CheckCircle className="h-8 w-8 text-blue-600" />
+              <div>
+                <p className="font-bold text-gray-900">Step-by-Step Guidance</p>
+                <p className="text-xs text-gray-600">Easy to follow instructions</p>
+              </div>
+            </div>
+            <div className="hidden md:block h-12 w-px bg-gray-200"></div>
+            <div className="flex items-center gap-2">
+              <DollarSign className="h-8 w-8 text-purple-600" />
+              <div>
+                <p className="font-bold text-gray-900">Save Thousands</p>
+                <p className="text-xs text-gray-600">On every import</p>
               </div>
             </div>
           </div>
@@ -174,10 +188,10 @@ export default function ZambiaGuidePage() {
           <div className="text-center mb-12">
             <h2 className="text-4xl font-black mb-4">
               <span className="bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
-                Discover What Dealers Won't Tell You
+                Master The Complete Import Process
               </span>
             </h2>
-            <p className="text-xl text-gray-600">Learn the hidden import process dealers never reveal. Access insider knowledge dealers charge thousands to never tell.</p>
+            <p className="text-xl text-gray-600">Learn how to import cars from Japan to Zambia via Dar es Salaam. No experience needed - our step-by-step Zambia car import guide shows you everything.</p>
           </div>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -185,37 +199,37 @@ export default function ZambiaGuidePage() {
               {
                 icon: Globe,
                 title: "Find Cars in Japan",
-                description: "Access auctions from Lusaka",
+                description: "Access 50,000+ cars daily from Japanese auctions",
                 color: "emerald"
               },
               {
                 icon: Calculator,
-                title: "Secret ZRA Calculator",
-                description: "Hidden duty calculations dealers won't share",
+                title: "Calculate Total Costs",
+                description: "Know exact duty, VAT, shipping before buying",
                 color: "teal"
               },
               {
                 icon: Ship,
-                title: "Shipping via DSM/DBN",
-                description: "Route through Tanzania or SA",
+                title: "Arrange Shipping",
+                description: "Book containers with verified shipping lines",
                 color: "green"
               },
               {
                 icon: FileText,
-                title: "Secret ZRA Documentation",
-                description: "Hidden forms and processes dealers keep secret",
+                title: "Handle Documentation",
+                description: "Every form, every stamp, every office",
                 color: "cyan"
               },
               {
                 icon: Package,
-                title: "Border Clearance",
-                description: "Navigate Chirundu/Kazungula",
+                title: "Clear Customs",
+                description: "Navigate ports and borders like a pro",
                 color: "emerald"
               },
               {
                 icon: CheckCircle,
-                title: "RTSA Registration",
-                description: "Complete vehicle registration",
+                title: "Register Vehicle",
+                description: "From police clearance to license plates",
                 color: "teal"
               }
             ].map((item, index) => (
@@ -239,8 +253,8 @@ export default function ZambiaGuidePage() {
       <section className="py-16 bg-gradient-to-b from-gray-50 to-white">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-black mb-4">Get The Knowledge Dealers Keep Hidden</h2>
-            <p className="text-xl text-gray-600">Secrets dealers charge thousands to never tell - Real experience, not theory.</p>
+            <h2 className="text-4xl font-black mb-4">Choose Your Import Success Package</h2>
+            <p className="text-xl text-gray-600">Get expert guidance for your car import</p>
           </div>
           
           <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
@@ -256,20 +270,22 @@ export default function ZambiaGuidePage() {
                     <BookOpen className="h-8 w-8 text-emerald-600" />
                   </div>
                   
-                  <div className="flex items-baseline mb-6">
-                    <span className="text-5xl font-black">K669</span>
-                    <span className="text-gray-500 ml-2">one-time</span>
+                  <div className="mb-6">
+                    <div className="flex items-baseline">
+                      <span className="text-5xl font-black text-emerald-600">K500</span>
+                    </div>
+                    <p className="text-sm text-emerald-600 font-semibold mt-2">Essential import guidance</p>
                   </div>
                   
                   <div className="space-y-4 mb-8">
                     {[
-                      "Complete 55-page secret dealer playbook",
-                      "Hidden Chirundu/Kazungula insider guide",
-                      "Secret ZRA calculations dealers hide",
-                      "Hidden RTSA registration secrets",
-                      "Dealer mistakes they never admit",
-                      "Dealer scam prevention insider knowledge",
-                      "Exclusive updates dealers don't share"
+                      "Complete 55-page import guide",
+                      "Chirundu/Kazungula procedures guide",
+                      "Real cost breakdowns and calculations",
+                      "All customs forms & processes explained",
+                      "Emergency troubleshooting solutions",
+                      "Common mistake prevention guide",
+                      "Regular updates and improvements"
                     ].map((feature, i) => (
                       <div key={i} className="flex items-start gap-3">
                         <Check className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
@@ -313,10 +329,12 @@ export default function ZambiaGuidePage() {
                     <Crown className="h-8 w-8 text-teal-600" />
                   </div>
                   
-                  <div className="flex items-baseline mb-2">
-                    <span className="text-5xl font-black">K2,676</span>
+                  <div className="mb-6">
+                    <div className="flex items-baseline">
+                      <span className="text-5xl font-black bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">K2,000</span>
+                    </div>
+                    <p className="text-sm text-emerald-600 font-semibold mt-2">Complete import toolkit</p>
                   </div>
-                  <p className="text-emerald-600 font-bold mb-6">Complete package available</p>
                   
                   <div className="bg-emerald-100 rounded-lg p-3 mb-6">
                     <p className="text-emerald-800 font-bold text-sm">Everything in Mistake Guide PLUS:</p>
@@ -324,13 +342,13 @@ export default function ZambiaGuidePage() {
                   
                   <div className="space-y-4 mb-8">
                     {[
-                      "Secret ZRA calculator dealers won't share",
-                      "Insider clearing agent contacts dealers hide",
-                      "Japan auction secrets dealers keep hidden",
-                      "Exclusive container sharing network access",
-                      "Personal import secrets checklist",
-                      "Hidden Nakonde & Chirundu border secrets",
-                      "Exclusive ZRA updates dealers hide"
+                      "Advanced duty calculator tool",
+                      "Verified clearing agent contacts",
+                      "Japan auction access strategies",
+                      "Container sharing network access",
+                      "Personal import master checklist",
+                      "Advanced troubleshooting guide",
+                      "Priority regulation updates"
                     ].map((feature, i) => (
                       <div key={i} className="flex items-start gap-3">
                         <Star className="h-5 w-5 text-yellow-500 flex-shrink-0 mt-0.5" />
@@ -379,10 +397,10 @@ export default function ZambiaGuidePage() {
         <div className="max-w-4xl mx-auto px-6 text-center">
           <div className="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-2xl p-12 border-2 border-emerald-200">
             <Trophy className="h-16 w-16 text-emerald-600 mx-auto mb-6" />
-            <h2 className="text-3xl font-bold mb-4">The Only Source For This Exclusive Import Knowledge</h2>
+            <h2 className="text-3xl font-bold mb-4">Your Complete Import Education Resource</h2>
             <p className="text-xl text-gray-700 mb-6">
-              Real import experience sharing knowledge that's kept secret by dealers.
-              Access insider information unavailable anywhere else - what dealers won't tell you.
+              Real import experience shared through comprehensive educational materials.
+              Access detailed information and step-by-step guidance for successful imports.
             </p>
             <div className="flex items-center justify-center gap-8">
               <div className="flex items-center gap-2">
@@ -406,10 +424,10 @@ export default function ZambiaGuidePage() {
       <section className="py-20 bg-gradient-to-br from-emerald-600 to-teal-600 text-white">
         <div className="max-w-4xl mx-auto px-6 text-center">
           <h2 className="text-4xl md:text-5xl font-black mb-6">
-            Start Your Import Journey
+            Start Importing Cars from Japan to Zambia Today
           </h2>
           <p className="text-2xl mb-8 text-emerald-100">
-            Every day you wait, another Zambian imports their car efficiently.
+            Start your import journey today and join our growing community of successful importers via Dar es Salaam.
           </p>
           <div className="bg-white/10 backdrop-blur rounded-2xl p-8 mb-8">
             <p className="text-3xl font-bold mb-4">
@@ -419,17 +437,16 @@ export default function ZambiaGuidePage() {
               Get instant access to everything you need to import like a pro.
             </p>
           </div>
-          <Button 
-            onClick={() => {
-              window.scrollTo({ top: 0, behavior: 'smooth' })
-            }}
-            size="lg"
-            className="bg-white text-emerald-600 hover:bg-gray-100 text-xl px-12 py-6 h-auto font-bold shadow-2xl"
-          >
-            Get Started Now →
-          </Button>
+          <Link href="/register?country=zm&package=mastery">
+            <Button 
+              size="lg"
+              className="bg-white text-emerald-600 hover:bg-gray-100 text-xl px-12 py-6 h-auto font-bold shadow-2xl"
+            >
+              Start Your Zambia Import Journey - Learn From Our Members →
+            </Button>
+          </Link>
           <p className="mt-6 text-emerald-200">
-            🔒 Secure checkout • 📱 Instant access
+            ⚡ Special pricing ends soon • 🔒 Secure checkout • 📱 Instant access
           </p>
         </div>
       </section>
