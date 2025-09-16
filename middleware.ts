@@ -185,24 +185,20 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL('/portal', request.url))
   }
 
-  // Root redirect based on auth and country
+  // Root redirect - ALWAYS go to guide page first
   if (request.nextUrl.pathname === '/') {
-    if (user && userTier) {
-      return NextResponse.redirect(new URL('/portal', request.url))
+    // Always redirect to country-specific guide, regardless of auth status
+    const countryCode = country.toLowerCase()
+    if (countryCode.includes('namibia')) {
+      return NextResponse.redirect(new URL('/na/guide', request.url))
+    } else if (countryCode.includes('south-africa')) {
+      return NextResponse.redirect(new URL('/za/guide', request.url))
+    } else if (countryCode.includes('botswana')) {
+      return NextResponse.redirect(new URL('/bw/guide', request.url))
+    } else if (countryCode.includes('zambia')) {
+      return NextResponse.redirect(new URL('/zm/guide', request.url))
     } else {
-      // Redirect to country-specific guide
-      const countryCode = country.toLowerCase()
-      if (countryCode.includes('namibia')) {
-        return NextResponse.redirect(new URL('/na/guide', request.url))
-      } else if (countryCode.includes('south-africa')) {
-        return NextResponse.redirect(new URL('/za/guide', request.url))
-      } else if (countryCode.includes('botswana')) {
-        return NextResponse.redirect(new URL('/bw/guide', request.url))
-      } else if (countryCode.includes('zambia')) {
-        return NextResponse.redirect(new URL('/zm/guide', request.url))
-      } else {
-        return NextResponse.redirect(new URL('/na/guide', request.url))
-      }
+      return NextResponse.redirect(new URL('/na/guide', request.url))
     }
   }
 
