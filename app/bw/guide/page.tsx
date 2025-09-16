@@ -203,7 +203,7 @@ export default function BotswanaGuidePage() {
                   <Button 
                     size="lg" 
                     variant="outline" 
-                    className="w-full sm:w-auto font-bold text-sm sm:text-base md:text-lg px-4 py-2 sm:px-6 sm:py-3 md:px-8 md:py-4 h-auto border-2 border-white/30 text-white hover:bg-white hover:text-gray-900 transition-all duration-300 group-hover:scale-105 min-h-[44px]"
+                    className="w-full sm:w-auto font-bold text-sm sm:text-base md:text-lg px-4 py-2 sm:px-6 sm:py-3 md:px-8 md:py-4 h-auto border-2 border-white/30 bg-black/30 text-white hover:bg-white/20 transition-all duration-300 group-hover:scale-105 min-h-[44px]"
                   >
                     <BookOpen className="mr-2 sm:mr-3 h-5 w-5 sm:h-6 sm:w-6" />
                     Essential Guide - P404
