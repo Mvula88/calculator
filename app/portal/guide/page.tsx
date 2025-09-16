@@ -4,11 +4,15 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useAuthImmediate } from '@/lib/hooks/use-auth-immediate'
 import { Card } from '@/components/ui/card'
+import { GuideNavigation } from '@/components/guide/guide-navigation'
+import { QuickStartOverview } from '@/components/guide/quick-start-overview'
+import { PreImportEssentials } from '@/components/guide/pre-import-essentials'
 import { TimelineSection } from '@/components/guide/timeline-section'
 import { CostBreakdown } from '@/components/guide/cost-breakdown'
 import { MistakeCards } from '@/components/guide/mistake-cards'
 import { TemplatesSection } from '@/components/guide/templates-section'
-import { EmergencyPlaybook } from '@/components/guide/emergency-playbook'
+import { EmergencyQuickReference } from '@/components/guide/emergency-quick-reference'
+import { PracticalTools } from '@/components/guide/practical-tools'
 import { AlertTriangle, CheckCircle, Info, TrendingDown, Lock, Shield } from 'lucide-react'
 
 // Timeline data for Namibia guide
@@ -16,6 +20,8 @@ const namibiaTimelineSteps = [
   {
     title: 'Pre-Import Planning',
     duration: '7–14 days',
+    costAtStage: 'N$25,000-45,000',
+    urgencyLevel: 'critical' as 'low' | 'medium' | 'high' | 'critical',
     required: [
       'Pick a car that meets import rules (max 12 years old for Namibia)',
       'Get seller to photograph VIN and engine number on the car',
@@ -26,6 +32,18 @@ const namibiaTimelineSteps = [
       '🔍 Match everything to VIN/engine number. One wrong character = days of delay',
       '🧾 Invoice must show: VIN, engine number, make/model, year, engine capacity, color',
       '🎯 If sharing container, agree in writing who pays if someone drops out'
+    ],
+    commonDelays: [
+      {
+        delay: 'Wrong vehicle age calculation',
+        cost: 'Total loss of vehicle',
+        prevention: 'Check manufacturing date, not registration date'
+      },
+      {
+        delay: 'Consignee account blocked',
+        cost: 'N$500+/day storage',
+        prevention: 'Verify consignee good standing before purchase'
+      }
     ],
     checklist: [
       { label: 'VIN photo', id: 'vin-photo' },
@@ -38,6 +56,8 @@ const namibiaTimelineSteps = [
   {
     title: 'Documentation Preparation',
     duration: '3–5 days',
+    costAtStage: 'N$2,000-5,000',
+    urgencyLevel: 'high' as 'low' | 'medium' | 'high' | 'critical',
     required: [
       'SAD 500 form (clearing firm prepares)',
       'Assessment Notice (official duty/VAT computation)',
@@ -51,6 +71,18 @@ const namibiaTimelineSteps = [
       '📋 Triple-check VIN/engine numbers before submission',
       '💰 Keep all payment receipts - you need them for registration'
     ],
+    commonDelays: [
+      {
+        delay: 'Missing certified translation',
+        cost: 'N$300+/day storage',
+        prevention: 'Start translation process 2-3 weeks early'
+      },
+      {
+        delay: 'VIN/Engine number errors',
+        cost: 'N$2,500+ delays',
+        prevention: 'Triple-check all numbers against photos'
+      }
+    ],
     checklist: [
       { label: 'SAD 500 form', id: 'sad-500' },
       { label: 'All receipts', id: 'receipts' },
@@ -61,6 +93,8 @@ const namibiaTimelineSteps = [
   {
     title: 'Shipping & Arrival',
     duration: '35–45 days',
+    costAtStage: 'N$18,000-35,000',
+    urgencyLevel: 'medium' as 'low' | 'medium' | 'high' | 'critical',
     required: [
       'Track container location weekly',
       'Prepare clearing agent documents',
@@ -72,6 +106,13 @@ const namibiaTimelineSteps = [
       '📅 Book clearing agent 1 week before arrival',
       '🚚 Pre-book transporter to avoid storage fees'
     ],
+    commonDelays: [
+      {
+        delay: 'Port congestion',
+        cost: 'N$200+/day extra storage',
+        prevention: 'Monitor port status and plan for delays'
+      }
+    ],
     checklist: [
       { label: 'Container tracked', id: 'tracking' },
       { label: 'Agent booked', id: 'agent' },
@@ -81,6 +122,8 @@ const namibiaTimelineSteps = [
   {
     title: 'Clearance & Collection',
     duration: '5–10 days',
+    costAtStage: 'N$40,000-80,000',
+    urgencyLevel: 'critical' as 'low' | 'medium' | 'high' | 'critical',
     required: [
       'Submit documents to clearing agent',
       'Pay all duties and fees',
@@ -92,6 +135,18 @@ const namibiaTimelineSteps = [
       '⏰ Start clearance immediately to avoid storage fees',
       '🔐 Get temporary insurance before driving'
     ],
+    commonDelays: [
+      {
+        delay: 'HS code disputes',
+        cost: 'N$15,000+ extra duty',
+        prevention: 'Research correct classification beforehand'
+      },
+      {
+        delay: 'Payment processing delays',
+        cost: 'N$500+/day storage',
+        prevention: 'Have all payment methods ready and verified'
+      }
+    ],
     checklist: [
       { label: 'Duties paid', id: 'duties' },
       { label: 'Police cleared', id: 'police' },
@@ -101,6 +156,8 @@ const namibiaTimelineSteps = [
   {
     title: 'Registration',
     duration: '7–14 days',
+    costAtStage: 'N$2,500-4,500',
+    urgencyLevel: 'medium' as 'low' | 'medium' | 'high' | 'critical',
     required: [
       'Roadworthy certificate',
       'NaTIS registration',
@@ -111,6 +168,13 @@ const namibiaTimelineSteps = [
       '🛠️ Book roadworthy test immediately after collection',
       '📝 Submit NaTIS papers same day as roadworthy',
       '🎯 Full process can be done in 3 days if organized'
+    ],
+    commonDelays: [
+      {
+        delay: 'Roadworthy test backlogs',
+        cost: 'N$1,500+ delays',
+        prevention: 'Book appointment immediately after collection'
+      }
     ],
     checklist: [
       { label: 'Roadworthy', id: 'roadworthy' },
@@ -126,6 +190,7 @@ const namibiaTimelineSteps = [
 export default function GuidePage() {
   const router = useRouter()
   const { user, userEmail, hasAccess, loading, userTier } = useAuthImmediate()
+  const [currentSection, setCurrentSection] = useState<string>('overview')
   
   // Clean up email display
   const displayEmail = userEmail || 'Portal User'
@@ -133,6 +198,15 @@ export default function GuidePage() {
     (displayEmail.startsWith('user_') && displayEmail.endsWith('@impota.com')) 
     ? 'Portal User' 
     : displayEmail
+
+  // Navigation handler
+  const handleNavigateToSection = (sectionId: string) => {
+    setCurrentSection(sectionId)
+    const element = document.getElementById(sectionId)
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }
+  }
   
   // Loading state
   if (loading) {
@@ -164,12 +238,21 @@ export default function GuidePage() {
   const currency = 'N$'
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-gray-50 to-white pb-20">
+    <main className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
       <div className="w-full">
+        {/* Navigation */}
+        <GuideNavigation 
+          currentSection={currentSection}
+          onNavigate={handleNavigateToSection}
+        />
+
         {/* Header with protection notice - Mobile Optimized */}
-        <div className="mb-6 px-4 sm:px-6">
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
-            <h1 className="text-2xl sm:text-3xl font-bold">Your Import Guide</h1>
+        <div className="mb-8 px-4 sm:px-6 max-w-6xl mx-auto">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
+            <div>
+              <h1 className="text-3xl sm:text-4xl font-bold mb-2">Complete Vehicle Import Guide</h1>
+              <p className="text-gray-600">Your step-by-step roadmap to importing vehicles into Namibia</p>
+            </div>
             <div className="flex items-center gap-2 text-xs sm:text-sm text-gray-600">
               <Shield className="h-3 w-3 sm:h-4 sm:w-4" />
               <span className="truncate max-w-[200px]">Licensed to: {cleanEmail}</span>
@@ -188,96 +271,123 @@ export default function GuidePage() {
           </div>
         </div>
 
-        {/* Quick Stats - Mobile Optimized Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mb-6 sm:mb-8 px-4 sm:px-6">
-          <Card className="p-3 sm:p-4">
-            <div className="flex items-center gap-3">
-              <div className="p-2 bg-blue-100 rounded-lg">
-                <Info className="h-4 w-4 sm:h-5 sm:w-5 text-blue-600" />
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 space-y-16">
+          {/* 1. Quick Start Overview */}
+          <section id="overview">
+            <QuickStartOverview onNavigateToSection={handleNavigateToSection} />
+          </section>
+
+          {/* 2. Pre-Import Essentials */}
+          <section id="essentials">
+            <PreImportEssentials onNavigateToSection={handleNavigateToSection} />
+          </section>
+
+          {/* 3. Cost Breakdown */}
+          <section id="costs">
+            <CostBreakdown showTimelineIntegration={true} />
+          </section>
+
+          {/* 4. Step-by-Step Timeline */}
+          <section id="timeline">
+            <TimelineSection steps={namibiaTimelineSteps} />
+          </section>
+
+          {/* 5. Common Mistakes */}
+          <section id="mistakes">
+            <MistakeCards />
+          </section>
+
+          {/* 6. Documents & Templates */}
+          <section id="templates">
+            <TemplatesSection />
+          </section>
+
+          {/* 7. Practical Tools */}
+          <section id="tools">
+            <PracticalTools />
+          </section>
+
+          {/* 8. Emergency Help */}
+          <section id="emergency">
+            <EmergencyQuickReference />
+          </section>
+
+          {/* Success Summary */}
+          <section className="pt-8">
+            <Card className="p-6 sm:p-8 bg-gradient-to-r from-green-50 to-blue-50 border-green-200">
+              <div className="text-center">
+                <CheckCircle className="h-16 w-16 text-green-600 mx-auto mb-4" />
+                <h2 className="text-2xl font-bold mb-4">Your Import Success Formula</h2>
+                
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                  <div className="p-4 bg-white rounded-lg border">
+                    <div className="text-3xl font-bold text-blue-600 mb-2">95%</div>
+                    <p className="text-sm text-gray-600">Success rate when following all steps</p>
+                  </div>
+                  <div className="p-4 bg-white rounded-lg border">
+                    <div className="text-3xl font-bold text-green-600 mb-2">{currency}30-50k</div>
+                    <p className="text-sm text-gray-600">Average savings vs dealer prices</p>
+                  </div>
+                  <div className="p-4 bg-white rounded-lg border">
+                    <div className="text-3xl font-bold text-purple-600 mb-2">60-75</div>
+                    <p className="text-sm text-gray-600">Days from purchase to registration</p>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-left">
+                  <div>
+                    <h3 className="font-semibold mb-3">Critical Success Factors:</h3>
+                    <ul className="space-y-2 text-sm">
+                      <li className="flex items-start gap-2">
+                        <CheckCircle className="h-4 w-4 text-green-600 mt-0.5 flex-shrink-0" />
+                        <span>Follow the eligibility rules exactly - no exceptions</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <CheckCircle className="h-4 w-4 text-green-600 mt-0.5 flex-shrink-0" />
+                        <span>Verify consignee good standing before paying anything</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <CheckCircle className="h-4 w-4 text-green-600 mt-0.5 flex-shrink-0" />
+                        <span>Triple-check all VIN and engine numbers</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <CheckCircle className="h-4 w-4 text-green-600 mt-0.5 flex-shrink-0" />
+                        <span>Keep 15% budget buffer for unexpected costs</span>
+                      </li>
+                    </ul>
+                  </div>
+                  
+                  <div>
+                    <h3 className="font-semibold mb-3">Your Next Steps:</h3>
+                    <ul className="space-y-2 text-sm">
+                      <li className="flex items-start gap-2">
+                        <span className="flex-shrink-0 w-5 h-5 bg-blue-100 text-blue-700 rounded-full text-xs flex items-center justify-center font-semibold">1</span>
+                        <span>Use the eligibility checker above to confirm you can import</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="flex-shrink-0 w-5 h-5 bg-blue-100 text-blue-700 rounded-full text-xs flex items-center justify-center font-semibold">2</span>
+                        <span>Calculate your total budget including buffer</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="flex-shrink-0 w-5 h-5 bg-blue-100 text-blue-700 rounded-full text-xs flex items-center justify-center font-semibold">3</span>
+                        <span>Find suitable vehicles and verify eligibility before purchasing</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="flex-shrink-0 w-5 h-5 bg-blue-100 text-blue-700 rounded-full text-xs flex items-center justify-center font-semibold">4</span>
+                        <span>Use the progress tracker to stay organized throughout the process</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
               </div>
-              <div className="flex-1">
-                <p className="text-xs sm:text-sm text-gray-600">Total Timeline</p>
-                <p className="text-sm sm:text-base font-semibold">55-88 days</p>
-              </div>
-            </div>
-          </Card>
-          <Card className="p-3 sm:p-4">
-            <div className="flex items-center gap-3">
-              <div className="p-2 bg-green-100 rounded-lg">
-                <TrendingDown className="h-4 w-4 sm:h-5 sm:w-5 text-green-600" />
-              </div>
-              <div className="flex-1">
-                <p className="text-xs sm:text-sm text-gray-600">Total Cost</p>
-                <p className="text-sm sm:text-base font-semibold">{currency}172,000</p>
-              </div>
-            </div>
-          </Card>
-          <Card className="p-3 sm:p-4">
-            <div className="flex items-center gap-3">
-              <div className="p-2 bg-purple-100 rounded-lg">
-                <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5 text-purple-600" />
-              </div>
-              <div className="flex-1">
-                <p className="text-xs sm:text-sm text-gray-600">Success Rate</p>
-                <p className="text-sm sm:text-base font-semibold">95% first time</p>
-              </div>
-            </div>
-          </Card>
+            </Card>
+          </section>
         </div>
 
-        <div className="px-4 sm:px-6 max-w-4xl mx-auto">
-          {/* Timeline Section */}
-          <TimelineSection 
-            steps={namibiaTimelineSteps}
-          />
-
-          {/* Cost Breakdown */}
-          <CostBreakdown />
-
-          {/* Common Mistakes */}
-          <MistakeCards />
-
-          {/* Templates Section */}
-          <TemplatesSection />
-
-          {/* Emergency Playbook */}
-          <EmergencyPlaybook />
-        </div>
-
-        {/* Success Tips - Mobile Optimized */}
-        <div className="px-4 sm:px-6 max-w-4xl mx-auto">
-          <Card className="mt-6 sm:mt-8 p-4 sm:p-6 bg-gradient-to-r from-green-50 to-blue-50 border-green-200">
-            <h2 className="text-lg sm:text-xl font-bold mb-3 sm:mb-4 flex items-center gap-2">
-              <CheckCircle className="h-5 w-5 sm:h-6 sm:w-6 text-green-600" />
-              Your Success Checklist
-            </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <h3 className="font-semibold mb-2 text-sm sm:text-base">Before Buying:</h3>
-                <ul className="space-y-1 text-xs sm:text-sm">
-                  <li>✓ Verify car is max 12 years old</li>
-                  <li>✓ Confirm right-hand drive</li>
-                  <li>✓ Get VIN & engine photos</li>
-                  <li>✓ Check {countryName} import rules</li>
-                </ul>
-              </div>
-              <div>
-                <h3 className="font-semibold mb-2 text-sm sm:text-base">After Purchase:</h3>
-                <ul className="space-y-1 text-xs sm:text-sm">
-                  <li>✓ Start documentation immediately</li>
-                  <li>✓ Book clearing agent early</li>
-                  <li>✓ Track container weekly</li>
-                  <li>✓ Prepare all payments in advance</li>
-                </ul>
-              </div>
-            </div>
-          </Card>
-        </div>
-
-        {/* Support Notice - Mobile Optimized */}
-        <div className="mt-6 sm:mt-8 text-center text-xs sm:text-sm text-gray-600 px-4 sm:px-6">
-          <p>Need help? Contact your clearing agent or visit the {countryName} Customs website.</p>
-          <p className="mt-2">This guide is for {port} port. Other ports may have different procedures.</p>
+        {/* Support Notice */}
+        <div className="mt-16 text-center text-xs sm:text-sm text-gray-600 px-4 sm:px-6 pb-8">
+          <p>Need help? Use the emergency contacts section or consult with your clearing agent.</p>
+          <p className="mt-2">This guide is specifically for {port} port imports to {countryName}. Other ports may have different procedures.</p>
         </div>
       </div>
     </main>
