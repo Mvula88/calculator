@@ -99,7 +99,7 @@ export default function BotswanaGuidePage() {
       />
       
       {/* Modern Hero Section - Mobile Optimized */}
-      <section className="relative overflow-hidden min-h-screen flex items-center">
+      <section className="relative overflow-hidden min-h-0 md:min-h-screen flex items-center py-16 md:py-0">
         {/* Professional Background */}
         <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-sky-900 to-cyan-900"></div>
         <div className="absolute inset-0 bg-[url('/japan-cars-hero.png')] bg-cover bg-center opacity-20"></div>
@@ -111,19 +111,19 @@ export default function BotswanaGuidePage() {
           <div className="absolute -bottom-1/2 -right-1/2 w-full h-full bg-gradient-to-tl from-cyan-500/10 to-transparent rounded-full animate-pulse delay-1000"></div>
         </div>
         
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-20 z-20">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-16 z-20">
           {/* Premium Trust Badge - Mobile Optimized */}
           <div className="flex justify-center mb-6 sm:mb-8">
-            <div className="inline-flex items-center gap-2 sm:gap-3 bg-gradient-to-r from-blue-500 via-sky-600 to-cyan-600 text-white px-4 sm:px-8 py-3 sm:py-4 rounded-xl sm:rounded-2xl shadow-2xl border border-white/20 backdrop-blur-sm text-center">
+            <div className="inline-flex items-center gap-2 sm:gap-3 bg-gradient-to-r from-blue-500 via-sky-600 to-cyan-600 text-white px-3 py-1.5 sm:px-6 sm:py-3 rounded-xl sm:rounded-2xl shadow-2xl border border-white/20 backdrop-blur-sm text-center">
               <Crown className="h-4 w-4 sm:h-6 sm:w-6" />
-              <span className="font-bold text-xs sm:text-base tracking-wide">BOTSWANA'S PREMIER IMPORT EDUCATION PLATFORM</span>
+              <span className="font-bold text-xs sm:text-base tracking-tight sm:tracking-wide">BOTSWANA'S PREMIER IMPORT EDUCATION PLATFORM</span>
               <Crown className="h-4 w-4 sm:h-6 sm:w-6" />
             </div>
           </div>
           
           {/* Modern Typography - Mobile Optimized */}
           <div className="text-center mb-8 sm:mb-12">
-            <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-black mb-4 sm:mb-6 leading-tight">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-black mb-4 sm:mb-6 leading-tight tracking-tight">
               <span className="text-white drop-shadow-2xl block mb-2">
                 Import Japanese Cars
               </span>
@@ -132,78 +132,78 @@ export default function BotswanaGuidePage() {
               </span>
             </h1>
             
-            <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-blue-100 mb-4 sm:mb-6 font-light leading-relaxed max-w-4xl mx-auto px-4">
-              Access <span className="font-bold text-sky-300">3 million+ quality vehicles</span> from Japan with our complete step-by-step import mastery system.
+            <p className="text-sm sm:text-base md:text-lg lg:text-xl text-blue-100 mb-4 sm:mb-6 font-light leading-relaxed max-w-2xl sm:max-w-3xl mx-auto px-4">
+              Access <span className="font-bold text-sky-300">quality vehicles</span> from Japan with our complete import guide.
             </p>
             
-            <p className="text-base sm:text-lg md:text-xl text-gray-300 max-w-2xl mx-auto px-4">
+            <p className="hidden sm:block text-base md:text-lg text-gray-300 max-w-xl sm:max-w-2xl mx-auto px-4 leading-relaxed">
               Professional guidance for successful imports through Durban/Walvis Bay — no experience required.
             </p>
           </div>
           
           {/* Modern Value Proposition Cards - Mobile Optimized */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-5xl mx-auto mb-8 sm:mb-12 px-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-4 max-w-4xl mx-auto mb-6 sm:mb-10 px-4">
             <div className="group">
               <Card className="bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 transition-all duration-300 h-full">
-                <CardContent className="p-4 sm:p-6">
-                  <div className="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
-                    <div className="bg-blue-500 p-2 sm:p-3 rounded-xl shadow-lg group-hover:scale-110 transition-transform">
-                      <DollarSign className="h-6 w-6 sm:h-7 sm:w-7 text-white" />
+                <CardContent className="p-3 sm:p-4">
+                  <div className="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3">
+                    <div className="bg-blue-500 p-1.5 sm:p-2 rounded-lg shadow-lg">
+                      <DollarSign className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
                     </div>
                     <div>
-                      <h3 className="font-bold text-lg sm:text-xl text-white">Save P24K-80K</h3>
-                      <p className="text-sky-300 font-medium text-sm sm:text-base">Per vehicle import</p>
+                      <h3 className="font-bold text-sm sm:text-base text-white">Save P24K+</h3>
+                      <p className="text-sky-300 font-medium text-xs sm:text-sm">Per import</p>
                     </div>
                   </div>
-                  <p className="text-gray-300 text-xs sm:text-sm">Significant cost savings compared to local dealership prices</p>
+                  <p className="hidden sm:block text-gray-300 text-xs leading-relaxed">Significant cost savings vs local prices</p>
                 </CardContent>
               </Card>
             </div>
             
             <div className="group">
               <Card className="bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 transition-all duration-300 h-full">
-                <CardContent className="p-4 sm:p-6">
-                  <div className="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
-                    <div className="bg-sky-500 p-2 sm:p-3 rounded-xl shadow-lg group-hover:scale-110 transition-transform">
-                      <Clock className="h-6 w-6 sm:h-7 sm:w-7 text-white" />
+                <CardContent className="p-3 sm:p-4">
+                  <div className="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3">
+                    <div className="bg-sky-500 p-1.5 sm:p-2 rounded-lg shadow-lg">
+                      <Clock className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
                     </div>
                     <div>
-                      <h3 className="font-bold text-lg sm:text-xl text-white">50-70 Days</h3>
-                      <p className="text-sky-300 font-medium text-sm sm:text-base">Complete process</p>
+                      <h3 className="font-bold text-sm sm:text-base text-white">50-70 Days</h3>
+                      <p className="text-sky-300 font-medium text-xs sm:text-sm">Process time</p>
                     </div>
                   </div>
-                  <p className="text-gray-300 text-xs sm:text-sm">From purchase to registration in Botswana</p>
+                  <p className="hidden sm:block text-gray-300 text-xs leading-relaxed">Purchase to registration</p>
                 </CardContent>
               </Card>
             </div>
             
-            <div className="group sm:col-span-2 lg:col-span-1">
+            <div className="group hidden sm:block lg:col-span-1">
               <Card className="bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 transition-all duration-300 h-full">
-                <CardContent className="p-4 sm:p-6">
-                  <div className="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
-                    <div className="bg-cyan-500 p-2 sm:p-3 rounded-xl shadow-lg group-hover:scale-110 transition-transform">
-                      <Users className="h-6 w-6 sm:h-7 sm:w-7 text-white" />
+                <CardContent className="p-3 sm:p-4">
+                  <div className="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3">
+                    <div className="bg-cyan-500 p-1.5 sm:p-2 rounded-lg shadow-lg">
+                      <Users className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
                     </div>
                     <div>
-                      <h3 className="font-bold text-lg sm:text-xl text-white">Growing Community</h3>
-                      <p className="text-cyan-300 font-medium text-sm sm:text-base">Success stories daily</p>
+                      <h3 className="font-bold text-sm sm:text-base text-white">Community</h3>
+                      <p className="text-cyan-300 font-medium text-xs sm:text-sm">Success stories</p>
                     </div>
                   </div>
-                  <p className="text-gray-300 text-xs sm:text-sm">Join successful importers across Botswana</p>
+                  <p className="text-gray-300 text-xs leading-relaxed">Join successful importers</p>
                 </CardContent>
               </Card>
             </div>
           </div>
 
           {/* Premium CTA Section - Mobile Optimized */}
-          <div className="text-center mb-8 sm:mb-12" id="signup">
-            <div className="bg-white/5 backdrop-blur-md rounded-2xl sm:rounded-3xl p-6 sm:p-8 border border-white/10 max-w-4xl mx-auto">
-              <div className="flex flex-col gap-4 sm:gap-4 justify-center items-center">
+          <div className="text-center mb-6 sm:mb-10" id="signup">
+            <div className="bg-white/5 backdrop-blur-md rounded-lg sm:rounded-xl p-4 sm:p-6 border border-white/10 max-w-3xl mx-auto">
+              <div className="flex flex-col gap-3 sm:gap-4 justify-center items-center">
                 <Link href="/register?country=bw&package=mistake" className="group w-full sm:w-auto">
                   <Button 
                     size="lg" 
                     variant="outline" 
-                    className="w-full sm:w-auto font-bold text-base sm:text-lg px-6 sm:px-10 py-4 sm:py-6 h-auto border-2 border-white/30 text-white hover:bg-white hover:text-gray-900 transition-all duration-300 group-hover:scale-105 min-h-[44px]"
+                    className="w-full sm:w-auto font-bold text-sm sm:text-base md:text-lg px-4 py-2 sm:px-6 sm:py-3 md:px-8 md:py-4 h-auto border-2 border-white/30 text-white hover:bg-white hover:text-gray-900 transition-all duration-300 group-hover:scale-105 min-h-[44px]"
                   >
                     <BookOpen className="mr-2 sm:mr-3 h-5 w-5 sm:h-6 sm:w-6" />
                     Essential Guide - P404
@@ -216,7 +216,7 @@ export default function BotswanaGuidePage() {
                 <Link href="/register?country=bw&package=mastery" className="group w-full sm:w-auto">
                   <Button 
                     size="lg" 
-                    className="w-full sm:w-auto font-bold text-base sm:text-lg px-6 sm:px-10 py-4 sm:py-6 h-auto bg-gradient-to-r from-blue-600 via-sky-600 to-cyan-600 hover:from-blue-700 hover:via-sky-700 hover:to-cyan-700 shadow-2xl group-hover:scale-105 transition-all duration-300 group-hover:shadow-sky-500/25 min-h-[44px]"
+                    className="w-full sm:w-auto font-bold text-sm sm:text-base md:text-lg px-4 py-2 sm:px-6 sm:py-3 md:px-8 md:py-4 h-auto bg-gradient-to-r from-blue-600 via-sky-600 to-cyan-600 hover:from-blue-700 hover:via-sky-700 hover:to-cyan-700 shadow-2xl group-hover:scale-105 transition-all duration-300 group-hover:shadow-sky-500/25 min-h-[44px]"
                   >
                     <Crown className="mr-2 sm:mr-3 h-5 w-5 sm:h-6 sm:w-6" />
                     Complete Mastery - P1,618
@@ -225,18 +225,18 @@ export default function BotswanaGuidePage() {
                 </Link>
               </div>
               
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6 mt-4 sm:mt-6 text-xs sm:text-sm text-gray-300">
-                <div className="flex items-center gap-2">
+              <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 mt-3 sm:mt-4 text-xs sm:text-sm text-gray-300">
+                <div className="flex items-center gap-1 sm:gap-2">
                   <Zap className="h-3 w-3 sm:h-4 sm:w-4 text-sky-400" />
-                  <span>Instant Access</span>
+                  <span>Instant</span>
                 </div>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-1 sm:gap-2">
                   <Shield className="h-3 w-3 sm:h-4 sm:w-4 text-blue-400" />
-                  <span>Lifetime Updates</span>
+                  <span>Updates</span>
                 </div>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-1 sm:gap-2">
                   <BadgeCheck className="h-3 w-3 sm:h-4 sm:w-4 text-cyan-400" />
-                  <span>Secure Checkout</span>
+                  <span>Secure</span>
                 </div>
               </div>
             </div>
@@ -246,7 +246,7 @@ export default function BotswanaGuidePage() {
           <div className="max-w-6xl mx-auto px-4">
             <Card className="bg-white/10 backdrop-blur-md border border-white/20 shadow-2xl">
               <CardContent className="p-6 sm:p-8">
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 items-center text-center">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 lg:gap-6 items-center text-center">
                   <div>
                     <div className="flex items-center justify-center gap-2 sm:gap-3 mb-2">
                       <Shield className="h-6 w-6 sm:h-8 sm:w-8 text-sky-400" />
