@@ -18,7 +18,8 @@ import {
   Globe,
   AlertTriangle,
   Info,
-  Progress as ProgressIcon
+  Activity as ProgressIcon,
+  Mail
 } from 'lucide-react'
 
 interface DutyCalculation {
