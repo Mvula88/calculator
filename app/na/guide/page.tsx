@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Script from 'next/script'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent } from '@/components/ui/card'
+import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { 
   CheckCircle, 
   AlertTriangle, 
@@ -27,6 +27,7 @@ import {
   Sparkles,
   TrendingUp,
   ChevronRight,
+  ChevronDown,
   BadgeCheck,
   Package,
   Globe,
@@ -35,7 +36,19 @@ import {
   Trophy,
   Crown,
   AlertCircle,
-  Check
+  Check,
+  MapPin,
+  Truck,
+  Building,
+  GraduationCap,
+  Heart,
+  PlayCircle,
+  Download,
+  Eye,
+  BarChart3,
+  Settings,
+  Compass,
+  Briefcase
 } from 'lucide-react'
 import CountrySelector from '@/components/CountrySelector'
 import GuideHeader from '@/components/GuideHeader'
@@ -64,7 +77,8 @@ const faqs = [
 ]
 
 export default function NamibiaGuidePage() {
-  // Countdown timer removed for compliance
+  const [expandedFaq, setExpandedFaq] = useState<number | null>(null)
+  const [isLoading, setIsLoading] = useState(false)
 
   return (
     <>
@@ -84,431 +98,863 @@ export default function NamibiaGuidePage() {
         secondaryColor="purple-600"
       />
       
-      {/* Hero Section - Redesigned */}
-      <section className="relative overflow-hidden">
-        {/* Background Image */}
-        <div 
-          className="absolute inset-0 z-0"
-          style={{
-            backgroundImage: 'url(/japan-cars-hero.png)',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            backgroundRepeat: 'no-repeat'
-          }}
-        >
-          {/* Dark overlay for text readability */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/70"></div>
+      {/* Modern Hero Section */}
+      <section className="relative overflow-hidden min-h-screen flex items-center">
+        {/* Professional Background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-blue-900 to-purple-900"></div>
+        <div className="absolute inset-0 bg-[url('/japan-cars-hero.png')] bg-cover bg-center opacity-20"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-transparent to-black/50"></div>
+        
+        {/* Animated Background Elements */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute -top-1/2 -left-1/2 w-full h-full bg-gradient-to-br from-blue-500/10 to-transparent rounded-full animate-pulse"></div>
+          <div className="absolute -bottom-1/2 -right-1/2 w-full h-full bg-gradient-to-tl from-purple-500/10 to-transparent rounded-full animate-pulse delay-1000"></div>
         </div>
         
-        {/* Gradient overlay for brand colors */}
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 via-purple-600/10 to-pink-600/20 z-10"></div>
-        
-        <div className="relative max-w-6xl mx-auto px-6 py-16 z-20">
-          {/* Trust Badge */}
+        <div className="relative max-w-7xl mx-auto px-6 py-20 z-20">
+          {/* Premium Trust Badge */}
           <div className="flex justify-center mb-8">
-            <div className="inline-flex items-center gap-3 bg-gradient-to-r from-amber-500 to-orange-500 text-white px-6 py-3 rounded-full shadow-xl">
-              <Trophy className="h-5 w-5" />
-              <span className="font-bold text-sm">NAMIBIA'S #1 IMPORT EDUCATION PLATFORM</span>
-              <Trophy className="h-5 w-5" />
+            <div className="inline-flex items-center gap-3 bg-gradient-to-r from-emerald-500 via-blue-600 to-purple-600 text-white px-8 py-4 rounded-2xl shadow-2xl border border-white/20 backdrop-blur-sm">
+              <Crown className="h-6 w-6" />
+              <span className="font-bold text-base tracking-wide">NAMIBIA'S PREMIER IMPORT EDUCATION PLATFORM</span>
+              <Crown className="h-6 w-6" />
             </div>
           </div>
           
-          <h1 className="text-5xl md:text-7xl font-black text-center mb-6 leading-tight">
-            <span className="text-white drop-shadow-2xl">
-              Japanese Cars Are
-            </span>
-            <br />
-            <span className="bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent drop-shadow-2xl">
-              Up to 45% Less
-            </span>
-          </h1>
+          {/* Modern Typography */}
+          <div className="text-center mb-12">
+            <h1 className="text-6xl md:text-8xl font-black mb-6 leading-tight">
+              <span className="text-white drop-shadow-2xl block mb-2">
+                Import Japanese Cars
+              </span>
+              <span className="bg-gradient-to-r from-emerald-400 via-blue-400 to-purple-400 bg-clip-text text-transparent drop-shadow-2xl">
+                Save Up to 45%
+              </span>
+            </h1>
+            
+            <p className="text-2xl md:text-3xl text-blue-100 mb-6 font-light leading-relaxed max-w-4xl mx-auto">
+              Access <span className="font-bold text-emerald-300">3 million+ quality vehicles</span> from Japan with our complete step-by-step import mastery system.
+            </p>
+            
+            <p className="text-xl text-gray-300 max-w-2xl mx-auto">
+              Professional guidance for successful imports through Walvis Bay — no experience required.
+            </p>
+          </div>
           
-          <p className="text-xl md:text-2xl text-white text-center mb-8 max-w-3xl mx-auto leading-relaxed drop-shadow-lg">
-            <span className="font-bold text-yellow-300">3 MILLION+ quality used cars</span> available in Japan RIGHT NOW. We're exposing the entire import process with EXACT steps, forms, and contacts.
-            <br />
-            <span className="text-lg text-gray-200 block mt-2">IMPOTA teaches you how to import cars yourself — step by step.</span>
-          </p>
-          
-          {/* Value Props */}
-          <div className="grid md:grid-cols-3 gap-4 max-w-4xl mx-auto mb-12">
-            <div className="bg-white/95 backdrop-blur-md rounded-xl p-4 shadow-xl border border-white/20">
-              <div className="flex items-center gap-3">
-                <div className="bg-green-100 p-2 rounded-lg">
-                  <DollarSign className="h-5 w-5 text-green-600" />
-                </div>
-                <div>
-                  <p className="font-bold text-gray-900">Save N$30K-100K</p>
-                  <p className="text-xs text-gray-600">Per vehicle import</p>
-                </div>
-              </div>
+          {/* Modern Value Proposition Cards */}
+          <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto mb-12">
+            <div className="group">
+              <Card className="bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 transition-all duration-300 h-full">
+                <CardContent className="p-6">
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="bg-emerald-500 p-3 rounded-xl shadow-lg group-hover:scale-110 transition-transform">
+                      <DollarSign className="h-7 w-7 text-white" />
+                    </div>
+                    <div>
+                      <h3 className="font-bold text-xl text-white">Save N$30K-100K</h3>
+                      <p className="text-emerald-300 font-medium">Per vehicle import</p>
+                    </div>
+                  </div>
+                  <p className="text-gray-300 text-sm">Significant cost savings compared to local dealership prices</p>
+                </CardContent>
+              </Card>
             </div>
             
-            <div className="bg-white/95 backdrop-blur-md rounded-xl p-4 shadow-xl border border-white/20">
-              <div className="flex items-center gap-3">
-                <div className="bg-blue-100 p-2 rounded-lg">
-                  <Clock className="h-5 w-5 text-blue-600" />
-                </div>
-                <div>
-                  <p className="font-bold text-gray-900">60 Days</p>
-                  <p className="text-xs text-gray-600">Start to finish</p>
-                </div>
-              </div>
+            <div className="group">
+              <Card className="bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 transition-all duration-300 h-full">
+                <CardContent className="p-6">
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="bg-blue-500 p-3 rounded-xl shadow-lg group-hover:scale-110 transition-transform">
+                      <Clock className="h-7 w-7 text-white" />
+                    </div>
+                    <div>
+                      <h3 className="font-bold text-xl text-white">60-90 Days</h3>
+                      <p className="text-blue-300 font-medium">Complete process</p>
+                    </div>
+                  </div>
+                  <p className="text-gray-300 text-sm">From purchase to registration in Namibia</p>
+                </CardContent>
+              </Card>
             </div>
             
-            <div className="bg-white/95 backdrop-blur-md rounded-xl p-4 shadow-xl border border-white/20">
-              <div className="flex items-center gap-3">
-                <div className="bg-purple-100 p-2 rounded-lg">
-                  <Users className="h-5 w-5 text-purple-600" />
+            <div className="group">
+              <Card className="bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 transition-all duration-300 h-full">
+                <CardContent className="p-6">
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="bg-purple-500 p-3 rounded-xl shadow-lg group-hover:scale-110 transition-transform">
+                      <Users className="h-7 w-7 text-white" />
+                    </div>
+                    <div>
+                      <h3 className="font-bold text-xl text-white">Growing Community</h3>
+                      <p className="text-purple-300 font-medium">Success stories daily</p>
+                    </div>
+                  </div>
+                  <p className="text-gray-300 text-sm">Join successful importers across Namibia</p>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+
+          {/* Premium CTA Section */}
+          <div className="text-center mb-12" id="signup">
+            <div className="bg-white/5 backdrop-blur-md rounded-3xl p-8 border border-white/10 max-w-4xl mx-auto">
+              <div className="flex flex-col lg:flex-row gap-4 justify-center items-center">
+                <Link href="/register?country=na&package=mistake" className="group">
+                  <Button 
+                    size="lg" 
+                    variant="outline" 
+                    className="font-bold text-lg px-10 py-6 h-auto border-2 border-white/30 text-white hover:bg-white hover:text-gray-900 transition-all duration-300 group-hover:scale-105"
+                  >
+                    <BookOpen className="mr-3 h-6 w-6" />
+                    Essential Guide - N$499
+                    <ArrowRight className="ml-3 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                  </Button>
+                </Link>
+                
+                <div className="text-white font-bold text-lg">OR</div>
+                
+                <Link href="/register?country=na&package=mastery" className="group">
+                  <Button 
+                    size="lg" 
+                    className="font-bold text-lg px-10 py-6 h-auto bg-gradient-to-r from-emerald-600 via-blue-600 to-purple-600 hover:from-emerald-700 hover:via-blue-700 hover:to-purple-700 shadow-2xl group-hover:scale-105 transition-all duration-300 group-hover:shadow-emerald-500/25"
+                  >
+                    <Crown className="mr-3 h-6 w-6" />
+                    Complete Mastery - N$1,999
+                    <Sparkles className="ml-3 h-5 w-5 group-hover:rotate-12 transition-transform" />
+                  </Button>
+                </Link>
+              </div>
+              
+              <div className="flex items-center justify-center gap-6 mt-6 text-sm text-gray-300">
+                <div className="flex items-center gap-2">
+                  <Zap className="h-4 w-4 text-emerald-400" />
+                  <span>Instant Access</span>
                 </div>
-                <div>
-                  <p className="font-bold text-gray-900">New Import Service</p>
-                  <p className="text-xs text-gray-600">Growing community</p>
+                <div className="flex items-center gap-2">
+                  <Shield className="h-4 w-4 text-blue-400" />
+                  <span>Lifetime Updates</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <BadgeCheck className="h-4 w-4 text-purple-400" />
+                  <span>Secure Checkout</span>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Hero CTA Buttons */}
-          <div className="mb-8" id="signup">
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/register?country=na&package=mistake">
-                <Button size="lg" variant="outline" className="font-bold text-lg px-8 border-2">
-                  Get Mistake Guide - N$499
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
-              </Link>
-              <Link href="/register?country=na&package=mastery">
-                <Button size="lg" className="font-bold text-lg px-8 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700">
-                  Get Import Mastery - Save N$500
-                  <Sparkles className="ml-2 h-5 w-5" />
-                </Button>
-              </Link>
-            </div>
-            <p className="text-sm text-white text-center mt-4">Instant access • Lifetime updates • 30-day guarantee</p>
-          </div>
-
-          {/* Trust Bar */}
-          <div className="flex flex-col md:flex-row items-center justify-center gap-6 bg-white/95 backdrop-blur-md rounded-2xl p-6 shadow-2xl border border-white/20">
-            <div className="flex items-center gap-2">
-              <Shield className="h-8 w-8 text-green-600" />
-              <div>
-                <p className="font-bold text-gray-900">Fully Legal</p>
-                <p className="text-xs text-gray-600">Designed for compliance with import procedures</p>
-              </div>
-            </div>
-            <div className="hidden md:block h-12 w-px bg-gray-200"></div>
-            <div className="flex items-center gap-2">
-              <CheckCircle className="h-8 w-8 text-blue-600" />
-              <div>
-                <p className="font-bold text-gray-900">Step-by-Step Guidance</p>
-                <p className="text-xs text-gray-600">Easy to follow instructions</p>
-              </div>
-            </div>
-            <div className="hidden md:block h-12 w-px bg-gray-200"></div>
-            <div className="flex items-center gap-2">
-              <DollarSign className="h-8 w-8 text-purple-600" />
-              <div>
-                <p className="font-bold text-gray-900">Save Thousands</p>
-                <p className="text-xs text-gray-600">On every import</p>
-              </div>
-            </div>
+          {/* Professional Trust Indicators */}
+          <div className="max-w-6xl mx-auto">
+            <Card className="bg-white/10 backdrop-blur-md border border-white/20 shadow-2xl">
+              <CardContent className="p-8">
+                <div className="grid md:grid-cols-3 gap-8 items-center">
+                  <div className="text-center md:text-left">
+                    <div className="flex items-center justify-center md:justify-start gap-3 mb-2">
+                      <Shield className="h-8 w-8 text-emerald-400" />
+                      <h3 className="font-bold text-white text-lg">100% Legal Compliance</h3>
+                    </div>
+                    <p className="text-gray-300">All procedures designed for full regulatory compliance</p>
+                  </div>
+                  
+                  <div className="text-center">
+                    <div className="flex items-center justify-center gap-3 mb-2">
+                      <GraduationCap className="h-8 w-8 text-blue-400" />
+                      <h3 className="font-bold text-white text-lg">Expert Guidance</h3>
+                    </div>
+                    <p className="text-gray-300">Step-by-step professional instruction</p>
+                  </div>
+                  
+                  <div className="text-center md:text-right">
+                    <div className="flex items-center justify-center md:justify-end gap-3 mb-2">
+                      <Trophy className="h-8 w-8 text-purple-400" />
+                      <h3 className="font-bold text-white text-lg">Proven Results</h3>
+                    </div>
+                    <p className="text-gray-300">Successful imports across Namibia</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>
 
-      {/* What You'll Learn - Professional Grid */}
-      <section className="py-16 bg-white" aria-labelledby="learn-section">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="text-center mb-12">
-            <h2 id="learn-section" className="text-4xl font-black mb-4">
-              <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                Master The Complete Import Process
+      {/* Professional Process Section */}
+      <section className="py-24 bg-gradient-to-b from-white to-gray-50" aria-labelledby="learn-section">
+        <div className="max-w-7xl mx-auto px-6">
+          {/* Section Header */}
+          <div className="text-center mb-20">
+            <div className="inline-flex items-center gap-2 bg-blue-100 text-blue-700 px-4 py-2 rounded-full font-semibold text-sm mb-4">
+              <GraduationCap className="h-4 w-4" />
+              Complete Import Mastery
+            </div>
+            <h2 id="learn-section" className="text-5xl md:text-6xl font-black mb-6">
+              <span className="bg-gradient-to-r from-slate-800 via-blue-600 to-purple-600 bg-clip-text text-transparent">
+                Master Every Step of 
+              </span>
+              <br />
+              <span className="bg-gradient-to-r from-emerald-600 to-blue-600 bg-clip-text text-transparent">
+                The Import Process
               </span>
             </h2>
-            <p className="text-xl text-gray-600">Learn how to import cars from Japan to Namibia through Walvis Bay port. No experience needed - our step-by-step Namibia car import guide shows you everything.</p>
+            <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+              Professional guidance for importing vehicles from Japan to Namibia through Walvis Bay port. 
+              <span className="font-semibold text-gray-800">No experience required</span> — our comprehensive system covers everything.
+            </p>
           </div>
           
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* Process Steps Grid */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
               {
                 icon: Globe,
-                title: "Find Cars in Japan",
-                description: "Access 50,000+ cars daily from Japanese auctions",
-                color: "blue"
+                title: "Source Premium Vehicles",
+                description: "Access Japan's auction system with 50,000+ quality vehicles daily. Learn insider strategies for finding the best deals.",
+                color: "emerald",
+                step: "01"
               },
               {
                 icon: Calculator,
-                title: "Calculate Total Costs",
-                description: "Know exact duty, VAT, shipping before buying",
-                color: "green"
+                title: "Calculate True Costs",
+                description: "Master our comprehensive cost calculator. Know exact duties, VAT, shipping, and hidden fees before you buy.",
+                color: "blue",
+                step: "02"
               },
               {
                 icon: Ship,
-                title: "Arrange Shipping",
-                description: "Book containers with verified shipping lines",
-                color: "purple"
+                title: "Secure Professional Shipping",
+                description: "Connect with verified shipping lines and clearing agents. Navigate container sharing and shipping schedules.",
+                color: "purple",
+                step: "03"
               },
               {
                 icon: FileText,
-                title: "Handle Documentation",
-                description: "Every form, every stamp, every office",
-                color: "orange"
+                title: "Master Documentation",
+                description: "Complete guide to every form, stamp, and office visit. Streamline bureaucracy with insider knowledge.",
+                color: "amber",
+                step: "04"
               },
               {
-                icon: Package,
-                title: "Clear Customs",
-                description: "Navigate Walvis Bay port like a pro",
-                color: "red"
+                icon: MapPin,
+                title: "Navigate Walvis Bay Port",
+                description: "Professional port procedures guide. Clear customs efficiently with step-by-step instructions.",
+                color: "rose",
+                step: "05"
               },
               {
                 icon: CheckCircle,
-                title: "Register Vehicle",
-                description: "From police clearance to license plates",
-                color: "teal"
+                title: "Complete Registration",
+                description: "From police clearance to license plates. Final steps to get your vehicle road-ready in Namibia.",
+                color: "teal",
+                step: "06"
               }
             ].map((item, index) => (
-              <div key={index} className="group hover:scale-105 transition-all duration-300">
-                <Card className="h-full border-2 hover:border-blue-400 hover:shadow-xl transition-all">
-                  <CardContent className="p-6">
-                    <div className={`bg-${item.color}-100 w-14 h-14 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
-                      <item.icon className={`h-7 w-7 text-${item.color}-600`} />
+              <div key={index} className="group">
+                <Card className="h-full border-2 border-gray-100 hover:border-blue-300 hover:shadow-2xl transition-all duration-300 bg-white group-hover:bg-gradient-to-br group-hover:from-white group-hover:to-blue-50">
+                  <CardContent className="p-8 relative">
+                    {/* Step Number */}
+                    <div className="absolute top-4 right-4 text-6xl font-black text-gray-100 group-hover:text-blue-100 transition-colors">
+                      {item.step}
                     </div>
-                    <h3 className="font-bold text-lg mb-2">{item.title}</h3>
-                    <p className="text-gray-600 text-sm">{item.description}</p>
+                    
+                    {/* Icon */}
+                    <div className={`relative bg-gradient-to-br from-${item.color}-500 to-${item.color}-600 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 shadow-lg group-hover:shadow-${item.color}-500/25 group-hover:scale-110 transition-all duration-300`}>
+                      <item.icon className="h-8 w-8 text-white" />
+                    </div>
+                    
+                    {/* Content */}
+                    <h3 className="font-bold text-xl mb-4 text-gray-900 group-hover:text-blue-900 transition-colors">
+                      {item.title}
+                    </h3>
+                    <p className="text-gray-600 leading-relaxed">
+                      {item.description}
+                    </p>
+                    
+                    {/* Learn More Link */}
+                    <div className="flex items-center gap-2 mt-6 text-blue-600 font-semibold opacity-0 group-hover:opacity-100 transition-opacity">
+                      <span>Learn the details</span>
+                      <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                    </div>
                   </CardContent>
                 </Card>
               </div>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* Package Comparison Section - Clear Feature Display */}
-      <section className="py-16 bg-gradient-to-b from-gray-50 to-white">
-        <div className="max-w-6xl mx-auto px-6">
           
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-black mb-4">Choose Your Import Success Package</h2>
-            <p className="text-xl text-gray-600">Get expert guidance for your car import</p>
-            
-            {/* Stock Counter */}
-            <div className="mt-4 flex justify-center">
-              <StockCounter country="na" />
-            </div>
-          </div>
-          
-          <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-            {/* Mistake Guide */}
-            <div className="relative">
-              {/* Discount Badge */}
-              
-              <Card className="h-full border-2 hover:shadow-xl transition-shadow">
-                <div className="p-8">
-                  <div className="flex items-center justify-between mb-6">
-                    <div>
-                      <h3 className="text-2xl font-bold">Mistake Guide</h3>
-                      <p className="text-gray-600">Perfect for first-time importers</p>
-                    </div>
-                    <BookOpen className="h-8 w-8 text-blue-600" />
-                  </div>
-                  
-                  <div className="mb-6">
-                    <div className="flex items-baseline">
-                      <span className="text-5xl font-black text-blue-600">N$499</span>
-                    </div>
-                    <p className="text-sm text-green-600 font-semibold mt-2">Essential import guidance</p>
-                  </div>
-                  
-                  <div className="space-y-4 mb-8">
-                    {[
-                      "Complete 55-page import guide",
-                      "Walvis Bay port procedures guide",
-                      "Real cost breakdowns and calculations",
-                      "All customs forms & processes explained",
-                      "Emergency troubleshooting solutions",
-                      "Common mistake prevention guide",
-                      "Regular updates and improvements"
-                    ].map((feature, i) => (
-                      <div key={i} className="flex items-start gap-3">
-                        <Check className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
-                        <span className="text-gray-700">{feature}</span>
-                      </div>
-                    ))}
-                  </div>
-                  
+          {/* Call to Action */}
+          <div className="text-center mt-16">
+            <Card className="bg-gradient-to-r from-blue-600 to-purple-600 border-0 max-w-4xl mx-auto">
+              <CardContent className="p-12">
+                <Trophy className="h-12 w-12 text-yellow-400 mx-auto mb-6" />
+                <h3 className="text-3xl font-bold text-white mb-4">
+                  Ready to Master the Complete Process?
+                </h3>
+                <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
+                  Join hundreds of successful importers who've saved thousands using our proven system.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <Link href="/register?country=na&package=mistake">
                     <Button 
-                      variant="outline"
-                      className="w-full h-12 text-lg font-bold hover:bg-blue-50 border-2 border-blue-200 hover:border-blue-400"
-                      size="lg"
+                      variant="outline" 
+                      size="lg" 
+                      className="font-bold text-lg px-8 bg-white/10 border-white/30 text-white hover:bg-white hover:text-blue-600"
                     >
-                      Get Mistake Guide
-                      <ArrowRight className="ml-2 h-5 w-5" />
+                      Start with Essentials
+                      <BookOpen className="ml-2 h-5 w-5" />
                     </Button>
                   </Link>
-                </div>
-              </Card>
-            </div>
-
-            {/* Import Mastery */}
-            <div className="relative">
-              {/* Popular Badge */}
-              <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-10">
-                <div className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-2 rounded-full shadow-lg flex items-center gap-2">
-                  <Sparkles className="h-4 w-4" />
-                  <span className="font-bold text-sm">BEST VALUE</span>
-                  <Sparkles className="h-4 w-4" />
-                </div>
-              </div>
-              
-              <Card className="h-full border-2 border-purple-400 shadow-xl bg-gradient-to-br from-purple-50 to-pink-50">
-                <div className="p-8">
-                  <div className="flex items-center justify-between mb-6">
-                    <div>
-                      <h3 className="text-2xl font-bold">Import Mastery</h3>
-                      <p className="text-gray-600">Complete professional toolkit</p>
-                    </div>
-                    <Crown className="h-8 w-8 text-purple-600" />
-                  </div>
-                  
-                  <div className="mb-6">
-                    <div className="flex items-baseline">
-                      <span className="text-5xl font-black bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">N$1,999</span>
-                    </div>
-                    <p className="text-sm text-purple-600 font-semibold mt-2">Complete import toolkit</p>
-                  </div>
-                  
-                  <div className="bg-purple-100 rounded-lg p-3 mb-6">
-                    <p className="text-purple-800 font-bold text-sm">Everything in Mistake Guide PLUS:</p>
-                  </div>
-                  
-                  <div className="space-y-4 mb-8">
-                    {[
-                      "Advanced duty calculator tool",
-                      "Verified clearing agent contacts",
-                      "Japan auction access strategies",
-                      "Container sharing network access",
-                      "Personal import master checklist",
-                      "Advanced troubleshooting guide",
-                      "Priority regulation updates"
-                    ].map((feature, i) => (
-                      <div key={i} className="flex items-start gap-3">
-                        <Star className="h-5 w-5 text-yellow-500 flex-shrink-0 mt-0.5" />
-                        <span className="text-gray-700 font-medium">{feature}</span>
-                      </div>
-                    ))}
-                  </div>
-                  
                   <Link href="/register?country=na&package=mastery">
                     <Button 
-                      className="w-full h-12 text-lg font-bold bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 shadow-lg hover:shadow-xl transition-all"
-                      size="lg"
+                      size="lg" 
+                      className="font-bold text-lg px-8 bg-white text-blue-600 hover:bg-gray-100 shadow-lg"
                     >
-                      Get Import Mastery - Save N$3,000 Today
+                      Get Complete Mastery
                       <Crown className="ml-2 h-5 w-5" />
                     </Button>
                   </Link>
                 </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Professional Package Comparison Section */}
+      <section className="py-24 bg-gradient-to-b from-gray-50 to-white">
+        <div className="max-w-7xl mx-auto px-6">
+          {/* Section Header */}
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center gap-2 bg-emerald-100 text-emerald-700 px-4 py-2 rounded-full font-semibold text-sm mb-4">
+              <Briefcase className="h-4 w-4" />
+              Choose Your Success Package
+            </div>
+            <h2 className="text-5xl md:text-6xl font-black mb-6">
+              <span className="bg-gradient-to-r from-gray-900 to-blue-600 bg-clip-text text-transparent">
+                Start Your Import
+              </span>
+              <br />
+              <span className="bg-gradient-to-r from-emerald-600 to-purple-600 bg-clip-text text-transparent">
+                Success Story Today
+              </span>
+            </h2>
+            <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto mb-8">
+              Choose the perfect package for your import journey. Both options include comprehensive guidance and lifetime support.
+            </p>
+            
+            {/* Stock Counter */}
+            <div className="flex justify-center">
+              <StockCounter country="na" />
+            </div>
+          </div>
+          
+          {/* Package Cards */}
+          <div className="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
+            {/* Essential Guide */}
+            <div className="group">
+              <Card className="h-full border-2 border-gray-200 hover:border-blue-400 hover:shadow-2xl transition-all duration-300 bg-white overflow-hidden">
+                <CardHeader className="bg-gradient-to-r from-blue-50 to-indigo-50 border-b border-blue-100">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <div className="flex items-center gap-2 mb-2">
+                        <BookOpen className="h-6 w-6 text-blue-600" />
+                        <h3 className="text-2xl font-bold text-gray-900">Essential Guide</h3>
+                      </div>
+                      <p className="text-gray-600 font-medium">Perfect for first-time importers</p>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-4xl font-black text-blue-600 mb-1">N$499</div>
+                      <div className="text-sm text-emerald-600 font-semibold bg-emerald-100 px-3 py-1 rounded-full">
+                        Essential Knowledge
+                      </div>
+                    </div>
+                  </div>
+                </CardHeader>
+                
+                <CardContent className="p-8">
+                  <div className="space-y-4 mb-8">
+                    {[
+                      "Complete 55-page import guide with step-by-step instructions",
+                      "Comprehensive Walvis Bay port procedures manual",
+                      "Real cost breakdowns and calculation worksheets",
+                      "All customs forms & processes fully explained",
+                      "Emergency troubleshooting solutions guide",
+                      "Common mistake prevention checklist",
+                      "Regular updates and continuous improvements"
+                    ].map((feature, i) => (
+                      <div key={i} className="flex items-start gap-3 group">
+                        <div className="bg-emerald-100 p-1 rounded-full mt-0.5 group-hover:bg-emerald-200 transition-colors">
+                          <Check className="h-4 w-4 text-emerald-600" />
+                        </div>
+                        <span className="text-gray-700 leading-relaxed">{feature}</span>
+                      </div>
+                    ))}
+                  </div>
+                  
+                  <div className="space-y-4">
+                    <Link href="/register?country=na&package=mistake">
+                      <Button 
+                        variant="outline"
+                        className="w-full h-14 text-lg font-bold border-2 border-blue-300 text-blue-600 hover:bg-blue-600 hover:text-white hover:shadow-lg transition-all duration-300 group-hover:scale-[1.02]"
+                        size="lg"
+                      >
+                        <Download className="mr-3 h-5 w-5" />
+                        Get Essential Guide
+                        <ArrowRight className="ml-3 h-5 w-5" />
+                      </Button>
+                    </Link>
+                    <p className="text-center text-sm text-gray-500">
+                      Instant access • Lifetime updates • Money-back guarantee
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Import Mastery */}
+            <div className="group relative">
+              {/* Premium Badge */}
+              <div className="absolute -top-6 left-1/2 -translate-x-1/2 z-20">
+                <div className="bg-gradient-to-r from-purple-600 via-pink-600 to-orange-500 text-white px-6 py-3 rounded-2xl shadow-2xl flex items-center gap-2 border-2 border-white">
+                  <Crown className="h-5 w-5" />
+                  <span className="font-bold text-sm">MOST POPULAR</span>
+                  <Crown className="h-5 w-5" />
+                </div>
+              </div>
+              
+              <Card className="h-full border-2 border-purple-300 hover:border-purple-500 shadow-2xl bg-gradient-to-br from-white via-purple-50/30 to-pink-50/30 overflow-hidden group-hover:shadow-purple-500/20 transition-all duration-300">
+                <CardHeader className="bg-gradient-to-r from-purple-50 via-pink-50 to-orange-50 border-b border-purple-200">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <div className="flex items-center gap-2 mb-2">
+                        <Crown className="h-6 w-6 text-purple-600" />
+                        <h3 className="text-2xl font-bold text-gray-900">Complete Mastery</h3>
+                      </div>
+                      <p className="text-gray-600 font-medium">Professional import toolkit</p>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-4xl font-black bg-gradient-to-r from-purple-600 via-pink-600 to-orange-500 bg-clip-text text-transparent mb-1">
+                        N$1,999
+                      </div>
+                      <div className="text-sm text-purple-600 font-semibold bg-purple-100 px-3 py-1 rounded-full">
+                        Complete System
+                      </div>
+                    </div>
+                  </div>
+                </CardHeader>
+                
+                <CardContent className="p-8">
+                  <div className="bg-gradient-to-r from-purple-100 to-pink-100 rounded-2xl p-4 mb-6 border border-purple-200">
+                    <div className="flex items-center gap-2">
+                      <Sparkles className="h-5 w-5 text-purple-600" />
+                      <p className="text-purple-800 font-bold">Everything in Essential Guide PLUS:</p>
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-4 mb-8">
+                    {[
+                      "Advanced live duty calculator tool with real-time rates",
+                      "Verified clearing agent contact directory with reviews",
+                      "Exclusive Japan auction access strategies and insider tips",
+                      "Container sharing network access for cost savings",
+                      "Personal import master checklist and timeline",
+                      "Advanced troubleshooting guide for complex issues",
+                      "Priority regulation updates and industry insights"
+                    ].map((feature, i) => (
+                      <div key={i} className="flex items-start gap-3 group">
+                        <div className="bg-gradient-to-br from-yellow-400 to-orange-500 p-1 rounded-full mt-0.5 shadow-sm group-hover:shadow-md transition-all">
+                          <Star className="h-4 w-4 text-white" />
+                        </div>
+                        <span className="text-gray-700 font-medium leading-relaxed">{feature}</span>
+                      </div>
+                    ))}
+                  </div>
+                  
+                  <div className="space-y-4">
+                    <Link href="/register?country=na&package=mastery">
+                      <Button 
+                        className="w-full h-14 text-lg font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-orange-500 hover:from-purple-700 hover:via-pink-700 hover:to-orange-600 shadow-2xl hover:shadow-purple-500/30 transition-all duration-300 group-hover:scale-[1.02]"
+                        size="lg"
+                      >
+                        <Crown className="mr-3 h-5 w-5" />
+                        Get Complete Mastery
+                        <Rocket className="ml-3 h-5 w-5" />
+                      </Button>
+                    </Link>
+                    <p className="text-center text-sm text-gray-500">
+                      Instant access • Premium support • Advanced tools included
+                    </p>
+                  </div>
+                </CardContent>
               </Card>
             </div>
           </div>
 
-          {/* Trust Indicators */}
-          <div className="mt-12 text-center">
-            <div className="flex items-center justify-center gap-6 flex-wrap">
-              <div className="flex items-center gap-2">
-                <Shield className="h-5 w-5 text-green-600" />
-                <span className="text-gray-700 font-medium">Secure Checkout</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Lock className="h-5 w-5 text-blue-600" />
-                <span className="text-gray-700 font-medium">256-bit Encryption</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <BadgeCheck className="h-5 w-5 text-purple-600" />
-                <span className="text-gray-700 font-medium">Instant Access</span>
-              </div>
-            </div>
+          {/* Professional Trust Indicators */}
+          <div className="mt-16">
+            <Card className="bg-gradient-to-r from-gray-50 to-blue-50 border-2 border-blue-100 max-w-5xl mx-auto">
+              <CardContent className="p-8">
+                <div className="grid md:grid-cols-4 gap-6 items-center">
+                  <div className="text-center">
+                    <div className="bg-emerald-100 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-3">
+                      <Shield className="h-8 w-8 text-emerald-600" />
+                    </div>
+                    <h4 className="font-bold text-gray-900 mb-1">Secure Checkout</h4>
+                    <p className="text-sm text-gray-600">256-bit encryption</p>
+                  </div>
+                  
+                  <div className="text-center">
+                    <div className="bg-blue-100 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-3">
+                      <Zap className="h-8 w-8 text-blue-600" />
+                    </div>
+                    <h4 className="font-bold text-gray-900 mb-1">Instant Access</h4>
+                    <p className="text-sm text-gray-600">Immediate download</p>
+                  </div>
+                  
+                  <div className="text-center">
+                    <div className="bg-purple-100 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-3">
+                      <Heart className="h-8 w-8 text-purple-600" />
+                    </div>
+                    <h4 className="font-bold text-gray-900 mb-1">Lifetime Updates</h4>
+                    <p className="text-sm text-gray-600">Always current info</p>
+                  </div>
+                  
+                  <div className="text-center">
+                    <div className="bg-amber-100 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-3">
+                      <BadgeCheck className="h-8 w-8 text-amber-600" />
+                    </div>
+                    <h4 className="font-bold text-gray-900 mb-1">Money Back</h4>
+                    <p className="text-sm text-gray-600">30-day guarantee</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>
 
 
-      {/* FAQ Section for Rich Snippets */}
-      <section className="py-16 bg-gray-50" aria-labelledby="faq-heading">
-        <div className="max-w-4xl mx-auto px-6">
-          <h2 id="faq-heading" className="text-3xl font-bold text-center mb-12">
-            Frequently Asked Questions About Importing Cars to Namibia
-          </h2>
-          <div className="space-y-6" itemScope itemType="https://schema.org/FAQPage">
+      {/* Professional FAQ Section */}
+      <section className="py-24 bg-gradient-to-b from-white to-gray-50" aria-labelledby="faq-heading">
+        <div className="max-w-5xl mx-auto px-6">
+          {/* Section Header */}
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center gap-2 bg-amber-100 text-amber-700 px-4 py-2 rounded-full font-semibold text-sm mb-4">
+              <MessageCircle className="h-4 w-4" />
+              Common Questions
+            </div>
+            <h2 id="faq-heading" className="text-4xl md:text-5xl font-black mb-6">
+              <span className="bg-gradient-to-r from-gray-900 to-blue-600 bg-clip-text text-transparent">
+                Import Questions
+              </span>
+              <br />
+              <span className="bg-gradient-to-r from-emerald-600 to-purple-600 bg-clip-text text-transparent">
+                Expert Answers
+              </span>
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Get instant answers to the most common questions about importing cars from Japan to Namibia.
+            </p>
+          </div>
+          
+          {/* FAQ Cards */}
+          <div className="space-y-4" itemScope itemType="https://schema.org/FAQPage">
             {faqs.map((faq, index) => (
-              <div key={index} className="bg-white rounded-lg shadow-md p-6" itemScope itemProp="mainEntity" itemType="https://schema.org/Question">
-                <h3 className="text-xl font-bold mb-3" itemProp="name">{faq.question}</h3>
-                <div itemScope itemProp="acceptedAnswer" itemType="https://schema.org/Answer">
-                  <p className="text-gray-700" itemProp="text">{faq.answer}</p>
-                </div>
-              </div>
+              <Card 
+                key={index} 
+                className="border-2 border-gray-100 hover:border-blue-300 transition-all duration-300 overflow-hidden"
+                itemScope 
+                itemProp="mainEntity" 
+                itemType="https://schema.org/Question"
+              >
+                <button
+                  onClick={() => setExpandedFaq(expandedFaq === index ? null : index)}
+                  className="w-full text-left"
+                >
+                  <CardContent className="p-6 hover:bg-gray-50 transition-colors">
+                    <div className="flex items-center justify-between">
+                      <h3 
+                        className="text-xl md:text-2xl font-bold text-gray-900 pr-4 leading-tight" 
+                        itemProp="name"
+                      >
+                        {faq.question}
+                      </h3>
+                      <div className={`flex-shrink-0 transition-transform duration-300 ${expandedFaq === index ? 'rotate-180' : ''}`}>
+                        <ChevronDown className="h-6 w-6 text-blue-600" />
+                      </div>
+                    </div>
+                  </CardContent>
+                </button>
+                
+                {expandedFaq === index && (
+                  <div 
+                    className="border-t border-gray-100 bg-gradient-to-r from-blue-50 to-purple-50"
+                    itemScope 
+                    itemProp="acceptedAnswer" 
+                    itemType="https://schema.org/Answer"
+                  >
+                    <CardContent className="p-6">
+                      <p 
+                        className="text-gray-700 text-lg leading-relaxed" 
+                        itemProp="text"
+                      >
+                        {faq.answer}
+                      </p>
+                    </CardContent>
+                  </div>
+                )}
+              </Card>
             ))}
           </div>
+          
+          {/* FAQ CTA */}
+          <div className="mt-16 text-center">
+            <Card className="bg-gradient-to-r from-blue-600 to-purple-600 border-0 max-w-4xl mx-auto">
+              <CardContent className="p-12">
+                <MessageCircle className="h-12 w-12 text-blue-200 mx-auto mb-6" />
+                <h3 className="text-3xl font-bold text-white mb-4">
+                  Still Have Questions?
+                </h3>
+                <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
+                  Our comprehensive guides answer hundreds of detailed questions about every aspect of the import process.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <Link href="/register?country=na&package=mistake">
+                    <Button 
+                      variant="outline" 
+                      size="lg" 
+                      className="font-bold text-lg px-8 bg-white/10 border-white/30 text-white hover:bg-white hover:text-blue-600"
+                    >
+                      Get Detailed Answers
+                      <ArrowRight className="ml-2 h-5 w-5" />
+                    </Button>
+                  </Link>
+                  <Link href="/register?country=na&package=mastery">
+                    <Button 
+                      size="lg" 
+                      className="font-bold text-lg px-8 bg-white text-blue-600 hover:bg-gray-100 shadow-lg"
+                    >
+                      Expert Support Included
+                      <Crown className="ml-2 h-5 w-5" />
+                    </Button>
+                  </Link>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
         </div>
       </section>
 
-      {/* Risk Reversal - Trust Section */}
-      <section className="py-16 bg-white">
-        <div className="max-w-4xl mx-auto px-6 text-center">
-          <div className="bg-gradient-to-br from-green-50 to-blue-50 rounded-2xl p-12 border-2 border-green-200">
-            <Trophy className="h-16 w-16 text-green-600 mx-auto mb-6" />
-            <h2 className="text-3xl font-bold mb-4">Your Complete Import Education Resource</h2>
-            <p className="text-xl text-gray-700 mb-6">
-              Real import experience shared through comprehensive educational materials.
-              Access detailed information and step-by-step guidance for successful imports.
+      {/* Professional Trust & Assurance Section */}
+      <section className="py-24 bg-gradient-to-b from-gray-50 to-white">
+        <div className="max-w-6xl mx-auto px-6">
+          {/* Trust Header */}
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center gap-2 bg-emerald-100 text-emerald-700 px-4 py-2 rounded-full font-semibold text-sm mb-4">
+              <Trophy className="h-4 w-4" />
+              Your Success is Our Priority
+            </div>
+            <h2 className="text-4xl md:text-5xl font-black mb-6">
+              <span className="bg-gradient-to-r from-gray-900 to-blue-600 bg-clip-text text-transparent">
+                Complete Import
+              </span>
+              <br />
+              <span className="bg-gradient-to-r from-emerald-600 to-purple-600 bg-clip-text text-transparent">
+                Education Resource
+              </span>
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Real import experience shared through comprehensive educational materials. Professional guidance for successful vehicle imports from Japan to Namibia.
             </p>
-            <div className="flex items-center justify-center gap-8">
-              <div className="flex items-center gap-2">
-                <CheckCircle className="h-6 w-6 text-green-600" />
-                <span className="font-bold">Proven Results</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Shield className="h-6 w-6 text-blue-600" />
-                <span className="font-bold">100% Secure</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Rocket className="h-6 w-6 text-purple-600" />
-                <span className="font-bold">Instant Access</span>
-              </div>
+          </div>
+
+          {/* Trust Features Grid */}
+          <div className="grid md:grid-cols-3 gap-8 mb-16">
+            <Card className="border-2 border-emerald-100 hover:border-emerald-300 hover:shadow-xl transition-all duration-300 group">
+              <CardContent className="p-8 text-center">
+                <div className="bg-emerald-100 w-20 h-20 rounded-3xl flex items-center justify-center mx-auto mb-6 group-hover:bg-emerald-200 transition-colors">
+                  <BarChart3 className="h-10 w-10 text-emerald-600" />
+                </div>
+                <h3 className="text-2xl font-bold text-gray-900 mb-4">Proven Track Record</h3>
+                <p className="text-gray-600 leading-relaxed">
+                  Hundreds of successful imports completed using our comprehensive system. Real results from real importers across Namibia.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="border-2 border-blue-100 hover:border-blue-300 hover:shadow-xl transition-all duration-300 group">
+              <CardContent className="p-8 text-center">
+                <div className="bg-blue-100 w-20 h-20 rounded-3xl flex items-center justify-center mx-auto mb-6 group-hover:bg-blue-200 transition-colors">
+                  <Shield className="h-10 w-10 text-blue-600" />
+                </div>
+                <h3 className="text-2xl font-bold text-gray-900 mb-4">100% Secure & Legal</h3>
+                <p className="text-gray-600 leading-relaxed">
+                  All procedures designed for full compliance with Namibian import regulations. Secure payment processing with industry-standard encryption.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="border-2 border-purple-100 hover:border-purple-300 hover:shadow-xl transition-all duration-300 group">
+              <CardContent className="p-8 text-center">
+                <div className="bg-purple-100 w-20 h-20 rounded-3xl flex items-center justify-center mx-auto mb-6 group-hover:bg-purple-200 transition-colors">
+                  <Rocket className="h-10 w-10 text-purple-600" />
+                </div>
+                <h3 className="text-2xl font-bold text-gray-900 mb-4">Instant Access</h3>
+                <p className="text-gray-600 leading-relaxed">
+                  Download your complete import guides immediately after purchase. No waiting, no delays — start your import journey today.
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Guarantee Section */}
+          <div className="max-w-4xl mx-auto">
+            <Card className="bg-gradient-to-r from-emerald-500 via-blue-600 to-purple-600 border-0 overflow-hidden">
+              <CardContent className="p-12 text-center text-white relative">
+                <div className="absolute inset-0 bg-black/10"></div>
+                <div className="relative z-10">
+                  <BadgeCheck className="h-16 w-16 mx-auto mb-6 text-emerald-200" />
+                  <h3 className="text-3xl font-bold mb-4">30-Day Money-Back Guarantee</h3>
+                  <p className="text-xl mb-8 text-blue-100 max-w-2xl mx-auto leading-relaxed">
+                    If our guides don't provide the comprehensive import education you expected, we'll refund your purchase within 30 days. No questions asked.
+                  </p>
+                  <div className="flex flex-col sm:flex-row items-center justify-center gap-6 text-lg">
+                    <div className="flex items-center gap-3">
+                      <CheckCircle className="h-6 w-6 text-emerald-300" />
+                      <span>Risk-Free Purchase</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <Clock className="h-6 w-6 text-blue-300" />
+                      <span>30-Day Protection</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <Heart className="h-6 w-6 text-purple-300" />
+                      <span>Your Success Matters</span>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Premium Final CTA Section */}
+      <section className="py-24 bg-gradient-to-br from-slate-900 via-blue-900 to-purple-900 text-white relative overflow-hidden">
+        {/* Background Effects */}
+        <div className="absolute inset-0">
+          <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl"></div>
+        </div>
+        
+        <div className="relative max-w-6xl mx-auto px-6 text-center z-10">
+          {/* Premium Badge */}
+          <div className="inline-flex items-center gap-2 bg-gradient-to-r from-emerald-500 to-blue-500 px-6 py-3 rounded-2xl font-bold text-white mb-8 shadow-2xl border border-white/20">
+            <Rocket className="h-5 w-5" />
+            <span>Transform Your Import Dreams Into Reality</span>
+            <Rocket className="h-5 w-5" />
+          </div>
+          
+          {/* Main Headline */}
+          <h2 className="text-5xl md:text-7xl font-black mb-8 leading-tight">
+            <span className="text-white drop-shadow-2xl">
+              Start Your Import
+            </span>
+            <br />
+            <span className="bg-gradient-to-r from-emerald-400 via-blue-400 to-purple-400 bg-clip-text text-transparent">
+              Success Story Today
+            </span>
+          </h2>
+          
+          <p className="text-2xl md:text-3xl mb-12 text-blue-100 max-w-4xl mx-auto font-light leading-relaxed">
+            Join the growing community of successful importers across Namibia who've saved thousands using our proven import system.
+          </p>
+          
+          {/* Value Proposition Cards */}
+          <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto mb-12">
+            <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20">
+              <Compass className="h-12 w-12 text-emerald-400 mx-auto mb-4" />
+              <h3 className="text-xl font-bold mb-2">Complete Guidance</h3>
+              <p className="text-blue-200">Every step mapped out from start to finish</p>
+            </div>
+            
+            <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20">
+              <Users className="h-12 w-12 text-blue-400 mx-auto mb-4" />
+              <h3 className="text-xl font-bold mb-2">Proven Community</h3>
+              <p className="text-blue-200">Learn from hundreds of successful importers</p>
+            </div>
+            
+            <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20">
+              <DollarSign className="h-12 w-12 text-purple-400 mx-auto mb-4" />
+              <h3 className="text-xl font-bold mb-2">Guaranteed Savings</h3>
+              <p className="text-blue-200">Save N$30K-100K on every import</p>
             </div>
           </div>
-        </div>
-      </section>
 
-      {/* Final CTA with Keywords */}
-      <section className="py-20 bg-gradient-to-br from-blue-600 to-purple-600 text-white">
-        <div className="max-w-4xl mx-auto px-6 text-center">
-          <h2 className="text-4xl md:text-5xl font-black mb-6">
-            Start Importing Cars from Japan to Namibia Today
-          </h2>
-          <p className="text-2xl mb-8 text-blue-100">
-            Start your import journey today and join our growing community of successful importers through Walvis Bay.
-          </p>
-          <div className="bg-white/10 backdrop-blur rounded-2xl p-8 mb-8">
-            <p className="text-3xl font-bold mb-4">
-              Start Your Import Journey Today
-            </p>
-            <p className="text-xl text-blue-100">
-              Get instant access to everything you need to import like a pro.
+          {/* CTA Card */}
+          <div className="max-w-4xl mx-auto">
+            <Card className="bg-white/10 backdrop-blur-md border border-white/20 overflow-hidden">
+              <CardContent className="p-12">
+                <div className="mb-8">
+                  <Crown className="h-16 w-16 text-yellow-400 mx-auto mb-6" />
+                  <h3 className="text-4xl font-bold mb-4 text-white">
+                    Your Import Journey Starts Now
+                  </h3>
+                  <p className="text-2xl text-blue-100 max-w-2xl mx-auto">
+                    Get instant access to everything you need to import Japanese cars to Namibia like a professional.
+                  </p>
+                </div>
+                
+                {/* Premium CTA Buttons */}
+                <div className="flex flex-col lg:flex-row gap-6 justify-center items-center mb-8">
+                  <Link href="/register?country=na&package=mistake" className="group">
+                    <Button 
+                      variant="outline"
+                      size="lg"
+                      className="h-16 px-12 text-xl font-bold border-2 border-white/30 text-white hover:bg-white hover:text-slate-900 transition-all duration-300 group-hover:scale-105 group-hover:shadow-2xl"
+                    >
+                      <BookOpen className="mr-4 h-6 w-6" />
+                      Essential Guide - N$499
+                      <ArrowRight className="ml-4 h-6 w-6 group-hover:translate-x-2 transition-transform" />
+                    </Button>
+                  </Link>
+                  
+                  <div className="text-white text-2xl font-bold">OR</div>
+                  
+                  <Link href="/register?country=na&package=mastery" className="group">
+                    <Button 
+                      size="lg"
+                      className="h-16 px-12 text-xl font-bold bg-gradient-to-r from-emerald-500 via-blue-600 to-purple-600 hover:from-emerald-600 hover:via-blue-700 hover:to-purple-700 shadow-2xl group-hover:scale-105 transition-all duration-300 group-hover:shadow-emerald-500/30"
+                    >
+                      <Crown className="mr-4 h-6 w-6" />
+                      Complete Mastery - N$1,999
+                      <Sparkles className="ml-4 h-6 w-6 group-hover:rotate-12 transition-transform" />
+                    </Button>
+                  </Link>
+                </div>
+                
+                {/* Trust Indicators */}
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-8 text-lg">
+                  <div className="flex items-center gap-3 text-emerald-300">
+                    <Zap className="h-6 w-6" />
+                    <span>Instant Access</span>
+                  </div>
+                  <div className="flex items-center gap-3 text-blue-300">
+                    <Shield className="h-6 w-6" />
+                    <span>Secure Checkout</span>
+                  </div>
+                  <div className="flex items-center gap-3 text-purple-300">
+                    <BadgeCheck className="h-6 w-6" />
+                    <span>30-Day Guarantee</span>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+          
+          {/* Final Trust Message */}
+          <div className="mt-12 max-w-3xl mx-auto">
+            <p className="text-lg text-blue-200 leading-relaxed">
+              Join the growing community of successful car importers in Namibia. Start your import journey with confidence, backed by our comprehensive guides and professional support system.
             </p>
           </div>
-          <Link href="/register?country=na&package=mastery">
-            <Button 
-              size="lg"
-              className="bg-white text-blue-600 hover:bg-gray-100 text-xl px-12 py-6 h-auto font-bold shadow-2xl"
-            >
-              Start Your Namibia Import Journey - Learn From Our Members →
-            </Button>
-          </Link>
-          <p className="mt-6 text-blue-200">
-            ⚡ Special pricing ends soon • 🔒 Secure checkout • 📱 Instant access
-          </p>
         </div>
       </section>
     </main>
