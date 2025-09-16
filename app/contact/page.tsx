@@ -18,7 +18,7 @@ export default function ContactPage() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     // Handle form submission
-    const mailtoLink = `mailto:support@impota.com?subject=${encodeURIComponent(formData.subject)}&body=${encodeURIComponent(`From: ${formData.name} (${formData.email})\n\n${formData.message}`)}`
+    const mailtoLink = `mailto:info@impota.com?subject=${encodeURIComponent(formData.subject)}&body=${encodeURIComponent(`From: ${formData.name} (${formData.email})\n\n${formData.message}`)}`
     window.location.href = mailtoLink
   }
 
@@ -45,7 +45,7 @@ export default function ContactPage() {
                 <Mail className="h-5 w-5 text-blue-600 mt-1" />
                 <div>
                   <h3 className="font-semibold">Email</h3>
-                  <p className="text-gray-600">support@impota.com</p>
+                  <p className="text-gray-600">info@impota.com</p>
                 </div>
               </div>
               
