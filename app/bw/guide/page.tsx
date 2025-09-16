@@ -250,7 +250,7 @@ export default function BotswanaGuidePage() {
                   <div>
                     <div className="flex items-center justify-center gap-2 sm:gap-3 mb-2">
                       <Shield className="h-6 w-6 sm:h-8 sm:w-8 text-sky-400" />
-                      <h3 className="font-bold text-white text-base sm:text-lg">100% Legal Compliance</h3>
+                      <h3 className="font-bold text-white text-base sm:text-lg">Full Legal Compliance</h3>
                     </div>
                     <p className="text-gray-300 text-sm sm:text-base">All procedures designed for full regulatory compliance</p>
                   </div>
@@ -266,7 +266,7 @@ export default function BotswanaGuidePage() {
                   <div className="sm:col-span-2 lg:col-span-1">
                     <div className="flex items-center justify-center gap-2 sm:gap-3 mb-2">
                       <Trophy className="h-6 w-6 sm:h-8 sm:w-8 text-cyan-400" />
-                      <h3 className="font-bold text-white text-base sm:text-lg">Proven Results</h3>
+                      <h3 className="font-bold text-white text-base sm:text-lg">Real Results</h3>
                     </div>
                     <p className="text-gray-300 text-sm sm:text-base">Successful imports across Botswana</p>
                   </div>
@@ -501,7 +501,7 @@ export default function BotswanaGuidePage() {
                       </Button>
                     </Link>
                     <p className="text-center text-xs sm:text-sm text-gray-500">
-                      Instant access • Lifetime updates • Money-back guarantee
+                      Instant access • Lifetime updates • 7-day refund policy
                     </p>
                   </div>
                 </CardContent>
@@ -621,7 +621,7 @@ export default function BotswanaGuidePage() {
                       <BadgeCheck className="h-6 w-6 sm:h-8 sm:w-8 text-amber-600" />
                     </div>
                     <h4 className="font-bold text-gray-900 mb-1 text-sm sm:text-base">Money Back</h4>
-                    <p className="text-xs sm:text-sm text-gray-600">30-day guarantee</p>
+                    <p className="text-xs sm:text-sm text-gray-600">7-day refund policy</p>
                   </div>
                 </div>
               </CardContent>
@@ -783,7 +783,7 @@ export default function BotswanaGuidePage() {
                 <div className="bg-blue-100 w-16 h-16 sm:w-20 sm:h-20 rounded-2xl sm:rounded-3xl flex items-center justify-center mx-auto mb-4 sm:mb-6 group-hover:bg-blue-200 transition-colors">
                   <Shield className="h-8 w-8 sm:h-10 sm:w-10 text-blue-600" />
                 </div>
-                <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 sm:mb-4">100% Secure & Legal</h3>
+                <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 sm:mb-4">Secure & Protected</h3>
                 <p className="text-gray-600 leading-relaxed text-sm sm:text-base">
                   All procedures designed for full compliance with Botswana import regulations. Secure payment processing with industry-standard encryption.
                 </p>
@@ -810,18 +810,18 @@ export default function BotswanaGuidePage() {
                 <div className="absolute inset-0 bg-black/10"></div>
                 <div className="relative z-10">
                   <BadgeCheck className="h-12 w-12 sm:h-16 sm:w-16 mx-auto mb-4 sm:mb-6 text-emerald-200" />
-                  <h3 className="text-2xl sm:text-3xl font-bold mb-4">30-Day Money-Back Guarantee</h3>
+                  <h3 className="text-2xl sm:text-3xl font-bold mb-4">7-Day Refund Policy</h3>
                   <p className="text-base sm:text-lg md:text-xl mb-6 sm:mb-8 text-blue-100 max-w-2xl mx-auto leading-relaxed px-4">
-                    If our guides don't provide the comprehensive import education you expected, we'll refund your purchase within 30 days. No questions asked.
+                    If our guides don't provide the comprehensive import education you expected, we'll refund your purchase within 7 days under our refund policy terms.
                   </p>
                   <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 text-base sm:text-lg">
                     <div className="flex items-center gap-2 sm:gap-3">
                       <CheckCircle className="h-5 w-5 sm:h-6 sm:w-6 text-emerald-300" />
-                      <span>Risk-Free Purchase</span>
+                      <span>Protected Purchase</span>
                     </div>
                     <div className="flex items-center gap-2 sm:gap-3">
                       <Clock className="h-5 w-5 sm:h-6 sm:w-6 text-blue-300" />
-                      <span>30-Day Protection</span>
+                      <span>7-Day Refund Policy</span>
                     </div>
                     <div className="flex items-center gap-2 sm:gap-3">
                       <Heart className="h-5 w-5 sm:h-6 sm:w-6 text-purple-300" />
@@ -882,7 +882,7 @@ export default function BotswanaGuidePage() {
             
             <div className="bg-white/10 backdrop-blur-md rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-white/20 sm:col-span-2 lg:col-span-1">
               <DollarSign className="h-10 w-10 sm:h-12 sm:w-12 text-purple-400 mx-auto mb-3 sm:mb-4" />
-              <h3 className="text-lg sm:text-xl font-bold mb-2">Guaranteed Savings</h3>
+              <h3 className="text-lg sm:text-xl font-bold mb-2">Typical Savings</h3>
               <p className="text-sm sm:text-base text-blue-200">Save P24K-80K on every import</p>
             </div>
           </div>
@@ -941,7 +941,7 @@ export default function BotswanaGuidePage() {
                   </div>
                   <div className="flex items-center gap-2 sm:gap-3 text-purple-300">
                     <BadgeCheck className="h-5 w-5 sm:h-6 sm:w-6" />
-                    <span>30-Day Guarantee</span>
+                    <span>7-Day Refund Policy</span>
                   </div>
                 </div>
               </CardContent>

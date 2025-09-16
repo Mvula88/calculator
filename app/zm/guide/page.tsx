@@ -250,7 +250,7 @@ export default function ZambiaGuidePage() {
                   <div className="text-center md:text-left">
                     <div className="flex items-center justify-center md:justify-start gap-3 mb-2">
                       <Shield className="h-8 w-8 text-emerald-400" />
-                      <h3 className="font-bold text-white text-lg">100% Legal Compliance</h3>
+                      <h3 className="font-bold text-white text-lg">Full Legal Compliance</h3>
                     </div>
                     <p className="text-gray-300">All procedures designed for full regulatory compliance</p>
                   </div>
@@ -266,7 +266,7 @@ export default function ZambiaGuidePage() {
                   <div className="text-center md:text-right">
                     <div className="flex items-center justify-center md:justify-end gap-3 mb-2">
                       <Trophy className="h-8 w-8 text-green-400" />
-                      <h3 className="font-bold text-white text-lg">Proven Results</h3>
+                      <h3 className="font-bold text-white text-lg">Real Results</h3>
                     </div>
                     <p className="text-gray-300">Successful imports across Zambia</p>
                   </div>
@@ -501,7 +501,7 @@ export default function ZambiaGuidePage() {
                       </Button>
                     </Link>
                     <p className="text-center text-sm text-gray-500">
-                      Instant access • Lifetime updates • Money-back guarantee
+                      Instant access • Lifetime updates • 7-day refund policy
                     </p>
                   </div>
                 </CardContent>
@@ -620,8 +620,8 @@ export default function ZambiaGuidePage() {
                     <div className="bg-cyan-100 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-3">
                       <BadgeCheck className="h-8 w-8 text-cyan-600" />
                     </div>
-                    <h4 className="font-bold text-gray-900 mb-1">Money Back</h4>
-                    <p className="text-sm text-gray-600">30-day guarantee</p>
+                    <h4 className="font-bold text-gray-900 mb-1">Refund Policy</h4>
+                    <p className="text-sm text-gray-600">7-day refund policy</p>
                   </div>
                 </div>
               </CardContent>
