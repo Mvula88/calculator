@@ -248,10 +248,8 @@ export default function NamibiaGuidePage() {
           <div className="text-center mb-6 sm:mb-10" id="signup">
             <div className="bg-white/5 backdrop-blur-md rounded-lg sm:rounded-xl p-4 sm:p-6 border border-white/10 max-w-3xl mx-auto">
               <div className="flex flex-col gap-3 sm:gap-4 justify-center items-center">
-                <div className="group w-full sm:w-auto">
-                  <CheckoutButton
-                    tier="mistake"
-                    country="na"
+                <a href="#pricing" className="group w-full sm:w-auto">
+                  <Button
                     size="lg"
                     variant="outline"
                     className="w-full sm:w-auto font-bold text-sm sm:text-base md:text-lg px-4 py-2 sm:px-6 sm:py-3 md:px-8 md:py-4 h-auto border-2 border-white/30 bg-black/30 text-white hover:bg-white/20 transition-all duration-300 group-hover:scale-105 min-h-[44px]"
@@ -259,23 +257,21 @@ export default function NamibiaGuidePage() {
                     <BookOpen className="mr-2 sm:mr-3 h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6" />
                     Essential Guide - N$499
                     <ArrowRight className="ml-2 sm:ml-3 h-3 w-3 sm:h-4 sm:w-4 md:h-5 md:w-5 group-hover:translate-x-1 transition-transform" />
-                  </CheckoutButton>
-                </div>
+                  </Button>
+                </a>
 
                 <div className="text-white font-bold text-sm sm:text-base md:text-lg">OR</div>
 
-                <div className="group w-full sm:w-auto">
-                  <CheckoutButton
-                    tier="mastery"
-                    country="na"
+                <a href="#pricing" className="group w-full sm:w-auto">
+                  <Button
                     size="lg"
                     className="w-full sm:w-auto font-bold text-sm sm:text-base md:text-lg px-4 py-2 sm:px-6 sm:py-3 md:px-8 md:py-4 h-auto bg-gradient-to-r from-emerald-600 via-blue-600 to-purple-600 hover:from-emerald-700 hover:via-blue-700 hover:to-purple-700 shadow-2xl group-hover:scale-105 transition-all duration-300 group-hover:shadow-emerald-500/25 min-h-[44px]"
                   >
                     <Crown className="mr-2 sm:mr-3 h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6" />
                     Complete Mastery - N$1,999
                     <Sparkles className="ml-2 sm:ml-3 h-3 w-3 sm:h-4 sm:w-4 md:h-5 md:w-5 group-hover:rotate-12 transition-transform" />
-                  </CheckoutButton>
-                </div>
+                  </Button>
+                </a>
               </div>
               
               <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 mt-3 sm:mt-4 text-xs sm:text-sm text-gray-300">
@@ -1010,6 +1006,172 @@ export default function NamibiaGuidePage() {
             <p className="text-base sm:text-lg text-blue-200 leading-relaxed px-4">
               Join the growing community of successful car importers in Namibia. Start your import journey with confidence, backed by our comprehensive guides and professional support system.
             </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Dedicated Pricing Section */}
+      <section id="pricing" className="py-16 sm:py-20 bg-gradient-to-b from-gray-50 to-white">
+        <div className="container mx-auto px-4 max-w-7xl">
+          {/* Section Header */}
+          <div className="text-center mb-12">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              Choose Your Import Success Package
+            </h2>
+            <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">
+              Select the package that best fits your import needs. Both include instant access and lifetime updates.
+            </p>
+          </div>
+
+          {/* Pricing Cards */}
+          <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            {/* Essential Guide Package */}
+            <Card className="relative overflow-hidden hover:shadow-2xl transition-all duration-300 border-2 hover:border-blue-500">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500 opacity-10 rounded-full -mr-16 -mt-16"></div>
+              <CardHeader className="pb-6">
+                <div className="flex items-center justify-between mb-4">
+                  <BookOpen className="h-12 w-12 text-blue-500" />
+                  <span className="text-sm font-semibold bg-blue-100 text-blue-700 px-3 py-1 rounded-full">
+                    Best for Beginners
+                  </span>
+                </div>
+                <CardTitle className="text-2xl font-bold">Essential Guide</CardTitle>
+                <div className="mt-4">
+                  <span className="text-4xl font-bold text-blue-600">N$499</span>
+                  <span className="text-gray-500 ml-2">one-time</span>
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <ul className="space-y-3">
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                    <span className="text-gray-700">Complete import timeline & process</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                    <span className="text-gray-700">Cost breakdown calculator</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                    <span className="text-gray-700">Mistake avoidance checklist</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                    <span className="text-gray-700">Document templates & samples</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                    <span className="text-gray-700">Email templates for agents</span>
+                  </li>
+                </ul>
+                <div className="pt-6">
+                  <CheckoutButton
+                    tier="mistake"
+                    country="na"
+                    size="lg"
+                    className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-lg transition-all duration-300 hover:shadow-xl"
+                  >
+                    Get Essential Guide
+                    <ArrowRight className="ml-2 h-5 w-5" />
+                  </CheckoutButton>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Complete Mastery Package */}
+            <Card className="relative overflow-hidden hover:shadow-2xl transition-all duration-300 border-2 hover:border-purple-500">
+              <div className="absolute top-0 right-0 bg-gradient-to-r from-purple-600 to-pink-600 text-white text-xs font-bold px-4 py-2 rounded-bl-lg">
+                MOST POPULAR
+              </div>
+              <div className="absolute top-0 left-0 w-32 h-32 bg-purple-500 opacity-10 rounded-full -ml-16 -mt-16"></div>
+              <CardHeader className="pb-6">
+                <div className="flex items-center justify-between mb-4">
+                  <Crown className="h-12 w-12 text-purple-500" />
+                  <span className="text-sm font-semibold bg-purple-100 text-purple-700 px-3 py-1 rounded-full">
+                    Complete Solution
+                  </span>
+                </div>
+                <CardTitle className="text-2xl font-bold">Import Mastery</CardTitle>
+                <div className="mt-4">
+                  <span className="text-4xl font-bold text-purple-600">N$1,999</span>
+                  <span className="text-gray-500 ml-2">lifetime access</span>
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <ul className="space-y-3">
+                  <li className="flex items-start gap-3">
+                    <Star className="h-5 w-5 text-purple-500 mt-0.5 flex-shrink-0" />
+                    <span className="text-gray-700 font-semibold">Everything in Essential Guide</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                    <span className="text-gray-700">Live duty & tax calculator</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                    <span className="text-gray-700">Japan auction bidding guide</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                    <span className="text-gray-700">Verified agent contacts & reviews</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                    <span className="text-gray-700">Container sharing network</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                    <span className="text-gray-700">Priority WhatsApp support</span>
+                  </li>
+                </ul>
+                <div className="pt-6">
+                  <CheckoutButton
+                    tier="mastery"
+                    country="na"
+                    size="lg"
+                    className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold py-3 rounded-lg transition-all duration-300 hover:shadow-xl"
+                  >
+                    Get Complete Mastery
+                    <Sparkles className="ml-2 h-5 w-5" />
+                  </CheckoutButton>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Trust Badges */}
+          <div className="mt-12 flex flex-wrap items-center justify-center gap-8 text-gray-600">
+            <div className="flex items-center gap-2">
+              <Shield className="h-5 w-5 text-green-500" />
+              <span>SSL Secure Payment</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Clock className="h-5 w-5 text-blue-500" />
+              <span>Instant Access</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Users className="h-5 w-5 text-purple-500" />
+              <span>500+ Happy Importers</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <TrendingUp className="h-5 w-5 text-orange-500" />
+              <span>Updated Monthly</span>
+            </div>
+          </div>
+
+          {/* Money Back Guarantee */}
+          <div className="mt-12 text-center">
+            <Card className="max-w-2xl mx-auto bg-gradient-to-r from-green-50 to-blue-50 border-2 border-green-200">
+              <CardContent className="p-6">
+                <div className="flex items-center justify-center gap-4">
+                  <BadgeCheck className="h-12 w-12 text-green-600" />
+                  <div className="text-left">
+                    <h4 className="font-bold text-lg text-gray-900">7-Day Money Back Guarantee</h4>
+                    <p className="text-gray-600">If you're not completely satisfied, get a full refund within 7 days. No questions asked.</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>
