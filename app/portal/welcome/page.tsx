@@ -51,6 +51,7 @@ function WelcomeContent() {
           .from('entitlements')
           .select('*')
           .or(`email.eq.${user.email?.toLowerCase()},user_id.eq.${user.id}`)
+          .eq('active', true)
           .limit(1)
         
         if (entitlements && entitlements.length > 0) {
