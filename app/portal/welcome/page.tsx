@@ -4,10 +4,11 @@ import { createClient } from '@/lib/supabase/server'
 export default async function WelcomePage({
   searchParams,
 }: {
-  searchParams: { payment_status?: string; session_id?: string }
+  searchParams: Promise<{ payment_status?: string; session_id?: string }>
 }) {
-  const paymentStatus = searchParams.payment_status
-  const sessionId = searchParams.session_id
+  const params = await searchParams
+  const paymentStatus = params.payment_status
+  const sessionId = params.session_id
 
   // If payment successful, go to portal
   if (paymentStatus === 'success') {
