@@ -22,67 +22,44 @@ function WelcomeContent() {
   console.log('Welcome page loaded with:', { sessionId, paymentStatus })
   
   useEffect(() => {
-    // Always check for payment success first
-    if (paymentStatus === 'success') {
-      // Even without sessionId, this is a successful payment redirect
-      console.log('Payment successful, checking entitlement...')
-      checkEntitlement()
-    } else if (!paymentStatus && !sessionId) {
-      // Only check general access if no payment parameters at all
-      console.log('No payment parameters, checking if user has access...')
-      checkIfUserHasAccess()
-    } else {
-      // Has payment parameters but not success - likely canceled
-      console.log('Payment not successful or canceled')
-      setStatus('error')
-    }
-  }, [sessionId, paymentStatus])
-  
-  const checkIfUserHasAccess = async () => {
-    try {
-      const supabase = createClient()
-      const { data: { user } } = await supabase.auth.getUser()
-      
-      if (user) {
-        setUserEmail(user.email || null)
-        
-        // Check if user has any active entitlement - use OR for email/user_id
-        const { data: entitlements } = await supabase
-          .from('entitlements')
-          .select('*')
-          .or(`email.eq.${user.email?.toLowerCase()},user_id.eq.${user.id}`)
-          .eq('active', true)
-          .limit(1)
-        
-        if (entitlements && entitlements.length > 0) {
-          console.log('User has entitlement, redirecting to portal')
-          // User has access, redirect to portal
-          setStatus('success')
-          setTimeout(() => {
-            router.push('/portal')
-          }, 1000)
-        } else {
-          console.log('No entitlements found for user, but they are logged in')
-          // For logged in users on welcome page, keep checking
-          // They might have just upgraded and webhook is processing
-          setStatus('waiting')
-          checkEntitlement()
-        }
+    const checkAccess = async () => {
+      // Always check for payment success first
+      if (paymentStatus === 'success' || sessionId) {
+        // Payment redirect - check entitlements with retry logic
+        console.log('Payment redirect detected, checking entitlement...')
+        await checkEntitlement()
       } else {
-        console.log('No user logged in')
-        // No user logged in after payment - redirect to create account
-        if (sessionId && paymentStatus === 'success') {
-          console.log('Payment successful but no user - redirecting to create account')
-          router.push(`/auth/create-account?session_id=${sessionId}`)
+        // No payment parameters - check if user already has access
+        console.log('No payment parameters, checking existing access...')
+        const supabase = createClient()
+        const { data: { user } } = await supabase.auth.getUser()
+
+        if (user) {
+          // Check for active entitlements
+          const { data: entitlements } = await supabase
+            .from('entitlements')
+            .select('*')
+            .or(`email.eq.${user.email?.toLowerCase()},user_id.eq.${user.id}`)
+            .eq('active', true)
+            .limit(1)
+
+          if (entitlements && entitlements.length > 0) {
+            console.log('User already has access, redirecting to portal')
+            router.push('/portal')
+          } else {
+            console.log('User logged in but no entitlements, redirecting to packages')
+            router.push('/packages')
+          }
         } else {
-          setStatus('error')
+          console.log('No user logged in, redirecting to login')
+          router.push('/auth/login')
         }
       }
-    } catch (error) {
-      console.error('Error checking user access:', error)
-      setStatus('error')
     }
-  }
+
+    checkAccess()
+  }, [sessionId, paymentStatus, router])
+  
 
   const checkEntitlement = async () => {
     const maxAttempts = 30 // Check for up to 30 seconds (webhook can be slow)

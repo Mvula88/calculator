@@ -131,10 +131,11 @@ export async function POST(req: NextRequest) {
     baseUrl = baseUrl.replace(/\/$/, '')
     
     // Use environment variable with proper fallback
-    // After successful payment, user goes to welcome page that handles the race condition
-    // For upgrades, use portal as cancel URL since user already has access
-    const successUrl = `${baseUrl}/portal/welcome?session_id={CHECKOUT_SESSION_ID}&payment_status=success`
-    const cancelUrl = `${baseUrl}/portal?payment_status=canceled`
+    // After successful payment, if user exists redirect to portal, else to login
+    const successUrl = user
+      ? `${baseUrl}/portal/welcome?session_id={CHECKOUT_SESSION_ID}&payment_status=success`
+      : `${baseUrl}/auth/login?session_id={CHECKOUT_SESSION_ID}&payment_status=success`
+    const cancelUrl = `${baseUrl}/packages?payment_status=canceled`
     
     console.log('=== STRIPE CHECKOUT URLS ===')
     console.log('Base URL:', baseUrl)

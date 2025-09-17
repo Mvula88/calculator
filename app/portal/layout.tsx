@@ -69,30 +69,16 @@ export default function SimplePortalLayout({
     )
   }
   
-  // If there's an error or no user, show a message with login link
+  // If there's an error or no user, redirect to login immediately
   if (error || !user) {
+    if (typeof window !== 'undefined') {
+      window.location.href = '/auth/login?redirectTo=/portal'
+    }
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <div className="text-center max-w-md">
-          <h2 className="text-2xl font-bold mb-4">Portal Access Required</h2>
-          <p className="text-gray-600 mb-6">
-            {error || 'You need to be logged in to access the portal.'}
-          </p>
-          <Button 
-            onClick={() => {
-              window.location.href = '/auth/login?redirectTo=/portal'
-            }}
-          >
-            Go to Login
-          </Button>
-          <div className="mt-4">
-            <Link 
-              href="/auth/login?redirectTo=/portal" 
-              className="text-blue-600 hover:underline text-sm"
-            >
-              Or click here if button doesn't work
-            </Link>
-          </div>
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
+          <p className="mt-4 text-gray-600">Redirecting to login...</p>
         </div>
       </div>
     )

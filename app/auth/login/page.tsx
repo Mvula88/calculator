@@ -26,10 +26,17 @@ function LoginForm() {
     // Check for messages from redirect
     const msg = searchParams.get('message')
     const redirectEmail = searchParams.get('email')
-    
+    const sessionId = searchParams.get('session_id')
+    const paymentStatus = searchParams.get('payment_status')
+
     if (msg === 'account-exists' && redirectEmail) {
       setMessage('You already have an account. Please login to access your purchase.')
       setEmail(redirectEmail)
+    }
+
+    // If coming from successful payment
+    if (paymentStatus === 'success' && sessionId) {
+      setMessage('Payment successful! Please login to access your portal.')
     }
   }, [searchParams])
 
