@@ -23,8 +23,26 @@ function WelcomeContent() {
 
   useEffect(() => {
     const checkAccess = async () => {
+      // Quick check if user is already authenticated
+      const supabase = createClient()
+      const { data: { user } } = await supabase.auth.getUser()
+
+      // If user is already logged in and this is from a payment, just go to portal
+      if (user && paymentStatus === 'success') {
+        console.log('User already authenticated after payment, going to portal')
+        router.replace('/portal')
+        return
+      }
+
+      // If we have payment parameters but no user, need to register
+      if (!user && paymentStatus === 'success' && sessionId) {
+        console.log('Payment successful but no user, redirecting to register')
+        router.replace(`/auth/register?session_id=${sessionId}&payment_status=success`)
+        return
+      }
+
       // If we have payment parameters, check entitlements with retry
-      if (paymentStatus === 'success' || sessionId) {
+      if (sessionId) {
         console.log('Payment redirect detected, checking entitlement...')
         setStatus('waiting')
         await checkEntitlement()
@@ -33,25 +51,10 @@ function WelcomeContent() {
         console.log('No payment parameters, checking existing access...')
         setStatus('redirecting')
 
-        const supabase = createClient()
-        const { data: { user } } = await supabase.auth.getUser()
-
         if (user) {
-          // Check for active entitlements
-          const { data: entitlements } = await supabase
-            .from('entitlements')
-            .select('*')
-            .or(`email.eq.${user.email?.toLowerCase()},user_id.eq.${user.id}`)
-            .eq('active', true)
-            .limit(1)
-
-          if (entitlements && entitlements.length > 0) {
-            console.log('User already has access, redirecting to portal')
-            router.replace('/portal')
-          } else {
-            console.log('User logged in but no entitlements, redirecting to guide')
-            router.replace('/na/guide')
-          }
+          // User is logged in, go to portal
+          console.log('User logged in, redirecting to portal')
+          router.replace('/portal')
         } else {
           console.log('No user logged in, redirecting to login')
           router.replace('/auth/login')
@@ -75,9 +78,9 @@ function WelcomeContent() {
 
         // If no user is logged in and we have a successful payment
         if (!user && sessionId && paymentStatus === 'success') {
-          // Extract email from session if possible, or redirect to create account
-          console.log('No user logged in after payment, redirecting to create account')
-          router.push(`/auth/create-account?session_id=${sessionId}`)
+          // Extract email from session if possible, or redirect to register
+          console.log('No user logged in after payment, redirecting to register')
+          router.push(`/auth/register?session_id=${sessionId}&payment_status=success`)
           return true
         }
 
@@ -249,7 +252,7 @@ function WelcomeContent() {
             
             <div className="flex flex-col gap-3">
               {sessionId ? (
-                <Link href={`/auth/create-account?session_id=${sessionId}`}>
+                <Link href={`/auth/register?session_id=${sessionId}&payment_status=success`}>
                   <Button className="w-full">
                     Create Your Account
                     <ArrowRight className="ml-2 h-4 w-4" />
