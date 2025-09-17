@@ -60,11 +60,37 @@ function LoginForm() {
       return
     }
 
-    // Check if user needs to complete setup
-    if (data.user?.user_metadata?.needs_password_reset) {
-      router.push('/auth/setup-account')
-    } else {
-      router.push('/portal')
+    // After successful login, check if user has entitlements by email
+    // This handles the case where payment happened before account creation
+    if (data.user) {
+      const { data: entitlement } = await supabase
+        .from('entitlements')
+        .select('*')
+        .eq('email', data.user.email?.toLowerCase())
+        .eq('active', true)
+        .maybeSingle()
+
+      if (entitlement && !entitlement.user_id) {
+        // Link the entitlement to the user if not already linked
+        await supabase
+          .from('entitlements')
+          .update({ user_id: data.user.id })
+          .eq('id', entitlement.id)
+
+        console.log('Linked entitlement to user:', data.user.email)
+      }
+
+      // Check if user needs to complete setup
+      if (data.user.user_metadata?.needs_password_reset) {
+        router.push('/auth/setup-account')
+      } else if (entitlement) {
+        // User has entitlement, go to portal
+        router.push('/portal')
+      } else {
+        // No entitlement found - shouldn't happen in your flow
+        console.error('No entitlement found for user:', data.user.email)
+        router.push('/na/guide')
+      }
     }
   }
 
