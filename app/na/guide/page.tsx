@@ -885,55 +885,6 @@ export default function NamibiaGuidePage() {
       {/* Dedicated Pricing Section - Always visible */}
       <section id="pricing" className="py-16 sm:py-20 bg-gradient-to-b from-gray-50 to-white">
         <div className="container mx-auto px-4 max-w-7xl">
-              {/* User with Mastery - Show portal access */}
-              {loading ? (
-                <div className="text-center">
-                  <p className="text-gray-600">Loading...</p>
-                </div>
-              ) : user && entitlement?.tier === 'mastery' ? (
-                <div className="text-center">
-                  <Card className="max-w-2xl mx-auto">
-                    <CardHeader>
-                      <Crown className="h-16 w-16 text-purple-600 mx-auto mb-4" />
-                      <CardTitle className="text-3xl font-bold">Welcome Back, Import Master!</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-lg text-gray-600 mb-6">
-                        You have lifetime access to the Complete Mastery package.
-                      </p>
-                      <Link href="/portal">
-                        <Button size="lg" className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700">
-                          Access Member Portal
-                          <ArrowRight className="ml-2 h-5 w-5" />
-                        </Button>
-                      </Link>
-                    </CardContent>
-                  </Card>
-                </div>
-              ) : user && entitlement?.tier === 'mistake' ? (
-                // User with Essential - They have legacy access, show portal
-                <div className="text-center">
-                  <Card className="max-w-2xl mx-auto">
-                    <CardHeader>
-                      <BookOpen className="h-16 w-16 text-blue-600 mx-auto mb-4" />
-                      <CardTitle className="text-3xl font-bold">Welcome Back!</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-lg text-gray-600 mb-6">
-                        You have lifetime access to the Essential Guide package.
-                      </p>
-                      <Link href="/portal">
-                        <Button size="lg" className="bg-blue-600 hover:bg-blue-700">
-                          Access Member Portal
-                          <ArrowRight className="ml-2 h-5 w-5" />
-                        </Button>
-                      </Link>
-                    </CardContent>
-                  </Card>
-                </div>
-              ) : (
-                // Not logged in - Show full pricing
-                <>
                   <div className="text-center mb-12">
                     <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
                       Choose Your Success Package
@@ -1055,8 +1006,6 @@ export default function NamibiaGuidePage() {
               </CardContent>
             </Card>
           </div>
-                </>
-              )}
         </div>
       </section>
     </main>
