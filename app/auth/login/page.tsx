@@ -74,28 +74,6 @@ function LoginForm() {
       if (data.user) {
         console.log('User logged in successfully:', data.user.email)
 
-        // Try to link any orphaned entitlements
-        console.log('Checking for orphaned entitlements...')
-        const { data: entitlement, error: entError } = await supabase
-          .from('entitlements')
-          .select('*')
-          .eq('email', data.user.email?.toLowerCase())
-          .eq('active', true)
-          .maybeSingle()
-
-        console.log('Entitlement check:', { found: !!entitlement, error: entError })
-
-        if (entitlement && !entitlement.user_id) {
-          // Link the entitlement to the user if not already linked
-          console.log('Linking entitlement to user...')
-          await supabase
-            .from('entitlements')
-            .update({ user_id: data.user.id })
-            .eq('id', entitlement.id)
-
-          console.log('Linked entitlement to user:', data.user.email)
-        }
-
         // Get redirect URL from params or default to /portal
         const redirectTo = searchParams.get('redirectTo') || '/portal'
         console.log('Redirect target:', redirectTo)
@@ -103,24 +81,45 @@ function LoginForm() {
         // Check if user needs to complete setup
         if (data.user.user_metadata?.needs_password_reset) {
           console.log('User needs password reset, redirecting to setup...')
-          setTimeout(() => {
-            window.location.href = '/auth/setup-account'
-          }, 100)
+          window.location.href = '/auth/setup-account'
         } else {
           // ALWAYS go to portal for authenticated users
           // (they can't be authenticated without paying in your flow)
           console.log('Login successful, redirecting to:', redirectTo)
 
-          // Small delay to ensure state updates
-          setTimeout(() => {
-            window.location.href = redirectTo
-          }, 100)
+          // Immediate redirect - don't wait for entitlement check
+          window.location.href = redirectTo
 
-          // Fallback: clear loading state after 3 seconds if redirect fails
-          setTimeout(() => {
-            setLoading(false)
-            setError('Redirect failed. Please try refreshing the page or click here to go to the portal.')
-          }, 3000)
+          // Try to link orphaned entitlements in background (non-blocking)
+          // This will complete even after redirect
+          console.log('Checking for orphaned entitlements in background...')
+          supabase
+            .from('entitlements')
+            .select('*')
+            .eq('email', data.user.email?.toLowerCase())
+            .eq('active', true)
+            .maybeSingle()
+            .then(({ data: entitlement, error: entError }) => {
+              console.log('Background entitlement check:', { found: !!entitlement, error: entError })
+
+              if (entitlement && !entitlement.user_id) {
+                // Link the entitlement to the user if not already linked
+                console.log('Linking entitlement to user in background...')
+                supabase
+                  .from('entitlements')
+                  .update({ user_id: data.user.id })
+                  .eq('id', entitlement.id)
+                  .then(() => {
+                    console.log('Background: Linked entitlement to user:', data.user.email)
+                  })
+                  .catch(err => {
+                    console.error('Background: Failed to link entitlement:', err)
+                  })
+              }
+            })
+            .catch(err => {
+              console.error('Background entitlement check failed:', err)
+            })
         }
       } else {
         console.log('No user data returned from login')
