@@ -124,7 +124,7 @@ export async function POST(req: NextRequest) {
       baseUrl = 'http://localhost:3000'
       console.log('Warning: No host header or env var, using localhost')
     } else {
-      console.log('Using base URL:', baseUrl, '(from:', host ? 'host header' : 'env var')')
+      console.log('Using base URL:', baseUrl, '(from:', host ? 'host header' : 'env var', ')')
     }
     
     // Remove trailing slash if present
