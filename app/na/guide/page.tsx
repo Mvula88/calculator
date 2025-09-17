@@ -1,15 +1,17 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { createClient } from '@/lib/supabase/client'
 import Link from 'next/link'
 import Script from 'next/script'
 import { Button } from '@/components/ui/button'
 import CheckoutButton from '@/components/checkout-button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { 
-  CheckCircle, 
-  AlertTriangle, 
-  Ship, 
+import {
+  CheckCircle,
+  AlertTriangle,
+  Ship,
+  Lock, 
   TrendingDown, 
   Clock, 
   Shield, 
@@ -126,6 +128,34 @@ const faqs = [
 ]
 
 export default function NamibiaGuidePage() {
+  const [user, setUser] = useState<any>(null)
+  const [entitlement, setEntitlement] = useState<any>(null)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    async function checkUser() {
+      const supabase = createClient()
+      const { data: { user } } = await supabase.auth.getUser()
+
+      if (user) {
+        setUser(user)
+
+        // Check user's entitlement
+        const { data: entitlement } = await supabase
+          .from('entitlements')
+          .select('*')
+          .eq('user_id', user.id)
+          .eq('active', true)
+          .single()
+
+        setEntitlement(entitlement)
+      }
+
+      setLoading(false)
+    }
+
+    checkUser()
+  }, [])
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null)
   const [isLoading, setIsLoading] = useState(false)
 
@@ -248,30 +278,47 @@ export default function NamibiaGuidePage() {
           <div className="text-center mb-6 sm:mb-10" id="signup">
             <div className="bg-white/5 backdrop-blur-md rounded-lg sm:rounded-xl p-4 sm:p-6 border border-white/10 max-w-3xl mx-auto">
               <div className="flex flex-col gap-3 sm:gap-4 justify-center items-center">
-                <a href="#pricing" className="group w-full sm:w-auto">
-                  <Button
-                    size="lg"
-                    variant="outline"
-                    className="w-full sm:w-auto font-bold text-sm sm:text-base md:text-lg px-4 py-2 sm:px-6 sm:py-3 md:px-8 md:py-4 h-auto border-2 border-white/30 bg-black/30 text-white hover:bg-white/20 transition-all duration-300 group-hover:scale-105 min-h-[44px]"
-                  >
-                    <BookOpen className="mr-2 sm:mr-3 h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6" />
-                    Essential Guide - N$499
-                    <ArrowRight className="ml-2 sm:ml-3 h-3 w-3 sm:h-4 sm:w-4 md:h-5 md:w-5 group-hover:translate-x-1 transition-transform" />
-                  </Button>
-                </a>
+                {user && entitlement ? (
+                  // User is logged in with entitlement - show portal access
+                  <Link href="/portal" className="group">
+                    <Button
+                      size="lg"
+                      className="font-bold text-sm sm:text-base md:text-lg px-4 py-2 sm:px-6 sm:py-3 md:px-8 md:py-4 h-auto bg-gradient-to-r from-emerald-600 via-blue-600 to-purple-600 hover:from-emerald-700 hover:via-blue-700 hover:to-purple-700 shadow-2xl group-hover:scale-105 transition-all duration-300 group-hover:shadow-emerald-500/25 min-h-[44px]"
+                    >
+                      <Lock className="mr-2 sm:mr-3 h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6" />
+                      Access Member Portal
+                      <ArrowRight className="ml-2 sm:ml-3 h-3 w-3 sm:h-4 sm:w-4 md:h-5 md:w-5 group-hover:translate-x-1 transition-transform" />
+                    </Button>
+                  </Link>
+                ) : (
+                  // Not logged in - show pricing options
+                  <>
+                    <a href="#pricing" className="group w-full sm:w-auto">
+                      <Button
+                        size="lg"
+                        variant="outline"
+                        className="w-full sm:w-auto font-bold text-sm sm:text-base md:text-lg px-4 py-2 sm:px-6 sm:py-3 md:px-8 md:py-4 h-auto border-2 border-white/30 bg-black/30 text-white hover:bg-white/20 transition-all duration-300 group-hover:scale-105 min-h-[44px]"
+                      >
+                        <BookOpen className="mr-2 sm:mr-3 h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6" />
+                        Essential Guide - N$499
+                        <ArrowRight className="ml-2 sm:ml-3 h-3 w-3 sm:h-4 sm:w-4 md:h-5 md:w-5 group-hover:translate-x-1 transition-transform" />
+                      </Button>
+                    </a>
 
-                <div className="text-white font-bold text-sm sm:text-base md:text-lg">OR</div>
+                    <div className="text-white font-bold text-sm sm:text-base md:text-lg">OR</div>
 
-                <a href="#pricing" className="group w-full sm:w-auto">
-                  <Button
-                    size="lg"
-                    className="w-full sm:w-auto font-bold text-sm sm:text-base md:text-lg px-4 py-2 sm:px-6 sm:py-3 md:px-8 md:py-4 h-auto bg-gradient-to-r from-emerald-600 via-blue-600 to-purple-600 hover:from-emerald-700 hover:via-blue-700 hover:to-purple-700 shadow-2xl group-hover:scale-105 transition-all duration-300 group-hover:shadow-emerald-500/25 min-h-[44px]"
-                  >
-                    <Crown className="mr-2 sm:mr-3 h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6" />
-                    Complete Mastery - N$1,999
-                    <Sparkles className="ml-2 sm:ml-3 h-3 w-3 sm:h-4 sm:w-4 md:h-5 md:w-5 group-hover:rotate-12 transition-transform" />
-                  </Button>
-                </a>
+                    <a href="#pricing" className="group w-full sm:w-auto">
+                      <Button
+                        size="lg"
+                        className="w-full sm:w-auto font-bold text-sm sm:text-base md:text-lg px-4 py-2 sm:px-6 sm:py-3 md:px-8 md:py-4 h-auto bg-gradient-to-r from-emerald-600 via-blue-600 to-purple-600 hover:from-emerald-700 hover:via-blue-700 hover:to-purple-700 shadow-2xl group-hover:scale-105 transition-all duration-300 group-hover:shadow-emerald-500/25 min-h-[44px]"
+                      >
+                        <Crown className="mr-2 sm:mr-3 h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6" />
+                        Complete Mastery - N$1,999
+                        <Sparkles className="ml-2 sm:ml-3 h-3 w-3 sm:h-4 sm:w-4 md:h-5 md:w-5 group-hover:rotate-12 transition-transform" />
+                      </Button>
+                    </a>
+                  </>
+                )}
               </div>
               
               <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 mt-3 sm:mt-4 text-xs sm:text-sm text-gray-300">
@@ -1010,18 +1057,119 @@ export default function NamibiaGuidePage() {
         </div>
       </section>
 
-      {/* Dedicated Pricing Section */}
+      {/* Dedicated Pricing Section - Only show if not logged in or has Essential tier */}
       <section id="pricing" className="py-16 sm:py-20 bg-gradient-to-b from-gray-50 to-white">
         <div className="container mx-auto px-4 max-w-7xl">
-          {/* Section Header */}
-          <div className="text-center mb-12">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              Choose Your Import Success Package
-            </h2>
-            <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">
-              Select the package that best fits your import needs. Both include instant access and lifetime updates.
-            </p>
-          </div>
+          {!loading && (
+            <>
+              {/* User with Mastery - Show portal access */}
+              {user && entitlement?.tier === 'mastery' ? (
+                <div className="text-center">
+                  <Card className="max-w-2xl mx-auto">
+                    <CardHeader>
+                      <Crown className="h-16 w-16 text-purple-600 mx-auto mb-4" />
+                      <CardTitle className="text-3xl font-bold">Welcome Back, Import Master!</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-lg text-gray-600 mb-6">
+                        You have lifetime access to the Complete Mastery package.
+                      </p>
+                      <Link href="/portal">
+                        <Button size="lg" className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700">
+                          Access Member Portal
+                          <ArrowRight className="ml-2 h-5 w-5" />
+                        </Button>
+                      </Link>
+                    </CardContent>
+                  </Card>
+                </div>
+              ) : user && entitlement?.tier === 'mistake' ? (
+                // User with Essential - Show upgrade option
+                <>
+                  <div className="text-center mb-12">
+                    <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                      Upgrade to Complete Mastery
+                    </h2>
+                    <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">
+                      You currently have the Essential Guide. Unlock advanced features with Complete Mastery!
+                    </p>
+                  </div>
+                  <div className="max-w-xl mx-auto">
+                    <Card className="relative overflow-hidden hover:shadow-2xl transition-all duration-300 border-2 hover:border-purple-500">
+                      <div className="absolute top-0 right-0 bg-gradient-to-r from-purple-600 to-pink-600 text-white text-xs font-bold px-4 py-2 rounded-bl-lg">
+                        UPGRADE SPECIAL
+                      </div>
+                      <CardHeader className="pb-6">
+                        <div className="flex items-center justify-between mb-4">
+                          <Crown className="h-12 w-12 text-purple-500" />
+                          <span className="text-sm font-semibold bg-purple-100 text-purple-700 px-3 py-1 rounded-full">
+                            Unlock Everything
+                          </span>
+                        </div>
+                        <CardTitle className="text-2xl font-bold">Import Mastery</CardTitle>
+                        <div className="mt-4">
+                          <span className="text-4xl font-bold text-purple-600">N$1,999</span>
+                          <span className="text-gray-500 ml-2">lifetime access</span>
+                        </div>
+                      </CardHeader>
+                      <CardContent className="space-y-4">
+                        <ul className="space-y-3">
+                          <li className="flex items-start gap-3">
+                            <Star className="h-5 w-5 text-purple-500 mt-0.5 flex-shrink-0" />
+                            <span className="text-gray-700 font-semibold">Keep all Essential Guide features</span>
+                          </li>
+                          <li className="flex items-start gap-3">
+                            <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                            <span className="text-gray-700">Live duty & tax calculator</span>
+                          </li>
+                          <li className="flex items-start gap-3">
+                            <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                            <span className="text-gray-700">Japan auction bidding guide</span>
+                          </li>
+                          <li className="flex items-start gap-3">
+                            <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                            <span className="text-gray-700">Verified agent contacts & reviews</span>
+                          </li>
+                          <li className="flex items-start gap-3">
+                            <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                            <span className="text-gray-700">Container sharing network</span>
+                          </li>
+                          <li className="flex items-start gap-3">
+                            <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                            <span className="text-gray-700">Priority WhatsApp support</span>
+                          </li>
+                        </ul>
+                        <div className="pt-6 space-y-3">
+                          <CheckoutButton
+                            tier="mastery"
+                            country="na"
+                            size="lg"
+                            className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold py-3 rounded-lg transition-all duration-300 hover:shadow-xl"
+                          >
+                            Upgrade to Complete Mastery
+                            <Sparkles className="ml-2 h-5 w-5" />
+                          </CheckoutButton>
+                          <Link href="/portal" className="block">
+                            <Button variant="outline" className="w-full">
+                              Access Member Portal
+                            </Button>
+                          </Link>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </div>
+                </>
+              ) : (
+                // Not logged in - Show full pricing
+                <>
+                  <div className="text-center mb-12">
+                    <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                      Choose Your Import Success Package
+                    </h2>
+                    <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">
+                      Select the package that best fits your import needs. Both include instant access and lifetime updates.
+                    </p>
+                  </div>
 
           {/* Pricing Cards */}
           <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
@@ -1172,7 +1320,10 @@ export default function NamibiaGuidePage() {
                 </div>
               </CardContent>
             </Card>
-          </div>
+                </>
+              )}
+            </>
+          )}
         </div>
       </section>
     </main>
