@@ -15,114 +15,41 @@ interface UseAuthReturn {
 
 export function useAuthImmediate(): UseAuthReturn {
   const [user, setUser] = useState<User | null>(null)
-  const [userTier, setUserTier] = useState<'mistake' | 'mastery' | null>(null)
+  const [userTier, setUserTier] = useState<'mistake' | 'mastery' | null>('mastery') // Default to mastery
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     let mounted = true
-    let authTimeout: NodeJS.Timeout
 
     const checkAuth = async () => {
-      console.log('[useAuthImmediate] Starting check...')
-      
-      // Set a hard timeout of 3 seconds
-      authTimeout = setTimeout(() => {
-        if (mounted && loading) {
-          console.log('[useAuthImmediate] Auth check timed out, assuming no user')
-          setLoading(false)
-          setError('Auth check timed out')
-        }
-      }, 3000)
-
       try {
-        // Check for Supabase cookies first (immediate)
-        const hasAuthCookie = document.cookie.split('; ').some(cookie => 
-          cookie.startsWith('sb-') || cookie.includes('supabase')
-        )
-        
-        if (!hasAuthCookie) {
-          console.log('[useAuthImmediate] No auth cookies found')
-          if (mounted) {
-            setLoading(false)
-            clearTimeout(authTimeout)
-          }
-          return
-        }
-
-        console.log('[useAuthImmediate] Auth cookies found, attempting to get session...')
-        
-        // Dynamic import to avoid blocking
         const { createClient } = await import('@/lib/supabase/client')
         const supabase = createClient()
-        
-        // Use Promise.race to ensure we don't wait forever
-        const sessionPromise = supabase.auth.getSession()
-        const timeoutPromise = new Promise((_, reject) => 
-          setTimeout(() => reject(new Error('Session timeout')), 2000)
-        )
-        
-        try {
-          const result = await Promise.race([sessionPromise, timeoutPromise]) as any
-          
-          if (!mounted) return
-          
-          if (result?.data?.session?.user) {
-            console.log('[useAuthImmediate] Session found:', result.data.session.user.email)
-            setUser(result.data.session.user)
-            
-            // Try to get tier but don't wait long
-            try {
-              // Check by both user_id AND email (since webhook might create with email only)
-              const tierPromise = supabase
-                .from('entitlements')
-                .select('tier')
-                .or(`user_id.eq.${result.data.session.user.id},email.eq.${result.data.session.user.email?.toLowerCase()}`)
-                .eq('active', true)
-                .order('created_at', { ascending: false })
-                .limit(1)
-                .single()
-              
-              const tierTimeout = new Promise((_, reject) => 
-                setTimeout(() => reject(new Error('Tier timeout')), 1000)
-              )
-              
-              const tierResult = await Promise.race([tierPromise, tierTimeout]) as any
-              
-              if (tierResult?.data?.tier) {
-                setUserTier(tierResult.data.tier)
-              }
-            } catch (e) {
-              console.log('[useAuthImmediate] Could not get tier (non-critical)')
-            }
-          } else {
-            console.log('[useAuthImmediate] No session in result')
-          }
-        } catch (e) {
-          console.log('[useAuthImmediate] Session check failed:', e)
-          setError('Could not verify session')
-        }
-        
+
+        const { data: { session } } = await supabase.auth.getSession()
+
         if (mounted) {
+          if (session?.user) {
+            setUser(session.user)
+            // Always set tier to mastery since we have one package now
+            setUserTier('mastery')
+          }
           setLoading(false)
-          clearTimeout(authTimeout)
         }
       } catch (error) {
         console.error('[useAuthImmediate] Error:', error)
         if (mounted) {
           setError(String(error))
           setLoading(false)
-          clearTimeout(authTimeout)
         }
       }
     }
-    
-    // Start auth check immediately
+
     checkAuth()
-    
+
     return () => {
       mounted = false
-      if (authTimeout) clearTimeout(authTimeout)
     }
   }, [])
 

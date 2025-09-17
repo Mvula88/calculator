@@ -43,65 +43,41 @@ function LoginForm() {
 
   async function handlePasswordLogin(e: React.FormEvent) {
     e.preventDefault()
-    console.log('Starting login process...')
     setLoading(true)
     setError('')
 
     try {
       const supabase = createClient()
-      console.log('Attempting login for:', email.toLowerCase())
 
       const { data, error } = await supabase.auth.signInWithPassword({
         email: email.toLowerCase(),
         password: password
       })
 
-      console.log('Login response:', { user: data?.user?.email, error: error?.message })
-
       if (error) {
-        console.error('Login failed:', error)
-        if (error.message.includes('Invalid login credentials')) {
-          setError('Invalid email or password. Please try again.')
-        } else {
-          setError(error.message)
-        }
+        setError(error.message.includes('Invalid login credentials')
+          ? 'Invalid email or password. Please try again.'
+          : error.message)
         setLoading(false)
         return
       }
 
-      // After successful login, always go to portal
-      // In your system: authentication = payment completed
       if (data.user && data.session) {
-        console.log('User logged in successfully:', data.user.email)
-        console.log('Session established:', !!data.session)
-
-        // Get redirect URL from params or default to /portal
-        const redirectTo = searchParams.get('redirectTo') || '/portal'
-        console.log('Redirect target:', redirectTo)
-
-        // Check if user needs to complete setup
+        // For users needing password reset
         if (data.user.user_metadata?.needs_password_reset) {
-          console.log('User needs password reset, redirecting to setup...')
-          window.location.href = '/auth/setup-account'
+          router.push('/auth/setup-account')
           return
         }
 
-        // ALWAYS go to portal for authenticated users
-        console.log('Login successful, redirecting to:', redirectTo)
-
-        // Direct redirect - session is already confirmed
-        window.location.href = redirectTo
-
-        // Keep loading state true since we're redirecting
-        // Don't set loading to false
-        return
+        // SUCCESS - redirect to portal
+        router.push('/portal')
+        // Don't set loading false - keep spinner while redirecting
       } else {
-        console.log('No user data returned from login')
         setError('Login failed. Please try again.')
         setLoading(false)
       }
     } catch (err) {
-      console.error('Unexpected login error:', err)
+      console.error('Login error:', err)
       setError('An unexpected error occurred. Please try again.')
       setLoading(false)
     }

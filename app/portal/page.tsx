@@ -26,16 +26,17 @@ import {
 
 export default function PortalPage() {
   const { user, userEmail, hasAccess, loading, userTier } = useAuthImmediate()
-  
+
   const displayEmail = userEmail || 'user@example.com'
   const cleanEmail = displayEmail.startsWith('user_cs_test_') ? 'Portal User' : displayEmail
-  
-  const entitlement = hasAccess ? {
+
+  // SIMPLIFIED: If user is authenticated, they have access (they paid to create account)
+  const entitlement = user ? {
     country: 'na',
-    tier: userTier,
+    tier: userTier || 'mastery', // Default to mastery if tier not found
     email: cleanEmail
   } : null
-  const isMastery = userTier === 'mastery'
+  const isMastery = true // Since we only have one tier now
 
   if (loading) {
     return (
@@ -48,66 +49,24 @@ export default function PortalPage() {
     )
   }
 
-  // If no user, show welcome message
+  // If no user, redirect to login
   if (!user) {
+    // Use useEffect to avoid hydration issues
+    if (typeof window !== 'undefined') {
+      window.location.href = '/auth/login?redirectTo=/portal'
+    }
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
         <div className="text-center">
-          <h2 className="text-2xl font-bold mb-4">Welcome to IMPOTA Portal</h2>
-          <p className="text-gray-600 mb-6">Please log in to access your dashboard.</p>
-          <Button 
-            onClick={() => {
-              window.location.href = '/auth/login'
-            }}
-          >
-            Log In
-          </Button>
-          <div className="mt-4">
-            <Link 
-              href="/auth/login" 
-              className="text-blue-600 hover:underline text-sm"
-            >
-              Or click here to login
-            </Link>
-          </div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
+          <p className="mt-4 text-gray-600">Redirecting to login...</p>
         </div>
       </div>
     )
   }
 
-  // If user but no entitlement, show package selection
-  if (!entitlement || !userTier) {
-    return (
-      <div className="flex items-center justify-center min-h-[60vh]">
-        <div className="text-center max-w-md">
-          <h2 className="text-2xl font-bold mb-4">Welcome to IMPOTA Portal!</h2>
-          <p className="text-gray-600 mb-6">
-            {userEmail ? `Hi ${userEmail}, ` : ''}
-            Choose a package to access our comprehensive import guides and tools.
-          </p>
-          <div className="space-y-4">
-            <Button 
-              onClick={() => {
-                window.location.href = '/na/guide'
-              }}
-              className="w-full"
-            >
-              View Import Guide
-            </Button>
-            <Button 
-              onClick={() => {
-                window.location.href = '/auth/login'
-              }}
-              variant="outline"
-              className="w-full"
-            >
-              Login with Different Account
-            </Button>
-          </div>
-        </div>
-      </div>
-    )
-  }
+  // USER IS AUTHENTICATED - SHOW PORTAL
+  // No need to check entitlements - if they're logged in, they paid
 
   const currency = 'N$'
   const countryName = 'Namibia'
