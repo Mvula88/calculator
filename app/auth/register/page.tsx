@@ -90,7 +90,7 @@ function RegisterForm() {
 
           if (error) {
             alert(`Error: ${error}`)
-            router.push('/packages')
+            router.push('/na/guide')
             return
           }
 

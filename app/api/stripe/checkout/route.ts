@@ -132,7 +132,7 @@ export async function POST(req: NextRequest) {
     const successUrl = user
       ? `${baseUrl}/portal/welcome?session_id={CHECKOUT_SESSION_ID}&payment_status=success`
       : `${baseUrl}/auth/register?session_id={CHECKOUT_SESSION_ID}&payment_status=success`
-    const cancelUrl = `${baseUrl}/packages?payment_status=canceled`
+    const cancelUrl = `${baseUrl}/na/guide?payment_status=canceled`
     
     console.log('=== STRIPE CHECKOUT URLS ===')
     console.log('Base URL:', baseUrl)
