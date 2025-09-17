@@ -20,6 +20,7 @@ function RegisterForm() {
   const [error, setError] = useState('')
   const [success, setSuccess] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [fetchingEmail, setFetchingEmail] = useState(false)
 
   // Check if user is coming from payment or package selection
   const sessionId = searchParams.get('session_id')
@@ -31,6 +32,39 @@ function RegisterForm() {
   const selectedCountry = searchParams.get('country')
   const checkoutPending = searchParams.get('checkout') === 'pending'
   const isPreCheckout = checkoutPending && selectedPackage
+
+  // Fetch email from payment session
+  useEffect(() => {
+    async function fetchEmailFromSession() {
+      if (sessionId && !email) {
+        setFetchingEmail(true)
+        try {
+          // Call API to get email from Stripe session
+          const res = await fetch('/api/stripe/session-email', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ sessionId })
+          })
+
+          const data = await res.json()
+          if (data.email) {
+            setEmail(data.email)
+            console.log('Pre-filled email from Stripe:', data.email)
+          }
+          if (data.customerName) {
+            setFullName(data.customerName)
+            console.log('Pre-filled name from Stripe:', data.customerName)
+          }
+        } catch (error) {
+          console.error('Failed to fetch email from session:', error)
+        } finally {
+          setFetchingEmail(false)
+        }
+      }
+    }
+
+    fetchEmailFromSession()
+  }, [sessionId])
 
   async function handleRegister(e: React.FormEvent) {
     e.preventDefault()
@@ -205,17 +239,23 @@ function RegisterForm() {
             </div>
             
             <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
+              <Label htmlFor="email">
+                Email
+                {fetchingEmail && (
+                  <span className="ml-2 text-xs text-blue-600">(Loading from payment...)</span>
+                )}
+              </Label>
               <div className="relative">
                 <Mail className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
                 <Input
                   id="email"
                   type="email"
-                  placeholder="your@email.com"
+                  placeholder={fetchingEmail ? "Loading..." : "your@email.com"}
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="pl-10"
                   required
+                  disabled={fetchingEmail}
                 />
               </div>
             </div>
