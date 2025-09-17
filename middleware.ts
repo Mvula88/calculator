@@ -195,42 +195,38 @@ export async function middleware(request: NextRequest) {
       }
     }
 
-    // Check if user has paid (either in entitlements table or user metadata)
-    const hasPaidViaMetadata = user?.user_metadata?.has_paid === true
+    // SIMPLIFIED APPROACH: In your system, users MUST pay before creating account
+    // Therefore: If user is authenticated = they have paid
 
-    // Also check if they have a payment session ID (might be in payment flow)
-    const hasPaymentSession = user?.user_metadata?.payment_session_id
+    // Allow ALL authenticated users to access portal
+    // Log for monitoring but don't block access
+    if (!userTier) {
+      console.log('[Middleware] Authenticated user accessing portal without entitlement record:', {
+        path: request.nextUrl.pathname,
+        email: user?.email,
+        user_metadata: user?.user_metadata
+      })
 
-    // Check if user email exists in entitlements (fallback for existing users)
-    const { data: emailEntitlement } = await supabase
-      .from('entitlements')
-      .select('*')
-      .eq('email', user.email?.toLowerCase())
-      .eq('active', true)
-      .maybeSingle()
+      // Try to find and link their entitlement by email
+      const { data: entitlement } = await supabase
+        .from('entitlements')
+        .select('*')
+        .eq('email', user.email?.toLowerCase())
+        .eq('active', true)
+        .maybeSingle()
 
-    const hasPaidAccess = userTier || hasPaidViaMetadata || hasPaymentSession || emailEntitlement
+      if (entitlement && !entitlement.user_id) {
+        // Link the entitlement to user
+        await supabase
+          .from('entitlements')
+          .update({ user_id: user.id })
+          .eq('id', entitlement.id)
 
-    // Enhanced logging to debug payment detection
-    console.log('[Middleware] Portal access check:', {
-      path: request.nextUrl.pathname,
-      email: user?.email,
-      userTier,
-      user_metadata: user?.user_metadata,
-      has_paid_metadata: hasPaidViaMetadata,
-      has_payment_session: !!hasPaymentSession,
-      has_email_entitlement: !!emailEntitlement,
-      has_paid_access: hasPaidAccess
-    })
-
-    if (!hasPaidAccess) {
-      // User is authenticated but hasn't paid - shouldn't happen in your flow
-      // but redirect to guide if it does
-      console.log('[Middleware] Redirecting to /na/guide - no payment detected')
-      return NextResponse.redirect(new URL('/na/guide', request.url))
+        console.log('[Middleware] Linked entitlement to user:', user.email)
+      }
     }
 
-    // User has paid (either via entitlements or metadata), allow portal access
+    // Allow portal access for ALL authenticated users
     if (request.nextUrl.pathname.startsWith('/portal')) {
       return supabaseResponse
     }

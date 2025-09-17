@@ -60,9 +60,10 @@ function LoginForm() {
       return
     }
 
-    // After successful login, check if user has entitlements by email
-    // This handles the case where payment happened before account creation
+    // After successful login, always go to portal
+    // In your system: authentication = payment completed
     if (data.user) {
+      // Try to link any orphaned entitlements
       const { data: entitlement } = await supabase
         .from('entitlements')
         .select('*')
@@ -83,13 +84,11 @@ function LoginForm() {
       // Check if user needs to complete setup
       if (data.user.user_metadata?.needs_password_reset) {
         router.push('/auth/setup-account')
-      } else if (entitlement) {
-        // User has entitlement, go to portal
-        router.push('/portal')
       } else {
-        // No entitlement found - shouldn't happen in your flow
-        console.error('No entitlement found for user:', data.user.email)
-        router.push('/na/guide')
+        // ALWAYS go to portal for authenticated users
+        // (they can't be authenticated without paying in your flow)
+        console.log('Login successful, redirecting to portal:', data.user.email)
+        router.push('/portal')
       }
     }
   }
