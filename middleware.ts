@@ -161,7 +161,7 @@ export async function middleware(request: NextRequest) {
       } else if (userTier) {
         return NextResponse.redirect(new URL('/portal', request.url))
       } else {
-        return NextResponse.redirect(new URL('/packages', request.url))
+        return NextResponse.redirect(new URL('/na/guide', request.url))
       }
     }
 

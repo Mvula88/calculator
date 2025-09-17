@@ -7,8 +7,8 @@ export default function RegisterPage() {
   const router = useRouter()
 
   useEffect(() => {
-    // Redirect to packages page - registration is now done after payment
-    router.replace('/packages')
+    // Redirect to guide page - registration is now done after payment
+    router.replace('/na/guide')
   }, [router])
 
   return (

@@ -49,8 +49,8 @@ function WelcomeContent() {
             console.log('User already has access, redirecting to portal')
             router.replace('/portal')
           } else {
-            console.log('User logged in but no entitlements, redirecting to packages')
-            router.replace('/packages')
+            console.log('User logged in but no entitlements, redirecting to guide')
+            router.replace('/na/guide')
           }
         } else {
           console.log('No user logged in, redirecting to login')
