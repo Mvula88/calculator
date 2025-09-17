@@ -60,6 +60,19 @@ export async function POST(req: NextRequest) {
     // Get user from Supabase (optional - can work without auth for funnel)
     const supabase = await createClient()
     const { data: { user } } = await supabase.auth.getUser()
+
+    // Check if user already has entitlements (already paid)
+    let hasExistingEntitlement = false
+    if (user) {
+      const { data: entitlement } = await supabase
+        .from('entitlements')
+        .select('*')
+        .eq('user_id', user.id)
+        .eq('active', true)
+        .maybeSingle()
+
+      hasExistingEntitlement = !!entitlement
+    }
     
     // Get the Stripe price ID based on country and tier
     const getPriceId = (country: string, tier: string): string => {
@@ -128,8 +141,10 @@ export async function POST(req: NextRequest) {
     baseUrl = baseUrl.replace(/\/$/, '')
     
     // Use environment variable with proper fallback
-    // After successful payment, if user exists redirect to portal, else to register
-    const successUrl = user
+    // After successful payment:
+    // - If user already has entitlements, they're upgrading or re-buying -> go to portal
+    // - Otherwise -> go to register to create account
+    const successUrl = hasExistingEntitlement
       ? `${baseUrl}/portal/welcome?session_id={CHECKOUT_SESSION_ID}&payment_status=success`
       : `${baseUrl}/auth/register?session_id={CHECKOUT_SESSION_ID}&payment_status=success`
     const cancelUrl = `${baseUrl}/na/guide?payment_status=canceled`
