@@ -1320,6 +1320,7 @@ export default function NamibiaGuidePage() {
                 </div>
               </CardContent>
             </Card>
+          </div>
                 </>
               )}
             </>
