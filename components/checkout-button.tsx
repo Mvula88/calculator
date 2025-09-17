@@ -24,9 +24,37 @@ export default function CheckoutButton({
   const [loading, setLoading] = useState(false)
 
   async function handleCheckout() {
-    // Redirect to register page with package info
-    const registerUrl = `/auth/register?package=${tier}&country=${country}&checkout=pending`
-    window.location.href = registerUrl
+    setLoading(true)
+
+    try {
+      // Call Stripe checkout API directly
+      const res = await fetch('/api/stripe/checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          country: country,
+          tier: tier,
+          productId: `${country}-guide`
+        })
+      })
+
+      const { url, error } = await res.json()
+
+      if (error) {
+        alert(`Error: ${error}`)
+        setLoading(false)
+        return
+      }
+
+      if (url) {
+        // Go directly to Stripe checkout
+        window.location.href = url
+      }
+    } catch (error) {
+      console.error('Checkout error:', error)
+      alert('Failed to start checkout. Please try again.')
+      setLoading(false)
+    }
   }
 
   return (
