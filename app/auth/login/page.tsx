@@ -43,53 +43,61 @@ function LoginForm() {
     setLoading(true)
     setError('')
 
-    const supabase = createClient()
+    try {
+      const supabase = createClient()
 
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email: email.toLowerCase(),
-      password: password
-    })
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: email.toLowerCase(),
+        password: password
+      })
 
-    if (error) {
-      if (error.message.includes('Invalid login credentials')) {
-        setError('Invalid email or password. Please try again.')
-      } else {
-        setError(error.message)
+      if (error) {
+        if (error.message.includes('Invalid login credentials')) {
+          setError('Invalid email or password. Please try again.')
+        } else {
+          setError(error.message)
+        }
+        setLoading(false)
+        return
       }
-      setLoading(false)
-      return
-    }
 
-    // After successful login, always go to portal
-    // In your system: authentication = payment completed
-    if (data.user) {
-      // Try to link any orphaned entitlements
-      const { data: entitlement } = await supabase
-        .from('entitlements')
-        .select('*')
-        .eq('email', data.user.email?.toLowerCase())
-        .eq('active', true)
-        .maybeSingle()
-
-      if (entitlement && !entitlement.user_id) {
-        // Link the entitlement to the user if not already linked
-        await supabase
+      // After successful login, always go to portal
+      // In your system: authentication = payment completed
+      if (data.user) {
+        // Try to link any orphaned entitlements
+        const { data: entitlement } = await supabase
           .from('entitlements')
-          .update({ user_id: data.user.id })
-          .eq('id', entitlement.id)
+          .select('*')
+          .eq('email', data.user.email?.toLowerCase())
+          .eq('active', true)
+          .maybeSingle()
 
-        console.log('Linked entitlement to user:', data.user.email)
-      }
+        if (entitlement && !entitlement.user_id) {
+          // Link the entitlement to the user if not already linked
+          await supabase
+            .from('entitlements')
+            .update({ user_id: data.user.id })
+            .eq('id', entitlement.id)
 
-      // Check if user needs to complete setup
-      if (data.user.user_metadata?.needs_password_reset) {
-        router.push('/auth/setup-account')
-      } else {
-        // ALWAYS go to portal for authenticated users
-        // (they can't be authenticated without paying in your flow)
-        console.log('Login successful, redirecting to portal:', data.user.email)
-        router.push('/portal')
+          console.log('Linked entitlement to user:', data.user.email)
+        }
+
+        // Check if user needs to complete setup
+        if (data.user.user_metadata?.needs_password_reset) {
+          window.location.href = '/auth/setup-account'
+        } else {
+          // ALWAYS go to portal for authenticated users
+          // (they can't be authenticated without paying in your flow)
+          console.log('Login successful, redirecting to portal:', data.user.email)
+
+          // Use window.location for more reliable redirect
+          window.location.href = '/portal'
+        }
       }
+    } catch (err) {
+      console.error('Login error:', err)
+      setError('An unexpected error occurred. Please try again.')
+      setLoading(false)
     }
   }
 
