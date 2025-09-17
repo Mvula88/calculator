@@ -290,33 +290,17 @@ export default function NamibiaGuidePage() {
                     </Button>
                   </Link>
                 ) : (
-                  // Not logged in - show pricing options
-                  <>
-                    <a href="#pricing" className="group w-full sm:w-auto">
-                      <Button
-                        size="lg"
-                        variant="outline"
-                        className="w-full sm:w-auto font-bold text-sm sm:text-base md:text-lg px-4 py-2 sm:px-6 sm:py-3 md:px-8 md:py-4 h-auto border-2 border-white/30 bg-black/30 text-white hover:bg-white/20 transition-all duration-300 group-hover:scale-105 min-h-[44px]"
-                      >
-                        <BookOpen className="mr-2 sm:mr-3 h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6" />
-                        Essential Guide - N$499
-                        <ArrowRight className="ml-2 sm:ml-3 h-3 w-3 sm:h-4 sm:w-4 md:h-5 md:w-5 group-hover:translate-x-1 transition-transform" />
-                      </Button>
-                    </a>
-
-                    <div className="text-white font-bold text-sm sm:text-base md:text-lg">OR</div>
-
-                    <a href="#pricing" className="group w-full sm:w-auto">
-                      <Button
-                        size="lg"
-                        className="w-full sm:w-auto font-bold text-sm sm:text-base md:text-lg px-4 py-2 sm:px-6 sm:py-3 md:px-8 md:py-4 h-auto bg-gradient-to-r from-emerald-600 via-blue-600 to-purple-600 hover:from-emerald-700 hover:via-blue-700 hover:to-purple-700 shadow-2xl group-hover:scale-105 transition-all duration-300 group-hover:shadow-emerald-500/25 min-h-[44px]"
-                      >
-                        <Crown className="mr-2 sm:mr-3 h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6" />
-                        Complete Mastery - N$1,999
-                        <Sparkles className="ml-2 sm:ml-3 h-3 w-3 sm:h-4 sm:w-4 md:h-5 md:w-5 group-hover:rotate-12 transition-transform" />
-                      </Button>
-                    </a>
-                  </>
+                  // Not logged in - show single package option
+                  <a href="#pricing" className="group w-full sm:w-auto">
+                    <Button
+                      size="lg"
+                      className="w-full sm:w-auto font-bold text-sm sm:text-base md:text-lg px-4 py-2 sm:px-6 sm:py-3 md:px-8 md:py-4 h-auto bg-gradient-to-r from-purple-600 via-pink-600 to-purple-600 hover:from-purple-700 hover:via-pink-700 hover:to-purple-700 shadow-2xl group-hover:scale-105 transition-all duration-300 group-hover:shadow-purple-500/25 min-h-[44px]"
+                    >
+                      <Crown className="mr-2 sm:mr-3 h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6" />
+                      Get Complete Import Mastery - N$1,999
+                      <Sparkles className="ml-2 sm:ml-3 h-3 w-3 sm:h-4 sm:w-4 md:h-5 md:w-5 group-hover:rotate-12 transition-transform" />
+                    </Button>
+                  </a>
                 )}
               </div>
               
@@ -1083,16 +1067,26 @@ export default function NamibiaGuidePage() {
                   </Card>
                 </div>
               ) : user && entitlement?.tier === 'mistake' ? (
-                // User with Essential - Show upgrade option
-                <>
-                  <div className="text-center mb-12">
-                    <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                      Upgrade to Complete Mastery
-                    </h2>
-                    <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">
-                      You currently have the Essential Guide. Unlock advanced features with Complete Mastery!
-                    </p>
-                  </div>
+                // User with Essential - They have legacy access, show portal
+                <div className="text-center">
+                  <Card className="max-w-2xl mx-auto">
+                    <CardHeader>
+                      <BookOpen className="h-16 w-16 text-blue-600 mx-auto mb-4" />
+                      <CardTitle className="text-3xl font-bold">Welcome Back!</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-lg text-gray-600 mb-6">
+                        You have lifetime access to the Essential Guide package.
+                      </p>
+                      <Link href="/portal">
+                        <Button size="lg" className="bg-blue-600 hover:bg-blue-700">
+                          Access Member Portal
+                          <ArrowRight className="ml-2 h-5 w-5" />
+                        </Button>
+                      </Link>
+                    </CardContent>
+                  </Card>
+                </div>
                   <div className="max-w-xl mx-auto">
                     <Card className="relative overflow-hidden hover:shadow-2xl transition-all duration-300 border-2 hover:border-purple-500">
                       <div className="absolute top-0 right-0 bg-gradient-to-r from-purple-600 to-pink-600 text-white text-xs font-bold px-4 py-2 rounded-bl-lg">
@@ -1162,73 +1156,20 @@ export default function NamibiaGuidePage() {
                 // Not logged in - Show full pricing
                 <>
                   <div className="text-center mb-12">
-                    <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                      Choose Your Import Success Package
+                    <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+                      Get Complete Import Mastery
                     </h2>
                     <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">
-                      Select the package that best fits your import needs. Both include instant access and lifetime updates.
+                      Everything you need to import cars successfully - one comprehensive package with lifetime access.
                     </p>
                   </div>
 
-          {/* Pricing Cards */}
-          <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-            {/* Essential Guide Package */}
-            <Card className="relative overflow-hidden hover:shadow-2xl transition-all duration-300 border-2 hover:border-blue-500">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500 opacity-10 rounded-full -mr-16 -mt-16"></div>
-              <CardHeader className="pb-6">
-                <div className="flex items-center justify-between mb-4">
-                  <BookOpen className="h-12 w-12 text-blue-500" />
-                  <span className="text-sm font-semibold bg-blue-100 text-blue-700 px-3 py-1 rounded-full">
-                    Best for Beginners
-                  </span>
-                </div>
-                <CardTitle className="text-2xl font-bold">Essential Guide</CardTitle>
-                <div className="mt-4">
-                  <span className="text-4xl font-bold text-blue-600">N$499</span>
-                  <span className="text-gray-500 ml-2">one-time</span>
-                </div>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <ul className="space-y-3">
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                    <span className="text-gray-700">Complete import timeline & process</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                    <span className="text-gray-700">Cost breakdown calculator</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                    <span className="text-gray-700">Mistake avoidance checklist</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                    <span className="text-gray-700">Document templates & samples</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                    <span className="text-gray-700">Email templates for agents</span>
-                  </li>
-                </ul>
-                <div className="pt-6">
-                  <CheckoutButton
-                    tier="mistake"
-                    country="na"
-                    size="lg"
-                    className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-lg transition-all duration-300 hover:shadow-xl"
-                  >
-                    Get Essential Guide
-                    <ArrowRight className="ml-2 h-5 w-5" />
-                  </CheckoutButton>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Complete Mastery Package */}
+          {/* Single Comprehensive Package */}
+          <div className="max-w-xl mx-auto">
+            {/* Complete Import Mastery - Single Comprehensive Package */}
             <Card className="relative overflow-hidden hover:shadow-2xl transition-all duration-300 border-2 hover:border-purple-500">
               <div className="absolute top-0 right-0 bg-gradient-to-r from-purple-600 to-pink-600 text-white text-xs font-bold px-4 py-2 rounded-bl-lg">
-                MOST POPULAR
+                EVERYTHING INCLUDED
               </div>
               <div className="absolute top-0 left-0 w-32 h-32 bg-purple-500 opacity-10 rounded-full -ml-16 -mt-16"></div>
               <CardHeader className="pb-6">
@@ -1238,7 +1179,7 @@ export default function NamibiaGuidePage() {
                     Complete Solution
                   </span>
                 </div>
-                <CardTitle className="text-2xl font-bold">Import Mastery</CardTitle>
+                <CardTitle className="text-2xl font-bold">Complete Import Mastery</CardTitle>
                 <div className="mt-4">
                   <span className="text-4xl font-bold text-purple-600">N$1,999</span>
                   <span className="text-gray-500 ml-2">lifetime access</span>
@@ -1248,11 +1189,19 @@ export default function NamibiaGuidePage() {
                 <ul className="space-y-3">
                   <li className="flex items-start gap-3">
                     <Star className="h-5 w-5 text-purple-500 mt-0.5 flex-shrink-0" />
-                    <span className="text-gray-700 font-semibold">Everything in Essential Guide</span>
+                    <span className="text-gray-700 font-semibold">Complete import timeline & process</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                    <span className="text-gray-700">Mistake avoidance checklist (save N$15,000+)</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
                     <span className="text-gray-700">Live duty & tax calculator</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                    <span className="text-gray-700">Document templates & email samples</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
@@ -1270,15 +1219,19 @@ export default function NamibiaGuidePage() {
                     <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
                     <span className="text-gray-700">Priority WhatsApp support</span>
                   </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                    <span className="text-gray-700">Monthly updates & new features</span>
+                  </li>
                 </ul>
                 <div className="pt-6">
                   <CheckoutButton
                     tier="mastery"
                     country="na"
                     size="lg"
-                    className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold py-3 rounded-lg transition-all duration-300 hover:shadow-xl"
+                    className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold py-4 text-lg rounded-lg transition-all duration-300 hover:shadow-xl"
                   >
-                    Get Complete Mastery
+                    Get Lifetime Access - N$1,999
                     <Sparkles className="ml-2 h-5 w-5" />
                   </CheckoutButton>
                 </div>
