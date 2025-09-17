@@ -194,8 +194,11 @@ export async function middleware(request: NextRequest) {
 
     // Check if user has entitlements
     if (!userTier) {
-      // User is authenticated but has no paid access
-      return NextResponse.redirect(new URL('/packages', request.url))
+      // User is authenticated but has no paid access - redirect to guide/pricing
+      return NextResponse.redirect(new URL('/na/guide', request.url))
+    } else if (request.nextUrl.pathname.startsWith('/portal')) {
+      // User has paid access, let them access portal
+      return supabaseResponse
     }
     
     // Check tier-specific access
