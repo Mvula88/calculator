@@ -132,33 +132,40 @@ export async function middleware(request: NextRequest) {
   // Protected portal routes - SECURE AUTH CHECK
   if (request.nextUrl.pathname.startsWith('/portal')) {
     // Public portal routes that don't require auth
-    // /portal/welcome is public to handle Stripe payment success redirects
-    const publicPortalRoutes = ['/portal/login', '/portal/activate', '/portal/welcome']
-    if (publicPortalRoutes.includes(request.nextUrl.pathname)) {
-      // Special handling for /portal/welcome - NEVER redirect away from it
-      if (request.nextUrl.pathname === '/portal/welcome') {
-        const sessionId = request.nextUrl.searchParams.get('session_id')
-        const paymentStatus = request.nextUrl.searchParams.get('payment_status')
+    const publicPortalRoutes = ['/portal/login', '/portal/activate']
 
-        console.log('[Middleware] Welcome page accessed:', {
-          host: request.headers.get('host'),
-          hasUser: !!user,
-          userEmail: user?.email,
-          hasTier: !!userTier,
-          tier: userTier,
-          hasSessionId: !!sessionId,
-          sessionId: sessionId?.substring(0, 20),
-          paymentStatus: paymentStatus
-        })
+    // Special handling for /portal/welcome - only public with payment params
+    if (request.nextUrl.pathname === '/portal/welcome') {
+      const sessionId = request.nextUrl.searchParams.get('session_id')
+      const paymentStatus = request.nextUrl.searchParams.get('payment_status')
 
-        // If we have payment success params, ALWAYS allow access
-        if (paymentStatus === 'success' || sessionId) {
-          return supabaseResponse
-        }
+      console.log('[Middleware] Welcome page accessed:', {
+        host: request.headers.get('host'),
+        hasUser: !!user,
+        userEmail: user?.email,
+        hasTier: !!userTier,
+        tier: userTier,
+        hasSessionId: !!sessionId,
+        sessionId: sessionId?.substring(0, 20),
+        paymentStatus: paymentStatus
+      })
 
-        // Let the welcome page handle all logic
+      // Only allow access if we have payment parameters
+      if (paymentStatus === 'success' || sessionId) {
         return supabaseResponse
       }
+
+      // No payment params - redirect based on user state
+      if (!user) {
+        return NextResponse.redirect(new URL('/auth/login', request.url))
+      } else if (userTier) {
+        return NextResponse.redirect(new URL('/portal', request.url))
+      } else {
+        return NextResponse.redirect(new URL('/packages', request.url))
+      }
+    }
+
+    if (publicPortalRoutes.includes(request.nextUrl.pathname)) {
 
       // For other public routes, redirect if already authenticated with tier
       // UNLESS they're coming from a Stripe payment

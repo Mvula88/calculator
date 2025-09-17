@@ -11,26 +11,28 @@ import Link from 'next/link'
 function WelcomeContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
-  const [status, setStatus] = useState<'checking' | 'success' | 'waiting' | 'error'>('checking')
+  const [status, setStatus] = useState<'checking' | 'success' | 'waiting' | 'error' | 'redirecting'>('checking')
   const [attempts, setAttempts] = useState(0)
   const [userEmail, setUserEmail] = useState<string | null>(null)
-  
+
   const sessionId = searchParams.get('session_id')
   const paymentStatus = searchParams.get('payment_status')
-  
+
   // Log the parameters for debugging
   console.log('Welcome page loaded with:', { sessionId, paymentStatus })
-  
+
   useEffect(() => {
     const checkAccess = async () => {
-      // Always check for payment success first
+      // If we have payment parameters, check entitlements with retry
       if (paymentStatus === 'success' || sessionId) {
-        // Payment redirect - check entitlements with retry logic
         console.log('Payment redirect detected, checking entitlement...')
+        setStatus('waiting')
         await checkEntitlement()
       } else {
-        // No payment parameters - check if user already has access
+        // No payment parameters - immediately redirect based on current state
         console.log('No payment parameters, checking existing access...')
+        setStatus('redirecting')
+
         const supabase = createClient()
         const { data: { user } } = await supabase.auth.getUser()
 
@@ -45,14 +47,14 @@ function WelcomeContent() {
 
           if (entitlements && entitlements.length > 0) {
             console.log('User already has access, redirecting to portal')
-            router.push('/portal')
+            router.replace('/portal')
           } else {
             console.log('User logged in but no entitlements, redirecting to packages')
-            router.push('/packages')
+            router.replace('/packages')
           }
         } else {
           console.log('No user logged in, redirecting to login')
-          router.push('/auth/login')
+          router.replace('/auth/login')
         }
       }
     }
