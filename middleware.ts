@@ -100,13 +100,33 @@ export async function middleware(request: NextRequest) {
   // Get user's entitlements if authenticated
   let userTier = null
   if (user) {
+    // Check for entitlements by BOTH user_id and email
+    // This handles cases where payment was made before account creation
     const { data: entitlements } = await supabase
       .from('entitlements')
-      .select('tier')
-      .eq('user_id', user.id)
-      .single()
-    
-    userTier = entitlements?.tier
+      .select('*')
+      .or(`user_id.eq.${user.id},email.eq.${user.email?.toLowerCase()}`)
+      .eq('active', true)
+      .order('created_at', { ascending: false })
+      .limit(1)
+      .maybeSingle()
+
+    if (entitlements) {
+      userTier = entitlements.tier
+
+      // Auto-link orphaned entitlements (where user_id is null but email matches)
+      if (!entitlements.user_id && entitlements.email === user.email?.toLowerCase()) {
+        await supabase
+          .from('entitlements')
+          .update({
+            user_id: user.id,
+            updated_at: new Date().toISOString()
+          })
+          .eq('id', entitlements.id)
+
+        console.log('Auto-linked entitlement for user:', user.email)
+      }
+    }
   }
 
   // Protected portal routes - SECURE AUTH CHECK
