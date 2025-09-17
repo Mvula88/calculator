@@ -74,12 +74,12 @@ export async function GET() {
       },
       recommendations: {
         has_access: (combined?.length || 0) > 0,
-        needs_linking: byEmail?.length > 0 && byEmail[0]?.user_id !== user.id,
-        message: combined?.length > 0
+        needs_linking: (byEmail?.length || 0) > 0 && byEmail?.[0]?.user_id !== user.id,
+        message: (combined?.length || 0) > 0
           ? '✅ User has valid entitlements'
-          : byEmail?.length > 0
+          : (byEmail?.length || 0) > 0
             ? '⚠️ Entitlement found but not linked to user ID'
-            : allForEmail?.length > 0
+            : (allForEmail?.length || 0) > 0
               ? '❌ Entitlements found but not active'
               : '❌ No entitlements found for this email'
       }
