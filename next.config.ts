@@ -2,9 +2,7 @@ import type { NextConfig } from "next";
 import { withSentryConfig } from '@sentry/nextjs';
 
 const nextConfig: NextConfig = {
-  experimental: {
-    instrumentationHook: true,
-  },
+  /* config options here */
 };
 
 // Sentry configuration wrapper with minimal required options
