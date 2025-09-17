@@ -11,7 +11,7 @@ export default function PackagesPage() {
 
   // Default to Namibia pricing
   const mistakePrice = 'N$499'
-  const masteryPrice = 'N$2,999'
+  const masteryPrice = 'N$1,999'
 
   async function handleCheckout() {
     setLoading(true)

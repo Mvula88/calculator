@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Script from 'next/script'
 import { Button } from '@/components/ui/button'
+import CheckoutButton from '@/components/checkout-button'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { 
   CheckCircle, 
@@ -247,30 +248,34 @@ export default function NamibiaGuidePage() {
           <div className="text-center mb-6 sm:mb-10" id="signup">
             <div className="bg-white/5 backdrop-blur-md rounded-lg sm:rounded-xl p-4 sm:p-6 border border-white/10 max-w-3xl mx-auto">
               <div className="flex flex-col gap-3 sm:gap-4 justify-center items-center">
-                <Link href="/register?country=na&package=mistake" className="group w-full sm:w-auto">
-                  <Button 
-                    size="lg" 
-                    variant="outline" 
+                <div className="group w-full sm:w-auto">
+                  <CheckoutButton
+                    tier="mistake"
+                    country="na"
+                    size="lg"
+                    variant="outline"
                     className="w-full sm:w-auto font-bold text-sm sm:text-base md:text-lg px-4 py-2 sm:px-6 sm:py-3 md:px-8 md:py-4 h-auto border-2 border-white/30 bg-black/30 text-white hover:bg-white/20 transition-all duration-300 group-hover:scale-105 min-h-[44px]"
                   >
                     <BookOpen className="mr-2 sm:mr-3 h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6" />
                     Essential Guide - N$499
                     <ArrowRight className="ml-2 sm:ml-3 h-3 w-3 sm:h-4 sm:w-4 md:h-5 md:w-5 group-hover:translate-x-1 transition-transform" />
-                  </Button>
-                </Link>
-                
+                  </CheckoutButton>
+                </div>
+
                 <div className="text-white font-bold text-sm sm:text-base md:text-lg">OR</div>
-                
-                <Link href="/register?country=na&package=mastery" className="group w-full sm:w-auto">
-                  <Button 
-                    size="lg" 
+
+                <div className="group w-full sm:w-auto">
+                  <CheckoutButton
+                    tier="mastery"
+                    country="na"
+                    size="lg"
                     className="w-full sm:w-auto font-bold text-sm sm:text-base md:text-lg px-4 py-2 sm:px-6 sm:py-3 md:px-8 md:py-4 h-auto bg-gradient-to-r from-emerald-600 via-blue-600 to-purple-600 hover:from-emerald-700 hover:via-blue-700 hover:to-purple-700 shadow-2xl group-hover:scale-105 transition-all duration-300 group-hover:shadow-emerald-500/25 min-h-[44px]"
                   >
                     <Crown className="mr-2 sm:mr-3 h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6" />
                     Complete Mastery - N$1,999
                     <Sparkles className="ml-2 sm:ml-3 h-3 w-3 sm:h-4 sm:w-4 md:h-5 md:w-5 group-hover:rotate-12 transition-transform" />
-                  </Button>
-                </Link>
+                  </CheckoutButton>
+                </div>
               </div>
               
               <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 mt-3 sm:mt-4 text-xs sm:text-sm text-gray-300">
@@ -439,25 +444,25 @@ export default function NamibiaGuidePage() {
                   Join hundreds of successful importers who've saved thousands using our proven system.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
-                  <Link href="/register?country=na&package=mistake">
-                    <Button 
-                      variant="outline" 
-                      size="lg" 
-                      className="w-full sm:w-auto font-bold text-base sm:text-lg px-6 sm:px-8 bg-white/10 border-white/30 text-white hover:bg-white hover:text-blue-600 min-h-[44px]"
-                    >
-                      Start with Essentials
-                      <BookOpen className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
-                    </Button>
-                  </Link>
-                  <Link href="/register?country=na&package=mastery">
-                    <Button 
-                      size="lg" 
-                      className="w-full sm:w-auto font-bold text-base sm:text-lg px-6 sm:px-8 bg-white text-blue-600 hover:bg-gray-100 shadow-lg min-h-[44px]"
-                    >
-                      Get Complete Mastery
-                      <Crown className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
-                    </Button>
-                  </Link>
+                  <CheckoutButton
+                    tier="mistake"
+                    country="na"
+                    variant="outline"
+                    size="lg"
+                    className="w-full sm:w-auto font-bold text-base sm:text-lg px-6 sm:px-8 bg-white/10 border-white/30 text-white hover:bg-white hover:text-blue-600 min-h-[44px]"
+                  >
+                    Start with Essentials
+                    <BookOpen className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
+                  </CheckoutButton>
+                  <CheckoutButton
+                    tier="mastery"
+                    country="na"
+                    size="lg"
+                    className="w-full sm:w-auto font-bold text-base sm:text-lg px-6 sm:px-8 bg-white text-blue-600 hover:bg-gray-100 shadow-lg min-h-[44px]"
+                  >
+                    Get Complete Mastery
+                    <Crown className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
+                  </CheckoutButton>
                 </div>
               </CardContent>
             </Card>
@@ -537,17 +542,17 @@ export default function NamibiaGuidePage() {
                   </div>
                   
                   <div className="space-y-3 sm:space-y-4">
-                    <Link href="/register?country=na&package=mistake">
-                      <Button 
-                        variant="outline"
-                        className="w-full h-12 sm:h-14 text-base sm:text-lg font-bold border-2 border-blue-300 text-blue-600 hover:bg-blue-600 hover:text-white hover:shadow-lg transition-all duration-300 group-hover:scale-[1.02] min-h-[44px]"
-                        size="lg"
-                      >
-                        <Download className="mr-2 sm:mr-3 h-4 w-4 sm:h-5 sm:w-5" />
-                        Get Essential Guide
-                        <ArrowRight className="ml-2 sm:ml-3 h-4 w-4 sm:h-5 sm:w-5" />
-                      </Button>
-                    </Link>
+                    <CheckoutButton
+                      tier="mistake"
+                      country="na"
+                      variant="outline"
+                      className="w-full h-12 sm:h-14 text-base sm:text-lg font-bold border-2 border-blue-300 text-blue-600 hover:bg-blue-600 hover:text-white hover:shadow-lg transition-all duration-300 group-hover:scale-[1.02] min-h-[44px]"
+                      size="lg"
+                    >
+                      <Download className="mr-2 sm:mr-3 h-4 w-4 sm:h-5 sm:w-5" />
+                      Get Essential Guide
+                      <ArrowRight className="ml-2 sm:ml-3 h-4 w-4 sm:h-5 sm:w-5" />
+                    </CheckoutButton>
                     <p className="text-center text-xs sm:text-sm text-gray-500">
                       Instant access • Lifetime updates • 7-day refund policy
                     </p>
@@ -616,16 +621,16 @@ export default function NamibiaGuidePage() {
                   </div>
                   
                   <div className="space-y-3 sm:space-y-4">
-                    <Link href="/register?country=na&package=mastery">
-                      <Button 
-                        className="w-full h-12 sm:h-14 text-base sm:text-lg font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-orange-500 hover:from-purple-700 hover:via-pink-700 hover:to-orange-600 shadow-2xl hover:shadow-purple-500/30 transition-all duration-300 group-hover:scale-[1.02] min-h-[44px]"
-                        size="lg"
-                      >
-                        <Crown className="mr-2 sm:mr-3 h-4 w-4 sm:h-5 sm:w-5" />
-                        Get Complete Mastery
-                        <Rocket className="ml-2 sm:ml-3 h-4 w-4 sm:h-5 sm:w-5" />
-                      </Button>
-                    </Link>
+                    <CheckoutButton
+                      tier="mastery"
+                      country="na"
+                      className="w-full h-12 sm:h-14 text-base sm:text-lg font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-orange-500 hover:from-purple-700 hover:via-pink-700 hover:to-orange-600 shadow-2xl hover:shadow-purple-500/30 transition-all duration-300 group-hover:scale-[1.02] min-h-[44px]"
+                      size="lg"
+                    >
+                      <Crown className="mr-2 sm:mr-3 h-4 w-4 sm:h-5 sm:w-5" />
+                      Get Complete Mastery
+                      <Rocket className="ml-2 sm:ml-3 h-4 w-4 sm:h-5 sm:w-5" />
+                    </CheckoutButton>
                     <p className="text-center text-xs sm:text-sm text-gray-500">
                       Instant access • Premium support • Advanced tools included
                     </p>
@@ -763,25 +768,25 @@ export default function NamibiaGuidePage() {
                   Our comprehensive guides answer hundreds of detailed questions about every aspect of the import process.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
-                  <Link href="/register?country=na&package=mistake">
-                    <Button 
-                      variant="outline" 
-                      size="lg" 
-                      className="w-full sm:w-auto font-bold text-base sm:text-lg px-6 sm:px-8 bg-white/10 border-white/30 text-white hover:bg-white hover:text-blue-600 min-h-[44px]"
-                    >
-                      Get Detailed Answers
-                      <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
-                    </Button>
-                  </Link>
-                  <Link href="/register?country=na&package=mastery">
-                    <Button 
-                      size="lg" 
-                      className="w-full sm:w-auto font-bold text-base sm:text-lg px-6 sm:px-8 bg-white text-blue-600 hover:bg-gray-100 shadow-lg min-h-[44px]"
-                    >
-                      Expert Support Included
-                      <Crown className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
-                    </Button>
-                  </Link>
+                  <CheckoutButton
+                    tier="mistake"
+                    country="na"
+                    variant="outline"
+                    size="lg"
+                    className="w-full sm:w-auto font-bold text-base sm:text-lg px-6 sm:px-8 bg-white/10 border-white/30 text-white hover:bg-white hover:text-blue-600 min-h-[44px]"
+                  >
+                    Get Detailed Answers
+                    <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
+                  </CheckoutButton>
+                  <CheckoutButton
+                    tier="mastery"
+                    country="na"
+                    size="lg"
+                    className="w-full sm:w-auto font-bold text-base sm:text-lg px-6 sm:px-8 bg-white text-blue-600 hover:bg-gray-100 shadow-lg min-h-[44px]"
+                  >
+                    Expert Support Included
+                    <Crown className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
+                  </CheckoutButton>
                 </div>
               </CardContent>
             </Card>
@@ -951,8 +956,10 @@ export default function NamibiaGuidePage() {
                 
                 {/* Premium CTA Buttons - Mobile Optimized */}
                 <div className="flex flex-col gap-4 sm:gap-6 justify-center items-center mb-6 sm:mb-8">
-                  <Link href="/register?country=na&package=mistake" className="group w-full sm:w-auto">
-                    <Button 
+                  <div className="group w-full sm:w-auto">
+                    <CheckoutButton
+                      tier="mistake"
+                      country="na"
                       variant="outline"
                       size="lg"
                       className="w-full sm:w-auto h-12 sm:h-16 px-8 sm:px-12 text-base sm:text-lg lg:text-xl font-bold border-2 border-white/30 text-white hover:bg-white hover:text-slate-900 transition-all duration-300 group-hover:scale-105 group-hover:shadow-2xl min-h-[44px]"
@@ -960,21 +967,23 @@ export default function NamibiaGuidePage() {
                       <BookOpen className="mr-3 sm:mr-4 h-5 w-5 sm:h-6 sm:w-6" />
                       Essential Guide - N$499
                       <ArrowRight className="ml-3 sm:ml-4 h-5 w-5 sm:h-6 sm:w-6 group-hover:translate-x-2 transition-transform" />
-                    </Button>
-                  </Link>
+                    </CheckoutButton>
+                  </div>
                   
                   <div className="text-white text-xl sm:text-2xl font-bold">OR</div>
                   
-                  <Link href="/register?country=na&package=mastery" className="group w-full sm:w-auto">
-                    <Button 
+                  <div className="group w-full sm:w-auto">
+                    <CheckoutButton
+                      tier="mastery"
+                      country="na"
                       size="lg"
                       className="w-full sm:w-auto h-12 sm:h-16 px-8 sm:px-12 text-base sm:text-lg lg:text-xl font-bold bg-gradient-to-r from-emerald-500 via-blue-600 to-purple-600 hover:from-emerald-600 hover:via-blue-700 hover:to-purple-700 shadow-2xl group-hover:scale-105 transition-all duration-300 group-hover:shadow-emerald-500/30 min-h-[44px]"
                     >
                       <Crown className="mr-3 sm:mr-4 h-5 w-5 sm:h-6 sm:w-6" />
                       Complete Mastery - N$1,999
                       <Sparkles className="ml-3 sm:ml-4 h-5 w-5 sm:h-6 sm:w-6 group-hover:rotate-12 transition-transform" />
-                    </Button>
-                  </Link>
+                    </CheckoutButton>
+                  </div>
                 </div>
                 
                 {/* Trust Indicators - Mobile Optimized */}
