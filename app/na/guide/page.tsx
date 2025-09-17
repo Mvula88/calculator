@@ -980,35 +980,19 @@ export default function NamibiaGuidePage() {
                   </p>
                 </div>
                 
-                {/* Premium CTA Buttons - Mobile Optimized */}
-                <div className="flex flex-col gap-4 sm:gap-6 justify-center items-center mb-6 sm:mb-8">
+                {/* CTA Button to scroll to pricing - Mobile Optimized */}
+                <div className="flex justify-center items-center mb-6 sm:mb-8">
                   <div className="group w-full sm:w-auto">
-                    <CheckoutButton
-                      tier="mistake"
-                      country="na"
-                      variant="outline"
-                      size="lg"
-                      className="w-full sm:w-auto h-12 sm:h-16 px-8 sm:px-12 text-base sm:text-lg lg:text-xl font-bold border-2 border-white/30 text-white hover:bg-white hover:text-slate-900 transition-all duration-300 group-hover:scale-105 group-hover:shadow-2xl min-h-[44px]"
-                    >
-                      <BookOpen className="mr-3 sm:mr-4 h-5 w-5 sm:h-6 sm:w-6" />
-                      Essential Guide - N$499
-                      <ArrowRight className="ml-3 sm:ml-4 h-5 w-5 sm:h-6 sm:w-6 group-hover:translate-x-2 transition-transform" />
-                    </CheckoutButton>
-                  </div>
-                  
-                  <div className="text-white text-xl sm:text-2xl font-bold">OR</div>
-                  
-                  <div className="group w-full sm:w-auto">
-                    <CheckoutButton
-                      tier="mastery"
-                      country="na"
-                      size="lg"
-                      className="w-full sm:w-auto h-12 sm:h-16 px-8 sm:px-12 text-base sm:text-lg lg:text-xl font-bold bg-gradient-to-r from-emerald-500 via-blue-600 to-purple-600 hover:from-emerald-600 hover:via-blue-700 hover:to-purple-700 shadow-2xl group-hover:scale-105 transition-all duration-300 group-hover:shadow-emerald-500/30 min-h-[44px]"
-                    >
-                      <Crown className="mr-3 sm:mr-4 h-5 w-5 sm:h-6 sm:w-6" />
-                      Complete Mastery - N$1,999
-                      <Sparkles className="ml-3 sm:ml-4 h-5 w-5 sm:h-6 sm:w-6 group-hover:rotate-12 transition-transform" />
-                    </CheckoutButton>
+                    <a href="#pricing">
+                      <Button
+                        size="lg"
+                        className="w-full sm:w-auto h-12 sm:h-16 px-8 sm:px-12 text-base sm:text-lg lg:text-xl font-bold bg-gradient-to-r from-emerald-500 via-blue-600 to-purple-600 hover:from-emerald-600 hover:via-blue-700 hover:to-purple-700 shadow-2xl group-hover:scale-105 transition-all duration-300 group-hover:shadow-emerald-500/30 min-h-[44px]"
+                      >
+                        <Crown className="mr-3 sm:mr-4 h-5 w-5 sm:h-6 sm:w-6" />
+                        Get Complete Import Mastery - N$1,999
+                        <ArrowRight className="ml-3 sm:ml-4 h-5 w-5 sm:h-6 sm:w-6 group-hover:translate-x-2 transition-transform" />
+                      </Button>
+                    </a>
                   </div>
                 </div>
                 
