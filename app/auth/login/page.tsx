@@ -71,8 +71,20 @@ function LoginForm() {
 
       // After successful login, always go to portal
       // In your system: authentication = payment completed
-      if (data.user) {
+      if (data.user && data.session) {
         console.log('User logged in successfully:', data.user.email)
+        console.log('Session established:', !!data.session)
+
+        // CRITICAL: Verify the session is actually set before redirecting
+        const { data: sessionCheck } = await supabase.auth.getSession()
+        console.log('Session verification:', !!sessionCheck?.session)
+
+        if (!sessionCheck?.session) {
+          console.error('Session not properly established after login')
+          setError('Session creation failed. Please try again.')
+          setLoading(false)
+          return
+        }
 
         // Get redirect URL from params or default to /portal
         const redirectTo = searchParams.get('redirectTo') || '/portal'
@@ -85,10 +97,15 @@ function LoginForm() {
         } else {
           // ALWAYS go to portal for authenticated users
           // (they can't be authenticated without paying in your flow)
-          console.log('Login successful, redirecting to:', redirectTo)
+          console.log('Login successful, session confirmed, redirecting to:', redirectTo)
 
-          // Immediate redirect - don't wait for entitlement check
-          window.location.href = redirectTo
+          // Use router.refresh() first to ensure cookies are set
+          router.refresh()
+
+          // Then redirect
+          setTimeout(() => {
+            window.location.href = redirectTo
+          }, 100)
 
           // Try to link orphaned entitlements in background (non-blocking)
           // This will complete even after redirect
