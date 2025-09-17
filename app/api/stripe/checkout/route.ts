@@ -158,7 +158,8 @@ export async function POST(req: NextRequest) {
         email: email ? email.toLowerCase() : '',
         idempotency_key: idempotencyKey
       },
-      customer_email: email ? email.toLowerCase() : undefined,
+      // Never pre-fill email - let Stripe collect it fresh
+      // customer_email: email ? email.toLowerCase() : undefined,
       success_url: successUrl,
       cancel_url: cancelUrl,
       payment_intent_data: {
