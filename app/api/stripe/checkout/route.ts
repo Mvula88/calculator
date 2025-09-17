@@ -172,9 +172,7 @@ export async function POST(req: NextRequest) {
       payment_intent_data: {
         metadata: {
           idempotency_key: idempotencyKey
-        },
-        // Require new payment method
-        setup_future_usage: null
+        }
       }
     }
     
