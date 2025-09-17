@@ -85,52 +85,48 @@ function WelcomeContent() {
   }
 
   const checkEntitlement = async () => {
-    const maxAttempts = 20 // Check for up to 20 seconds
-    
+    const maxAttempts = 30 // Check for up to 30 seconds (webhook can be slow)
+
     const checkAccess = async () => {
       try {
         const supabase = createClient()
-        
+
         // Get current user
         const { data: { user } } = await supabase.auth.getUser()
+
+        // If no user is logged in and we have a successful payment
+        if (!user && sessionId && paymentStatus === 'success') {
+          // Extract email from session if possible, or redirect to create account
+          console.log('No user logged in after payment, redirecting to create account')
+          router.push(`/auth/create-account?session_id=${sessionId}`)
+          return true
+        }
+
         if (user) {
           setUserEmail(user.email || null)
         }
-        
-        // Check for entitlement using both email and user_id
-        let entitlements = null
-        let error = null
-        
-        if (user?.email) {
-          const result = await supabase
-            .from('entitlements')
-            .select('*')
-            .or(`email.eq.${user.email.toLowerCase()},user_id.eq.${user.id}`)
-            .order('created_at', { ascending: false })
-            .limit(1)
-          
-          entitlements = result.data
-          error = result.error
-        }
-        
-        if (entitlements && entitlements.length > 0) {
-          setStatus('success')
-          // Redirect to portal after 2 seconds
-          setTimeout(() => {
-            router.push('/portal')
-          }, 2000)
-          return true
-        }
-        
-        // If session_id exists, also check by stripe_session_id
+
+        // Check for entitlement by session ID first (most reliable after payment)
         if (sessionId) {
           const { data: sessionEntitlement } = await supabase
             .from('entitlements')
             .select('*')
             .eq('stripe_session_id', sessionId)
+            .eq('active', true)
             .single()
-          
+
           if (sessionEntitlement) {
+            console.log('Found entitlement by session ID')
+
+            // If entitlement exists but not linked to user, link it
+            if (user && !sessionEntitlement.user_id && sessionEntitlement.email === user.email?.toLowerCase()) {
+              await supabase
+                .from('entitlements')
+                .update({ user_id: user.id })
+                .eq('id', sessionEntitlement.id)
+              console.log('Linked entitlement to user')
+            }
+
             setStatus('success')
             setTimeout(() => {
               router.push('/portal')
@@ -138,7 +134,27 @@ function WelcomeContent() {
             return true
           }
         }
-        
+
+        // Check for entitlement using both email and user_id
+        if (user?.email) {
+          const { data: entitlements } = await supabase
+            .from('entitlements')
+            .select('*')
+            .or(`email.eq.${user.email.toLowerCase()},user_id.eq.${user.id}`)
+            .eq('active', true)
+            .order('created_at', { ascending: false })
+            .limit(1)
+
+          if (entitlements && entitlements.length > 0) {
+            console.log('Found entitlement by email/user_id')
+            setStatus('success')
+            setTimeout(() => {
+              router.push('/portal')
+            }, 2000)
+            return true
+          }
+        }
+
         return false
       } catch (error) {
         console.error('Error checking entitlement:', error)
@@ -196,7 +212,7 @@ function WelcomeContent() {
             </p>
             <div className="flex items-center justify-center gap-2 text-sm text-gray-500">
               <Loader2 className="h-4 w-4 animate-spin" />
-              <span>This usually takes just a few seconds ({20 - attempts}s remaining)</span>
+              <span>This usually takes just a few seconds ({30 - attempts}s remaining)</span>
             </div>
             {userEmail && (
               <p className="text-xs text-gray-500 mt-4">
