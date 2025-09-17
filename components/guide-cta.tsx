@@ -2,7 +2,6 @@
 
 import { useState } from 'react'
 import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
 import { Card } from '@/components/ui/card'
 import { CheckCircle, Shield, Star, TrendingUp } from 'lucide-react'
 
@@ -13,7 +12,6 @@ interface GuideCTAProps {
 }
 
 export default function GuideCTA({ country, mistakePrice, masteryPrice }: GuideCTAProps) {
-  const [email, setEmail] = useState('')
   const [loading, setLoading] = useState(false)
   const [selectedTier, setSelectedTier] = useState<'mistake' | 'mastery'>('mistake')
 
@@ -25,16 +23,13 @@ export default function GuideCTA({ country, mistakePrice, masteryPrice }: GuideC
   async function handleCheckout() {
     setLoading(true)
     try {
-      localStorage.setItem('checkout_email', email)
-      
       const res = await fetch('/api/stripe/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ 
-          country: countryCode, 
+        body: JSON.stringify({
+          country: countryCode,
           tier: selectedTier,
-          productId: `${countryCode}-guide`,
-          email
+          productId: `${countryCode}-guide`
         })
       })
       
@@ -146,34 +141,25 @@ export default function GuideCTA({ country, mistakePrice, masteryPrice }: GuideC
             Get Instant Access
           </h3>
           <p className="text-blue-100 mb-6">
-            Pay now → Create account after → Access portal
+            Click below to pay securely with Stripe
           </p>
 
           <div className="max-w-md mx-auto space-y-4">
-            <Input
-              type="email"
-              placeholder="Enter your email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="bg-white text-gray-900"
-              required
-            />
-
             <Button
               onClick={handleCheckout}
-              disabled={loading || !email}
+              disabled={loading}
               size="lg"
               className="w-full bg-white text-blue-600 hover:bg-gray-100"
             >
-              {loading ? 'Processing...' :
+              {loading ? 'Redirecting to Stripe...' :
                 selectedTier === 'mistake'
-                  ? `Proceed to Checkout - ${mistakePrice}`
-                  : `Proceed to Checkout - ${masteryPrice}`
+                  ? `Pay ${mistakePrice} - Mistake Guide`
+                  : `Pay ${masteryPrice} - Import Mastery`
               }
             </Button>
 
             <p className="text-sm text-blue-100">
-              🔒 Secure payment via Stripe • No account needed yet
+              🔒 Secure checkout • Create account after payment
             </p>
           </div>
           

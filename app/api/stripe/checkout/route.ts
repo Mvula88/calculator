@@ -52,10 +52,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Invalid tier' }, { status: 400 })
     }
     
-    // Validate email
-    if (!email) {
-      return NextResponse.json({ error: 'Email is required' }, { status: 400 })
-    }
+    // Email is optional - Stripe will collect it if not provided
     
     // Normalize country
     const normalizedCountry = normalizeCountry(country || 'na')
@@ -158,10 +155,10 @@ export async function POST(req: NextRequest) {
         product_id: productId || tier,
         country: normalizedCountry,
         tier: tier,
-        email: email.toLowerCase(),
+        email: email ? email.toLowerCase() : '',
         idempotency_key: idempotencyKey
       },
-      customer_email: email.toLowerCase(),
+      customer_email: email ? email.toLowerCase() : undefined,
       success_url: successUrl,
       cancel_url: cancelUrl,
       payment_intent_data: {
