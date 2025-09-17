@@ -5,7 +5,7 @@ import Link from 'next/link'
 import Script from 'next/script'
 import { Button } from '@/components/ui/button'
 import CheckoutButton from '@/components/checkout-button'
-import { Card, CardContent, CardHeader } from '@/components/ui/card'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { 
   CheckCircle, 
   AlertTriangle, 
