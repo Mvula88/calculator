@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Link from 'next/link'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -197,9 +198,9 @@ export default function PaymentDebugPage() {
                       <div className="font-semibold mb-1">Entitlement Created Successfully!</div>
                       <div>You can now log in with your email: {email}</div>
                       <div className="mt-2">
-                        <a href="/auth/login" className="text-green-700 underline font-semibold">
+                        <Link href="/auth/login" className="text-green-700 underline font-semibold">
                           Go to Login Page →
-                        </a>
+                        </Link>
                       </div>
                     </AlertDescription>
                   </Alert>

@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Link from 'next/link'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -187,12 +188,12 @@ export default function FixPaymentPage() {
 
         {message?.type === 'success' && (
           <div className="mt-4 text-center">
-            <a
+            <Link
               href="/auth/login"
               className="text-blue-600 hover:underline font-semibold"
             >
               Go to Login Page →
-            </a>
+            </Link>
           </div>
         )}
       </Card>
