@@ -156,11 +156,14 @@ export async function middleware(request: NextRequest) {
       }
 
       // No payment params - redirect based on user state
+      const hasPaidAccess = userTier || user?.user_metadata?.has_paid
+
       if (!user) {
         return NextResponse.redirect(new URL('/auth/login', request.url))
-      } else if (userTier) {
+      } else if (hasPaidAccess) {
         return NextResponse.redirect(new URL('/portal', request.url))
       } else {
+        // Only redirect to guide if truly no payment detected
         return NextResponse.redirect(new URL('/na/guide', request.url))
       }
     }
