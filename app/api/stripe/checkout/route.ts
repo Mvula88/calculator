@@ -158,14 +158,23 @@ export async function POST(req: NextRequest) {
         email: email ? email.toLowerCase() : '',
         idempotency_key: idempotencyKey
       },
+      // Force collection of all details
+      billing_address_collection: 'required',
+      phone_number_collection: {
+        enabled: true,
+      },
       // Never pre-fill email - let Stripe collect it fresh
       // customer_email: email ? email.toLowerCase() : undefined,
+      // Prevent using saved payment methods
+      customer_creation: 'always',
       success_url: successUrl,
       cancel_url: cancelUrl,
       payment_intent_data: {
         metadata: {
           idempotency_key: idempotencyKey
-        }
+        },
+        // Require new payment method
+        setup_future_usage: null
       }
     }
     
