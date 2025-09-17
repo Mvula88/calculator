@@ -1,17 +1,18 @@
 'use client'
 
-import { useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { useState, useEffect } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
-import { AlertTriangle, CheckCircle, Lock, Mail, User } from 'lucide-react'
+import { AlertTriangle, CheckCircle, Lock, Mail, User, CreditCard } from 'lucide-react'
 
 export default function RegisterPage() {
   const router = useRouter()
+  const searchParams = useSearchParams()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
@@ -19,6 +20,11 @@ export default function RegisterPage() {
   const [error, setError] = useState('')
   const [success, setSuccess] = useState(false)
   const [loading, setLoading] = useState(false)
+
+  // Check if user is coming from successful payment
+  const sessionId = searchParams.get('session_id')
+  const paymentStatus = searchParams.get('payment_status')
+  const isFromPayment = paymentStatus === 'success' && sessionId
 
   async function handleRegister(e: React.FormEvent) {
     e.preventDefault()
@@ -59,9 +65,13 @@ export default function RegisterPage() {
 
     if (data.user) {
       setSuccess(true)
-      // Redirect to guide page after 3 seconds
+      // Redirect to portal if from payment, otherwise to guide
       setTimeout(() => {
-        router.push('/na/guide')
+        if (isFromPayment) {
+          router.push('/portal/welcome?payment_status=success')
+        } else {
+          router.push('/na/guide')
+        }
       }, 3000)
     }
   }
@@ -89,11 +99,22 @@ export default function RegisterPage() {
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white flex items-center justify-center px-4">
       <Card className="w-full max-w-md">
         <CardHeader className="space-y-1">
+          {isFromPayment && (
+            <div className="bg-green-50 border border-green-200 rounded-lg p-3 mb-4">
+              <div className="flex items-center gap-2">
+                <CreditCard className="h-5 w-5 text-green-600" />
+                <p className="text-sm font-medium text-green-800">Payment successful!</p>
+              </div>
+              <p className="text-xs text-green-600 mt-1">
+                Create your account to access your purchase
+              </p>
+            </div>
+          )}
           <CardTitle className="text-2xl font-bold text-center">
-            Join IMPOTA
+            {isFromPayment ? 'Complete Your Registration' : 'Join IMPOTA'}
           </CardTitle>
           <CardDescription className="text-center">
-            Start importing cars smarter today
+            {isFromPayment ? 'One more step to access your import guides' : 'Start importing cars smarter today'}
           </CardDescription>
         </CardHeader>
         
@@ -184,9 +205,9 @@ export default function RegisterPage() {
             </Button>
             
             <p className="text-sm text-center text-gray-600">
-              Already have an account?{' '}
-              <Link 
-                href="/auth/login" 
+              {isFromPayment ? 'Already registered?' : 'Already have an account?'}{' '}
+              <Link
+                href={isFromPayment ? `/auth/login?session_id=${sessionId}&payment_status=success` : '/auth/login'}
                 className="text-blue-600 hover:underline font-medium"
               >
                 Sign in
