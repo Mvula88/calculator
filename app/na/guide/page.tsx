@@ -523,148 +523,6 @@ export default function NamibiaGuidePage() {
               <StockCounter country="na" />
             </div>
           </div>
-          
-          {/* Package Cards - Mobile Optimized */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 max-w-6xl mx-auto">
-            {/* Essential Guide */}
-            <div className="group">
-              <Card className="h-full border-2 border-gray-200 hover:border-blue-400 hover:shadow-2xl transition-all duration-300 bg-white overflow-hidden">
-                <CardHeader className="bg-gradient-to-r from-blue-50 to-indigo-50 border-b border-blue-100">
-                  <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0">
-                    <div>
-                      <div className="flex items-center gap-2 mb-2">
-                        <BookOpen className="h-5 w-5 sm:h-6 sm:w-6 text-blue-600" />
-                        <h3 className="text-xl sm:text-2xl font-bold text-gray-900">Essential Guide</h3>
-                      </div>
-                      <p className="text-gray-600 font-medium text-sm sm:text-base">Perfect for first-time importers</p>
-                    </div>
-                    <div className="text-left sm:text-right">
-                      <div className="text-2xl sm:text-3xl lg:text-4xl font-black text-blue-600 mb-1">N$499</div>
-                      <div className="text-xs sm:text-sm text-emerald-600 font-semibold bg-emerald-100 px-2 sm:px-3 py-1 rounded-full">
-                        Essential Knowledge
-                      </div>
-                    </div>
-                  </div>
-                </CardHeader>
-                
-                <CardContent className="p-6 sm:p-8">
-                  <div className="space-y-3 sm:space-y-4 mb-6 sm:mb-8">
-                    {[
-                      "Complete 55-page import guide with step-by-step instructions",
-                      "Comprehensive Walvis Bay port procedures manual",
-                      "Real cost breakdowns and calculation worksheets",
-                      "All customs forms & processes fully explained",
-                      "Emergency troubleshooting solutions guide",
-                      "Common mistake prevention checklist",
-                      "Regular updates and continuous improvements"
-                    ].map((feature, i) => (
-                      <div key={i} className="flex items-start gap-3 group">
-                        <div className="bg-emerald-100 p-1 rounded-full mt-0.5 group-hover:bg-emerald-200 transition-colors flex-shrink-0">
-                          <Check className="h-3 w-3 sm:h-4 sm:w-4 text-emerald-600" />
-                        </div>
-                        <span className="text-gray-700 leading-relaxed text-sm sm:text-base">{feature}</span>
-                      </div>
-                    ))}
-                  </div>
-                  
-                  <div className="space-y-3 sm:space-y-4">
-                    <CheckoutButton
-                      tier="mistake"
-                      country="na"
-                      variant="outline"
-                      className="w-full h-12 sm:h-14 text-base sm:text-lg font-bold border-2 border-blue-300 text-blue-600 hover:bg-blue-600 hover:text-white hover:shadow-lg transition-all duration-300 group-hover:scale-[1.02] min-h-[44px]"
-                      size="lg"
-                    >
-                      <Download className="mr-2 sm:mr-3 h-4 w-4 sm:h-5 sm:w-5" />
-                      Get Essential Guide
-                      <ArrowRight className="ml-2 sm:ml-3 h-4 w-4 sm:h-5 sm:w-5" />
-                    </CheckoutButton>
-                    <p className="text-center text-xs sm:text-sm text-gray-500">
-                      Instant access • Lifetime updates • 7-day refund policy
-                    </p>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-
-            {/* Import Mastery */}
-            <div className="group relative">
-              {/* Premium Badge */}
-              <div className="absolute -top-4 sm:-top-6 left-1/2 -translate-x-1/2 z-20">
-                <div className="bg-gradient-to-r from-purple-600 via-pink-600 to-orange-500 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-xl sm:rounded-2xl shadow-2xl flex items-center gap-1 sm:gap-2 border-2 border-white">
-                  <Crown className="h-4 w-4 sm:h-5 sm:w-5" />
-                  <span className="font-bold text-xs sm:text-sm">MOST POPULAR</span>
-                  <Crown className="h-4 w-4 sm:h-5 sm:w-5" />
-                </div>
-              </div>
-              
-              <Card className="h-full border-2 border-purple-300 hover:border-purple-500 shadow-2xl bg-gradient-to-br from-white via-purple-50/30 to-pink-50/30 overflow-hidden group-hover:shadow-purple-500/20 transition-all duration-300">
-                <CardHeader className="bg-gradient-to-r from-purple-50 via-pink-50 to-orange-50 border-b border-purple-200">
-                  <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0">
-                    <div>
-                      <div className="flex items-center gap-2 mb-2">
-                        <Crown className="h-5 w-5 sm:h-6 sm:w-6 text-purple-600" />
-                        <h3 className="text-xl sm:text-2xl font-bold text-gray-900">Complete Mastery</h3>
-                      </div>
-                      <p className="text-gray-600 font-medium text-sm sm:text-base">Professional import toolkit</p>
-                    </div>
-                    <div className="text-left sm:text-right">
-                      <div className="text-2xl sm:text-3xl lg:text-4xl font-black bg-gradient-to-r from-purple-600 via-pink-600 to-orange-500 bg-clip-text text-transparent mb-1">
-                        N$1,999
-                      </div>
-                      <div className="text-xs sm:text-sm text-purple-600 font-semibold bg-purple-100 px-2 sm:px-3 py-1 rounded-full">
-                        Complete System
-                      </div>
-                    </div>
-                  </div>
-                </CardHeader>
-                
-                <CardContent className="p-6 sm:p-8">
-                  <div className="bg-gradient-to-r from-purple-100 to-pink-100 rounded-xl sm:rounded-2xl p-3 sm:p-4 mb-4 sm:mb-6 border border-purple-200">
-                    <div className="flex items-center gap-2">
-                      <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 text-purple-600" />
-                      <p className="text-purple-800 font-bold text-sm sm:text-base">Everything in Essential Guide PLUS:</p>
-                    </div>
-                  </div>
-                  
-                  <div className="space-y-3 sm:space-y-4 mb-6 sm:mb-8">
-                    {[
-                      "Advanced live duty calculator tool with real-time rates",
-                      "Verified clearing agent contact directory with reviews",
-                      "Exclusive Japan auction access strategies and insider tips",
-                      "Container sharing network access for cost savings",
-                      "Personal import master checklist and timeline",
-                      "Advanced troubleshooting guide for complex issues",
-                      "Priority regulation updates and industry insights"
-                    ].map((feature, i) => (
-                      <div key={i} className="flex items-start gap-3 group">
-                        <div className="bg-gradient-to-br from-yellow-400 to-orange-500 p-1 rounded-full mt-0.5 shadow-sm group-hover:shadow-md transition-all flex-shrink-0">
-                          <Star className="h-3 w-3 sm:h-4 sm:w-4 text-white" />
-                        </div>
-                        <span className="text-gray-700 font-medium leading-relaxed text-sm sm:text-base">{feature}</span>
-                      </div>
-                    ))}
-                  </div>
-                  
-                  <div className="space-y-3 sm:space-y-4">
-                    <CheckoutButton
-                      tier="mastery"
-                      country="na"
-                      className="w-full h-12 sm:h-14 text-base sm:text-lg font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-orange-500 hover:from-purple-700 hover:via-pink-700 hover:to-orange-600 shadow-2xl hover:shadow-purple-500/30 transition-all duration-300 group-hover:scale-[1.02] min-h-[44px]"
-                      size="lg"
-                    >
-                      <Crown className="mr-2 sm:mr-3 h-4 w-4 sm:h-5 sm:w-5" />
-                      Get Complete Mastery
-                      <Rocket className="ml-2 sm:ml-3 h-4 w-4 sm:h-5 sm:w-5" />
-                    </CheckoutButton>
-                    <p className="text-center text-xs sm:text-sm text-gray-500">
-                      Instant access • Premium support • Advanced tools included
-                    </p>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
 
           {/* Professional Trust Indicators - Mobile Optimized */}
           <div className="mt-12 sm:mt-16">
@@ -1024,13 +882,15 @@ export default function NamibiaGuidePage() {
         </div>
       </section>
 
-      {/* Dedicated Pricing Section - Only show if not logged in or has Essential tier */}
+      {/* Dedicated Pricing Section - Always visible */}
       <section id="pricing" className="py-16 sm:py-20 bg-gradient-to-b from-gray-50 to-white">
         <div className="container mx-auto px-4 max-w-7xl">
-          {!loading && (
-            <>
               {/* User with Mastery - Show portal access */}
-              {user && entitlement?.tier === 'mastery' ? (
+              {loading ? (
+                <div className="text-center">
+                  <p className="text-gray-600">Loading...</p>
+                </div>
+              ) : user && entitlement?.tier === 'mastery' ? (
                 <div className="text-center">
                   <Card className="max-w-2xl mx-auto">
                     <CardHeader>
@@ -1197,8 +1057,6 @@ export default function NamibiaGuidePage() {
           </div>
                 </>
               )}
-            </>
-          )}
         </div>
       </section>
     </main>
