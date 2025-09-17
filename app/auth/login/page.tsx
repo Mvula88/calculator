@@ -75,17 +75,6 @@ function LoginForm() {
         console.log('User logged in successfully:', data.user.email)
         console.log('Session established:', !!data.session)
 
-        // CRITICAL: Verify the session is actually set before redirecting
-        const { data: sessionCheck } = await supabase.auth.getSession()
-        console.log('Session verification:', !!sessionCheck?.session)
-
-        if (!sessionCheck?.session) {
-          console.error('Session not properly established after login')
-          setError('Session creation failed. Please try again.')
-          setLoading(false)
-          return
-        }
-
         // Get redirect URL from params or default to /portal
         const redirectTo = searchParams.get('redirectTo') || '/portal'
         console.log('Redirect target:', redirectTo)
@@ -94,51 +83,18 @@ function LoginForm() {
         if (data.user.user_metadata?.needs_password_reset) {
           console.log('User needs password reset, redirecting to setup...')
           window.location.href = '/auth/setup-account'
-        } else {
-          // ALWAYS go to portal for authenticated users
-          // (they can't be authenticated without paying in your flow)
-          console.log('Login successful, session confirmed, redirecting to:', redirectTo)
-
-          // Use router.refresh() first to ensure cookies are set
-          router.refresh()
-
-          // Then redirect
-          setTimeout(() => {
-            window.location.href = redirectTo
-          }, 100)
-
-          // Try to link orphaned entitlements in background (non-blocking)
-          // This will complete even after redirect
-          console.log('Checking for orphaned entitlements in background...')
-          Promise.resolve(
-            supabase
-              .from('entitlements')
-              .select('*')
-              .eq('email', data.user.email?.toLowerCase())
-              .eq('active', true)
-              .maybeSingle()
-          ).then(({ data: entitlement, error: entError }) => {
-            console.log('Background entitlement check:', { found: !!entitlement, error: entError })
-
-            if (entitlement && !entitlement.user_id) {
-              // Link the entitlement to the user if not already linked
-              console.log('Linking entitlement to user in background...')
-              supabase
-                .from('entitlements')
-                .update({ user_id: data.user.id })
-                .eq('id', entitlement.id)
-                .then((result) => {
-                  if (result.error) {
-                    console.error('Background: Failed to link entitlement:', result.error)
-                  } else {
-                    console.log('Background: Linked entitlement to user:', data.user.email)
-                  }
-                })
-            }
-          }).catch((err: any) => {
-            console.error('Background entitlement check failed:', err)
-          })
+          return
         }
+
+        // ALWAYS go to portal for authenticated users
+        console.log('Login successful, redirecting to:', redirectTo)
+
+        // Direct redirect - session is already confirmed
+        window.location.href = redirectTo
+
+        // Keep loading state true since we're redirecting
+        // Don't set loading to false
+        return
       } else {
         console.log('No user data returned from login')
         setError('Login failed. Please try again.')
