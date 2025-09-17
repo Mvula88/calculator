@@ -197,16 +197,36 @@ export async function middleware(request: NextRequest) {
 
     // Check if user has paid (either in entitlements table or user metadata)
     const hasPaidViaMetadata = user?.user_metadata?.has_paid === true
-    const hasPaidAccess = userTier || hasPaidViaMetadata
+
+    // Also check if they have a payment session ID (might be in payment flow)
+    const hasPaymentSession = user?.user_metadata?.payment_session_id
+
+    // Check if user email exists in entitlements (fallback for existing users)
+    const { data: emailEntitlement } = await supabase
+      .from('entitlements')
+      .select('*')
+      .eq('email', user.email?.toLowerCase())
+      .eq('active', true)
+      .maybeSingle()
+
+    const hasPaidAccess = userTier || hasPaidViaMetadata || hasPaymentSession || emailEntitlement
+
+    // Enhanced logging to debug payment detection
+    console.log('[Middleware] Portal access check:', {
+      path: request.nextUrl.pathname,
+      email: user?.email,
+      userTier,
+      user_metadata: user?.user_metadata,
+      has_paid_metadata: hasPaidViaMetadata,
+      has_payment_session: !!hasPaymentSession,
+      has_email_entitlement: !!emailEntitlement,
+      has_paid_access: hasPaidAccess
+    })
 
     if (!hasPaidAccess) {
       // User is authenticated but hasn't paid - shouldn't happen in your flow
       // but redirect to guide if it does
-      console.log('[Middleware] User authenticated but no payment detected:', {
-        email: user?.email,
-        userTier,
-        metadata_has_paid: hasPaidViaMetadata
-      })
+      console.log('[Middleware] Redirecting to /na/guide - no payment detected')
       return NextResponse.redirect(new URL('/na/guide', request.url))
     }
 
