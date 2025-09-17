@@ -21,10 +21,16 @@ export default function RegisterPage() {
   const [success, setSuccess] = useState(false)
   const [loading, setLoading] = useState(false)
 
-  // Check if user is coming from successful payment
+  // Check if user is coming from payment or package selection
   const sessionId = searchParams.get('session_id')
   const paymentStatus = searchParams.get('payment_status')
   const isFromPayment = paymentStatus === 'success' && sessionId
+
+  // Check if user is coming from package selection (pre-checkout)
+  const selectedPackage = searchParams.get('package')
+  const selectedCountry = searchParams.get('country')
+  const checkoutPending = searchParams.get('checkout') === 'pending'
+  const isPreCheckout = checkoutPending && selectedPackage
 
   async function handleRegister(e: React.FormEvent) {
     e.preventDefault()
@@ -65,14 +71,44 @@ export default function RegisterPage() {
 
     if (data.user) {
       setSuccess(true)
-      // Redirect to portal if from payment, otherwise to guide
-      setTimeout(() => {
-        if (isFromPayment) {
+
+      // If coming from package selection, proceed to checkout
+      if (isPreCheckout) {
+        // Call checkout API
+        setTimeout(async () => {
+          const res = await fetch('/api/stripe/checkout', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              country: selectedCountry || 'na',
+              tier: selectedPackage,
+              productId: `${selectedCountry || 'na'}-guide`
+            })
+          })
+
+          const { url, error } = await res.json()
+
+          if (error) {
+            alert(`Error: ${error}`)
+            router.push('/packages')
+            return
+          }
+
+          if (url) {
+            window.location.href = url
+          }
+        }, 2000)
+      } else if (isFromPayment) {
+        // Coming back from payment
+        setTimeout(() => {
           router.push('/portal/welcome?payment_status=success')
-        } else {
+        }, 3000)
+      } else {
+        // Regular registration
+        setTimeout(() => {
           router.push('/na/guide')
-        }
-      }, 3000)
+        }, 3000)
+      }
     }
   }
 
@@ -86,8 +122,11 @@ export default function RegisterPage() {
               Account Created Successfully!
             </CardTitle>
             <CardDescription>
-              Please check your email to verify your account.
-              You'll be redirected to our import guides...
+              {isPreCheckout
+                ? 'Redirecting to secure checkout...'
+                : isFromPayment
+                  ? 'Redirecting to your portal...'
+                  : 'Please check your email to verify your account. You\'ll be redirected to our import guides...'}
             </CardDescription>
           </CardHeader>
         </Card>
@@ -110,11 +149,28 @@ export default function RegisterPage() {
               </p>
             </div>
           )}
+          {isPreCheckout && (
+            <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 mb-4">
+              <div className="flex items-center gap-2">
+                <CreditCard className="h-5 w-5 text-blue-600" />
+                <p className="text-sm font-medium text-blue-800">
+                  {selectedPackage === 'mastery' ? 'Import Mastery - N$1,999' : 'Essential Guide - N$499'}
+                </p>
+              </div>
+              <p className="text-xs text-blue-600 mt-1">
+                Create your account, then proceed to checkout
+              </p>
+            </div>
+          )}
           <CardTitle className="text-2xl font-bold text-center">
-            {isFromPayment ? 'Complete Your Registration' : 'Join IMPOTA'}
+            {isFromPayment ? 'Complete Your Registration' : isPreCheckout ? 'Create Your Account' : 'Join IMPOTA'}
           </CardTitle>
           <CardDescription className="text-center">
-            {isFromPayment ? 'One more step to access your import guides' : 'Start importing cars smarter today'}
+            {isFromPayment
+              ? 'One more step to access your import guides'
+              : isPreCheckout
+                ? 'Step 1 of 2: Create account before payment'
+                : 'Start importing cars smarter today'}
           </CardDescription>
         </CardHeader>
         

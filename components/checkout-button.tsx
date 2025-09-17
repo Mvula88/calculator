@@ -24,34 +24,9 @@ export default function CheckoutButton({
   const [loading, setLoading] = useState(false)
 
   async function handleCheckout() {
-    setLoading(true)
-    try {
-      const res = await fetch('/api/stripe/checkout', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          country,
-          tier,
-          productId: `${country}-guide`
-        })
-      })
-
-      const { url, error } = await res.json()
-
-      if (error) {
-        alert(`Error: ${error}`)
-        return
-      }
-
-      if (url) {
-        window.location.href = url
-      }
-    } catch (error) {
-      console.error('Checkout error:', error)
-      alert('Failed to start checkout')
-    } finally {
-      setLoading(false)
-    }
+    // Redirect to register page with package info
+    const registerUrl = `/auth/register?package=${tier}&country=${country}&checkout=pending`
+    window.location.href = registerUrl
   }
 
   return (
