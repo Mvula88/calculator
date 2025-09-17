@@ -146,9 +146,9 @@ export default function GuideCTA({ country, mistakePrice, masteryPrice }: GuideC
             Get Instant Access
           </h3>
           <p className="text-blue-100 mb-6">
-            Get expert import guidance • Educational content
+            Pay now → Create account after → Access portal
           </p>
-          
+
           <div className="max-w-md mx-auto space-y-4">
             <Input
               type="email"
@@ -158,22 +158,22 @@ export default function GuideCTA({ country, mistakePrice, masteryPrice }: GuideC
               className="bg-white text-gray-900"
               required
             />
-            
-            <Button 
+
+            <Button
               onClick={handleCheckout}
               disabled={loading || !email}
               size="lg"
               className="w-full bg-white text-blue-600 hover:bg-gray-100"
             >
-              {loading ? 'Processing...' : 
-                selectedTier === 'mistake' 
-                  ? `Get Mistake Guide for ${mistakePrice}`
-                  : `Get Import Mastery for ${masteryPrice}`
+              {loading ? 'Processing...' :
+                selectedTier === 'mistake'
+                  ? `Proceed to Checkout - ${mistakePrice}`
+                  : `Proceed to Checkout - ${masteryPrice}`
               }
             </Button>
-            
+
             <p className="text-sm text-blue-100">
-              🔒 Secure payment via Stripe • Instant access after payment
+              🔒 Secure payment via Stripe • No account needed yet
             </p>
           </div>
           
