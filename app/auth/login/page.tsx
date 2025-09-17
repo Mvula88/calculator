@@ -26,6 +26,9 @@ function LoginForm() {
     const redirectEmail = searchParams.get('email')
     const sessionId = searchParams.get('session_id')
     const paymentStatus = searchParams.get('payment_status')
+    const redirectTo = searchParams.get('redirectTo')
+
+    console.log('Login page params:', { msg, redirectEmail, sessionId, paymentStatus, redirectTo })
 
     if (msg === 'account-exists' && redirectEmail) {
       setMessage('You already have an account. Please login to access your purchase.')
@@ -40,18 +43,23 @@ function LoginForm() {
 
   async function handlePasswordLogin(e: React.FormEvent) {
     e.preventDefault()
+    console.log('Starting login process...')
     setLoading(true)
     setError('')
 
     try {
       const supabase = createClient()
+      console.log('Attempting login for:', email.toLowerCase())
 
       const { data, error } = await supabase.auth.signInWithPassword({
         email: email.toLowerCase(),
         password: password
       })
 
+      console.log('Login response:', { user: data?.user?.email, error: error?.message })
+
       if (error) {
+        console.error('Login failed:', error)
         if (error.message.includes('Invalid login credentials')) {
           setError('Invalid email or password. Please try again.')
         } else {
@@ -64,16 +72,22 @@ function LoginForm() {
       // After successful login, always go to portal
       // In your system: authentication = payment completed
       if (data.user) {
+        console.log('User logged in successfully:', data.user.email)
+
         // Try to link any orphaned entitlements
-        const { data: entitlement } = await supabase
+        console.log('Checking for orphaned entitlements...')
+        const { data: entitlement, error: entError } = await supabase
           .from('entitlements')
           .select('*')
           .eq('email', data.user.email?.toLowerCase())
           .eq('active', true)
           .maybeSingle()
 
+        console.log('Entitlement check:', { found: !!entitlement, error: entError })
+
         if (entitlement && !entitlement.user_id) {
           // Link the entitlement to the user if not already linked
+          console.log('Linking entitlement to user...')
           await supabase
             .from('entitlements')
             .update({ user_id: data.user.id })
@@ -82,20 +96,39 @@ function LoginForm() {
           console.log('Linked entitlement to user:', data.user.email)
         }
 
+        // Get redirect URL from params or default to /portal
+        const redirectTo = searchParams.get('redirectTo') || '/portal'
+        console.log('Redirect target:', redirectTo)
+
         // Check if user needs to complete setup
         if (data.user.user_metadata?.needs_password_reset) {
-          window.location.href = '/auth/setup-account'
+          console.log('User needs password reset, redirecting to setup...')
+          setTimeout(() => {
+            window.location.href = '/auth/setup-account'
+          }, 100)
         } else {
           // ALWAYS go to portal for authenticated users
           // (they can't be authenticated without paying in your flow)
-          console.log('Login successful, redirecting to portal:', data.user.email)
+          console.log('Login successful, redirecting to:', redirectTo)
 
-          // Use window.location for more reliable redirect
-          window.location.href = '/portal'
+          // Small delay to ensure state updates
+          setTimeout(() => {
+            window.location.href = redirectTo
+          }, 100)
+
+          // Fallback: clear loading state after 3 seconds if redirect fails
+          setTimeout(() => {
+            setLoading(false)
+            setError('Redirect failed. Please try refreshing the page or click here to go to the portal.')
+          }, 3000)
         }
+      } else {
+        console.log('No user data returned from login')
+        setError('Login failed. Please try again.')
+        setLoading(false)
       }
     } catch (err) {
-      console.error('Login error:', err)
+      console.error('Unexpected login error:', err)
       setError('An unexpected error occurred. Please try again.')
       setLoading(false)
     }
@@ -124,9 +157,19 @@ function LoginForm() {
           <div className="space-y-4">
                 <form onSubmit={handlePasswordLogin}>
                   {error && (
-                    <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-lg flex items-start gap-2 mb-4">
-                      <AlertTriangle className="h-5 w-5 flex-shrink-0 mt-0.5" />
-                      <span className="text-sm">{error}</span>
+                    <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-lg mb-4">
+                      <div className="flex items-start gap-2">
+                        <AlertTriangle className="h-5 w-5 flex-shrink-0 mt-0.5" />
+                        <span className="text-sm">{error}</span>
+                      </div>
+                      {error.includes('Redirect failed') && (
+                        <Link
+                          href="/portal"
+                          className="text-sm text-blue-600 hover:underline mt-2 block"
+                        >
+                          Click here to go to the portal →
+                        </Link>
+                      )}
                     </div>
                   )}
                   
