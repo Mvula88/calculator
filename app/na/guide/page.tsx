@@ -885,8 +885,8 @@ export default function NamibiaGuidePage() {
       {/* Pricing Section - Shows member portal for paid users */}
       <section id="pricing" className="py-16 sm:py-20 bg-gradient-to-b from-gray-50 to-white">
         <div className="container mx-auto px-4 max-w-7xl">
-          {/* Check if user has paid access */}
-          {user && entitlement ? (
+          {/* Check if user has paid access (via entitlements or user metadata) */}
+          {user && (entitlement || user.user_metadata?.has_paid) ? (
             // User has paid - show professional member portal access
             <div className="text-center">
               <Card className="max-w-2xl mx-auto bg-gradient-to-r from-purple-50 to-blue-50 border-2 border-purple-200">

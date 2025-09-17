@@ -59,6 +59,11 @@ function RegisterForm() {
       options: {
         data: {
           full_name: fullName,
+          // Store payment info in user metadata for immediate access
+          has_paid: isFromPayment || isPreCheckout, // They're in payment flow
+          payment_session_id: sessionId || null,
+          tier: 'mastery', // Single tier now
+          payment_status: paymentStatus || 'pending'
         }
       }
     })

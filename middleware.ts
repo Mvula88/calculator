@@ -192,12 +192,23 @@ export async function middleware(request: NextRequest) {
       }
     }
 
-    // Check if user has entitlements
-    if (!userTier) {
-      // User is authenticated but has no paid access - redirect to guide/pricing
+    // Check if user has paid (either in entitlements table or user metadata)
+    const hasPaidViaMetadata = user?.user_metadata?.has_paid === true
+    const hasPaidAccess = userTier || hasPaidViaMetadata
+
+    if (!hasPaidAccess) {
+      // User is authenticated but hasn't paid - shouldn't happen in your flow
+      // but redirect to guide if it does
+      console.log('[Middleware] User authenticated but no payment detected:', {
+        email: user?.email,
+        userTier,
+        metadata_has_paid: hasPaidViaMetadata
+      })
       return NextResponse.redirect(new URL('/na/guide', request.url))
-    } else if (request.nextUrl.pathname.startsWith('/portal')) {
-      // User has paid access, let them access portal
+    }
+
+    // User has paid (either via entitlements or metadata), allow portal access
+    if (request.nextUrl.pathname.startsWith('/portal')) {
       return supabaseResponse
     }
     
