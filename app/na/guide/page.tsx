@@ -1076,8 +1076,11 @@ export default function NamibiaGuidePage() {
                 <>
                   <div className="text-center mb-12">
                     <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-                      Get Complete Import Mastery
+                      Choose Your Success Package
                     </h2>
+                    <p className="text-2xl sm:text-3xl font-bold text-gray-800 mb-4">
+                      Start Your Import Success Story Today
+                    </p>
                     <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">
                       Everything you need to import cars successfully - one comprehensive package with lifetime access.
                     </p>
