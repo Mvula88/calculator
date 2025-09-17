@@ -135,7 +135,22 @@ export async function middleware(request: NextRequest) {
     // /portal/welcome is public to handle Stripe payment success redirects
     const publicPortalRoutes = ['/portal/login', '/portal/activate', '/portal/welcome']
     if (publicPortalRoutes.includes(request.nextUrl.pathname)) {
-      // If user is already authenticated, redirect to calculator
+      // Special handling for /portal/welcome - NEVER redirect away from it
+      if (request.nextUrl.pathname === '/portal/welcome') {
+        console.log('[Middleware] Welcome page accessed:', {
+          hasUser: !!user,
+          userEmail: user?.email,
+          hasTier: !!userTier,
+          tier: userTier,
+          hasSessionId: !!request.nextUrl.searchParams.get('session_id'),
+          sessionId: request.nextUrl.searchParams.get('session_id')?.substring(0, 20),
+          paymentStatus: request.nextUrl.searchParams.get('payment_status')
+        })
+        // Let the welcome page handle all logic
+        return supabaseResponse
+      }
+
+      // For other public routes, redirect if already authenticated with tier
       // UNLESS they're coming from a Stripe payment
       const fromStripe = request.nextUrl.searchParams.get('session_id')
       if (user && userTier && !fromStripe) {
@@ -143,7 +158,7 @@ export async function middleware(request: NextRequest) {
       }
       return supabaseResponse
     }
-    
+
     // All other portal routes require authentication
     if (!user) {
       // Redirect to login
@@ -151,7 +166,7 @@ export async function middleware(request: NextRequest) {
       loginUrl.searchParams.set('redirectTo', request.nextUrl.pathname)
       return NextResponse.redirect(loginUrl)
     }
-    
+
     // Check if user has completed setup
     if (user.user_metadata?.needs_password_reset) {
       // User needs to complete account setup
@@ -159,7 +174,7 @@ export async function middleware(request: NextRequest) {
         return NextResponse.redirect(new URL('/auth/setup-account', request.url))
       }
     }
-    
+
     // Check if user has entitlements
     if (!userTier) {
       // User is authenticated but has no paid access
