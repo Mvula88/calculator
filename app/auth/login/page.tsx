@@ -93,33 +93,34 @@ function LoginForm() {
           // Try to link orphaned entitlements in background (non-blocking)
           // This will complete even after redirect
           console.log('Checking for orphaned entitlements in background...')
-          supabase
-            .from('entitlements')
-            .select('*')
-            .eq('email', data.user.email?.toLowerCase())
-            .eq('active', true)
-            .maybeSingle()
-            .then(({ data: entitlement, error: entError }) => {
-              console.log('Background entitlement check:', { found: !!entitlement, error: entError })
+          Promise.resolve(
+            supabase
+              .from('entitlements')
+              .select('*')
+              .eq('email', data.user.email?.toLowerCase())
+              .eq('active', true)
+              .maybeSingle()
+          ).then(({ data: entitlement, error: entError }) => {
+            console.log('Background entitlement check:', { found: !!entitlement, error: entError })
 
-              if (entitlement && !entitlement.user_id) {
-                // Link the entitlement to the user if not already linked
-                console.log('Linking entitlement to user in background...')
-                supabase
-                  .from('entitlements')
-                  .update({ user_id: data.user.id })
-                  .eq('id', entitlement.id)
-                  .then(() => {
+            if (entitlement && !entitlement.user_id) {
+              // Link the entitlement to the user if not already linked
+              console.log('Linking entitlement to user in background...')
+              supabase
+                .from('entitlements')
+                .update({ user_id: data.user.id })
+                .eq('id', entitlement.id)
+                .then((result) => {
+                  if (result.error) {
+                    console.error('Background: Failed to link entitlement:', result.error)
+                  } else {
                     console.log('Background: Linked entitlement to user:', data.user.email)
-                  })
-                  .catch(err => {
-                    console.error('Background: Failed to link entitlement:', err)
-                  })
-              }
-            })
-            .catch(err => {
-              console.error('Background entitlement check failed:', err)
-            })
+                  }
+                })
+            }
+          }).catch((err: any) => {
+            console.error('Background entitlement check failed:', err)
+          })
         }
       } else {
         console.log('No user data returned from login')
