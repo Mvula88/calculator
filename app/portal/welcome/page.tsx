@@ -69,8 +69,13 @@ function WelcomeContent() {
         }
       } else {
         console.log('No user logged in')
-        // No user logged in, try to get them to login
-        setStatus('error')
+        // No user logged in after payment - redirect to create account
+        if (sessionId && paymentStatus === 'success') {
+          console.log('Payment successful but no user - redirecting to create account')
+          router.push(`/auth/create-account?session_id=${sessionId}`)
+        } else {
+          setStatus('error')
+        }
       }
     } catch (error) {
       console.error('Error checking user access:', error)
@@ -247,12 +252,21 @@ function WelcomeContent() {
             </div>
             
             <div className="flex flex-col gap-3">
-              <Link href="/portal">
-                <Button className="w-full">
-                  Try Accessing Portal
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-              </Link>
+              {sessionId ? (
+                <Link href={`/auth/create-account?session_id=${sessionId}`}>
+                  <Button className="w-full">
+                    Create Your Account
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
+                </Link>
+              ) : (
+                <Link href="/portal">
+                  <Button className="w-full">
+                    Try Accessing Portal
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
+                </Link>
+              )}
               <Link href="/auth/login">
                 <Button variant="outline" className="w-full">
                   Go to Login

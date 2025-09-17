@@ -6,7 +6,7 @@ A professional car import duty calculator for Southern African countries (Namibi
 
 - **Country-Specific Calculations**: Automatic country detection with specific duty rates for NA, ZA, BW, and ZM
 - **Professional Duty Calculator**: Comprehensive cost breakdown including duties, VAT, and all fees
-- **Tiered Access System**: Free guides and premium calculator access
+- **Tiered Access System**: Essential guides and premium calculator access
 - **Secure Payment Processing**: Stripe integration with webhook handling
 - **User Authentication**: Supabase Auth with magic link support
 

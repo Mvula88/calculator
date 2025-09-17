@@ -56,6 +56,54 @@ import StickySignupHeader from '@/components/StickySignupHeader'
 import StockCounter from '@/components/StockCounter'
 import ImportSuccessNotifications from '@/components/PurchaseNotifications'
 
+// Function to get static Tailwind classes for colors
+const getColorClasses = (color: string) => {
+  const colorMap: { [key: string]: { background: string; shadow: string } } = {
+    blue: {
+      background: 'bg-gradient-to-br from-blue-500 to-blue-600',
+      shadow: 'group-hover:shadow-blue-500/25'
+    },
+    green: {
+      background: 'bg-gradient-to-br from-green-500 to-green-600',
+      shadow: 'group-hover:shadow-green-500/25'
+    },
+    purple: {
+      background: 'bg-gradient-to-br from-purple-500 to-purple-600',
+      shadow: 'group-hover:shadow-purple-500/25'
+    },
+    amber: {
+      background: 'bg-gradient-to-br from-amber-500 to-amber-600',
+      shadow: 'group-hover:shadow-amber-500/25'
+    },
+    rose: {
+      background: 'bg-gradient-to-br from-rose-500 to-rose-600',
+      shadow: 'group-hover:shadow-rose-500/25'
+    },
+    teal: {
+      background: 'bg-gradient-to-br from-teal-500 to-teal-600',
+      shadow: 'group-hover:shadow-teal-500/25'
+    },
+    emerald: {
+      background: 'bg-gradient-to-br from-emerald-500 to-emerald-600',
+      shadow: 'group-hover:shadow-emerald-500/25'
+    },
+    yellow: {
+      background: 'bg-gradient-to-br from-yellow-500 to-yellow-600',
+      shadow: 'group-hover:shadow-yellow-500/25'
+    },
+    sky: {
+      background: 'bg-gradient-to-br from-sky-500 to-sky-600',
+      shadow: 'group-hover:shadow-sky-500/25'
+    },
+    orange: {
+      background: 'bg-gradient-to-br from-orange-500 to-orange-600',
+      shadow: 'group-hover:shadow-orange-500/25'
+    }
+  }
+  
+  return colorMap[color] || colorMap.blue // Default to blue if color not found
+}
+
 // SEO-optimized FAQ data - General info only, specifics in paid guide
 const faqs = [
   {
@@ -356,7 +404,7 @@ export default function BotswanaGuidePage() {
                     </div>
                     
                     {/* Icon */}
-                    <div className={`relative bg-gradient-to-br from-${item.color}-500 to-${item.color}-600 w-12 h-12 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl flex items-center justify-center mb-4 sm:mb-6 shadow-lg group-hover:shadow-${item.color}-500/25 group-hover:scale-110 transition-all duration-300`}>
+                    <div className={`relative ${getColorClasses(item.color).background} w-12 h-12 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl flex items-center justify-center mb-4 sm:mb-6 shadow-lg ${getColorClasses(item.color).shadow} group-hover:scale-110 transition-all duration-300`}>
                       <item.icon className="h-6 w-6 sm:h-8 sm:w-8 text-white" />
                     </div>
                     

@@ -112,7 +112,8 @@ export async function middleware(request: NextRequest) {
   // Protected portal routes - SECURE AUTH CHECK
   if (request.nextUrl.pathname.startsWith('/portal')) {
     // Public portal routes that don't require auth
-    const publicPortalRoutes = ['/portal/login', '/portal/activate']
+    // /portal/welcome is public to handle Stripe payment success redirects
+    const publicPortalRoutes = ['/portal/login', '/portal/activate', '/portal/welcome']
     if (publicPortalRoutes.includes(request.nextUrl.pathname)) {
       // If user is already authenticated, redirect to calculator
       // UNLESS they're coming from a Stripe payment

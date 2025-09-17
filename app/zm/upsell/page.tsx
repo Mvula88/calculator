@@ -249,7 +249,7 @@ export default function ZambiaUpsellPage() {
         <Card className="p-8 bg-gradient-to-r from-green-600 to-emerald-600 text-white border-0">
           <div className="text-center">
             <h3 className="text-3xl font-bold mb-4">
-              Upgrade Now - Limited Time
+              Upgrade to Import Mastery
             </h3>
             <div className="text-2xl font-bold mb-2">
               <span>K2,000</span>

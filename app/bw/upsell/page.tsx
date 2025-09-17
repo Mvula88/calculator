@@ -202,7 +202,7 @@ export default function BotswanaUpsellPage() {
         <Card className="p-8 bg-gradient-to-r from-purple-600 to-pink-600 text-white border-0">
           <div className="text-center">
             <h3 className="text-3xl font-bold mb-4">
-              Upgrade Now - Limited Time
+              Upgrade to Import Mastery
             </h3>
             <div className="text-2xl font-bold mb-2">
               <span>P1,618</span>
@@ -263,19 +263,8 @@ export default function BotswanaUpsellPage() {
           </div>
         </Card>
 
-        {/* Social Proof */}
-        <div className="mt-12 text-center">
-          <p className="text-gray-600 italic mb-4">
-            "The Mastery upgrade paid for itself on my first import. The auction 
-            strategies made a significant difference in my costs." - Keabetswe M., Gaborone
-          </p>
-          <div className="flex justify-center">
-            {[1,2,3,4,5].map(i => (
-              <Star key={i} className="h-5 w-5 fill-yellow-400 text-yellow-400" />
-            ))}
-          </div>
-          <p className="text-sm text-gray-500 mt-2">4.9/5 from 8 reviews</p>
-        </div>
+        {/* Social Proof - Disabled: Testimonials removed for Stripe compliance */}
+        {/* Stripe policy requires genuine, verifiable reviews only */}
       </div>
     </main>
   )

@@ -175,7 +175,7 @@ export default function SupportPage() {
         {
           id: 'update-requests',
           title: 'Update requests',
-          solution: 'We welcome suggestions for guide improvements! Email your feedback to support@impota.com. Include specific sections you\'d like expanded or topics you want covered. Updates are released monthly and all users get free access to new content.'
+          solution: 'We welcome suggestions for guide improvements! Email your feedback to support@impota.com. Include specific sections you\'d like expanded or topics you want covered. Updates are released monthly and all users get access to new content.'
         }
       ]
     }
