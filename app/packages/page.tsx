@@ -23,8 +23,24 @@ export default function PackagesPage() {
         const { data: { user }, error: userError } = await supabase.auth.getUser()
 
         console.log('[Packages] Checking access for user:', user?.email, 'ID:', user?.id)
+        console.log('[Packages] Auth error:', userError)
 
         if (!mounted) return
+
+        // Special handling for JWT user not found error
+        if (userError?.message?.includes('User from sub claim in JWT does not exist')) {
+          console.log('[Packages] JWT user not found - clearing session')
+          await supabase.auth.signOut()
+
+          if (mounted) {
+            setStatus('no-access')
+            // Force page reload to clear bad state
+            setTimeout(() => {
+              window.location.href = '/auth/login'
+            }, 1000)
+          }
+          return false
+        }
 
         if (userError || !user) {
           console.log('[Packages] No user logged in:', userError)
