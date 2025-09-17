@@ -137,15 +137,25 @@ export async function middleware(request: NextRequest) {
     if (publicPortalRoutes.includes(request.nextUrl.pathname)) {
       // Special handling for /portal/welcome - NEVER redirect away from it
       if (request.nextUrl.pathname === '/portal/welcome') {
+        const sessionId = request.nextUrl.searchParams.get('session_id')
+        const paymentStatus = request.nextUrl.searchParams.get('payment_status')
+
         console.log('[Middleware] Welcome page accessed:', {
+          host: request.headers.get('host'),
           hasUser: !!user,
           userEmail: user?.email,
           hasTier: !!userTier,
           tier: userTier,
-          hasSessionId: !!request.nextUrl.searchParams.get('session_id'),
-          sessionId: request.nextUrl.searchParams.get('session_id')?.substring(0, 20),
-          paymentStatus: request.nextUrl.searchParams.get('payment_status')
+          hasSessionId: !!sessionId,
+          sessionId: sessionId?.substring(0, 20),
+          paymentStatus: paymentStatus
         })
+
+        // If we have payment success params, ALWAYS allow access
+        if (paymentStatus === 'success' || sessionId) {
+          return supabaseResponse
+        }
+
         // Let the welcome page handle all logic
         return supabaseResponse
       }

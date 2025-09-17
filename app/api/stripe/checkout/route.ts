@@ -113,23 +113,18 @@ export async function POST(req: NextRequest) {
       .update(`${email}-${tier}-${country}-${timestamp}`)
       .digest('hex')
     
-    // Get the base URL from environment variable or request headers
-    let baseUrl = process.env.NEXT_PUBLIC_APP_URL
-    
-    // If no env var set, construct from request headers
+    // Get the base URL - prefer actual host to handle www redirects properly
+    const host = req.headers.get('host')
+    const protocol = req.headers.get('x-forwarded-proto') || 'https'
+
+    // Use actual host if available to match the current domain (www or non-www)
+    let baseUrl = host ? `${protocol}://${host}` : process.env.NEXT_PUBLIC_APP_URL
+
     if (!baseUrl) {
-      const host = req.headers.get('host')
-      const protocol = req.headers.get('x-forwarded-proto') || 'https'
-      
-      if (host) {
-        baseUrl = `${protocol}://${host}`
-        console.log('Warning: NEXT_PUBLIC_APP_URL not set, using host:', baseUrl)
-      } else {
-        baseUrl = 'http://localhost:3000'
-        console.log('Warning: No host header, using localhost')
-      }
+      baseUrl = 'http://localhost:3000'
+      console.log('Warning: No host header or env var, using localhost')
     } else {
-      console.log('Using NEXT_PUBLIC_APP_URL:', baseUrl)
+      console.log('Using base URL:', baseUrl, '(from:', host ? 'host header' : 'env var')')
     }
     
     // Remove trailing slash if present
