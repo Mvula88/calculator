@@ -20,12 +20,14 @@ export default function PackagesPage() {
     async function checkAccess() {
       try {
         const supabase = createClient()
-        const { data: { user } } = await supabase.auth.getUser()
+        const { data: { user }, error: userError } = await supabase.auth.getUser()
+
+        console.log('[Packages] Checking access for user:', user?.email, 'ID:', user?.id)
 
         if (!mounted) return
 
-        if (!user) {
-          // No user logged in
+        if (userError || !user) {
+          console.log('[Packages] No user logged in:', userError)
           setStatus('no-access')
           return false
         }
@@ -33,28 +35,42 @@ export default function PackagesPage() {
         setUserEmail(user.email || null)
 
         // Check for entitlements by both user_id AND email
+        console.log('[Packages] Querying entitlements for:', user.email, 'or user_id:', user.id)
+
         const { data: entitlements, error } = await supabase
           .from('entitlements')
-          .select('tier, active, user_id')
+          .select('*')
           .or(`user_id.eq.${user.id},email.eq.${user.email?.toLowerCase()}`)
           .eq('active', true)
           .order('created_at', { ascending: false })
           .limit(1)
           .maybeSingle()
 
+        console.log('[Packages] Entitlements query result:', entitlements, 'Error:', error)
+
+        if (error) {
+          console.error('[Packages] Error querying entitlements:', error)
+          // Don't return false, continue to show no-access state
+        }
+
         if (!mounted) return
 
         if (entitlements?.tier) {
-          console.log('Found entitlement, redirecting to portal...')
+          console.log('[Packages] Found entitlement:', entitlements)
           setStatus('redirecting')
 
           // Also try to link the entitlement if it's not linked yet
           if (!entitlements.user_id && user.email) {
-            await supabase
+            console.log('[Packages] Linking orphaned entitlement to user')
+            const { error: updateError } = await supabase
               .from('entitlements')
               .update({ user_id: user.id })
               .eq('email', user.email.toLowerCase())
               .is('user_id', null)
+
+            if (updateError) {
+              console.error('[Packages] Error linking entitlement:', updateError)
+            }
           }
 
           setTimeout(() => {
@@ -63,9 +79,10 @@ export default function PackagesPage() {
           return true
         }
 
+        console.log('[Packages] No entitlements found for user')
         return false
       } catch (error) {
-        console.error('Error checking access:', error)
+        console.error('[Packages] Unexpected error:', error)
         return false
       }
     }
