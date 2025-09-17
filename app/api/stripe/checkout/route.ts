@@ -145,7 +145,7 @@ export async function POST(req: NextRequest) {
     // - If user already has entitlements, they're upgrading or re-buying -> go to portal
     // - Otherwise -> go to register to create account
     const successUrl = hasExistingEntitlement
-      ? `${baseUrl}/portal/welcome?session_id={CHECKOUT_SESSION_ID}&payment_status=success`
+      ? `${baseUrl}/portal?session_id={CHECKOUT_SESSION_ID}&payment_status=success`
       : `${baseUrl}/auth/register?session_id={CHECKOUT_SESSION_ID}&payment_status=success`
     const cancelUrl = `${baseUrl}/na/guide?payment_status=canceled`
     
