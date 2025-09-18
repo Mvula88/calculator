@@ -65,12 +65,22 @@ function LoginForm() {
       if (data.user && data.session) {
         // For users needing password reset
         if (data.user.user_metadata?.needs_password_reset) {
-          router.push('/auth/setup-account')
+          window.location.href = '/auth/setup-account'
           return
         }
 
-        // SUCCESS - redirect to portal
-        router.push('/portal')
+        // SUCCESS - redirect to portal using window.location for reliability
+        console.log('Login successful, redirecting to portal...')
+
+        // Force redirect with fallback
+        try {
+          window.location.href = '/portal'
+        } catch (redirectError) {
+          console.error('Redirect failed:', redirectError)
+          // Fallback: show manual link
+          setError('Redirect failed. Please click here to continue.')
+          setLoading(false)
+        }
         // Don't set loading false - keep spinner while redirecting
       } else {
         setError('Login failed. Please try again.')

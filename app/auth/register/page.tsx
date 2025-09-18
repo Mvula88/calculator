@@ -155,8 +155,9 @@ function RegisterForm() {
         }, 2000)
       } else if (isFromPayment) {
         // Coming back from payment - user is now signed in, go directly to portal
+        console.log('Registration with payment successful, redirecting to portal...')
         setTimeout(() => {
-          router.push('/portal')
+          window.location.href = '/portal'
         }, 2000)
       } else {
         // Regular registration
