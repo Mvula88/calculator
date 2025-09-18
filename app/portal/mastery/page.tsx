@@ -61,31 +61,18 @@ export default async function PortalMasteryPage() {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   
-  let entitlement = null
-  let userEmail = null
-  
-  if (user) {
-    entitlement = await getUserEntitlement(user.id, user.email)
-    userEmail = user.email
-  } else {
-    entitlement = await getSessionEntitlement()
-    userEmail = entitlement?.email
-  }
-  
-  if (!user && !entitlement) {
+  // Simplified - just check for user authentication
+  if (!user) {
     redirect('/auth/login?redirect=/portal/mastery')
   }
-  
-  // Remove tier check - all portal users have access
-  if (!entitlement) {
-    return (
-      <div className="max-w-4xl mx-auto px-6 py-12">
-        <Card className="p-8 text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600 mx-auto"></div>
-          <p className="mt-4 text-gray-600">Loading mastery tools...</p>
-        </Card>
-      </div>
-    )
+
+  const userEmail = user.email
+
+  // Set default values since we don't need entitlements anymore
+  const entitlement = {
+    country: 'na', // Default to Namibia
+    tier: 'mastery', // Everyone has mastery access
+    email: userEmail
   }
 
   const currency = entitlement.country === 'na' ? 'N$' :
