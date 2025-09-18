@@ -30,20 +30,19 @@ interface DocumentCategory {
 }
 
 export default function DocumentsPage() {
-  const { hasAccess, loading, userEmail, userTier } = useAuth()
-  
+  const { user, loading, userEmail, userTier } = useAuth()
+
   // Clean up email display if it's a session-based email
   const displayEmail = userEmail || 'user@example.com'
   let cleanEmail = displayEmail
   if (displayEmail.startsWith('user_cs_test_') || (displayEmail.startsWith('user_') && displayEmail.endsWith('@impota.com'))) {
     cleanEmail = 'Portal User'
   }
-  
-  // Use actual tier from session
-  const user = hasAccess ? { email: cleanEmail } : null
-  const entitlement = hasAccess ? {
+
+  // Use user directly instead of hasAccess
+  const entitlement = user ? {
     country: 'na',
-    tier: userTier
+    tier: userTier || 'mastery'
   } : null
   const [selectedDocument, setSelectedDocument] = useState<{name: string, url: string} | null>(null)
 
@@ -233,7 +232,7 @@ export default function DocumentsPage() {
             </div>
             <div className="flex items-center gap-2 text-xs sm:text-sm text-gray-600">
               <Shield className="h-3 w-3 sm:h-4 sm:w-4" />
-              <span className="truncate max-w-[150px] sm:max-w-none">Licensed to: {user?.email}</span>
+              <span className="truncate max-w-[150px] sm:max-w-none">Licensed to: {cleanEmail}</span>
             </div>
           </div>
           

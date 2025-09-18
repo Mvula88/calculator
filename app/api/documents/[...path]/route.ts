@@ -84,7 +84,7 @@ export async function GET(
       })
       
       // If request is from the same origin, allow it
-      if (referer && (referer.includes('impota.vercel.app') || referer.includes('localhost'))) {
+      if (referer && (referer.includes('impota.com') || referer.includes('impota.vercel.app') || referer.includes('localhost'))) {
         console.log('Allowing access based on referer')
         hasAccess = true
       }
