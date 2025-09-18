@@ -109,6 +109,22 @@ function RegisterForm() {
     }
 
     if (data.user) {
+      // After successful registration, sign the user in automatically
+      const { data: signInData, error: signInError } = await supabase.auth.signInWithPassword({
+        email: email.toLowerCase(),
+        password: password
+      })
+
+      if (signInError) {
+        console.error('Auto sign-in failed:', signInError)
+        // Even if auto-login fails, show success and redirect to login
+        setSuccess(true)
+        setTimeout(() => {
+          router.push(`/auth/login?email=${encodeURIComponent(email)}&message=Registration successful. Please login.`)
+        }, 2000)
+        return
+      }
+
       setSuccess(true)
 
       // If coming from package selection, proceed to checkout
@@ -138,15 +154,15 @@ function RegisterForm() {
           }
         }, 2000)
       } else if (isFromPayment) {
-        // Coming back from payment
+        // Coming back from payment - user is now signed in, go directly to portal
         setTimeout(() => {
           router.push('/portal')
-        }, 3000)
+        }, 2000)
       } else {
         // Regular registration
         setTimeout(() => {
           router.push('/na/guide')
-        }, 3000)
+        }, 2000)
       }
     }
   }
@@ -162,9 +178,9 @@ function RegisterForm() {
             </CardTitle>
             <CardDescription>
               {isPreCheckout
-                ? 'Redirecting to secure checkout...'
+                ? 'Logging you in and redirecting to secure checkout...'
                 : isFromPayment
-                  ? 'Redirecting to your portal...'
+                  ? 'Logging you in and redirecting to your portal...'
                   : 'Please check your email to verify your account. You\'ll be redirected to our import guides...'}
             </CardDescription>
           </CardHeader>
