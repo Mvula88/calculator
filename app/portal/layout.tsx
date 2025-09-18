@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { useAuthImmediate } from '@/lib/hooks/use-auth-immediate'
 import SimpleContentProtection from '@/components/SimpleContentProtection'
+import { createClient } from '@/lib/supabase/client'
 import { 
   Calculator, 
   Users, 
@@ -46,14 +47,14 @@ export default function SimplePortalLayout({
   }, [pathname])
   
   const handleSignOut = async () => {
-    // Set a flag to prevent redirect to login
-    sessionStorage.setItem('isLoggingOut', 'true')
-    await signOut()
-    // Clear all auth-related storage
+    // Clear all auth-related storage first
     localStorage.clear()
     sessionStorage.clear()
+    // Sign out from Supabase
+    const supabase = createClient()
+    await supabase.auth.signOut()
     // Force redirect to home page with a full page reload
-    window.location.replace('/')
+    window.location.href = '/'
   }
   
   // For activation/login pages, just render the content
@@ -75,20 +76,16 @@ export default function SimplePortalLayout({
     )
   }
   
-  // If there's an error or no user, redirect to login immediately
-  // But skip if we're logging out
+  // If there's an error or no user, redirect to login
   if (error || !user) {
-    // Check if we're in the process of logging out
-    const isLoggingOut = typeof window !== 'undefined' && sessionStorage.getItem('isLoggingOut')
-
-    if (!isLoggingOut && typeof window !== 'undefined') {
+    if (typeof window !== 'undefined') {
       window.location.href = '/auth/login?redirectTo=/portal'
     }
     return (
       <div className="flex items-center justify-center min-h-screen">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-          <p className="mt-4 text-gray-600">{isLoggingOut ? 'Signing out...' : 'Redirecting to login...'}</p>
+          <p className="mt-4 text-gray-600">Redirecting to login...</p>
         </div>
       </div>
     )
