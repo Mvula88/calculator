@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { createClient } from '@/lib/supabase/client'
 import Link from 'next/link'
 import Script from 'next/script'
 import { Button } from '@/components/ui/button'
@@ -127,6 +128,23 @@ const faqs = [
 export default function SouthAfricaGuidePage() {
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null)
   const [isLoading, setIsLoading] = useState(false)
+  const [user, setUser] = useState<any>(null)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    async function checkUser() {
+      const supabase = createClient()
+      const { data: { user } } = await supabase.auth.getUser()
+
+      if (user) {
+        setUser(user)
+      }
+
+      setLoading(false)
+    }
+
+    checkUser()
+  }, [])
 
   return (
     <>
@@ -246,30 +264,46 @@ export default function SouthAfricaGuidePage() {
           <div className="text-center mb-6 sm:mb-10" id="signup">
             <div className="bg-white/5 backdrop-blur-md rounded-lg sm:rounded-xl p-4 sm:p-6 border border-white/10 max-w-3xl mx-auto">
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center">
-                {/* Only show buttons for non-logged-in users */}
-                {/* Member Login Button for returning customers */}
-                <Link href="/auth/login" className="group">
-                  <Button
-                    size="lg"
-                    variant="outline"
-                    className="w-full sm:w-auto font-bold text-sm sm:text-base md:text-lg px-4 py-2 sm:px-6 sm:py-3 md:px-6 md:py-4 h-auto border-2 border-white/30 bg-black/30 text-white hover:bg-white/20 transition-all duration-300 group-hover:scale-105 min-h-[44px]"
-                  >
-                    <User className="mr-2 sm:mr-3 h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6" />
-                    Member Login
-                  </Button>
-                </Link>
+                {user ? (
+                  // User is logged in - show portal access only
+                  <Link href="/portal" className="group">
+                    <Button
+                      size="lg"
+                      className="font-bold text-sm sm:text-base md:text-lg px-4 py-2 sm:px-6 sm:py-3 md:px-8 md:py-4 h-auto bg-gradient-to-r from-emerald-600 via-blue-600 to-purple-600 hover:from-emerald-700 hover:via-blue-700 hover:to-purple-700 shadow-2xl group-hover:scale-105 transition-all duration-300 group-hover:shadow-emerald-500/25 min-h-[44px]"
+                    >
+                      <Lock className="mr-2 sm:mr-3 h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6" />
+                      Access Member Portal
+                      <ArrowRight className="ml-2 sm:ml-3 h-3 w-3 sm:h-4 sm:w-4 md:h-5 md:w-5 group-hover:translate-x-1 transition-transform" />
+                    </Button>
+                  </Link>
+                ) : (
+                  // Not logged in - show both buttons
+                  <>
+                    {/* Member Login Button for returning customers */}
+                    <Link href="/auth/login" className="group">
+                      <Button
+                        size="lg"
+                        variant="outline"
+                        className="w-full sm:w-auto font-bold text-sm sm:text-base md:text-lg px-4 py-2 sm:px-6 sm:py-3 md:px-6 md:py-4 h-auto border-2 border-white/30 bg-black/30 text-white hover:bg-white/20 transition-all duration-300 group-hover:scale-105 min-h-[44px]"
+                      >
+                        <User className="mr-2 sm:mr-3 h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6" />
+                        Member Login
+                      </Button>
+                    </Link>
 
-                {/* Get Started Button for new customers */}
-                <a href="#pricing" className="group">
-                  <Button
-                    size="lg"
-                    className="w-full sm:w-auto font-bold text-sm sm:text-base md:text-lg px-4 py-2 sm:px-6 sm:py-3 md:px-8 md:py-4 h-auto bg-gradient-to-r from-emerald-600 via-blue-600 to-purple-600 hover:from-emerald-700 hover:via-blue-700 hover:to-purple-700 shadow-2xl group-hover:scale-105 transition-all duration-300 group-hover:shadow-emerald-500/25 min-h-[44px]"
-                  >
-                    <Crown className="mr-2 sm:mr-3 h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6" />
-                    Get Started - R1,999
-                    <Sparkles className="ml-2 sm:ml-3 h-3 w-3 sm:h-4 sm:w-4 md:h-5 md:w-5 group-hover:rotate-12 transition-transform" />
-                  </Button>
-                </a>
+                    {/* Get Started Button for new customers */}
+                    <a href="#pricing" className="group">
+                      <Button
+                        size="lg"
+                        className="w-full sm:w-auto font-bold text-sm sm:text-base md:text-lg px-4 py-2 sm:px-6 sm:py-3 md:px-8 md:py-4 h-auto bg-gradient-to-r from-emerald-600 via-blue-600 to-purple-600 hover:from-emerald-700 hover:via-blue-700 hover:to-purple-700 shadow-2xl group-hover:scale-105 transition-all duration-300 group-hover:shadow-emerald-500/25 min-h-[44px]"
+                      >
+                        <Crown className="mr-2 sm:mr-3 h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6" />
+                        Get Started - R1,999
+                        <Sparkles className="ml-2 sm:ml-3 h-3 w-3 sm:h-4 sm:w-4 md:h-5 md:w-5 group-hover:rotate-12 transition-transform" />
+                      </Button>
+                    </a>
+                  </>
+                )}
               </div>
               
               <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 mt-3 sm:mt-4 text-xs sm:text-sm text-gray-300">

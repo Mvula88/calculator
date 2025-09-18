@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Script from 'next/script'
+import { createClient } from '@/lib/supabase/client'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import {
@@ -127,6 +128,20 @@ const faqs = [
 export default function ZambiaGuidePage() {
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null)
   const [isLoading, setIsLoading] = useState(false)
+  const [user, setUser] = useState<any>(null)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    async function checkUser() {
+      const supabase = createClient()
+      const { data: { user } } = await supabase.auth.getUser()
+      if (user) {
+        setUser(user)
+      }
+      setLoading(false)
+    }
+    checkUser()
+  }, [])
 
   return (
     <>
@@ -246,30 +261,47 @@ export default function ZambiaGuidePage() {
           <div className="text-center mb-6 sm:mb-10" id="signup">
             <div className="bg-white/5 backdrop-blur-md rounded-lg sm:rounded-xl p-4 sm:p-6 border border-white/10 max-w-3xl mx-auto">
               <div className="flex flex-col gap-3 sm:gap-4 justify-center items-center">
-                <Link href="/register?country=zm&package=mistake" className="group">
-                  <Button 
-                    size="lg" 
-                    variant="outline" 
-                    className="w-full sm:w-auto font-bold text-sm sm:text-base md:text-lg px-4 py-2 sm:px-6 sm:py-3 md:px-8 md:py-4 h-auto border-2 border-white/30 bg-black/30 text-white hover:bg-white/20 transition-all duration-300 group-hover:scale-105 min-h-[44px]"
-                  >
-                    <BookOpen className="mr-3 h-6 w-6" />
-                    Essential Guide - K500
-                    <ArrowRight className="ml-3 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-                  </Button>
-                </Link>
-                
-                <div className="text-white font-bold text-lg">OR</div>
-                
-                <Link href="/register?country=zm&package=mastery" className="group">
-                  <Button 
-                    size="lg" 
-                    className="w-full sm:w-auto font-bold text-sm sm:text-base md:text-lg px-4 py-2 sm:px-6 sm:py-3 md:px-8 md:py-4 h-auto bg-gradient-to-r from-emerald-600 via-teal-600 to-green-600 hover:from-emerald-700 hover:via-teal-700 hover:to-green-700 shadow-2xl group-hover:scale-105 transition-all duration-300 group-hover:shadow-emerald-500/25 min-h-[44px]"
-                  >
-                    <Crown className="mr-3 h-6 w-6" />
-                    Complete Mastery - K2,000
-                    <Sparkles className="ml-3 h-5 w-5 group-hover:rotate-12 transition-transform" />
-                  </Button>
-                </Link>
+                {user ? (
+                  // User is logged in - show portal access only
+                  <Link href="/portal" className="group">
+                    <Button
+                      size="lg"
+                      className="w-full sm:w-auto font-bold text-sm sm:text-base md:text-lg px-4 py-2 sm:px-6 sm:py-3 md:px-8 md:py-4 h-auto bg-gradient-to-r from-emerald-600 via-teal-600 to-green-600 hover:from-emerald-700 hover:via-teal-700 hover:to-green-700 shadow-2xl group-hover:scale-105 transition-all duration-300 group-hover:shadow-emerald-500/25 min-h-[44px]"
+                    >
+                      <Crown className="mr-3 h-6 w-6" />
+                      Access Member Portal
+                      <Sparkles className="ml-3 h-5 w-5 group-hover:rotate-12 transition-transform" />
+                    </Button>
+                  </Link>
+                ) : (
+                  // Not logged in - show both options
+                  <>
+                    <Link href="/register?country=zm&package=mistake" className="group">
+                      <Button
+                        size="lg"
+                        variant="outline"
+                        className="w-full sm:w-auto font-bold text-sm sm:text-base md:text-lg px-4 py-2 sm:px-6 sm:py-3 md:px-8 md:py-4 h-auto border-2 border-white/30 bg-black/30 text-white hover:bg-white/20 transition-all duration-300 group-hover:scale-105 min-h-[44px]"
+                      >
+                        <BookOpen className="mr-3 h-6 w-6" />
+                        Essential Guide - K500
+                        <ArrowRight className="ml-3 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                      </Button>
+                    </Link>
+
+                    <div className="text-white font-bold text-lg">OR</div>
+
+                    <Link href="/register?country=zm&package=mastery" className="group">
+                      <Button
+                        size="lg"
+                        className="w-full sm:w-auto font-bold text-sm sm:text-base md:text-lg px-4 py-2 sm:px-6 sm:py-3 md:px-8 md:py-4 h-auto bg-gradient-to-r from-emerald-600 via-teal-600 to-green-600 hover:from-emerald-700 hover:via-teal-700 hover:to-green-700 shadow-2xl group-hover:scale-105 transition-all duration-300 group-hover:shadow-emerald-500/25 min-h-[44px]"
+                      >
+                        <Crown className="mr-3 h-6 w-6" />
+                        Complete Mastery - K2,000
+                        <Sparkles className="ml-3 h-5 w-5 group-hover:rotate-12 transition-transform" />
+                      </Button>
+                    </Link>
+                  </>
+                )}
               </div>
               
               <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 mt-3 sm:mt-4 text-xs sm:text-sm text-gray-300">
@@ -437,11 +469,12 @@ export default function ZambiaGuidePage() {
                 <p className="text-xl text-emerald-100 mb-8 max-w-2xl mx-auto">
                   Join hundreds of successful importers who've saved thousands using our proven system.
                 </p>
+                {!user && (
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <Link href="/register?country=zm&package=mistake">
-                    <Button 
-                      variant="outline" 
-                      size="lg" 
+                    <Button
+                      variant="outline"
+                      size="lg"
                       className="font-bold text-lg px-8 bg-white/10 border-white/30 text-white hover:bg-white hover:text-emerald-600"
                     >
                       Start with Essentials
@@ -449,8 +482,8 @@ export default function ZambiaGuidePage() {
                     </Button>
                   </Link>
                   <Link href="/register?country=zm&package=mastery">
-                    <Button 
-                      size="lg" 
+                    <Button
+                      size="lg"
                       className="font-bold text-lg px-8 bg-white text-emerald-600 hover:bg-gray-100 shadow-lg"
                     >
                       Get Complete Mastery
@@ -458,6 +491,7 @@ export default function ZambiaGuidePage() {
                     </Button>
                   </Link>
                 </div>
+                )}
               </CardContent>
             </Card>
           </div>
@@ -465,6 +499,7 @@ export default function ZambiaGuidePage() {
       </section>
 
       {/* Professional Package Comparison Section */}
+      {!user && (
       <section className="py-24 bg-gradient-to-b from-gray-50 to-white">
         <div className="max-w-7xl mx-auto px-6">
           {/* Section Header */}
@@ -676,6 +711,7 @@ export default function ZambiaGuidePage() {
           </div>
         </div>
       </section>
+      )}
 
       {/* Professional FAQ Section */}
       <section className="py-24 bg-gradient-to-b from-white to-gray-50" aria-labelledby="faq-heading">
@@ -753,6 +789,7 @@ export default function ZambiaGuidePage() {
       </section>
 
       {/* Premium Final CTA Section */}
+      {!user && (
       <section className="py-24 bg-gradient-to-br from-slate-900 via-emerald-900 to-teal-900 text-white relative overflow-hidden">
         <div className="absolute inset-0">
           <div className="absolute top-0 left-1/4 w-96 h-96 bg-emerald-500/20 rounded-full blur-3xl"></div>
@@ -824,6 +861,7 @@ export default function ZambiaGuidePage() {
           </div>
         </div>
       </section>
+      )}
     </main>
     </>
   )
