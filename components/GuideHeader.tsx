@@ -1,10 +1,12 @@
 'use client'
 
-import { BadgeCheck, User } from 'lucide-react'
+import { useState, useEffect } from 'react'
+import { BadgeCheck, User, Crown, Sparkles } from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import HeaderCountrySelector from '@/components/HeaderCountrySelector'
+import { createClient } from '@/lib/supabase/client'
 
 interface GuideHeaderProps {
   country: string
@@ -13,12 +15,27 @@ interface GuideHeaderProps {
   secondaryColor?: string
 }
 
-export default function GuideHeader({ 
-  country, 
+export default function GuideHeader({
+  country,
   trusted = 'Real Import Experience, Real Guidance',
   primaryColor = 'blue-600',
   secondaryColor = 'purple-600'
 }: GuideHeaderProps) {
+  const [user, setUser] = useState<any>(null)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    async function checkUser() {
+      const supabase = createClient()
+      const { data: { user } } = await supabase.auth.getUser()
+      if (user) {
+        setUser(user)
+      }
+      setLoading(false)
+    }
+    checkUser()
+  }, [])
+
   // Dynamic gradient based on country
   const gradients = {
     na: 'from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700',
@@ -26,8 +43,19 @@ export default function GuideHeader({
     bw: 'from-blue-600 to-sky-600 hover:from-blue-700 hover:to-sky-700',
     zm: 'from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700'
   }
-  
+
   const currentGradient = gradients[country as keyof typeof gradients] || gradients.na
+
+  // Get pricing based on country
+  const getPricing = () => {
+    switch(country) {
+      case 'na': return 'N$1,999'
+      case 'za': return 'R1,899'
+      case 'bw': return 'P1,618'
+      case 'zm': return 'K2,000'
+      default: return 'N$1,999'
+    }
+  }
   
   return (
     <header className="bg-white border-b border-gray-200 shadow-sm sticky top-0 z-40">
@@ -47,8 +75,47 @@ export default function GuideHeader({
             </Link>
           </div>
 
-          {/* Right Section - Country Selector Only */}
-          <div className="flex items-center">
+          {/* Right Section - Buttons and Country Selector */}
+          <div className="flex items-center gap-3">
+            {user ? (
+              // User is logged in - show portal access only
+              <Link href="/portal" className="group">
+                <Button
+                  size="sm"
+                  className={`font-bold text-sm px-4 py-2 bg-gradient-to-r ${currentGradient} shadow-lg group-hover:scale-105 transition-all duration-300`}
+                >
+                  <Crown className="mr-2 h-4 w-4" />
+                  Access Portal
+                  <Sparkles className="ml-2 h-3 w-3 group-hover:rotate-12 transition-transform" />
+                </Button>
+              </Link>
+            ) : (
+              // Not logged in - show both Member Login and Get Started buttons
+              <>
+                <Link href="/auth/login" className="group">
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    className="font-bold text-sm px-4 py-2 border-2 hover:scale-105 transition-all duration-300"
+                  >
+                    <User className="mr-2 h-4 w-4" />
+                    Member Login
+                  </Button>
+                </Link>
+
+                <a href="#pricing" className="group">
+                  <Button
+                    size="sm"
+                    className={`font-bold text-sm px-4 py-2 bg-gradient-to-r ${currentGradient} shadow-lg group-hover:scale-105 transition-all duration-300`}
+                  >
+                    <Crown className="mr-2 h-4 w-4" />
+                    Get Started - {getPricing()}
+                    <Sparkles className="ml-2 h-3 w-3 group-hover:rotate-12 transition-transform" />
+                  </Button>
+                </a>
+              </>
+            )}
+
             <HeaderCountrySelector country={country} />
           </div>
         </div>
