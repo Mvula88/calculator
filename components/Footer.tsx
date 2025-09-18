@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Globe } from 'lucide-react'
+import Image from 'next/image'
 
 export default function Footer() {
   const currentYear = new Date().getFullYear()
@@ -10,9 +10,14 @@ export default function Footer() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-center">
         {/* Logo and Tagline */}
         <div className="mb-8">
-          <div className="flex items-center justify-center gap-2 mb-3">
-            <Globe className="h-6 w-6 text-blue-500" />
-            <span className="text-xl font-bold text-white">IMPOTA Guide</span>
+          <div className="flex items-center justify-center mb-3">
+            <Image
+              src="/impota-logo.png"
+              alt="IMPOTA"
+              width={150}
+              height={40}
+              className="h-10 w-auto brightness-0 invert"
+            />
           </div>
           <p className="text-sm text-gray-500">
             Educational content for car import understanding
