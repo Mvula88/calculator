@@ -45,17 +45,6 @@ export default function GuideHeader({
   }
 
   const currentGradient = gradients[country as keyof typeof gradients] || gradients.na
-
-  // Get pricing based on country
-  const getPricing = () => {
-    switch(country) {
-      case 'na': return 'N$1,999'
-      case 'za': return 'R1,899'
-      case 'bw': return 'P1,618'
-      case 'zm': return 'K2,000'
-      default: return 'N$1,999'
-    }
-  }
   
   return (
     <header className="bg-white border-b border-gray-200 shadow-sm sticky top-0 z-40">
@@ -109,7 +98,7 @@ export default function GuideHeader({
                     className={`font-bold text-sm px-4 py-2 bg-gradient-to-r ${currentGradient} shadow-lg group-hover:scale-105 transition-all duration-300`}
                   >
                     <Crown className="mr-2 h-4 w-4" />
-                    Get Started - {getPricing()}
+                    Get Started
                     <Sparkles className="ml-2 h-3 w-3 group-hover:rotate-12 transition-transform" />
                   </Button>
                 </a>
