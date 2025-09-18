@@ -67,22 +67,15 @@ export default function DocumentsPage() {
     )
   }
 
-  if (!hasAccess) {
+  // Remove access check - all portal users have access
+  // Just check if still loading
+  if (loading) {
     return (
       <div className="max-w-4xl mx-auto px-6 py-12">
-        <Card className="p-8 text-center">
-          <Lock className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-          <h2 className="text-2xl font-bold mb-2">Documents Access Required</h2>
-          <p className="text-gray-600 mb-4">
-            You need to purchase the Mistake Guide or Import Mastery to access these documents.
-          </p>
-          <Link 
-            href="/na/guide"
-            className="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
-          >
-            Get Access →
-          </Link>
-        </Card>
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
+          <p className="mt-4 text-gray-600">Loading documents...</p>
+        </div>
       </div>
     )
   }

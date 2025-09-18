@@ -76,19 +76,13 @@ export default async function PortalMasteryPage() {
     redirect('/auth/login?redirect=/portal/mastery')
   }
   
-  if (!entitlement || entitlement.tier !== 'mastery') {
+  // Remove tier check - all portal users have access
+  if (!entitlement) {
     return (
       <div className="max-w-4xl mx-auto px-6 py-12">
         <Card className="p-8 text-center">
-          <Lock className="h-12 w-12 text-purple-400 mx-auto mb-4" />
-          <h2 className="text-2xl font-bold mb-2">Import Mastery Required</h2>
-          <p className="text-gray-600 mb-4">
-            This section is exclusive to Import Mastery members. Upgrade to access premium tools and resources.
-          </p>
-          <UpgradeButton 
-            userEmail={userEmail} 
-            country={entitlement?.country || 'na'} 
-          />
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600 mx-auto"></div>
+          <p className="mt-4 text-gray-600">Loading mastery tools...</p>
         </Card>
       </div>
     )
