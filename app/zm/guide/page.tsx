@@ -283,7 +283,7 @@ export default function ZambiaGuidePage() {
                         className="w-full sm:w-auto font-bold text-sm sm:text-base md:text-lg px-4 py-2 sm:px-6 sm:py-3 md:px-8 md:py-4 h-auto border-2 border-white/30 bg-black/30 text-white hover:bg-white/20 transition-all duration-300 group-hover:scale-105 min-h-[44px]"
                       >
                         <BookOpen className="mr-3 h-6 w-6" />
-                        Essential Guide - K500
+                        Essential Guide
                         <ArrowRight className="ml-3 h-5 w-5 group-hover:translate-x-1 transition-transform" />
                       </Button>
                     </Link>
@@ -296,7 +296,7 @@ export default function ZambiaGuidePage() {
                         className="w-full sm:w-auto font-bold text-sm sm:text-base md:text-lg px-4 py-2 sm:px-6 sm:py-3 md:px-8 md:py-4 h-auto bg-gradient-to-r from-emerald-600 via-teal-600 to-green-600 hover:from-emerald-700 hover:via-teal-700 hover:to-green-700 shadow-2xl group-hover:scale-105 transition-all duration-300 group-hover:shadow-emerald-500/25 min-h-[44px]"
                       >
                         <Crown className="mr-3 h-6 w-6" />
-                        Complete Mastery - K2,000
+                        Get Started
                         <Sparkles className="ml-3 h-5 w-5 group-hover:rotate-12 transition-transform" />
                       </Button>
                     </Link>
@@ -851,7 +851,7 @@ export default function ZambiaGuidePage() {
                       className="h-16 px-12 text-xl font-bold bg-gradient-to-r from-emerald-500 via-teal-600 to-green-600 hover:from-emerald-600 hover:via-teal-700 hover:to-green-700 shadow-2xl group-hover:scale-105 transition-all duration-300 group-hover:shadow-emerald-500/30"
                     >
                       <Crown className="mr-4 h-6 w-6" />
-                      Complete Mastery - K2,000
+                      Get Complete Mastery
                       <Sparkles className="ml-4 h-6 w-6 group-hover:rotate-12 transition-transform" />
                     </Button>
                   </Link>
