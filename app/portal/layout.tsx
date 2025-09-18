@@ -47,7 +47,7 @@ export default function SimplePortalLayout({
   
   const handleSignOut = async () => {
     await signOut()
-    router.replace('/auth/login')
+    router.replace('/')
   }
   
   // For activation/login pages, just render the content
