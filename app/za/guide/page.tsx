@@ -246,6 +246,7 @@ export default function SouthAfricaGuidePage() {
           <div className="text-center mb-6 sm:mb-10" id="signup">
             <div className="bg-white/5 backdrop-blur-md rounded-lg sm:rounded-xl p-4 sm:p-6 border border-white/10 max-w-3xl mx-auto">
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center">
+                {/* Only show buttons for non-logged-in users */}
                 {/* Member Login Button for returning customers */}
                 <Link href="/auth/login" className="group">
                   <Button

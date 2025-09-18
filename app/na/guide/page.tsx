@@ -276,8 +276,8 @@ export default function NamibiaGuidePage() {
           <div className="text-center mb-6 sm:mb-10" id="signup">
             <div className="bg-white/5 backdrop-blur-md rounded-lg sm:rounded-xl p-4 sm:p-6 border border-white/10 max-w-3xl mx-auto">
               <div className="flex flex-col gap-3 sm:gap-4 justify-center items-center">
-                {user && entitlement ? (
-                  // User is logged in with entitlement - show portal access only
+                {user ? (
+                  // User is logged in - show portal access only (no Get Started button!)
                   <Link href="/portal" className="group">
                     <Button
                       size="lg"
@@ -896,69 +896,11 @@ export default function NamibiaGuidePage() {
         </div>
       </section>
 
-      {/* Pricing Section - Shows member portal for paid users */}
+      {/* Pricing Section - Only show for non-logged-in users */}
+      {!user && (
       <section id="pricing" className="py-16 sm:py-20 bg-gradient-to-b from-gray-50 to-white">
         <div className="container mx-auto px-4 max-w-7xl">
-          {/* Check if user has paid access (via entitlements or user metadata) */}
-          {user && (entitlement || user.user_metadata?.has_paid) ? (
-            // User has paid - show professional member portal access
-            <div className="text-center">
-              <Card className="max-w-2xl mx-auto bg-gradient-to-r from-purple-50 to-blue-50 border-2 border-purple-200">
-                <CardHeader className="pb-8">
-                  <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full mx-auto mb-4">
-                    <Crown className="h-10 w-10 text-white" />
-                  </div>
-                  <CardTitle className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
-                    Welcome Back, Import Master!
-                  </CardTitle>
-                  <CardDescription className="text-lg text-gray-600 mt-2">
-                    You have lifetime access to the Complete Import Mastery package
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-6">
-                  <div className="bg-white p-4 rounded-lg border border-purple-100">
-                    <p className="text-gray-700 mb-4">
-                      Access your comprehensive import guides, calculators, and exclusive resources in the member portal.
-                    </p>
-                    <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                      <Link href="/portal">
-                        <Button size="lg" className="w-full sm:w-auto bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-semibold px-8">
-                          <BookOpen className="mr-2 h-5 w-5" />
-                          Access Member Portal
-                        </Button>
-                      </Link>
-                      <Link href="/portal/calculator">
-                        <Button size="lg" variant="outline" className="w-full sm:w-auto border-purple-300 hover:border-purple-500 text-purple-600 font-semibold px-8">
-                          <Calculator className="mr-2 h-5 w-5" />
-                          Import Calculator
-                        </Button>
-                      </Link>
-                    </div>
-                  </div>
-
-                  {/* Member benefits reminder */}
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-4">
-                    <div className="text-center">
-                      <Shield className="h-8 w-8 text-green-600 mx-auto mb-2" />
-                      <p className="text-sm text-gray-600">Lifetime Access</p>
-                    </div>
-                    <div className="text-center">
-                      <Zap className="h-8 w-8 text-blue-600 mx-auto mb-2" />
-                      <p className="text-sm text-gray-600">Live Updates</p>
-                    </div>
-                    <div className="text-center">
-                      <Users className="h-8 w-8 text-purple-600 mx-auto mb-2" />
-                      <p className="text-sm text-gray-600">Priority Support</p>
-                    </div>
-                    <div className="text-center">
-                      <TrendingUp className="h-8 w-8 text-orange-600 mx-auto mb-2" />
-                      <p className="text-sm text-gray-600">Expert Network</p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-          ) : (
+          {(
             // User hasn't paid - show pricing
             <>
                   <div className="text-center mb-12">
@@ -1083,9 +1025,9 @@ export default function NamibiaGuidePage() {
             </Card>
           </div>
             </>
-          )}
         </div>
       </section>
+      )}
     </main>
     </>
   )
