@@ -455,43 +455,6 @@ export default function BotswanaGuidePage() {
             ))}
           </div>
           
-          {/* Call to Action - Mobile Optimized */}
-          <div className="text-center mt-12 sm:mt-16">
-            <Card className="bg-gradient-to-r from-sky-600 to-cyan-600 border-0 max-w-4xl mx-auto">
-              <CardContent className="p-8 sm:p-12">
-                <Trophy className="h-10 w-10 sm:h-12 sm:w-12 text-yellow-400 mx-auto mb-4 sm:mb-6" />
-                <h3 className="text-2xl sm:text-3xl font-bold text-white mb-4">
-                  Ready to Master the Complete Process?
-                </h3>
-                <p className="text-lg sm:text-xl text-blue-100 mb-6 sm:mb-8 max-w-2xl mx-auto">
-                  Join hundreds of successful importers who've saved thousands using our proven system.
-                </p>
-                {!user && (
-                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
-                  <Link href="/register?country=bw&package=mistake">
-                    <Button
-                      variant="outline"
-                      size="lg"
-                      className="w-full sm:w-auto font-bold text-base sm:text-lg px-6 sm:px-8 bg-white/10 border-white/30 text-white hover:bg-white hover:text-sky-600 min-h-[44px]"
-                    >
-                      Start with Essentials
-                      <BookOpen className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
-                    </Button>
-                  </Link>
-                  <Link href="/register?country=bw&package=mastery">
-                    <Button
-                      size="lg"
-                      className="w-full sm:w-auto font-bold text-base sm:text-lg px-6 sm:px-8 bg-white text-sky-600 hover:bg-gray-100 shadow-lg min-h-[44px]"
-                    >
-                      Get Complete Mastery
-                      <Crown className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
-                    </Button>
-                  </Link>
-                </div>
-                )}
-              </CardContent>
-            </Card>
-          </div>
         </div>
       </section>
 
@@ -568,43 +531,6 @@ export default function BotswanaGuidePage() {
             ))}
           </div>
           
-          {/* FAQ CTA - Mobile Optimized */}
-          <div className="mt-12 sm:mt-16 text-center">
-            <Card className="bg-gradient-to-r from-blue-600 to-purple-600 border-0 max-w-4xl mx-auto">
-              <CardContent className="p-8 sm:p-12">
-                <MessageCircle className="h-10 w-10 sm:h-12 sm:w-12 text-blue-200 mx-auto mb-4 sm:mb-6" />
-                <h3 className="text-2xl sm:text-3xl font-bold text-white mb-4">
-                  Still Have Questions?
-                </h3>
-                <p className="text-lg sm:text-xl text-blue-100 mb-6 sm:mb-8 max-w-2xl mx-auto">
-                  Our comprehensive guides answer hundreds of detailed questions about every aspect of the import process.
-                </p>
-                {!user && (
-                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
-                  <Link href="/register?country=bw&package=mistake">
-                    <Button
-                      variant="outline"
-                      size="lg"
-                      className="w-full sm:w-auto font-bold text-base sm:text-lg px-6 sm:px-8 bg-white/10 border-white/30 text-white hover:bg-white hover:text-sky-600 min-h-[44px]"
-                    >
-                      Get Detailed Answers
-                      <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
-                    </Button>
-                  </Link>
-                  <Link href="/register?country=bw&package=mastery">
-                    <Button
-                      size="lg"
-                      className="w-full sm:w-auto font-bold text-base sm:text-lg px-6 sm:px-8 bg-white text-sky-600 hover:bg-gray-100 shadow-lg min-h-[44px]"
-                    >
-                      Expert Support Included
-                      <Crown className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
-                    </Button>
-                  </Link>
-                </div>
-                )}
-              </CardContent>
-            </Card>
-          </div>
         </div>
       </section>
 
