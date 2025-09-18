@@ -2,6 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Prevent horizontal scroll on mobile */
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100vw;
+  position: relative;
+}
+
+/* Ensure all sections respect viewport width */
+section {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+/* Fix any absolute positioned elements that might cause overflow */
+.fixed, [class*="absolute"] {
+  max-width: 100vw;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;

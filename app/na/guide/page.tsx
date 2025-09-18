@@ -166,7 +166,7 @@ export default function NamibiaGuidePage() {
       {/* Purchase Notifications */}
       <ImportSuccessNotifications />
       
-      <main className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-50" itemScope itemType="https://schema.org/Guide">
+      <main className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-50 overflow-x-hidden" itemScope itemType="https://schema.org/Guide">
       <CountrySelector />
       <GuideHeader 
         country="na" 
@@ -176,7 +176,7 @@ export default function NamibiaGuidePage() {
       />
       
       {/* Modern Hero Section - Mobile Optimized */}
-      <section className="relative overflow-hidden min-h-0 md:min-h-screen flex items-center py-16 md:py-0">
+      <section className="relative overflow-hidden w-full min-h-0 md:min-h-screen flex items-center py-16 md:py-0 w-full">
         {/* Professional Background */}
         <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-blue-900 to-purple-900"></div>
         <div className="absolute inset-0 bg-[url('/japan-cars-hero.png')] bg-cover bg-center opacity-20"></div>
@@ -188,7 +188,7 @@ export default function NamibiaGuidePage() {
           <div className="absolute -bottom-1/2 -right-1/2 w-full h-full bg-gradient-to-tl from-purple-500/10 to-transparent rounded-full animate-pulse delay-1000"></div>
         </div>
         
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-16 z-20">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-16 z-20 w-full">
           {/* Premium Trust Badge - Mobile Optimized */}
           <div className="flex justify-center mb-6 sm:mb-8">
             <div className="inline-flex items-center gap-2 sm:gap-3 bg-gradient-to-r from-emerald-500 via-blue-600 to-purple-600 text-white px-3 py-1.5 sm:px-6 sm:py-3 rounded-xl sm:rounded-2xl shadow-2xl border border-white/20 backdrop-blur-sm text-center">
@@ -336,7 +336,7 @@ export default function NamibiaGuidePage() {
           </div>
 
           {/* Professional Trust Indicators - Mobile Optimized */}
-          <div className="max-w-6xl mx-auto px-4">
+          <div className="max-w-6xl mx-auto px-4 w-full">
             <Card className="bg-white/10 backdrop-blur-md border border-white/20 shadow-2xl">
               <CardContent className="p-6 sm:p-8">
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 lg:gap-6 items-center text-center">
@@ -371,7 +371,7 @@ export default function NamibiaGuidePage() {
       </section>
 
       {/* Professional Process Section - Mobile Optimized */}
-      <section className="py-12 sm:py-24 bg-gradient-to-b from-white to-gray-50" aria-labelledby="learn-section">
+      <section className="py-12 sm:py-24 bg-gradient-to-b from-white to-gray-50 overflow-x-hidden" aria-labelledby="learn-section">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           {/* Section Header */}
           <div className="text-center mb-12 sm:mb-20">
@@ -477,7 +477,7 @@ export default function NamibiaGuidePage() {
 
 
       {/* Professional FAQ Section - Mobile Optimized */}
-      <section className="py-12 sm:py-24 bg-gradient-to-b from-white to-gray-50" aria-labelledby="faq-heading">
+      <section className="py-12 sm:py-24 bg-gradient-to-b from-white to-gray-50 overflow-x-hidden" aria-labelledby="faq-heading">
         <div className="max-w-5xl mx-auto px-4 sm:px-6">
           {/* Section Header */}
           <div className="text-center mb-12 sm:mb-16">
@@ -556,7 +556,7 @@ export default function NamibiaGuidePage() {
 
       {/* Pricing Section - Only show for non-logged-in users */}
       {!user && (
-      <section id="pricing" className="py-16 sm:py-20 bg-gradient-to-b from-gray-50 to-white">
+      <section id="pricing" className="py-16 sm:py-20 bg-gradient-to-b from-gray-50 to-white overflow-x-hidden">
         <div className="container mx-auto px-4 max-w-7xl">
                   <div className="text-center mb-12">
                     <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 text-gray-800">

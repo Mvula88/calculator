@@ -151,7 +151,7 @@ export default function ZambiaGuidePage() {
       {/* Purchase Notifications */}
       <ImportSuccessNotifications />
       
-      <main className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-50" itemScope itemType="https://schema.org/Guide">
+      <main className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-50 overflow-x-hidden" itemScope itemType="https://schema.org/Guide">
       <CountrySelector />
       <GuideHeader 
         country="zm" 
@@ -161,7 +161,7 @@ export default function ZambiaGuidePage() {
       />
       
       {/* Modern Hero Section - Mobile Optimized */}
-      <section className="relative overflow-hidden min-h-0 md:min-h-screen flex items-center py-16 md:py-0">
+      <section className="relative overflow-hidden w-full min-h-0 md:min-h-screen flex items-center py-16 md:py-0">
         {/* Professional Background */}
         <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-emerald-900 to-teal-900"></div>
         <div className="absolute inset-0 bg-[url('/japan-cars-hero.png')] bg-cover bg-center opacity-20"></div>
