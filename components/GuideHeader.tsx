@@ -47,19 +47,8 @@ export default function GuideHeader({
             </Link>
           </div>
 
-          {/* Right Section - Login and Country Selector */}
-          <div className="flex items-center gap-2 sm:gap-3">
-            <Link href="/auth/login">
-              <Button 
-                variant="default" 
-                size="sm" 
-                className={`flex items-center gap-1.5 sm:gap-2 bg-gradient-to-r ${currentGradient} text-white shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 text-xs sm:text-sm px-3 sm:px-5 py-2 sm:py-2.5 font-semibold rounded-lg border border-white/20`}
-              >
-                <User className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
-                <span className="hidden sm:inline">Already Paid?</span>
-                <span className="font-bold">Login</span>
-              </Button>
-            </Link>
+          {/* Right Section - Country Selector Only */}
+          <div className="flex items-center">
             <HeaderCountrySelector country={country} />
           </div>
         </div>
