@@ -919,6 +919,7 @@ export default function BotswanaGuidePage() {
       </section>
 
       {/* Premium Final CTA Section - Mobile Optimized */}
+      {!user && (
       <section className="py-12 sm:py-24 bg-gradient-to-br from-slate-900 via-blue-900 to-purple-900 text-white relative overflow-hidden">
         {/* Background Effects */}
         <div className="absolute inset-0">
@@ -1039,6 +1040,7 @@ export default function BotswanaGuidePage() {
           </div>
         </div>
       </section>
+      )}
       )}
     </main>
     </>
