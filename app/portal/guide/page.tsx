@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useAuthImmediate } from '@/lib/hooks/use-auth-immediate'
 import { Card } from '@/components/ui/card'
-import { GuideNavigation } from '@/components/guide/guide-navigation'
 import { QuickStartOverview } from '@/components/guide/quick-start-overview'
 import { PreImportEssentials } from '@/components/guide/pre-import-essentials'
 import { TimelineSection } from '@/components/guide/timeline-section'
@@ -190,18 +189,16 @@ const namibiaTimelineSteps = [
 export default function GuidePage() {
   const router = useRouter()
   const { user, userEmail, hasAccess, loading, userTier } = useAuthImmediate()
-  const [currentSection, setCurrentSection] = useState<string>('overview')
-  
+
   // Clean up email display
   const displayEmail = userEmail || 'Portal User'
-  const cleanEmail = displayEmail.startsWith('user_cs_test_') || 
-    (displayEmail.startsWith('user_') && displayEmail.endsWith('@impota.com')) 
-    ? 'Portal User' 
+  const cleanEmail = displayEmail.startsWith('user_cs_test_') ||
+    (displayEmail.startsWith('user_') && displayEmail.endsWith('@impota.com'))
+    ? 'Portal User'
     : displayEmail
 
   // Navigation handler
   const handleNavigateToSection = (sectionId: string) => {
-    setCurrentSection(sectionId)
     const element = document.getElementById(sectionId)
     if (element) {
       element.scrollIntoView({ behavior: 'smooth', block: 'start' })
@@ -240,12 +237,6 @@ export default function GuidePage() {
   return (
     <main className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
       <div className="w-full">
-        {/* Navigation */}
-        <GuideNavigation 
-          currentSection={currentSection}
-          onNavigate={handleNavigateToSection}
-        />
-
         {/* Header with protection notice - Mobile Optimized */}
         <div className="mb-8 px-4 sm:px-6 max-w-6xl mx-auto">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
