@@ -5,23 +5,24 @@ import Link from 'next/link'
 import Script from 'next/script'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
-import { 
-  CheckCircle, 
-  AlertTriangle, 
-  Ship, 
-  TrendingDown, 
-  Clock, 
-  Shield, 
-  Star, 
-  Lock, 
-  DollarSign, 
-  Users, 
-  Calculator, 
-  FileText, 
-  Phone, 
-  Award, 
-  ArrowRight, 
-  Zap, 
+import {
+  CheckCircle,
+  AlertTriangle,
+  Ship,
+  TrendingDown,
+  Clock,
+  Shield,
+  Star,
+  Lock,
+  DollarSign,
+  Users,
+  User,
+  Calculator,
+  FileText,
+  Phone,
+  Award,
+  ArrowRight,
+  Zap,
   Target,
   BookOpen,
   Sparkles,
@@ -52,7 +53,6 @@ import {
 } from 'lucide-react'
 import CountrySelector from '@/components/CountrySelector'
 import GuideHeader from '@/components/GuideHeader'
-import StickySignupHeader from '@/components/StickySignupHeader'
 import StockCounter from '@/components/StockCounter'
 import ImportSuccessNotifications from '@/components/PurchaseNotifications'
 
@@ -137,7 +137,6 @@ export default function BotswanaGuidePage() {
       <ImportSuccessNotifications />
       
       <main className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-50" itemScope itemType="https://schema.org/Guide">
-      <StickySignupHeader country="bw" />
       <CountrySelector />
       <GuideHeader 
         country="bw" 
