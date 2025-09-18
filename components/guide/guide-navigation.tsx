@@ -86,37 +86,37 @@ export function GuideNavigation({ currentSection, onNavigate }: NavigationProps)
 
   return (
     <>
-      {/* Desktop Sticky Navigation */}
-      <div className={`hidden lg:block transition-all duration-300 ${
-        isSticky ? 'fixed top-0 left-0 right-0 z-50 bg-white shadow-lg' : ''
-      }`}>
-        <div className="max-w-6xl mx-auto px-6">
-          <div className={`${isSticky ? 'py-2' : 'py-4'}`}>
-            <div className="flex items-center justify-center">
-              <div className="flex items-center gap-2">
-                {navigationItems.map(item => {
-                  const Icon = item.icon
-                  const isActive = currentSection === item.id
-                  return (
-                    <Button
-                      key={item.id}
-                      variant={isActive ? 'default' : 'ghost'}
-                      size={isSticky ? 'sm' : 'default'}
-                      onClick={() => handleNavClick(item.id)}
-                      className={`flex items-center gap-2 ${
-                        isActive ? 'bg-blue-600 text-white' : 'hover:bg-gray-100'
-                      }`}
-                    >
-                      <Icon className="h-4 w-4" />
-                      <span className="hidden xl:inline">{item.title}</span>
-                    </Button>
-                  )
-                })}
+      {/* Desktop Sticky Navigation - Only shows when scrolled */}
+      {isSticky && (
+        <div className="hidden lg:block fixed top-0 left-0 right-0 z-50 bg-white shadow-lg">
+          <div className="max-w-6xl mx-auto px-6">
+            <div className="py-2">
+              <div className="flex items-center justify-center">
+                <div className="flex items-center gap-2">
+                  {navigationItems.map(item => {
+                    const Icon = item.icon
+                    const isActive = currentSection === item.id
+                    return (
+                      <Button
+                        key={item.id}
+                        variant={isActive ? 'default' : 'ghost'}
+                        size="sm"
+                        onClick={() => handleNavClick(item.id)}
+                        className={`flex items-center gap-2 ${
+                          isActive ? 'bg-blue-600 text-white' : 'hover:bg-gray-100'
+                        }`}
+                      >
+                        <Icon className="h-4 w-4" />
+                        <span className="hidden xl:inline">{item.title}</span>
+                      </Button>
+                    )
+                  })}
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
 
       {/* Mobile Navigation Toggle */}
       <div className="lg:hidden sticky top-0 z-50 bg-white border-b shadow-sm mb-6">
@@ -168,15 +168,14 @@ export function GuideNavigation({ currentSection, onNavigate }: NavigationProps)
         )}
       </div>
 
-      {/* Navigation Cards for Desktop (non-sticky state) */}
-      {!isSticky && (
-        <Card className="hidden lg:block mb-8 overflow-hidden">
-          <div className="bg-gradient-to-r from-blue-50 to-purple-50 p-6">
-            <h3 className="text-xl font-bold mb-2">📋 Guide Sections</h3>
-            <p className="text-sm text-gray-600">
-              Jump to any section or follow the logical flow from top to bottom
-            </p>
-          </div>
+      {/* Navigation Cards for Desktop */}
+      <Card className="hidden lg:block mb-8 overflow-hidden">
+        <div className="bg-gradient-to-r from-blue-50 to-purple-50 p-6">
+          <h3 className="text-xl font-bold mb-2">📋 Guide Sections</h3>
+          <p className="text-sm text-gray-600">
+            Jump to any section or follow the logical flow from top to bottom
+          </p>
+        </div>
           <div className="p-6">
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
               {navigationItems.map(item => {
@@ -213,7 +212,6 @@ export function GuideNavigation({ currentSection, onNavigate }: NavigationProps)
             </div>
           </div>
         </Card>
-      )}
 
       {/* Add spacing when navigation becomes sticky */}
       {isSticky && <div className="h-16 lg:h-20" />}
