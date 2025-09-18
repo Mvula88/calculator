@@ -55,7 +55,6 @@ import {
 } from 'lucide-react'
 import CountrySelector from '@/components/CountrySelector'
 import GuideHeader from '@/components/GuideHeader'
-import StickySignupHeader from '@/components/StickySignupHeader'
 import StockCounter from '@/components/StockCounter'
 import ImportSuccessNotifications from '@/components/PurchaseNotifications'
 
@@ -168,7 +167,6 @@ export default function NamibiaGuidePage() {
       <ImportSuccessNotifications />
       
       <main className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-50" itemScope itemType="https://schema.org/Guide">
-      <StickySignupHeader country="na" />
       <CountrySelector />
       <GuideHeader 
         country="na" 
