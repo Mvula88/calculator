@@ -95,8 +95,8 @@ export default function CountrySelector() {
 
   return (
     <>
-      {/* Country-Themed Selector - Top Right Corner */}
-      <div className="fixed top-4 right-4 z-40">
+      {/* Desktop: Top Right Corner */}
+      <div className="hidden sm:block fixed top-4 right-4 z-40">
         <Button
           onClick={() => setIsOpen(!isOpen)}
           onMouseEnter={() => setIsHovered(true)}
@@ -112,6 +112,24 @@ export default function CountrySelector() {
           <span className="text-lg mr-1">{current.flag}</span>
           <span className="font-semibold text-sm">{current.code.toUpperCase()}</span>
           <Globe className="h-3 w-3 ml-1.5 opacity-60" />
+        </Button>
+      </div>
+
+      {/* Mobile: Floating Circle Bottom Right */}
+      <div className="sm:hidden fixed bottom-20 right-4 z-40">
+        <Button
+          onClick={() => setIsOpen(!isOpen)}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+          className="rounded-full shadow-lg backdrop-blur-md transition-all duration-200 h-14 w-14 p-0 flex items-center justify-center border-2"
+          style={{
+            backgroundColor: isHovered ? colors.hover : colors.bg,
+            borderColor: colors.border,
+            color: colors.text,
+            opacity: 0.9
+          }}
+        >
+          <span className="text-2xl">{current.flag}</span>
         </Button>
       </div>
 
