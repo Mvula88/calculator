@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useAuthImmediate } from '@/lib/hooks/use-auth-immediate'
 import { Card } from '@/components/ui/card'
+import { GuideNavigation } from '@/components/guide/guide-navigation'
 import { QuickStartOverview } from '@/components/guide/quick-start-overview'
 import { PreImportEssentials } from '@/components/guide/pre-import-essentials'
 import { TimelineSection } from '@/components/guide/timeline-section'
@@ -189,6 +190,7 @@ const namibiaTimelineSteps = [
 export default function GuidePage() {
   const router = useRouter()
   const { user, userEmail, hasAccess, loading, userTier } = useAuthImmediate()
+  const [currentSection, setCurrentSection] = useState<string>('overview')
 
   // Clean up email display
   const displayEmail = userEmail || 'Portal User'
@@ -199,6 +201,7 @@ export default function GuidePage() {
 
   // Navigation handler
   const handleNavigateToSection = (sectionId: string) => {
+    setCurrentSection(sectionId)
     const element = document.getElementById(sectionId)
     if (element) {
       element.scrollIntoView({ behavior: 'smooth', block: 'start' })
@@ -263,6 +266,12 @@ export default function GuidePage() {
         </div>
 
         <div className="max-w-6xl mx-auto px-4 sm:px-6 space-y-16">
+          {/* Navigation */}
+          <GuideNavigation
+            currentSection={currentSection}
+            onNavigate={handleNavigateToSection}
+          />
+
           {/* 1. Quick Start Overview */}
           <section id="overview">
             <QuickStartOverview onNavigateToSection={handleNavigateToSection} />
