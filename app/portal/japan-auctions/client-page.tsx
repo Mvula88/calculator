@@ -33,7 +33,7 @@ interface Exporter {
 }
 
 export default function JapanAuctionsClientPage() {
-  const { hasAccess, loading, userTier, userEmail } = useAuth()
+  const { user, loading, userTier, userEmail } = useAuth()
   const [selectedTab, setSelectedTab] = useState<'guide' | 'exporters'>('guide')
 
   if (loading) {
@@ -48,7 +48,7 @@ export default function JapanAuctionsClientPage() {
   }
 
   // Remove tier check - all portal users have access
-  if (!hasAccess) {
+  if (!user) {
     return (
       <div className="px-4 sm:px-6 py-8 sm:py-12">
         <Card className="p-6 sm:p-8 text-center max-w-2xl mx-auto">

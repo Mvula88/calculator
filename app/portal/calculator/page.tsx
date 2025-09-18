@@ -70,7 +70,7 @@ interface CalculationResult {
 }
 
 export default function DutyCalculator() {
-  const { hasAccess, loading, userTier, debugInfo, userEmail } = useAuthDebug()
+  const { user, loading, userTier, debugInfo, userEmail } = useAuthDebug()
   const [vehicleValue, setVehicleValue] = useState<string>('')
   const [engineSize, setEngineSize] = useState<string>('')
   const [vehicleType, setVehicleType] = useState<string>('')
@@ -98,7 +98,8 @@ export default function DutyCalculator() {
   }
 
   // Remove tier check - all portal users have access
-  if (!hasAccess) {
+  // Only check if user is authenticated, not tier
+  if (!user && !loading) {
     return (
       <div className="max-w-4xl mx-auto px-6 py-12">
         <Card className="p-8">
@@ -106,9 +107,9 @@ export default function DutyCalculator() {
             <div className="inline-flex items-center justify-center w-16 h-16 bg-yellow-100 rounded-full mb-4">
               <AlertTriangle className="h-8 w-8 text-yellow-600" />
             </div>
-            <h2 className="text-2xl font-bold mb-2">Loading Calculator...</h2>
+            <h2 className="text-2xl font-bold mb-2">Please Sign In</h2>
             <p className="text-gray-600">
-              Please wait while we verify your access.
+              You need to be signed in to use the calculator.
             </p>
           </div>
         </Card>

@@ -8,7 +8,7 @@ import { Lock, Star, CheckCircle, Ship } from 'lucide-react'
 import ShippingContent from './shipping-content'
 
 export default function ShippingClientPage() {
-  const { hasAccess, loading, userTier, userEmail } = useAuth()
+  const { user, loading, userTier, userEmail } = useAuth()
 
   // Always show loading first
   if (loading) {
@@ -23,7 +23,7 @@ export default function ShippingClientPage() {
   }
 
   // Remove tier check - all portal users have access
-  if (!hasAccess) {
+  if (!user) {
     return (
       <div className="max-w-4xl mx-auto px-6 py-12">
         <Card className="p-8 text-center">

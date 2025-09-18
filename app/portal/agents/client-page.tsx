@@ -8,7 +8,7 @@ import { Lock, Star, CheckCircle, Users } from 'lucide-react'
 import AgentsContent from './agents-content'
 
 export default function AgentsClientPage() {
-  const { hasAccess, loading, userTier, userEmail } = useAuth()
+  const { user, loading, userTier, userEmail } = useAuth()
 
   // Always show loading first
   if (loading) {
@@ -23,7 +23,7 @@ export default function AgentsClientPage() {
   }
 
   // Remove tier check - all portal users have access
-  if (!hasAccess) {
+  if (!user) {
     return (
       <div className="max-w-4xl mx-auto px-6 py-12">
         <Card className="p-8 text-center">
