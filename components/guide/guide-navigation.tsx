@@ -92,10 +92,7 @@ export function GuideNavigation({ currentSection, onNavigate }: NavigationProps)
       }`}>
         <div className="max-w-6xl mx-auto px-6">
           <div className={`${isSticky ? 'py-2' : 'py-4'}`}>
-            <div className="flex items-center justify-between">
-              <h2 className={`font-bold ${isSticky ? 'text-lg' : 'text-xl'}`}>
-                Import Guide Navigation
-              </h2>
+            <div className="flex items-center justify-center">
               <div className="flex items-center gap-2">
                 {navigationItems.map(item => {
                   const Icon = item.icon
