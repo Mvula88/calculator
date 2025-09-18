@@ -112,8 +112,8 @@ const faqs = [
     answer: 'Import costs vary significantly based on vehicle type, shipping method, and current regulations. Our guide provides comprehensive cost breakdowns and reveals hidden fees to help you make informed decisions.'
   },
   {
-    question: 'Is it really cheaper to import than buying locally?',
-    answer: 'Most importers save 30-50% compared to local dealership prices. Our Import Mastery package includes a live calculator that shows your exact savings before you commit to any purchase.'
+    question: 'What are the benefits of importing directly from Japan?',
+    answer: 'Importing directly gives you access to a wider selection of quality vehicles, transparent pricing, and detailed vehicle history. Our guide includes a comprehensive calculator to help you understand all costs involved.'
   },
   {
     question: 'What are the biggest mistakes first-time importers make?',
@@ -193,7 +193,7 @@ export default function SouthAfricaGuidePage() {
                 Import Japanese Cars
               </span>
               <span className="bg-gradient-to-r from-green-400 via-yellow-400 to-emerald-400 bg-clip-text text-transparent drop-shadow-2xl">
-                Save Up to 45%
+                Direct From Japan
               </span>
             </h1>
             
@@ -216,11 +216,11 @@ export default function SouthAfricaGuidePage() {
                       <DollarSign className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
                     </div>
                     <div>
-                      <h3 className="font-bold text-sm sm:text-base text-white">Save R30K+</h3>
-                      <p className="text-yellow-300 font-medium text-xs sm:text-sm">Per import</p>
+                      <h3 className="font-bold text-sm sm:text-base text-white">Cost Effective</h3>
+                      <p className="text-yellow-300 font-medium text-xs sm:text-sm">Direct import</p>
                     </div>
                   </div>
-                  <p className="hidden sm:block text-gray-300 text-xs leading-relaxed">Significant cost savings vs local prices</p>
+                  <p className="hidden sm:block text-gray-300 text-xs leading-relaxed">Direct access to Japanese market</p>
                 </CardContent>
               </Card>
             </div>
