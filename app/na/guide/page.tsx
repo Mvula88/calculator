@@ -918,9 +918,6 @@ export default function NamibiaGuidePage() {
       {!user && (
       <section id="pricing" className="py-16 sm:py-20 bg-gradient-to-b from-gray-50 to-white">
         <div className="container mx-auto px-4 max-w-7xl">
-          {(
-            // User hasn't paid - show pricing
-            <>
                   <div className="text-center mb-12">
                     <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
                       Choose Your Success Package
@@ -1042,7 +1039,6 @@ export default function NamibiaGuidePage() {
               </CardContent>
             </Card>
           </div>
-            </>
         </div>
       </section>
       )}
