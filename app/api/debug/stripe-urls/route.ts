@@ -19,7 +19,7 @@ export async function GET(req: NextRequest) {
 
   baseUrl = baseUrl?.replace(/\/$/, '') || ''
 
-  const successUrl = `${baseUrl}/portal/welcome?session_id={CHECKOUT_SESSION_ID}&payment_status=success`
+  const successUrl = `${baseUrl}/portal?session_id={CHECKOUT_SESSION_ID}&payment_status=success`
   const cancelUrl = `${baseUrl}/portal?payment_status=canceled`
 
   return NextResponse.json({

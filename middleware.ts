@@ -134,39 +134,6 @@ export async function middleware(request: NextRequest) {
     // Public portal routes that don't require auth
     const publicPortalRoutes = ['/portal/login', '/portal/activate']
 
-    // Special handling for /portal/welcome - only public with payment params
-    if (request.nextUrl.pathname === '/portal/welcome') {
-      const sessionId = request.nextUrl.searchParams.get('session_id')
-      const paymentStatus = request.nextUrl.searchParams.get('payment_status')
-
-      console.log('[Middleware] Welcome page accessed:', {
-        host: request.headers.get('host'),
-        hasUser: !!user,
-        userEmail: user?.email,
-        hasTier: !!userTier,
-        tier: userTier,
-        hasSessionId: !!sessionId,
-        sessionId: sessionId?.substring(0, 20),
-        paymentStatus: paymentStatus
-      })
-
-      // Only allow access if we have payment parameters
-      if (paymentStatus === 'success' || sessionId) {
-        return supabaseResponse
-      }
-
-      // No payment params - redirect based on user state
-      const hasPaidAccess = userTier || user?.user_metadata?.has_paid
-
-      if (!user) {
-        return NextResponse.redirect(new URL('/auth/login', request.url))
-      } else if (hasPaidAccess) {
-        return NextResponse.redirect(new URL('/portal', request.url))
-      } else {
-        // Only redirect to guide if truly no payment detected
-        return NextResponse.redirect(new URL('/na/guide', request.url))
-      }
-    }
 
     if (publicPortalRoutes.includes(request.nextUrl.pathname)) {
 

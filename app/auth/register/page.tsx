@@ -140,7 +140,7 @@ function RegisterForm() {
       } else if (isFromPayment) {
         // Coming back from payment
         setTimeout(() => {
-          router.push('/portal/welcome?payment_status=success')
+          router.push('/portal')
         }, 3000)
       } else {
         // Regular registration
