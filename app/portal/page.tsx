@@ -71,41 +71,6 @@ export default function PortalPage() {
   const currency = 'N$'
   const countryName = 'Namibia'
 
-  // Mobile-optimized stats
-  const stats = [
-    {
-      label: 'Savings',
-      value: `${currency}50K+`,
-      change: 'Per import',
-      icon: DollarSign,
-      color: 'text-green-600',
-      bgColor: 'bg-green-50'
-    },
-    {
-      label: 'Time',
-      value: '4-6 wks',
-      change: 'To port',
-      icon: Clock,
-      color: 'text-blue-600',
-      bgColor: 'bg-blue-50'
-    },
-    {
-      label: 'Success',
-      value: '98%',
-      change: 'Rate',
-      icon: TrendingUp,
-      color: 'text-purple-600',
-      bgColor: 'bg-purple-50'
-    },
-    {
-      label: 'Active',
-      value: '500+',
-      change: 'Members',
-      icon: Globe,
-      color: 'text-orange-600',
-      bgColor: 'bg-orange-50'
-    }
-  ]
 
   // Quick access cards
   const quickAccessCards = [
@@ -202,23 +167,6 @@ export default function PortalPage() {
           </div>
         </div>
 
-        {/* Stats Grid - Mobile Optimized */}
-        <div className="grid grid-cols-2 gap-3 mb-6">
-          {stats.map((stat, index) => (
-            <Card key={index} className="p-3">
-              <div className="flex items-center justify-between">
-                <div className="flex-1">
-                  <p className="text-xs text-gray-600">{stat.label}</p>
-                  <p className="text-lg font-bold text-gray-900">{stat.value}</p>
-                  <p className="text-xs text-gray-500">{stat.change}</p>
-                </div>
-                <div className={`${stat.bgColor} rounded p-2`}>
-                  <stat.icon className={`h-4 w-4 ${stat.color}`} />
-                </div>
-              </div>
-            </Card>
-          ))}
-        </div>
 
         {/* Quick Access - Mobile Optimized */}
         <div className="mb-6">
