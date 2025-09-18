@@ -245,31 +245,30 @@ export default function BotswanaGuidePage() {
           {/* Premium CTA Section - Mobile Optimized */}
           <div className="text-center mb-6 sm:mb-10" id="signup">
             <div className="bg-white/5 backdrop-blur-md rounded-lg sm:rounded-xl p-4 sm:p-6 border border-white/10 max-w-3xl mx-auto">
-              <div className="flex flex-col gap-3 sm:gap-4 justify-center items-center">
-                <Link href="/register?country=bw&package=mistake" className="group w-full sm:w-auto">
-                  <Button 
-                    size="lg" 
-                    variant="outline" 
-                    className="w-full sm:w-auto font-bold text-sm sm:text-base md:text-lg px-4 py-2 sm:px-6 sm:py-3 md:px-8 md:py-4 h-auto border-2 border-white/30 bg-black/30 text-white hover:bg-white/20 transition-all duration-300 group-hover:scale-105 min-h-[44px]"
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center">
+                {/* Member Login Button for returning customers */}
+                <Link href="/auth/login" className="group">
+                  <Button
+                    size="lg"
+                    variant="outline"
+                    className="w-full sm:w-auto font-bold text-sm sm:text-base md:text-lg px-4 py-2 sm:px-6 sm:py-3 md:px-6 md:py-4 h-auto border-2 border-white/30 bg-black/30 text-white hover:bg-white/20 transition-all duration-300 group-hover:scale-105 min-h-[44px]"
                   >
-                    <BookOpen className="mr-2 sm:mr-3 h-5 w-5 sm:h-6 sm:w-6" />
-                    Essential Guide - P404
-                    <ArrowRight className="ml-2 sm:ml-3 h-4 w-4 sm:h-5 sm:w-5 group-hover:translate-x-1 transition-transform" />
+                    <User className="mr-2 sm:mr-3 h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6" />
+                    Member Login
                   </Button>
                 </Link>
-                
-                <div className="text-white font-bold text-base sm:text-lg">OR</div>
-                
-                <Link href="/register?country=bw&package=mastery" className="group w-full sm:w-auto">
-                  <Button 
-                    size="lg" 
+
+                {/* Get Started Button for new customers */}
+                <a href="#pricing" className="group">
+                  <Button
+                    size="lg"
                     className="w-full sm:w-auto font-bold text-sm sm:text-base md:text-lg px-4 py-2 sm:px-6 sm:py-3 md:px-8 md:py-4 h-auto bg-gradient-to-r from-blue-600 via-sky-600 to-cyan-600 hover:from-blue-700 hover:via-sky-700 hover:to-cyan-700 shadow-2xl group-hover:scale-105 transition-all duration-300 group-hover:shadow-sky-500/25 min-h-[44px]"
                   >
-                    <Crown className="mr-2 sm:mr-3 h-5 w-5 sm:h-6 sm:w-6" />
-                    Complete Mastery - P1,618
-                    <Sparkles className="ml-2 sm:ml-3 h-4 w-4 sm:h-5 sm:w-5 group-hover:rotate-12 transition-transform" />
+                    <Crown className="mr-2 sm:mr-3 h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6" />
+                    Get Started - P1,618
+                    <Sparkles className="ml-2 sm:ml-3 h-3 w-3 sm:h-4 sm:w-4 md:h-5 md:w-5 group-hover:rotate-12 transition-transform" />
                   </Button>
-                </Link>
+                </a>
               </div>
               
               <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 mt-3 sm:mt-4 text-xs sm:text-sm text-gray-300">
