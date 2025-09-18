@@ -3,7 +3,7 @@ import { Inter } from 'next/font/google'
 import { ErrorBoundary } from '@/components/ErrorBoundary'
 import { homepageMetadata } from '@/lib/seo/metadata'
 import StructuredData from '@/components/seo/StructuredData'
-import Footer from '@/components/Footer'
+import ConditionalFooter from '@/components/ConditionalFooter'
 import './globals.css'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -40,7 +40,7 @@ export default function RootLayout({
             <div className="flex-grow">
               {children}
             </div>
-            <Footer />
+            <ConditionalFooter />
           </div>
         </ErrorBoundary>
       </body>
