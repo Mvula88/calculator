@@ -125,6 +125,13 @@ function RegisterForm() {
         return
       }
 
+      // Verify session is established
+      const { data: { session } } = await supabase.auth.getSession()
+      if (!session) {
+        console.log('Session not established, refreshing...')
+        await supabase.auth.refreshSession()
+      }
+
       setSuccess(true)
 
       // If coming from package selection, proceed to checkout
@@ -157,7 +164,8 @@ function RegisterForm() {
         // Coming back from payment - user is now signed in, go directly to portal
         console.log('Registration with payment successful, redirecting to portal...')
         setTimeout(() => {
-          window.location.href = '/portal'
+          // Use replace for clean navigation with fresh session
+          window.location.replace('/portal')
         }, 2000)
       } else {
         // Regular registration

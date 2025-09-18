@@ -69,19 +69,23 @@ function LoginForm() {
           return
         }
 
-        // SUCCESS - redirect to portal using window.location for reliability
-        console.log('Login successful, redirecting to portal...')
+        // SUCCESS - Force session refresh and redirect
+        console.log('Login successful, establishing session...')
 
-        // Force redirect with fallback
-        try {
-          window.location.href = '/portal'
-        } catch (redirectError) {
-          console.error('Redirect failed:', redirectError)
-          // Fallback: show manual link
-          setError('Redirect failed. Please click here to continue.')
+        // Get fresh session to ensure it's properly set
+        const { data: { session: freshSession } } = await supabase.auth.getSession()
+
+        if (freshSession) {
+          console.log('Session confirmed, redirecting to portal...')
+          // Use replace to ensure clean navigation
+          window.location.replace('/portal')
+        } else {
+          console.error('Session not established properly')
+          setError('Authentication issue. Please try logging in again.')
           setLoading(false)
+          // Refresh auth state
+          await supabase.auth.refreshSession()
         }
-        // Don't set loading false - keep spinner while redirecting
       } else {
         setError('Login failed. Please try again.')
         setLoading(false)
