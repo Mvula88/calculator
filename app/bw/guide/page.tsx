@@ -495,8 +495,6 @@ export default function BotswanaGuidePage() {
         </div>
       </section>
 
-      )}
-
       {/* Professional FAQ Section - Mobile Optimized */}
       <section className="py-12 sm:py-24 bg-gradient-to-b from-white to-gray-50" aria-labelledby="faq-heading">
         <div className="max-w-5xl mx-auto px-4 sm:px-6">
@@ -609,8 +607,6 @@ export default function BotswanaGuidePage() {
           </div>
         </div>
       </section>
-
-      )}
 
       {/* Premium Final CTA Section - Mobile Optimized */}
       {!user && (

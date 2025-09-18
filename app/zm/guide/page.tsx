@@ -498,8 +498,6 @@ export default function ZambiaGuidePage() {
         </div>
       </section>
 
-      )}
-
       {/* Professional FAQ Section */}
       <section className="py-24 bg-gradient-to-b from-white to-gray-50" aria-labelledby="faq-heading">
         <div className="max-w-5xl mx-auto px-6">
