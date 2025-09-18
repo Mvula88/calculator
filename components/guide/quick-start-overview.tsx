@@ -62,27 +62,6 @@ const quickFacts = [
     value: "60-90 days",
     description: "From purchase to registration",
     color: "blue"
-  },
-  {
-    icon: DollarSign,
-    label: "Total Cost",
-    value: "N$150-180k",
-    description: "All fees + 15% buffer",
-    color: "green"
-  },
-  {
-    icon: CheckCircle,
-    label: "Success Rate",
-    value: "95%",
-    description: "When following all steps",
-    color: "purple"
-  },
-  {
-    icon: Shield,
-    label: "Savings vs Dealer",
-    value: "N$30-50k",
-    description: "Typical savings amount",
-    color: "orange"
   }
 ]
 

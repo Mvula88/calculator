@@ -210,25 +210,6 @@ export default function AgentsContent() {
         </div>
       </div>
 
-      {/* Quick Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-        <Card className="p-6 text-center">
-          <div className="text-2xl font-bold text-blue-600 mb-2">{agents.length}</div>
-          <div className="text-sm text-gray-600">Verified Agents</div>
-        </Card>
-        <Card className="p-6 text-center">
-          <div className="text-2xl font-bold text-green-600 mb-2">97.8%</div>
-          <div className="text-sm text-gray-600">Average Success Rate</div>
-        </Card>
-        <Card className="p-6 text-center">
-          <div className="text-2xl font-bold text-purple-600 mb-2">9.2 days</div>
-          <div className="text-sm text-gray-600">Average Processing</div>
-        </Card>
-        <Card className="p-6 text-center">
-          <div className="text-2xl font-bold text-orange-600 mb-2">3,407</div>
-          <div className="text-sm text-gray-600">Successful Imports</div>
-        </Card>
-      </div>
 
       {/* Agent Listings */}
       <div className="space-y-6">
