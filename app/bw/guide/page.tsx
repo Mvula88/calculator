@@ -917,6 +917,7 @@ export default function BotswanaGuidePage() {
           </div>
         </div>
       </section>
+      )}
 
       {/* Premium Final CTA Section - Mobile Optimized */}
       {!user && (
@@ -1040,7 +1041,6 @@ export default function BotswanaGuidePage() {
           </div>
         </div>
       </section>
-      )}
       )}
     </main>
     </>
