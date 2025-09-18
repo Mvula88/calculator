@@ -642,40 +642,6 @@ export default function NamibiaGuidePage() {
             </Card>
           </div>
 
-          {/* Trust Badges */}
-          <div className="mt-12 flex flex-wrap items-center justify-center gap-8 text-gray-600">
-            <div className="flex items-center gap-2">
-              <Shield className="h-5 w-5 text-green-500" />
-              <span>SSL Secure Payment</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <Clock className="h-5 w-5 text-blue-500" />
-              <span>Instant Access</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <Users className="h-5 w-5 text-purple-500" />
-              <span>500+ Happy Importers</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <TrendingUp className="h-5 w-5 text-orange-500" />
-              <span>Updated Monthly</span>
-            </div>
-          </div>
-
-          {/* Money Back Guarantee */}
-          <div className="mt-12 text-center">
-            <Card className="max-w-2xl mx-auto bg-gradient-to-r from-green-50 to-blue-50 border-2 border-green-200">
-              <CardContent className="p-6">
-                <div className="flex items-center justify-center gap-4">
-                  <BadgeCheck className="h-12 w-12 text-green-600" />
-                  <div className="text-left">
-                    <h4 className="font-bold text-lg text-gray-900">7-Day Money Back Guarantee</h4>
-                    <p className="text-gray-600">If you're not completely satisfied, get a full refund within 7 days. No questions asked.</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
         </div>
       </section>
       )}
