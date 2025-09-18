@@ -4,6 +4,7 @@ import { ErrorBoundary } from '@/components/ErrorBoundary'
 import { homepageMetadata } from '@/lib/seo/metadata'
 import StructuredData from '@/components/seo/StructuredData'
 import ConditionalFooter from '@/components/ConditionalFooter'
+import ScrollToTop from '@/components/ScrollToTop'
 import './globals.css'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -42,6 +43,7 @@ export default function RootLayout({
             </div>
             <ConditionalFooter />
           </div>
+          <ScrollToTop />
         </ErrorBoundary>
       </body>
     </html>
