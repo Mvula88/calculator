@@ -510,76 +510,6 @@ export default function NamibiaGuidePage() {
         </div>
       </section>
 
-      {/* Professional Package Comparison Section - Mobile Optimized */}
-      <section className="py-12 sm:py-24 bg-gradient-to-b from-gray-50 to-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          {/* Section Header */}
-          <div className="text-center mb-12 sm:mb-16">
-            <div className="inline-flex items-center gap-2 bg-emerald-100 text-emerald-700 px-3 sm:px-4 py-2 rounded-full font-semibold text-xs sm:text-sm mb-4">
-              <Briefcase className="h-3 w-3 sm:h-4 sm:w-4" />
-              Choose Your Success Package
-            </div>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-black mb-4 sm:mb-6">
-              <span className="bg-gradient-to-r from-gray-900 to-blue-600 bg-clip-text text-transparent">
-                Start Your Import
-              </span>
-              <br />
-              <span className="bg-gradient-to-r from-emerald-600 to-purple-600 bg-clip-text text-transparent">
-                Success Story Today
-              </span>
-            </h2>
-            <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-600 max-w-3xl mx-auto mb-6 sm:mb-8 px-4">
-              Choose the perfect package for your import journey. Both options include comprehensive guidance and lifetime support.
-            </p>
-            
-            {/* Stock Counter */}
-            <div className="flex justify-center">
-              <StockCounter country="na" />
-            </div>
-          </div>
-
-          {/* Professional Trust Indicators - Mobile Optimized */}
-          <div className="mt-12 sm:mt-16">
-            <Card className="bg-gradient-to-r from-gray-50 to-blue-50 border-2 border-blue-100 max-w-5xl mx-auto">
-              <CardContent className="p-6 sm:p-8">
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 items-center text-center">
-                  <div>
-                    <div className="bg-emerald-100 w-12 h-12 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl flex items-center justify-center mx-auto mb-2 sm:mb-3">
-                      <Shield className="h-6 w-6 sm:h-8 sm:w-8 text-emerald-600" />
-                    </div>
-                    <h4 className="font-bold text-gray-900 mb-1 text-sm sm:text-base">Secure Checkout</h4>
-                    <p className="text-xs sm:text-sm text-gray-600">256-bit encryption</p>
-                  </div>
-                  
-                  <div>
-                    <div className="bg-blue-100 w-12 h-12 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl flex items-center justify-center mx-auto mb-2 sm:mb-3">
-                      <Zap className="h-6 w-6 sm:h-8 sm:w-8 text-blue-600" />
-                    </div>
-                    <h4 className="font-bold text-gray-900 mb-1 text-sm sm:text-base">Instant Access</h4>
-                    <p className="text-xs sm:text-sm text-gray-600">Immediate download</p>
-                  </div>
-                  
-                  <div>
-                    <div className="bg-purple-100 w-12 h-12 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl flex items-center justify-center mx-auto mb-2 sm:mb-3">
-                      <Heart className="h-6 w-6 sm:h-8 sm:w-8 text-purple-600" />
-                    </div>
-                    <h4 className="font-bold text-gray-900 mb-1 text-sm sm:text-base">Lifetime Updates</h4>
-                    <p className="text-xs sm:text-sm text-gray-600">Always current info</p>
-                  </div>
-                  
-                  <div>
-                    <div className="bg-amber-100 w-12 h-12 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl flex items-center justify-center mx-auto mb-2 sm:mb-3">
-                      <BadgeCheck className="h-6 w-6 sm:h-8 sm:w-8 text-amber-600" />
-                    </div>
-                    <h4 className="font-bold text-gray-900 mb-1 text-sm sm:text-base">Money Back</h4>
-                    <p className="text-xs sm:text-sm text-gray-600">7-day refund policy</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
 
       {/* Professional FAQ Section - Mobile Optimized */}
       <section className="py-12 sm:py-24 bg-gradient-to-b from-white to-gray-50" aria-labelledby="faq-heading">
@@ -692,99 +622,6 @@ export default function NamibiaGuidePage() {
         </div>
       </section>
 
-      {/* Professional Trust & Assurance Section - Mobile Optimized */}
-      <section className="py-12 sm:py-24 bg-gradient-to-b from-gray-50 to-white">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          {/* Trust Header */}
-          <div className="text-center mb-12 sm:mb-16">
-            <div className="inline-flex items-center gap-2 bg-emerald-100 text-emerald-700 px-3 sm:px-4 py-2 rounded-full font-semibold text-xs sm:text-sm mb-4">
-              <Trophy className="h-3 w-3 sm:h-4 sm:w-4" />
-              Your Success is Our Priority
-            </div>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black mb-4 sm:mb-6">
-              <span className="bg-gradient-to-r from-gray-900 to-blue-600 bg-clip-text text-transparent">
-                Complete Import
-              </span>
-              <br />
-              <span className="bg-gradient-to-r from-emerald-600 to-purple-600 bg-clip-text text-transparent">
-                Education Resource
-              </span>
-            </h2>
-            <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-3xl mx-auto px-4">
-              Real import experience shared through comprehensive educational materials. Professional guidance for successful vehicle imports from Japan to Namibia.
-            </p>
-          </div>
-
-          {/* Trust Features Grid - Mobile Optimized */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-12 sm:mb-16">
-            <Card className="border-2 border-emerald-100 hover:border-emerald-300 hover:shadow-xl transition-all duration-300 group">
-              <CardContent className="p-6 sm:p-8 text-center">
-                <div className="bg-emerald-100 w-16 h-16 sm:w-20 sm:h-20 rounded-2xl sm:rounded-3xl flex items-center justify-center mx-auto mb-4 sm:mb-6 group-hover:bg-emerald-200 transition-colors">
-                  <BarChart3 className="h-8 w-8 sm:h-10 sm:w-10 text-emerald-600" />
-                </div>
-                <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 sm:mb-4">Proven Track Record</h3>
-                <p className="text-gray-600 leading-relaxed text-sm sm:text-base">
-                  Hundreds of successful imports completed using our comprehensive system. Real results from real importers across Namibia.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-2 border-blue-100 hover:border-blue-300 hover:shadow-xl transition-all duration-300 group">
-              <CardContent className="p-6 sm:p-8 text-center">
-                <div className="bg-blue-100 w-16 h-16 sm:w-20 sm:h-20 rounded-2xl sm:rounded-3xl flex items-center justify-center mx-auto mb-4 sm:mb-6 group-hover:bg-blue-200 transition-colors">
-                  <Shield className="h-8 w-8 sm:h-10 sm:w-10 text-blue-600" />
-                </div>
-                <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 sm:mb-4">Secure & Protected</h3>
-                <p className="text-gray-600 leading-relaxed text-sm sm:text-base">
-                  All procedures designed for full compliance with Namibian import regulations. Secure payment processing with industry-standard encryption.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-2 border-purple-100 hover:border-purple-300 hover:shadow-xl transition-all duration-300 group sm:col-span-2 lg:col-span-1">
-              <CardContent className="p-6 sm:p-8 text-center">
-                <div className="bg-purple-100 w-16 h-16 sm:w-20 sm:h-20 rounded-2xl sm:rounded-3xl flex items-center justify-center mx-auto mb-4 sm:mb-6 group-hover:bg-purple-200 transition-colors">
-                  <Rocket className="h-8 w-8 sm:h-10 sm:w-10 text-purple-600" />
-                </div>
-                <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 sm:mb-4">Instant Access</h3>
-                <p className="text-gray-600 leading-relaxed text-sm sm:text-base">
-                  Download your complete import guides immediately after purchase. No waiting, no delays — start your import journey today.
-                </p>
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* Guarantee Section - Mobile Optimized */}
-          <div className="max-w-4xl mx-auto">
-            <Card className="bg-gradient-to-r from-emerald-500 via-blue-600 to-purple-600 border-0 overflow-hidden">
-              <CardContent className="p-8 sm:p-12 text-center text-white relative">
-                <div className="absolute inset-0 bg-black/10"></div>
-                <div className="relative z-10">
-                  <BadgeCheck className="h-12 w-12 sm:h-16 sm:w-16 mx-auto mb-4 sm:mb-6 text-emerald-200" />
-                  <h3 className="text-2xl sm:text-3xl font-bold mb-4">7-Day Refund Policy</h3>
-                  <p className="text-base sm:text-lg md:text-xl mb-6 sm:mb-8 text-blue-100 max-w-2xl mx-auto leading-relaxed px-4">
-                    If our guides don't provide the comprehensive import education you expected, we'll refund your purchase within 7 days under our refund policy terms.
-                  </p>
-                  <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 text-base sm:text-lg">
-                    <div className="flex items-center gap-2 sm:gap-3">
-                      <CheckCircle className="h-5 w-5 sm:h-6 sm:w-6 text-emerald-300" />
-                      <span>Protected Purchase</span>
-                    </div>
-                    <div className="flex items-center gap-2 sm:gap-3">
-                      <Clock className="h-5 w-5 sm:h-6 sm:w-6 text-blue-300" />
-                      <span>7-Day Refund Policy</span>
-                    </div>
-                    <div className="flex items-center gap-2 sm:gap-3">
-                      <Heart className="h-5 w-5 sm:h-6 sm:w-6 text-purple-300" />
-                      <span>Your Success Matters</span>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
 
       {/* Premium Final CTA Section - Mobile Optimized */}
       <section className="py-12 sm:py-24 bg-gradient-to-br from-slate-900 via-blue-900 to-purple-900 text-white relative overflow-hidden">
@@ -919,12 +756,9 @@ export default function NamibiaGuidePage() {
       <section id="pricing" className="py-16 sm:py-20 bg-gradient-to-b from-gray-50 to-white">
         <div className="container mx-auto px-4 max-w-7xl">
                   <div className="text-center mb-12">
-                    <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-                      Choose Your Success Package
+                    <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 text-gray-800">
+                      Complete Import Package
                     </h2>
-                    <p className="text-2xl sm:text-3xl font-bold text-gray-800 mb-4">
-                      Start Your Import Success Story Today
-                    </p>
                     <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">
                       Everything you need to import cars successfully - one comprehensive package with lifetime access.
                     </p>
