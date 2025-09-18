@@ -47,55 +47,18 @@ export default function JapanAuctionsClientPage() {
     )
   }
 
-  if (!hasAccess || userTier !== 'mastery') {
+  // Remove tier check - all portal users have access
+  if (!hasAccess) {
     return (
       <div className="px-4 sm:px-6 py-8 sm:py-12">
         <Card className="p-6 sm:p-8 text-center max-w-2xl mx-auto">
-          <div className="inline-flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 bg-purple-100 rounded-full mb-4">
-            <Gavel className="h-6 w-6 sm:h-8 sm:w-8 text-purple-600" />
+          <div className="inline-flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 bg-yellow-100 rounded-full mb-4">
+            <Gavel className="h-6 w-6 sm:h-8 sm:w-8 text-yellow-600" />
           </div>
-          <h2 className="text-xl sm:text-2xl font-bold mb-2">Japan Auctions - Mastery Only</h2>
-          <p className="text-sm sm:text-base text-gray-600 mb-6">
-            This comprehensive guide to Japanese car auctions is available for Import Mastery members only.
+          <h2 className="text-xl sm:text-2xl font-bold mb-2">Loading Japan Auctions...</h2>
+          <p className="text-sm sm:text-base text-gray-600">
+            Please wait while we verify your access.
           </p>
-          <div className="bg-gray-50 rounded-lg p-4 sm:p-6 mb-6">
-            <h3 className="font-semibold mb-3 flex items-center justify-center gap-2 text-sm sm:text-base">
-              <Star className="h-4 w-4 sm:h-5 sm:w-5 text-yellow-500" />
-              What you get with Import Mastery:
-            </h3>
-            <ul className="text-left space-y-2 max-w-md mx-auto text-xs sm:text-sm">
-              <li className="flex items-start gap-2">
-                <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5 text-green-500 flex-shrink-0 mt-0.5" />
-                <span>Complete Japan auction bidding guide</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5 text-green-500 flex-shrink-0 mt-0.5" />
-                <span>20+ verified Japanese exporters</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5 text-green-500 flex-shrink-0 mt-0.5" />
-                <span>Step-by-step auction process</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5 text-green-500 flex-shrink-0 mt-0.5" />
-                <span>Cost breakdowns & red flags</span>
-              </li>
-            </ul>
-          </div>
-          <Button 
-            className="w-full sm:w-auto bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700"
-            onClick={() => {
-              // Store the user's email before redirecting
-              const email = userEmail || localStorage.getItem('userEmail')
-              if (email) {
-                localStorage.setItem('checkout_email', email)
-              }
-              window.location.href = '/na/upsell'
-            }}
-          >
-            <Star className="h-4 w-4 mr-2" />
-            Upgrade to Import Mastery
-          </Button>
         </Card>
       </div>
     )

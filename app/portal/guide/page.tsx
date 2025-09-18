@@ -221,7 +221,7 @@ export default function GuidePage() {
   }
   
   // No access - redirect to portal home or show message
-  if (!user || !userTier) {
+  if (!user) {
     router.replace('/portal')
     return (
       <div className="min-h-screen flex items-center justify-center">

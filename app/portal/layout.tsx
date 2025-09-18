@@ -47,7 +47,8 @@ export default function SimplePortalLayout({
   
   const handleSignOut = async () => {
     await signOut()
-    router.replace('/')
+    // Use window.location for more reliable redirect after logout
+    window.location.href = '/'
   }
   
   // For activation/login pages, just render the content
