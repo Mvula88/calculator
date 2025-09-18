@@ -18,6 +18,7 @@ import {
   Star,
   DollarSign,
   Users,
+  User,
   Calculator,
   FileText,
   Phone,
