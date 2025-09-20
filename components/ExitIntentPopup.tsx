@@ -133,7 +133,7 @@ export default function ExitIntentPopup() {
                     <span className="text-purple-600 text-xs">✓</span>
                   </div>
                   <span className="text-gray-700">
-                    <strong>Multi-Country Calculator</strong> - Calculate import costs accurately
+                    <strong>Multi-Country Calculator</strong> - For NA, ZA, BW & ZM imports
                   </span>
                 </li>
                 <li className="flex items-start gap-2">
