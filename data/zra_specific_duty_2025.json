@@ -1,0 +1,362 @@
+[
+  {
+    "type": "passenger",
+    "cc_min": 0,
+    "cc_max": 1500,
+    "age_min": 0,
+    "age_max": 2,
+    "duty_kwacha": 15000,
+    "description": "Passenger vehicles ≤1500cc, 0-2 years"
+  },
+  {
+    "type": "passenger",
+    "cc_min": 0,
+    "cc_max": 1500,
+    "age_min": 3,
+    "age_max": 5,
+    "duty_kwacha": 18000,
+    "description": "Passenger vehicles ≤1500cc, 3-5 years"
+  },
+  {
+    "type": "passenger",
+    "cc_min": 0,
+    "cc_max": 1500,
+    "age_min": 6,
+    "age_max": 10,
+    "duty_kwacha": 22000,
+    "description": "Passenger vehicles ≤1500cc, 6-10 years"
+  },
+  {
+    "type": "passenger",
+    "cc_min": 0,
+    "cc_max": 1500,
+    "age_min": 11,
+    "age_max": 99,
+    "duty_kwacha": 28000,
+    "description": "Passenger vehicles ≤1500cc, >10 years"
+  },
+  {
+    "type": "passenger",
+    "cc_min": 1501,
+    "cc_max": 2000,
+    "age_min": 0,
+    "age_max": 2,
+    "duty_kwacha": 25000,
+    "description": "Passenger vehicles 1501-2000cc, 0-2 years"
+  },
+  {
+    "type": "passenger",
+    "cc_min": 1501,
+    "cc_max": 2000,
+    "age_min": 3,
+    "age_max": 5,
+    "duty_kwacha": 30000,
+    "description": "Passenger vehicles 1501-2000cc, 3-5 years"
+  },
+  {
+    "type": "passenger",
+    "cc_min": 1501,
+    "cc_max": 2000,
+    "age_min": 6,
+    "age_max": 10,
+    "duty_kwacha": 35000,
+    "description": "Passenger vehicles 1501-2000cc, 6-10 years"
+  },
+  {
+    "type": "passenger",
+    "cc_min": 1501,
+    "cc_max": 2000,
+    "age_min": 11,
+    "age_max": 99,
+    "duty_kwacha": 42000,
+    "description": "Passenger vehicles 1501-2000cc, >10 years"
+  },
+  {
+    "type": "passenger",
+    "cc_min": 2001,
+    "cc_max": 3000,
+    "age_min": 0,
+    "age_max": 2,
+    "duty_kwacha": 35000,
+    "description": "Passenger vehicles 2001-3000cc, 0-2 years"
+  },
+  {
+    "type": "passenger",
+    "cc_min": 2001,
+    "cc_max": 3000,
+    "age_min": 3,
+    "age_max": 5,
+    "duty_kwacha": 42000,
+    "description": "Passenger vehicles 2001-3000cc, 3-5 years"
+  },
+  {
+    "type": "passenger",
+    "cc_min": 2001,
+    "cc_max": 3000,
+    "age_min": 6,
+    "age_max": 10,
+    "duty_kwacha": 50000,
+    "description": "Passenger vehicles 2001-3000cc, 6-10 years"
+  },
+  {
+    "type": "passenger",
+    "cc_min": 2001,
+    "cc_max": 3000,
+    "age_min": 11,
+    "age_max": 99,
+    "duty_kwacha": 60000,
+    "description": "Passenger vehicles 2001-3000cc, >10 years"
+  },
+  {
+    "type": "passenger",
+    "cc_min": 3001,
+    "cc_max": 99999,
+    "age_min": 0,
+    "age_max": 2,
+    "duty_kwacha": 50000,
+    "description": "Passenger vehicles >3000cc, 0-2 years"
+  },
+  {
+    "type": "passenger",
+    "cc_min": 3001,
+    "cc_max": 99999,
+    "age_min": 3,
+    "age_max": 5,
+    "duty_kwacha": 60000,
+    "description": "Passenger vehicles >3000cc, 3-5 years"
+  },
+  {
+    "type": "passenger",
+    "cc_min": 3001,
+    "cc_max": 99999,
+    "age_min": 6,
+    "age_max": 10,
+    "duty_kwacha": 75000,
+    "description": "Passenger vehicles >3000cc, 6-10 years"
+  },
+  {
+    "type": "passenger",
+    "cc_min": 3001,
+    "cc_max": 99999,
+    "age_min": 11,
+    "age_max": 99,
+    "duty_kwacha": 90000,
+    "description": "Passenger vehicles >3000cc, >10 years"
+  },
+  {
+    "type": "suv",
+    "cc_min": 0,
+    "cc_max": 2000,
+    "age_min": 0,
+    "age_max": 2,
+    "duty_kwacha": 30000,
+    "description": "SUVs ≤2000cc, 0-2 years"
+  },
+  {
+    "type": "suv",
+    "cc_min": 0,
+    "cc_max": 2000,
+    "age_min": 3,
+    "age_max": 5,
+    "duty_kwacha": 36000,
+    "description": "SUVs ≤2000cc, 3-5 years"
+  },
+  {
+    "type": "suv",
+    "cc_min": 0,
+    "cc_max": 2000,
+    "age_min": 6,
+    "age_max": 10,
+    "duty_kwacha": 44000,
+    "description": "SUVs ≤2000cc, 6-10 years"
+  },
+  {
+    "type": "suv",
+    "cc_min": 0,
+    "cc_max": 2000,
+    "age_min": 11,
+    "age_max": 99,
+    "duty_kwacha": 55000,
+    "description": "SUVs ≤2000cc, >10 years"
+  },
+  {
+    "type": "suv",
+    "cc_min": 2001,
+    "cc_max": 3000,
+    "age_min": 0,
+    "age_max": 2,
+    "duty_kwacha": 45000,
+    "description": "SUVs 2001-3000cc, 0-2 years"
+  },
+  {
+    "type": "suv",
+    "cc_min": 2001,
+    "cc_max": 3000,
+    "age_min": 3,
+    "age_max": 5,
+    "duty_kwacha": 54000,
+    "description": "SUVs 2001-3000cc, 3-5 years"
+  },
+  {
+    "type": "suv",
+    "cc_min": 2001,
+    "cc_max": 3000,
+    "age_min": 6,
+    "age_max": 10,
+    "duty_kwacha": 65000,
+    "description": "SUVs 2001-3000cc, 6-10 years"
+  },
+  {
+    "type": "suv",
+    "cc_min": 2001,
+    "cc_max": 3000,
+    "age_min": 11,
+    "age_max": 99,
+    "duty_kwacha": 80000,
+    "description": "SUVs 2001-3000cc, >10 years"
+  },
+  {
+    "type": "suv",
+    "cc_min": 3001,
+    "cc_max": 99999,
+    "age_min": 0,
+    "age_max": 2,
+    "duty_kwacha": 65000,
+    "description": "SUVs >3000cc, 0-2 years"
+  },
+  {
+    "type": "suv",
+    "cc_min": 3001,
+    "cc_max": 99999,
+    "age_min": 3,
+    "age_max": 5,
+    "duty_kwacha": 78000,
+    "description": "SUVs >3000cc, 3-5 years"
+  },
+  {
+    "type": "suv",
+    "cc_min": 3001,
+    "cc_max": 99999,
+    "age_min": 6,
+    "age_max": 10,
+    "duty_kwacha": 95000,
+    "description": "SUVs >3000cc, 6-10 years"
+  },
+  {
+    "type": "suv",
+    "cc_min": 3001,
+    "cc_max": 99999,
+    "age_min": 11,
+    "age_max": 99,
+    "duty_kwacha": 115000,
+    "description": "SUVs >3000cc, >10 years"
+  },
+  {
+    "type": "pickup",
+    "cc_min": 0,
+    "cc_max": 2000,
+    "age_min": 0,
+    "age_max": 2,
+    "duty_kwacha": 28000,
+    "description": "Pickup trucks ≤2000cc, 0-2 years"
+  },
+  {
+    "type": "pickup",
+    "cc_min": 0,
+    "cc_max": 2000,
+    "age_min": 3,
+    "age_max": 5,
+    "duty_kwacha": 34000,
+    "description": "Pickup trucks ≤2000cc, 3-5 years"
+  },
+  {
+    "type": "pickup",
+    "cc_min": 0,
+    "cc_max": 2000,
+    "age_min": 6,
+    "age_max": 10,
+    "duty_kwacha": 42000,
+    "description": "Pickup trucks ≤2000cc, 6-10 years"
+  },
+  {
+    "type": "pickup",
+    "cc_min": 0,
+    "cc_max": 2000,
+    "age_min": 11,
+    "age_max": 99,
+    "duty_kwacha": 52000,
+    "description": "Pickup trucks ≤2000cc, >10 years"
+  },
+  {
+    "type": "pickup",
+    "cc_min": 2001,
+    "cc_max": 3000,
+    "age_min": 0,
+    "age_max": 2,
+    "duty_kwacha": 40000,
+    "description": "Pickup trucks 2001-3000cc, 0-2 years"
+  },
+  {
+    "type": "pickup",
+    "cc_min": 2001,
+    "cc_max": 3000,
+    "age_min": 3,
+    "age_max": 5,
+    "duty_kwacha": 48000,
+    "description": "Pickup trucks 2001-3000cc, 3-5 years"
+  },
+  {
+    "type": "pickup",
+    "cc_min": 2001,
+    "cc_max": 3000,
+    "age_min": 6,
+    "age_max": 10,
+    "duty_kwacha": 58000,
+    "description": "Pickup trucks 2001-3000cc, 6-10 years"
+  },
+  {
+    "type": "pickup",
+    "cc_min": 2001,
+    "cc_max": 3000,
+    "age_min": 11,
+    "age_max": 99,
+    "duty_kwacha": 70000,
+    "description": "Pickup trucks 2001-3000cc, >10 years"
+  },
+  {
+    "type": "pickup",
+    "cc_min": 3001,
+    "cc_max": 99999,
+    "age_min": 0,
+    "age_max": 2,
+    "duty_kwacha": 55000,
+    "description": "Pickup trucks >3000cc, 0-2 years"
+  },
+  {
+    "type": "pickup",
+    "cc_min": 3001,
+    "cc_max": 99999,
+    "age_min": 3,
+    "age_max": 5,
+    "duty_kwacha": 66000,
+    "description": "Pickup trucks >3000cc, 3-5 years"
+  },
+  {
+    "type": "pickup",
+    "cc_min": 3001,
+    "cc_max": 99999,
+    "age_min": 6,
+    "age_max": 10,
+    "duty_kwacha": 80000,
+    "description": "Pickup trucks >3000cc, 6-10 years"
+  },
+  {
+    "type": "pickup",
+    "cc_min": 3001,
+    "cc_max": 99999,
+    "age_min": 11,
+    "age_max": 99,
+    "duty_kwacha": 100000,
+    "description": "Pickup trucks >3000cc, >10 years"
+  }
+]
