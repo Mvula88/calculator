@@ -380,7 +380,7 @@ export default function DutyCalculator() {
 
                 <div>
                   <Label htmlFor="cifValue" className="text-sm sm:text-base">
-                    CIF Value ({countryReqs.currency})
+                    {country === 'NA' ? 'CIF Value (FOB + 10% Shipping)' : 'CIF Value'} ({countryReqs.currency})
                   </Label>
                   <Input
                     id="cifValue"
@@ -399,8 +399,9 @@ export default function DutyCalculator() {
                     <p className="text-xs text-red-500 mt-1">{errors.cifValue}</p>
                   ) : (
                     <p className="text-xs text-gray-500 mt-1">
-                      Cost, Insurance & Freight value in {countryReqs.currency}
-                      {country === 'NA' && ' (Shipping excluded from duty calculation)'}
+                      {country === 'NA'
+                        ? 'Enter CIF value. FOB (CIF÷1.10) will be used for duty calculation'
+                        : `Cost, Insurance & Freight value in ${countryReqs.currency}`}
                     </p>
                   )}
                 </div>
@@ -797,10 +798,17 @@ export default function DutyCalculator() {
                       <span className="text-sm">CIF Value</span>
                       <span className="text-sm">{countryReqs.currency} {result.cif.toFixed(2)}</span>
                     </div>
+                    {country === 'NA' && (
+                      <div className="flex justify-between items-center text-xs text-gray-600">
+                        <span>FOB Value (CIF÷1.10)</span>
+                        <span>{countryReqs.currency} {(result.cif / 1.10).toFixed(2)}</span>
+                      </div>
+                    )}
                     {result.duty > 0 && (
                       <div className="flex justify-between items-center">
                         <span className="text-sm font-medium">
-                          {country === 'ZM' ? 'Specific Duty' : `Customs Duty (${country === 'NA' ? 'ICD' : 'Duty'})`}
+                          {country === 'ZM' ? 'Specific Duty' :
+                           country === 'NA' ? 'ICD (25% × FOB)' : 'Customs Duty'}
                         </span>
                         <span className="font-medium">{countryReqs.currency} {result.duty.toFixed(2)}</span>
                       </div>
