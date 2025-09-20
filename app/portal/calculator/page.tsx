@@ -142,6 +142,7 @@ export default function DutyCalculator() {
   // Optional costs
   const [specialHandlingFee, setSpecialHandlingFee] = useState<string>('0')
   const [localClearingTotal, setLocalClearingTotal] = useState<string>('')
+  const [oceanFreightCost, setOceanFreightCost] = useState<string>('')
   const [inlandDelivery, setInlandDelivery] = useState<string>('0')
 
   const [result, setResult] = useState<FullOutput | null>(null)
@@ -153,15 +154,12 @@ export default function DutyCalculator() {
 
   // Update clearing costs when country changes
   useEffect(() => {
-    // Only update if not using ContShare
-    if (!useContainerSharing) {
-      setLocalClearingTotal(defaultClearingCosts[country].toFixed(2))
-    }
+    setLocalClearingTotal(defaultClearingCosts[country].toFixed(2))
     // Update exchange rate based on country
     const baseJpyRate = 0.13 // JPY to NAD
     const countryRate = baseJpyRate / exchangeRates[country]
     setJpyToLocalRate(countryRate.toFixed(4))
-  }, [country, useContainerSharing])
+  }, [country])
 
   // Check if user has mastery tier
   if (loading) {
@@ -335,6 +333,7 @@ export default function DutyCalculator() {
     setIsHybrid(false)
     setSpecialHandlingFee('0')
     setLocalClearingTotal(defaultClearingCosts[country].toFixed(2))
+    setOceanFreightCost('')
     setUseContainerSharing(false)
     setInlandDelivery('0')
     setResult(null)
@@ -646,12 +645,30 @@ export default function DutyCalculator() {
                 )}
               </div>
 
-              {/* Container Sharing Option */}
+              {/* Ocean Freight / Container Sharing Option */}
               <div className="space-y-4 pt-4 border-t">
                 <h3 className="font-semibold text-sm text-gray-700 flex items-center gap-2">
-                  <Package className="h-4 w-4" />
-                  Container Sharing
+                  <Ship className="h-4 w-4" />
+                  Ocean Freight
                 </h3>
+
+                <div>
+                  <Label htmlFor="oceanFreightCost">Ocean Freight Cost ({countryReqs.currency})</Label>
+                  <Input
+                    id="oceanFreightCost"
+                    type="number"
+                    placeholder={useContainerSharing ? "18500" : "e.g. 35000"}
+                    value={oceanFreightCost}
+                    onChange={(e) => setOceanFreightCost(e.target.value)}
+                    className="mt-2"
+                    disabled={useContainerSharing}
+                  />
+                  <p className="text-xs text-gray-500 mt-1">
+                    {useContainerSharing ?
+                      "Using ContShare platform rate" :
+                      "Cost of shipping container from Japan to port"}
+                  </p>
+                </div>
 
                 <div className="bg-gradient-to-r from-blue-50 to-green-50 p-4 rounded-lg border border-blue-200">
                   <div className="flex items-start justify-between mb-3">
@@ -664,10 +681,10 @@ export default function DutyCalculator() {
                           setUseContainerSharing(e.target.checked)
                           if (e.target.checked) {
                             // Set to ContShare rate when checked
-                            setLocalClearingTotal('18500')
+                            setOceanFreightCost('18500')
                           } else {
-                            // Reset to default when unchecked
-                            setLocalClearingTotal(defaultClearingCosts[country].toFixed(2))
+                            // Reset to empty when unchecked
+                            setOceanFreightCost('')
                           }
                         }}
                         className="mt-1 rounded border-gray-300"
@@ -675,7 +692,7 @@ export default function DutyCalculator() {
                       <label htmlFor="useContainerSharing" className="cursor-pointer">
                         <span className="font-medium text-sm">Use ContShare Platform</span>
                         <span className="text-xs text-gray-600 block">
-                          Save money by sharing container space!
+                          Save up to 75% on ocean freight costs!
                         </span>
                       </label>
                     </div>
@@ -691,19 +708,19 @@ export default function DutyCalculator() {
 
                   {useContainerSharing && (
                     <div className="text-xs space-y-2 text-gray-700 bg-white/70 p-3 rounded">
-                      <p className="font-medium text-green-700">✓ ContShare Rate Applied: {countryReqs.currency} 18,500</p>
-                      <p>Share container space with other importers and save up to 75% on shipping costs!</p>
+                      <p className="font-medium text-green-700">✓ ContShare Ocean Freight: {countryReqs.currency} 18,500</p>
+                      <p>Share container space with other importers for massive savings!</p>
                       <p>Visit <Link href="https://www.contshare.com" target="_blank" className="text-blue-600 font-medium hover:underline">contshare.com</Link> to find container partners.</p>
                     </div>
                   )}
                 </div>
               </div>
 
-              {/* Shipping & Exchange */}
+              {/* Exchange Rate & Container Details */}
               <div className="space-y-4 pt-4 border-t">
                 <h3 className="font-semibold text-sm text-gray-700 flex items-center gap-2">
-                  <Ship className="h-4 w-4" />
-                  Shipping & Exchange
+                  <DollarSign className="h-4 w-4" />
+                  Exchange & Container Info
                 </h3>
 
                 <div>
@@ -958,16 +975,53 @@ export default function DutyCalculator() {
                   </div>
                 </div>
 
+                {/* Ocean Freight Cost */}
+                {oceanFreightCost && parseFloat(oceanFreightCost) > 0 && (
+                  <div className="bg-green-50 p-4 rounded-lg">
+                    <h3 className="font-semibold text-green-900 mb-3 flex items-center justify-between">
+                      <span className="flex items-center gap-2">
+                        <Ship className="h-4 w-4" />
+                        Ocean Freight
+                      </span>
+                      {useContainerSharing && (
+                        <span className="text-xs bg-green-600 text-white px-2 py-1 rounded-full flex items-center gap-1">
+                          <CheckCircle className="h-3 w-3" />
+                          ContShare
+                        </span>
+                      )}
+                    </h3>
+                    <div className="space-y-2 text-sm">
+                      <div className="flex justify-between">
+                        <span className="text-gray-700">Container Shipping Cost</span>
+                        <span className="font-medium">{countryReqs.currency} {parseFloat(oceanFreightCost).toFixed(2)}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-gray-700">Your Cars / Total</span>
+                        <span>{parseInt(carsInContainer) || 1} / 4</span>
+                      </div>
+                      <div className="flex justify-between font-semibold border-t pt-2">
+                        <span>Your Share ({parseInt(carsInContainer) || 1}/4)</span>
+                        <span className="text-green-900">
+                          {countryReqs.currency} {((parseFloat(oceanFreightCost) / 4) * (parseInt(carsInContainer) || 1)).toFixed(2)}
+                        </span>
+                      </div>
+                    </div>
+                    {useContainerSharing && (
+                      <p className="text-xs text-green-700 mt-2">
+                        * Using ContShare rate - Visit{' '}
+                        <Link href="https://www.contshare.com" target="_blank" className="text-blue-600 font-medium hover:underline">
+                          contshare.com
+                        </Link>{' '}
+                        to find partners
+                      </p>
+                    )}
+                  </div>
+                )}
+
                 {/* Local Clearing Costs */}
                 <div className="bg-amber-50 p-4 rounded-lg">
-                  <h3 className="font-semibold text-amber-900 mb-3 flex items-center justify-between">
-                    <span>Local Clearing Costs</span>
-                    {useContainerSharing && (
-                      <span className="text-xs bg-green-600 text-white px-2 py-1 rounded-full flex items-center gap-1">
-                        <CheckCircle className="h-3 w-3" />
-                        ContShare Applied
-                      </span>
-                    )}
+                  <h3 className="font-semibold text-amber-900 mb-3">
+                    <span>Local Clearing Agent Costs</span>
                   </h3>
                   <div className="space-y-2 text-sm">
                     {/* Detailed breakdown based on country */}
@@ -1028,17 +1082,7 @@ export default function DutyCalculator() {
                     </div>
                   </div>
                   <p className="text-xs text-amber-700 mt-2">
-                    {useContainerSharing ? (
-                      <>
-                        * Using ContShare platform rate - Visit{' '}
-                        <Link href="https://www.contshare.com" target="_blank" className="text-blue-600 font-medium hover:underline">
-                          contshare.com
-                        </Link>{' '}
-                        to find partners
-                      </>
-                    ) : (
-                      <>* You pay {parseInt(carsInContainer) || 1}/4 of total container costs</>
-                    )}
+                    * You pay {parseInt(carsInContainer) || 1}/4 of total clearing costs
                   </p>
                 </div>
 
@@ -1115,22 +1159,34 @@ export default function DutyCalculator() {
                 {/* Summary */}
                 <div className="space-y-3">
                   <div className="flex justify-between items-center py-3 px-4 bg-gray-100 rounded-lg font-bold">
-                    <span>Landed Cost</span>
+                    <span>Landed Cost (without ocean freight)</span>
                     <span className="text-lg">{countryReqs.currency} {result.landedCost.toFixed(2)}</span>
                   </div>
 
-                  {result.inlandDelivery > 0 && (
-                    <>
-                      <div className="flex justify-between items-center px-4">
-                        <span>+ Inland Delivery</span>
-                        <span>{countryReqs.currency} {result.inlandDelivery.toFixed(2)}</span>
-                      </div>
-                      <div className="flex justify-between items-center py-3 px-4 bg-green-100 rounded-lg font-bold">
-                        <span className="text-green-900">Final Total</span>
-                        <span className="text-lg text-green-900">{countryReqs.currency} {(result.landedCost + result.inlandDelivery).toFixed(2)}</span>
-                      </div>
-                    </>
+                  {oceanFreightCost && parseFloat(oceanFreightCost) > 0 && (
+                    <div className="flex justify-between items-center px-4">
+                      <span>+ Ocean Freight (your share)</span>
+                      <span>{countryReqs.currency} {((parseFloat(oceanFreightCost) / 4) * (parseInt(carsInContainer) || 1)).toFixed(2)}</span>
+                    </div>
                   )}
+
+                  {result.inlandDelivery > 0 && (
+                    <div className="flex justify-between items-center px-4">
+                      <span>+ Inland Delivery</span>
+                      <span>{countryReqs.currency} {result.inlandDelivery.toFixed(2)}</span>
+                    </div>
+                  )}
+
+                  <div className="flex justify-between items-center py-3 px-4 bg-green-100 rounded-lg font-bold">
+                    <span className="text-green-900">Final Total</span>
+                    <span className="text-lg text-green-900">
+                      {countryReqs.currency} {(
+                        result.landedCost +
+                        result.inlandDelivery +
+                        (oceanFreightCost && parseFloat(oceanFreightCost) > 0 ? ((parseFloat(oceanFreightCost) / 4) * (parseInt(carsInContainer) || 1)) : 0)
+                      ).toFixed(2)}
+                    </span>
+                  </div>
                 </div>
 
                 {/* Calculation Details */}
@@ -1199,11 +1255,15 @@ export default function DutyCalculator() {
                   <ul className="text-xs text-blue-800 space-y-1">
                     <li className="flex items-start gap-2">
                       <CheckCircle className="h-3 w-3 text-blue-600 mt-0.5 flex-shrink-0" />
-                      Japan-side costs (auction fees, shipping)
+                      Japan-side costs (auction fees, handling)
                     </li>
                     <li className="flex items-start gap-2">
                       <CheckCircle className="h-3 w-3 text-blue-600 mt-0.5 flex-shrink-0" />
-                      Local clearing costs (port charges, handling)
+                      Ocean freight (if entered)
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="h-3 w-3 text-blue-600 mt-0.5 flex-shrink-0" />
+                      Local clearing agent costs
                     </li>
                     <li className="flex items-start gap-2">
                       <CheckCircle className="h-3 w-3 text-blue-600 mt-0.5 flex-shrink-0" />
