@@ -92,71 +92,55 @@ export default function SimplePortalLayout({
   }
   
   const navigation = [
-    {
-      name: 'Dashboard',
-      href: '/portal',
+    { 
+      name: 'Dashboard', 
+      href: '/portal', 
       icon: Home,
-      description: 'Portal overview',
-      badge: null
+      description: 'Portal overview'
     },
-    {
-      name: 'Import Guide',
-      href: '/portal/guide',
+    { 
+      name: 'Import Guide', 
+      href: '/portal/guide', 
       icon: BookOpen,
-      description: 'Step-by-step guide',
-      badge: null
+      description: 'Step-by-step guide'
     },
-    {
-      name: 'Documents',
-      href: '/portal/documents',
+    { 
+      name: 'Documents', 
+      href: '/portal/documents', 
       icon: FileText,
-      description: 'Real import docs',
-      badge: 'NEW'
+      description: 'Real import docs'
     },
-    {
-      name: 'Mastery Tools',
-      href: '/portal/mastery',
+    { 
+      name: 'Mastery Tools', 
+      href: '/portal/mastery', 
       icon: Star,
-      description: 'Advanced features',
-      badge: null
+      description: 'Advanced features'
     },
-    {
-      name: 'Calculator',
-      href: '/portal/calculator',
+    { 
+      name: 'Calculator', 
+      href: '/portal/calculator', 
       icon: Calculator,
-      description: 'Cost calculator',
-      badge: null
+      description: 'Cost calculator'
     },
-    {
-      name: 'Japan Auctions',
-      href: '/portal/japan-auctions',
+    { 
+      name: 'Japan Auctions', 
+      href: '/portal/japan-auctions', 
       icon: Gavel,
-      description: 'Auction guide',
-      badge: null
+      description: 'Auction guide'
     },
-    {
-      name: 'Shipping',
-      href: '/portal/book-slot',
+    { 
+      name: 'Shipping', 
+      href: '/portal/book-slot', 
       icon: Ship,
-      description: 'Shipping companies',
-      badge: null
+      description: 'Shipping companies'
     },
-    {
-      name: 'Agents',
-      href: '/portal/agents',
+    { 
+      name: 'Agents', 
+      href: '/portal/agents', 
       icon: Users,
-      description: 'Verified agents',
-      badge: null
+      description: 'Verified agents'
     },
   ]
-
-  // Check if current path is active
-  const isActive = (href: string) => {
-    if (href === '/portal') {
-      return pathname === '/portal'
-    }
-    return pathname.startsWith(href)
-  }
   
   return (
     <SimpleContentProtection userEmail={userEmail}>
@@ -215,107 +199,39 @@ export default function SimplePortalLayout({
         </div>
       </header>
       
-      {/* Professional Mobile Navigation Menu */}
+      {/* Mobile Navigation Menu */}
       {mobileMenuOpen && (
         <div className="lg:hidden fixed inset-0 z-50 pt-16">
-          <div className="fixed inset-0 bg-black/40 backdrop-blur-sm" onClick={() => setMobileMenuOpen(false)} />
-          <nav className="fixed left-0 top-16 bottom-0 w-full sm:w-80 bg-white shadow-2xl overflow-y-auto">
-            {/* Mobile Menu Header */}
-            <div className="bg-gradient-to-r from-blue-500 to-purple-600 px-6 py-6">
-              <div className="flex items-center space-x-3">
-                <div className="h-12 w-12 bg-white/20 backdrop-blur rounded-xl flex items-center justify-center">
-                  <span className="text-lg font-bold text-white">
-                    {userEmail ? userEmail.charAt(0).toUpperCase() : 'U'}
-                  </span>
-                </div>
-                <div className="flex-1 min-w-0">
-                  <p className="text-sm font-semibold text-white truncate">
-                    {userEmail ? userEmail.split('@')[0] : 'Portal User'}
-                  </p>
-                  <div className="flex items-center gap-1 mt-1">
-                    <div className="h-2 w-2 bg-green-400 rounded-full animate-pulse"></div>
-                    <p className="text-xs text-blue-100">Active Member</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Mobile Navigation Items */}
+          <div className="fixed inset-0 bg-black/30" onClick={() => setMobileMenuOpen(false)} />
+          <nav className="fixed left-0 top-16 bottom-0 w-full sm:w-80 bg-white shadow-xl overflow-y-auto">
             <div className="p-4">
               <div className="space-y-1">
-                {navigation.map((item) => {
-                  const active = isActive(item.href)
-                  return (
-                    <Link
-                      key={item.name}
-                      href={item.href}
-                      onClick={() => setMobileMenuOpen(false)}
-                      className={`
-                        group relative flex items-center px-4 py-3 text-base font-medium rounded-xl
-                        transition-all duration-200
-                        ${active
-                          ? 'bg-gradient-to-r from-blue-50 to-purple-50 text-blue-700'
-                          : 'hover:bg-gray-50 active:bg-gray-100 text-gray-700'
-                        }
-                      `}
-                    >
-                      {/* Active Indicator */}
-                      {active && (
-                        <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-gradient-to-b from-blue-500 to-purple-500 rounded-r-full"></div>
-                      )}
-
-                      {/* Icon */}
-                      <div className={`
-                        flex items-center justify-center w-10 h-10 rounded-lg mr-3
-                        ${active
-                          ? 'bg-gradient-to-br from-blue-500 to-purple-600'
-                          : 'bg-gray-100'
-                        }
-                      `}>
-                        <item.icon className={`h-5 w-5 ${active ? 'text-white' : 'text-gray-600'}`} />
-                      </div>
-
-                      {/* Text */}
-                      <div className="flex-1">
-                        <div className="flex items-center justify-between">
-                          <span className={`${active ? 'font-semibold' : ''}`}>
-                            {item.name}
-                          </span>
-                          {item.badge && (
-                            <span className="ml-2 px-2 py-0.5 text-xs font-semibold bg-gradient-to-r from-green-400 to-blue-500 text-white rounded-full">
-                              {item.badge}
-                            </span>
-                          )}
-                        </div>
-                        <p className={`text-xs mt-0.5 ${active ? 'text-blue-600' : 'text-gray-500'}`}>
-                          {item.description}
-                        </p>
-                      </div>
-                    </Link>
-                  )
-                })}
+                {navigation.map((item) => (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="flex items-center px-4 py-3 text-base font-medium rounded-lg hover:bg-gray-50 active:bg-gray-100 transition-colors"
+                  >
+                    <item.icon className="mr-3 h-5 w-5 text-gray-400" />
+                    <div className="flex-1">
+                      <div className="text-gray-700">{item.name}</div>
+                      <div className="text-xs text-gray-500">{item.description}</div>
+                    </div>
+                  </Link>
+                ))}
               </div>
-
+              
               {/* Mobile Menu Footer */}
               <div className="mt-8 pt-8 border-t border-gray-200">
                 <div className="space-y-4">
-                  {/* Status Card */}
-                  <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl p-4 border border-green-200">
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-xs font-semibold text-green-700">MEMBERSHIP STATUS</span>
-                      <div className="h-2 w-2 bg-green-500 rounded-full animate-pulse"></div>
-                    </div>
-                    <p className="text-sm font-bold text-gray-900">Import Mastery</p>
-                    <p className="text-xs text-gray-600 mt-1">Lifetime Access</p>
+                  <div className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                    ✅ Portal Access Active
                   </div>
-
-                  {/* Help Button */}
-                  <Link href="/portal/help" className="flex items-center justify-center py-2 px-4 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors text-sm text-gray-700 font-medium">
-                    <svg className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    Need Help?
-                  </Link>
+                  <div className="text-sm text-gray-500">
+                    <p>Licensed to:</p>
+                    <p className="font-medium text-gray-700 truncate">{userEmail || 'Portal User'}</p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -324,119 +240,39 @@ export default function SimplePortalLayout({
       )}
       
       <div className="flex h-screen pt-16">
-        {/* Professional Sidebar Navigation */}
+        {/* Sidebar Navigation */}
         <aside className="hidden lg:flex lg:flex-shrink-0">
-          <div className="flex flex-col w-72 bg-gradient-to-b from-gray-50 to-white">
-            <div className="flex flex-col flex-grow border-r border-gray-200 overflow-y-auto">
-              {/* Sidebar Header */}
-              <div className="px-6 py-6 border-b border-gray-100">
-                <div className="flex items-center space-x-3">
-                  <div className="h-12 w-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
-                    <span className="text-lg font-bold text-white">
-                      {userEmail ? userEmail.charAt(0).toUpperCase() : 'U'}
-                    </span>
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-sm font-semibold text-gray-900 truncate">
-                      {userEmail ? userEmail.split('@')[0] : 'Portal User'}
-                    </p>
-                    <div className="flex items-center gap-1 mt-1">
-                      <div className="h-2 w-2 bg-green-500 rounded-full animate-pulse"></div>
-                      <p className="text-xs text-gray-500">Active Member</p>
+          <div className="flex flex-col w-64">
+            <div className="flex flex-col flex-grow bg-white border-r border-gray-200 pt-5 pb-4 overflow-y-auto">
+              <nav className="mt-5 flex-1 px-2 space-y-1">
+                {navigation.map((item) => (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    className="group flex items-center px-3 py-2.5 text-sm font-medium rounded-lg hover:bg-gray-50 hover:text-gray-900 transition-colors duration-150"
+                  >
+                    <item.icon className="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500" />
+                    <div className="flex-1">
+                      <div className="text-gray-700 group-hover:text-gray-900">{item.name}</div>
+                      <div className="text-xs text-gray-500">{item.description}</div>
                     </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Navigation Items */}
-              <nav className="flex-1 px-4 py-6 space-y-1">
-                {navigation.map((item) => {
-                  const active = isActive(item.href)
-                  return (
-                    <Link
-                      key={item.name}
-                      href={item.href}
-                      className={`
-                        group relative flex items-center px-4 py-3 text-sm font-medium rounded-xl
-                        transition-all duration-200 ease-in-out
-                        ${active
-                          ? 'bg-gradient-to-r from-blue-50 to-purple-50 text-blue-700 shadow-sm border border-blue-100'
-                          : 'hover:bg-gray-50 text-gray-700 hover:text-gray-900'
-                        }
-                      `}
-                    >
-                      {/* Active Indicator */}
-                      {active && (
-                        <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-gradient-to-b from-blue-500 to-purple-500 rounded-r-full"></div>
-                      )}
-
-                      {/* Icon Container */}
-                      <div className={`
-                        flex items-center justify-center w-10 h-10 rounded-lg mr-3
-                        ${active
-                          ? 'bg-gradient-to-br from-blue-500 to-purple-600 shadow-md'
-                          : 'bg-gray-100 group-hover:bg-gray-200'
-                        }
-                      `}>
-                        <item.icon className={`
-                          h-5 w-5
-                          ${active ? 'text-white' : 'text-gray-600 group-hover:text-gray-700'}
-                        `} />
-                      </div>
-
-                      {/* Text Content */}
-                      <div className="flex-1">
-                        <div className="flex items-center justify-between">
-                          <span className={`${active ? 'font-semibold' : ''}`}>
-                            {item.name}
-                          </span>
-                          {item.badge && (
-                            <span className="ml-2 px-2 py-0.5 text-xs font-semibold bg-gradient-to-r from-green-400 to-blue-500 text-white rounded-full">
-                              {item.badge}
-                            </span>
-                          )}
-                        </div>
-                        <p className={`
-                          text-xs mt-0.5
-                          ${active ? 'text-blue-600' : 'text-gray-500 group-hover:text-gray-600'}
-                        `}>
-                          {item.description}
-                        </p>
-                      </div>
-
-                      {/* Hover Arrow */}
-                      {!active && (
-                        <div className="opacity-0 group-hover:opacity-100 transition-opacity">
-                          <svg className="w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                          </svg>
-                        </div>
-                      )}
-                    </Link>
-                  )
-                })}
-              </nav>
-
-              {/* Professional Sidebar Footer */}
-              <div className="px-6 py-6 border-t border-gray-100 bg-gradient-to-b from-white to-gray-50">
-                <div className="space-y-4">
-                  {/* Status Card */}
-                  <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl p-4 border border-green-200">
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-xs font-semibold text-green-700">MEMBERSHIP STATUS</span>
-                      <div className="h-2 w-2 bg-green-500 rounded-full animate-pulse"></div>
-                    </div>
-                    <p className="text-sm font-bold text-gray-900">Import Mastery</p>
-                    <p className="text-xs text-gray-600 mt-1">Lifetime Access</p>
-                  </div>
-
-                  {/* Help Link */}
-                  <Link href="/portal/help" className="flex items-center justify-center py-2 px-4 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors text-sm text-gray-700 font-medium">
-                    <svg className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    Need Help?
                   </Link>
+                ))}
+              </nav>
+              
+              {/* Sidebar Footer */}
+              <div className="flex-shrink-0 px-4 py-4 border-t border-gray-200">
+                <div className="space-y-3">
+                  {/* Access Badge */}
+                  <div className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                    ✅ Portal Access Active
+                  </div>
+                  
+                  {/* User Info */}
+                  <div className="text-xs text-gray-500">
+                    <p>Licensed to:</p>
+                    <p className="font-medium text-gray-700 truncate">{userEmail || 'Portal User'}</p>
+                  </div>
                 </div>
               </div>
             </div>
