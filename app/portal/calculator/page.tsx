@@ -908,10 +908,7 @@ export default function DutyCalculator() {
                     {/* Detailed breakdown based on country */}
                     {(() => {
                       // Select the appropriate local costs based on country
-                      const localCosts = country === 'NA' ? namibiaSideCosts :
-                                        country === 'ZA' ? southAfricaSideCosts :
-                                        country === 'BW' ? botswanaSideCosts :
-                                        zambianSideCosts;
+                      const localCosts = localCostBreakdowns[country];
 
                       return (
                         <div className="space-y-1.5 text-xs">
