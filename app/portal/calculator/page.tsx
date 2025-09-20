@@ -46,14 +46,6 @@ const japanCosts = {
   specialHandlingFee: 0 // Optional, user can input
 }
 
-// Helper function to estimate CO2 emissions from engine CC
-// This is a rough estimate for ENV levy calculation
-const estimateCO2FromEngineCC = (engineCC: number, fuelType: 'petrol' | 'diesel'): number => {
-  // Rough formula: CO2 (g/km) ≈ 50 + (engineCC / 20)
-  // Diesel typically has slightly lower CO2
-  const baseCO2 = fuelType === 'diesel' ? 45 : 50
-  return Math.round(baseCO2 + (engineCC / 20))
-}
 
 // Default clearing costs by country (in local currency)
 const defaultClearingCosts: Record<Country, number> = {
@@ -61,6 +53,49 @@ const defaultClearingCosts: Record<Country, number> = {
   'ZA': 35000.00,  // South Africa clearing costs (estimate)
   'BW': 18000.00,  // Botswana clearing costs (estimate)
   'ZM': 45000.00   // Zambia clearing costs (estimate)
+}
+
+// Namibia-side cost breakdown
+const namibiaSideCosts = {
+  portCharges: 8500.00,
+  handlingFees: 4200.00,
+  documentation: 2800.00,
+  agentFees: 6500.00,
+  inspection: 1800.00,
+  storage: 1500.00,
+  miscFees: 955.65
+}
+
+// Other countries' local cost breakdowns (estimates)
+const localCostBreakdowns: Record<Country, typeof namibiaSideCosts> = {
+  'NA': namibiaSideCosts,
+  'ZA': {
+    portCharges: 12000.00,
+    handlingFees: 6000.00,
+    documentation: 3500.00,
+    agentFees: 8000.00,
+    inspection: 2500.00,
+    storage: 2000.00,
+    miscFees: 1000.00
+  },
+  'BW': {
+    portCharges: 6000.00,
+    handlingFees: 3000.00,
+    documentation: 2000.00,
+    agentFees: 4500.00,
+    inspection: 1200.00,
+    storage: 800.00,
+    miscFees: 500.00
+  },
+  'ZM': {
+    portCharges: 15000.00,
+    handlingFees: 7500.00,
+    documentation: 5000.00,
+    agentFees: 10000.00,
+    inspection: 3500.00,
+    storage: 2500.00,
+    miscFees: 1500.00
+  }
 }
 
 // Country display names
@@ -241,14 +276,8 @@ export default function DutyCalculator() {
     const rate = parseFloat(jpyToLocalRate)
     // For Namibia, if user entered engine CC, convert to estimated CO2
     // Otherwise use the entered value as CO2
-    let co2 = parseFloat(co2Emissions) || 0
-    if (country === 'NA' && co2 > 0) {
-      // If value > 500, assume it's engine CC and convert to CO2
-      // If value <= 500, assume it's already CO2 emissions
-      if (co2 > 500) {
-        co2 = estimateCO2FromEngineCC(co2, fuelType)
-      }
-    }
+    // For Namibia, co2Emissions represents engine size in cc
+    const co2 = parseFloat(co2Emissions) || 0
     const rrp = parseFloat(rrpValue) || cif * 1.5
     const cars = parseInt(carsInContainer)
     const specialHandling = parseFloat(specialHandlingFee) || 0
@@ -876,17 +905,60 @@ export default function DutyCalculator() {
                 <div className="bg-amber-50 p-4 rounded-lg">
                   <h3 className="font-semibold text-amber-900 mb-3">Local Clearing Costs</h3>
                   <div className="space-y-2 text-sm">
-                    <div className="flex justify-between">
-                      <span className="text-gray-700">Total Container Cost</span>
-                      <span>{countryReqs.currency} {(result.localClearingShare * (parseInt(carsInContainer) || 1)).toFixed(2)}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-gray-700">Cars in Container</span>
-                      <span>{parseInt(carsInContainer) || 1}</span>
-                    </div>
-                    <div className="flex justify-between font-semibold border-t pt-2">
-                      <span>Your Share</span>
-                      <span>{countryReqs.currency} {result.localClearingShare.toFixed(2)}</span>
+                    {/* Detailed breakdown based on country */}
+                    {(() => {
+                      // Select the appropriate local costs based on country
+                      const localCosts = country === 'NA' ? namibiaSideCosts :
+                                        country === 'ZA' ? southAfricaSideCosts :
+                                        country === 'BW' ? botswanaSideCosts :
+                                        zambianSideCosts;
+
+                      return (
+                        <div className="space-y-1.5 text-xs">
+                          <div className="flex justify-between">
+                            <span>Port Charges:</span>
+                            <span className="font-medium">{countryReqs.currency} {(localCosts.portCharges / (parseInt(carsInContainer) || 1)).toFixed(2)}</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span>Handling Fees:</span>
+                            <span className="font-medium">{countryReqs.currency} {(localCosts.handlingFees / (parseInt(carsInContainer) || 1)).toFixed(2)}</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span>Documentation:</span>
+                            <span className="font-medium">{countryReqs.currency} {(localCosts.documentation / (parseInt(carsInContainer) || 1)).toFixed(2)}</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span>Agent Fees:</span>
+                            <span className="font-medium">{countryReqs.currency} {(localCosts.agentFees / (parseInt(carsInContainer) || 1)).toFixed(2)}</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span>Inspection:</span>
+                            <span className="font-medium">{countryReqs.currency} {(localCosts.inspection / (parseInt(carsInContainer) || 1)).toFixed(2)}</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span>Storage (7 days):</span>
+                            <span className="font-medium">{countryReqs.currency} {(localCosts.storage / (parseInt(carsInContainer) || 1)).toFixed(2)}</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span>Miscellaneous:</span>
+                            <span className="font-medium">{countryReqs.currency} {(localCosts.miscFees / (parseInt(carsInContainer) || 1)).toFixed(2)}</span>
+                          </div>
+                        </div>
+                      );
+                    })()}
+                    <div className="border-t pt-2 space-y-1">
+                      <div className="flex justify-between text-sm">
+                        <span className="text-gray-700">Total Container Cost</span>
+                        <span>{countryReqs.currency} {(result.localClearingShare * (parseInt(carsInContainer) || 1)).toFixed(2)}</span>
+                      </div>
+                      <div className="flex justify-between text-sm">
+                        <span className="text-gray-700">Cars in Container</span>
+                        <span>{parseInt(carsInContainer) || 1}</span>
+                      </div>
+                      <div className="flex justify-between font-semibold border-t pt-2">
+                        <span>Your Share</span>
+                        <span className="text-amber-900">{countryReqs.currency} {result.localClearingShare.toFixed(2)}</span>
+                      </div>
                     </div>
                   </div>
                   <p className="text-xs text-amber-700 mt-2">
@@ -932,10 +1004,9 @@ export default function DutyCalculator() {
                         <span className="font-medium">{countryReqs.currency} {result.env.toFixed(2)}</span>
                       </div>
                     )}
-                    {country === 'NA' && parseFloat(co2Emissions) > 500 && (
+                    {country === 'NA' && parseFloat(co2Emissions) > 0 && (
                       <div className="text-xs text-gray-600 ml-4">
-                        Engine: {co2Emissions}cc → Est. CO₂: {estimateCO2FromEngineCC(parseFloat(co2Emissions), fuelType)}g/km
-                        {result.env > 0 && ` (>${fuelType === 'petrol' ? '120' : '140'}g/km threshold)`}
+                        Formula: {co2Emissions}cc × 0.05 × {fuelType === 'petrol' ? '40' : '45'} = N${result.env.toFixed(2)}
                       </div>
                     )}
                     {result.adv > 0 && (
@@ -1000,7 +1071,7 @@ export default function DutyCalculator() {
                     {country === 'NA' && (
                       <>
                         <li>• ICD = 25% × FOB (shipping excluded)</li>
-                        <li>• ENV = {fuelType === 'petrol' ? '(CO₂ - 120) × 40' : '(CO₂ - 140) × 45'} {result.env === 0 ? '(below threshold)' : ''}</li>
+                        <li>• ENV = Engine Size (cc) × 0.05 × {fuelType === 'petrol' ? '40' : '45'}</li>
                         <li>• ADV = ((0.00003 × RRP) - 0.75)% × RRP (capped at 30%)</li>
                         <li>• Import VAT = 15% × [(FOB + 10%) + Duty + ADV + ENV] = 16.5% effective rate</li>
                       </>

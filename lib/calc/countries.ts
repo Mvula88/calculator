@@ -61,8 +61,8 @@ export interface FullOutput extends TaxOutput {
  * Formula:
  * - Duty = 25% × FOB (excluding shipping)
  * - ENV (Environmental Levy):
- *   - Petrol: max(0, CO₂ - 120) × 40
- *   - Diesel: max(0, CO₂ - 140) × 45
+ *   - Engine Size (cc) × 0.05 × 40 (petrol)
+ *   - Engine Size (cc) × 0.05 × 45 (diesel)
  * - ADV = min(30%, (0.00003 × RRP - 0.75)%) × RRP
  * - Import VAT = 15% × [(FOB + 10%) + Duty + ADV + ENV] (effective 16.5% rate)
  * Note: Shipping costs are NOT included in duty calculation base for Namibia
@@ -79,11 +79,13 @@ export function calcNA(params: Inputs): FullOutput {
   const duty = fob * 0.25;
 
   // Environmental Levy (ENV)
+  // Formula: Engine Size (in cc) × 0.05 × (40 for petrol or 45 for diesel)
+  // The co2 parameter is now being used to pass engine size in cc
   let env = 0;
-  if (fuel === 'petrol') {
-    env = Math.max(0, co2 - 120) * 40;
-  } else if (fuel === 'diesel') {
-    env = Math.max(0, co2 - 140) * 45;
+  if (co2 > 0) {  // co2 is actually engine size in cc
+    const engineSizeInCC = co2;
+    const multiplier = fuel === 'petrol' ? 40 : 45;
+    env = engineSizeInCC * 0.05 * multiplier;
   }
 
   // Ad Valorem Excise Duty (ADV)
