@@ -424,7 +424,7 @@ export default function DutyCalculator() {
 
                 <div>
                   <Label htmlFor="cifValue" className="text-sm sm:text-base">
-                    {country === 'NA' ? 'FOB Value' : 'CIF Value'} ({countryReqs.currency})
+                    Vehicle Price ({countryReqs.currency})
                   </Label>
                   <Input
                     id="cifValue"
@@ -443,9 +443,7 @@ export default function DutyCalculator() {
                     <p className="text-xs text-red-500 mt-1">{errors.cifValue}</p>
                   ) : (
                     <p className="text-xs text-gray-500 mt-1">
-                      {country === 'NA'
-                        ? 'Free On Board value (excludes shipping). CIF = FOB × 1.10'
-                        : `Cost, Insurance & Freight value in ${countryReqs.currency}`}
+                      Purchase price of the vehicle at auction (before shipping costs)
                     </p>
                   )}
                 </div>
@@ -823,11 +821,11 @@ export default function DutyCalculator() {
                   <h3 className="font-semibold text-gray-900 mb-3">Quick Calculation Summary</h3>
                   <div className="grid grid-cols-2 gap-3 text-sm">
                     <div>
-                      <span className="text-gray-600">FOB Value:</span>
+                      <span className="text-gray-600">Vehicle Price:</span>
                       <div className="font-bold text-gray-900">{countryReqs.currency} {(result.cif / 1.10).toFixed(2)}</div>
                     </div>
                     <div>
-                      <span className="text-gray-600">ICD (25% × FOB):</span>
+                      <span className="text-gray-600">ICD (25% × Price):</span>
                       <div className="font-bold text-gray-900">{countryReqs.currency} {result.duty.toFixed(2)}</div>
                     </div>
                     <div>
@@ -967,28 +965,21 @@ export default function DutyCalculator() {
                 <div className="bg-red-50 p-4 rounded-lg">
                   <h3 className="font-semibold text-red-900 mb-3">Customs Duties & Taxes</h3>
                   <div className="space-y-2">
-                    {country === 'NA' ? (
-                      <>
-                        <div className="flex justify-between items-center">
-                          <span className="text-sm">FOB Value (entered)</span>
-                          <span className="text-sm">{countryReqs.currency} {(result.cif / 1.10).toFixed(2)}</span>
-                        </div>
-                        <div className="flex justify-between items-center text-xs text-gray-600">
-                          <span>CIF Value (FOB × 1.10)</span>
-                          <span>{countryReqs.currency} {result.cif.toFixed(2)}</span>
-                        </div>
-                      </>
-                    ) : (
-                      <div className="flex justify-between items-center">
-                        <span className="text-sm">CIF Value</span>
-                        <span className="text-sm">{countryReqs.currency} {result.cif.toFixed(2)}</span>
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm">Vehicle Price</span>
+                      <span className="text-sm">{countryReqs.currency} {(result.cif / 1.10).toFixed(2)}</span>
+                    </div>
+                    {country === 'NA' && (
+                      <div className="flex justify-between items-center text-xs text-gray-600">
+                        <span>CIF Value (Price + 10% shipping)</span>
+                        <span>{countryReqs.currency} {result.cif.toFixed(2)}</span>
                       </div>
                     )}
                     {result.duty > 0 && (
                       <div className="flex justify-between items-center">
                         <span className="text-sm font-medium">
                           {country === 'ZM' ? 'Specific Duty' :
-                           country === 'NA' ? 'ICD (25% × FOB)' : 'Customs Duty'}
+                           country === 'NA' ? 'ICD (25% × Vehicle Price)' : 'Customs Duty'}
                         </span>
                         <span className="font-medium">{countryReqs.currency} {result.duty.toFixed(2)}</span>
                       </div>
@@ -1067,10 +1058,10 @@ export default function DutyCalculator() {
                   <ul className="space-y-1">
                     {country === 'NA' && (
                       <>
-                        <li>• ICD = 25% × FOB (shipping excluded)</li>
+                        <li>• ICD = 25% × Vehicle Price (auction price, shipping excluded)</li>
                         <li>• ENV = Engine Size (cc) × 0.05 × {fuelType === 'petrol' ? '40' : '45'}</li>
                         <li>• ADV = ((0.00003 × RRP) - 0.75)% × RRP (capped at 30%)</li>
-                        <li>• Import VAT = 15% × [(FOB + 10%) + Duty + ADV + ENV] = 16.5% effective rate</li>
+                        <li>• Import VAT = 15% × [(Vehicle Price + 10%) + Duty + ADV + ENV]</li>
                       </>
                     )}
                     {country === 'ZA' && (
