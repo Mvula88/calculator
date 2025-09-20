@@ -202,10 +202,10 @@ export default function DutyCalculator() {
   const validateInputs = (): boolean => {
     const newErrors: Record<string, string> = {}
 
-    // Validate CIF/FOB value
+    // Validate vehicle price
     const cif = parseFloat(cifValue)
     if (!cifValue) {
-      newErrors.cifValue = `${country === 'NA' ? 'FOB' : 'CIF'} value in ${countryReqs.currency} is required`
+      newErrors.cifValue = `Vehicle price in ${countryReqs.currency} is required`
     } else if (isNaN(cif) || cif <= 0) {
       newErrors.cifValue = 'Please enter a valid positive amount'
     }
