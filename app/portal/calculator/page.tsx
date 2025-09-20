@@ -154,10 +154,10 @@ export default function DutyCalculator() {
   const validateInputs = (): boolean => {
     const newErrors: Record<string, string> = {}
 
-    // Validate CIF value
+    // Validate CIF/FOB value
     const cif = parseFloat(cifValue)
     if (!cifValue) {
-      newErrors.cifValue = `CIF value in ${countryReqs.currency} is required`
+      newErrors.cifValue = `${country === 'NA' ? 'FOB' : 'CIF'} value in ${countryReqs.currency} is required`
     } else if (isNaN(cif) || cif <= 0) {
       newErrors.cifValue = 'Please enter a valid positive amount'
     }
@@ -231,7 +231,11 @@ export default function DutyCalculator() {
       return
     }
 
-    const cif = parseFloat(cifValue)
+    // For Namibia, user enters FOB, we calculate CIF
+    // For other countries, user enters CIF directly
+    const inputValue = parseFloat(cifValue)
+    const cif = country === 'NA' ? inputValue * 1.10 : inputValue
+
     const rate = parseFloat(jpyToLocalRate)
     const co2 = parseFloat(co2Emissions) || 0
     const rrp = parseFloat(rrpValue) || cif * 1.5
@@ -380,7 +384,7 @@ export default function DutyCalculator() {
 
                 <div>
                   <Label htmlFor="cifValue" className="text-sm sm:text-base">
-                    {country === 'NA' ? 'CIF Value (FOB + 10% Shipping)' : 'CIF Value'} ({countryReqs.currency})
+                    {country === 'NA' ? 'FOB Value' : 'CIF Value'} ({countryReqs.currency})
                   </Label>
                   <Input
                     id="cifValue"
@@ -400,7 +404,7 @@ export default function DutyCalculator() {
                   ) : (
                     <p className="text-xs text-gray-500 mt-1">
                       {country === 'NA'
-                        ? 'Enter CIF value. FOB (CIF÷1.10) will be used for duty calculation'
+                        ? 'Free On Board value (excludes shipping). CIF = FOB × 1.10'
                         : `Cost, Insurance & Freight value in ${countryReqs.currency}`}
                     </p>
                   )}
@@ -794,14 +798,21 @@ export default function DutyCalculator() {
                 <div className="bg-red-50 p-4 rounded-lg">
                   <h3 className="font-semibold text-red-900 mb-3">Customs Duties & Taxes</h3>
                   <div className="space-y-2">
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm">CIF Value</span>
-                      <span className="text-sm">{countryReqs.currency} {result.cif.toFixed(2)}</span>
-                    </div>
-                    {country === 'NA' && (
-                      <div className="flex justify-between items-center text-xs text-gray-600">
-                        <span>FOB Value (CIF÷1.10)</span>
-                        <span>{countryReqs.currency} {(result.cif / 1.10).toFixed(2)}</span>
+                    {country === 'NA' ? (
+                      <>
+                        <div className="flex justify-between items-center">
+                          <span className="text-sm">FOB Value (entered)</span>
+                          <span className="text-sm">{countryReqs.currency} {(result.cif / 1.10).toFixed(2)}</span>
+                        </div>
+                        <div className="flex justify-between items-center text-xs text-gray-600">
+                          <span>CIF Value (FOB × 1.10)</span>
+                          <span>{countryReqs.currency} {result.cif.toFixed(2)}</span>
+                        </div>
+                      </>
+                    ) : (
+                      <div className="flex justify-between items-center">
+                        <span className="text-sm">CIF Value</span>
+                        <span className="text-sm">{countryReqs.currency} {result.cif.toFixed(2)}</span>
                       </div>
                     )}
                     {result.duty > 0 && (
