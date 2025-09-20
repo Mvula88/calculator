@@ -869,10 +869,10 @@ export default function DutyCalculator() {
                   <ul className="space-y-1">
                     {country === 'NA' && (
                       <>
-                        <li>• ICD = 25% × CIF</li>
+                        <li>• ICD = 25% × FOB (shipping excluded)</li>
                         <li>• ENV = {fuelType === 'petrol' ? '(CO₂ - 120) × 40' : '(CO₂ - 140) × 45'} {result.env === 0 ? '(below threshold)' : ''}</li>
                         <li>• ADV = ((0.00003 × RRP) - 0.75)% × RRP (capped at 30%)</li>
-                        <li>• VAT = 15% × [(CIF × 1.10) + Duty + ADV]</li>
+                        <li>• Import VAT = 15% × [(FOB + 10%) + Duty + ADV + ENV] = 16.5% effective rate</li>
                       </>
                     )}
                     {country === 'ZA' && (

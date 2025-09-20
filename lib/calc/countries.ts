@@ -64,7 +64,7 @@ export interface FullOutput extends TaxOutput {
  *   - Petrol: max(0, CO₂ - 120) × 40
  *   - Diesel: max(0, CO₂ - 140) × 45
  * - ADV = min(30%, (0.00003 × RRP - 0.75)%) × RRP
- * - VAT = 15% × [FOB + Duty + ADV + ENV]
+ * - Import VAT = 15% × [(FOB + 10%) + Duty + ADV + ENV] (effective 16.5% rate)
  * Note: Shipping costs are NOT included in duty calculation base for Namibia
  */
 export function calcNA(params: Inputs): FullOutput {
@@ -91,9 +91,11 @@ export function calcNA(params: Inputs): FullOutput {
   const advRate = Math.min(0.30, Math.max(0, (0.00003 * rrp - 0.75) / 100));
   const adv = rrp * advRate;
 
-  // VAT = 15% × [FOB + ICD + ADV + ENV]
-  // Note: VAT is calculated on FOB value plus all duties
-  const vatBase = fob + duty + adv + env;
+  // Import VAT calculation for Namibia
+  // Import VAT = 15% × [(FOB + 10%) + Duty + ADV + ENV]
+  // The FOB + 10% markup makes the effective VAT rate 16.5% on the FOB value
+  // This is the standard practice for import VAT in Namibia
+  const vatBase = (fob * 1.10) + duty + adv + env;
   const vat = vatBase * 0.15;
 
   const totalTaxes = duty + env + adv + vat;
@@ -108,10 +110,11 @@ export function calcNA(params: Inputs): FullOutput {
     totalTaxes
   });
 
-  // Add note about shipping exclusion for Namibia
+  // Add notes about Namibia-specific calculations
   output.breakdownNotes = [
     'For Namibia, shipping costs are excluded from the customs duty calculation base (FOB value used)',
-    `Duty calculated on FOB value of ${params.country === 'NA' ? 'N$' : ''}${Math.round(fob).toLocaleString()}`
+    `Duty calculated on FOB value of N$${Math.round(fob).toLocaleString()}`,
+    'Import VAT calculated at 15% on (FOB + 10%) + duties, giving an effective rate of 16.5%'
   ];
 
   return output;
