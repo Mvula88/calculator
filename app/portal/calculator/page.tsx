@@ -635,17 +635,17 @@ export default function DutyCalculator() {
                     type="number"
                     step="0.01"
                     placeholder="e.g. 1.30"
-                    value={exchangeRate}
+                    value={jpyToLocalRate}
                     onChange={(e) => {
-                      setExchangeRate(e.target.value)
-                      if (errors.exchangeRate) {
-                        setErrors(prev => ({ ...prev, exchangeRate: '' }))
+                      setJpyToLocalRate(e.target.value)
+                      if (errors.jpyToLocalRate) {
+                        setErrors(prev => ({ ...prev, jpyToLocalRate: '' }))
                       }
                     }}
-                    className={`mt-2 ${errors.exchangeRate ? 'border-red-500' : ''}`}
+                    className={`mt-2 ${errors.jpyToLocalRate ? 'border-red-500' : ''}`}
                   />
-                  {errors.exchangeRate ? (
-                    <p className="text-xs text-red-500 mt-1">{errors.exchangeRate}</p>
+                  {errors.jpyToLocalRate ? (
+                    <p className="text-xs text-red-500 mt-1">{errors.jpyToLocalRate}</p>
                   ) : (
                     <p className="text-xs text-gray-500 mt-1">
                       Current JPY to {countryReqs.currency} conversion rate
