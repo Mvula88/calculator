@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { X, Clock, TrendingDown, Zap, AlertTriangle, Gift, ArrowRight } from 'lucide-react'
+import { X, Clock, Sparkles, ArrowRight, CheckCircle2, Lock } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 
@@ -76,128 +76,111 @@ export default function ExitIntentPopup() {
 
   return (
     <>
-      {/* Backdrop */}
+      {/* Backdrop with smooth animation */}
       <div
-        className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[9998] animate-fadeIn"
+        className="fixed inset-0 bg-black/40 backdrop-blur-md z-[9998] animate-fadeIn"
         onClick={handleClose}
+        aria-hidden="true"
       />
 
-      {/* Popup */}
-      <div className="fixed inset-0 flex items-center justify-center z-[9999] p-4">
-        <div className="bg-white rounded-2xl shadow-2xl max-w-lg w-full animate-slideUp overflow-hidden">
-          {/* Header with gradient */}
-          <div className="bg-gradient-to-r from-red-600 to-orange-600 text-white p-6 relative">
+      {/* Professional Modal */}
+      <div className="fixed inset-0 flex items-center justify-center z-[9999] p-4" role="dialog" aria-modal="true">
+        <div className="bg-white rounded-3xl shadow-2xl max-w-md w-full animate-scaleUp overflow-hidden">
+          {/* Elegant Header */}
+          <div className="relative bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 p-8 text-white">
+            {/* Close Button */}
             <button
               onClick={handleClose}
-              className="absolute top-4 right-4 p-1 hover:bg-white/20 rounded-full transition-colors"
+              className="absolute top-4 right-4 p-2 hover:bg-white/10 rounded-xl transition-all duration-200 group"
+              aria-label="Close offer"
             >
-              <X className="h-6 w-6" />
+              <X className="h-5 w-5 group-hover:rotate-90 transition-transform duration-200" />
             </button>
 
-            <div className="flex items-center gap-3 mb-3">
-              <div className="p-2 bg-white/20 rounded-full animate-pulse">
-                <AlertTriangle className="h-6 w-6" />
-              </div>
-              <h2 className="text-2xl font-bold">WAIT! Don't Leave Empty-Handed!</h2>
+            {/* Discount Badge */}
+            <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-3 py-1.5 rounded-full text-sm font-medium mb-4">
+              <Sparkles className="h-4 w-4" />
+              <span>LIMITED TIME OFFER</span>
             </div>
 
-            <div className="flex items-center gap-2 text-lg">
-              <Zap className="h-5 w-5" />
-              <span className="font-semibold">50% OFF Launch Sale Ending in {timeLeft}</span>
-            </div>
+            {/* Main Heading */}
+            <h2 className="text-3xl font-bold mb-2">
+              Save 50% Today
+            </h2>
+            <p className="text-white/90 text-lg">
+              Launch pricing ends {timeLeft.includes('day') ? `in ${timeLeft.split(',')[0]}` : 'soon'}
+            </p>
           </div>
 
           {/* Content */}
-          <div className="p-6 space-y-6">
-            {/* Savings highlight */}
-            <div className="bg-green-50 border-2 border-green-200 rounded-lg p-4">
-              <div className="flex items-start gap-3">
-                <Gift className="h-6 w-6 text-green-600 flex-shrink-0 mt-1" />
-                <div>
-                  <p className="font-bold text-lg text-green-900">
-                    Save N$1,500 - Limited Time Offer
-                  </p>
-                  <p className="text-green-800 mt-1">
-                    50% launch discount - Regular price N$2,999
-                  </p>
-                </div>
+          <div className="p-8 space-y-6">
+            {/* Price Display */}
+            <div className="text-center">
+              <div className="flex items-center justify-center gap-4 mb-2">
+                <span className="text-3xl text-gray-400 line-through font-light">N$2,999</span>
+                <span className="text-5xl font-bold text-gray-900">N$1,499</span>
               </div>
+              <p className="text-sm text-gray-600 flex items-center justify-center gap-1">
+                <Clock className="h-3.5 w-3.5" />
+                Offer expires October 31, 2025
+              </p>
             </div>
 
-            {/* What you'll miss */}
+            {/* What's Included - Clean List */}
             <div className="space-y-3">
-              <p className="font-semibold text-gray-900">You're about to miss:</p>
-              <ul className="space-y-2">
-                <li className="flex items-start gap-2">
-                  <div className="h-5 w-5 rounded-full bg-purple-100 flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <span className="text-purple-600 text-xs">✓</span>
+              <ul className="space-y-3">
+                <li className="flex items-start gap-3 group">
+                  <div className="mt-0.5">
+                    <CheckCircle2 className="h-5 w-5 text-green-500" />
                   </div>
-                  <span className="text-gray-700">
-                    <strong>Multi-Country Calculator</strong> - For NA, ZA, BW & ZM imports
-                  </span>
+                  <div className="flex-1">
+                    <p className="text-gray-900 font-medium">Multi-Country Calculator</p>
+                    <p className="text-sm text-gray-600">For Namibia, South Africa, Botswana & Zambia</p>
+                  </div>
                 </li>
-                <li className="flex items-start gap-2">
-                  <div className="h-5 w-5 rounded-full bg-purple-100 flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <span className="text-purple-600 text-xs">✓</span>
+                <li className="flex items-start gap-3 group">
+                  <div className="mt-0.5">
+                    <CheckCircle2 className="h-5 w-5 text-green-500" />
                   </div>
-                  <span className="text-gray-700">
-                    <strong>Import Documentation Guide</strong> - Templates and examples
-                  </span>
+                  <div className="flex-1">
+                    <p className="text-gray-900 font-medium">Import Documentation</p>
+                    <p className="text-sm text-gray-600">Templates and step-by-step guides</p>
+                  </div>
                 </li>
-                <li className="flex items-start gap-2">
-                  <div className="h-5 w-5 rounded-full bg-purple-100 flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <span className="text-purple-600 text-xs">✓</span>
+                <li className="flex items-start gap-3 group">
+                  <div className="mt-0.5">
+                    <CheckCircle2 className="h-5 w-5 text-green-500" />
                   </div>
-                  <span className="text-gray-700">
-                    <strong>Japan Auction Guide</strong> - Understanding auction sheets
-                  </span>
+                  <div className="flex-1">
+                    <p className="text-gray-900 font-medium">Japan Auction Guide</p>
+                    <p className="text-sm text-gray-600">Decode auction sheets like a pro</p>
+                  </div>
                 </li>
               </ul>
             </div>
 
-            {/* Pricing */}
-            <div className="bg-gray-50 rounded-lg p-4 text-center">
-              <div className="flex items-center justify-center gap-3 mb-2">
-                <span className="text-2xl text-gray-400 line-through">N$2,999</span>
-                <span className="text-4xl font-bold text-green-600">N$1,499</span>
-              </div>
-              <div className="flex items-center justify-center gap-2 text-sm text-gray-600">
-                <Clock className="h-4 w-4" />
-                <span>Sale ends October 31, 2025</span>
-              </div>
-            </div>
 
-            {/* CTAs */}
-            <div className="space-y-3">
+            {/* Action Buttons */}
+            <div className="space-y-3 pt-2">
               <Link href="/purchase" onClick={handleClose}>
-                <Button className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold py-6 text-lg">
-                  Claim 50% Discount Now
-                  <ArrowRight className="ml-2 h-5 w-5" />
+                <Button className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold py-6 text-base shadow-lg hover:shadow-xl transition-all duration-200 group">
+                  <span>Get Instant Access</span>
+                  <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </Link>
 
               <button
                 onClick={handleClose}
-                className="w-full text-gray-500 hover:text-gray-700 text-sm transition-colors"
+                className="w-full text-gray-500 hover:text-gray-700 text-sm font-medium transition-colors duration-200"
               >
-                No thanks, I'll pay full price later
+                Continue to website
               </button>
             </div>
 
-            {/* Trust badges */}
-            <div className="flex items-center justify-center gap-6 pt-4 border-t">
-              <div className="flex items-center gap-1 text-xs text-gray-600">
-                <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                </svg>
-                Secure Payment
-              </div>
-              <div className="flex items-center gap-1 text-xs text-gray-600">
-                <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                Instant Access
-              </div>
+            {/* Trust Indicator */}
+            <div className="flex items-center justify-center gap-2 text-xs text-gray-500 border-t pt-4">
+              <Lock className="h-3.5 w-3.5" />
+              <span>Secure checkout powered by Stripe</span>
             </div>
           </div>
         </div>
@@ -213,23 +196,23 @@ export default function ExitIntentPopup() {
           }
         }
 
-        @keyframes slideUp {
+        @keyframes scaleUp {
           from {
             opacity: 0;
-            transform: translateY(20px);
+            transform: scale(0.95) translateY(10px);
           }
           to {
             opacity: 1;
-            transform: translateY(0);
+            transform: scale(1) translateY(0);
           }
         }
 
         .animate-fadeIn {
-          animation: fadeIn 0.3s ease-out;
+          animation: fadeIn 0.2s ease-out;
         }
 
-        .animate-slideUp {
-          animation: slideUp 0.4s ease-out;
+        .animate-scaleUp {
+          animation: scaleUp 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
       `}</style>
     </>
