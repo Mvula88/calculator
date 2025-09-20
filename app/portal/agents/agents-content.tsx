@@ -1,5 +1,6 @@
 'use client'
 
+import { useState } from 'react'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import {
@@ -19,7 +20,8 @@ import {
   AlertCircle,
   Verified,
   Globe,
-  Building
+  Building,
+  Filter
 } from 'lucide-react'
 
 const agents = [
@@ -454,6 +456,13 @@ const getRatingStars = (rating: number) => {
 }
 
 export default function AgentsContent() {
+  const [selectedCountry, setSelectedCountry] = useState("All")
+
+  // Filter agents based on selected country
+  const filteredAgents = selectedCountry === "All"
+    ? agents
+    : agents.filter(agent => agent.country === selectedCountry)
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* Header */}
@@ -481,6 +490,39 @@ export default function AgentsContent() {
             Transworld Cargo operates across all listed countries with 39+ years of experience in vehicle imports.
           </p>
         </div>
+      </div>
+
+      {/* Country Filter */}
+      <div className="mb-6 p-4 bg-gray-50 rounded-lg">
+        <div className="flex items-center gap-2 mb-3">
+          <Filter className="h-5 w-5 text-gray-600" />
+          <span className="font-semibold text-gray-900">Filter by Country</span>
+        </div>
+        <div className="flex flex-wrap gap-2">
+          {countries.map((country) => (
+            <button
+              key={country}
+              onClick={() => setSelectedCountry(country)}
+              className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                selectedCountry === country
+                  ? 'bg-blue-600 text-white shadow-md'
+                  : 'bg-white text-gray-700 hover:bg-gray-100 border border-gray-300'
+              }`}
+            >
+              {country}
+              {country !== "All" && (
+                <span className="ml-1 text-xs opacity-75">
+                  ({agents.filter(a => a.country === country).length})
+                </span>
+              )}
+            </button>
+          ))}
+        </div>
+        {selectedCountry !== "All" && (
+          <p className="mt-3 text-sm text-gray-600">
+            Showing {filteredAgents.length} agent{filteredAgents.length !== 1 ? 's' : ''} in {selectedCountry}
+          </p>
+        )}
       </div>
 
       {/* Featured Agent - Transworld Cargo */}
@@ -523,7 +565,14 @@ export default function AgentsContent() {
 
       {/* Agent Listings */}
       <div className="space-y-6">
-        {agents.map((agent) => (
+        {filteredAgents.length === 0 ? (
+          <Card className="p-12 text-center">
+            <AlertCircle className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+            <h3 className="text-lg font-semibold text-gray-900 mb-2">No Agents Found</h3>
+            <p className="text-gray-600">No clearing agents found for {selectedCountry}. Try selecting a different country.</p>
+          </Card>
+        ) : (
+          filteredAgents.map((agent) => (
           <Card key={agent.id} className={agent.featured ? 'ring-2 ring-purple-400' : ''}>
             <div className="p-6">
               <div className="grid lg:grid-cols-3 gap-6">
@@ -731,38 +780,203 @@ export default function AgentsContent() {
               </div>
             </div>
           </Card>
-        ))}
+        )))}
       </div>
 
-      {/* Regulatory Bodies */}
-      <Card className="mt-12 p-6 bg-blue-50 border-blue-200">
-        <div className="flex items-start gap-3">
-          <Building className="h-6 w-6 text-blue-600 flex-shrink-0 mt-1" />
-          <div>
-            <h3 className="font-bold text-blue-900 mb-3">Regulatory Authorities</h3>
-            <div className="grid md:grid-cols-2 gap-4 text-sm">
-              <div>
-                <h4 className="font-semibold text-blue-800 mb-2">Contact Information:</h4>
-                <ul className="text-blue-700 space-y-1">
-                  <li><strong>Namibia (NamRA):</strong> +264 81 959 4000</li>
-                  <li><strong>South Africa (SARS):</strong> www.sars.gov.za</li>
-                  <li><strong>Botswana (BURS):</strong> www.burs.org.bw</li>
-                  <li><strong>Zambia (ZRA):</strong> advice@zra.org.zm, 4111</li>
-                </ul>
-              </div>
-              <div>
-                <h4 className="font-semibold text-blue-800 mb-2">Important Notes:</h4>
-                <ul className="text-blue-700 space-y-1">
-                  <li>• Verify agent licenses with authorities</li>
-                  <li>• Get written quotes before proceeding</li>
-                  <li>• Keep all documentation for records</li>
-                  <li>• Report issues to regulatory bodies</li>
-                </ul>
-              </div>
+      {/* Regulatory Bodies - Comprehensive Information */}
+      <div className="mt-12 space-y-6">
+        <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+          <Building className="h-6 w-6 text-blue-600" />
+          Customs & Revenue Authorities
+        </h2>
+
+        {/* Namibia - NamRA */}
+        <Card className="p-6 bg-gradient-to-r from-blue-50 to-sky-50 border-blue-200">
+          <div className="mb-4">
+            <h3 className="font-bold text-blue-900 text-lg mb-2">🇳🇦 Namibia Revenue Agency (NamRA)</h3>
+          </div>
+          <div className="grid md:grid-cols-2 gap-6 text-sm">
+            <div>
+              <h4 className="font-semibold text-blue-800 mb-2">Head Office:</h4>
+              <ul className="text-blue-700 space-y-1">
+                <li><strong>Address:</strong> Town Square, Werner List Street, Windhoek</li>
+                <li><strong>Phone:</strong> +264 (81) 959 4000</li>
+                <li><strong>Website:</strong> <a href="https://www.namra.org.na" target="_blank" className="underline hover:text-blue-900">www.namra.org.na</a></li>
+                <li><strong>Customs Commissioner:</strong> +264-61-2092259</li>
+                <li><strong>Email:</strong> Sam.SHIVUTE@namra.org.na</li>
+              </ul>
+              <h4 className="font-semibold text-blue-800 mt-3 mb-2">Walvis Bay Port:</h4>
+              <ul className="text-blue-700 space-y-1">
+                <li><strong>Hours:</strong> 06:00 - 22:00 daily</li>
+                <li><strong>Namport:</strong> +264 64 208 2111</li>
+                <li><strong>Address:</strong> Nr 17, Rikumbi Kandanga Rd, Walvis Bay</li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-semibold text-blue-800 mb-2">Major Border Posts:</h4>
+              <ul className="text-blue-700 space-y-1">
+                <li><strong>Noordoewer/Vioolsdrif:</strong> 24 hours</li>
+                <li><strong>Ariamsvlei/Nakop:</strong> 24 hours</li>
+                <li><strong>Trans Kalahari:</strong> 07:00-24:00</li>
+                <li><strong>Oshikango:</strong> 08:00-18:00</li>
+                <li><strong>Ngoma Bridge:</strong> 07:00-18:00</li>
+              </ul>
+              <h4 className="font-semibold text-blue-800 mt-3 mb-2">Social Media:</h4>
+              <ul className="text-blue-700 space-y-1">
+                <li>Facebook: @NamRA.org.na</li>
+                <li>Twitter: @NamRA_org_na</li>
+                <li>Instagram: @namra_org_na</li>
+              </ul>
             </div>
           </div>
-        </div>
-      </Card>
+        </Card>
+
+        {/* South Africa - SARS */}
+        <Card className="p-6 bg-gradient-to-r from-green-50 to-emerald-50 border-green-200">
+          <div className="mb-4">
+            <h3 className="font-bold text-green-900 text-lg mb-2">🇿🇦 South African Revenue Service (SARS)</h3>
+          </div>
+          <div className="grid md:grid-cols-2 gap-6 text-sm">
+            <div>
+              <h4 className="font-semibold text-green-800 mb-2">Head Office:</h4>
+              <ul className="text-green-700 space-y-1">
+                <li><strong>Address:</strong> Lehae La Sars, 299 Bronkhorst Street, Nieuw Muckleneuk, Pretoria</li>
+                <li><strong>Phone:</strong> (012) 422 4000</li>
+                <li><strong>Website:</strong> <a href="https://www.sars.gov.za" target="_blank" className="underline hover:text-green-900">www.sars.gov.za</a></li>
+              </ul>
+              <h4 className="font-semibold text-green-800 mt-3 mb-2">Customs Contact Centre:</h4>
+              <ul className="text-green-700 space-y-1">
+                <li><strong>Toll-Free:</strong> 0800 00 7277</li>
+                <li><strong>International:</strong> +27 11 602 2093</li>
+                <li><strong>Email:</strong> contactus@sars.gov.za</li>
+                <li><strong>Complaints:</strong> customscomplaints@sars.gov.za</li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-semibold text-green-800 mb-2">Working Hours:</h4>
+              <ul className="text-green-700 space-y-1">
+                <li><strong>Mon, Tue, Thu, Fri:</strong> 08:00-16:00</li>
+                <li><strong>Wednesdays:</strong> 09:00-16:00</li>
+                <li><strong>Weekends:</strong> Closed</li>
+              </ul>
+              <h4 className="font-semibold text-green-800 mt-3 mb-2">Important Notes:</h4>
+              <ul className="text-green-700 space-y-1">
+                <li>• All border posts use centralized contact: 0800 00 7277</li>
+                <li>• Many major borders operate 24 hours</li>
+                <li>• All customs queries routed through central system</li>
+              </ul>
+            </div>
+          </div>
+        </Card>
+
+        {/* Botswana - BURS */}
+        <Card className="p-6 bg-gradient-to-r from-yellow-50 to-amber-50 border-yellow-200">
+          <div className="mb-4">
+            <h3 className="font-bold text-yellow-900 text-lg mb-2">🇧🇼 Botswana Unified Revenue Service (BURS)</h3>
+          </div>
+          <div className="grid md:grid-cols-2 gap-6 text-sm">
+            <div>
+              <h4 className="font-semibold text-yellow-800 mb-2">Head Office:</h4>
+              <ul className="text-yellow-700 space-y-1">
+                <li><strong>Address:</strong> Plot 53976, Kudumatse Drive, Gaborone</li>
+                <li><strong>Postal:</strong> Private Bag 0013, Gaborone</li>
+                <li><strong>Phone:</strong> +267 3638000 / 3639000</li>
+                <li><strong>Call Centre:</strong> 17649</li>
+                <li><strong>Email:</strong> info@burs.org.bw</li>
+                <li><strong>Website:</strong> <a href="https://www.burs.org.bw" target="_blank" className="underline hover:text-yellow-900">www.burs.org.bw</a></li>
+              </ul>
+              <h4 className="font-semibold text-yellow-800 mt-3 mb-2">Customs Management:</h4>
+              <ul className="text-yellow-700 space-y-1">
+                <li><strong>Phone:</strong> +267 3639666</li>
+                <li><strong>Email:</strong> callcenter@burs.org.bw</li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-semibold text-yellow-800 mb-2">Regional Offices:</h4>
+              <ul className="text-yellow-700 space-y-1">
+                <li><strong>Francistown:</strong> +267 2413635</li>
+                <li><strong>Mahalapye:</strong> +267 4710486</li>
+                <li><strong>Palapye:</strong> +267 4920388</li>
+              </ul>
+              <h4 className="font-semibold text-yellow-800 mt-3 mb-2">Border Posts:</h4>
+              <ul className="text-yellow-700 space-y-1">
+                <li><strong>Ramatlabama:</strong> 06:00-22:00</li>
+                <li><strong>Kazungula Ferry:</strong> 06:00-18:30, +267 625 0420</li>
+                <li><strong>Kasane:</strong> +267 6250420</li>
+                <li><strong>Matsiloje:</strong> +267 248 3275</li>
+              </ul>
+            </div>
+          </div>
+        </Card>
+
+        {/* Zambia - ZRA */}
+        <Card className="p-6 bg-gradient-to-r from-purple-50 to-pink-50 border-purple-200">
+          <div className="mb-4">
+            <h3 className="font-bold text-purple-900 text-lg mb-2">🇿🇲 Zambia Revenue Authority (ZRA)</h3>
+          </div>
+          <div className="grid md:grid-cols-2 gap-6 text-sm">
+            <div>
+              <h4 className="font-semibold text-purple-800 mb-2">Head Office:</h4>
+              <ul className="text-purple-700 space-y-1">
+                <li><strong>Address:</strong> Revenue House, Plot 1704, Kalambo Road, Lusaka</li>
+                <li><strong>P.O. Box:</strong> 35710</li>
+                <li><strong>Phone:</strong> +260 211 382831 / 382819</li>
+                <li><strong>Email:</strong> zraic@zra.org.zm</li>
+                <li><strong>Website:</strong> <a href="https://www.zra.org.zm" target="_blank" className="underline hover:text-purple-900">www.zra.org.zm</a></li>
+              </ul>
+              <h4 className="font-semibold text-purple-800 mt-3 mb-2">Digital Services:</h4>
+              <ul className="text-purple-700 space-y-1">
+                <li><strong>WhatsApp:</strong> 096 0081111</li>
+                <li><strong>Portal:</strong> <a href="https://portal.zra.org.zm" target="_blank" className="underline hover:text-purple-900">portal.zra.org.zm</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-semibold text-purple-800 mb-2">Major Border Posts:</h4>
+              <ul className="text-purple-700 space-y-1">
+                <li><strong>Chirundu:</strong> Major crossing with Zimbabwe</li>
+                <li><strong>Kasumbalesa:</strong> 24-hour crossing with DRC</li>
+                <li><strong>Nakonde:</strong> Tanzania border (06:00-18:00)</li>
+                <li><strong>Kazungula:</strong> Botswana crossing</li>
+                <li><strong>Mwami:</strong> Malawi border</li>
+              </ul>
+              <h4 className="font-semibold text-purple-800 mt-3 mb-2">Service Centers:</h4>
+              <ul className="text-purple-700 space-y-1">
+                <li><strong>Kitwe:</strong> ECL Mall, Copperbelt</li>
+                <li><strong>Lusaka:</strong> Multiple locations</li>
+              </ul>
+            </div>
+          </div>
+        </Card>
+
+        {/* Quick Reference Card */}
+        <Card className="p-6 bg-gradient-to-r from-gray-50 to-slate-50 border-gray-300">
+          <h3 className="font-bold text-gray-900 text-lg mb-4">📞 Quick Reference - Emergency Contacts</h3>
+          <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+            <div>
+              <h4 className="font-semibold text-gray-700">Namibia</h4>
+              <p className="text-gray-600">+264 81 959 4000</p>
+            </div>
+            <div>
+              <h4 className="font-semibold text-gray-700">South Africa</h4>
+              <p className="text-gray-600">0800 00 7277</p>
+            </div>
+            <div>
+              <h4 className="font-semibold text-gray-700">Botswana</h4>
+              <p className="text-gray-600">17649</p>
+            </div>
+            <div>
+              <h4 className="font-semibold text-gray-700">Zambia</h4>
+              <p className="text-gray-600">+260 211 382831</p>
+            </div>
+          </div>
+          <div className="mt-4 pt-4 border-t border-gray-200">
+            <p className="text-xs text-gray-600">
+              <strong>Note:</strong> All agencies operate unified revenue services combining customs and domestic taxes.
+              Border post hours vary - always confirm before traveling. Digital pre-clearance services are increasingly available.
+            </p>
+          </div>
+        </Card>
+      </div>
 
       {/* Bottom Notice */}
       <Card className="mt-6 p-6 bg-amber-50 border-amber-200">
