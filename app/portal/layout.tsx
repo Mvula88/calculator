@@ -310,12 +310,12 @@ export default function SimplePortalLayout({
                   </div>
 
                   {/* Help Button */}
-                  <a href="/portal/help" className="flex items-center justify-center py-2 px-4 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors text-sm text-gray-700 font-medium">
+                  <Link href="/portal/help" className="flex items-center justify-center py-2 px-4 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors text-sm text-gray-700 font-medium">
                     <svg className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                     Need Help?
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -431,12 +431,12 @@ export default function SimplePortalLayout({
                   </div>
 
                   {/* Help Link */}
-                  <a href="/portal/help" className="flex items-center justify-center py-2 px-4 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors text-sm text-gray-700 font-medium">
+                  <Link href="/portal/help" className="flex items-center justify-center py-2 px-4 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors text-sm text-gray-700 font-medium">
                     <svg className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                     Need Help?
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>
