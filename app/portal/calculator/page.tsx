@@ -161,6 +161,14 @@ export default function DutyCalculator() {
     setJpyToLocalRate(countryRate.toFixed(4))
   }, [country])
 
+  // Update ContShare rate when number of cars changes
+  useEffect(() => {
+    if (useContainerSharing) {
+      const userCars = parseInt(carsInContainer) || 1
+      setOceanFreightCost((18500 * userCars).toString())
+    }
+  }, [carsInContainer, useContainerSharing])
+
   // Check if user has mastery tier
   if (loading) {
     return (
@@ -657,7 +665,7 @@ export default function DutyCalculator() {
                   <Input
                     id="oceanFreightCost"
                     type="number"
-                    placeholder={useContainerSharing ? "18500" : "e.g. 35000"}
+                    placeholder={useContainerSharing ? `${18500 * (parseInt(carsInContainer) || 1)}` : "e.g. 35000"}
                     value={oceanFreightCost}
                     onChange={(e) => setOceanFreightCost(e.target.value)}
                     className="mt-2"
@@ -665,8 +673,8 @@ export default function DutyCalculator() {
                   />
                   <p className="text-xs text-gray-500 mt-1">
                     {useContainerSharing ?
-                      "Using ContShare platform rate" :
-                      "Cost of shipping container from Japan to port"}
+                      `ContShare rate: ${countryReqs.currency} 18,500 × ${parseInt(carsInContainer) || 1} car(s)` :
+                      "Total cost for your cars (will be divided by 4 cars in container)"}
                   </p>
                 </div>
 
@@ -680,8 +688,9 @@ export default function DutyCalculator() {
                         onChange={(e) => {
                           setUseContainerSharing(e.target.checked)
                           if (e.target.checked) {
-                            // Set to ContShare rate when checked
-                            setOceanFreightCost('18500')
+                            // Set to ContShare rate per car * number of cars
+                            const userCars = parseInt(carsInContainer) || 1
+                            setOceanFreightCost((18500 * userCars).toString())
                           } else {
                             // Reset to empty when unchecked
                             setOceanFreightCost('')
@@ -708,7 +717,7 @@ export default function DutyCalculator() {
 
                   {useContainerSharing && (
                     <div className="text-xs space-y-2 text-gray-700 bg-white/70 p-3 rounded">
-                      <p className="font-medium text-green-700">✓ ContShare Ocean Freight: {countryReqs.currency} 18,500</p>
+                      <p className="font-medium text-green-700">✓ ContShare Rate: {countryReqs.currency} 18,500 per car</p>
                       <p>Share container space with other importers for massive savings!</p>
                       <p>Visit <Link href="https://www.contshare.com" target="_blank" className="text-blue-600 font-medium hover:underline">contshare.com</Link> to find container partners.</p>
                     </div>
@@ -991,24 +1000,43 @@ export default function DutyCalculator() {
                       )}
                     </h3>
                     <div className="space-y-2 text-sm">
-                      <div className="flex justify-between">
-                        <span className="text-gray-700">Container Shipping Cost</span>
-                        <span className="font-medium">{countryReqs.currency} {parseFloat(oceanFreightCost).toFixed(2)}</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-gray-700">Your Cars / Total</span>
-                        <span>{parseInt(carsInContainer) || 1} / 4</span>
-                      </div>
-                      <div className="flex justify-between font-semibold border-t pt-2">
-                        <span>Your Share ({parseInt(carsInContainer) || 1}/4)</span>
-                        <span className="text-green-900">
-                          {countryReqs.currency} {((parseFloat(oceanFreightCost) / 4) * (parseInt(carsInContainer) || 1)).toFixed(2)}
-                        </span>
-                      </div>
+                      {useContainerSharing ? (
+                        <>
+                          <div className="flex justify-between">
+                            <span className="text-gray-700">ContShare Rate per Car</span>
+                            <span>{countryReqs.currency} 18,500</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-gray-700">Number of Cars</span>
+                            <span>{parseInt(carsInContainer) || 1}</span>
+                          </div>
+                          <div className="flex justify-between font-semibold border-t pt-2">
+                            <span>Total Ocean Freight</span>
+                            <span className="text-green-900">{countryReqs.currency} {parseFloat(oceanFreightCost).toFixed(2)}</span>
+                          </div>
+                        </>
+                      ) : (
+                        <>
+                          <div className="flex justify-between">
+                            <span className="text-gray-700">Total Container Cost</span>
+                            <span className="font-medium">{countryReqs.currency} {parseFloat(oceanFreightCost).toFixed(2)}</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-gray-700">Your Cars / Total</span>
+                            <span>{parseInt(carsInContainer) || 1} / 4</span>
+                          </div>
+                          <div className="flex justify-between font-semibold border-t pt-2">
+                            <span>Your Share ({parseInt(carsInContainer) || 1}/4)</span>
+                            <span className="text-green-900">
+                              {countryReqs.currency} {((parseFloat(oceanFreightCost) / 4) * (parseInt(carsInContainer) || 1)).toFixed(2)}
+                            </span>
+                          </div>
+                        </>
+                      )}
                     </div>
                     {useContainerSharing && (
                       <p className="text-xs text-green-700 mt-2">
-                        * Using ContShare rate - Visit{' '}
+                        * Using ContShare platform - Visit{' '}
                         <Link href="https://www.contshare.com" target="_blank" className="text-blue-600 font-medium hover:underline">
                           contshare.com
                         </Link>{' '}
@@ -1165,8 +1193,14 @@ export default function DutyCalculator() {
 
                   {oceanFreightCost && parseFloat(oceanFreightCost) > 0 && (
                     <div className="flex justify-between items-center px-4">
-                      <span>+ Ocean Freight (your share)</span>
-                      <span>{countryReqs.currency} {((parseFloat(oceanFreightCost) / 4) * (parseInt(carsInContainer) || 1)).toFixed(2)}</span>
+                      <span>+ Ocean Freight</span>
+                      <span>
+                        {countryReqs.currency} {
+                          useContainerSharing
+                            ? parseFloat(oceanFreightCost).toFixed(2)
+                            : ((parseFloat(oceanFreightCost) / 4) * (parseInt(carsInContainer) || 1)).toFixed(2)
+                        }
+                      </span>
                     </div>
                   )}
 
@@ -1183,7 +1217,11 @@ export default function DutyCalculator() {
                       {countryReqs.currency} {(
                         result.landedCost +
                         result.inlandDelivery +
-                        (oceanFreightCost && parseFloat(oceanFreightCost) > 0 ? ((parseFloat(oceanFreightCost) / 4) * (parseInt(carsInContainer) || 1)) : 0)
+                        (oceanFreightCost && parseFloat(oceanFreightCost) > 0 ? (
+                          useContainerSharing
+                            ? parseFloat(oceanFreightCost)
+                            : ((parseFloat(oceanFreightCost) / 4) * (parseInt(carsInContainer) || 1))
+                        ) : 0)
                       ).toFixed(2)}
                     </span>
                   </div>
