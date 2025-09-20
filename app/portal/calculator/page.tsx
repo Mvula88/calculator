@@ -25,7 +25,8 @@ import {
   Globe,
   Zap,
   HelpCircle,
-  Building
+  Building,
+  Package
 } from 'lucide-react'
 import {
   Country,
@@ -145,18 +146,22 @@ export default function DutyCalculator() {
 
   const [result, setResult] = useState<FullOutput | null>(null)
   const [errors, setErrors] = useState<Record<string, string>>({})
+  const [useContainerSharing, setUseContainerSharing] = useState<boolean>(false)
 
   // Get country-specific requirements
   const countryReqs = getCountryRequirements(country)
 
   // Update clearing costs when country changes
   useEffect(() => {
-    setLocalClearingTotal(defaultClearingCosts[country].toFixed(2))
+    // Only update if not using ContShare
+    if (!useContainerSharing) {
+      setLocalClearingTotal(defaultClearingCosts[country].toFixed(2))
+    }
     // Update exchange rate based on country
     const baseJpyRate = 0.13 // JPY to NAD
     const countryRate = baseJpyRate / exchangeRates[country]
     setJpyToLocalRate(countryRate.toFixed(4))
-  }, [country])
+  }, [country, useContainerSharing])
 
   // Check if user has mastery tier
   if (loading) {
@@ -330,6 +335,7 @@ export default function DutyCalculator() {
     setIsHybrid(false)
     setSpecialHandlingFee('0')
     setLocalClearingTotal(defaultClearingCosts[country].toFixed(2))
+    setUseContainerSharing(false)
     setInlandDelivery('0')
     setResult(null)
     setErrors({})
@@ -640,6 +646,59 @@ export default function DutyCalculator() {
                 )}
               </div>
 
+              {/* Container Sharing Option */}
+              <div className="space-y-4 pt-4 border-t">
+                <h3 className="font-semibold text-sm text-gray-700 flex items-center gap-2">
+                  <Package className="h-4 w-4" />
+                  Container Sharing
+                </h3>
+
+                <div className="bg-gradient-to-r from-blue-50 to-green-50 p-4 rounded-lg border border-blue-200">
+                  <div className="flex items-start justify-between mb-3">
+                    <div className="flex items-center gap-2">
+                      <input
+                        type="checkbox"
+                        id="useContainerSharing"
+                        checked={useContainerSharing}
+                        onChange={(e) => {
+                          setUseContainerSharing(e.target.checked)
+                          if (e.target.checked) {
+                            // Set to ContShare rate when checked
+                            setLocalClearingTotal('18500')
+                          } else {
+                            // Reset to default when unchecked
+                            setLocalClearingTotal(defaultClearingCosts[country].toFixed(2))
+                          }
+                        }}
+                        className="mt-1 rounded border-gray-300"
+                      />
+                      <label htmlFor="useContainerSharing" className="cursor-pointer">
+                        <span className="font-medium text-sm">Use ContShare Platform</span>
+                        <span className="text-xs text-gray-600 block">
+                          Save money by sharing container space!
+                        </span>
+                      </label>
+                    </div>
+                    <Link
+                      href="https://www.contshare.com"
+                      target="_blank"
+                      className="text-xs text-blue-600 hover:text-blue-700 font-medium flex items-center gap-1"
+                    >
+                      Learn More
+                      <Globe className="h-3 w-3" />
+                    </Link>
+                  </div>
+
+                  {useContainerSharing && (
+                    <div className="text-xs space-y-2 text-gray-700 bg-white/70 p-3 rounded">
+                      <p className="font-medium text-green-700">✓ ContShare Rate Applied: {countryReqs.currency} 18,500</p>
+                      <p>Share container space with other importers and save up to 75% on shipping costs!</p>
+                      <p>Visit <Link href="https://www.contshare.com" target="_blank" className="text-blue-600 font-medium hover:underline">contshare.com</Link> to find container partners.</p>
+                    </div>
+                  )}
+                </div>
+              </div>
+
               {/* Shipping & Exchange */}
               <div className="space-y-4 pt-4 border-t">
                 <h3 className="font-semibold text-sm text-gray-700 flex items-center gap-2">
@@ -673,11 +732,11 @@ export default function DutyCalculator() {
                 </div>
 
                 <div>
-                  <Label htmlFor="carsInContainer">Cars in Container</Label>
+                  <Label htmlFor="carsInContainer">Your Cars in Container</Label>
                   <Input
                     id="carsInContainer"
                     type="number"
-                    placeholder="e.g. 3"
+                    placeholder="e.g. 1"
                     value={carsInContainer}
                     onChange={(e) => {
                       setCarsInContainer(e.target.value)
@@ -691,7 +750,7 @@ export default function DutyCalculator() {
                     <p className="text-xs text-red-500 mt-1">{errors.carsInContainer}</p>
                   ) : (
                     <p className="text-xs text-gray-500 mt-1">
-                      For sharing local clearing costs
+                      How many cars are you importing? (Container holds 4 cars total)
                     </p>
                   )}
                 </div>
@@ -901,42 +960,54 @@ export default function DutyCalculator() {
 
                 {/* Local Clearing Costs */}
                 <div className="bg-amber-50 p-4 rounded-lg">
-                  <h3 className="font-semibold text-amber-900 mb-3">Local Clearing Costs</h3>
+                  <h3 className="font-semibold text-amber-900 mb-3 flex items-center justify-between">
+                    <span>Local Clearing Costs</span>
+                    {useContainerSharing && (
+                      <span className="text-xs bg-green-600 text-white px-2 py-1 rounded-full flex items-center gap-1">
+                        <CheckCircle className="h-3 w-3" />
+                        ContShare Applied
+                      </span>
+                    )}
+                  </h3>
                   <div className="space-y-2 text-sm">
                     {/* Detailed breakdown based on country */}
                     {(() => {
                       // Select the appropriate local costs based on country
                       const localCosts = localCostBreakdowns[country];
 
+                      const userCars = parseInt(carsInContainer) || 1;
+                      const totalCarsInContainer = 4; // Standard container holds 4 cars
+                      const userShare = userCars / totalCarsInContainer;
+
                       return (
                         <div className="space-y-1.5 text-xs">
                           <div className="flex justify-between">
                             <span>Port Charges:</span>
-                            <span className="font-medium">{countryReqs.currency} {(localCosts.portCharges / (parseInt(carsInContainer) || 1)).toFixed(2)}</span>
+                            <span className="font-medium">{countryReqs.currency} {(localCosts.portCharges * userShare).toFixed(2)}</span>
                           </div>
                           <div className="flex justify-between">
                             <span>Handling Fees:</span>
-                            <span className="font-medium">{countryReqs.currency} {(localCosts.handlingFees / (parseInt(carsInContainer) || 1)).toFixed(2)}</span>
+                            <span className="font-medium">{countryReqs.currency} {(localCosts.handlingFees * userShare).toFixed(2)}</span>
                           </div>
                           <div className="flex justify-between">
                             <span>Documentation:</span>
-                            <span className="font-medium">{countryReqs.currency} {(localCosts.documentation / (parseInt(carsInContainer) || 1)).toFixed(2)}</span>
+                            <span className="font-medium">{countryReqs.currency} {(localCosts.documentation * userShare).toFixed(2)}</span>
                           </div>
                           <div className="flex justify-between">
                             <span>Agent Fees:</span>
-                            <span className="font-medium">{countryReqs.currency} {(localCosts.agentFees / (parseInt(carsInContainer) || 1)).toFixed(2)}</span>
+                            <span className="font-medium">{countryReqs.currency} {(localCosts.agentFees * userShare).toFixed(2)}</span>
                           </div>
                           <div className="flex justify-between">
                             <span>Inspection:</span>
-                            <span className="font-medium">{countryReqs.currency} {(localCosts.inspection / (parseInt(carsInContainer) || 1)).toFixed(2)}</span>
+                            <span className="font-medium">{countryReqs.currency} {(localCosts.inspection * userShare).toFixed(2)}</span>
                           </div>
                           <div className="flex justify-between">
                             <span>Storage (7 days):</span>
-                            <span className="font-medium">{countryReqs.currency} {(localCosts.storage / (parseInt(carsInContainer) || 1)).toFixed(2)}</span>
+                            <span className="font-medium">{countryReqs.currency} {(localCosts.storage * userShare).toFixed(2)}</span>
                           </div>
                           <div className="flex justify-between">
                             <span>Miscellaneous:</span>
-                            <span className="font-medium">{countryReqs.currency} {(localCosts.miscFees / (parseInt(carsInContainer) || 1)).toFixed(2)}</span>
+                            <span className="font-medium">{countryReqs.currency} {(localCosts.miscFees * userShare).toFixed(2)}</span>
                           </div>
                         </div>
                       );
@@ -944,20 +1015,30 @@ export default function DutyCalculator() {
                     <div className="border-t pt-2 space-y-1">
                       <div className="flex justify-between text-sm">
                         <span className="text-gray-700">Total Container Cost</span>
-                        <span>{countryReqs.currency} {(result.localClearingShare * (parseInt(carsInContainer) || 1)).toFixed(2)}</span>
+                        <span>{countryReqs.currency} {(result.localClearingShare * 4).toFixed(2)}</span>
                       </div>
                       <div className="flex justify-between text-sm">
-                        <span className="text-gray-700">Cars in Container</span>
-                        <span>{parseInt(carsInContainer) || 1}</span>
+                        <span className="text-gray-700">Your Cars / Total</span>
+                        <span>{parseInt(carsInContainer) || 1} / 4</span>
                       </div>
                       <div className="flex justify-between font-semibold border-t pt-2">
-                        <span>Your Share</span>
+                        <span>Your Share ({parseInt(carsInContainer) || 1}/4)</span>
                         <span className="text-amber-900">{countryReqs.currency} {result.localClearingShare.toFixed(2)}</span>
                       </div>
                     </div>
                   </div>
                   <p className="text-xs text-amber-700 mt-2">
-                    * Costs shared equally among {parseInt(carsInContainer) || 1} car{(parseInt(carsInContainer) || 1) > 1 ? 's' : ''}
+                    {useContainerSharing ? (
+                      <>
+                        * Using ContShare platform rate - Visit{' '}
+                        <Link href="https://www.contshare.com" target="_blank" className="text-blue-600 font-medium hover:underline">
+                          contshare.com
+                        </Link>{' '}
+                        to find partners
+                      </>
+                    ) : (
+                      <>* You pay {parseInt(carsInContainer) || 1}/4 of total container costs</>
+                    )}
                   </p>
                 </div>
 

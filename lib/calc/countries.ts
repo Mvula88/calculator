@@ -18,9 +18,9 @@ export interface BaseInputs {
   co2?: number;                 // g/km CO2 emissions
   rrp?: number;                  // Retail recommended price (for ADV calculation)
   isNewVehicle?: boolean;        // For ZA CO2 levy
-  containerCars?: number;        // Number of cars sharing container costs
+  containerCars?: number;        // Number of cars user is importing (container holds 4 total)
   japanSideCosts?: number;       // Total Japan-side costs in local currency
-  localClearingCosts?: number;   // Local clearing costs (total, will be divided by containerCars)
+  localClearingCosts?: number;   // Total container clearing costs (for all 4 cars)
   inlandDelivery?: number;       // Optional inland delivery cost
 }
 
@@ -329,7 +329,9 @@ function buildFullOutput(params: Inputs, taxes: TaxOutput): FullOutput {
     inlandDelivery = 0
   } = params;
 
-  const localClearingShare = localClearingCosts / containerCars;
+  // Container holds 4 cars total, user pays their fraction
+  const totalCarsInContainer = 4;
+  const localClearingShare = (localClearingCosts / totalCarsInContainer) * containerCars;
 
   const landedCost = cif + taxes.totalTaxes + japanSideCosts + localClearingShare + inlandDelivery;
 
