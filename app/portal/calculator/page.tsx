@@ -24,7 +24,8 @@ import {
   Ship,
   Globe,
   Zap,
-  HelpCircle
+  HelpCircle,
+  Building
 } from 'lucide-react'
 import {
   Country,
@@ -43,6 +44,15 @@ const japanCosts = {
   operationFee: 33000,
   loadingCharges: 40000,
   specialHandlingFee: 0 // Optional, user can input
+}
+
+// Helper function to estimate CO2 emissions from engine CC
+// This is a rough estimate for ENV levy calculation
+const estimateCO2FromEngineCC = (engineCC: number, fuelType: 'petrol' | 'diesel'): number => {
+  // Rough formula: CO2 (g/km) ≈ 50 + (engineCC / 20)
+  // Diesel typically has slightly lower CO2
+  const baseCO2 = fuelType === 'diesel' ? 45 : 50
+  return Math.round(baseCO2 + (engineCC / 20))
 }
 
 // Default clearing costs by country (in local currency)
@@ -170,13 +180,13 @@ export default function DutyCalculator() {
       newErrors.jpyToLocalRate = 'Please enter a valid exchange rate'
     }
 
-    // Validate CO2 emissions (if required)
+    // Validate CO2 emissions or engine CC (if required)
     if (countryReqs.requiresCO2 || (country === 'ZA' && isNewVehicle)) {
       const co2 = parseFloat(co2Emissions)
       if (!co2Emissions) {
-        newErrors.co2Emissions = 'CO₂ emissions are required for this country'
+        newErrors.co2Emissions = country === 'NA' ? 'Engine size in CC is required' : 'CO₂ emissions are required for this country'
       } else if (isNaN(co2) || co2 < 0) {
-        newErrors.co2Emissions = 'Please enter valid CO₂ emissions'
+        newErrors.co2Emissions = country === 'NA' ? 'Please enter valid engine CC (e.g., 1400, 2000)' : 'Please enter valid CO₂ emissions'
       }
     }
 
@@ -237,7 +247,16 @@ export default function DutyCalculator() {
     const cif = country === 'NA' ? inputValue * 1.10 : inputValue
 
     const rate = parseFloat(jpyToLocalRate)
-    const co2 = parseFloat(co2Emissions) || 0
+    // For Namibia, if user entered engine CC, convert to estimated CO2
+    // Otherwise use the entered value as CO2
+    let co2 = parseFloat(co2Emissions) || 0
+    if (country === 'NA' && co2 > 0) {
+      // If value > 500, assume it's engine CC and convert to CO2
+      // If value <= 500, assume it's already CO2 emissions
+      if (co2 > 500) {
+        co2 = estimateCO2FromEngineCC(co2, fuelType)
+      }
+    }
     const rrp = parseFloat(rrpValue) || cif * 1.5
     const cars = parseInt(carsInContainer)
     const specialHandling = parseFloat(specialHandlingFee) || 0
@@ -441,11 +460,13 @@ export default function DutyCalculator() {
 
                 {(countryReqs.requiresCO2 || (country === 'ZA' && isNewVehicle)) && (
                   <div>
-                    <Label htmlFor="co2Emissions">CO₂ Emissions (g/km)</Label>
+                    <Label htmlFor="co2Emissions">
+                      {country === 'NA' ? 'Engine Size (CC)' : 'CO₂ Emissions (g/km)'}
+                    </Label>
                   <Input
                     id="co2Emissions"
                     type="number"
-                    placeholder="e.g. 150"
+                    placeholder={country === 'NA' ? "e.g. 1400 for 1.4L, 2000 for 2.0L" : "e.g. 150"}
                     value={co2Emissions}
                     onChange={(e) => {
                       setCo2Emissions(e.target.value)
@@ -459,7 +480,7 @@ export default function DutyCalculator() {
                     <p className="text-xs text-red-500 mt-1">{errors.co2Emissions}</p>
                   ) : (
                     <p className="text-xs text-gray-500 mt-1">
-                      {country === 'NA' ? 'For environmental levy calculation' :
+                      {country === 'NA' ? 'Enter engine capacity in CC (e.g., 1.4L = 1400, 1.8L = 1800, 2.0L = 2000)' :
                        country === 'ZA' ? 'For CO₂ levy on new vehicles' :
                        'For environmental calculations'}
                     </p>
@@ -480,7 +501,7 @@ export default function DutyCalculator() {
                   </select>
                   <p className="text-xs text-gray-500 mt-1">
                     {country === 'NA'
-                      ? (fuelType === 'petrol' ? 'ENV applies if CO₂ > 120' : 'ENV applies if CO₂ > 140')
+                      ? (fuelType === 'petrol' ? 'ENV levy applies if engine > 1200cc' : 'ENV levy applies if engine > 1400cc')
                       : 'Select fuel type for vehicle'
                     }
                   </p>
@@ -684,12 +705,46 @@ export default function DutyCalculator() {
                 </div>
               </div>
 
-              {/* Optional Costs */}
+              {/* Japan-Side Costs (Prefilled) */}
               <div className="space-y-4 pt-4 border-t">
-                <h3 className="font-semibold text-sm text-gray-700">Optional Costs</h3>
+                <h3 className="font-semibold text-sm text-gray-700 flex items-center gap-2">
+                  <Ship className="h-4 w-4" />
+                  Japan-Side Costs (Prefilled)
+                </h3>
+
+                <div className="bg-blue-50 p-3 rounded-lg text-xs space-y-1">
+                  <div className="flex justify-between">
+                    <span>Bidding Charge:</span>
+                    <span>¥{japanCosts.biddingCharge.toLocaleString()}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Recycling Fee:</span>
+                    <span>¥{japanCosts.recyclingFee.toLocaleString()}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Delivery Fee:</span>
+                    <span>¥{japanCosts.deliveryFee.toLocaleString()}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>THC:</span>
+                    <span>¥{japanCosts.thc.toLocaleString()}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Operation Fee:</span>
+                    <span>¥{japanCosts.operationFee.toLocaleString()}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Loading Charges:</span>
+                    <span>¥{japanCosts.loadingCharges.toLocaleString()}</span>
+                  </div>
+                  <div className="flex justify-between font-semibold border-t pt-1">
+                    <span>Total Japan Costs:</span>
+                    <span>¥{Object.values(japanCosts).reduce((a, b) => a + b, 0).toLocaleString()}</span>
+                  </div>
+                </div>
 
                 <div>
-                  <Label htmlFor="specialHandlingFee">Special Handling Fee (JPY)</Label>
+                  <Label htmlFor="specialHandlingFee">Additional Handling (JPY)</Label>
                   <Input
                     id="specialHandlingFee"
                     type="number"
@@ -698,12 +753,17 @@ export default function DutyCalculator() {
                     onChange={(e) => setSpecialHandlingFee(e.target.value)}
                     className="mt-2"
                   />
-                  <p className="text-xs text-gray-500 mt-1">
-                    Additional Japan-side handling if needed
-                  </p>
                 </div>
+              </div>
 
-                <div>
+              {/* Namibia-Side Costs (Prefilled) */}
+              <div className="space-y-4 pt-4 border-t">
+                <h3 className="font-semibold text-sm text-gray-700 flex items-center gap-2">
+                  <Building className="h-4 w-4" />
+                  {countryNames[country]}-Side Costs
+                </h3>
+
+                <div className="bg-amber-50 p-3 rounded-lg">
                   <Label htmlFor="localClearingTotal">Local Clearing Total ({countryReqs.currency})</Label>
                   <Input
                     id="localClearingTotal"
@@ -713,8 +773,11 @@ export default function DutyCalculator() {
                     onChange={(e) => setLocalClearingTotal(e.target.value)}
                     className="mt-2"
                   />
+                  <p className="text-xs text-gray-600 mt-2">
+                    Default prefilled: {countryReqs.currency} {defaultClearingCosts[country].toFixed(2)}
+                  </p>
                   <p className="text-xs text-gray-500 mt-1">
-                    Default: {countryReqs.currency} {defaultClearingCosts[country].toFixed(2)} (editable)
+                    Includes: Port charges, handling, documentation, agent fees
                   </p>
                 </div>
 
@@ -753,21 +816,87 @@ export default function DutyCalculator() {
                 <FileText className="h-4 w-4 sm:h-5 sm:w-5" />
                 Import Cost Breakdown - {countryNames[country]}
               </h2>
+
+              {/* Quick Summary for Namibia */}
+              {country === 'NA' && (
+                <div className="bg-gradient-to-r from-blue-50 to-purple-50 p-4 rounded-lg mb-6">
+                  <h3 className="font-semibold text-gray-900 mb-3">Quick Calculation Summary</h3>
+                  <div className="grid grid-cols-2 gap-3 text-sm">
+                    <div>
+                      <span className="text-gray-600">FOB Value:</span>
+                      <div className="font-bold text-gray-900">{countryReqs.currency} {(result.cif / 1.10).toFixed(2)}</div>
+                    </div>
+                    <div>
+                      <span className="text-gray-600">ICD (25% × FOB):</span>
+                      <div className="font-bold text-gray-900">{countryReqs.currency} {result.duty.toFixed(2)}</div>
+                    </div>
+                    <div>
+                      <span className="text-gray-600">ENV Levy:</span>
+                      <div className="font-bold text-gray-900">{countryReqs.currency} {result.env.toFixed(2)}</div>
+                    </div>
+                    <div>
+                      <span className="text-gray-600">AD Valorem:</span>
+                      <div className="font-bold text-gray-900">{countryReqs.currency} {result.adv.toFixed(2)}</div>
+                    </div>
+                    <div>
+                      <span className="text-gray-600">Import VAT (16.5%):</span>
+                      <div className="font-bold text-gray-900">{countryReqs.currency} {result.vat.toFixed(2)}</div>
+                    </div>
+                    <div>
+                      <span className="text-gray-600">Total Taxes:</span>
+                      <div className="font-bold text-red-700">{countryReqs.currency} {result.totalTaxes.toFixed(2)}</div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
               <div className="space-y-6">
-                {/* Japan-side Costs */}
+                {/* Japan-side Costs Breakdown */}
                 <div className="bg-blue-50 p-4 rounded-lg">
                   <h3 className="font-semibold text-blue-900 mb-3 flex items-center gap-2">
                     <Ship className="h-4 w-4" />
-                    Japan-Side Costs
+                    Japan-Side Costs Breakdown
                   </h3>
-                  <div className="space-y-2 text-sm">
+                  <div className="space-y-1 text-xs mb-2">
                     <div className="flex justify-between">
-                      <span className="text-gray-700">Total Japan Costs</span>
-                      <span>¥{(result.japanSideCosts / parseFloat(jpyToLocalRate)).toLocaleString('en', {maximumFractionDigits: 0})}</span>
+                      <span>Bidding Charge:</span>
+                      <span>¥{japanCosts.biddingCharge.toLocaleString()}</span>
                     </div>
-                    <div className="flex justify-between font-semibold">
+                    <div className="flex justify-between">
+                      <span>Recycling Fee:</span>
+                      <span>¥{japanCosts.recyclingFee.toLocaleString()}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>Delivery Fee:</span>
+                      <span>¥{japanCosts.deliveryFee.toLocaleString()}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>THC:</span>
+                      <span>¥{japanCosts.thc.toLocaleString()}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>Operation Fee:</span>
+                      <span>¥{japanCosts.operationFee.toLocaleString()}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>Loading Charges:</span>
+                      <span>¥{japanCosts.loadingCharges.toLocaleString()}</span>
+                    </div>
+                    {parseFloat(specialHandlingFee) > 0 && (
+                      <div className="flex justify-between">
+                        <span>Special Handling:</span>
+                        <span>¥{parseFloat(specialHandlingFee).toLocaleString()}</span>
+                      </div>
+                    )}
+                  </div>
+                  <div className="border-t pt-2 space-y-1">
+                    <div className="flex justify-between text-sm">
+                      <span className="text-gray-700 font-medium">Total Japan Costs</span>
+                      <span className="font-medium">¥{(result.japanSideCosts / parseFloat(jpyToLocalRate)).toLocaleString('en', {maximumFractionDigits: 0})}</span>
+                    </div>
+                    <div className="flex justify-between font-semibold text-sm">
                       <span>Converted to {countryReqs.currency}</span>
-                      <span>{countryReqs.currency} {result.japanSideCosts.toFixed(2)}</span>
+                      <span className="text-blue-900">{countryReqs.currency} {result.japanSideCosts.toFixed(2)}</span>
                     </div>
                   </div>
                 </div>
@@ -824,19 +953,30 @@ export default function DutyCalculator() {
                         <span className="font-medium">{countryReqs.currency} {result.duty.toFixed(2)}</span>
                       </div>
                     )}
-                    {result.env > 0 && (
+                    {country === 'NA' && (
                       <div className="flex justify-between items-center">
                         <span className="text-sm font-medium">
-                          ENV ({fuelType === 'petrol' ? `CO₂-120` : `CO₂-140`} × {fuelType === 'petrol' ? '40' : '45'})
+                          ENV Levy
                         </span>
                         <span className="font-medium">{countryReqs.currency} {result.env.toFixed(2)}</span>
                       </div>
                     )}
-                    {result.adv > 0 && (
-                      <div className="flex justify-between items-center">
-                        <span className="text-sm font-medium">ADV (Ad Valorem)</span>
-                        <span className="font-medium">{countryReqs.currency} {result.adv.toFixed(2)}</span>
+                    {country === 'NA' && parseFloat(co2Emissions) > 500 && (
+                      <div className="text-xs text-gray-600 ml-4">
+                        Engine: {co2Emissions}cc → Est. CO₂: {estimateCO2FromEngineCC(parseFloat(co2Emissions), fuelType)}g/km
+                        {result.env > 0 && ` (>${fuelType === 'petrol' ? '120' : '140'}g/km threshold)`}
                       </div>
+                    )}
+                    {result.adv > 0 && (
+                      <>
+                        <div className="flex justify-between items-center">
+                          <span className="text-sm font-medium">ADV (Ad Valorem Tax)</span>
+                          <span className="font-medium">{countryReqs.currency} {result.adv.toFixed(2)}</span>
+                        </div>
+                        <div className="text-xs text-gray-600 ml-4">
+                          Formula: ((0.00003 × {rrpValue || (parseFloat(cifValue) * 1.5).toFixed(0)}) - 0.75)% × {rrpValue || (parseFloat(cifValue) * 1.5).toFixed(0)}
+                        </div>
+                      </>
                     )}
                     {result.excise > 0 && (
                       <div className="flex justify-between items-center">

@@ -4,13 +4,34 @@ import { useState, useEffect } from 'react'
 import { X, Clock, Sparkles, ArrowRight, CheckCircle2, Lock } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
+import { createClient } from '@/lib/supabase/client'
 
 export default function ExitIntentPopup() {
   const [isVisible, setIsVisible] = useState(false)
   const [hasShown, setHasShown] = useState(false)
   const [timeLeft, setTimeLeft] = useState('')
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
 
   useEffect(() => {
+    // Check if user is authenticated
+    const checkAuth = async () => {
+      const supabase = createClient()
+      const { data: { user } } = await supabase.auth.getUser()
+      if (user) {
+        setIsAuthenticated(true)
+        return // Don't show popup for logged-in users
+      }
+    }
+
+    checkAuth()
+  }, [])
+
+  useEffect(() => {
+    // Don't show popup for authenticated users
+    if (isAuthenticated) {
+      return
+    }
+
     // Check if popup has been shown in this session
     const shown = sessionStorage.getItem('exitIntentShown')
     if (shown) {
@@ -66,9 +87,10 @@ export default function ExitIntentPopup() {
       document.removeEventListener('mouseleave', handleMouseLeave)
       if (mobileTimer) clearTimeout(mobileTimer)
     }
-  }, [hasShown, isVisible])
+  }, [hasShown, isVisible, isAuthenticated])
 
-  if (!isVisible) return null
+  // Don't render anything for authenticated users
+  if (isAuthenticated || !isVisible) return null
 
   const handleClose = () => {
     setIsVisible(false)
