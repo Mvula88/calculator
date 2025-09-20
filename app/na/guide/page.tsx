@@ -584,8 +584,11 @@ export default function NamibiaGuidePage() {
                 </div>
                 <CardTitle className="text-2xl font-bold">Complete Import Mastery</CardTitle>
                 <div className="mt-4">
-                  <span className="text-4xl font-bold text-purple-600">N$1,999</span>
-                  <span className="text-gray-500 ml-2">lifetime access</span>
+                  <div className="flex items-center gap-3">
+                    <span className="text-3xl font-bold text-gray-400 line-through">N$2,999</span>
+                    <span className="text-4xl font-bold text-purple-600">N$1,499</span>
+                  </div>
+                  <span className="text-green-600 font-semibold">Save N$1,500 - Limited Time!</span>
                 </div>
               </CardHeader>
               <CardContent className="space-y-4">

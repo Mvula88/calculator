@@ -28,7 +28,7 @@ export default function QuickSignupForm({
   secondaryColor = 'blue-600' 
 }: QuickSignupFormProps) {
   const [email, setEmail] = useState('')
-  const [selectedTier, setSelectedTier] = useState<'mistake' | 'mastery'>('mastery')
+  const [selectedTier] = useState<'mastery'>('mastery')
   const [loading, setLoading] = useState(false)
 
   const handleQuickSignup = async () => {
@@ -62,37 +62,20 @@ export default function QuickSignupForm({
           Start Your Import Journey Today
         </h3>
         
-        <div className="flex flex-col sm:flex-row gap-3 mb-4">
-          <button
-            onClick={() => setSelectedTier('mistake')}
-            className={`flex-1 p-4 rounded-lg border-2 transition-all ${
-              selectedTier === 'mistake' 
-                ? 'border-blue-500 bg-blue-50' 
-                : 'border-gray-200 hover:border-gray-300'
-            }`}
-          >
-            <div className="font-bold">Mistake Guide</div>
-            <div className="text-2xl font-black text-blue-600">N$499</div>
-            <div className="text-xs text-gray-600">Perfect start</div>
-          </button>
-          
-          <button
-            onClick={() => setSelectedTier('mastery')}
-            className={`flex-1 p-4 rounded-lg border-2 transition-all relative ${
-              selectedTier === 'mastery' 
-                ? 'border-purple-500 bg-purple-50' 
-                : 'border-gray-200 hover:border-gray-300'
-            }`}
-          >
-            <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-              <span className="bg-gradient-to-r from-purple-600 to-pink-600 text-white text-xs px-3 py-1 rounded-full font-bold">
-                SAVE N$500
+        <div className="bg-gradient-to-r from-purple-50 to-blue-50 p-4 rounded-lg border-2 border-purple-200 mb-4">
+          <div className="flex justify-between items-center">
+            <div>
+              <div className="font-bold text-lg">Import Mastery</div>
+              <div className="text-xs text-gray-600">Complete professional toolkit</div>
+            </div>
+            <div className="text-right">
+              <div className="text-sm font-bold text-gray-400 line-through">N$2,999</div>
+              <div className="text-2xl font-black text-purple-600">N$1,499</div>
+              <span className="bg-gradient-to-r from-purple-600 to-pink-600 text-white text-xs px-2 py-1 rounded-full font-bold">
+                SAVE 50%
               </span>
             </div>
-            <div className="font-bold">Import Mastery</div>
-            <div className="text-2xl font-black text-purple-600">N$1,999</div>
-            <div className="text-xs text-gray-600">Complete toolkit</div>
-          </button>
+          </div>
         </div>
         
         <div className="space-y-3">
@@ -182,48 +165,22 @@ export default function QuickSignupForm({
         <p className="text-gray-600">Choose your package and start saving today</p>
       </div>
       
-      <div className="grid sm:grid-cols-2 gap-4 mb-6">
-        <button
-          onClick={() => setSelectedTier('mistake')}
-          className={`p-4 rounded-lg border-2 transition-all ${
-            selectedTier === 'mistake' 
-              ? 'border-blue-500 bg-blue-50 scale-105' 
-              : 'border-gray-200 hover:border-gray-300'
-          }`}
-        >
-          <div className="font-bold mb-1">Mistake Guide</div>
-          <div className="text-3xl font-black text-blue-600 mb-1">N$499</div>
-          <div className="text-sm text-gray-600">Essential import guide</div>
-          {selectedTier === 'mistake' && (
-            <div className="mt-2">
-              <CheckCircle className="h-5 w-5 text-blue-600 mx-auto" />
-            </div>
-          )}
-        </button>
-        
-        <button
-          onClick={() => setSelectedTier('mastery')}
-          className={`p-4 rounded-lg border-2 transition-all relative ${
-            selectedTier === 'mastery' 
-              ? 'border-purple-500 bg-purple-50 scale-105' 
-              : 'border-gray-200 hover:border-gray-300'
-          }`}
-        >
-          <div className="absolute -top-3 right-2">
-            <span className="bg-gradient-to-r from-purple-600 to-pink-600 text-white text-xs px-2 py-1 rounded-full font-bold flex items-center gap-1">
+      <div className="bg-gradient-to-r from-purple-50 to-blue-50 p-6 rounded-lg border-2 border-purple-200 mb-6">
+        <div className="flex items-center justify-between">
+          <div>
+            <span className="bg-gradient-to-r from-purple-600 to-pink-600 text-white text-xs px-2 py-1 rounded-full font-bold inline-flex items-center gap-1 mb-2">
               <Star className="h-3 w-3" />
-              POPULAR
+              BEST VALUE
             </span>
+            <div className="font-bold text-xl mb-1">Import Mastery</div>
+            <div className="text-sm text-gray-600">Complete professional toolkit</div>
           </div>
-          <div className="font-bold mb-1">Import Mastery</div>
-          <div className="text-3xl font-black text-purple-600 mb-1">N$1,999</div>
-          <div className="text-sm text-gray-600">Complete professional toolkit</div>
-          {selectedTier === 'mastery' && (
-            <div className="mt-2">
-              <CheckCircle className="h-5 w-5 text-purple-600 mx-auto" />
-            </div>
-          )}
-        </button>
+          <div className="text-right">
+            <div className="text-2xl font-bold text-gray-400 line-through">N$2,999</div>
+            <div className="text-3xl font-black text-purple-600">N$1,499</div>
+            <div className="text-sm text-green-600 font-semibold">Save 50%</div>
+          </div>
+        </div>
       </div>
       
       <div className="space-y-4">
@@ -246,7 +203,7 @@ export default function QuickSignupForm({
             'Processing...'
           ) : (
             <>
-              Get Instant Access - {selectedTier === 'mastery' ? 'N$1,999' : 'N$499'}
+              Get Instant Access - N$1,499
               <ArrowRight className="ml-2 h-5 w-5" />
             </>
           )}

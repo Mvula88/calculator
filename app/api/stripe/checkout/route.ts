@@ -47,10 +47,8 @@ export async function POST(req: NextRequest) {
     
     console.log('Checkout request:', { country, tier, productId, email })
     
-    // Validate tier
-    if (!tier || !['mistake', 'mastery'].includes(tier)) {
-      return NextResponse.json({ error: 'Invalid tier' }, { status: 400 })
-    }
+    // Validate tier - default to mastery
+    const validTier = tier === 'mastery' ? 'mastery' : 'mastery'
     
     // Email is optional - Stripe will collect it if not provided
     

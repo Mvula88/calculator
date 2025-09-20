@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button'
 import { Loader2 } from 'lucide-react'
 
 interface CheckoutButtonProps {
-  tier: 'mistake' | 'mastery'
+  tier?: 'mastery'
   country?: string
   children: React.ReactNode
   className?: string
@@ -14,7 +14,7 @@ interface CheckoutButtonProps {
 }
 
 export default function CheckoutButton({
-  tier,
+  tier = 'mastery',
   country = 'na',
   children,
   className,

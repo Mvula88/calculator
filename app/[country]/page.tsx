@@ -351,12 +351,7 @@ export default async function CountryLandingPage({ params }: PageProps) {
             <Link href={`/register?country=${countryCode}&package=mastery`}>
               <Button size="lg" className="bg-white text-blue-600 hover:bg-gray-100">
                 <Award className="mr-2 h-5 w-5" />
-                Get Import Mastery - {country.currency}1,999
-              </Button>
-            </Link>
-            <Link href={`/register?country=${countryCode}&package=mistake`}>
-              <Button size="lg" variant="outline" className="bg-transparent text-white border-white hover:bg-white/10">
-                Start with Mistake Guide - {country.currency}499
+                Get Import Mastery - {country.currency}1,499 <span className="text-xs">(50% OFF!)</span>
               </Button>
             </Link>
           </div>

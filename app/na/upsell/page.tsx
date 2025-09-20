@@ -147,7 +147,8 @@ export default function NamibiaUpsellPage() {
         <Card className="p-8 bg-gradient-to-r from-orange-600 to-red-600 text-white">
           <div className="text-center">
             <div className="mb-4">
-              <span className="text-4xl font-bold">N$1,999</span>
+              <span className="text-4xl font-bold line-through text-gray-400">N$2,999</span>
+              <span className="text-5xl font-bold text-green-600 ml-4">N$1,499</span>
               <span className="text-sm ml-2 opacity-80">One-time payment</span>
             </div>
             

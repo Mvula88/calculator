@@ -9,10 +9,10 @@ export default function PurchasePage() {
   // Show floating signup button
   
   const countries = [
-    { code: 'na', name: 'Namibia', flag: '🇳🇦', mistakePrice: 'N$499', masteryPrice: 'N$1,999', currency: 'N$' },
-    { code: 'za', name: 'South Africa', flag: '🇿🇦', mistakePrice: 'R499', masteryPrice: 'R1,999', currency: 'R' },
-    { code: 'bw', name: 'Botswana', flag: '🇧🇼', mistakePrice: 'P404', masteryPrice: 'P1,618', currency: 'P' },
-    { code: 'zm', name: 'Zambia', flag: '🇿🇲', mistakePrice: 'K669', masteryPrice: 'K2,676', currency: 'K' },
+    { code: 'na', name: 'Namibia', flag: '🇳🇦', masteryPrice: 'N$1,499', masteryOriginal: 'N$2,999', currency: 'N$' },
+    { code: 'za', name: 'South Africa', flag: '🇿🇦', masteryPrice: 'R1,499', masteryOriginal: 'R2,999', currency: 'R' },
+    { code: 'bw', name: 'Botswana', flag: '🇧🇼', masteryPrice: 'P1,151', masteryOriginal: 'P2,302', currency: 'P' },
+    { code: 'zm', name: 'Zambia', flag: '🇿🇲', masteryPrice: 'K2,043', masteryOriginal: 'K4,087', currency: 'K' },
   ]
 
   return (
@@ -94,68 +94,52 @@ export default function PurchasePage() {
                   </div>
                 </div>
                 
-                {/* Package Options - Mobile Optimized */}
+                {/* Package Option - Mobile Optimized */}
                 <div className="p-4 sm:p-6">
-                  {/* Mobile: Stack vertically */}
-                  <div className="space-y-4 sm:space-y-0 sm:grid sm:grid-cols-2 sm:gap-4">
-                    {/* Mistake Guide */}
-                    <div className="border-2 border-gray-200 rounded-lg sm:rounded-xl p-3 sm:p-4 hover:border-blue-400 transition-colors">
-                      <h4 className="font-bold text-base sm:text-lg mb-2">Mistake Guide</h4>
-                      <p className="text-2xl sm:text-3xl font-black mb-2 sm:mb-3 text-blue-600">
-                        {country.mistakePrice}
-                      </p>
-                      <ul className="space-y-1 sm:space-y-2 mb-3 sm:mb-4">
-                        <li className="flex items-start gap-2 text-xs sm:text-sm text-gray-600">
-                          <CheckCircle className="h-3 w-3 sm:h-4 sm:w-4 text-green-600 flex-shrink-0 mt-0.5" />
-                          <span>Complete guide</span>
-                        </li>
-                        <li className="flex items-start gap-2 text-xs sm:text-sm text-gray-600">
-                          <CheckCircle className="h-3 w-3 sm:h-4 sm:w-4 text-green-600 flex-shrink-0 mt-0.5" />
-                          <span>Mistakes to avoid</span>
-                        </li>
-                        <li className="flex items-start gap-2 text-xs sm:text-sm text-gray-600">
-                          <CheckCircle className="h-3 w-3 sm:h-4 sm:w-4 text-green-600 flex-shrink-0 mt-0.5" />
-                          <span>Documents</span>
-                        </li>
-                      </ul>
-                      <Link href={`/${country.code}/guide`}>
-                        <Button className="w-full text-sm sm:text-base" variant="outline">
-                          Get Started
-                        </Button>
-                      </Link>
+                  {/* Import Mastery - Single Option */}
+                  <div className="relative border-2 border-purple-400 rounded-lg sm:rounded-xl p-4 sm:p-6 bg-gradient-to-br from-purple-50 to-pink-50">
+                    <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+                      <span className="text-xs bg-gradient-to-r from-purple-600 to-pink-600 text-white px-4 py-1 rounded-full font-bold">
+                        50% OFF SALE
+                      </span>
                     </div>
-
-                    {/* Import Mastery - Highlighted */}
-                    <div className="relative border-2 border-purple-400 rounded-lg sm:rounded-xl p-3 sm:p-4 bg-gradient-to-br from-purple-50 to-pink-50">
-                      <div className="absolute -top-2 right-2 sm:right-4">
-                        <span className="text-xs bg-gradient-to-r from-purple-600 to-pink-600 text-white px-3 py-1 rounded-full font-bold">
-                          POPULAR
-                        </span>
-                      </div>
-                      <h4 className="font-bold text-base sm:text-lg mb-2">Import Mastery</h4>
-                      <p className="text-2xl sm:text-3xl font-black mb-2 sm:mb-3 text-purple-600">
+                    <h4 className="font-bold text-lg sm:text-xl mb-3 text-center">Import Mastery</h4>
+                    <div className="text-center mb-4">
+                      <p className="text-xl text-gray-400 line-through">
+                        {country.masteryOriginal}
+                      </p>
+                      <p className="text-3xl sm:text-4xl font-black text-purple-600">
                         {country.masteryPrice}
                       </p>
-                      <ul className="space-y-1 sm:space-y-2 mb-3 sm:mb-4">
-                        <li className="flex items-start gap-2 text-xs sm:text-sm text-gray-600">
-                          <Star className="h-3 w-3 sm:h-4 sm:w-4 text-yellow-500 flex-shrink-0 mt-0.5" />
-                          <span>Everything in Guide</span>
-                        </li>
-                        <li className="flex items-start gap-2 text-xs sm:text-sm text-gray-600">
-                          <Star className="h-3 w-3 sm:h-4 sm:w-4 text-yellow-500 flex-shrink-0 mt-0.5" />
-                          <span>Live calculators</span>
-                        </li>
-                        <li className="flex items-start gap-2 text-xs sm:text-sm text-gray-600">
-                          <Star className="h-3 w-3 sm:h-4 sm:w-4 text-yellow-500 flex-shrink-0 mt-0.5" />
-                          <span>Priority support</span>
-                        </li>
-                      </ul>
-                      <Link href={`/${country.code}/guide`}>
-                        <Button className="w-full text-sm sm:text-base bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700">
-                          Get Full Access
-                        </Button>
-                      </Link>
+                      <p className="text-sm text-green-600 font-semibold">Save 50%</p>
                     </div>
+                    <ul className="space-y-2 mb-4">
+                      <li className="flex items-start gap-2 text-sm sm:text-base text-gray-700">
+                        <Star className="h-4 w-4 sm:h-5 sm:w-5 text-yellow-500 flex-shrink-0 mt-0.5" />
+                        <span>Complete import guide</span>
+                      </li>
+                      <li className="flex items-start gap-2 text-sm sm:text-base text-gray-700">
+                        <Star className="h-4 w-4 sm:h-5 sm:w-5 text-yellow-500 flex-shrink-0 mt-0.5" />
+                        <span>Multi-country calculator</span>
+                      </li>
+                      <li className="flex items-start gap-2 text-sm sm:text-base text-gray-700">
+                        <Star className="h-4 w-4 sm:h-5 sm:w-5 text-yellow-500 flex-shrink-0 mt-0.5" />
+                        <span>Real documents & templates</span>
+                      </li>
+                      <li className="flex items-start gap-2 text-sm sm:text-base text-gray-700">
+                        <Star className="h-4 w-4 sm:h-5 sm:w-5 text-yellow-500 flex-shrink-0 mt-0.5" />
+                        <span>Japan auction guide</span>
+                      </li>
+                      <li className="flex items-start gap-2 text-sm sm:text-base text-gray-700">
+                        <Star className="h-4 w-4 sm:h-5 sm:w-5 text-yellow-500 flex-shrink-0 mt-0.5" />
+                        <span>Lifetime updates & support</span>
+                      </li>
+                    </ul>
+                    <Link href={`/${country.code}/guide`}>
+                      <Button className="w-full text-base sm:text-lg py-5 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700">
+                        Get Instant Access
+                      </Button>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -228,12 +212,12 @@ export default function PurchasePage() {
         <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-3 sm:hidden shadow-lg">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-xs text-gray-600">Starting from</p>
-              <p className="text-lg font-bold">N$499</p>
+              <p className="text-xs text-gray-600">50% OFF Sale</p>
+              <p className="text-lg font-bold">N$1,499</p>
             </div>
             <Link href="#countries">
-              <Button size="sm" className="bg-gradient-to-r from-blue-600 to-purple-600">
-                Choose Package
+              <Button size="sm" className="bg-gradient-to-r from-purple-600 to-pink-600">
+                Get Access Now
               </Button>
             </Link>
           </div>

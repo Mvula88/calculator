@@ -5,6 +5,8 @@ import { homepageMetadata } from '@/lib/seo/metadata'
 import StructuredData from '@/components/seo/StructuredData'
 import ConditionalFooter from '@/components/ConditionalFooter'
 import ScrollToTop from '@/components/ScrollToTop'
+import SaleBanner from '@/components/SaleBanner'
+import ExitIntentPopup from '@/components/ExitIntentPopup'
 import './globals.css'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -37,6 +39,7 @@ export default function RootLayout({
         <StructuredData type="organization" />
         <StructuredData type="faq" />
         <ErrorBoundary>
+          <SaleBanner />
           <div className="min-h-screen flex flex-col">
             <div className="flex-grow">
               {children}
@@ -44,6 +47,7 @@ export default function RootLayout({
             <ConditionalFooter />
           </div>
           <ScrollToTop />
+          <ExitIntentPopup />
         </ErrorBoundary>
       </body>
     </html>
