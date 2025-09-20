@@ -190,15 +190,7 @@ export default function DutyCalculator() {
       }
     }
 
-    // Validate RRP value (if required)
-    if (countryReqs.requiresRRP) {
-      const rrp = parseFloat(rrpValue)
-      if (!rrpValue) {
-        newErrors.rrpValue = 'Value for Ad Valorem calculation is required'
-      } else if (isNaN(rrp) || rrp <= 0) {
-        newErrors.rrpValue = 'Please enter a valid value'
-      }
-    }
+    // RRP is now calculated automatically (1.5x CIF) - no validation needed
 
     // Zambia-specific validations
     if (country === 'ZM') {
@@ -429,34 +421,7 @@ export default function DutyCalculator() {
                   )}
                 </div>
 
-                {countryReqs.requiresRRP && (
-                  <div>
-                    <Label htmlFor="rrpValue">
-                      Value for Ad Valorem ({countryReqs.currency})
-                      <HelpCircle className="inline h-3 w-3 ml-1 text-gray-400" />
-                    </Label>
-                  <Input
-                    id="rrpValue"
-                    type="number"
-                    placeholder="e.g. 250000"
-                    value={rrpValue}
-                    onChange={(e) => {
-                      setRrpValue(e.target.value)
-                      if (errors.rrpValue) {
-                        setErrors(prev => ({ ...prev, rrpValue: '' }))
-                      }
-                    }}
-                    className={`mt-2 ${errors.rrpValue ? 'border-red-500' : ''}`}
-                  />
-                  {errors.rrpValue ? (
-                    <p className="text-xs text-red-500 mt-1">{errors.rrpValue}</p>
-                  ) : (
-                    <p className="text-xs text-gray-500 mt-1">
-                      Retail/market value for luxury tax calculation (estimate if unknown)
-                    </p>
-                  )}
-                  </div>
-                )}
+                {/* AD Valorem is calculated automatically - no input needed */}
 
                 {(countryReqs.requiresCO2 || (country === 'ZA' && isNewVehicle)) && (
                   <div>
@@ -715,31 +680,37 @@ export default function DutyCalculator() {
                 <div className="bg-blue-50 p-3 rounded-lg text-xs space-y-1">
                   <div className="flex justify-between">
                     <span>Bidding Charge:</span>
-                    <span>¥{japanCosts.biddingCharge.toLocaleString()}</span>
+                    <span className="text-gray-600">¥{japanCosts.biddingCharge.toLocaleString()}</span>
+                    <span className="font-medium">{countryReqs.currency} {(japanCosts.biddingCharge * parseFloat(jpyToLocalRate || '0.13')).toFixed(2)}</span>
                   </div>
                   <div className="flex justify-between">
                     <span>Recycling Fee:</span>
-                    <span>¥{japanCosts.recyclingFee.toLocaleString()}</span>
+                    <span className="text-gray-600">¥{japanCosts.recyclingFee.toLocaleString()}</span>
+                    <span className="font-medium">{countryReqs.currency} {(japanCosts.recyclingFee * parseFloat(jpyToLocalRate || '0.13')).toFixed(2)}</span>
                   </div>
                   <div className="flex justify-between">
                     <span>Delivery Fee:</span>
-                    <span>¥{japanCosts.deliveryFee.toLocaleString()}</span>
+                    <span className="text-gray-600">¥{japanCosts.deliveryFee.toLocaleString()}</span>
+                    <span className="font-medium">{countryReqs.currency} {(japanCosts.deliveryFee * parseFloat(jpyToLocalRate || '0.13')).toFixed(2)}</span>
                   </div>
                   <div className="flex justify-between">
                     <span>THC:</span>
-                    <span>¥{japanCosts.thc.toLocaleString()}</span>
+                    <span className="text-gray-600">¥{japanCosts.thc.toLocaleString()}</span>
+                    <span className="font-medium">{countryReqs.currency} {(japanCosts.thc * parseFloat(jpyToLocalRate || '0.13')).toFixed(2)}</span>
                   </div>
                   <div className="flex justify-between">
                     <span>Operation Fee:</span>
-                    <span>¥{japanCosts.operationFee.toLocaleString()}</span>
+                    <span className="text-gray-600">¥{japanCosts.operationFee.toLocaleString()}</span>
+                    <span className="font-medium">{countryReqs.currency} {(japanCosts.operationFee * parseFloat(jpyToLocalRate || '0.13')).toFixed(2)}</span>
                   </div>
                   <div className="flex justify-between">
                     <span>Loading Charges:</span>
-                    <span>¥{japanCosts.loadingCharges.toLocaleString()}</span>
+                    <span className="text-gray-600">¥{japanCosts.loadingCharges.toLocaleString()}</span>
+                    <span className="font-medium">{countryReqs.currency} {(japanCosts.loadingCharges * parseFloat(jpyToLocalRate || '0.13')).toFixed(2)}</span>
                   </div>
                   <div className="flex justify-between font-semibold border-t pt-1">
                     <span>Total Japan Costs:</span>
-                    <span>¥{Object.values(japanCosts).reduce((a, b) => a + b, 0).toLocaleString()}</span>
+                    <span className="text-blue-900">{countryReqs.currency} {(Object.values(japanCosts).reduce((a, b) => a + b, 0) * parseFloat(jpyToLocalRate || '0.13')).toFixed(2)}</span>
                   </div>
                 </div>
 
@@ -860,32 +831,32 @@ export default function DutyCalculator() {
                   <div className="space-y-1 text-xs mb-2">
                     <div className="flex justify-between">
                       <span>Bidding Charge:</span>
-                      <span>¥{japanCosts.biddingCharge.toLocaleString()}</span>
+                      <span className="font-medium">{countryReqs.currency} {(japanCosts.biddingCharge * parseFloat(jpyToLocalRate)).toFixed(2)}</span>
                     </div>
                     <div className="flex justify-between">
                       <span>Recycling Fee:</span>
-                      <span>¥{japanCosts.recyclingFee.toLocaleString()}</span>
+                      <span className="font-medium">{countryReqs.currency} {(japanCosts.recyclingFee * parseFloat(jpyToLocalRate)).toFixed(2)}</span>
                     </div>
                     <div className="flex justify-between">
                       <span>Delivery Fee:</span>
-                      <span>¥{japanCosts.deliveryFee.toLocaleString()}</span>
+                      <span className="font-medium">{countryReqs.currency} {(japanCosts.deliveryFee * parseFloat(jpyToLocalRate)).toFixed(2)}</span>
                     </div>
                     <div className="flex justify-between">
                       <span>THC:</span>
-                      <span>¥{japanCosts.thc.toLocaleString()}</span>
+                      <span className="font-medium">{countryReqs.currency} {(japanCosts.thc * parseFloat(jpyToLocalRate)).toFixed(2)}</span>
                     </div>
                     <div className="flex justify-between">
                       <span>Operation Fee:</span>
-                      <span>¥{japanCosts.operationFee.toLocaleString()}</span>
+                      <span className="font-medium">{countryReqs.currency} {(japanCosts.operationFee * parseFloat(jpyToLocalRate)).toFixed(2)}</span>
                     </div>
                     <div className="flex justify-between">
                       <span>Loading Charges:</span>
-                      <span>¥{japanCosts.loadingCharges.toLocaleString()}</span>
+                      <span className="font-medium">{countryReqs.currency} {(japanCosts.loadingCharges * parseFloat(jpyToLocalRate)).toFixed(2)}</span>
                     </div>
                     {parseFloat(specialHandlingFee) > 0 && (
                       <div className="flex justify-between">
                         <span>Special Handling:</span>
-                        <span>¥{parseFloat(specialHandlingFee).toLocaleString()}</span>
+                        <span className="font-medium">{countryReqs.currency} {(parseFloat(specialHandlingFee) * parseFloat(jpyToLocalRate)).toFixed(2)}</span>
                       </div>
                     )}
                   </div>
@@ -974,7 +945,7 @@ export default function DutyCalculator() {
                           <span className="font-medium">{countryReqs.currency} {result.adv.toFixed(2)}</span>
                         </div>
                         <div className="text-xs text-gray-600 ml-4">
-                          Formula: ((0.00003 × {rrpValue || (parseFloat(cifValue) * 1.5).toFixed(0)}) - 0.75)% × {rrpValue || (parseFloat(cifValue) * 1.5).toFixed(0)}
+                          Formula: ((0.00003 × {(parseFloat(cifValue || '0') * (country === 'NA' ? 1.65 : 1.5)).toFixed(0)}) - 0.75)% × value
                         </div>
                       </>
                     )}
