@@ -59,18 +59,24 @@ export interface FullOutput extends TaxOutput {
 /**
  * Namibia (NA) Calculation
  * Formula:
- * - Duty = 25% × CIF
+ * - Duty = 25% × FOB (excluding shipping)
  * - ENV (Environmental Levy):
  *   - Petrol: max(0, CO₂ - 120) × 40
  *   - Diesel: max(0, CO₂ - 140) × 45
  * - ADV = min(30%, (0.00003 × RRP - 0.75)%) × RRP
- * - VAT = 15% × [(CIF × 1.10) + Duty + ADV]
+ * - VAT = 15% × [FOB + Duty + ADV + ENV]
+ * Note: Shipping costs are NOT included in duty calculation base for Namibia
  */
 export function calcNA(params: Inputs): FullOutput {
   const { cif, fuel, co2 = 0, rrp = cif * 1.5 } = params;
 
-  // Import Customs Duty (ICD) = 25% of CIF
-  const duty = cif * 0.25;
+  // For Namibia, we use FOB (Free on Board) value, not CIF
+  // Assuming CIF includes about 10% shipping/insurance, we calculate FOB
+  // FOB = CIF / 1.10 (removing shipping component)
+  const fob = cif / 1.10;
+
+  // Import Customs Duty (ICD) = 25% of FOB (excluding shipping)
+  const duty = fob * 0.25;
 
   // Environmental Levy (ENV)
   let env = 0;
@@ -85,13 +91,14 @@ export function calcNA(params: Inputs): FullOutput {
   const advRate = Math.min(0.30, Math.max(0, (0.00003 * rrp - 0.75) / 100));
   const adv = rrp * advRate;
 
-  // VAT = 15% × [(CIF × 1.10) + ICD + ADV]
-  const vatBase = (cif * 1.10) + duty + adv;
+  // VAT = 15% × [FOB + ICD + ADV + ENV]
+  // Note: VAT is calculated on FOB value plus all duties
+  const vatBase = fob + duty + adv + env;
   const vat = vatBase * 0.15;
 
   const totalTaxes = duty + env + adv + vat;
 
-  return buildFullOutput(params, {
+  const output = buildFullOutput(params, {
     duty,
     env,
     adv,
@@ -100,6 +107,14 @@ export function calcNA(params: Inputs): FullOutput {
     vat,
     totalTaxes
   });
+
+  // Add note about shipping exclusion for Namibia
+  output.breakdownNotes = [
+    'For Namibia, shipping costs are excluded from the customs duty calculation base (FOB value used)',
+    `Duty calculated on FOB value of ${params.country === 'NA' ? 'N$' : ''}${Math.round(fob).toLocaleString()}`
+  ];
+
+  return output;
 }
 
 /**

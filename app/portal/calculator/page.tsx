@@ -400,6 +400,7 @@ export default function DutyCalculator() {
                   ) : (
                     <p className="text-xs text-gray-500 mt-1">
                       Cost, Insurance & Freight value in {countryReqs.currency}
+                      {country === 'NA' && ' (Shipping excluded from duty calculation)'}
                     </p>
                   )}
                 </div>
