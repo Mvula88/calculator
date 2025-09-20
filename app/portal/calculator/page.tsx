@@ -880,21 +880,21 @@ export default function DutyCalculator() {
                         <li>• Duty = 25% × CIF (HS 8703)</li>
                         <li>• ADV = ((0.00003 × RRP) - 0.75)% × RRP (capped at 30%)</li>
                         {isNewVehicle && <li>• CO₂ Levy applies to new vehicles only</li>}
-                        <li>• VAT = 15% × [(CIF × 1.10) + Duty + ADV {isNewVehicle ? '+ CO₂ Levy' : ''}]</li>
+                        <li>• Import VAT = 15% × [(CIF + 10%) + Duty + ADV {isNewVehicle ? '+ CO₂ Levy' : ''}]</li>
                       </>
                     )}
                     {country === 'BW' && (
                       <>
                         <li>• Duty = 25% × CIF (HS 8703 default)</li>
                         <li>• ADV = ((0.00003 × RRP) - 0.75)% × RRP (capped at 30%)</li>
-                        <li>• VAT = 12% × [CIF + Duty + ADV] (no uplift)</li>
+                        <li>• Import VAT = 12% × [CIF + Duty + ADV] (no uplift)</li>
                       </>
                     )}
                     {country === 'ZM' && (
                       <>
                         <li>• Specific Duty from ZRA table by type/cc/age</li>
                         <li>• Excise = {exciseRate}% × (CIF + Duty)</li>
-                        <li>• VAT = 16% × [CIF + Duty + Excise]</li>
+                        <li>• Import VAT = 16% × [CIF + Duty + Excise]</li>
                         {isEV && <li>• EVs receive zero duty and reduced excise</li>}
                         {isHybrid && <li>• Hybrids receive reduced excise duty</li>}
                       </>

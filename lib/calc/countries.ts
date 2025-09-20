@@ -126,7 +126,7 @@ export function calcNA(params: Inputs): FullOutput {
  * - Duty = 25% × CIF (HS 8703 baseline)
  * - ADV = min(30%, (0.00003 × RRP - 0.75)%) × RRP
  * - CO₂ levy = applicable only for new vehicles (user toggle)
- * - VAT = 15% × [(CIF × 1.10) + Duty + ADV + CO₂ levy]
+ * - Import VAT = 15% × [(CIF + 10%) + Duty + ADV + CO₂ levy]
  */
 export function calcZA(params: Inputs): FullOutput {
   const { cif, co2 = 0, rrp = cif * 1.5, isNewVehicle = false } = params;
@@ -146,7 +146,8 @@ export function calcZA(params: Inputs): FullOutput {
     co2Levy = (co2 - 120) * 120; // Placeholder rate
   }
 
-  // VAT = 15% × [(CIF × 1.10) + Duty + ADV + CO₂ levy]
+  // Import VAT = 15% × [(CIF + 10%) + Duty + ADV + CO₂ levy]
+  // The 10% uplift on CIF is standard for imports from outside SACU
   const vatBase = (cif * 1.10) + duty + adv + co2Levy;
   const vat = vatBase * 0.15;
 
@@ -178,7 +179,7 @@ export function calcZA(params: Inputs): FullOutput {
  * Formula:
  * - Duty = 25% × CIF (HS 8703 default, make editable)
  * - ADV = min(30%, (0.00003 × RRP - 0.75)%) × RRP
- * - VAT = 12% × [CIF + Duty + ADV] (no 10% uplift)
+ * - Import VAT = 12% × [CIF + Duty + ADV] (no uplift for Botswana)
  */
 export function calcBW(params: Inputs): FullOutput {
   const { cif, rrp = cif * 1.5 } = params;
@@ -190,7 +191,8 @@ export function calcBW(params: Inputs): FullOutput {
   const advRate = Math.min(0.30, Math.max(0, (0.00003 * rrp - 0.75) / 100));
   const adv = rrp * advRate;
 
-  // VAT = 12% × [CIF + Duty + ADV] (no uplift in Botswana)
+  // Import VAT = 12% × [CIF + Duty + ADV]
+  // Botswana does not apply the 10% uplift on CIF
   const vatBase = cif + duty + adv;
   const vat = vatBase * 0.12;
 
@@ -212,7 +214,7 @@ export function calcBW(params: Inputs): FullOutput {
  * Formula:
  * - Duty = Specific duty from ZRA table based on type/cc/age
  * - Excise = rate% × (CIF + Duty)
- * - VAT = 16% × [CIF + Duty + Excise]
+ * - Import VAT = 16% × [CIF + Duty + Excise]
  * - EV/Hybrid get reduced/zero duty and excise
  */
 export function calcZM(params: Inputs): FullOutput {
@@ -263,7 +265,8 @@ export function calcZM(params: Inputs): FullOutput {
     excise = (cif + duty) * exciseRate / 100;
   }
 
-  // VAT = 16% × [CIF + Duty + Excise]
+  // Import VAT = 16% × [CIF + Duty + Excise]
+  // Zambia applies 16% VAT on the sum of CIF, duty and excise
   const vatBase = cif + duty + excise;
   const vat = vatBase * 0.16;
 
