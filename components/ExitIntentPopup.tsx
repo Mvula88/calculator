@@ -148,16 +148,17 @@ export default function ExitIntentPopup() {
               </p>
             </div>
 
-            {/* What's Included - Clean List */}
+            {/* What's Included - Clear Value Proposition */}
             <div className="space-y-3">
+              <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">LIFETIME ACCESS INCLUDES:</p>
               <ul className="space-y-3">
                 <li className="flex items-start gap-3 group">
                   <div className="mt-0.5">
                     <CheckCircle2 className="h-5 w-5 text-green-500" />
                   </div>
                   <div className="flex-1">
-                    <p className="text-gray-900 font-medium">Multi-Country Calculator</p>
-                    <p className="text-sm text-gray-600">For Namibia, South Africa, Botswana & Zambia</p>
+                    <p className="text-gray-900 font-medium">Accurate Duty Calculator</p>
+                    <p className="text-sm text-gray-600">Save N$20,000+ from calculation errors</p>
                   </div>
                 </li>
                 <li className="flex items-start gap-3 group">
@@ -165,8 +166,8 @@ export default function ExitIntentPopup() {
                     <CheckCircle2 className="h-5 w-5 text-green-500" />
                   </div>
                   <div className="flex-1">
-                    <p className="text-gray-900 font-medium">Import Documentation</p>
-                    <p className="text-sm text-gray-600">Templates and step-by-step guides</p>
+                    <p className="text-gray-900 font-medium">30+ Verified Agents</p>
+                    <p className="text-sm text-gray-600">Direct contacts (worth N$5,000 in fees)</p>
                   </div>
                 </li>
                 <li className="flex items-start gap-3 group">
@@ -174,11 +175,16 @@ export default function ExitIntentPopup() {
                     <CheckCircle2 className="h-5 w-5 text-green-500" />
                   </div>
                   <div className="flex-1">
-                    <p className="text-gray-900 font-medium">Japan Auction Guide</p>
-                    <p className="text-sm text-gray-600">Decode auction sheets like a pro</p>
+                    <p className="text-gray-900 font-medium">Complete Import Guide</p>
+                    <p className="text-sm text-gray-600">Step-by-step from auction to registration</p>
                   </div>
                 </li>
               </ul>
+              <div className="mt-3 p-3 bg-green-50 rounded-lg">
+                <p className="text-xs text-green-800 font-medium">
+                  ✨ BONUS: Japan auction access guide, shipping contacts, all documents & templates
+                </p>
+              </div>
             </div>
 
 
