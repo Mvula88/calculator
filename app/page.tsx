@@ -96,12 +96,12 @@ export default function HomePage() {
             {/* What We Do - Crystal Clear */}
             <div className="mb-6 inline-flex items-center gap-2 bg-white/90 text-blue-800 px-4 py-2 rounded-full backdrop-blur-sm">
               <Globe className="h-4 w-4" />
-              <span className="font-semibold">Complete Car Import Platform for Southern Africa</span>
+              <span className="font-semibold">The Complete Import Education Guide</span>
             </div>
 
             <h1 className="text-4xl sm:text-6xl font-bold text-white mb-6 drop-shadow-lg">
-              Import Quality Used Cars from Japan
-              <span className="block text-blue-300 mt-2">To Southern Africa</span>
+              Learn How to Import Cars from Japan
+              <span className="block text-blue-300 mt-2">Step-by-Step Guide for Southern Africa</span>
             </h1>
 
             <p className="text-xl text-white mb-8 leading-relaxed bg-black/30 backdrop-blur-sm rounded-lg p-4">
