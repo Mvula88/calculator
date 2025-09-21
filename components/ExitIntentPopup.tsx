@@ -158,7 +158,6 @@ export default function ExitIntentPopup() {
                   </div>
                   <div className="flex-1">
                     <p className="text-gray-900 font-medium">Accurate Duty Calculator</p>
-                    <p className="text-sm text-gray-600">Save N$20,000+ from calculation errors</p>
                   </div>
                 </li>
                 <li className="flex items-start gap-3 group">
@@ -166,8 +165,7 @@ export default function ExitIntentPopup() {
                     <CheckCircle2 className="h-5 w-5 text-green-500" />
                   </div>
                   <div className="flex-1">
-                    <p className="text-gray-900 font-medium">30+ Verified Agents</p>
-                    <p className="text-sm text-gray-600">Direct contacts (worth N$5,000 in fees)</p>
+                    <p className="text-gray-900 font-medium">Verified Agents</p>
                   </div>
                 </li>
                 <li className="flex items-start gap-3 group">
@@ -176,7 +174,6 @@ export default function ExitIntentPopup() {
                   </div>
                   <div className="flex-1">
                     <p className="text-gray-900 font-medium">Complete Import Guide</p>
-                    <p className="text-sm text-gray-600">Step-by-step from auction to registration</p>
                   </div>
                 </li>
               </ul>
