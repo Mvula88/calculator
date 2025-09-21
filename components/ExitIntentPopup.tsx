@@ -107,7 +107,7 @@ export default function ExitIntentPopup() {
 
       {/* Professional Modal */}
       <div className="fixed inset-0 flex items-center justify-center z-[9999] p-4" role="dialog" aria-modal="true">
-        <div className="bg-white rounded-3xl shadow-2xl max-w-md w-full animate-scaleUp overflow-hidden">
+        <div className="bg-white rounded-3xl shadow-2xl max-w-lg w-full animate-scaleUp overflow-hidden">
           {/* Elegant Header */}
           <div className="relative bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 p-8 text-white">
             {/* Close Button - More Visible */}
@@ -150,10 +150,10 @@ export default function ExitIntentPopup() {
 
             {/* What's Included - Clear Value Proposition */}
             <div className="space-y-3">
-              <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">LIFETIME ACCESS INCLUDES:</p>
+              <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">LIFETIME ACCESS INCLUDES:</p>
               <ul className="space-y-3">
                 <li className="flex items-start gap-3 group">
-                  <div className="mt-0.5">
+                  <div className="mt-0.5 flex-shrink-0">
                     <CheckCircle2 className="h-5 w-5 text-green-500" />
                   </div>
                   <div className="flex-1">
@@ -162,7 +162,7 @@ export default function ExitIntentPopup() {
                   </div>
                 </li>
                 <li className="flex items-start gap-3 group">
-                  <div className="mt-0.5">
+                  <div className="mt-0.5 flex-shrink-0">
                     <CheckCircle2 className="h-5 w-5 text-green-500" />
                   </div>
                   <div className="flex-1">
@@ -171,7 +171,7 @@ export default function ExitIntentPopup() {
                   </div>
                 </li>
                 <li className="flex items-start gap-3 group">
-                  <div className="mt-0.5">
+                  <div className="mt-0.5 flex-shrink-0">
                     <CheckCircle2 className="h-5 w-5 text-green-500" />
                   </div>
                   <div className="flex-1">
