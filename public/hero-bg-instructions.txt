@@ -3,7 +3,7 @@ HERO BACKGROUND IMAGE INSTRUCTIONS
 
 To add a hero background image:
 
-1. Add your image to the /public folder with the filename: hero-bg.jpg
+1. Add your image to the /public folder with the filename: hero-bg.png
    - Recommended size: 1920x1080 or larger
    - Format: JPG, PNG, or WebP
    - Optimize for web (compress to reduce file size)
@@ -11,8 +11,8 @@ To add a hero background image:
 2. The image will automatically be used as the hero section background
 
 3. Alternative filenames you can use:
-   - hero-bg.jpg (default)
-   - hero-bg.png
+   - hero-bg.png (default)
+   - hero-bg.jpg
    - hero-bg.webp
 
 4. To change the filename, edit line 84 in app/page.tsx:
