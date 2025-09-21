@@ -1,0 +1,30 @@
+HERO BACKGROUND IMAGE INSTRUCTIONS
+===================================
+
+To add a hero background image:
+
+1. Add your image to the /public folder with the filename: hero-bg.jpg
+   - Recommended size: 1920x1080 or larger
+   - Format: JPG, PNG, or WebP
+   - Optimize for web (compress to reduce file size)
+
+2. The image will automatically be used as the hero section background
+
+3. Alternative filenames you can use:
+   - hero-bg.jpg (default)
+   - hero-bg.png
+   - hero-bg.webp
+
+4. To change the filename, edit line 84 in app/page.tsx:
+   backgroundImage: 'url(/your-image-name.jpg)'
+
+5. The image will have a semi-transparent overlay for text readability
+
+Recommended image types:
+- Cars at a port
+- Shipping containers
+- Japan auction house
+- Highway/road scenes
+- Professional automotive imagery
+
+Note: The overlay ensures text remains readable regardless of image brightness.
