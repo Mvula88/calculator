@@ -95,7 +95,6 @@ export default function HomePage() {
           </div>,
           {
             duration: 10000,
-            important: true,
           }
         )
       } else {
@@ -124,7 +123,6 @@ export default function HomePage() {
           </div>,
           {
             duration: 10000,
-            important: true,
           }
         )
       }
