@@ -110,13 +110,13 @@ export default function ExitIntentPopup() {
         <div className="bg-white rounded-3xl shadow-2xl max-w-md w-full animate-scaleUp overflow-hidden">
           {/* Elegant Header */}
           <div className="relative bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 p-8 text-white">
-            {/* Close Button */}
+            {/* Close Button - More Visible */}
             <button
               onClick={handleClose}
-              className="absolute top-4 right-4 p-2 hover:bg-white/10 rounded-xl transition-all duration-200 group"
+              className="absolute top-4 right-4 p-2 bg-black/20 hover:bg-black/30 rounded-full transition-all duration-200 group border border-white/30"
               aria-label="Close offer"
             >
-              <X className="h-5 w-5 group-hover:rotate-90 transition-transform duration-200" />
+              <X className="h-6 w-6 text-white drop-shadow-lg group-hover:rotate-90 transition-transform duration-200" />
             </button>
 
             {/* Discount Badge */}
