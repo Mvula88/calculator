@@ -238,21 +238,10 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL('/portal', request.url))
   }
 
-  // Root redirect - ALWAYS go to guide page first
+  // Root page - allow it to render without redirect
+  // The homepage now has proper content and shouldn't redirect
   if (request.nextUrl.pathname === '/') {
-    // Always redirect to country-specific guide, regardless of auth status
-    const countryCode = country.toLowerCase()
-    if (countryCode.includes('namibia')) {
-      return NextResponse.redirect(new URL('/na/guide', request.url))
-    } else if (countryCode.includes('south-africa')) {
-      return NextResponse.redirect(new URL('/za/guide', request.url))
-    } else if (countryCode.includes('botswana')) {
-      return NextResponse.redirect(new URL('/bw/guide', request.url))
-    } else if (countryCode.includes('zambia')) {
-      return NextResponse.redirect(new URL('/zm/guide', request.url))
-    } else {
-      return NextResponse.redirect(new URL('/na/guide', request.url))
-    }
+    return supabaseResponse
   }
 
   return supabaseResponse
