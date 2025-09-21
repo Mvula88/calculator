@@ -9,7 +9,6 @@ import {
   Calculator,
   FileText,
   Users,
-  TrendingDown,
   Clock,
   Shield,
   CheckCircle2,
@@ -19,7 +18,6 @@ import {
   DollarSign,
   Map,
   Sparkles,
-  ChevronRight,
   Star,
   Globe,
   Ship,
@@ -68,9 +66,9 @@ export default function HomePage() {
       // Quiz complete
       setShowBeginnerQuiz(false)
       if (newScore >= 3) {
-        alert("Great! You're ready to start importing. Let's explore the platform!")
+        alert("Great! You're ready to start importing. Get access to our complete import platform!")
       } else {
-        alert("Importing might be challenging for you right now. Consider reviewing our guides first or working with an agent.")
+        alert("Importing might be challenging for you right now. Consider getting our guide to learn more, or working with one of our verified agents.")
       }
     }
   }
@@ -138,7 +136,7 @@ export default function HomePage() {
                 className="px-8 py-6 text-lg"
                 asChild
               >
-                <Link href="#import-101">
+                <Link href="#import-basics">
                   <BookOpen className="mr-2 h-5 w-5" />
                   Learn Import Basics First
                 </Link>
@@ -185,273 +183,126 @@ export default function HomePage() {
         </div>
       )}
 
-      {/* Import 101 - Basics for Beginners */}
-      <section id="import-101" className="py-20 bg-white">
+      {/* Import Basics - Minimal Education */}
+      <section id="import-basics" className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              Import 101: The Basics
+              Import Basics: What You Need to Know
             </h2>
             <p className="text-xl text-gray-600">
-              New to importing? Start here. We'll explain everything in simple terms.
+              Understanding the fundamentals before you start
             </p>
           </div>
 
-          {/* What is Car Importing? */}
-          <Card className="mb-8">
-            <CardHeader className="bg-gradient-to-r from-blue-50 to-purple-50">
-              <CardTitle className="flex items-center gap-2">
-                <HelpCircle className="h-6 w-6 text-blue-600" />
-                What is Car Importing?
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="pt-6">
-              <p className="text-gray-700 mb-4">
-                Car importing means buying a used vehicle from another country (usually Japan) and shipping it to your country.
-                Instead of buying from local dealers who import cars and add their profit margins, you become the importer.
-              </p>
-              <div className="bg-green-50 border border-green-200 rounded-lg p-4">
-                <p className="font-semibold text-green-900 mb-2">Why Japan?</p>
-                <ul className="space-y-2 text-green-800">
-                  <li>• Japanese cars are well-maintained and have low mileage</li>
-                  <li>• Strict inspection system (Shaken) ensures quality</li>
-                  <li>• Large selection (50,000+ vehicles at auction daily)</li>
-                  <li>• Right-hand drive like Southern Africa</li>
-                </ul>
-              </div>
-            </CardContent>
-          </Card>
+          <div className="grid md:grid-cols-2 gap-8 mb-12">
+            {/* What is Car Importing? */}
+            <Card>
+              <CardHeader className="bg-gradient-to-r from-blue-50 to-purple-50">
+                <CardTitle className="flex items-center gap-2">
+                  <HelpCircle className="h-6 w-6 text-blue-600" />
+                  What is Car Importing?
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="pt-6">
+                <p className="text-gray-700 mb-4">
+                  Car importing means buying a used vehicle from another country (usually Japan) and shipping it to your country.
+                  Instead of buying from local dealers who import cars and add their profit margins, you become the importer.
+                </p>
+                <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                  <p className="font-semibold text-green-900 mb-2">Why Japan?</p>
+                  <ul className="space-y-2 text-green-800 text-sm">
+                    <li>• Well-maintained vehicles with low mileage</li>
+                    <li>• Strict inspection system ensures quality</li>
+                    <li>• Large selection (50,000+ vehicles daily)</li>
+                    <li>• Right-hand drive like Southern Africa</li>
+                  </ul>
+                </div>
+              </CardContent>
+            </Card>
 
-          {/* The Import Process - Simplified */}
-          <Card className="mb-8">
-            <CardHeader className="bg-gradient-to-r from-green-50 to-emerald-50">
-              <CardTitle className="flex items-center gap-2">
-                <Map className="h-6 w-6 text-green-600" />
-                The Import Journey (Simple Version)
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="pt-6">
-              <div className="space-y-6">
-                <div className="flex gap-4">
-                  <div className="flex-shrink-0 w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold">1</div>
-                  <div>
-                    <h4 className="font-semibold mb-1">Find & Buy (Week 1-2)</h4>
-                    <p className="text-gray-600">Search Japanese auctions, place bid, win vehicle, pay</p>
-                    <p className="text-sm text-blue-600 mt-1">Budget needed: Vehicle price + N$10,000 Japan fees</p>
+            {/* Common Terms Explained */}
+            <Card>
+              <CardHeader className="bg-gradient-to-r from-purple-50 to-pink-50">
+                <CardTitle className="flex items-center gap-2">
+                  <BookOpen className="h-6 w-6 text-purple-600" />
+                  Import Terms Explained
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="pt-6">
+                <div className="space-y-3">
+                  <div className="p-2 bg-gray-50 rounded">
+                    <h4 className="font-semibold text-gray-900 text-sm">FOB Price</h4>
+                    <p className="text-xs text-gray-600">The car's price in Japan (before shipping)</p>
+                  </div>
+                  <div className="p-2 bg-gray-50 rounded">
+                    <h4 className="font-semibold text-gray-900 text-sm">CIF Value</h4>
+                    <p className="text-xs text-gray-600">Car price + shipping + insurance costs</p>
+                  </div>
+                  <div className="p-2 bg-gray-50 rounded">
+                    <h4 className="font-semibold text-gray-900 text-sm">Customs Duty</h4>
+                    <p className="text-xs text-gray-600">Import tax (usually 25% of car value)</p>
+                  </div>
+                  <div className="p-2 bg-gray-50 rounded">
+                    <h4 className="font-semibold text-gray-900 text-sm">VAT</h4>
+                    <p className="text-xs text-gray-600">Sales tax on imported goods (15-16%)</p>
+                  </div>
+                  <div className="p-2 bg-gray-50 rounded">
+                    <h4 className="font-semibold text-gray-900 text-sm">Clearing Agent</h4>
+                    <p className="text-xs text-gray-600">Company that handles customs paperwork</p>
+                  </div>
+                  <div className="p-2 bg-gray-50 rounded">
+                    <h4 className="font-semibold text-gray-900 text-sm">Landed Cost</h4>
+                    <p className="text-xs text-gray-600">Total cost including all fees and taxes</p>
                   </div>
                 </div>
+              </CardContent>
+            </Card>
+          </div>
 
-                <div className="flex gap-4">
-                  <div className="flex-shrink-0 w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold">2</div>
-                  <div>
-                    <h4 className="font-semibold mb-1">Ship to Africa (Week 3-6)</h4>
-                    <p className="text-gray-600">Vehicle loaded on ship at Japanese port, sails to Walvis Bay/Durban</p>
-                    <p className="text-sm text-blue-600 mt-1">Budget needed: N$18,500-25,000 shipping</p>
-                  </div>
-                </div>
-
-                <div className="flex gap-4">
-                  <div className="flex-shrink-0 w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold">3</div>
-                  <div>
-                    <h4 className="font-semibold mb-1">Clear Customs (Week 7-8)</h4>
-                    <p className="text-gray-600">Pay import duties, get clearance, complete paperwork</p>
-                    <p className="text-sm text-blue-600 mt-1">Budget needed: 40-65% of vehicle value in taxes</p>
-                  </div>
-                </div>
-
-                <div className="flex gap-4">
-                  <div className="flex-shrink-0 w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold">4</div>
-                  <div>
-                    <h4 className="font-semibold mb-1">Register & Drive (Week 9-10)</h4>
-                    <p className="text-gray-600">Roadworthy test, registration, license plates</p>
-                    <p className="text-sm text-blue-600 mt-1">Budget needed: N$5,000-8,000</p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="mt-6 p-4 bg-amber-50 border border-amber-200 rounded-lg">
-                <p className="font-semibold text-amber-900 mb-2">Total Budget Needed:</p>
-                <p className="text-amber-800">Vehicle Price + 80-100% additional costs (shipping, duties, clearing, registration)</p>
-                <p className="text-sm text-amber-700 mt-2">Example: N$80,000 car = N$150,000-160,000 total landed cost</p>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Common Terms Explained */}
-          <Card className="mb-8">
-            <CardHeader className="bg-gradient-to-r from-purple-50 to-pink-50">
-              <CardTitle className="flex items-center gap-2">
-                <BookOpen className="h-6 w-6 text-purple-600" />
-                Import Terms Explained (No Jargon!)
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="pt-6">
-              <div className="grid md:grid-cols-2 gap-4">
-                <div className="p-3 bg-gray-50 rounded-lg">
-                  <h4 className="font-semibold text-gray-900">FOB Price</h4>
-                  <p className="text-sm text-gray-600">The car's price in Japan (before shipping)</p>
-                </div>
-                <div className="p-3 bg-gray-50 rounded-lg">
-                  <h4 className="font-semibold text-gray-900">CIF Value</h4>
-                  <p className="text-sm text-gray-600">Car price + shipping + insurance costs</p>
-                </div>
-                <div className="p-3 bg-gray-50 rounded-lg">
-                  <h4 className="font-semibold text-gray-900">Customs Duty</h4>
-                  <p className="text-sm text-gray-600">Import tax (usually 25% of car value)</p>
-                </div>
-                <div className="p-3 bg-gray-50 rounded-lg">
-                  <h4 className="font-semibold text-gray-900">VAT</h4>
-                  <p className="text-sm text-gray-600">Sales tax on imported goods (15-16%)</p>
-                </div>
-                <div className="p-3 bg-gray-50 rounded-lg">
-                  <h4 className="font-semibold text-gray-900">Clearing Agent</h4>
-                  <p className="text-sm text-gray-600">Company that handles customs paperwork for you</p>
-                </div>
-                <div className="p-3 bg-gray-50 rounded-lg">
-                  <h4 className="font-semibold text-gray-900">Auction Grade</h4>
-                  <p className="text-sm text-gray-600">Japan's car condition rating (3.5+ is good)</p>
-                </div>
-                <div className="p-3 bg-gray-50 rounded-lg">
-                  <h4 className="font-semibold text-gray-900">Landed Cost</h4>
-                  <p className="text-sm text-gray-600">Total cost including all fees and taxes</p>
-                </div>
-                <div className="p-3 bg-gray-50 rounded-lg">
-                  <h4 className="font-semibold text-gray-900">Container Sharing</h4>
-                  <p className="text-sm text-gray-600">Split shipping costs with other importers</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* What Can Go Wrong? */}
-          <Card className="mb-8 border-red-200">
-            <CardHeader className="bg-gradient-to-r from-red-50 to-orange-50">
-              <CardTitle className="flex items-center gap-2 text-red-900">
-                <AlertCircle className="h-6 w-6 text-red-600" />
+          {/* Risks & Reality Check */}
+          <Card className="border-amber-200">
+            <CardHeader className="bg-gradient-to-r from-amber-50 to-orange-50">
+              <CardTitle className="flex items-center gap-2 text-amber-900">
+                <AlertCircle className="h-6 w-6 text-amber-600" />
                 Risks & Reality Check
               </CardTitle>
             </CardHeader>
             <CardContent className="pt-6">
-              <p className="text-gray-700 mb-4">Importing isn't risk-free. Here's what can go wrong:</p>
-              <div className="space-y-3">
+              <p className="text-gray-700 mb-4">Importing isn't risk-free. Here's what can happen:</p>
+              <div className="grid md:grid-cols-2 gap-4">
                 <div className="flex gap-3">
                   <AlertCircle className="h-5 w-5 text-red-500 flex-shrink-0 mt-0.5" />
                   <div>
                     <p className="font-semibold text-gray-900">Delays (Common)</p>
-                    <p className="text-sm text-gray-600">Shipping delays, port congestion, paperwork issues can add 2-4 weeks</p>
+                    <p className="text-sm text-gray-600">Can add 2-4 weeks to timeline</p>
                   </div>
                 </div>
                 <div className="flex gap-3">
                   <AlertCircle className="h-5 w-5 text-orange-500 flex-shrink-0 mt-0.5" />
                   <div>
-                    <p className="font-semibold text-gray-900">Hidden Costs (Occasional)</p>
-                    <p className="text-sm text-gray-600">Storage fees, additional inspections, exchange rate changes</p>
+                    <p className="font-semibold text-gray-900">Hidden Costs</p>
+                    <p className="text-sm text-gray-600">Storage, inspections, exchange rates</p>
                   </div>
                 </div>
                 <div className="flex gap-3">
                   <AlertCircle className="h-5 w-5 text-yellow-500 flex-shrink-0 mt-0.5" />
                   <div>
-                    <p className="font-semibold text-gray-900">Vehicle Condition (Rare with good agents)</p>
-                    <p className="text-sm text-gray-600">Car not matching description, hidden damage</p>
+                    <p className="font-semibold text-gray-900">Vehicle Condition</p>
+                    <p className="text-sm text-gray-600">May not match description</p>
                   </div>
                 </div>
                 <div className="flex gap-3">
                   <AlertCircle className="h-5 w-5 text-red-500 flex-shrink-0 mt-0.5" />
                   <div>
-                    <p className="font-semibold text-gray-900">Regulatory Changes (Very Rare)</p>
-                    <p className="text-sm text-gray-600">Import rules or duties change while car is in transit</p>
+                    <p className="font-semibold text-gray-900">Regulatory Changes</p>
+                    <p className="text-sm text-gray-600">Rules can change mid-import</p>
                   </div>
                 </div>
               </div>
               <div className="mt-6 p-4 bg-green-50 border border-green-200 rounded-lg">
-                <p className="font-semibold text-green-900">How We Help Minimize Risks:</p>
-                <p className="text-green-800 text-sm">Our platform provides verified agents, accurate calculators, and step-by-step guidance to avoid common pitfalls.</p>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      </section>
-
-      {/* Simple Budget Calculator */}
-      <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Card className="border-2 border-blue-200">
-            <CardHeader className="bg-gradient-to-r from-blue-600 to-purple-600 text-white">
-              <CardTitle className="text-2xl flex items-center gap-2">
-                <Calculator className="h-8 w-8" />
-                Quick Budget Estimator (Simple Version)
-              </CardTitle>
-              <p className="text-blue-100 mt-2">
-                Get a rough total cost estimate in seconds (for detailed calculations, use our advanced calculator in the portal)
-              </p>
-            </CardHeader>
-            <CardContent className="pt-8">
-              <div className="space-y-6">
-                <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">
-                    Vehicle Purchase Price in Japan (¥ Yen)
-                  </label>
-                  <input
-                    type="number"
-                    id="quick-vehicle-price"
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg text-lg"
-                    placeholder="e.g., 800000 for ¥800,000"
-                  />
-                  <p className="text-xs text-gray-500 mt-1">Typical range: ¥500,000 - ¥2,000,000</p>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">
-                    Your Country
-                  </label>
-                  <select
-                    id="quick-country"
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg text-lg"
-                  >
-                    <option value="na">Namibia</option>
-                    <option value="za">South Africa</option>
-                    <option value="bw">Botswana</option>
-                    <option value="zm">Zambia</option>
-                  </select>
-                </div>
-
-                <Button
-                  className="w-full py-6 text-lg"
-                  onClick={() => {
-                    const price = parseInt((document.getElementById('quick-vehicle-price') as HTMLInputElement)?.value || '0')
-                    const country = (document.getElementById('quick-country') as HTMLSelectElement)?.value
-
-                    if (price > 0) {
-                      // Simple rough calculation
-                      const exchangeRate = country === 'za' ? 0.13 : 0.14 // Rough exchange rates
-                      const localPrice = price * exchangeRate
-                      const duties = localPrice * 0.65 // Rough 65% for all duties/taxes
-                      const shipping = 25000 // Average shipping
-                      const clearing = 12000 // Average clearing
-                      const registration = 5000 // Average registration
-                      const total = localPrice + duties + shipping + clearing + registration
-
-                      const currency = {
-                        'na': 'N$',
-                        'za': 'R',
-                        'bw': 'P',
-                        'zm': 'ZK'
-                      }[country] || 'N$'
-
-                      alert(`Rough Estimate:\n\nVehicle: ${currency}${Math.round(localPrice).toLocaleString()}\nDuties & Taxes: ${currency}${Math.round(duties).toLocaleString()}\nShipping: ${currency}${Math.round(shipping).toLocaleString()}\nClearing & Registration: ${currency}${Math.round(clearing + registration).toLocaleString()}\n\nTOTAL: ${currency}${Math.round(total).toLocaleString()}\n\nNote: This is a rough estimate. Access our detailed calculator for accurate figures.`)
-                    } else {
-                      alert('Please enter a vehicle price')
-                    }
-                  }}
-                >
-                  Calculate Rough Total Cost
-                </Button>
-
-                <div className="p-4 bg-amber-50 border border-amber-200 rounded-lg">
-                  <p className="text-sm text-amber-800">
-                    <strong>Rule of Thumb:</strong> Budget for the vehicle price + 80-100% additional costs
-                  </p>
-                </div>
+                <p className="font-semibold text-green-900">How We Help:</p>
+                <p className="text-green-800 text-sm">Our platform minimizes these risks with verified agents, accurate calculators, and proven guides.</p>
               </div>
             </CardContent>
           </Card>
@@ -459,14 +310,14 @@ export default function HomePage() {
       </section>
 
       {/* What's Included - Clear Value Proposition */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">
               What You Get for N$1,499
             </h2>
             <p className="text-xl text-gray-600">
-              Everything you need to successfully import your first car
+              Complete access to our import platform and tools
             </p>
           </div>
 
@@ -474,14 +325,14 @@ export default function HomePage() {
             <Card className="border-2 hover:border-blue-300 transition-colors">
               <CardHeader>
                 <Calculator className="h-10 w-10 text-blue-600 mb-3" />
-                <CardTitle>Duty Calculator</CardTitle>
+                <CardTitle>Advanced Calculators</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-sm text-gray-600 mb-3">
-                  Accurate import duty calculations for all 4 countries. Know your exact costs before buying.
+                  Accurate duty calculator plus simple budget estimator. Know all costs upfront.
                 </p>
                 <div className="text-xs text-green-600 font-semibold">
-                  Saves you from N$20,000+ surprises
+                  Save N$20,000+ from surprises
                 </div>
               </CardContent>
             </Card>
@@ -489,14 +340,14 @@ export default function HomePage() {
             <Card className="border-2 hover:border-purple-300 transition-colors">
               <CardHeader>
                 <Users className="h-10 w-10 text-purple-600 mb-3" />
-                <CardTitle>Verified Agents</CardTitle>
+                <CardTitle>30+ Verified Agents</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-sm text-gray-600 mb-3">
-                  Direct contacts for 30+ licensed clearing agents. Skip the middlemen.
+                  Direct contacts for licensed clearing agents across 4 countries.
                 </p>
                 <div className="text-xs text-green-600 font-semibold">
-                  Worth N$5,000+ in saved agent fees
+                  Worth N$5,000+ in saved fees
                 </div>
               </CardContent>
             </Card>
@@ -504,14 +355,14 @@ export default function HomePage() {
             <Card className="border-2 hover:border-green-300 transition-colors">
               <CardHeader>
                 <FileText className="h-10 w-10 text-green-600 mb-3" />
-                <CardTitle>Documents & Templates</CardTitle>
+                <CardTitle>Complete Guides</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-sm text-gray-600 mb-3">
-                  All required forms, templates, and checklists. Never miss a document.
+                  Step-by-step import process, Japan auction guide, all documents.
                 </p>
                 <div className="text-xs text-green-600 font-semibold">
-                  Prevents costly delays
+                  Like having an expert guide
                 </div>
               </CardContent>
             </Card>
@@ -519,14 +370,14 @@ export default function HomePage() {
             <Card className="border-2 hover:border-orange-300 transition-colors">
               <CardHeader>
                 <Map className="h-10 w-10 text-orange-600 mb-3" />
-                <CardTitle>Step-by-Step Guide</CardTitle>
+                <CardTitle>Success Examples</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-sm text-gray-600 mb-3">
-                  Complete roadmap from auction to registration. Know exactly what to do when.
+                  Real import case studies with actual costs and savings data.
                 </p>
                 <div className="text-xs text-green-600 font-semibold">
-                  Like having an expert beside you
+                  Learn from real imports
                 </div>
               </CardContent>
             </Card>
@@ -537,89 +388,37 @@ export default function HomePage() {
             <div className="flex gap-3">
               <Gavel className="h-6 w-6 text-blue-600 flex-shrink-0" />
               <div>
-                <h4 className="font-semibold mb-1">Japan Auction Access Guide</h4>
-                <p className="text-sm text-gray-600">Learn to read auction sheets, understand grading, avoid bad deals</p>
+                <h4 className="font-semibold mb-1">Japan Auction Training</h4>
+                <p className="text-sm text-gray-600">Read auction sheets, understand grading, avoid bad deals</p>
               </div>
             </div>
             <div className="flex gap-3">
               <Ship className="h-6 w-6 text-blue-600 flex-shrink-0" />
               <div>
-                <h4 className="font-semibold mb-1">Shipping Company Contacts</h4>
-                <p className="text-sm text-gray-600">Direct contacts for container shipping, RoRo, and shared containers</p>
+                <h4 className="font-semibold mb-1">Shipping Companies</h4>
+                <p className="text-sm text-gray-600">Container shipping, RoRo, and shared container contacts</p>
               </div>
             </div>
             <div className="flex gap-3">
               <Building className="h-6 w-6 text-blue-600 flex-shrink-0" />
               <div>
                 <h4 className="font-semibold mb-1">Government Contacts</h4>
-                <p className="text-sm text-gray-600">NamRA, SARS, BURS, ZRA direct contacts and requirements</p>
+                <p className="text-sm text-gray-600">NamRA, SARS, BURS, ZRA requirements and contacts</p>
               </div>
             </div>
           </div>
 
-          {/* ROI Comparison */}
+          {/* ROI Box */}
           <Card className="bg-gradient-to-r from-green-50 to-emerald-50 border-green-300">
             <CardContent className="pt-8 pb-8">
-              <div className="text-center mb-6">
+              <div className="text-center">
                 <h3 className="text-2xl font-bold text-gray-900 mb-2">Your Return on Investment</h3>
-                <p className="text-gray-600">The platform pays for itself with your first import</p>
-              </div>
-
-              <div className="grid md:grid-cols-2 gap-8">
-                <div>
-                  <h4 className="font-semibold text-gray-900 mb-3">Without Our Platform:</h4>
-                  <ul className="space-y-2 text-gray-700">
-                    <li className="flex gap-2">
-                      <span className="text-red-500">✗</span>
-                      <span>Agent finder fees: N$3,000-5,000</span>
-                    </li>
-                    <li className="flex gap-2">
-                      <span className="text-red-500">✗</span>
-                      <span>Duty calculation errors: N$10,000-30,000</span>
-                    </li>
-                    <li className="flex gap-2">
-                      <span className="text-red-500">✗</span>
-                      <span>Documentation mistakes: N$5,000+ in delays</span>
-                    </li>
-                    <li className="flex gap-2">
-                      <span className="text-red-500">✗</span>
-                      <span>Wrong shipping choice: N$8,000+ extra</span>
-                    </li>
-                  </ul>
-                  <div className="mt-3 font-bold text-red-600">
-                    Potential extra costs: N$26,000-48,000
-                  </div>
-                </div>
-
-                <div>
-                  <h4 className="font-semibold text-gray-900 mb-3">With Our Platform:</h4>
-                  <ul className="space-y-2 text-gray-700">
-                    <li className="flex gap-2">
-                      <span className="text-green-500">✓</span>
-                      <span>Direct agent contacts included</span>
-                    </li>
-                    <li className="flex gap-2">
-                      <span className="text-green-500">✓</span>
-                      <span>Accurate duty calculations</span>
-                    </li>
-                    <li className="flex gap-2">
-                      <span className="text-green-500">✓</span>
-                      <span>Complete document checklists</span>
-                    </li>
-                    <li className="flex gap-2">
-                      <span className="text-green-500">✓</span>
-                      <span>Best shipping options revealed</span>
-                    </li>
-                  </ul>
-                  <div className="mt-3 font-bold text-green-600">
-                    One-time cost: N$1,499
-                  </div>
-                </div>
-              </div>
-
-              <div className="mt-8 text-center p-4 bg-white rounded-lg">
-                <p className="text-2xl font-bold text-green-600">
-                  You save N$24,000-46,000 on your first import alone
+                <p className="text-gray-600 mb-4">The platform pays for itself with your first import</p>
+                <p className="text-3xl font-bold text-green-600">
+                  Save N$24,000-46,000
+                </p>
+                <p className="text-sm text-gray-600 mt-2">
+                  Avoid costly mistakes with our proven system
                 </p>
               </div>
             </CardContent>
@@ -638,91 +437,21 @@ export default function HomePage() {
               <ArrowRight className="ml-2 h-5 w-5" />
             </CheckoutButton>
             <p className="text-sm text-gray-600 mt-4">
-              One-time payment • Lifetime updates • Start importing today
+              One-time payment • Lifetime updates • Instant access
             </p>
           </div>
         </div>
       </section>
 
-      {/* Success Stories */}
-      <section className="py-20 bg-gray-50">
+      {/* Choose Your Country */}
+      <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              Real Import Examples
+              Select Your Country to Start
             </h2>
             <p className="text-xl text-gray-600">
-              Actual imports completed using our platform
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-6">
-            <Card>
-              <CardContent className="pt-6">
-                <div className="flex items-center gap-2 mb-3">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                  ))}
-                </div>
-                <h4 className="font-bold mb-2">2019 Toyota Hilux</h4>
-                <div className="space-y-1 text-sm">
-                  <p><span className="text-gray-600">Japan Price:</span> <span className="font-semibold">¥1,800,000</span></p>
-                  <p><span className="text-gray-600">Total Landed:</span> <span className="font-semibold">N$320,000</span></p>
-                  <p><span className="text-gray-600">Local Dealer:</span> <span className="font-semibold">N$485,000</span></p>
-                  <p className="text-green-600 font-bold pt-2">Saved: N$165,000 (34%)</p>
-                </div>
-                <p className="text-xs text-gray-500 mt-3">Imported to Windhoek, September 2024</p>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardContent className="pt-6">
-                <div className="flex items-center gap-2 mb-3">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                  ))}
-                </div>
-                <h4 className="font-bold mb-2">2018 Honda Fit Hybrid</h4>
-                <div className="space-y-1 text-sm">
-                  <p><span className="text-gray-600">Japan Price:</span> <span className="font-semibold">¥980,000</span></p>
-                  <p><span className="text-gray-600">Total Landed:</span> <span className="font-semibold">N$175,000</span></p>
-                  <p><span className="text-gray-600">Local Dealer:</span> <span className="font-semibold">N$245,000</span></p>
-                  <p className="text-green-600 font-bold pt-2">Saved: N$70,000 (29%)</p>
-                </div>
-                <p className="text-xs text-gray-500 mt-3">Imported to Cape Town, October 2024</p>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardContent className="pt-6">
-                <div className="flex items-center gap-2 mb-3">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                  ))}
-                </div>
-                <h4 className="font-bold mb-2">2020 Mazda CX-5</h4>
-                <div className="space-y-1 text-sm">
-                  <p><span className="text-gray-600">Japan Price:</span> <span className="font-semibold">¥2,200,000</span></p>
-                  <p><span className="text-gray-600">Total Landed:</span> <span className="font-semibold">N$385,000</span></p>
-                  <p><span className="text-gray-600">Local Dealer:</span> <span className="font-semibold">N$520,000</span></p>
-                  <p className="text-green-600 font-bold pt-2">Saved: N$135,000 (26%)</p>
-                </div>
-                <p className="text-xs text-gray-500 mt-3">Imported to Gaborone, August 2024</p>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* Choose Your Path */}
-      <section className="py-20 bg-gradient-to-b from-white to-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              Ready to Start? Choose Your Country
-            </h2>
-            <p className="text-xl text-gray-600">
-              Select your country to see specific requirements and costs
+              View specific requirements and guides for your country
             </p>
           </div>
 
@@ -798,6 +527,12 @@ export default function HomePage() {
                 </CardContent>
               </Card>
             </Link>
+          </div>
+
+          <div className="text-center mt-12">
+            <p className="text-gray-600 mb-4">
+              Not sure which guide to read? Start with Namibia - it has the most comprehensive information.
+            </p>
           </div>
         </div>
       </section>
