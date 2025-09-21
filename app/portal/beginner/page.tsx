@@ -379,6 +379,77 @@ export default function BeginnerGuidePage() {
         </CardContent>
       </Card>
 
+      {/* Risks & Reality Check */}
+      <Card className="mb-8 border-amber-200">
+        <CardHeader className="bg-gradient-to-r from-amber-50 to-orange-50">
+          <CardTitle className="flex items-center gap-2 text-amber-900">
+            <AlertCircle className="h-6 w-6 text-amber-600" />
+            Risks & Reality Check
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="pt-6">
+          <p className="text-gray-700 mb-4 font-medium">Importing isn't risk-free. Here's what can happen:</p>
+          <div className="space-y-4">
+            <div className="flex gap-3">
+              <AlertCircle className="h-5 w-5 text-red-500 flex-shrink-0 mt-0.5" />
+              <div>
+                <p className="font-semibold text-gray-900">Delays (Common)</p>
+                <p className="text-sm text-gray-600">Shipping delays, port congestion, paperwork issues can add 2-4 weeks</p>
+              </div>
+            </div>
+            <div className="flex gap-3">
+              <AlertCircle className="h-5 w-5 text-orange-500 flex-shrink-0 mt-0.5" />
+              <div>
+                <p className="font-semibold text-gray-900">Hidden Costs (Occasional)</p>
+                <p className="text-sm text-gray-600">Storage fees, additional inspections, exchange rate fluctuations</p>
+              </div>
+            </div>
+            <div className="flex gap-3">
+              <AlertCircle className="h-5 w-5 text-yellow-500 flex-shrink-0 mt-0.5" />
+              <div>
+                <p className="font-semibold text-gray-900">Vehicle Condition Issues (Rare with good agents)</p>
+                <p className="text-sm text-gray-600">Car not matching description, hidden damage, odometer tampering</p>
+              </div>
+            </div>
+            <div className="flex gap-3">
+              <AlertCircle className="h-5 w-5 text-red-500 flex-shrink-0 mt-0.5" />
+              <div>
+                <p className="font-semibold text-gray-900">Regulatory Changes (Very Rare)</p>
+                <p className="text-sm text-gray-600">Import rules or duty rates change while car is in transit</p>
+              </div>
+            </div>
+            <div className="flex gap-3">
+              <AlertCircle className="h-5 w-5 text-purple-500 flex-shrink-0 mt-0.5" />
+              <div>
+                <p className="font-semibold text-gray-900">Documentation Problems</p>
+                <p className="text-sm text-gray-600">Missing or incorrect paperwork can delay clearance significantly</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-6 p-4 bg-green-50 border border-green-200 rounded-lg">
+            <p className="font-semibold text-green-900 mb-2">How We Help Minimize These Risks:</p>
+            <ul className="space-y-2 text-green-800 text-sm">
+              <li>• Verified agents reduce condition and documentation issues</li>
+              <li>• Accurate calculators prevent budget surprises</li>
+              <li>• Step-by-step guides avoid common mistakes</li>
+              <li>• Real examples show realistic timelines</li>
+              <li>• Document checklists ensure nothing is missed</li>
+            </ul>
+          </div>
+
+          <div className="mt-4 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+            <p className="font-semibold text-blue-900 mb-2">Pro Tips to Avoid Problems:</p>
+            <ul className="space-y-1 text-blue-800 text-sm">
+              <li>• Always budget 15% extra for unexpected costs</li>
+              <li>• Tell people to expect 12 weeks (pleasant surprise if faster)</li>
+              <li>• Use Grade 4+ vehicles for fewer surprises</li>
+              <li>• Work with established agents only</li>
+            </ul>
+          </div>
+        </CardContent>
+      </Card>
+
       {/* Timeline Expectations */}
       <Card>
         <CardHeader className="bg-gradient-to-r from-amber-50 to-orange-50">

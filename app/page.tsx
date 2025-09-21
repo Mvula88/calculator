@@ -225,52 +225,6 @@ export default function HomePage() {
             </CardContent>
           </Card>
 
-          {/* Risks & Reality Check */}
-          <Card className="border-amber-200">
-            <CardHeader className="bg-gradient-to-r from-amber-50 to-orange-50">
-              <CardTitle className="flex items-center gap-2 text-amber-900">
-                <AlertCircle className="h-6 w-6 text-amber-600" />
-                Risks & Reality Check
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="pt-6">
-              <p className="text-gray-700 mb-4">Importing isn't risk-free. Here's what can happen:</p>
-              <div className="grid md:grid-cols-2 gap-4">
-                <div className="flex gap-3">
-                  <AlertCircle className="h-5 w-5 text-red-500 flex-shrink-0 mt-0.5" />
-                  <div>
-                    <p className="font-semibold text-gray-900">Delays (Common)</p>
-                    <p className="text-sm text-gray-600">Can add 2-4 weeks to timeline</p>
-                  </div>
-                </div>
-                <div className="flex gap-3">
-                  <AlertCircle className="h-5 w-5 text-orange-500 flex-shrink-0 mt-0.5" />
-                  <div>
-                    <p className="font-semibold text-gray-900">Hidden Costs</p>
-                    <p className="text-sm text-gray-600">Storage, inspections, exchange rates</p>
-                  </div>
-                </div>
-                <div className="flex gap-3">
-                  <AlertCircle className="h-5 w-5 text-yellow-500 flex-shrink-0 mt-0.5" />
-                  <div>
-                    <p className="font-semibold text-gray-900">Vehicle Condition</p>
-                    <p className="text-sm text-gray-600">May not match description</p>
-                  </div>
-                </div>
-                <div className="flex gap-3">
-                  <AlertCircle className="h-5 w-5 text-red-500 flex-shrink-0 mt-0.5" />
-                  <div>
-                    <p className="font-semibold text-gray-900">Regulatory Changes</p>
-                    <p className="text-sm text-gray-600">Rules can change mid-import</p>
-                  </div>
-                </div>
-              </div>
-              <div className="mt-6 p-4 bg-green-50 border border-green-200 rounded-lg">
-                <p className="font-semibold text-green-900">How We Help:</p>
-                <p className="text-green-800 text-sm">Our platform minimizes these risks with verified agents, accurate calculators, and proven guides.</p>
-              </div>
-            </CardContent>
-          </Card>
         </div>
       </section>
 
