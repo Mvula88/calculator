@@ -78,16 +78,16 @@ export default function HeaderCountrySelector({ country }: HeaderCountrySelector
       {/* Circular Dropdown Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className={`relative flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-r ${currentGradient} text-white rounded-full shadow-xl hover:shadow-2xl transform hover:scale-110 transition-all duration-200 border-2 border-white ring-2 ring-white/30 hover:ring-4 hover:ring-white/40`}
+        className={`relative flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-r ${currentGradient} text-white rounded-full shadow-xl hover:shadow-2xl transform hover:scale-110 transition-all duration-200 border-2 border-white ring-2 ring-white/30 hover:ring-4 hover:ring-white/40`}
       >
         {/* Pulsing indicator for attention */}
-        <div className="absolute -top-1 -right-1 h-4 w-4">
+        <div className="absolute -top-1 -right-1 h-3 w-3">
           <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-yellow-400 opacity-75"></span>
-          <span className="relative inline-flex rounded-full h-4 w-4 bg-yellow-500 border-2 border-white"></span>
+          <span className="relative inline-flex rounded-full h-3 w-3 bg-yellow-500 border-2 border-white"></span>
         </div>
 
         {/* Flag in center */}
-        <span className="text-2xl sm:text-3xl">{current.flag}</span>
+        <span className="text-xl sm:text-2xl">{current.flag}</span>
 
         {/* Small chevron indicator at bottom */}
         <ChevronDown className={`absolute bottom-1 h-3 w-3 text-white/80 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
