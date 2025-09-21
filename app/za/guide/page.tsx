@@ -198,12 +198,8 @@ export default function SouthAfricaGuidePage() {
               </span>
             </h1>
             
-            <p className="text-sm sm:text-base md:text-lg lg:text-xl text-blue-100 mb-4 sm:mb-6 font-light leading-relaxed max-w-2xl sm:max-w-3xl mx-auto px-4">
-              Access <span className="font-bold text-yellow-300">quality vehicles</span> from Japan with our complete import guide.
-            </p>
-            
-            <p className="hidden sm:block text-base md:text-lg text-gray-300 max-w-xl sm:max-w-2xl mx-auto px-4 leading-relaxed">
-              Professional guidance for successful imports through Durban — no experience required.
+            <p className="text-sm sm:text-base md:text-lg lg:text-xl text-white mb-6 sm:mb-8 leading-relaxed bg-black/30 backdrop-blur-sm rounded-lg p-4 max-w-3xl mx-auto">
+              <strong>What we do:</strong> We guide you through every step of importing a quality used car from Japan to South Africa. From finding the right car to driving it home.
             </p>
           </div>
           
