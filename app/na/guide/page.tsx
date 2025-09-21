@@ -53,7 +53,6 @@ import {
   Compass,
   Briefcase
 } from 'lucide-react'
-import CountrySelector from '@/components/CountrySelector'
 import GuideHeader from '@/components/GuideHeader'
 import StockCounter from '@/components/StockCounter'
 import ImportSuccessNotifications from '@/components/PurchaseNotifications'
@@ -167,7 +166,6 @@ export default function NamibiaGuidePage() {
       <ImportSuccessNotifications />
       
       <main className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-50 overflow-x-hidden" itemScope itemType="https://schema.org/Guide">
-      <CountrySelector />
       <GuideHeader 
         country="na" 
         trusted="Real Import Experience, Real Guidance"
