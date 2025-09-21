@@ -26,8 +26,8 @@ import {
   Building,
   Gavel
 } from 'lucide-react'
-import Header from '@/components/header'
-import Footer from '@/components/footer'
+import GuideHeader from '@/components/GuideHeader'
+import Footer from '@/components/Footer'
 import CheckoutButton from '@/components/checkout-button'
 
 export default function HomePage() {
@@ -77,7 +77,7 @@ export default function HomePage() {
 
   return (
     <>
-      <Header />
+      <GuideHeader country="na" />
 
       {/* Hero Section - Clear Value Proposition */}
       <section className="relative bg-gradient-to-b from-blue-50 via-white to-gray-50 pt-20 pb-32 overflow-hidden">
