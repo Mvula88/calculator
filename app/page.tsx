@@ -402,11 +402,11 @@ export default function HomePage() {
                 <CardContent className="pt-6 text-center">
                   <div className="text-4xl mb-3">🇿🇦</div>
                   <h3 className="font-bold text-lg mb-2">South Africa</h3>
-                  <p className="text-sm font-semibold text-blue-600 mb-2">Via Walvis Bay</p>
+                  <p className="text-sm font-semibold text-blue-600 mb-2">Durban / Walvis Bay</p>
                   <div className="text-xs text-gray-600 space-y-1">
-                    <p>✓ Efficient route</p>
-                    <p>✓ Cross-border expertise</p>
-                    <p>✓ Reliable transport</p>
+                    <p>✓ Two port options</p>
+                    <p>✓ Walvis Bay faster</p>
+                    <p>✓ Direct transport home</p>
                   </div>
                   <div className="mt-4 text-green-600 font-semibold">
                     View Guide →
