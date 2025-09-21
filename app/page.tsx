@@ -373,6 +373,8 @@ export default function HomePage() {
                     <li>• Strict inspection system ensures quality</li>
                     <li>• Large selection (50,000+ vehicles daily)</li>
                     <li>• Right-hand drive like Southern Africa</li>
+                    <li>• Competitive prices due to high domestic turnover</li>
+                    <li>• Detailed auction grading and history reports</li>
                   </ul>
                 </div>
                 <div className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
