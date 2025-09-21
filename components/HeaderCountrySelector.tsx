@@ -75,15 +75,22 @@ export default function HeaderCountrySelector({ country }: HeaderCountrySelector
 
   return (
     <div className="relative" ref={dropdownRef}>
-      {/* Dropdown Button - Professional design */}
+      {/* Dropdown Button - More Visible Design */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className={`flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 bg-gradient-to-r ${currentGradient} text-white rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 font-semibold text-xs sm:text-sm border border-white/20`}
+        className={`relative flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2.5 sm:py-3 bg-gradient-to-r ${currentGradient} text-white rounded-xl shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-200 font-bold text-sm sm:text-base border-2 border-white/40 ring-2 ring-white/20 hover:ring-4 hover:ring-white/30`}
       >
-        <span className="text-base sm:text-lg">{current.flag}</span>
+        {/* Pulsing indicator for attention */}
+        <div className="absolute -top-1 -right-1 h-3 w-3">
+          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-yellow-400 opacity-75"></span>
+          <span className="relative inline-flex rounded-full h-3 w-3 bg-yellow-500"></span>
+        </div>
+
+        <Globe className="h-4 w-4 sm:h-5 sm:w-5" />
+        <span className="text-lg sm:text-xl">{current.flag}</span>
         <span className="hidden sm:inline font-bold">{current.name}</span>
         <span className="sm:hidden font-bold">{current.code.toUpperCase()}</span>
-        <ChevronDown className={`h-3.5 w-3.5 sm:h-4 sm:w-4 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+        <ChevronDown className={`h-4 w-4 sm:h-5 sm:w-5 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
       </button>
 
       {/* Dropdown Menu - Professional design */}
