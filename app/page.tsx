@@ -101,7 +101,7 @@ export default function HomePage() {
 
             <h1 className="text-4xl sm:text-6xl font-bold text-white mb-6 drop-shadow-lg">
               Learn How to Import Cars from Japan
-              <span className="block text-blue-300 mt-2 text-2xl sm:text-3xl">Step-by-Step Guide for Southern Africa</span>
+              <span className="block text-yellow-300 mt-2 text-2xl sm:text-3xl">Step-by-Step Guide for Southern Africa</span>
             </h1>
 
             <p className="text-xl text-white mb-8 leading-relaxed bg-black/30 backdrop-blur-sm rounded-lg p-4">
