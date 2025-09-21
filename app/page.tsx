@@ -370,8 +370,12 @@ export default function HomePage() {
               Select Your Country to Start
             </h2>
             <p className="text-xl text-gray-600">
-              View specific requirements and guides for your country
+              View specific import guides for your country
             </p>
+            <div className="mt-4 inline-flex items-center gap-2 bg-blue-100 text-blue-800 px-4 py-2 rounded-full text-sm">
+              <Ship className="h-4 w-4" />
+              <span className="font-semibold">Primary Port: Walvis Bay - Fastest & Most Efficient Route</span>
+            </div>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -380,11 +384,11 @@ export default function HomePage() {
                 <CardContent className="pt-6 text-center">
                   <div className="text-4xl mb-3">🇳🇦</div>
                   <h3 className="font-bold text-lg mb-2">Namibia</h3>
-                  <p className="text-sm text-gray-600 mb-3">Port: Walvis Bay</p>
-                  <div className="text-xs space-y-1">
-                    <p>• 25% customs duty</p>
-                    <p>• 15% VAT</p>
-                    <p>• Environmental levy</p>
+                  <p className="text-sm font-semibold text-blue-600 mb-2">Direct to Walvis Bay</p>
+                  <div className="text-xs text-gray-600 space-y-1">
+                    <p>✓ Home port advantage</p>
+                    <p>✓ Fastest clearance</p>
+                    <p>✓ Local expertise</p>
                   </div>
                   <div className="mt-4 text-blue-600 font-semibold">
                     View Guide →
@@ -398,11 +402,11 @@ export default function HomePage() {
                 <CardContent className="pt-6 text-center">
                   <div className="text-4xl mb-3">🇿🇦</div>
                   <h3 className="font-bold text-lg mb-2">South Africa</h3>
-                  <p className="text-sm text-gray-600 mb-3">Port: Durban</p>
-                  <div className="text-xs space-y-1">
-                    <p>• 25% customs duty</p>
-                    <p>• 15% VAT</p>
-                    <p>• Ad valorem tax</p>
+                  <p className="text-sm font-semibold text-blue-600 mb-2">Via Walvis Bay</p>
+                  <div className="text-xs text-gray-600 space-y-1">
+                    <p>✓ Efficient route</p>
+                    <p>✓ Cross-border expertise</p>
+                    <p>✓ Reliable transport</p>
                   </div>
                   <div className="mt-4 text-green-600 font-semibold">
                     View Guide →
@@ -416,11 +420,11 @@ export default function HomePage() {
                 <CardContent className="pt-6 text-center">
                   <div className="text-4xl mb-3">🇧🇼</div>
                   <h3 className="font-bold text-lg mb-2">Botswana</h3>
-                  <p className="text-sm text-gray-600 mb-3">Via: Walvis Bay/Durban</p>
-                  <div className="text-xs space-y-1">
-                    <p>• 25% customs duty</p>
-                    <p>• 12% VAT</p>
-                    <p>• SACU member</p>
+                  <p className="text-sm font-semibold text-blue-600 mb-2">Via Walvis Bay</p>
+                  <div className="text-xs text-gray-600 space-y-1">
+                    <p>✓ Trans-Kalahari route</p>
+                    <p>✓ Faster than Durban</p>
+                    <p>✓ Lower costs</p>
                   </div>
                   <div className="mt-4 text-yellow-600 font-semibold">
                     View Guide →
@@ -434,11 +438,11 @@ export default function HomePage() {
                 <CardContent className="pt-6 text-center">
                   <div className="text-4xl mb-3">🇿🇲</div>
                   <h3 className="font-bold text-lg mb-2">Zambia</h3>
-                  <p className="text-sm text-gray-600 mb-3">Via: Multiple routes</p>
-                  <div className="text-xs space-y-1">
-                    <p>• Specific duty rates</p>
-                    <p>• 16% VAT</p>
-                    <p>• Excise duty</p>
+                  <p className="text-sm font-semibold text-blue-600 mb-2">Via Walvis Bay</p>
+                  <div className="text-xs text-gray-600 space-y-1">
+                    <p>✓ Katima Mulilo corridor</p>
+                    <p>✓ Shorter transit time</p>
+                    <p>✓ Better port efficiency</p>
                   </div>
                   <div className="mt-4 text-purple-600 font-semibold">
                     View Guide →
@@ -449,9 +453,15 @@ export default function HomePage() {
           </div>
 
           <div className="text-center mt-12">
-            <p className="text-gray-600 mb-4">
-              Not sure which guide to read? Start with Namibia - it has the most comprehensive information.
-            </p>
+            <div className="inline-block p-4 bg-blue-50 border border-blue-200 rounded-lg">
+              <p className="text-blue-900 font-semibold mb-2">Why Walvis Bay Port?</p>
+              <ul className="text-sm text-blue-800 text-left space-y-1">
+                <li>• Less congestion than other ports</li>
+                <li>• Faster vessel turnaround times</li>
+                <li>• Direct shipping lines from Japan</li>
+                <li>• Excellent road connections to all SADC countries</li>
+              </ul>
+            </div>
           </div>
         </div>
       </section>
