@@ -75,22 +75,22 @@ export default function HeaderCountrySelector({ country }: HeaderCountrySelector
 
   return (
     <div className="relative" ref={dropdownRef}>
-      {/* Dropdown Button - More Visible Design */}
+      {/* Circular Dropdown Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className={`relative flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2.5 sm:py-3 bg-gradient-to-r ${currentGradient} text-white rounded-xl shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-200 font-bold text-sm sm:text-base border-2 border-white/40 ring-2 ring-white/20 hover:ring-4 hover:ring-white/30`}
+        className={`relative flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-r ${currentGradient} text-white rounded-full shadow-xl hover:shadow-2xl transform hover:scale-110 transition-all duration-200 border-2 border-white ring-2 ring-white/30 hover:ring-4 hover:ring-white/40`}
       >
         {/* Pulsing indicator for attention */}
-        <div className="absolute -top-1 -right-1 h-3 w-3">
+        <div className="absolute -top-1 -right-1 h-4 w-4">
           <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-yellow-400 opacity-75"></span>
-          <span className="relative inline-flex rounded-full h-3 w-3 bg-yellow-500"></span>
+          <span className="relative inline-flex rounded-full h-4 w-4 bg-yellow-500 border-2 border-white"></span>
         </div>
 
-        <Globe className="h-4 w-4 sm:h-5 sm:w-5" />
-        <span className="text-lg sm:text-xl">{current.flag}</span>
-        <span className="hidden sm:inline font-bold">{current.name}</span>
-        <span className="sm:hidden font-bold">{current.code.toUpperCase()}</span>
-        <ChevronDown className={`h-4 w-4 sm:h-5 sm:w-5 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+        {/* Flag in center */}
+        <span className="text-2xl sm:text-3xl">{current.flag}</span>
+
+        {/* Small chevron indicator at bottom */}
+        <ChevronDown className={`absolute bottom-1 h-3 w-3 text-white/80 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
       </button>
 
       {/* Dropdown Menu - Professional design */}
