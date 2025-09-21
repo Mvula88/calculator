@@ -127,7 +127,7 @@ export default function ContactPage() {
                 <div className="text-sm text-gray-500">Support</div>
               </div>
               <div className="text-center animate-fadeInUp animation-delay-600">
-                <div className="text-3xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">< 2h</div>
+                <div className="text-3xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">&lt;2h</div>
                 <div className="text-sm text-gray-500">Response</div>
               </div>
               <div className="text-center animate-fadeInUp animation-delay-800">
