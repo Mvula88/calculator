@@ -461,7 +461,7 @@ export default function HomePage() {
             <Card className="border-2 hover:border-purple-300 transition-colors">
               <CardHeader>
                 <Users className="h-10 w-10 text-purple-600 mb-3" />
-                <CardTitle>30+ Verified Agents</CardTitle>
+                <CardTitle>Verified Clearing Agents</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-sm text-gray-600">
