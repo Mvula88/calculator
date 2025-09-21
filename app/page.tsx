@@ -25,7 +25,6 @@ import {
   Gavel
 } from 'lucide-react'
 import GuideHeader from '@/components/GuideHeader'
-import Footer from '@/components/Footer'
 import CheckoutButton from '@/components/checkout-button'
 
 export default function HomePage() {
@@ -460,13 +459,13 @@ export default function HomePage() {
                 <li>• Faster vessel turnaround times</li>
                 <li>• Direct shipping lines from Japan</li>
                 <li>• Excellent road connections to all SADC countries</li>
+                <li>• Safe & secure - no car hijackings</li>
+                <li>• Namibia's stable environment</li>
               </ul>
             </div>
           </div>
         </div>
       </section>
-
-      <Footer />
     </>
   )
 }
