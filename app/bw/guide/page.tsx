@@ -185,10 +185,10 @@ export default function BotswanaGuidePage() {
           <div className="text-center mb-8 sm:mb-12">
             <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-black mb-4 sm:mb-6 leading-tight tracking-tight">
               <span className="text-white drop-shadow-2xl block mb-2">
-                Learn How to Import Cars from Japan
+                Learn How to Import Cars
               </span>
               <span className="bg-gradient-to-r from-blue-400 via-sky-400 to-cyan-400 bg-clip-text text-transparent drop-shadow-2xl text-2xl sm:text-3xl">
-                Step-by-Step Guide for Botswana
+                from Japan - Step-by-Step Guide for Botswana
               </span>
             </h1>
             
