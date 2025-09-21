@@ -195,70 +195,35 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8 mb-12">
-            {/* What is Car Importing? */}
-            <Card>
-              <CardHeader className="bg-gradient-to-r from-blue-50 to-purple-50">
-                <CardTitle className="flex items-center gap-2">
-                  <HelpCircle className="h-6 w-6 text-blue-600" />
-                  What is Car Importing?
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="pt-6">
-                <p className="text-gray-700 mb-4">
-                  Car importing means buying a used vehicle from another country (usually Japan) and shipping it to your country.
-                  Instead of buying from local dealers who import cars and add their profit margins, you become the importer.
+          {/* What is Car Importing? - Keep this basic explanation */}
+          <Card className="mb-12">
+            <CardHeader className="bg-gradient-to-r from-blue-50 to-purple-50">
+              <CardTitle className="flex items-center gap-2">
+                <HelpCircle className="h-6 w-6 text-blue-600" />
+                What is Car Importing?
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="pt-6">
+              <p className="text-gray-700 mb-4">
+                Car importing means buying a used vehicle from another country (usually Japan) and shipping it to your country.
+                Instead of buying from local dealers who import cars and add their profit margins, you become the importer.
+              </p>
+              <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                <p className="font-semibold text-green-900 mb-2">Why Japan?</p>
+                <ul className="space-y-2 text-green-800 text-sm">
+                  <li>• Well-maintained vehicles with low mileage</li>
+                  <li>• Strict inspection system ensures quality</li>
+                  <li>• Large selection (50,000+ vehicles daily)</li>
+                  <li>• Right-hand drive like Southern Africa</li>
+                </ul>
+              </div>
+              <div className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                <p className="text-sm text-blue-800">
+                  <strong>Want to learn the import terms and process?</strong> Get full access to our detailed guides, glossary, and tools in the portal.
                 </p>
-                <div className="bg-green-50 border border-green-200 rounded-lg p-4">
-                  <p className="font-semibold text-green-900 mb-2">Why Japan?</p>
-                  <ul className="space-y-2 text-green-800 text-sm">
-                    <li>• Well-maintained vehicles with low mileage</li>
-                    <li>• Strict inspection system ensures quality</li>
-                    <li>• Large selection (50,000+ vehicles daily)</li>
-                    <li>• Right-hand drive like Southern Africa</li>
-                  </ul>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Common Terms Explained */}
-            <Card>
-              <CardHeader className="bg-gradient-to-r from-purple-50 to-pink-50">
-                <CardTitle className="flex items-center gap-2">
-                  <BookOpen className="h-6 w-6 text-purple-600" />
-                  Import Terms Explained
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="pt-6">
-                <div className="space-y-3">
-                  <div className="p-2 bg-gray-50 rounded">
-                    <h4 className="font-semibold text-gray-900 text-sm">FOB Price</h4>
-                    <p className="text-xs text-gray-600">The car's price in Japan (before shipping)</p>
-                  </div>
-                  <div className="p-2 bg-gray-50 rounded">
-                    <h4 className="font-semibold text-gray-900 text-sm">CIF Value</h4>
-                    <p className="text-xs text-gray-600">Car price + shipping + insurance costs</p>
-                  </div>
-                  <div className="p-2 bg-gray-50 rounded">
-                    <h4 className="font-semibold text-gray-900 text-sm">Customs Duty</h4>
-                    <p className="text-xs text-gray-600">Import tax (usually 25% of car value)</p>
-                  </div>
-                  <div className="p-2 bg-gray-50 rounded">
-                    <h4 className="font-semibold text-gray-900 text-sm">VAT</h4>
-                    <p className="text-xs text-gray-600">Sales tax on imported goods (15-16%)</p>
-                  </div>
-                  <div className="p-2 bg-gray-50 rounded">
-                    <h4 className="font-semibold text-gray-900 text-sm">Clearing Agent</h4>
-                    <p className="text-xs text-gray-600">Company that handles customs paperwork</p>
-                  </div>
-                  <div className="p-2 bg-gray-50 rounded">
-                    <h4 className="font-semibold text-gray-900 text-sm">Landed Cost</h4>
-                    <p className="text-xs text-gray-600">Total cost including all fees and taxes</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
+              </div>
+            </CardContent>
+          </Card>
 
           {/* Risks & Reality Check */}
           <Card className="border-amber-200">
