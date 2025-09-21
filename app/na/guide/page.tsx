@@ -637,7 +637,7 @@ export default function NamibiaGuidePage() {
                     size="lg"
                     className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold py-4 text-lg rounded-lg transition-all duration-300 hover:shadow-xl"
                   >
-                    Get Lifetime Access - N$1,999
+                    Get Lifetime Access - N$1,499
                     <Sparkles className="ml-2 h-5 w-5" />
                   </CheckoutButton>
                 </div>
