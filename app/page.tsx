@@ -300,20 +300,6 @@ export default function HomePage() {
               </Card>
             </Link>
           </div>
-
-          <div className="text-center mt-12">
-            <div className="inline-block p-4 bg-blue-50 border border-blue-200 rounded-lg">
-              <p className="text-blue-900 font-semibold mb-2">Why Walvis Bay Port?</p>
-              <ul className="text-sm text-blue-800 text-left space-y-1">
-                <li>• Less congestion than other ports</li>
-                <li>• Faster vessel turnaround times</li>
-                <li>• Direct shipping lines from Japan</li>
-                <li>• Excellent road connections to all SADC countries</li>
-                <li>• Safe & secure - no car hijackings</li>
-                <li>• Namibia's stable environment</li>
-              </ul>
-            </div>
-          </div>
         </div>
       </section>
 
@@ -366,35 +352,81 @@ export default function HomePage() {
             </p>
           </div>
 
-          {/* What is Car Importing? - Keep this basic explanation */}
-          <Card className="mb-12">
-            <CardHeader className="bg-gradient-to-r from-blue-50 to-purple-50">
-              <CardTitle className="flex items-center gap-2">
-                <HelpCircle className="h-6 w-6 text-blue-600" />
-                What is Car Importing?
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="pt-6">
-              <p className="text-gray-700 mb-4">
-                Car importing means buying a used vehicle from another country (usually Japan) and shipping it to your country.
-                Instead of buying from local dealers who import cars and add their profit margins, you become the importer.
-              </p>
-              <div className="bg-green-50 border border-green-200 rounded-lg p-4">
-                <p className="font-semibold text-green-900 mb-2">Why Japan?</p>
-                <ul className="space-y-2 text-green-800 text-sm">
-                  <li>• Well-maintained vehicles with low mileage</li>
-                  <li>• Strict inspection system ensures quality</li>
-                  <li>• Large selection (50,000+ vehicles daily)</li>
-                  <li>• Right-hand drive like Southern Africa</li>
-                </ul>
-              </div>
-              <div className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
-                <p className="text-sm text-blue-800">
-                  <strong>Want to learn the import terms and process?</strong> Get full access to our detailed guides, glossary, and tools in the portal.
+          <div className="grid lg:grid-cols-2 gap-8">
+            {/* Left Column - What is Car Importing? */}
+            <Card className="h-fit">
+              <CardHeader className="bg-gradient-to-r from-blue-50 to-purple-50">
+                <CardTitle className="flex items-center gap-2">
+                  <HelpCircle className="h-6 w-6 text-blue-600" />
+                  What is Car Importing?
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="pt-6">
+                <p className="text-gray-700 mb-4">
+                  Car importing means buying a used vehicle from another country (usually Japan) and shipping it to your country.
+                  Instead of buying from local dealers who import cars and add their profit margins, you become the importer.
                 </p>
-              </div>
-            </CardContent>
-          </Card>
+                <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                  <p className="font-semibold text-green-900 mb-2">Why Japan?</p>
+                  <ul className="space-y-2 text-green-800 text-sm">
+                    <li>• Well-maintained vehicles with low mileage</li>
+                    <li>• Strict inspection system ensures quality</li>
+                    <li>• Large selection (50,000+ vehicles daily)</li>
+                    <li>• Right-hand drive like Southern Africa</li>
+                  </ul>
+                </div>
+                <div className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                  <p className="text-sm text-blue-800">
+                    <strong>Want to learn the import terms and process?</strong> Get full access to our detailed guides, glossary, and tools in the portal.
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Right Column - Why Walvis Bay Port? */}
+            <Card className="h-fit">
+              <CardHeader className="bg-gradient-to-r from-blue-50 to-purple-50">
+                <CardTitle className="flex items-center gap-2">
+                  <Ship className="h-6 w-6 text-blue-600" />
+                  Why Walvis Bay Port?
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="pt-6">
+                <p className="text-gray-700 mb-4">
+                  Walvis Bay Port is the preferred entry point for vehicle imports to Southern Africa, offering significant advantages over other ports.
+                </p>
+                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                  <p className="font-semibold text-blue-900 mb-3">Key Advantages:</p>
+                  <ul className="space-y-3 text-blue-800">
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
+                      <span><strong>Less congestion:</strong> Faster processing than other regional ports</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
+                      <span><strong>Quick turnaround:</strong> Vessels cleared efficiently with minimal delays</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
+                      <span><strong>Direct from Japan:</strong> Regular shipping lines with competitive rates</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
+                      <span><strong>SADC connectivity:</strong> Excellent roads to all neighboring countries</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
+                      <span><strong>Safe & secure:</strong> No car hijackings, stable environment</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
+                      <span><strong>Namibia's stability:</strong> Reliable political and economic environment</span>
+                    </li>
+                  </ul>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
 
         </div>
       </section>
