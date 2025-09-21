@@ -43,7 +43,7 @@ export default function SaleBanner() {
   if (!isVisible) return null
 
   return (
-    <div className="bg-gradient-to-r from-red-600 via-orange-600 to-red-600 text-white relative overflow-hidden">
+    <div className="bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 text-white relative overflow-hidden">
       <div className="absolute inset-0 bg-black/10"></div>
 
       {/* Animated background */}
