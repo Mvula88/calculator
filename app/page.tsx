@@ -355,54 +355,6 @@ export default function HomePage() {
             </Card>
           </div>
 
-          {/* Additional Features */}
-          <div className="grid md:grid-cols-3 gap-6 mb-12">
-            <div className="flex gap-3">
-              <Gavel className="h-6 w-6 text-blue-600 flex-shrink-0" />
-              <div>
-                <h4 className="font-semibold mb-1">Japan Auction Training</h4>
-                <p className="text-sm text-gray-600">Read auction sheets, understand grading, avoid bad deals</p>
-              </div>
-            </div>
-            <div className="flex gap-3">
-              <Ship className="h-6 w-6 text-blue-600 flex-shrink-0" />
-              <div>
-                <h4 className="font-semibold mb-1">Shipping Companies</h4>
-                <p className="text-sm text-gray-600">Container shipping, RoRo, and shared container contacts</p>
-              </div>
-            </div>
-            <div className="flex gap-3">
-              <Building className="h-6 w-6 text-blue-600 flex-shrink-0" />
-              <div>
-                <h4 className="font-semibold mb-1">Government Contacts</h4>
-                <p className="text-sm text-gray-600">NamRA, SARS, BURS, ZRA requirements and contacts</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Platform Value */}
-          <Card className="bg-gradient-to-r from-blue-50 to-purple-50 border-blue-300">
-            <CardContent className="pt-8 pb-8">
-              <div className="text-center">
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">Professional Import Platform</h3>
-                <p className="text-gray-600 mb-4">Complete tools and resources for car importing</p>
-                <div className="space-y-2 text-gray-700">
-                  <p className="flex items-center justify-center gap-2">
-                    <CheckCircle2 className="h-5 w-5 text-green-600" />
-                    Accurate cost calculations
-                  </p>
-                  <p className="flex items-center justify-center gap-2">
-                    <CheckCircle2 className="h-5 w-5 text-green-600" />
-                    Verified agent network
-                  </p>
-                  <p className="flex items-center justify-center gap-2">
-                    <CheckCircle2 className="h-5 w-5 text-green-600" />
-                    Step-by-step guidance
-                  </p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
 
           {/* CTA */}
           <div className="text-center mt-12">
