@@ -75,6 +75,14 @@ export default function PortalPage() {
   // Quick access cards
   const quickAccessCards = [
     {
+      title: '🆕 Beginner Journey',
+      description: 'Complete import process & simple calculator',
+      icon: Zap,
+      href: '/portal/beginner',
+      color: 'bg-yellow-100 text-yellow-600',
+      available: true
+    },
+    {
       title: 'Import Guide',
       description: 'Step-by-step instructions',
       icon: BookOpen,
@@ -92,7 +100,7 @@ export default function PortalPage() {
     },
     {
       title: 'Calculator',
-      description: 'Duty & tax calculator',
+      description: 'Advanced duty calculator',
       icon: Calculator,
       href: '/portal/calculator',
       color: 'bg-purple-100 text-purple-600',

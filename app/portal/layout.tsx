@@ -92,51 +92,57 @@ export default function SimplePortalLayout({
   }
   
   const navigation = [
-    { 
-      name: 'Dashboard', 
-      href: '/portal', 
+    {
+      name: 'Dashboard',
+      href: '/portal',
       icon: Home,
       description: 'Portal overview'
     },
-    { 
-      name: 'Import Guide', 
-      href: '/portal/guide', 
+    {
+      name: 'Beginner Journey',
+      href: '/portal/beginner',
+      icon: BookOpen,
+      description: 'Complete import journey'
+    },
+    {
+      name: 'Import Guide',
+      href: '/portal/guide',
       icon: BookOpen,
       description: 'Step-by-step guide'
     },
-    { 
-      name: 'Documents', 
-      href: '/portal/documents', 
+    {
+      name: 'Documents',
+      href: '/portal/documents',
       icon: FileText,
       description: 'Real import docs'
     },
-    { 
-      name: 'Mastery Tools', 
-      href: '/portal/mastery', 
+    {
+      name: 'Mastery Tools',
+      href: '/portal/mastery',
       icon: Star,
       description: 'Advanced features'
     },
-    { 
-      name: 'Calculator', 
-      href: '/portal/calculator', 
+    {
+      name: 'Calculator',
+      href: '/portal/calculator',
       icon: Calculator,
       description: 'Cost calculator'
     },
-    { 
-      name: 'Japan Auctions', 
-      href: '/portal/japan-auctions', 
+    {
+      name: 'Japan Auctions',
+      href: '/portal/japan-auctions',
       icon: Gavel,
       description: 'Auction guide'
     },
-    { 
-      name: 'Shipping', 
-      href: '/portal/book-slot', 
+    {
+      name: 'Shipping',
+      href: '/portal/book-slot',
       icon: Ship,
       description: 'Shipping companies'
     },
-    { 
-      name: 'Agents', 
-      href: '/portal/agents', 
+    {
+      name: 'Agents',
+      href: '/portal/agents',
       icon: Users,
       description: 'Verified agents'
     },
