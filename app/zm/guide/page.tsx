@@ -6,6 +6,7 @@ import Script from 'next/script'
 import { createClient } from '@/lib/supabase/client'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
+import { GuidePageSkeleton } from '@/components/skeletons/GuidePageSkeleton'
 import {
   CheckCircle,
   AlertTriangle,
@@ -129,6 +130,7 @@ export default function ZambiaGuidePage() {
   const [isLoading, setIsLoading] = useState(false)
   const [user, setUser] = useState<any>(null)
   const [loading, setLoading] = useState(true)
+  const [pageLoading, setPageLoading] = useState(true)
 
   useEffect(() => {
     async function checkUser() {
@@ -138,9 +140,19 @@ export default function ZambiaGuidePage() {
         setUser(user)
       }
       setLoading(false)
+
+      // Simulate page content loading
+      setTimeout(() => {
+        setPageLoading(false)
+      }, 500)
     }
     checkUser()
   }, [])
+
+  // Show skeleton while loading
+  if (pageLoading) {
+    return <GuidePageSkeleton />
+  }
 
   return (
     <>

@@ -10,6 +10,7 @@ import { Label } from '@/components/ui/label'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { Alert, AlertDescription } from '@/components/ui/alert'
 import { AlertTriangle, Mail, Lock, Loader2, Eye, EyeOff } from 'lucide-react'
+import { AuthSkeleton } from '@/components/skeletons/AuthSkeleton'
 
 function LoginForm() {
   const router = useRouter()
@@ -246,14 +247,7 @@ function LoginForm() {
 
 export default function LoginPage() {
   return (
-    <Suspense fallback={
-      <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white flex items-center justify-center px-4">
-        <div className="text-center">
-          <Loader2 className="h-8 w-8 animate-spin text-primary mx-auto" />
-          <p className="mt-2 text-gray-600">Loading...</p>
-        </div>
-      </div>
-    }>
+    <Suspense fallback={<AuthSkeleton />}>
       <LoginForm />
     </Suspense>
   )
