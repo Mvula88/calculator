@@ -7,6 +7,7 @@ import ConditionalFooter from '@/components/ConditionalFooter'
 import ScrollToTop from '@/components/ScrollToTop'
 import SaleBanner from '@/components/SaleBanner'
 import ExitIntentPopup from '@/components/ExitIntentPopup'
+import { Toaster } from '@/components/ui/sonner'
 import './globals.css'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -48,6 +49,7 @@ export default function RootLayout({
           </div>
           <ScrollToTop />
           <ExitIntentPopup />
+          <Toaster richColors closeButton position="top-center" />
         </ErrorBoundary>
       </body>
     </html>
