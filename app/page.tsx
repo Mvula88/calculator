@@ -5,6 +5,15 @@ import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from '@/components/ui/alert-dialog'
+import {
   ArrowRight,
   Calculator,
   FileText,
@@ -31,6 +40,8 @@ export default function HomePage() {
   const [showBeginnerQuiz, setShowBeginnerQuiz] = useState(false)
   const [quizScore, setQuizScore] = useState(0)
   const [currentQuestion, setCurrentQuestion] = useState(0)
+  const [showResultDialog, setShowResultDialog] = useState(false)
+  const [quizResult, setQuizResult] = useState<'ready' | 'not-ready'>('ready')
 
   const beginnerQuiz = [
     {
@@ -65,10 +76,11 @@ export default function HomePage() {
       // Quiz complete
       setShowBeginnerQuiz(false)
       if (newScore >= 3) {
-        alert("Great! You appear ready for importing. Access our complete platform to get started.")
+        setQuizResult('ready')
       } else {
-        alert("Consider learning more about importing first. Our platform provides comprehensive guides and verified agent contacts to help you.")
+        setQuizResult('not-ready')
       }
+      setShowResultDialog(true)
     }
   }
 
@@ -191,6 +203,71 @@ export default function HomePage() {
         </div>
       )}
 
+      {/* Quiz Result Dialog */}
+      <AlertDialog open={showResultDialog} onOpenChange={setShowResultDialog}>
+        <AlertDialogContent className="max-w-md">
+          <AlertDialogHeader>
+            <AlertDialogTitle className="text-2xl">
+              {quizResult === 'ready' ? '🎉 Great! You\'re Ready to Import!' : '📚 Let\'s Build Your Knowledge First'}
+            </AlertDialogTitle>
+            <AlertDialogDescription className="text-base pt-4">
+              {quizResult === 'ready' ? (
+                <div className="space-y-3">
+                  <p>Based on your answers, you appear ready to start importing vehicles from Japan.</p>
+                  <p className="font-semibold">Get instant access to:</p>
+                  <ul className="list-disc list-inside space-y-1 text-sm">
+                    <li>Professional duty calculator</li>
+                    <li>Step-by-step import guides</li>
+                    <li>Verified clearing agents directory</li>
+                    <li>Japan auction training materials</li>
+                  </ul>
+                </div>
+              ) : (
+                <div className="space-y-3">
+                  <p>Importing requires preparation and knowledge. Our platform will help you get ready.</p>
+                  <p className="font-semibold">You'll learn:</p>
+                  <ul className="list-disc list-inside space-y-1 text-sm">
+                    <li>Import costs and budgeting</li>
+                    <li>Required documentation</li>
+                    <li>Timeline and process</li>
+                    <li>How to work with agents</li>
+                  </ul>
+                </div>
+              )}
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter className="flex-col sm:flex-row gap-2">
+            {quizResult === 'ready' ? (
+              <>
+                <AlertDialogAction asChild>
+                  <Link href="#get-access" className="w-full sm:w-auto">
+                    <Button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700">
+                      Get Access Now
+                    </Button>
+                  </Link>
+                </AlertDialogAction>
+                <AlertDialogAction variant="outline" className="w-full sm:w-auto">
+                  Learn More First
+                </AlertDialogAction>
+              </>
+            ) : (
+              <>
+                <AlertDialogAction asChild>
+                  <Link href="#import-basics" className="w-full sm:w-auto">
+                    <Button className="w-full">
+                      Learn Import Basics
+                    </Button>
+                  </Link>
+                </AlertDialogAction>
+                <AlertDialogAction variant="outline" className="w-full sm:w-auto">
+                  Close
+                </AlertDialogAction>
+              </>
+            )}
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+
       {/* Import Basics - Minimal Education */}
       <section id="import-basics" className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -237,7 +314,7 @@ export default function HomePage() {
       </section>
 
       {/* What's Included - Clear Value Proposition */}
-      <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
+      <section id="get-access" className="py-20 bg-gradient-to-b from-gray-50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">
