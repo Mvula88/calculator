@@ -1,10 +1,11 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { toast } from 'sonner'
+import { LandingPageSkeleton } from '@/components/skeletons/LandingPageSkeleton'
 import {
   ArrowRight,
   Calculator,
@@ -32,6 +33,15 @@ export default function HomePage() {
   const [showBeginnerQuiz, setShowBeginnerQuiz] = useState(false)
   const [quizScore, setQuizScore] = useState(0)
   const [currentQuestion, setCurrentQuestion] = useState(0)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    // Simulate initial page load
+    const timer = setTimeout(() => {
+      setLoading(false)
+    }, 500)
+    return () => clearTimeout(timer)
+  }, [])
 
   const beginnerQuiz = [
     {
@@ -127,6 +137,11 @@ export default function HomePage() {
         )
       }
     }
+  }
+
+  // Show skeleton while loading
+  if (loading) {
+    return <LandingPageSkeleton />
   }
 
   return (

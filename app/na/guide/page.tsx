@@ -7,6 +7,7 @@ import Script from 'next/script'
 import { Button } from '@/components/ui/button'
 import CheckoutButton from '@/components/checkout-button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { GuidePageSkeleton } from '@/components/skeletons/GuidePageSkeleton'
 import {
   CheckCircle,
   AlertTriangle,
@@ -129,6 +130,7 @@ export default function NamibiaGuidePage() {
   const [user, setUser] = useState<any>(null)
   const [entitlement, setEntitlement] = useState<any>(null)
   const [loading, setLoading] = useState(true)
+  const [pageLoading, setPageLoading] = useState(true)
 
   useEffect(() => {
     async function checkUser() {
@@ -150,6 +152,11 @@ export default function NamibiaGuidePage() {
       }
 
       setLoading(false)
+
+      // Simulate page content loading
+      setTimeout(() => {
+        setPageLoading(false)
+      }, 500)
     }
 
     checkUser()
@@ -157,11 +164,16 @@ export default function NamibiaGuidePage() {
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null)
   const [isLoading, setIsLoading] = useState(false)
 
+  // Show skeleton while loading
+  if (pageLoading) {
+    return <GuidePageSkeleton />
+  }
+
   return (
     <>
       {/* Hidden H1 for SEO */}
       <h1 className="sr-only">Import Cars from Japan to Namibia 2024 - Complete Walvis Bay Port Guide | Save N$65,000</h1>
-      
+
       {/* Purchase Notifications */}
       <ImportSuccessNotifications />
       
