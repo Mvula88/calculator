@@ -27,6 +27,23 @@ export async function POST(req: NextRequest) {
       .eq('email', normalizedEmail)
       .eq('active', true)
 
+    // Also check for common typo: @email.com vs @gmail.com
+    let additionalCheck = null
+    if (normalizedEmail.includes('@gmail.com')) {
+      const emailVariant = normalizedEmail.replace('@gmail.com', '@email.com')
+      const { data } = await supabase
+        .from('entitlements')
+        .select('id, email, active, tier, country')
+        .eq('email', emailVariant)
+        .eq('active', true)
+      additionalCheck = data
+    }
+
+    const allEntitlements = [
+      ...(existingEntitlements || []),
+      ...(additionalCheck || [])
+    ]
+
     if (error && error.code !== 'PGRST116') {
       console.error('[EMAIL CHECK STRICT] Database error:', error)
       return NextResponse.json(
@@ -35,12 +52,13 @@ export async function POST(req: NextRequest) {
       )
     }
 
-    const exists = existingEntitlements && existingEntitlements.length > 0
+    const exists = allEntitlements && allEntitlements.length > 0
 
     console.log('[EMAIL CHECK STRICT RESULT]', {
       email: normalizedEmail,
       hasActiveEntitlement: exists,
-      entitlementCount: existingEntitlements?.length || 0
+      entitlementCount: allEntitlements?.length || 0,
+      foundEmails: allEntitlements?.map(e => e.email) || []
     })
 
     return NextResponse.json({
@@ -50,7 +68,8 @@ export async function POST(req: NextRequest) {
         : null,
       debug: {
         method: 'strict_entitlements_only',
-        foundCount: existingEntitlements?.length || 0
+        foundCount: allEntitlements?.length || 0,
+        foundEmails: allEntitlements?.map(e => e.email) || []
       }
     })
 
