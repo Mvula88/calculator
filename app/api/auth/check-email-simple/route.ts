@@ -15,46 +15,66 @@ export async function POST(req: NextRequest) {
     const supabase = await createClient()
     const normalizedEmail = email.toLowerCase().trim()
 
-    console.log('Checking email:', normalizedEmail)
+    console.log('[EMAIL CHECK] Checking email:', normalizedEmail)
 
     // Only check the entitlements table - this is our source of truth
     // If someone has an active entitlement, they've already paid
-    const { data: existingEntitlement, error } = await supabase
+    const { data: existingEntitlements, error, count } = await supabase
       .from('entitlements')
-      .select('id, email, active, tier, country')
+      .select('id, email, active, tier, country, created_at', { count: 'exact' })
       .eq('email', normalizedEmail)
       .eq('active', true)
-      .limit(1)
-      .maybeSingle()
 
-    if (error && error.code !== 'PGRST116') {
-      console.error('Database error checking email:', error)
-      return NextResponse.json(
-        { error: 'Failed to check email' },
-        { status: 500 }
-      )
+    if (error) {
+      console.error('[EMAIL CHECK ERROR] Database error:', {
+        error: error.message,
+        code: error.code,
+        details: error.details,
+        hint: error.hint
+      })
+
+      // Don't fail silently - if we can't check, we should block payment to be safe
+      if (error.code !== 'PGRST116') { // PGRST116 is "not found" which is ok
+        return NextResponse.json(
+          {
+            error: 'Cannot verify email status. Please try again or contact support.',
+            debugInfo: {
+              code: error.code,
+              message: error.message
+            }
+          },
+          { status: 500 }
+        )
+      }
     }
 
-    const exists = !!existingEntitlement
+    const exists = existingEntitlements && existingEntitlements.length > 0
 
-    console.log('Email check result:', {
+    console.log('[EMAIL CHECK RESULT]', {
       email: normalizedEmail,
       exists,
-      entitlement: existingEntitlement ? {
-        tier: existingEntitlement.tier,
-        country: existingEntitlement.country
-      } : null
+      count: count || 0,
+      entitlements: existingEntitlements?.map(e => ({
+        id: e.id,
+        tier: e.tier,
+        country: e.country,
+        created: e.created_at
+      }))
     })
 
     return NextResponse.json({
       exists,
       message: exists
-        ? 'You have already purchased a guide with this email. Please login to access your portal.'
+        ? 'You have already purchased a guide with this email. Please login to access your portal to avoid duplicate payments.'
         : null,
-      entitlement: exists ? {
-        tier: existingEntitlement.tier,
-        country: existingEntitlement.country
-      } : null
+      entitlement: exists && existingEntitlements[0] ? {
+        tier: existingEntitlements[0].tier,
+        country: existingEntitlements[0].country
+      } : null,
+      debug: {
+        emailChecked: normalizedEmail,
+        foundCount: existingEntitlements?.length || 0
+      }
     })
 
   } catch (error) {

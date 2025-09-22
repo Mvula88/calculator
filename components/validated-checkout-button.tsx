@@ -32,7 +32,7 @@ export default function ValidatedCheckoutButton({
   const [showEmailInput, setShowEmailInput] = useState(false)
   const [checkingEmail, setCheckingEmail] = useState(false)
 
-  async function checkEmailExists(emailToCheck: string): Promise<boolean> {
+  async function checkEmailExists(emailToCheck: string): Promise<{ exists: boolean; message?: string; error?: string }> {
     try {
       const res = await fetch('/api/auth/check-email-simple', {
         method: 'POST',
@@ -41,11 +41,26 @@ export default function ValidatedCheckoutButton({
       })
 
       const data = await res.json()
-      console.log('Email check response:', data)
-      return data.exists
+      console.log('[ValidatedCheckoutButton] Email check response:', data)
+
+      if (data.error) {
+        console.error('[ValidatedCheckoutButton] API Error:', data.error)
+        return {
+          exists: false,
+          error: data.error
+        }
+      }
+
+      return {
+        exists: data.exists,
+        message: data.message
+      }
     } catch (error) {
-      console.error('Error checking email:', error)
-      return false
+      console.error('[ValidatedCheckoutButton] Network error checking email:', error)
+      return {
+        exists: false,
+        error: 'Network error. Please check your connection and try again.'
+      }
     }
   }
 
@@ -77,11 +92,18 @@ export default function ValidatedCheckoutButton({
     setEmailError('')
 
     // Check if email already exists
-    const emailExists = await checkEmailExists(email)
+    const checkResult = await checkEmailExists(email)
 
     setCheckingEmail(false)
 
-    if (emailExists) {
+    // Handle API errors
+    if (checkResult.error) {
+      setEmailError(checkResult.error)
+      return
+    }
+
+    // If email exists, show warning
+    if (checkResult.exists) {
       setEmailError('exists')
       return
     }
@@ -177,6 +199,30 @@ export default function ValidatedCheckoutButton({
                     }}
                   >
                     Use Different Email
+                  </Button>
+                </div>
+              </AlertDescription>
+            </Alert>
+          ) : emailError && emailError.includes('Cannot verify') ? (
+            <Alert className="bg-yellow-50 border-yellow-200">
+              <AlertTriangle className="h-4 w-4 text-yellow-600" />
+              <AlertDescription className="text-yellow-800">
+                <strong>Verification Issue</strong>
+                <p className="mt-2">{emailError}</p>
+                <p className="mt-2 text-sm">
+                  To avoid duplicate payments, please check if you already have an account by trying to login first.
+                </p>
+                <div className="mt-3 flex gap-2">
+                  <Link href={`/auth/login?email=${encodeURIComponent(email)}`}>
+                    <Button size="sm" variant="outline">
+                      Try Login First
+                    </Button>
+                  </Link>
+                  <Button
+                    size="sm"
+                    onClick={() => handleEmailSubmit()}
+                  >
+                    Retry Check
                   </Button>
                 </div>
               </AlertDescription>
