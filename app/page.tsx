@@ -27,7 +27,7 @@ import {
   Gavel
 } from 'lucide-react'
 import GuideHeader from '@/components/GuideHeader'
-import CheckoutButton from '@/components/checkout-button'
+import ValidatedCheckoutButton from '@/components/validated-checkout-button'
 
 export default function HomePage() {
   const [showBeginnerQuiz, setShowBeginnerQuiz] = useState(false)
@@ -227,7 +227,7 @@ export default function HomePage() {
       </section>
 
       {/* Choose Your Country */}
-      <section className="py-20 bg-white">
+      <section id="countries" className="py-20 bg-white scroll-mt-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">
@@ -513,7 +513,7 @@ export default function HomePage() {
 
           {/* CTA */}
           <div className="text-center mt-12">
-            <CheckoutButton
+            <ValidatedCheckoutButton
               tier="mastery"
               country="na"
               size="lg"
@@ -522,7 +522,7 @@ export default function HomePage() {
               <Sparkles className="mr-2 h-5 w-5" />
               Get Lifetime Access - N$1,499
               <ArrowRight className="ml-2 h-5 w-5" />
-            </CheckoutButton>
+            </ValidatedCheckoutButton>
             <p className="text-sm text-gray-600 mt-4">
               One-time payment • Instant access • Regular updates
             </p>

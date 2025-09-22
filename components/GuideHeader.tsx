@@ -92,7 +92,7 @@ export default function GuideHeader({
                   </Button>
                 </Link>
 
-                <a href="#pricing" className="group">
+                <Link href="/#countries" className="group">
                   <Button
                     size="sm"
                     className={`font-bold text-sm px-4 py-2 bg-gradient-to-r ${currentGradient} shadow-lg group-hover:scale-105 transition-all duration-300`}
@@ -101,7 +101,7 @@ export default function GuideHeader({
                     Get Started
                     <Sparkles className="ml-2 h-3 w-3 group-hover:rotate-12 transition-transform" />
                   </Button>
-                </a>
+                </Link>
               </>
             )}
 
