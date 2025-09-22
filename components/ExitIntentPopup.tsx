@@ -5,6 +5,7 @@ import { X, Clock, Sparkles, ArrowRight, CheckCircle2, Lock } from 'lucide-react
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
+import ValidatedCheckoutButton from '@/components/validated-checkout-button'
 
 export default function ExitIntentPopup() {
   const [isVisible, setIsVisible] = useState(false)
@@ -187,12 +188,14 @@ export default function ExitIntentPopup() {
 
             {/* Action Buttons */}
             <div className="space-y-3 pt-2">
-              <Link href="/purchase" onClick={handleClose}>
-                <Button className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold py-6 text-base shadow-lg hover:shadow-xl transition-all duration-200 group">
-                  <span>Get Instant Access</span>
-                  <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                </Button>
-              </Link>
+              <ValidatedCheckoutButton
+                tier="mastery"
+                country="na"
+                className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold py-6 text-base shadow-lg hover:shadow-xl transition-all duration-200 group"
+              >
+                <span>Get Instant Access</span>
+                <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+              </ValidatedCheckoutButton>
 
               <button
                 onClick={handleClose}
