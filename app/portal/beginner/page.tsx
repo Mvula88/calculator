@@ -284,7 +284,7 @@ export default function BeginnerGuidePage() {
                   <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
                 ))}
               </div>
-              <h4 className="font-bold mb-2">2015 AUDI A5 QUOTTRO 2.0L</h4>
+              <h4 className="font-bold mb-2">2015 AUDI A5 QUATTRO 2.0L</h4>
               <div className="space-y-1 text-sm">
                 <p><span className="text-gray-600">Japan Auction price (JPY 231,000)</span> <span className="font-semibold">N$ 27,012.22</span></p>
                 <p><span className="text-gray-600">Japan side costs (JPY 124,440)</span> <span className="font-semibold">N$ 14,551.52</span></p>
@@ -295,7 +295,7 @@ export default function BeginnerGuidePage() {
                 <p className="pl-4"><span className="text-gray-600">• ADV</span> <span className="font-semibold">N$ 653.93</span></p>
                 <p className="pl-4"><span className="text-gray-600">• VAT</span> <span className="font-semibold">N$ 7,169.33</span></p>
                 <div className="pt-2 mt-2 border-t">
-                  <p className="text-blue-600 font-bold">TOTAL LANDED COST FOR 2015 AUDI A5 QUOTTRO 2.0L: N$ 80,229.85</p>
+                  <p className="text-blue-600 font-bold">TOTAL LANDED COST FOR 2015 AUDI A5 QUATTRO 2.0L: N$ 80,229.85</p>
                   <p className="text-xs text-gray-500">Timeline: 2-3 months</p>
                 </div>
               </div>
@@ -309,7 +309,7 @@ export default function BeginnerGuidePage() {
                   <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
                 ))}
               </div>
-              <h4 className="font-bold mb-2">2012 AUDI A4 QUOTTRO 2.0L</h4>
+              <h4 className="font-bold mb-2">2012 AUDI A4 QUATTRO 2.0L</h4>
               <div className="space-y-1 text-sm">
                 <p><span className="text-gray-600">Japan Auction price (JPY 200,000)</span> <span className="font-semibold">N$ 23,387.20</span></p>
                 <p><span className="text-gray-600">Japan side costs (JPY 123,560)</span> <span className="font-semibold">N$ 14,448.61</span></p>
@@ -320,7 +320,7 @@ export default function BeginnerGuidePage() {
                 <p className="pl-4"><span className="text-gray-600">• ADV</span> <span className="font-semibold">N$ 504.46</span></p>
                 <p className="pl-4"><span className="text-gray-600">• VAT</span> <span className="font-semibold">N$ 6,526.30</span></p>
                 <div className="pt-2 mt-2 border-t">
-                  <p className="text-blue-600 font-bold">TOTAL LANDED COST FOR 2012 AUDI A4 QUOTTRO 2.0L: N$ 74,735.13</p>
+                  <p className="text-blue-600 font-bold">TOTAL LANDED COST FOR 2012 AUDI A4 QUATTRO 2.0L: N$ 74,735.13</p>
                   <p className="text-xs text-gray-500">Timeline: 2-3 months</p>
                 </div>
               </div>
