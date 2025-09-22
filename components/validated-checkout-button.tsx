@@ -34,7 +34,8 @@ export default function ValidatedCheckoutButton({
 
   async function checkEmailExists(emailToCheck: string): Promise<{ exists: boolean; message?: string; error?: string }> {
     try {
-      const res = await fetch('/api/auth/check-email-simple', {
+      // Use the improved auth check endpoint
+      const res = await fetch('/api/auth/check-email-auth', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: emailToCheck })
@@ -45,21 +46,25 @@ export default function ValidatedCheckoutButton({
 
       if (data.error) {
         console.error('[ValidatedCheckoutButton] API Error:', data.error)
+        // Don't return false on error - be safe and assume account might exist
         return {
-          exists: false,
-          error: data.error
+          exists: true,
+          error: 'Unable to verify email. To avoid duplicate payments, please try logging in first.',
+          message: 'Unable to verify email. To avoid duplicate payments, please try logging in first.'
         }
       }
 
       return {
         exists: data.exists,
-        message: data.message
+        message: data.message || (data.exists ? 'An account with this email already exists.' : null)
       }
     } catch (error) {
       console.error('[ValidatedCheckoutButton] Network error checking email:', error)
+      // On network error, be safe and suggest login
       return {
-        exists: false,
-        error: 'Network error. Please check your connection and try again.'
+        exists: true,
+        error: 'Connection error. Please try logging in first to avoid duplicate payments.',
+        message: 'Connection error. Please try logging in first to avoid duplicate payments.'
       }
     }
   }
