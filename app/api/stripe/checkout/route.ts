@@ -23,14 +23,14 @@ function normalizeCountry(country: string): 'na' | 'za' | 'bw' | 'zm' {
 export async function POST(req: NextRequest) {
   // Rate limiting
   const rateLimitResult = await paymentRateLimit(req)
-  
+
   if (!rateLimitResult.success) {
     return NextResponse.json(
-      { 
+      {
         error: 'Too many requests. Please try again later.',
-        retryAfter: rateLimitResult.reset 
+        retryAfter: rateLimitResult.reset
       },
-      { 
+      {
         status: 429,
         headers: {
           'X-RateLimit-Limit': rateLimitResult.limit.toString(),
@@ -40,17 +40,39 @@ export async function POST(req: NextRequest) {
       }
     )
   }
-  
+
   try {
     const body = await req.json()
     const { country, tier, productId, email, isUpgrade } = body
-    
+
     console.log('Checkout request:', { country, tier, productId, email })
-    
+
     // Validate tier - default to mastery
     const validTier = tier === 'mastery' ? 'mastery' : 'mastery'
-    
-    // Email is optional - Stripe will collect it if not provided
+
+    // If email is provided, check if user already exists
+    if (email) {
+      const supabase = await createClient()
+
+      // Check if user exists with this email in users table
+      const { data: existingUser } = await supabase
+        .from('users')
+        .select('id, email')
+        .eq('email', email.toLowerCase())
+        .maybeSingle()
+
+      if (existingUser) {
+        console.log('User already exists with email:', email)
+        return NextResponse.json(
+          {
+            error: 'Account already exists',
+            message: 'An account with this email already exists. Please login to access your portal.',
+            redirectTo: `/auth/login?email=${encodeURIComponent(email)}`
+          },
+          { status: 400 }
+        )
+      }
+    }
     
     // Normalize country
     const normalizedCountry = normalizeCountry(country || 'na')

@@ -5,7 +5,7 @@ import { createClient } from '@/lib/supabase/client'
 import Link from 'next/link'
 import Script from 'next/script'
 import { Button } from '@/components/ui/button'
-import CheckoutButton from '@/components/checkout-button'
+import ValidatedCheckoutButton from '@/components/validated-checkout-button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { GuidePageSkeleton } from '@/components/skeletons/GuidePageSkeleton'
 import {
@@ -640,7 +640,7 @@ export default function NamibiaGuidePage() {
                   </li>
                 </ul>
                 <div className="pt-6">
-                  <CheckoutButton
+                  <ValidatedCheckoutButton
                     tier="mastery"
                     country="na"
                     size="lg"
@@ -648,7 +648,7 @@ export default function NamibiaGuidePage() {
                   >
                     Get Lifetime Access - N$1,499
                     <Sparkles className="ml-2 h-5 w-5" />
-                  </CheckoutButton>
+                  </ValidatedCheckoutButton>
                 </div>
               </CardContent>
             </Card>
