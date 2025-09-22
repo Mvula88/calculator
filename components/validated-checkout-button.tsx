@@ -34,8 +34,8 @@ export default function ValidatedCheckoutButton({
 
   async function checkEmailExists(emailToCheck: string): Promise<{ exists: boolean; message?: string; error?: string }> {
     try {
-      // Use the improved auth check endpoint
-      const res = await fetch('/api/auth/check-email-auth', {
+      // Use strict check - ONLY checks entitlements table, not auth
+      const res = await fetch('/api/auth/check-email-strict', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: emailToCheck })
