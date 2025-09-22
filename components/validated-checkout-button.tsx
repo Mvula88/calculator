@@ -34,13 +34,14 @@ export default function ValidatedCheckoutButton({
 
   async function checkEmailExists(emailToCheck: string): Promise<boolean> {
     try {
-      const res = await fetch('/api/auth/check-email', {
+      const res = await fetch('/api/auth/check-email-simple', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: emailToCheck })
       })
 
       const data = await res.json()
+      console.log('Email check response:', data)
       return data.exists
     } catch (error) {
       console.error('Error checking email:', error)

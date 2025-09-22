@@ -53,21 +53,23 @@ export async function POST(req: NextRequest) {
     // If email is provided, check if user already exists
     if (email) {
       const supabase = await createClient()
+      const normalizedEmail = email.toLowerCase().trim()
 
-      // Check if user exists with this email in users table
-      const { data: existingUser } = await supabase
-        .from('users')
-        .select('id, email')
-        .eq('email', email.toLowerCase())
+      // Check if user already has an active entitlement (already purchased)
+      const { data: existingEntitlement } = await supabase
+        .from('entitlements')
+        .select('id, email, active')
+        .eq('email', normalizedEmail)
+        .eq('active', true)
         .maybeSingle()
 
-      if (existingUser) {
-        console.log('User already exists with email:', email)
+      if (existingEntitlement) {
+        console.log('User already has active entitlement with email:', normalizedEmail)
         return NextResponse.json(
           {
             error: 'Account already exists',
-            message: 'An account with this email already exists. Please login to access your portal.',
-            redirectTo: `/auth/login?email=${encodeURIComponent(email)}`
+            message: 'You have already purchased a guide with this email. Please login to access your portal.',
+            redirectTo: `/auth/login?email=${encodeURIComponent(normalizedEmail)}`
           },
           { status: 400 }
         )

@@ -13,33 +13,48 @@ export async function POST(req: NextRequest) {
     }
 
     const supabase = await createClient()
+    const normalizedEmail = email.toLowerCase().trim()
 
-    // Check if user exists with this email
-    const { data: existingUser, error } = await supabase
-      .from('users')
-      .select('id, email')
-      .eq('email', email.toLowerCase())
+    // Check if user exists in entitlements table (this is our source of truth)
+    const { data: existingEntitlement, error: entitlementError } = await supabase
+      .from('entitlements')
+      .select('id, email, active')
+      .eq('email', normalizedEmail)
+      .eq('active', true)
       .maybeSingle()
 
-    if (error && error.code !== 'PGRST116') {
-      console.error('Database error checking email:', error)
-      return NextResponse.json(
-        { error: 'Failed to check email' },
-        { status: 500 }
-      )
+    if (entitlementError && entitlementError.code !== 'PGRST116') {
+      console.error('Database error checking entitlements:', entitlementError)
     }
 
-    // Also check auth.users table for complete verification
-    const { data: authData, error: authError } = await supabase.auth.admin.listUsers()
+    // Also check if user exists in auth system
     let userExistsInAuth = false
+    try {
+      const { data: { user } } = await supabase.auth.getUser()
 
-    if (!authError && authData?.users) {
-      userExistsInAuth = authData.users.some(
-        user => user.email?.toLowerCase() === email.toLowerCase()
-      )
+      // Try to sign in with just the email to see if account exists
+      // This won't actually sign them in without password, but tells us if account exists
+      const { error: signInError } = await supabase.auth.signInWithOtp({
+        email: normalizedEmail,
+        options: {
+          shouldCreateUser: false
+        }
+      })
+
+      // If error includes "User not found" or similar, account doesn't exist
+      // If no error or different error, account likely exists
+      userExistsInAuth = !signInError || !signInError.message?.includes('not found')
+    } catch (authCheckError) {
+      console.log('Auth check error (expected):', authCheckError)
     }
 
-    const exists = !!(existingUser || userExistsInAuth)
+    const exists = !!(existingEntitlement || userExistsInAuth)
+
+    console.log('Email check for:', normalizedEmail, {
+      hasEntitlement: !!existingEntitlement,
+      hasAuthAccount: userExistsInAuth,
+      exists
+    })
 
     return NextResponse.json({
       exists,
