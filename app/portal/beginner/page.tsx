@@ -74,14 +74,14 @@ export default function BeginnerGuidePage() {
             <div className="flex gap-4">
               <div className="flex-shrink-0 w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold">3</div>
               <div>
-                <h4 className="font-semibold mb-1">Ocean Shipping (Week 3-6)</h4>
+                <h4 className="font-semibold mb-1">Ocean Shipping (2-3 Months)</h4>
                 <p className="text-gray-600">Vehicle loaded on ship at Japanese port, sails to African port</p>
-                <p className="text-sm text-blue-600 mt-1">Budget needed: N$18,500-25,000 shipping costs</p>
+                <p className="text-sm text-blue-600 mt-1">Budget needed: N$15,000-20,000 shipping costs</p>
                 <div className="mt-2 p-3 bg-blue-50 rounded text-sm">
                   <p className="font-semibold mb-1">What happens:</p>
                   <ul className="space-y-1 text-gray-700">
                     <li>• Loading at Japanese port (Yokohama/Nagoya)</li>
-                    <li>• 21-30 day ocean voyage</li>
+                    <li>• 2-3 months total shipping time (includes transit & handling)</li>
                     <li>• Arrival at African port (Walvis Bay/Durban)</li>
                     <li>• Port handling and unloading</li>
                   </ul>
@@ -221,12 +221,12 @@ export default function BeginnerGuidePage() {
         </CardContent>
       </Card>
 
-      {/* Success Stories */}
+      {/* Success Stories - Real Vehicle Import Examples */}
       <div className="mb-8">
         <h2 className="text-2xl font-bold text-gray-900 mb-6">
-          Real Import Success Stories
+          Real Vehicle Import Examples - Actual Costs Breakdown
         </h2>
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-2 gap-6">
           <Card>
             <CardContent className="pt-6">
               <div className="flex items-center gap-2 mb-3">
@@ -234,17 +234,23 @@ export default function BeginnerGuidePage() {
                   <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
                 ))}
               </div>
-              <h4 className="font-bold mb-2">2019 Toyota Hilux Double Cab</h4>
+              <h4 className="font-bold mb-2">2015 Golf 7R 2.0L Turbo</h4>
               <div className="space-y-1 text-sm">
-                <p><span className="text-gray-600">Japan Auction Price:</span> <span className="font-semibold">¥1,800,000</span></p>
-                <p><span className="text-gray-600">Total Landed Cost:</span> <span className="font-semibold">N$320,000</span></p>
-                <p><span className="text-gray-600">Local Dealer Price:</span> <span className="font-semibold">N$485,000</span></p>
+                <p className="font-semibold text-gray-700 mb-2">Cost Breakdown:</p>
+                <p><span className="text-gray-600">FOB Price Japan:</span> <span className="font-semibold">N$ 23,100.00</span></p>
+                <p><span className="text-gray-600">Marine Insurance:</span> <span className="font-semibold">N$ 416.16</span></p>
+                <p><span className="text-gray-600">Sea Freight:</span> <span className="font-semibold">N$ 18,000.00</span></p>
+                <p><span className="text-gray-600">Auctioneer Commission:</span> <span className="font-semibold">N$ 1,500.00</span></p>
+                <p><span className="text-gray-600">Inspection Certificate:</span> <span className="font-semibold">N$ 2,000.00</span></p>
+                <p><span className="text-gray-600">Customs Duty (25%):</span> <span className="font-semibold">N$ 10,379.00</span></p>
+                <p><span className="text-gray-600">VAT (16.5%):</span> <span className="font-semibold">N$ 9,132.98</span></p>
+                <p><span className="text-gray-600">Clearing & Forwarding:</span> <span className="font-semibold">N$ 60,538.02</span></p>
+                <p><span className="text-gray-600">Registration (NATIS):</span> <span className="font-semibold">N$ 500.00</span></p>
                 <div className="pt-2 mt-2 border-t">
-                  <p className="text-green-600 font-bold">Saved: N$165,000 (34%)</p>
-                  <p className="text-xs text-gray-500">Timeline: 8 weeks</p>
+                  <p className="text-blue-600 font-bold">Total Landed Cost: N$ 125,566.16</p>
+                  <p className="text-xs text-gray-500">Timeline: 2-3 months</p>
                 </div>
               </div>
-              <p className="text-xs text-gray-500 mt-3 italic">"The process was smoother than expected" - John M., Windhoek</p>
             </CardContent>
           </Card>
 
@@ -255,17 +261,23 @@ export default function BeginnerGuidePage() {
                   <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
                 ))}
               </div>
-              <h4 className="font-bold mb-2">2018 Honda Fit Hybrid</h4>
+              <h4 className="font-bold mb-2">2017 Audi A3 Sportback 1.4L</h4>
               <div className="space-y-1 text-sm">
-                <p><span className="text-gray-600">Japan Auction Price:</span> <span className="font-semibold">¥980,000</span></p>
-                <p><span className="text-gray-600">Total Landed Cost:</span> <span className="font-semibold">N$175,000</span></p>
-                <p><span className="text-gray-600">Local Dealer Price:</span> <span className="font-semibold">N$245,000</span></p>
+                <p className="font-semibold text-gray-700 mb-2">Cost Breakdown:</p>
+                <p><span className="text-gray-600">FOB Price Japan:</span> <span className="font-semibold">N$ 8,800.00</span></p>
+                <p><span className="text-gray-600">Marine Insurance:</span> <span className="font-semibold">N$ 324.48</span></p>
+                <p><span className="text-gray-600">Sea Freight:</span> <span className="font-semibold">N$ 18,000.00</span></p>
+                <p><span className="text-gray-600">Auctioneer Commission:</span> <span className="font-semibold">N$ 1,500.00</span></p>
+                <p><span className="text-gray-600">Inspection Certificate:</span> <span className="font-semibold">N$ 2,000.00</span></p>
+                <p><span className="text-gray-600">Customs Duty (25%):</span> <span className="font-semibold">N$ 6,781.00</span></p>
+                <p><span className="text-gray-600">VAT (16.5%):</span> <span className="font-semibold">N$ 6,166.66</span></p>
+                <p><span className="text-gray-600">Clearing & Forwarding:</span> <span className="font-semibold">N$ 29,694.50</span></p>
+                <p><span className="text-gray-600">Registration (NATIS):</span> <span className="font-semibold">N$ 500.00</span></p>
                 <div className="pt-2 mt-2 border-t">
-                  <p className="text-green-600 font-bold">Saved: N$70,000 (29%)</p>
-                  <p className="text-xs text-gray-500">Timeline: 7 weeks</p>
+                  <p className="text-blue-600 font-bold">Total Landed Cost: N$ 73,766.64</p>
+                  <p className="text-xs text-gray-500">Timeline: 2-3 months</p>
                 </div>
               </div>
-              <p className="text-xs text-gray-500 mt-3 italic">"Perfect city car at great price" - Sarah K., Cape Town</p>
             </CardContent>
           </Card>
 
@@ -276,17 +288,50 @@ export default function BeginnerGuidePage() {
                   <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
                 ))}
               </div>
-              <h4 className="font-bold mb-2">2020 Mazda CX-5 AWD</h4>
+              <h4 className="font-bold mb-2">2015 Audi A5 Quattro 2.0L</h4>
               <div className="space-y-1 text-sm">
-                <p><span className="text-gray-600">Japan Auction Price:</span> <span className="font-semibold">¥2,200,000</span></p>
-                <p><span className="text-gray-600">Total Landed Cost:</span> <span className="font-semibold">N$385,000</span></p>
-                <p><span className="text-gray-600">Local Dealer Price:</span> <span className="font-semibold">N$520,000</span></p>
+                <p className="font-semibold text-gray-700 mb-2">Cost Breakdown:</p>
+                <p><span className="text-gray-600">FOB Price Japan:</span> <span className="font-semibold">N$ 11,000.00</span></p>
+                <p><span className="text-gray-600">Marine Insurance:</span> <span className="font-semibold">N$ 336.60</span></p>
+                <p><span className="text-gray-600">Sea Freight:</span> <span className="font-semibold">N$ 18,000.00</span></p>
+                <p><span className="text-gray-600">Auctioneer Commission:</span> <span className="font-semibold">N$ 1,500.00</span></p>
+                <p><span className="text-gray-600">Inspection Certificate:</span> <span className="font-semibold">N$ 2,000.00</span></p>
+                <p><span className="text-gray-600">Customs Duty (25%):</span> <span className="font-semibold">N$ 7,334.00</span></p>
+                <p><span className="text-gray-600">VAT (16.5%):</span> <span className="font-semibold">N$ 6,613.09</span></p>
+                <p><span className="text-gray-600">Clearing & Forwarding:</span> <span className="font-semibold">N$ 32,946.16</span></p>
+                <p><span className="text-gray-600">Registration (NATIS):</span> <span className="font-semibold">N$ 500.00</span></p>
                 <div className="pt-2 mt-2 border-t">
-                  <p className="text-green-600 font-bold">Saved: N$135,000 (26%)</p>
-                  <p className="text-xs text-gray-500">Timeline: 9 weeks</p>
+                  <p className="text-blue-600 font-bold">Total Landed Cost: N$ 80,229.85</p>
+                  <p className="text-xs text-gray-500">Timeline: 2-3 months</p>
                 </div>
               </div>
-              <p className="text-xs text-gray-500 mt-3 italic">"Like new condition, amazing value" - David P., Gaborone</p>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardContent className="pt-6">
+              <div className="flex items-center gap-2 mb-3">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                ))}
+              </div>
+              <h4 className="font-bold mb-2">2012 Audi A4 Quattro 2.0L</h4>
+              <div className="space-y-1 text-sm">
+                <p className="font-semibold text-gray-700 mb-2">Cost Breakdown:</p>
+                <p><span className="text-gray-600">FOB Price Japan:</span> <span className="font-semibold">N$ 9,350.00</span></p>
+                <p><span className="text-gray-600">Marine Insurance:</span> <span className="font-semibold">N$ 327.68</span></p>
+                <p><span className="text-gray-600">Sea Freight:</span> <span className="font-semibold">N$ 18,000.00</span></p>
+                <p><span className="text-gray-600">Auctioneer Commission:</span> <span className="font-semibold">N$ 1,500.00</span></p>
+                <p><span className="text-gray-600">Inspection Certificate:</span> <span className="font-semibold">N$ 2,000.00</span></p>
+                <p><span className="text-gray-600">Customs Duty (25%):</span> <span className="font-semibold">N$ 6,919.50</span></p>
+                <p><span className="text-gray-600">VAT (16.5%):</span> <span className="font-semibold">N$ 6,281.08</span></p>
+                <p><span className="text-gray-600">Clearing & Forwarding:</span> <span className="font-semibold">N$ 29,856.87</span></p>
+                <p><span className="text-gray-600">Registration (NATIS):</span> <span className="font-semibold">N$ 500.00</span></p>
+                <div className="pt-2 mt-2 border-t">
+                  <p className="text-blue-600 font-bold">Total Landed Cost: N$ 74,735.13</p>
+                  <p className="text-xs text-gray-500">Timeline: 2-3 months</p>
+                </div>
+              </div>
             </CardContent>
           </Card>
         </div>
@@ -296,19 +341,19 @@ export default function BeginnerGuidePage() {
             <div className="flex items-start gap-3">
               <DollarSign className="h-6 w-6 text-green-600 flex-shrink-0" />
               <div>
-                <h3 className="font-bold text-green-900 mb-2">Average Savings Analysis</h3>
-                <div className="grid md:grid-cols-3 gap-4 text-sm">
-                  <div>
-                    <p className="text-green-700">Small Cars (Fit, Vitz, March)</p>
-                    <p className="font-bold text-green-900">Save: N$50,000-80,000</p>
+                <h3 className="font-bold text-green-900 mb-2">Import Cost Analysis - Key Insights</h3>
+                <div className="space-y-3 text-sm">
+                  <div className="p-3 bg-white rounded-lg">
+                    <p className="text-green-700 font-semibold mb-1">Consistent Shipping Costs</p>
+                    <p className="text-gray-700">Sea freight is typically N$18,000 regardless of vehicle value, making higher-value cars more cost-effective to import.</p>
                   </div>
-                  <div>
-                    <p className="text-green-700">SUVs (CX-5, RAV4, X-Trail)</p>
-                    <p className="font-bold text-green-900">Save: N$100,000-150,000</p>
+                  <div className="p-3 bg-white rounded-lg">
+                    <p className="text-green-700 font-semibold mb-1">Additional Costs Rule of Thumb</p>
+                    <p className="text-gray-700">Expect to pay 150-250% of the FOB price as total landed cost. Lower-value cars have higher percentage markups due to fixed shipping costs.</p>
                   </div>
-                  <div>
-                    <p className="text-green-700">Bakkies (Hilux, Ranger, Navara)</p>
-                    <p className="font-bold text-green-900">Save: N$120,000-200,000</p>
+                  <div className="p-3 bg-white rounded-lg">
+                    <p className="text-green-700 font-semibold mb-1">Best Value Range</p>
+                    <p className="text-gray-700">Cars in the N$10,000-25,000 FOB price range offer the best balance of quality and import efficiency.</p>
                   </div>
                 </div>
               </div>
