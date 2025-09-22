@@ -25,6 +25,80 @@ export default function BeginnerGuidePage() {
         </p>
       </div>
 
+      {/* Import Terms Glossary */}
+      <Card className="mb-8">
+        <CardHeader className="bg-gradient-to-r from-purple-50 to-pink-50">
+          <CardTitle className="flex items-center gap-2">
+            <BookOpen className="h-6 w-6 text-purple-600" />
+            Import Terms Dictionary
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="pt-6">
+          <div className="grid md:grid-cols-2 gap-4">
+            <div className="p-3 bg-gray-50 rounded-lg">
+              <h4 className="font-semibold text-gray-900">FOB Price</h4>
+              <p className="text-sm text-gray-600">The car's price in Japan (before shipping)</p>
+            </div>
+            <div className="p-3 bg-gray-50 rounded-lg">
+              <h4 className="font-semibold text-gray-900">CIF Value</h4>
+              <p className="text-sm text-gray-600">Car price + shipping + insurance costs</p>
+            </div>
+            <div className="p-3 bg-gray-50 rounded-lg">
+              <h4 className="font-semibold text-gray-900">ICD</h4>
+              <p className="text-sm text-gray-600">Import Customs Duty - main import tax</p>
+            </div>
+            <div className="p-3 bg-gray-50 rounded-lg">
+              <h4 className="font-semibold text-gray-900">ENV</h4>
+              <p className="text-sm text-gray-600">Environmental levy on vehicle imports</p>
+            </div>
+            <div className="p-3 bg-gray-50 rounded-lg">
+              <h4 className="font-semibold text-gray-900">ADV</h4>
+              <p className="text-sm text-gray-600">Ad Valorem tax - percentage-based import tax</p>
+            </div>
+            <div className="p-3 bg-gray-50 rounded-lg">
+              <h4 className="font-semibold text-gray-900">VAT</h4>
+              <p className="text-sm text-gray-600">Value Added Tax on imported goods (15-16.5%)</p>
+            </div>
+            <div className="p-3 bg-gray-50 rounded-lg">
+              <h4 className="font-semibold text-gray-900">Clearing Agent</h4>
+              <p className="text-sm text-gray-600">Company that handles customs paperwork for you</p>
+            </div>
+            <div className="p-3 bg-gray-50 rounded-lg">
+              <h4 className="font-semibold text-gray-900">Auction Grade</h4>
+              <p className="text-sm text-gray-600">Japan's car condition rating (3.5+ is good)</p>
+            </div>
+            <div className="p-3 bg-gray-50 rounded-lg">
+              <h4 className="font-semibold text-gray-900">Landed Cost</h4>
+              <p className="text-sm text-gray-600">Total cost including all fees and taxes</p>
+            </div>
+            <div className="p-3 bg-gray-50 rounded-lg">
+              <h4 className="font-semibold text-gray-900">Container Sharing</h4>
+              <p className="text-sm text-gray-600">Split shipping costs with other importers</p>
+            </div>
+            <div className="p-3 bg-gray-50 rounded-lg">
+              <h4 className="font-semibold text-gray-900">RoRo</h4>
+              <p className="text-sm text-gray-600">Roll-on/Roll-off shipping (drive on/off ship)</p>
+            </div>
+            <div className="p-3 bg-gray-50 rounded-lg">
+              <h4 className="font-semibold text-gray-900">De-registration</h4>
+              <p className="text-sm text-gray-600">Removing vehicle from Japan's registry for export</p>
+            </div>
+            <div className="p-3 bg-gray-50 rounded-lg">
+              <h4 className="font-semibold text-gray-900">Export Certificate</h4>
+              <p className="text-sm text-gray-600">Japan's official document allowing export</p>
+            </div>
+            <div className="p-3 bg-gray-50 rounded-lg">
+              <h4 className="font-semibold text-gray-900">Bill of Lading</h4>
+              <p className="text-sm text-gray-600">Shipping document proving ownership</p>
+            </div>
+            <div className="p-3 bg-gray-50 rounded-lg">
+              <h4 className="font-semibold text-gray-900">NATIS</h4>
+              <p className="text-sm text-gray-600">Namibian vehicle registration system</p>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
       {/* The Import Process - Detailed */}
       <Card className="mb-8">
         <CardHeader className="bg-gradient-to-r from-green-50 to-emerald-50">
@@ -353,68 +427,6 @@ export default function BeginnerGuidePage() {
           </CardContent>
         </Card>
       </div>
-
-      {/* Import Terms Glossary */}
-      <Card className="mb-8">
-        <CardHeader className="bg-gradient-to-r from-purple-50 to-pink-50">
-          <CardTitle className="flex items-center gap-2">
-            <BookOpen className="h-6 w-6 text-purple-600" />
-            Import Terms Dictionary
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="pt-6">
-          <div className="grid md:grid-cols-2 gap-4">
-            <div className="p-3 bg-gray-50 rounded-lg">
-              <h4 className="font-semibold text-gray-900">FOB Price</h4>
-              <p className="text-sm text-gray-600">The car's price in Japan (before shipping)</p>
-            </div>
-            <div className="p-3 bg-gray-50 rounded-lg">
-              <h4 className="font-semibold text-gray-900">CIF Value</h4>
-              <p className="text-sm text-gray-600">Car price + shipping + insurance costs</p>
-            </div>
-            <div className="p-3 bg-gray-50 rounded-lg">
-              <h4 className="font-semibold text-gray-900">Customs Duty</h4>
-              <p className="text-sm text-gray-600">Import tax (usually 25% of car value)</p>
-            </div>
-            <div className="p-3 bg-gray-50 rounded-lg">
-              <h4 className="font-semibold text-gray-900">VAT</h4>
-              <p className="text-sm text-gray-600">Sales tax on imported goods (15-16%)</p>
-            </div>
-            <div className="p-3 bg-gray-50 rounded-lg">
-              <h4 className="font-semibold text-gray-900">Clearing Agent</h4>
-              <p className="text-sm text-gray-600">Company that handles customs paperwork for you</p>
-            </div>
-            <div className="p-3 bg-gray-50 rounded-lg">
-              <h4 className="font-semibold text-gray-900">Auction Grade</h4>
-              <p className="text-sm text-gray-600">Japan's car condition rating (3.5+ is good)</p>
-            </div>
-            <div className="p-3 bg-gray-50 rounded-lg">
-              <h4 className="font-semibold text-gray-900">Landed Cost</h4>
-              <p className="text-sm text-gray-600">Total cost including all fees and taxes</p>
-            </div>
-            <div className="p-3 bg-gray-50 rounded-lg">
-              <h4 className="font-semibold text-gray-900">Container Sharing</h4>
-              <p className="text-sm text-gray-600">Split shipping costs with other importers</p>
-            </div>
-            <div className="p-3 bg-gray-50 rounded-lg">
-              <h4 className="font-semibold text-gray-900">RoRo</h4>
-              <p className="text-sm text-gray-600">Roll-on/Roll-off shipping (drive on/off ship)</p>
-            </div>
-            <div className="p-3 bg-gray-50 rounded-lg">
-              <h4 className="font-semibold text-gray-900">De-registration</h4>
-              <p className="text-sm text-gray-600">Removing vehicle from Japan's registry for export</p>
-            </div>
-            <div className="p-3 bg-gray-50 rounded-lg">
-              <h4 className="font-semibold text-gray-900">Export Certificate</h4>
-              <p className="text-sm text-gray-600">Japan's official document allowing export</p>
-            </div>
-            <div className="p-3 bg-gray-50 rounded-lg">
-              <h4 className="font-semibold text-gray-900">Bill of Lading</h4>
-              <p className="text-sm text-gray-600">Shipping document proving ownership</p>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
 
       {/* Risks & Reality Check */}
       <Card className="mb-8 border-amber-200">
