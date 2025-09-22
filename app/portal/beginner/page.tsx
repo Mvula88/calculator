@@ -232,6 +232,123 @@ export default function BeginnerGuidePage() {
         </Card>
       </div>
 
+      {/* Country Import Restrictions Quick Reference */}
+      <Card className="mb-8 border-red-200">
+        <CardHeader className="bg-gradient-to-r from-red-50 to-pink-50">
+          <CardTitle className="flex items-center gap-2 text-red-900">
+            <AlertCircle className="h-6 w-6 text-red-600" />
+            Country Import Restrictions (2024-2025)
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="pt-6">
+          <div className="grid md:grid-cols-2 gap-6">
+            {/* Namibia */}
+            <div className="border-l-4 border-blue-500 pl-4">
+              <div className="flex items-center gap-2 mb-2">
+                <span className="text-2xl">🇳🇦</span>
+                <h3 className="font-bold text-lg">Namibia</h3>
+              </div>
+              <ul className="space-y-1 text-sm">
+                <li className="flex items-start gap-2">
+                  <span className="text-red-500 mt-0.5">•</span>
+                  <span><strong>Age Limit:</strong> 12 years maximum</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-red-500 mt-0.5">•</span>
+                  <span>Only right-hand drive vehicles allowed</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-blue-500 mt-0.5">•</span>
+                  <span className="text-gray-600">Extended from 8 years in July 2022</span>
+                </li>
+              </ul>
+            </div>
+
+            {/* South Africa */}
+            <div className="border-l-4 border-yellow-500 pl-4">
+              <div className="flex items-center gap-2 mb-2">
+                <span className="text-2xl">🇿🇦</span>
+                <h3 className="font-bold text-lg">South Africa</h3>
+              </div>
+              <ul className="space-y-1 text-sm">
+                <li className="flex items-start gap-2">
+                  <span className="text-red-500 mt-0.5">⚠️</span>
+                  <span className="font-semibold text-red-700">NO general used vehicle imports</span>
+                </li>
+                <li className="text-gray-700 ml-6">Exceptions only for:</li>
+                <li className="ml-8 text-gray-600">• Returning residents (6+ months abroad)</li>
+                <li className="ml-8 text-gray-600">• Immigrants with permanent residence</li>
+                <li className="ml-8 text-gray-600">• Vintage vehicles (40+ years)</li>
+                <li className="ml-8 text-gray-600">• Special needs/racing vehicles</li>
+                <li className="flex items-start gap-2 mt-2">
+                  <span className="text-red-500 mt-0.5">•</span>
+                  <span>Requires ITAC permit + Letter of Authority</span>
+                </li>
+              </ul>
+            </div>
+
+            {/* Botswana */}
+            <div className="border-l-4 border-green-500 pl-4">
+              <div className="flex items-center gap-2 mb-2">
+                <span className="text-2xl">🇧🇼</span>
+                <h3 className="font-bold text-lg">Botswana</h3>
+              </div>
+              <ul className="space-y-1 text-sm">
+                <li className="flex items-start gap-2">
+                  <span className="text-green-500 mt-0.5">✓</span>
+                  <span className="text-green-700 font-semibold">NO age restrictions</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-green-500 mt-0.5">✓</span>
+                  <span>No engine size restrictions</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-green-500 mt-0.5">✓</span>
+                  <span>Both left and right-hand drive allowed</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-blue-500 mt-0.5">•</span>
+                  <span className="text-gray-600 italic">Simplest import rules in region</span>
+                </li>
+              </ul>
+            </div>
+
+            {/* Zambia */}
+            <div className="border-l-4 border-orange-500 pl-4">
+              <div className="flex items-center gap-2 mb-2">
+                <span className="text-2xl">🇿🇲</span>
+                <h3 className="font-bold text-lg">Zambia</h3>
+              </div>
+              <ul className="space-y-1 text-sm">
+                <li className="flex items-start gap-2">
+                  <span className="text-green-500 mt-0.5">✓</span>
+                  <span className="text-green-700 font-semibold">NO age restrictions</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-orange-500 mt-0.5">⚠️</span>
+                  <span>Vehicles over 5 years = higher surtaxes</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-red-500 mt-0.5">•</span>
+                  <span>Only right-hand drive (except emergency vehicles)</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-blue-500 mt-0.5">•</span>
+                  <span>Duty varies by engine capacity & age</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="mt-6 p-4 bg-amber-50 border border-amber-200 rounded-lg">
+            <p className="text-sm text-amber-900">
+              <strong>💡 Key Insight:</strong> Botswana offers the most flexibility, while South Africa has the strictest rules.
+              Namibia's 12-year limit makes newer vehicles more viable for long-term value.
+            </p>
+          </div>
+        </CardContent>
+      </Card>
+
       {/* The Import Process - Detailed */}
       <Card className="mb-8">
         <CardHeader className="bg-gradient-to-r from-green-50 to-emerald-50">
