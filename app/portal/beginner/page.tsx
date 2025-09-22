@@ -234,20 +234,18 @@ export default function BeginnerGuidePage() {
                   <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
                 ))}
               </div>
-              <h4 className="font-bold mb-2">2015 Golf 7R 2.0L Turbo</h4>
+              <h4 className="font-bold mb-2">2015 Golf 7R</h4>
               <div className="space-y-1 text-sm">
-                <p className="font-semibold text-gray-700 mb-2">Cost Breakdown:</p>
-                <p><span className="text-gray-600">FOB Price Japan:</span> <span className="font-semibold">N$ 23,100.00</span></p>
-                <p><span className="text-gray-600">Marine Insurance:</span> <span className="font-semibold">N$ 416.16</span></p>
-                <p><span className="text-gray-600">Sea Freight:</span> <span className="font-semibold">N$ 18,000.00</span></p>
-                <p><span className="text-gray-600">Auctioneer Commission:</span> <span className="font-semibold">N$ 1,500.00</span></p>
-                <p><span className="text-gray-600">Inspection Certificate:</span> <span className="font-semibold">N$ 2,000.00</span></p>
-                <p><span className="text-gray-600">Customs Duty (25%):</span> <span className="font-semibold">N$ 10,379.00</span></p>
-                <p><span className="text-gray-600">VAT (16.5%):</span> <span className="font-semibold">N$ 9,132.98</span></p>
-                <p><span className="text-gray-600">Clearing & Forwarding:</span> <span className="font-semibold">N$ 60,538.02</span></p>
-                <p><span className="text-gray-600">Registration (NATIS):</span> <span className="font-semibold">N$ 500.00</span></p>
+                <p><span className="text-gray-600">Japan Auction price (JPY 455,000)</span> <span className="font-semibold">N$ 53,205.88</span></p>
+                <p><span className="text-gray-600">Japan side costs (JPY 159,640)</span> <span className="font-semibold">N$ 18,667.66</span></p>
+                <p><span className="text-gray-600">Ocean Freight (JPY 137,000)</span> <span className="font-semibold">N$ 16,020.23</span></p>
+                <p className="font-semibold text-gray-700 mt-2">Custom Duties and Taxes:</p>
+                <p className="pl-4"><span className="text-gray-600">• ICD</span> <span className="font-semibold">N$ 18,784.04</span></p>
+                <p className="pl-4"><span className="text-gray-600">• ENV</span> <span className="font-semibold">N$ 3,960.00</span></p>
+                <p className="pl-4"><span className="text-gray-600">• ADV</span> <span className="font-semibold">N$ 2,530.89</span></p>
+                <p className="pl-4"><span className="text-gray-600">• VAT</span> <span className="font-semibold">N$ 12,397.46</span></p>
                 <div className="pt-2 mt-2 border-t">
-                  <p className="text-blue-600 font-bold">Total Landed Cost: N$ 125,566.16</p>
+                  <p className="text-blue-600 font-bold">TOTAL LANDED COST FOR 2015 GOLF 7R: N$ 125,566.16</p>
                   <p className="text-xs text-gray-500">Timeline: 2-3 months</p>
                 </div>
               </div>
@@ -261,20 +259,18 @@ export default function BeginnerGuidePage() {
                   <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
                 ))}
               </div>
-              <h4 className="font-bold mb-2">2017 Audi A3 Sportback 1.4L</h4>
+              <h4 className="font-bold mb-2">2017 AUDI A3 SPORTBACK 1.4L</h4>
               <div className="space-y-1 text-sm">
-                <p className="font-semibold text-gray-700 mb-2">Cost Breakdown:</p>
-                <p><span className="text-gray-600">FOB Price Japan:</span> <span className="font-semibold">N$ 8,800.00</span></p>
-                <p><span className="text-gray-600">Marine Insurance:</span> <span className="font-semibold">N$ 324.48</span></p>
-                <p><span className="text-gray-600">Sea Freight:</span> <span className="font-semibold">N$ 18,000.00</span></p>
-                <p><span className="text-gray-600">Auctioneer Commission:</span> <span className="font-semibold">N$ 1,500.00</span></p>
-                <p><span className="text-gray-600">Inspection Certificate:</span> <span className="font-semibold">N$ 2,000.00</span></p>
-                <p><span className="text-gray-600">Customs Duty (25%):</span> <span className="font-semibold">N$ 6,781.00</span></p>
-                <p><span className="text-gray-600">VAT (16.5%):</span> <span className="font-semibold">N$ 6,166.66</span></p>
-                <p><span className="text-gray-600">Clearing & Forwarding:</span> <span className="font-semibold">N$ 29,694.50</span></p>
-                <p><span className="text-gray-600">Registration (NATIS):</span> <span className="font-semibold">N$ 500.00</span></p>
+                <p><span className="text-gray-600">Japan Auction price (JPY 201,000)</span> <span className="font-semibold">N$ 23,504.14</span></p>
+                <p><span className="text-gray-600">Japan side costs (JPY 134,340)</span> <span className="font-semibold">N$ 15,709.18</span></p>
+                <p><span className="text-gray-600">Ocean Freight (JPY 137,000)</span> <span className="font-semibold">N$ 16,020.23</span></p>
+                <p className="font-semibold text-gray-700 mt-2">Custom Duties and Taxes:</p>
+                <p className="pl-4"><span className="text-gray-600">• ICD</span> <span className="font-semibold">N$ 9,239.83</span></p>
+                <p className="pl-4"><span className="text-gray-600">• ENV</span> <span className="font-semibold">N$ 2,780.00</span></p>
+                <p className="pl-4"><span className="text-gray-600">• ADV</span> <span className="font-semibold">N$ 414.98</span></p>
+                <p className="pl-4"><span className="text-gray-600">• VAT</span> <span className="font-semibold">N$ 6,098.28</span></p>
                 <div className="pt-2 mt-2 border-t">
-                  <p className="text-blue-600 font-bold">Total Landed Cost: N$ 73,766.64</p>
+                  <p className="text-blue-600 font-bold">TOTAL LANDED COST FOR 2017 AUDI A3 SPORTBACK 1.4L: N$ 73,766.64</p>
                   <p className="text-xs text-gray-500">Timeline: 2-3 months</p>
                 </div>
               </div>
@@ -288,20 +284,18 @@ export default function BeginnerGuidePage() {
                   <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
                 ))}
               </div>
-              <h4 className="font-bold mb-2">2015 Audi A5 Quattro 2.0L</h4>
+              <h4 className="font-bold mb-2">2015 AUDI A5 QUOTTRO 2.0L</h4>
               <div className="space-y-1 text-sm">
-                <p className="font-semibold text-gray-700 mb-2">Cost Breakdown:</p>
-                <p><span className="text-gray-600">FOB Price Japan:</span> <span className="font-semibold">N$ 11,000.00</span></p>
-                <p><span className="text-gray-600">Marine Insurance:</span> <span className="font-semibold">N$ 336.60</span></p>
-                <p><span className="text-gray-600">Sea Freight:</span> <span className="font-semibold">N$ 18,000.00</span></p>
-                <p><span className="text-gray-600">Auctioneer Commission:</span> <span className="font-semibold">N$ 1,500.00</span></p>
-                <p><span className="text-gray-600">Inspection Certificate:</span> <span className="font-semibold">N$ 2,000.00</span></p>
-                <p><span className="text-gray-600">Customs Duty (25%):</span> <span className="font-semibold">N$ 7,334.00</span></p>
-                <p><span className="text-gray-600">VAT (16.5%):</span> <span className="font-semibold">N$ 6,613.09</span></p>
-                <p><span className="text-gray-600">Clearing & Forwarding:</span> <span className="font-semibold">N$ 32,946.16</span></p>
-                <p><span className="text-gray-600">Registration (NATIS):</span> <span className="font-semibold">N$ 500.00</span></p>
+                <p><span className="text-gray-600">Japan Auction price (JPY 231,000)</span> <span className="font-semibold">N$ 27,012.22</span></p>
+                <p><span className="text-gray-600">Japan side costs (JPY 124,440)</span> <span className="font-semibold">N$ 14,551.52</span></p>
+                <p><span className="text-gray-600">Ocean Freight (JPY 137,000)</span> <span className="font-semibold">N$ 16,020.23</span></p>
+                <p className="font-semibold text-gray-700 mt-2">Custom Duties and Taxes:</p>
+                <p className="pl-4"><span className="text-gray-600">• ICD</span> <span className="font-semibold">N$ 10,862.62</span></p>
+                <p className="pl-4"><span className="text-gray-600">• ENV</span> <span className="font-semibold">N$ 3,960.00</span></p>
+                <p className="pl-4"><span className="text-gray-600">• ADV</span> <span className="font-semibold">N$ 653.93</span></p>
+                <p className="pl-4"><span className="text-gray-600">• VAT</span> <span className="font-semibold">N$ 7,169.33</span></p>
                 <div className="pt-2 mt-2 border-t">
-                  <p className="text-blue-600 font-bold">Total Landed Cost: N$ 80,229.85</p>
+                  <p className="text-blue-600 font-bold">TOTAL LANDED COST FOR 2015 AUDI A5 QUOTTRO 2.0L: N$ 80,229.85</p>
                   <p className="text-xs text-gray-500">Timeline: 2-3 months</p>
                 </div>
               </div>
@@ -315,20 +309,18 @@ export default function BeginnerGuidePage() {
                   <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
                 ))}
               </div>
-              <h4 className="font-bold mb-2">2012 Audi A4 Quattro 2.0L</h4>
+              <h4 className="font-bold mb-2">2012 AUDI A4 QUOTTRO 2.0L</h4>
               <div className="space-y-1 text-sm">
-                <p className="font-semibold text-gray-700 mb-2">Cost Breakdown:</p>
-                <p><span className="text-gray-600">FOB Price Japan:</span> <span className="font-semibold">N$ 9,350.00</span></p>
-                <p><span className="text-gray-600">Marine Insurance:</span> <span className="font-semibold">N$ 327.68</span></p>
-                <p><span className="text-gray-600">Sea Freight:</span> <span className="font-semibold">N$ 18,000.00</span></p>
-                <p><span className="text-gray-600">Auctioneer Commission:</span> <span className="font-semibold">N$ 1,500.00</span></p>
-                <p><span className="text-gray-600">Inspection Certificate:</span> <span className="font-semibold">N$ 2,000.00</span></p>
-                <p><span className="text-gray-600">Customs Duty (25%):</span> <span className="font-semibold">N$ 6,919.50</span></p>
-                <p><span className="text-gray-600">VAT (16.5%):</span> <span className="font-semibold">N$ 6,281.08</span></p>
-                <p><span className="text-gray-600">Clearing & Forwarding:</span> <span className="font-semibold">N$ 29,856.87</span></p>
-                <p><span className="text-gray-600">Registration (NATIS):</span> <span className="font-semibold">N$ 500.00</span></p>
+                <p><span className="text-gray-600">Japan Auction price (JPY 200,000)</span> <span className="font-semibold">N$ 23,387.20</span></p>
+                <p><span className="text-gray-600">Japan side costs (JPY 123,560)</span> <span className="font-semibold">N$ 14,448.61</span></p>
+                <p><span className="text-gray-600">Ocean Freight (JPY 137,000)</span> <span className="font-semibold">N$ 16,020.23</span></p>
+                <p className="font-semibold text-gray-700 mt-2">Custom Duties and Taxes:</p>
+                <p className="pl-4"><span className="text-gray-600">• ICD</span> <span className="font-semibold">N$ 9,888.33</span></p>
+                <p className="pl-4"><span className="text-gray-600">• ENV</span> <span className="font-semibold">N$ 3,960.00</span></p>
+                <p className="pl-4"><span className="text-gray-600">• ADV</span> <span className="font-semibold">N$ 504.46</span></p>
+                <p className="pl-4"><span className="text-gray-600">• VAT</span> <span className="font-semibold">N$ 6,526.30</span></p>
                 <div className="pt-2 mt-2 border-t">
-                  <p className="text-blue-600 font-bold">Total Landed Cost: N$ 74,735.13</p>
+                  <p className="text-blue-600 font-bold">TOTAL LANDED COST FOR 2012 AUDI A4 QUOTTRO 2.0L: N$ 74,735.13</p>
                   <p className="text-xs text-gray-500">Timeline: 2-3 months</p>
                 </div>
               </div>
