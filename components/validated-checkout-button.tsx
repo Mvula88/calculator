@@ -152,7 +152,7 @@ export default function ValidatedCheckoutButton({
 
   if (showEmailInput && requireEmail) {
     return (
-      <div className="space-y-4 p-4 border rounded-lg bg-white shadow-lg">
+      <div className="space-y-4">
         <div className="space-y-2">
           <h3 className="font-semibold text-lg">Enter Your Email</h3>
           <p className="text-sm text-gray-600">
@@ -183,20 +183,21 @@ export default function ValidatedCheckoutButton({
           {emailError === 'exists' ? (
             <Alert className="bg-blue-50 border-blue-200">
               <AlertTriangle className="h-4 w-4 text-blue-600" />
-              <AlertDescription className="text-blue-800">
+              <AlertDescription className="text-blue-800 text-sm">
                 <strong>Account Already Exists!</strong>
-                <p className="mt-2">
+                <p className="mt-1 text-xs">
                   You already have an account with this email address. Please login to access your portal and avoid duplicate payments.
                 </p>
-                <div className="mt-3 flex gap-2">
-                  <Link href={`/auth/login?email=${encodeURIComponent(email)}`}>
-                    <Button size="sm" className="bg-blue-600 hover:bg-blue-700">
+                <div className="mt-2 flex flex-col sm:flex-row gap-2">
+                  <Link href={`/auth/login?email=${encodeURIComponent(email)}`} className="flex-1">
+                    <Button size="sm" className="w-full bg-blue-600 hover:bg-blue-700">
                       Login to Your Account
                     </Button>
                   </Link>
                   <Button
                     size="sm"
                     variant="outline"
+                    className="flex-1"
                     onClick={() => {
                       setShowEmailInput(false)
                       setEmail('')

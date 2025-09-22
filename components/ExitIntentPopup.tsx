@@ -107,8 +107,8 @@ export default function ExitIntentPopup() {
       />
 
       {/* Professional Modal */}
-      <div className="fixed inset-0 flex items-center justify-center z-[9999] p-4 sm:p-6 lg:p-8" role="dialog" aria-modal="true">
-        <div className="bg-white rounded-3xl shadow-2xl w-full max-w-xl mx-auto animate-scaleUp overflow-hidden">
+      <div className="fixed inset-0 flex items-center justify-center z-[9999] p-4 sm:p-6 lg:p-8 overflow-y-auto" role="dialog" aria-modal="true">
+        <div className="bg-white rounded-3xl shadow-2xl w-full max-w-xl mx-auto my-auto animate-scaleUp overflow-hidden max-h-[90vh] flex flex-col">
           {/* Elegant Header */}
           <div className="relative bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 p-8 text-white">
             {/* Close Button - More Visible */}
@@ -135,8 +135,8 @@ export default function ExitIntentPopup() {
             </p>
           </div>
 
-          {/* Content */}
-          <div className="p-6 sm:p-8 lg:p-10 space-y-6">
+          {/* Content - Scrollable */}
+          <div className="p-6 sm:p-8 lg:p-10 space-y-6 overflow-y-auto flex-1">
             {/* Price Display */}
             <div className="text-center">
               <div className="flex items-center justify-center gap-4 mb-2">
