@@ -240,12 +240,12 @@ export default function DocumentsPage() {
             <div className="flex items-start gap-2">
               <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5 text-green-600 flex-shrink-0 mt-0.5" />
               <div>
-                <p className="text-sm sm:text-base font-semibold text-green-900">These Are REAL Documents</p>
+                <p className="text-sm sm:text-base font-semibold text-green-900">Import Process Learning Materials</p>
                 <p className="text-xs sm:text-sm text-green-700">
-                  From actual vehicle imports. Save {currency}100K+ by knowing what you need.
+                  Step-by-step examples and templates inspired by real vehicle import cases. Gain confidence by knowing exactly what to prepare.
                 </p>
                 <p className="text-xs text-green-600 mt-1">
-                  📖 View-only • Study these examples
+                  📖 View-only • Study these learning resources
                 </p>
               </div>
             </div>
@@ -258,12 +258,13 @@ export default function DocumentsPage() {
             <div className="flex items-start gap-3 sm:gap-4">
               <Star className="h-6 w-6 sm:h-8 sm:w-8 text-purple-600 flex-shrink-0" />
               <div className="flex-1">
-                <h2 className="text-lg sm:text-xl font-bold mb-2">Why These Documents Are Gold</h2>
+                <h2 className="text-lg sm:text-xl font-bold mb-2">Why These Resources Are Valuable</h2>
                 <ul className="space-y-1 text-xs sm:text-sm text-gray-700">
-                  <li>• Agents charge {currency}5,000 for paperwork - now DIY</li>
-                  <li>• See EXACTLY how forms should look</li>
-                  <li>• Know what customs checks for</li>
-                  <li>• Avoid "missing documents" delays</li>
+                  <li>• Understand what types of documents are typically required during imports</li>
+                  <li>• See how import forms are usually structured and filled in</li>
+                  <li>• Learn what customs officers commonly check for</li>
+                  <li>• Work more smoothly with clearing agents by knowing the paperwork in advance</li>
+                  <li>• Reduce the risk of delays from missing or incomplete information</li>
                 </ul>
                 <div className="mt-2 sm:mt-3 p-2 bg-white/50 rounded text-xs text-gray-600">
                   💱 ¥1 = N$0.167 = R0.167 = P0.167 = K3.0
