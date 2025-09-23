@@ -373,11 +373,11 @@ export default function BeginnerGuidePage() {
               <div>
                 <h4 className="font-semibold mb-1">Ocean Shipping (8-13 Weeks)</h4>
                 <p className="text-gray-600">Vehicle loaded on ship at Japanese port, sails to African port</p>
-                <p className="text-sm text-blue-600 mt-1">Container options: 40ft ±N$75,000 | 20ft ±N$65,000 | Sharing ±N$18,000 per vehicle</p>
+                <p className="text-sm text-blue-600 mt-1">Container options: 40ft ±N$75,000 | 20ft ±N$65,000 | Sharing ±N$18,750 per vehicle</p>
                 <div className="mt-2 p-3 bg-blue-50 rounded text-sm">
                   <p className="font-semibold mb-1">What happens:</p>
                   <ul className="space-y-1 text-gray-700">
-                    <li>• Loading at Japanese port (Yokohama/Nagoya)</li>
+                    <li>• Loading at Japanese port (Tokyo/Kobe)</li>
                     <li>• 60-90 days ocean freight (8-13 weeks)</li>
                     <li>• Arrival at African port (Walvis Bay/Durban)</li>
                     <li>• Port handling and unloading</li>
@@ -387,33 +387,17 @@ export default function BeginnerGuidePage() {
               </div>
             </div>
 
-            {/* Container Sharing Deep Dive - From Mastery */}
+            {/* Container Sharing Deep Dive */}
             <div className="mt-4 p-4 bg-green-50 border border-green-200 rounded-lg">
               <h5 className="font-semibold text-green-900 mb-2">💰 Container Sharing on Shipping</h5>
-              <div className="grid md:grid-cols-2 gap-4 text-sm">
-                <div>
-                  <p className="font-medium mb-2 text-green-800">✅ How It Works:</p>
-                  <ul className="space-y-1 text-green-700">
-                    <li>• 40ft container fits 4-6 cars</li>
-                    <li>• Total cost: N$45,000</li>
-                    <li>• Split 3 ways = N$15,000 each</li>
-                    <li>• Save N$30,000 vs solo shipping</li>
-                    <li>• ContShare platform provides escrow protection</li>
-                  </ul>
-                </div>
-                <div>
-                  <p className="font-medium mb-2 text-red-800">⚠️ Critical Safety Rules:</p>
-                  <ul className="space-y-1 text-red-700">
-                    <li>• Written agreement BEFORE any payment</li>
-                    <li>• All parties must be on Bill of Lading</li>
-                    <li>• Agree unpacking location upfront</li>
-                    <li>• Use escrow - never pay coordinator directly</li>
-                    <li>• Each vehicle needs separate insurance</li>
-                  </ul>
-                </div>
-              </div>
-              <div className="mt-3 p-2 bg-yellow-50 border border-yellow-200 rounded text-xs">
-                <p className="text-yellow-800"><strong>Never:</strong> Pay without contract • Accept verbal agreements • Skip insurance • Use unverified coordinators</p>
+              <div className="text-sm">
+                <p className="font-medium mb-2 text-green-800">✅ How It Works:</p>
+                <ul className="space-y-1 text-green-700">
+                  <li>• 40ft container fits 4-5 cars</li>
+                  <li>• Total cost: N$75,000</li>
+                  <li>• Split 4 ways = N$18,750 each</li>
+                  <li>• Save N$40,000 vs solo shipping</li>
+                </ul>
               </div>
             </div>
 
