@@ -584,12 +584,12 @@ export default function BeginnerGuidePage() {
         </CardContent>
       </Card>
 
-      {/* Timeline Expectations - Based on Actual Data */}
+      {/* Timeline Expectations */}
       <Card>
         <CardHeader className="bg-gradient-to-r from-amber-50 to-orange-50">
           <CardTitle className="flex items-center gap-2">
             <Clock className="h-6 w-6 text-amber-600" />
-            Realistic Timeline Expectations for Walvis Bay Port (2024-2025 Data)
+            Realistic Timeline Expectations for Walvis Bay Port
           </CardTitle>
         </CardHeader>
         <CardContent className="pt-6">
@@ -597,50 +597,44 @@ export default function BeginnerGuidePage() {
             {/* Breakdown by Process */}
             <div className="p-4 bg-gray-50 rounded-lg">
               <h4 className="font-semibold text-gray-900 mb-3">Timeline Breakdown by Stage:</h4>
-              <div className="space-y-2 text-sm">
-                <div className="flex justify-between">
-                  <span className="text-gray-600">1. Japan Documentation & Export:</span>
-                  <span className="font-semibold">5-7 days</span>
-                </div>
-                <div className="ml-4 text-xs text-gray-500">
-                  • Export certificate: Same-day processing
-                  • Transport to port: 2-3 days
-                  • Loading preparation: 2-4 days
+              <div className="space-y-3 text-sm">
+                <div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-600">1. Japan Documentation & Export:</span>
+                    <span className="font-semibold">7-14 days</span>
+                  </div>
+                  <p className="ml-4 text-xs text-gray-500 mt-1">It could take longer in some cases</p>
                 </div>
 
-                <div className="flex justify-between mt-3">
-                  <span className="text-gray-600">2. Ocean Shipping (Japan to Walvis Bay):</span>
-                  <span className="font-semibold">36-43 days</span>
-                </div>
-                <div className="ml-4 text-xs text-gray-500">
-                  • Direct route from Nagoya: 36 days
-                  • Via transshipment: 40-43 days
-                  • Vessels depart every 2-4 weeks
+                <div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-600">2. Ocean Shipping (Japan to Walvis Bay):</span>
+                    <span className="font-semibold">→ 54-70 days</span>
+                  </div>
                 </div>
 
-                <div className="flex justify-between mt-3">
-                  <span className="text-gray-600">3. Walvis Bay Port Processing:</span>
-                  <span className="font-semibold">2-5 days</span>
-                </div>
-                <div className="ml-4 text-xs text-gray-500">
-                  • Average container ship stay: 1.9 days (Feb 2024)
-                  • Port congestion: Average 3 vessels waiting
-                  • Unloading: 24-48 hours
+                <div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-600">3. Walvis Bay Port Processing:</span>
+                    <span className="font-semibold">→ 2-10 days</span>
+                  </div>
+                  <p className="ml-4 text-xs text-gray-500 mt-1">Depending on congestion</p>
                 </div>
 
-                <div className="flex justify-between mt-3">
-                  <span className="text-gray-600">4. Customs Clearance:</span>
-                  <span className="font-semibold">3-5 days</span>
-                </div>
-                <div className="ml-4 text-xs text-gray-500">
-                  • Free storage at port: 5 days
-                  • Documentation processing: 1-2 days
-                  • Payment & release: 1-2 days
+                <div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-600">4. Customs Clearance:</span>
+                    <span className="font-semibold">5-10 days</span>
+                  </div>
+                  <p className="ml-4 text-xs text-gray-500 mt-1">If everything is in order, but delays can extend that</p>
                 </div>
 
-                <div className="flex justify-between mt-3">
-                  <span className="text-gray-600">5. Registration & Compliance:</span>
-                  <span className="font-semibold">5-7 days</span>
+                <div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-600">5. Registration & Compliance:</span>
+                    <span className="font-semibold">→ 5-7 days</span>
+                  </div>
+                  <p className="ml-4 text-xs text-gray-500 mt-1">It could take longer in some cases</p>
                 </div>
               </div>
             </div>
@@ -648,22 +642,24 @@ export default function BeginnerGuidePage() {
             {/* Scenario Timelines */}
             <div className="space-y-4">
               <div className="border-l-4 border-green-500 pl-4">
-                <h4 className="font-semibold text-gray-900 mb-2">✓ Best Case Scenario (7-8 weeks / 51-57 days)</h4>
-                <p className="text-sm text-gray-600">Direct shipping route, no port delays, documents ready, quick customs clearance</p>
-                <p className="text-xs text-gray-500 mt-1">Breakdown: 5 days Japan + 36 days shipping + 2 days port + 3 days customs + 5 days registration</p>
+                <h4 className="font-semibold text-gray-900 mb-2">• Best Case Scenario (7-8 weeks / 51-57 days)</h4>
+                <p className="text-sm text-gray-600">Direct shipping route, no port delays, documents ready, quick customs clearance.</p>
               </div>
 
               <div className="border-l-4 border-blue-500 pl-4">
-                <h4 className="font-semibold text-gray-900 mb-2">→ Realistic Timeline (9-10 weeks / 60-67 days)</h4>
-                <p className="text-sm text-gray-600">Standard processing, minor port delays, average customs time</p>
-                <p className="text-xs text-gray-500 mt-1">Breakdown: 7 days Japan + 40 days shipping + 3 days port + 4 days customs + 6 days registration</p>
-                <p className="text-xs text-green-600 mt-1 font-semibold">Most imports fall in this range</p>
+                <h4 className="font-semibold text-gray-900 mb-2">• Realistic Timeline (9-10 weeks / 60-70 days)</h4>
+                <p className="text-sm text-gray-600">Standard processing, minor port delays, average customs time.</p>
+                <p className="text-sm text-green-600 font-semibold mt-1">Most imports fall in this range.</p>
               </div>
 
               <div className="border-l-4 border-orange-500 pl-4">
-                <h4 className="font-semibold text-gray-900 mb-2">⚠️ Extended Timeline (11-12 weeks / 70-80 days)</h4>
+                <h4 className="font-semibold text-gray-900 mb-2">• Extended Timeline (11-13 weeks / 75-90 days)</h4>
+                <p className="text-sm text-gray-600">Delays from documentation issues, port congestion, or extended customs inspections.</p>
+              </div>
+
+              <div className="border-l-4 border-red-500 pl-4">
+                <h4 className="font-semibold text-gray-900 mb-2">⚠️ Extended Timeline (11-13 weeks / 75-90 days)</h4>
                 <p className="text-sm text-gray-600">Vessel delays, port congestion, documentation issues, inspection delays</p>
-                <p className="text-xs text-gray-500 mt-1">Breakdown: 7 days Japan + 43 days shipping + 5 days port + 5 days customs + 10 days compliance</p>
               </div>
             </div>
 
@@ -696,7 +692,7 @@ export default function BeginnerGuidePage() {
               <div className="flex items-start gap-2">
                 <AlertCircle className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
                 <div className="text-sm">
-                  <p className="font-semibold text-green-900">Pro Tip for Customers:</p>
+                  <p className="font-semibold text-green-900">💡 Pro Tip for Customers:</p>
                   <p className="text-green-800">Tell clients to expect <strong>9-10 weeks</strong> as standard. This matches actual data and allows buffer for minor delays. Walvis Bay is relatively efficient with minimal congestion compared to major global ports.</p>
                 </div>
               </div>
