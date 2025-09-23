@@ -5,7 +5,7 @@ import { useAuth } from '@/lib/hooks/use-auth'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
-import { 
+import {
   AlertCircle,
   CheckCircle,
   Globe,
@@ -21,7 +21,8 @@ import {
   X,
   Info,
   Lock,
-  Star
+  Star,
+  Clock
 } from 'lucide-react'
 
 interface Exporter {
