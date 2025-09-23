@@ -336,7 +336,7 @@ export default function BeginnerGuidePage() {
               <div>
                 <h4 className="font-semibold mb-1">Find & Buy Your Vehicle (Week 1-2)</h4>
                 <p className="text-gray-600">Search Japanese auctions, place bid through agent, win vehicle, make payment</p>
-                <p className="text-sm text-blue-600 mt-1">Budget needed: Vehicle price + ±N$150,000 Japan-side fees</p>
+                <p className="text-sm text-blue-600 mt-1">Budget needed: Vehicle price + ±N$18,000 Japan-side fees</p>
                 <div className="mt-2 p-3 bg-blue-50 rounded text-sm">
                   <p className="font-semibold mb-1">What happens:</p>
                   <ul className="space-y-1 text-gray-700">
@@ -382,7 +382,7 @@ export default function BeginnerGuidePage() {
                     <li>• Arrival at African port (Walvis Bay/Durban)</li>
                     <li>• Port handling and unloading</li>
                   </ul>
-                  <p className="text-green-700 font-medium mt-2">💡 Save on shipping: Use ContShare (www.contshare.com) to find container sharing partners</p>
+                  <p className="text-green-700 font-medium mt-2">💡 Save on shipping: Use ContShare (<a href="https://www.contshare.com/" className="text-blue-600 underline hover:text-blue-800" target="_blank" rel="noopener noreferrer">https://www.contshare.com/</a>) to find container sharing partners</p>
                 </div>
               </div>
             </div>
@@ -424,12 +424,6 @@ export default function BeginnerGuidePage() {
             </div>
           </div>
 
-          <div className="mt-6 p-4 bg-amber-50 border border-amber-200 rounded-lg">
-            <p className="font-semibold text-amber-900 mb-2">Total Timeline & Budget:</p>
-            <p className="text-amber-800">Timeline: 6-12 weeks total (can extend further with major delays)</p>
-            <p className="text-amber-800">Total Budget: Vehicle Price + 80-100% additional costs</p>
-            <p className="text-sm text-amber-700 mt-2">Example: N$80,000 car = N$150,000-160,000 total landed cost</p>
-          </div>
         </CardContent>
       </Card>
 
