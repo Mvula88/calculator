@@ -117,12 +117,6 @@ export default function SimplePortalLayout({
       description: 'Real import docs'
     },
     {
-      name: 'Mastery Tools',
-      href: '/portal/mastery',
-      icon: Star,
-      description: 'Advanced features'
-    },
-    {
       name: 'Calculator',
       href: '/portal/calculator',
       icon: Calculator,

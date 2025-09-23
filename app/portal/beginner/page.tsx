@@ -389,7 +389,7 @@ export default function BeginnerGuidePage() {
 
             {/* Container Sharing Deep Dive - From Mastery */}
             <div className="mt-4 p-4 bg-green-50 border border-green-200 rounded-lg">
-              <h5 className="font-semibold text-green-900 mb-2">💰 Container Sharing: Save N$30,000+ on Shipping</h5>
+              <h5 className="font-semibold text-green-900 mb-2">💰 Container Sharing on Shipping</h5>
               <div className="grid md:grid-cols-2 gap-4 text-sm">
                 <div>
                   <p className="font-medium mb-2 text-green-800">✅ How It Works:</p>
