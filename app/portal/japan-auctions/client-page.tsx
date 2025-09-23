@@ -764,6 +764,358 @@ export default function JapanAuctionsClientPage() {
               </div>
             </div>
           </Card>
+
+          {/* Critical Auction House Reality - Based on Japan Tradings Experience */}
+          <Card className="p-4 sm:p-6 border-2 border-red-200">
+            <h2 className="text-base sm:text-lg lg:text-xl font-bold mb-3 sm:mb-4 flex items-center gap-2 text-red-800">
+              <AlertTriangle className="h-4 w-4 sm:h-5 sm:w-5" />
+              The Reality of Japanese Car Auctions
+            </h2>
+            <p className="text-xs sm:text-sm text-gray-600 mb-4">
+              What actually happens at auction houses - critical information most exporters won't tell you
+            </p>
+
+            {/* How Auctions Really Work */}
+            <div className="bg-yellow-50 p-4 rounded-lg mb-4">
+              <h3 className="font-bold text-sm sm:text-base mb-3">⚡ The Speed Problem</h3>
+              <div className="space-y-2 text-xs sm:text-sm">
+                <p className="text-gray-700">
+                  <strong>Reality Check:</strong> 1,200-8,000 cars are auctioned DAILY at each location
+                </p>
+                <ul className="space-y-1 text-gray-600">
+                  <li>• Each car sells in about <strong>15 seconds</strong></li>
+                  <li>• Inspectors have less than <strong>1 minute per car</strong> for checking</li>
+                  <li>• Auction starts 9:30am, inspectors arrive 7:00am</li>
+                  <li>• 100+ target cars to check in 2-3 hours</li>
+                  <li>• One button push = ¥3,000-6,000 bid increase</li>
+                </ul>
+                <p className="text-red-700 font-semibold mt-2">
+                  ⚠️ This is why cars often arrive different than described!
+                </p>
+              </div>
+            </div>
+
+            {/* Auction Sheet Symbols Explained */}
+            <div className="bg-blue-50 p-4 rounded-lg mb-4">
+              <h3 className="font-bold text-sm sm:text-base mb-3">📋 Auction Sheet Symbol Guide</h3>
+              <div className="grid md:grid-cols-2 gap-4 text-xs sm:text-sm">
+                <div>
+                  <h4 className="font-semibold mb-2">Scratch Codes:</h4>
+                  <ul className="space-y-1 text-gray-700">
+                    <li><strong>A:</strong> Minor scratch</li>
+                    <li><strong>A1:</strong> Small scratch (< 10cm)</li>
+                    <li><strong>A2:</strong> Medium scratch (10-20cm)</li>
+                    <li><strong>A3:</strong> Large scratch - needs paint</li>
+                  </ul>
+                </div>
+                <div>
+                  <h4 className="font-semibold mb-2">Dent Codes:</h4>
+                  <ul className="space-y-1 text-gray-700">
+                    <li><strong>D:</strong> Pin dent</li>
+                    <li><strong>D2:</strong> Multiple dents</li>
+                    <li><strong>D3:</strong> Needs panel work</li>
+                    <li><strong>D4:</strong> Major panel work required</li>
+                  </ul>
+                </div>
+              </div>
+              <p className="text-xs text-blue-700 mt-3">
+                💡 Higher numbers = more damage. Position on diagram shows exact location.
+              </p>
+            </div>
+
+            {/* Grade Reality Check */}
+            <div className="bg-gray-50 p-4 rounded-lg mb-4">
+              <h3 className="font-bold text-sm sm:text-base mb-3">🎯 What Grades REALLY Mean</h3>
+              <div className="space-y-2 text-xs sm:text-sm">
+                <div className="border-l-4 border-green-500 pl-3">
+                  <p><strong>Grade 5:</strong> No repairs needed, most expensive</p>
+                </div>
+                <div className="border-l-4 border-green-500 pl-3">
+                  <p><strong>Grade 4.5:</strong> Minor panel work or bumper repair</p>
+                </div>
+                <div className="border-l-4 border-blue-500 pl-3">
+                  <p><strong>Grade 4:</strong> 1-2 panels + 1 bumper repair (Most cost-effective)</p>
+                </div>
+                <div className="border-l-4 border-yellow-500 pl-3">
+                  <p><strong>Grade 3.5:</strong> 3-4 panels + 1-2 bumpers (Average condition)</p>
+                </div>
+                <div className="border-l-4 border-orange-500 pl-3">
+                  <p><strong>Grade 3:</strong> 4-5 panels + bumpers (Not recommended)</p>
+                </div>
+                <div className="border-l-4 border-red-500 pl-3">
+                  <p><strong>A or R:</strong> Accident history (Some buyers accept for sports cars)</p>
+                </div>
+              </div>
+              <div className="mt-3 p-3 bg-green-100 rounded">
+                <p className="text-xs font-semibold text-green-800">
+                  💰 Sweet Spot: Grade 4 cars offer best value - mostly clean with minor fixes
+                </p>
+              </div>
+            </div>
+
+            {/* Interior Grades */}
+            <div className="bg-purple-50 p-4 rounded-lg mb-4">
+              <h3 className="font-bold text-sm sm:text-base mb-3">🚗 Interior Condition Grades</h3>
+              <div className="grid grid-cols-2 gap-2 text-xs sm:text-sm">
+                <div className="bg-white p-2 rounded">
+                  <p><strong className="text-green-600">A:</strong> Very clean</p>
+                </div>
+                <div className="bg-white p-2 rounded">
+                  <p><strong className="text-blue-600">B:</strong> Needs cleaning</p>
+                </div>
+                <div className="bg-white p-2 rounded">
+                  <p><strong className="text-yellow-600">C:</strong> Cigarette burns/defects</p>
+                </div>
+                <div className="bg-white p-2 rounded">
+                  <p><strong className="text-red-600">D:</strong> Needs work (avoid)</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Critical Warning */}
+            <div className="p-4 bg-red-50 border-2 border-red-300 rounded-lg">
+              <h3 className="font-bold text-red-900 mb-2">🚨 Why Cars Arrive Different Than Expected</h3>
+              <ul className="space-y-1 text-xs sm:text-sm text-red-800">
+                <li>• Big exporters check 100+ cars in 2-3 hours</li>
+                <li>• No time for double-checking after purchase</li>
+                <li>• Cars shipped to port without re-inspection</li>
+                <li>• Auction finishes late - no power to check cars at night</li>
+                <li>• Small buyers have no power to complain</li>
+              </ul>
+              <p className="font-bold text-red-900 mt-2">
+                Solution: Use agents who check max 40 cars/day and spend 5+ minutes per inspection
+              </p>
+            </div>
+          </Card>
+
+          {/* Major Auction Houses */}
+          <Card className="p-4 sm:p-6 border-2 border-blue-200">
+            <h2 className="text-base sm:text-lg lg:text-xl font-bold mb-3 sm:mb-4 flex items-center gap-2 text-blue-800">
+              <Building2 className="h-4 w-4 sm:h-5 sm:w-5" />
+              Major Japanese Auction Houses
+            </h2>
+            <div className="grid md:grid-cols-2 gap-4 text-xs sm:text-sm">
+              <div>
+                <h3 className="font-semibold mb-2">Largest Auction Groups:</h3>
+                <ul className="space-y-1 text-gray-700">
+                  <li>• <strong>USS:</strong> 150,000+ cars weekly, 19 locations</li>
+                  <li>• <strong>JAA:</strong> Premium/luxury focus</li>
+                  <li>• <strong>TAA:</strong> Toyota specialized</li>
+                  <li>• <strong>HAA:</strong> Honda/Nissan focus</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="font-semibold mb-2">Daily Volume:</h3>
+                <ul className="space-y-1 text-gray-700">
+                  <li>• Small location: 1,200 cars/day</li>
+                  <li>• Large location: 8,000 cars/day</li>
+                  <li>• Total Japan: 50,000+ cars/day</li>
+                  <li>• Bidding speed: 15 seconds/car</li>
+                </ul>
+              </div>
+            </div>
+            <div className="mt-3 p-3 bg-blue-100 rounded">
+              <p className="text-xs font-semibold text-blue-800">
+                📌 Note: Only licensed members can enter - you need an agent with proper access
+              </p>
+            </div>
+          </Card>
+
+          {/* Best Times to Buy & Auction Schedule */}
+          <Card className="p-4 sm:p-6 border-2 border-green-200">
+            <h2 className="text-base sm:text-lg lg:text-xl font-bold mb-3 sm:mb-4 flex items-center gap-2 text-green-800">
+              <Clock className="h-4 w-4 sm:h-5 sm:w-5" />
+              When to Buy & Weekly Auction Schedule
+            </h2>
+
+            {/* Best Times to Visit Japan */}
+            <div className="bg-green-50 p-4 rounded-lg mb-4">
+              <h3 className="font-bold text-sm sm:text-base mb-3">📅 Best Times to Buy in Japan</h3>
+              <div className="grid md:grid-cols-2 gap-4 text-xs sm:text-sm">
+                <div>
+                  <p className="font-semibold text-green-700 mb-2">✅ Best Months:</p>
+                  <ul className="space-y-1 text-gray-700">
+                    <li>• <strong>March-May:</strong> Spring, good weather</li>
+                    <li>• <strong>September-December:</strong> Fall, ideal conditions</li>
+                  </ul>
+                </div>
+                <div>
+                  <p className="font-semibold text-red-700 mb-2">❌ Avoid These Times:</p>
+                  <ul className="space-y-1 text-gray-700">
+                    <li>• <strong>Golden Week (May 3-5):</strong> Massive crowds</li>
+                    <li>• <strong>Obon (mid-August):</strong> Prices 2-3x normal</li>
+                    <li>• <strong>June-July:</strong> Non-stop rain</li>
+                    <li>• <strong>August:</strong> Unbearable heat/humidity</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            {/* Weekly Auction Schedule */}
+            <div className="bg-blue-50 p-4 rounded-lg mb-4">
+              <h3 className="font-bold text-sm sm:text-base mb-3">📆 Weekly Auction Schedule (Nagoya Area)</h3>
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-2 text-xs sm:text-sm">
+                <div className="bg-white p-2 rounded">
+                  <p className="font-semibold">Monday</p>
+                  <p className="text-gray-600">USS R-Nagoya</p>
+                </div>
+                <div className="bg-white p-2 rounded">
+                  <p className="font-semibold">Tuesday</p>
+                  <p className="text-gray-600">CAA Gifu</p>
+                </div>
+                <div className="bg-white p-2 rounded">
+                  <p className="font-semibold">Wednesday</p>
+                  <p className="text-gray-600">CAA Chubu</p>
+                </div>
+                <div className="bg-white p-2 rounded">
+                  <p className="font-semibold">Thursday</p>
+                  <p className="text-gray-600">TAA (Toyota)</p>
+                </div>
+                <div className="bg-white p-2 rounded">
+                  <p className="font-semibold">Friday</p>
+                  <p className="text-gray-600">USS Nagoya</p>
+                </div>
+                <div className="bg-white p-2 rounded">
+                  <p className="font-semibold">Saturday</p>
+                  <p className="text-gray-600">GCA</p>
+                </div>
+              </div>
+              <p className="text-xs text-gray-600 mt-2">
+                Note: Different regions have different schedules. This is central Japan (most active area).
+              </p>
+            </div>
+
+            {/* Expected Costs */}
+            <div className="bg-yellow-50 p-4 rounded-lg">
+              <h3 className="font-bold text-sm sm:text-base mb-3">💴 Typical Fee Structure (Varies by Agent)</h3>
+              <div className="space-y-2 text-xs sm:text-sm">
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-700">Deposit Required:</span>
+                  <span className="font-semibold">¥80,000-150,000 per car</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-700">Agent Fee:</span>
+                  <span className="font-semibold">¥50,000-100,000 per car</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-700">Payment Deadline:</span>
+                  <span className="font-semibold text-red-600">3-5 business days</span>
+                </div>
+                <div className="p-2 bg-red-100 rounded mt-2">
+                  <p className="text-xs text-red-800">
+                    ⚠️ Missing payment deadline = lose deposit + automatic cancellation
+                  </p>
+                </div>
+              </div>
+            </div>
+          </Card>
+
+          {/* Critical Warnings & Rules */}
+          <Card className="p-4 sm:p-6 border-2 border-red-200">
+            <h2 className="text-base sm:text-lg lg:text-xl font-bold mb-3 sm:mb-4 flex items-center gap-2 text-red-800">
+              <AlertTriangle className="h-4 w-4 sm:h-5 sm:w-5" />
+              Critical Warnings & Rules
+            </h2>
+            <div className="p-4 bg-red-50 rounded-lg">
+              <ul className="space-y-2 text-xs sm:text-sm text-red-800">
+                <li>• Check import restrictions BEFORE bidding (YOUR responsibility)</li>
+                <li>• Cancellation after purchase = lose entire deposit</li>
+                <li>• Bank charges are YOUR responsibility</li>
+                <li>• Missing payment deadline = automatic cancellation</li>
+                <li>• No exceptions to these rules - agents are strict</li>
+              </ul>
+            </div>
+          </Card>
+
+          {/* Pricing Strategy */}
+          <Card className="p-4 sm:p-6 border-2 border-blue-200">
+            <h2 className="text-base sm:text-lg lg:text-xl font-bold mb-3 sm:mb-4 flex items-center gap-2 text-blue-800">
+              <TrendingUp className="h-4 w-4 sm:h-5 sm:w-5" />
+              Smart Pricing Strategy
+            </h2>
+            <div className="bg-blue-50 p-4 rounded-lg">
+              <ol className="space-y-2 text-xs sm:text-sm">
+                <li className="flex gap-2">
+                  <span className="font-bold text-blue-600">1.</span>
+                  <div>Check your local market price for the same model</div>
+                </li>
+                <li className="flex gap-2">
+                  <span className="font-bold text-blue-600">2.</span>
+                  <div>Convert to JPY and bid LOWER than local price</div>
+                </li>
+                <li className="flex gap-2">
+                  <span className="font-bold text-blue-600">3.</span>
+                  <div>Remember: 66,000 cars auctioned weekly = plenty of options</div>
+                </li>
+                <li className="flex gap-2">
+                  <span className="font-bold text-blue-600">4.</span>
+                  <div>Your agent will provide recent auction prices for comparison</div>
+                </li>
+              </ol>
+              <div className="mt-3 p-2 bg-green-100 rounded">
+                <p className="text-xs font-semibold text-green-800">
+                  💡 Pro Tip: Don't rush - if you miss one, another similar car comes next week
+                </p>
+              </div>
+            </div>
+          </Card>
+
+          {/* Documentation You'll Receive */}
+          <Card className="p-4 sm:p-6 border-2 border-green-200">
+            <h2 className="text-base sm:text-lg lg:text-xl font-bold mb-3 sm:mb-4 flex items-center gap-2 text-green-800">
+              <FileText className="h-4 w-4 sm:h-5 sm:w-5" />
+              Documentation You'll Receive
+            </h2>
+            <div className="bg-green-50 p-4 rounded-lg">
+              <div className="grid md:grid-cols-2 gap-3 text-xs sm:text-sm">
+                <div className="flex items-start gap-2">
+                  <CheckCircle className="h-4 w-4 text-green-600 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <p className="font-semibold">Auction Sheet</p>
+                    <p className="text-gray-600">Proves car condition & history</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-2">
+                  <CheckCircle className="h-4 w-4 text-green-600 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <p className="font-semibold">Invoice from Auction</p>
+                    <p className="text-gray-600">Proves actual price paid</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-2">
+                  <CheckCircle className="h-4 w-4 text-green-600 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <p className="font-semibold">Deregistration Papers</p>
+                    <p className="text-gray-600">Required for your registration</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-2">
+                  <CheckCircle className="h-4 w-4 text-green-600 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <p className="font-semibold">Bill of Lading</p>
+                    <p className="text-gray-600">Needed to collect car at port</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-2">
+                  <CheckCircle className="h-4 w-4 text-green-600 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <p className="font-semibold">Service/Warranty Books</p>
+                    <p className="text-gray-600">If available with the car</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-2">
+                  <CheckCircle className="h-4 w-4 text-green-600 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <p className="font-semibold">Inspection Certificate</p>
+                    <p className="text-gray-600">Japanese inspection record</p>
+                  </div>
+                </div>
+              </div>
+              <p className="text-xs text-gray-600 mt-3">
+                📌 Keep all originals safe - customs often keeps them permanently
+              </p>
+            </div>
+          </Card>
         </div>
       )}
     </div>

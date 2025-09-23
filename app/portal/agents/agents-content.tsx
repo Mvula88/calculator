@@ -18,7 +18,7 @@ import {
   MessageCircle,
   ExternalLink,
   AlertCircle,
-  Verified,
+  BadgeCheck,
   Globe,
   Building,
   Filter,
@@ -587,7 +587,7 @@ export default function AgentsContent() {
                         <h3 className="text-xl font-bold">{agent.name}</h3>
                         {agent.verified && (
                           <div className="flex items-center gap-1">
-                            <Verified className="h-5 w-5 text-blue-600" />
+                            <BadgeCheck className="h-5 w-5 text-blue-600" />
                             <span className={`px-2 py-1 rounded-full text-xs font-medium ${getTierColor(agent.tier)}`}>
                               {agent.tier.toUpperCase()}
                             </span>
