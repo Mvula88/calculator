@@ -643,6 +643,127 @@ export default function JapanAuctionsClientPage() {
               ))}
             </div>
           </Card>
+
+          {/* Advanced Auction Strategies Section - From Mastery */}
+          <Card className="p-4 sm:p-6 border-2 border-green-200">
+            <h2 className="text-base sm:text-lg lg:text-xl font-bold mb-3 sm:mb-4 flex items-center gap-2 text-green-800">
+              <Globe className="h-4 w-4 sm:h-5 sm:w-5" />
+              Japanese Auction Mastery
+            </h2>
+            <p className="text-xs sm:text-sm text-gray-600 mb-4">
+              Advanced strategies for buying directly from Japanese auctions
+            </p>
+
+            {/* Auction Grading Deep Dive */}
+            <div className="bg-green-50 p-4 sm:p-6 rounded-lg mb-4">
+              <h3 className="font-bold text-sm sm:text-base lg:text-lg mb-3">📊 Understanding Auction Grades</h3>
+              <div className="grid md:grid-cols-2 gap-4">
+                <div>
+                  <h4 className="font-semibold text-sm mb-2">Grade System Details:</h4>
+                  <ul className="text-xs sm:text-sm space-y-1">
+                    <li><strong>S:</strong> Brand new / Nearly new (rare)</li>
+                    <li><strong>6:</strong> Extremely low mileage, mint condition</li>
+                    <li><strong>5:</strong> Excellent, minimal wear</li>
+                    <li><strong>4.5:</strong> Very good, light use visible</li>
+                    <li><strong>4:</strong> Good condition, normal wear</li>
+                    <li><strong>3.5:</strong> Average, visible wear</li>
+                    <li><strong>3:</strong> Below average, issues present</li>
+                  </ul>
+                </div>
+                <div>
+                  <h4 className="font-semibold text-sm mb-2">Interior Grades Explained:</h4>
+                  <ul className="text-xs sm:text-sm space-y-1">
+                    <li><strong>A:</strong> Like new, pristine</li>
+                    <li><strong>B:</strong> Clean, minimal wear</li>
+                    <li><strong>C:</strong> Average wear, usable</li>
+                    <li><strong>D:</strong> Poor, needs work</li>
+                  </ul>
+                  <p className="text-xs text-green-700 mt-2">
+                    💡 Pro Tip: Grade 4/B offers best value for money
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Best Times to Buy */}
+            <div className="bg-blue-50 p-4 sm:p-6 rounded-lg mb-4">
+              <h3 className="font-bold text-sm sm:text-base lg:text-lg mb-3">⏰ Optimal Buying Times</h3>
+              <div className="grid md:grid-cols-2 gap-4">
+                <div>
+                  <h4 className="font-semibold text-sm mb-2">Seasonal Opportunities:</h4>
+                  <ul className="text-xs sm:text-sm space-y-1">
+                    <li>• <strong>March-April:</strong> Financial year-end deals</li>
+                    <li>• <strong>September:</strong> Model year clearance</li>
+                    <li>• <strong>December:</strong> Year-end inventory clear</li>
+                    <li>• <strong>Avoid May:</strong> Golden Week holidays</li>
+                  </ul>
+                </div>
+                <div>
+                  <h4 className="font-semibold text-sm mb-2">Weekly Patterns:</h4>
+                  <ul className="text-xs sm:text-sm space-y-1">
+                    <li>• <strong>Tuesday:</strong> Most inventory available</li>
+                    <li>• <strong>Thursday:</strong> Best deals typically</li>
+                    <li>• <strong>Friday:</strong> Higher competition</li>
+                    <li>• <strong>Monday:</strong> Leftover bargains</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            {/* Smart Bidding Tactics */}
+            <div className="bg-purple-50 p-4 sm:p-6 rounded-lg mb-4">
+              <h3 className="font-bold text-sm sm:text-base lg:text-lg mb-3">🎯 Professional Bidding Tactics</h3>
+              <ol className="space-y-2 text-xs sm:text-sm">
+                <li className="flex gap-2">
+                  <span className="font-bold">1.</span>
+                  <div>
+                    <strong>Calculate Maximum:</strong> Total budget ÷ 2.2 - shipping = max bid
+                  </div>
+                </li>
+                <li className="flex gap-2">
+                  <span className="font-bold">2.</span>
+                  <div>
+                    <strong>Research History:</strong> Check same model's prices over 30 days
+                  </div>
+                </li>
+                <li className="flex gap-2">
+                  <span className="font-bold">3.</span>
+                  <div>
+                    <strong>Stay Disciplined:</strong> Lost auction = saved mistake. More cars tomorrow
+                  </div>
+                </li>
+                <li className="flex gap-2">
+                  <span className="font-bold">4.</span>
+                  <div>
+                    <strong>Read USS Sheets:</strong> Master auction sheets to spot hidden damage
+                  </div>
+                </li>
+              </ol>
+            </div>
+
+            {/* Platform Comparison */}
+            <div className="bg-gray-50 p-4 sm:p-6 rounded-lg">
+              <h3 className="font-bold text-sm sm:text-base lg:text-lg mb-3">🌐 Platform Comparison</h3>
+              <div className="space-y-3">
+                <div className="border-l-4 border-blue-500 pl-4">
+                  <h4 className="font-semibold text-sm">Direct Purchase Sites:</h4>
+                  <ul className="text-xs sm:text-sm space-y-1">
+                    <li>• <strong>SBT Japan:</strong> Fixed prices, beginner-friendly, English support</li>
+                    <li>• <strong>BE FORWARD:</strong> Large inventory, negotiable prices</li>
+                    <li>• <strong>Japan Partner:</strong> Good for parts and accessories</li>
+                  </ul>
+                </div>
+                <div className="border-l-4 border-green-500 pl-4">
+                  <h4 className="font-semibold text-sm">Auction Access (Agent Required):</h4>
+                  <ul className="text-xs sm:text-sm space-y-1">
+                    <li>• <strong>USS Auctions:</strong> Largest, 150,000+ cars weekly</li>
+                    <li>• <strong>JAA:</strong> Luxury/sports car focus</li>
+                    <li>• <strong>TAA:</strong> Toyota specialist auctions</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </Card>
         </div>
       )}
     </div>

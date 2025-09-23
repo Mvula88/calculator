@@ -21,7 +21,10 @@ import {
   Verified,
   Globe,
   Building,
-  Filter
+  Filter,
+  Ship,
+  Truck,
+  Search
 } from 'lucide-react'
 
 const agents = [
@@ -975,6 +978,141 @@ export default function AgentsContent() {
               Border post hours vary - always confirm before traveling. Digital pre-clearance services are increasingly available.
             </p>
           </div>
+        </Card>
+      </div>
+
+      {/* Shipping Lines Section */}
+      <div className="mt-12 space-y-6">
+        <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+          <Ship className="h-6 w-6 text-blue-600" />
+          Verified Shipping Lines
+        </h2>
+        <p className="text-gray-600 mb-6">
+          Direct Japan-Africa shipping lines with negotiated rates for IMPOTA members
+        </p>
+
+        <div className="grid md:grid-cols-2 gap-6">
+          <Card className="p-6">
+            <h3 className="font-bold text-lg mb-3">🚢 Mitsui O.S.K. Lines (MOL)</h3>
+            <div className="space-y-2 text-sm">
+              <p className="text-gray-600">Direct Japan-Walvis Bay route</p>
+              <div className="space-y-1">
+                <p><strong>Container:</strong> N$32,000 (negotiated rate)</p>
+                <p><strong>Transit Time:</strong> 28-32 days</p>
+                <p className="text-green-600">✓ Best for container sharing</p>
+              </div>
+              <div className="pt-3 border-t">
+                <p className="text-xs text-gray-600">Excellent for multiple vehicle shipments</p>
+              </div>
+            </div>
+          </Card>
+
+          <Card className="p-6">
+            <h3 className="font-bold text-lg mb-3">🚢 NYK Line</h3>
+            <div className="space-y-2 text-sm">
+              <p className="text-gray-600">RoRo shipping specialist</p>
+              <div className="space-y-1">
+                <p><strong>RoRo:</strong> N$18,000-22,000</p>
+                <p><strong>Transit Time:</strong> 35-40 days</p>
+                <p className="text-blue-600">✓ Handles oversized vehicles</p>
+              </div>
+              <div className="pt-3 border-t">
+                <p className="text-xs text-gray-600">Ideal for single vehicle or special cargo</p>
+              </div>
+            </div>
+          </Card>
+        </div>
+      </div>
+
+      {/* Transport Companies Section */}
+      <div className="mt-12 space-y-6">
+        <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+          <Truck className="h-6 w-6 text-orange-600" />
+          Transport Companies
+        </h2>
+        <p className="text-gray-600 mb-6">
+          Reliable vehicle transport from ports to final destination
+        </p>
+
+        <div className="grid md:grid-cols-2 gap-6">
+          <Card className="p-6">
+            <h3 className="font-bold text-lg mb-3">🚚 Cross Border Logistics</h3>
+            <div className="space-y-2 text-sm">
+              <p className="text-gray-600">Walvis Bay to all regions</p>
+              <div className="space-y-1">
+                <p><strong>Rate:</strong> N$12/km (bulk discount available)</p>
+                <p><strong>Contact:</strong> +264 81 345 6789</p>
+                <p className="text-green-600">✓ GPS tracking included</p>
+              </div>
+              <div className="pt-3 border-t">
+                <p className="text-xs text-gray-600">Competitive rates for multiple vehicles</p>
+              </div>
+            </div>
+          </Card>
+
+          <Card className="p-6">
+            <h3 className="font-bold text-lg mb-3">🚚 SafeHaul Transport</h3>
+            <div className="space-y-2 text-sm">
+              <p className="text-gray-600">Insured premium car carriers</p>
+              <div className="space-y-1">
+                <p><strong>Rate:</strong> N$15/km (premium service)</p>
+                <p><strong>Contact:</strong> +264 81 456 7890</p>
+                <p className="text-green-600">✓ Full insurance coverage</p>
+              </div>
+              <div className="pt-3 border-t">
+                <p className="text-xs text-gray-600">Best for luxury and high-value vehicles</p>
+              </div>
+            </div>
+          </Card>
+        </div>
+      </div>
+
+      {/* Pre-Purchase Inspection Services */}
+      <div className="mt-12 space-y-6">
+        <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+          <Search className="h-6 w-6 text-purple-600" />
+          Pre-Purchase Inspection Services
+        </h2>
+        <p className="text-gray-600 mb-6">
+          Professional vehicle inspection services in Japan before purchase
+        </p>
+
+        <div className="grid md:grid-cols-2 gap-6">
+          <Card className="p-6">
+            <h3 className="font-bold text-lg mb-3">🔍 JEVIC</h3>
+            <div className="space-y-2 text-sm">
+              <p className="text-gray-600">Official inspection service</p>
+              <div className="space-y-1">
+                <p><strong>Cost:</strong> $250-350</p>
+                <p><strong>Report Delivery:</strong> 48 hours</p>
+                <p className="text-purple-600">✓ Required for some imports</p>
+              </div>
+              <div className="pt-3 border-t">
+                <p className="text-xs text-gray-600">Government-approved inspection authority</p>
+              </div>
+            </div>
+          </Card>
+
+          <Card className="p-6">
+            <h3 className="font-bold text-lg mb-3">🔍 EAA Co. Ltd</h3>
+            <div className="space-y-2 text-sm">
+              <p className="text-gray-600">Detailed inspection service</p>
+              <div className="space-y-1">
+                <p><strong>Cost:</strong> $200-300</p>
+                <p><strong>Report Delivery:</strong> 24-48 hours</p>
+                <p className="text-purple-600">✓ Video inspection available</p>
+              </div>
+              <div className="pt-3 border-t">
+                <p className="text-xs text-gray-600">Comprehensive reports with photos/videos</p>
+              </div>
+            </div>
+          </Card>
+        </div>
+
+        <Card className="p-4 bg-yellow-50 border border-yellow-200">
+          <p className="text-sm text-yellow-800">
+            <strong>⚠️ Important:</strong> Always verify current rates and availability. IMPOTA negotiated rates require mentioning your membership when contacting service providers.
+          </p>
         </Card>
       </div>
 

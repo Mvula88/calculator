@@ -387,6 +387,36 @@ export default function BeginnerGuidePage() {
               </div>
             </div>
 
+            {/* Container Sharing Deep Dive - From Mastery */}
+            <div className="mt-4 p-4 bg-green-50 border border-green-200 rounded-lg">
+              <h5 className="font-semibold text-green-900 mb-2">💰 Container Sharing: Save N$30,000+ on Shipping</h5>
+              <div className="grid md:grid-cols-2 gap-4 text-sm">
+                <div>
+                  <p className="font-medium mb-2 text-green-800">✅ How It Works:</p>
+                  <ul className="space-y-1 text-green-700">
+                    <li>• 40ft container fits 4-6 cars</li>
+                    <li>• Total cost: N$45,000</li>
+                    <li>• Split 3 ways = N$15,000 each</li>
+                    <li>• Save N$30,000 vs solo shipping</li>
+                    <li>• ContShare platform provides escrow protection</li>
+                  </ul>
+                </div>
+                <div>
+                  <p className="font-medium mb-2 text-red-800">⚠️ Critical Safety Rules:</p>
+                  <ul className="space-y-1 text-red-700">
+                    <li>• Written agreement BEFORE any payment</li>
+                    <li>• All parties must be on Bill of Lading</li>
+                    <li>• Agree unpacking location upfront</li>
+                    <li>• Use escrow - never pay coordinator directly</li>
+                    <li>• Each vehicle needs separate insurance</li>
+                  </ul>
+                </div>
+              </div>
+              <div className="mt-3 p-2 bg-yellow-50 border border-yellow-200 rounded text-xs">
+                <p className="text-yellow-800"><strong>Never:</strong> Pay without contract • Accept verbal agreements • Skip insurance • Use unverified coordinators</p>
+              </div>
+            </div>
+
             <div className="flex gap-4">
               <div className="flex-shrink-0 w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold">4</div>
               <div>
