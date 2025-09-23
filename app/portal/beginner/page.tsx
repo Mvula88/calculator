@@ -100,7 +100,7 @@ export default function BeginnerGuidePage() {
         <CardHeader className="bg-gradient-to-r from-red-50 to-pink-50">
           <CardTitle className="flex items-center gap-2 text-red-900">
             <AlertCircle className="h-6 w-6 text-red-600" />
-            Country Import Restrictions (2024-2025)
+            Country Import Restrictions
           </CardTitle>
         </CardHeader>
         <CardContent className="pt-6">
@@ -336,14 +336,14 @@ export default function BeginnerGuidePage() {
               <div>
                 <h4 className="font-semibold mb-1">Find & Buy Your Vehicle (Week 1-2)</h4>
                 <p className="text-gray-600">Search Japanese auctions, place bid through agent, win vehicle, make payment</p>
-                <p className="text-sm text-blue-600 mt-1">Budget needed: Vehicle price + N$10,000 Japan-side fees</p>
+                <p className="text-sm text-blue-600 mt-1">Budget needed: Vehicle price + ±N$150,000 Japan-side fees</p>
                 <div className="mt-2 p-3 bg-blue-50 rounded text-sm">
                   <p className="font-semibold mb-1">What happens:</p>
                   <ul className="space-y-1 text-gray-700">
                     <li>• Agent searches auctions based on your criteria</li>
                     <li>• You approve vehicles to bid on</li>
                     <li>• Agent bids on your behalf</li>
-                    <li>• Payment via wire transfer within 3 days</li>
+                    <li>• Payment via wire transfer within ±3 days</li>
                   </ul>
                 </div>
               </div>
@@ -362,6 +362,7 @@ export default function BeginnerGuidePage() {
                     <li>• Export certificate issued</li>
                     <li>• Transport from auction to port</li>
                     <li>• Pre-shipment inspection</li>
+                    <li>• Japanese documents require certified translation</li>
                   </ul>
                 </div>
               </div>
@@ -370,17 +371,18 @@ export default function BeginnerGuidePage() {
             <div className="flex gap-4">
               <div className="flex-shrink-0 w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold">3</div>
               <div>
-                <h4 className="font-semibold mb-1">Ocean Shipping (5-6 Weeks)</h4>
+                <h4 className="font-semibold mb-1">Ocean Shipping (8-13 Weeks)</h4>
                 <p className="text-gray-600">Vehicle loaded on ship at Japanese port, sails to African port</p>
-                <p className="text-sm text-blue-600 mt-1">Budget needed: N$15,000-20,000 shipping costs</p>
+                <p className="text-sm text-blue-600 mt-1">Container options: 40ft ±N$75,000 | 20ft ±N$65,000 | Sharing ±N$18,000 per vehicle</p>
                 <div className="mt-2 p-3 bg-blue-50 rounded text-sm">
                   <p className="font-semibold mb-1">What happens:</p>
                   <ul className="space-y-1 text-gray-700">
                     <li>• Loading at Japanese port (Yokohama/Nagoya)</li>
-                    <li>• 35-40 days ocean freight (5-6 weeks)</li>
+                    <li>• 60-90 days ocean freight (8-13 weeks)</li>
                     <li>• Arrival at African port (Walvis Bay/Durban)</li>
                     <li>• Port handling and unloading</li>
                   </ul>
+                  <p className="text-green-700 font-medium mt-2">💡 Save on shipping: Use ContShare (www.contshare.com) to find container sharing partners</p>
                 </div>
               </div>
             </div>
@@ -408,7 +410,7 @@ export default function BeginnerGuidePage() {
               <div>
                 <h4 className="font-semibold mb-1">Registration & Compliance (Week 9-10)</h4>
                 <p className="text-gray-600">Roadworthy test, registration, license plates</p>
-                <p className="text-sm text-blue-600 mt-1">Budget needed: N$5,000-8,000</p>
+                <p className="text-sm text-blue-600 mt-1">Budget needed: ±N$1,500 to N$3,000</p>
                 <div className="mt-2 p-3 bg-blue-50 rounded text-sm">
                   <p className="font-semibold mb-1">What happens:</p>
                   <ul className="space-y-1 text-gray-700">
@@ -486,7 +488,7 @@ export default function BeginnerGuidePage() {
                   const shipping = 25000 // Average shipping
                   const clearing = 12000 // Average clearing
                   const registration = 5000 // Average registration
-                  const japanFees = 10000 // Japan-side costs
+                  const japanFees = 150000 // Japan-side costs
                   const total = localPrice + duties + shipping + clearing + registration + japanFees
 
                   const currency = {
