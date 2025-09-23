@@ -57,7 +57,7 @@ export default function BeginnerGuidePage() {
             </div>
             <div className="p-3 bg-gray-50 rounded-lg">
               <h4 className="font-semibold text-gray-900">VAT</h4>
-              <p className="text-sm text-gray-600">Value Added Tax on imported goods (15-16.5%)</p>
+              <p className="text-sm text-gray-600">Value Added Tax on imported goods</p>
             </div>
             <div className="p-3 bg-gray-50 rounded-lg">
               <h4 className="font-semibold text-gray-900">Clearing Agent</h4>
@@ -91,146 +91,9 @@ export default function BeginnerGuidePage() {
               <h4 className="font-semibold text-gray-900">Bill of Lading</h4>
               <p className="text-sm text-gray-600">Shipping document proving ownership</p>
             </div>
-            <div className="p-3 bg-gray-50 rounded-lg">
-              <h4 className="font-semibold text-gray-900">NATIS</h4>
-              <p className="text-sm text-gray-600">Namibian vehicle registration system</p>
-            </div>
           </div>
         </CardContent>
       </Card>
-
-      {/* Success Stories - Real Vehicle Import Examples */}
-      <div className="mb-8">
-        <h2 className="text-2xl font-bold text-gray-900 mb-6">
-          Real Vehicle Import Examples - Actual Costs Breakdown
-        </h2>
-        <div className="grid md:grid-cols-2 gap-6">
-          <Card>
-            <CardContent className="pt-6">
-              <div className="flex items-center gap-2 mb-3">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                ))}
-              </div>
-              <h4 className="font-bold mb-2">2015 Golf 7R</h4>
-              <div className="space-y-1 text-sm">
-                <p><span className="text-gray-600">Japan Auction price (JPY 455,000)</span> <span className="font-semibold">N$ 53,205.88</span></p>
-                <p><span className="text-gray-600">Japan side costs (JPY 159,640)</span> <span className="font-semibold">N$ 18,667.66</span></p>
-                <p><span className="text-gray-600">Ocean Freight (JPY 137,000)</span> <span className="font-semibold">N$ 16,020.23</span></p>
-                <p className="font-semibold text-gray-700 mt-2">Custom Duties and Taxes:</p>
-                <p className="pl-4"><span className="text-gray-600">• ICD</span> <span className="font-semibold">N$ 18,784.04</span></p>
-                <p className="pl-4"><span className="text-gray-600">• ENV</span> <span className="font-semibold">N$ 3,960.00</span></p>
-                <p className="pl-4"><span className="text-gray-600">• ADV</span> <span className="font-semibold">N$ 2,530.89</span></p>
-                <p className="pl-4"><span className="text-gray-600">• VAT</span> <span className="font-semibold">N$ 12,397.46</span></p>
-                <div className="pt-2 mt-2 border-t">
-                  <p className="text-blue-600 font-bold">TOTAL LANDED COST FOR 2015 GOLF 7R: N$ 125,566.16</p>
-                  <p className="text-xs text-gray-500">Timeline: 2-3 months</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardContent className="pt-6">
-              <div className="flex items-center gap-2 mb-3">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                ))}
-              </div>
-              <h4 className="font-bold mb-2">2017 AUDI A3 SPORTBACK 1.4L</h4>
-              <div className="space-y-1 text-sm">
-                <p><span className="text-gray-600">Japan Auction price (JPY 201,000)</span> <span className="font-semibold">N$ 23,504.14</span></p>
-                <p><span className="text-gray-600">Japan side costs (JPY 134,340)</span> <span className="font-semibold">N$ 15,709.18</span></p>
-                <p><span className="text-gray-600">Ocean Freight (JPY 137,000)</span> <span className="font-semibold">N$ 16,020.23</span></p>
-                <p className="font-semibold text-gray-700 mt-2">Custom Duties and Taxes:</p>
-                <p className="pl-4"><span className="text-gray-600">• ICD</span> <span className="font-semibold">N$ 9,239.83</span></p>
-                <p className="pl-4"><span className="text-gray-600">• ENV</span> <span className="font-semibold">N$ 2,780.00</span></p>
-                <p className="pl-4"><span className="text-gray-600">• ADV</span> <span className="font-semibold">N$ 414.98</span></p>
-                <p className="pl-4"><span className="text-gray-600">• VAT</span> <span className="font-semibold">N$ 6,098.28</span></p>
-                <div className="pt-2 mt-2 border-t">
-                  <p className="text-blue-600 font-bold">TOTAL LANDED COST FOR 2017 AUDI A3 SPORTBACK 1.4L: N$ 73,766.64</p>
-                  <p className="text-xs text-gray-500">Timeline: 2-3 months</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardContent className="pt-6">
-              <div className="flex items-center gap-2 mb-3">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                ))}
-              </div>
-              <h4 className="font-bold mb-2">2015 AUDI A5 QUATTRO 2.0L</h4>
-              <div className="space-y-1 text-sm">
-                <p><span className="text-gray-600">Japan Auction price (JPY 231,000)</span> <span className="font-semibold">N$ 27,012.22</span></p>
-                <p><span className="text-gray-600">Japan side costs (JPY 124,440)</span> <span className="font-semibold">N$ 14,551.52</span></p>
-                <p><span className="text-gray-600">Ocean Freight (JPY 137,000)</span> <span className="font-semibold">N$ 16,020.23</span></p>
-                <p className="font-semibold text-gray-700 mt-2">Custom Duties and Taxes:</p>
-                <p className="pl-4"><span className="text-gray-600">• ICD</span> <span className="font-semibold">N$ 10,862.62</span></p>
-                <p className="pl-4"><span className="text-gray-600">• ENV</span> <span className="font-semibold">N$ 3,960.00</span></p>
-                <p className="pl-4"><span className="text-gray-600">• ADV</span> <span className="font-semibold">N$ 653.93</span></p>
-                <p className="pl-4"><span className="text-gray-600">• VAT</span> <span className="font-semibold">N$ 7,169.33</span></p>
-                <div className="pt-2 mt-2 border-t">
-                  <p className="text-blue-600 font-bold">TOTAL LANDED COST FOR 2015 AUDI A5 QUATTRO 2.0L: N$ 80,229.85</p>
-                  <p className="text-xs text-gray-500">Timeline: 2-3 months</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardContent className="pt-6">
-              <div className="flex items-center gap-2 mb-3">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                ))}
-              </div>
-              <h4 className="font-bold mb-2">2012 AUDI A4 QUATTRO 2.0L</h4>
-              <div className="space-y-1 text-sm">
-                <p><span className="text-gray-600">Japan Auction price (JPY 200,000)</span> <span className="font-semibold">N$ 23,387.20</span></p>
-                <p><span className="text-gray-600">Japan side costs (JPY 123,560)</span> <span className="font-semibold">N$ 14,448.61</span></p>
-                <p><span className="text-gray-600">Ocean Freight (JPY 137,000)</span> <span className="font-semibold">N$ 16,020.23</span></p>
-                <p className="font-semibold text-gray-700 mt-2">Custom Duties and Taxes:</p>
-                <p className="pl-4"><span className="text-gray-600">• ICD</span> <span className="font-semibold">N$ 9,888.33</span></p>
-                <p className="pl-4"><span className="text-gray-600">• ENV</span> <span className="font-semibold">N$ 3,960.00</span></p>
-                <p className="pl-4"><span className="text-gray-600">• ADV</span> <span className="font-semibold">N$ 504.46</span></p>
-                <p className="pl-4"><span className="text-gray-600">• VAT</span> <span className="font-semibold">N$ 6,526.30</span></p>
-                <div className="pt-2 mt-2 border-t">
-                  <p className="text-blue-600 font-bold">TOTAL LANDED COST FOR 2012 AUDI A4 QUATTRO 2.0L: N$ 74,735.13</p>
-                  <p className="text-xs text-gray-500">Timeline: 2-3 months</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-
-        <Card className="mt-6 bg-green-50 border-green-200">
-          <CardContent className="pt-6">
-            <div className="flex items-start gap-3">
-              <DollarSign className="h-6 w-6 text-green-600 flex-shrink-0" />
-              <div>
-                <h3 className="font-bold text-green-900 mb-2">Import Cost Analysis - Key Insights</h3>
-                <div className="space-y-3 text-sm">
-                  <div className="p-3 bg-white rounded-lg">
-                    <p className="text-green-700 font-semibold mb-1">Consistent Shipping Costs</p>
-                    <p className="text-gray-700">Sea freight is typically N$18,000 regardless of vehicle value, making higher-value cars more cost-effective to import.</p>
-                  </div>
-                  <div className="p-3 bg-white rounded-lg">
-                    <p className="text-green-700 font-semibold mb-1">Additional Costs Rule of Thumb</p>
-                    <p className="text-gray-700">Expect to pay 150-250% of the FOB price as total landed cost. Lower-value cars have higher percentage markups due to fixed shipping costs.</p>
-                  </div>
-                  <div className="p-3 bg-white rounded-lg">
-                    <p className="text-green-700 font-semibold mb-1">Best Value Range</p>
-                    <p className="text-gray-700">Cars in the N$10,000-25,000 FOB price range offer the best balance of quality and import efficiency.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
 
       {/* Country Import Restrictions Quick Reference */}
       <Card className="mb-8 border-red-200">
@@ -349,6 +212,115 @@ export default function BeginnerGuidePage() {
         </CardContent>
       </Card>
 
+      {/* Success Stories - Real Vehicle Import Examples */}
+      <div className="mb-8">
+        <h2 className="text-2xl font-bold text-gray-900 mb-6">
+          Real Vehicle Import Examples - Actual Costs Breakdown
+        </h2>
+        <div className="grid md:grid-cols-2 gap-6">
+          <Card>
+            <CardContent className="pt-6">
+              <div className="flex items-center gap-2 mb-3">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                ))}
+              </div>
+              <h4 className="font-bold mb-2">2015 Golf 7R</h4>
+              <div className="space-y-1 text-sm">
+                <p><span className="text-gray-600">Japan Auction price (JPY 455,000)</span> <span className="font-semibold">N$ 53,205.88</span></p>
+                <p><span className="text-gray-600">Japan side costs (JPY 159,640)</span> <span className="font-semibold">N$ 18,667.66</span></p>
+                <p><span className="text-gray-600">Ocean Freight (JPY 137,000)</span> <span className="font-semibold">N$ 16,020.23</span></p>
+                <p className="font-semibold text-gray-700 mt-2">Custom Duties and Taxes:</p>
+                <p className="pl-4"><span className="text-gray-600">• ICD</span> <span className="font-semibold">N$ 18,784.04</span></p>
+                <p className="pl-4"><span className="text-gray-600">• ENV</span> <span className="font-semibold">N$ 3,960.00</span></p>
+                <p className="pl-4"><span className="text-gray-600">• ADV</span> <span className="font-semibold">N$ 2,530.89</span></p>
+                <p className="pl-4"><span className="text-gray-600">• VAT</span> <span className="font-semibold">N$ 12,397.46</span></p>
+                <div className="pt-2 mt-2 border-t">
+                  <p className="text-blue-600 font-bold">TOTAL LANDED COST FOR 2015 GOLF 7R: N$ 125,566.16</p>
+                  <p className="text-xs text-gray-500">Timeline: 6-12 weeks total</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardContent className="pt-6">
+              <div className="flex items-center gap-2 mb-3">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                ))}
+              </div>
+              <h4 className="font-bold mb-2">2017 AUDI A3 SPORTBACK 1.4L</h4>
+              <div className="space-y-1 text-sm">
+                <p><span className="text-gray-600">Japan Auction price (JPY 201,000)</span> <span className="font-semibold">N$ 23,504.14</span></p>
+                <p><span className="text-gray-600">Japan side costs (JPY 134,340)</span> <span className="font-semibold">N$ 15,709.18</span></p>
+                <p><span className="text-gray-600">Ocean Freight (JPY 137,000)</span> <span className="font-semibold">N$ 16,020.23</span></p>
+                <p className="font-semibold text-gray-700 mt-2">Custom Duties and Taxes:</p>
+                <p className="pl-4"><span className="text-gray-600">• ICD</span> <span className="font-semibold">N$ 9,239.83</span></p>
+                <p className="pl-4"><span className="text-gray-600">• ENV</span> <span className="font-semibold">N$ 2,780.00</span></p>
+                <p className="pl-4"><span className="text-gray-600">• ADV</span> <span className="font-semibold">N$ 414.98</span></p>
+                <p className="pl-4"><span className="text-gray-600">• VAT</span> <span className="font-semibold">N$ 6,098.28</span></p>
+                <div className="pt-2 mt-2 border-t">
+                  <p className="text-blue-600 font-bold">TOTAL LANDED COST FOR 2017 AUDI A3 SPORTBACK 1.4L: N$ 73,766.64</p>
+                  <p className="text-xs text-gray-500">Timeline: 6-12 weeks total</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardContent className="pt-6">
+              <div className="flex items-center gap-2 mb-3">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                ))}
+              </div>
+              <h4 className="font-bold mb-2">2015 AUDI A5 QUATTRO 2.0L</h4>
+              <div className="space-y-1 text-sm">
+                <p><span className="text-gray-600">Japan Auction price (JPY 231,000)</span> <span className="font-semibold">N$ 27,012.22</span></p>
+                <p><span className="text-gray-600">Japan side costs (JPY 124,440)</span> <span className="font-semibold">N$ 14,551.52</span></p>
+                <p><span className="text-gray-600">Ocean Freight (JPY 137,000)</span> <span className="font-semibold">N$ 16,020.23</span></p>
+                <p className="font-semibold text-gray-700 mt-2">Custom Duties and Taxes:</p>
+                <p className="pl-4"><span className="text-gray-600">• ICD</span> <span className="font-semibold">N$ 10,862.62</span></p>
+                <p className="pl-4"><span className="text-gray-600">• ENV</span> <span className="font-semibold">N$ 3,960.00</span></p>
+                <p className="pl-4"><span className="text-gray-600">• ADV</span> <span className="font-semibold">N$ 653.93</span></p>
+                <p className="pl-4"><span className="text-gray-600">• VAT</span> <span className="font-semibold">N$ 7,169.33</span></p>
+                <div className="pt-2 mt-2 border-t">
+                  <p className="text-blue-600 font-bold">TOTAL LANDED COST FOR 2015 AUDI A5 QUATTRO 2.0L: N$ 80,229.85</p>
+                  <p className="text-xs text-gray-500">Timeline: 6-12 weeks total</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardContent className="pt-6">
+              <div className="flex items-center gap-2 mb-3">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                ))}
+              </div>
+              <h4 className="font-bold mb-2">2012 AUDI A4 QUATTRO 2.0L</h4>
+              <div className="space-y-1 text-sm">
+                <p><span className="text-gray-600">Japan Auction price (JPY 200,000)</span> <span className="font-semibold">N$ 23,387.20</span></p>
+                <p><span className="text-gray-600">Japan side costs (JPY 123,560)</span> <span className="font-semibold">N$ 14,448.61</span></p>
+                <p><span className="text-gray-600">Ocean Freight (JPY 137,000)</span> <span className="font-semibold">N$ 16,020.23</span></p>
+                <p className="font-semibold text-gray-700 mt-2">Custom Duties and Taxes:</p>
+                <p className="pl-4"><span className="text-gray-600">• ICD</span> <span className="font-semibold">N$ 9,888.33</span></p>
+                <p className="pl-4"><span className="text-gray-600">• ENV</span> <span className="font-semibold">N$ 3,960.00</span></p>
+                <p className="pl-4"><span className="text-gray-600">• ADV</span> <span className="font-semibold">N$ 504.46</span></p>
+                <p className="pl-4"><span className="text-gray-600">• VAT</span> <span className="font-semibold">N$ 6,526.30</span></p>
+                <div className="pt-2 mt-2 border-t">
+                  <p className="text-blue-600 font-bold">TOTAL LANDED COST FOR 2012 AUDI A4 QUATTRO 2.0L: N$ 74,735.13</p>
+                  <p className="text-xs text-gray-500">Timeline: 6-12 weeks total</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+      </div>
+
       {/* The Import Process - Detailed */}
       <Card className="mb-8">
         <CardHeader className="bg-gradient-to-r from-green-50 to-emerald-50">
@@ -398,14 +370,14 @@ export default function BeginnerGuidePage() {
             <div className="flex gap-4">
               <div className="flex-shrink-0 w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold">3</div>
               <div>
-                <h4 className="font-semibold mb-1">Ocean Shipping (2-3 Months)</h4>
+                <h4 className="font-semibold mb-1">Ocean Shipping (5-6 Weeks)</h4>
                 <p className="text-gray-600">Vehicle loaded on ship at Japanese port, sails to African port</p>
                 <p className="text-sm text-blue-600 mt-1">Budget needed: N$15,000-20,000 shipping costs</p>
                 <div className="mt-2 p-3 bg-blue-50 rounded text-sm">
                   <p className="font-semibold mb-1">What happens:</p>
                   <ul className="space-y-1 text-gray-700">
                     <li>• Loading at Japanese port (Yokohama/Nagoya)</li>
-                    <li>• 2-3 months total shipping time (includes transit & handling)</li>
+                    <li>• 35-40 days ocean freight (5-6 weeks)</li>
                     <li>• Arrival at African port (Walvis Bay/Durban)</li>
                     <li>• Port handling and unloading</li>
                   </ul>
@@ -452,7 +424,7 @@ export default function BeginnerGuidePage() {
 
           <div className="mt-6 p-4 bg-amber-50 border border-amber-200 rounded-lg">
             <p className="font-semibold text-amber-900 mb-2">Total Timeline & Budget:</p>
-            <p className="text-amber-800">Timeline: 6-10 weeks (can extend to 12 weeks with delays)</p>
+            <p className="text-amber-800">Timeline: 6-12 weeks total (can extend further with major delays)</p>
             <p className="text-amber-800">Total Budget: Vehicle Price + 80-100% additional costs</p>
             <p className="text-sm text-amber-700 mt-2">Example: N$80,000 car = N$150,000-160,000 total landed cost</p>
           </div>
@@ -608,7 +580,7 @@ export default function BeginnerGuidePage() {
             <p className="font-semibold text-blue-900 mb-2">Pro Tips to Avoid Problems:</p>
             <ul className="space-y-1 text-blue-800 text-sm">
               <li>• Always budget 15% extra for unexpected costs</li>
-              <li>• Tell people to expect 12 weeks (pleasant surprise if faster)</li>
+              <li>• Tell people to expect 10-12 weeks minimum</li>
               <li>• Use Grade 4+ vehicles for fewer surprises</li>
               <li>• Work with established agents only</li>
             </ul>
@@ -627,15 +599,15 @@ export default function BeginnerGuidePage() {
         <CardContent className="pt-6">
           <div className="space-y-4">
             <div>
-              <h4 className="font-semibold text-gray-900 mb-2">Best Case Scenario (6-7 weeks)</h4>
+              <h4 className="font-semibold text-gray-900 mb-2">Best Case Scenario (6-8 weeks)</h4>
               <p className="text-sm text-gray-600">Everything goes smoothly, no delays, all paperwork ready</p>
             </div>
             <div>
-              <h4 className="font-semibold text-gray-900 mb-2">Typical Timeline (8-10 weeks)</h4>
+              <h4 className="font-semibold text-gray-900 mb-2">Typical Timeline (8-12 weeks)</h4>
               <p className="text-sm text-gray-600">Minor delays at port, normal processing times</p>
             </div>
             <div>
-              <h4 className="font-semibold text-gray-900 mb-2">Worst Case (12-14 weeks)</h4>
+              <h4 className="font-semibold text-gray-900 mb-2">Worst Case (12-16 weeks)</h4>
               <p className="text-sm text-gray-600">Port congestion, documentation issues, compliance delays</p>
             </div>
           </div>
@@ -644,7 +616,7 @@ export default function BeginnerGuidePage() {
               <AlertCircle className="h-5 w-5 text-blue-600 flex-shrink-0 mt-0.5" />
               <div className="text-sm">
                 <p className="font-semibold text-blue-900">Pro Tip:</p>
-                <p className="text-blue-800">Always tell friends/family to expect 10-12 weeks. Better to surprise them with early delivery than disappoint with delays.</p>
+                <p className="text-blue-800">Always tell friends/family to expect 10-12 weeks minimum. Better to under-promise and over-deliver.</p>
               </div>
             </div>
           </div>
