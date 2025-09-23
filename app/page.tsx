@@ -526,11 +526,11 @@ export default function HomePage() {
               <Card className="border-2 hover:border-cyan-300 transition-colors">
                 <CardHeader>
                   <Package className="h-10 w-10 text-cyan-600 mb-3" />
-                  <CardTitle>Container Sharing</CardTitle>
+                  <CardTitle>Container Sharing Guide</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <p className="text-sm text-gray-600">
-                    Access ContShare network to split shipping costs. Save 40-60% on freight.
+                    Learn about container sharing options and connect with other importers through trusted platforms.
                   </p>
                 </CardContent>
               </Card>
@@ -538,11 +538,11 @@ export default function HomePage() {
               <Card className="border-2 hover:border-indigo-300 transition-colors">
                 <CardHeader>
                   <Ship className="h-10 w-10 text-indigo-600 mb-3" />
-                  <CardTitle>Shipping Directory</CardTitle>
+                  <CardTitle>Shipping Resources</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <p className="text-sm text-gray-600">
-                    Direct contacts for major shipping lines with negotiated rates.
+                    Comprehensive directory of shipping lines and freight forwarders serving Southern Africa routes.
                   </p>
                 </CardContent>
               </Card>
@@ -550,11 +550,11 @@ export default function HomePage() {
               <Card className="border-2 hover:border-pink-300 transition-colors">
                 <CardHeader>
                   <BookOpen className="h-10 w-10 text-pink-600 mb-3" />
-                  <CardTitle>Document Templates</CardTitle>
+                  <CardTitle>Document Guides</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <p className="text-sm text-gray-600">
-                    Pre-filled import forms and customs declarations ready to use.
+                    Sample import documents and guides to help you understand required paperwork.
                   </p>
                 </CardContent>
               </Card>
@@ -562,11 +562,11 @@ export default function HomePage() {
               <Card className="border-2 hover:border-teal-300 transition-colors">
                 <CardHeader>
                   <TrendingUp className="h-10 w-10 text-teal-600 mb-3" />
-                  <CardTitle>Market Analysis</CardTitle>
+                  <CardTitle>Market Education</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <p className="text-sm text-gray-600">
-                    Japan auction price trends and best times to buy analysis tools.
+                    Educational content about Japan auction markets and seasonal pricing patterns.
                   </p>
                 </CardContent>
               </Card>
@@ -627,11 +627,11 @@ export default function HomePage() {
                   <Card className="border-2 hover:border-cyan-300 transition-colors w-72">
                     <CardHeader>
                       <Package className="h-10 w-10 text-cyan-600 mb-3" />
-                      <CardTitle>Container Sharing</CardTitle>
+                      <CardTitle>Container Sharing Guide</CardTitle>
                     </CardHeader>
                     <CardContent>
                       <p className="text-sm text-gray-600">
-                        Access ContShare network to split costs.
+                        Learn about container sharing options.
                       </p>
                     </CardContent>
                   </Card>
@@ -639,11 +639,11 @@ export default function HomePage() {
                   <Card className="border-2 hover:border-indigo-300 transition-colors w-72">
                     <CardHeader>
                       <Ship className="h-10 w-10 text-indigo-600 mb-3" />
-                      <CardTitle>Shipping Directory</CardTitle>
+                      <CardTitle>Shipping Resources</CardTitle>
                     </CardHeader>
                     <CardContent>
                       <p className="text-sm text-gray-600">
-                        Direct contacts for shipping lines.
+                        Directory of shipping lines and forwarders.
                       </p>
                     </CardContent>
                   </Card>
@@ -651,11 +651,11 @@ export default function HomePage() {
                   <Card className="border-2 hover:border-pink-300 transition-colors w-72">
                     <CardHeader>
                       <BookOpen className="h-10 w-10 text-pink-600 mb-3" />
-                      <CardTitle>Document Templates</CardTitle>
+                      <CardTitle>Document Guides</CardTitle>
                     </CardHeader>
                     <CardContent>
                       <p className="text-sm text-gray-600">
-                        Pre-filled forms ready to use.
+                        Sample documents and paperwork guides.
                       </p>
                     </CardContent>
                   </Card>
@@ -663,11 +663,11 @@ export default function HomePage() {
                   <Card className="border-2 hover:border-teal-300 transition-colors w-72">
                     <CardHeader>
                       <TrendingUp className="h-10 w-10 text-teal-600 mb-3" />
-                      <CardTitle>Market Analysis</CardTitle>
+                      <CardTitle>Market Education</CardTitle>
                     </CardHeader>
                     <CardContent>
                       <p className="text-sm text-gray-600">
-                        Price trends and buying analysis.
+                        Learn about auction markets and pricing.
                       </p>
                     </CardContent>
                   </Card>
