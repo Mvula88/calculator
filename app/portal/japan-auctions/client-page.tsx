@@ -803,7 +803,7 @@ export default function JapanAuctionsClientPage() {
                   <h4 className="font-semibold mb-2">Scratch Codes:</h4>
                   <ul className="space-y-1 text-gray-700">
                     <li><strong>A:</strong> Minor scratch</li>
-                    <li><strong>A1:</strong> Small scratch (< 10cm)</li>
+                    <li><strong>A1:</strong> Small scratch (&lt; 10cm)</li>
                     <li><strong>A2:</strong> Medium scratch (10-20cm)</li>
                     <li><strong>A3:</strong> Large scratch - needs paint</li>
                   </ul>
