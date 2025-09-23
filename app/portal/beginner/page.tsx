@@ -665,7 +665,7 @@ export default function BeginnerGuidePage() {
 
             {/* Walvis Bay Specific Info */}
             <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
-              <h4 className="font-semibold text-blue-900 mb-2">📊 Walvis Bay Port Performance (2024-2025)</h4>
+              <h4 className="font-semibold text-blue-900 mb-2">📊 Walvis Bay Port Performance</h4>
               <ul className="space-y-1 text-sm text-blue-800">
                 <li>• Port efficiency: Container turnaround 24-48 hours</li>
                 <li>• Average vessel queue: 3 ships (max recorded: 7 ships)</li>
