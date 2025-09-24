@@ -570,16 +570,26 @@ export default function BeginnerGuidePage() {
                             <span className="text-gray-600">Japan-side fees:</span>
                             <span className="font-medium">{currency}{Math.round(japanFeesLocal).toLocaleString()}</span>
                           </div>
-                          <div className="flex justify-between">
-                            <span className="text-gray-600">Ocean Shipping:</span>
+                          <div className="flex justify-between items-start">
+                            <div className="flex-1">
+                              <span className="text-gray-600">Ocean Shipping:</span>
+                              <span className="text-xs block text-green-600 font-medium">
+                                via <a href="https://contshare.com" target="_blank" className="underline hover:text-green-700">ContShare.com</a> (4-car share)
+                              </span>
+                            </div>
                             <span className="font-medium">{currency}{Math.round(shippingLocal).toLocaleString()}</span>
                           </div>
                           <div className="flex justify-between">
                             <span className="text-gray-600">Duties & Taxes:</span>
                             <span className="font-medium">{currency}{Math.round(duties).toLocaleString()}</span>
                           </div>
-                          <div className="flex justify-between">
-                            <span className="text-gray-600">Clearing Agent:</span>
+                          <div className="flex justify-between items-start">
+                            <div className="flex-1">
+                              <span className="text-gray-600">Clearing Agent:</span>
+                              <span className="text-xs block text-gray-500">
+                                (40ft container, 4 cars)
+                              </span>
+                            </div>
                             <span className="font-medium">{currency}{Math.round(clearingLocal).toLocaleString()}</span>
                           </div>
                           <div className="flex justify-between">
@@ -589,12 +599,25 @@ export default function BeginnerGuidePage() {
                         </div>
                       </div>
 
+                      <div className="p-2 bg-green-50 border border-green-200 rounded-lg">
+                        <p className="text-xs font-semibold text-green-800 mb-1">
+                          💡 Save {currency}{Math.round(shippingLocal * 2.5).toLocaleString()} on Shipping!
+                        </p>
+                        <p className="text-xs text-green-700">
+                          Share a 40ft container with 3 other importers via{' '}
+                          <a href="https://contshare.com" target="_blank" className="font-bold underline hover:text-green-800">
+                            ContShare.com
+                          </a>
+                          . Solo shipping costs {currency}{Math.round(shippingLocal * 3.5).toLocaleString()}+
+                        </p>
+                      </div>
+
                       <div className="border-t pt-3">
                         <p className="text-xs text-gray-500 mb-2">
                           Based on: ¥1 = {currency}{exchangeRate.toFixed(3)}
                         </p>
                         <p className="text-xs text-gray-500">
-                          Japan costs: ¥{totalJapanCostsJPY.toLocaleString()} | Shipping: ¥{oceanShippingJPY.toLocaleString()}
+                          Japan costs: ¥{totalJapanCostsJPY.toLocaleString()} | Container sharing: ¥{oceanShippingJPY.toLocaleString()}
                         </p>
                       </div>
 
