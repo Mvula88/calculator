@@ -2,6 +2,7 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
+import { toast } from 'sonner'
 import {
   Calculator,
   Map,
@@ -548,11 +549,86 @@ export default function BeginnerGuidePage() {
                     'zm': 'K'
                   }[country] || 'N$'
 
-                  const breakdown = `TOTAL COST ESTIMATE:\n\nVehicle Price: ${currency}${Math.round(localPrice).toLocaleString()}\n\nAdditional Costs:\n• Japan-side fees: ${currency}${Math.round(japanFeesLocal).toLocaleString()}\n• Ocean Shipping: ${currency}${Math.round(shippingLocal).toLocaleString()}\n• Duties & Taxes: ${currency}${Math.round(duties).toLocaleString()}\n• Clearing Agent: ${currency}${Math.round(clearingLocal).toLocaleString()}\n• Registration: ${currency}${Math.round(registrationLocal).toLocaleString()}\n\n━━━━━━━━━━━━━━━\nTOTAL LANDED COST: ${currency}${Math.round(total).toLocaleString()}\n━━━━━━━━━━━━━━━\n\nℹ️ Based on:\n• Exchange rate: ¥1 = ${currency}${exchangeRate.toFixed(3)}\n• Japan costs: ¥${totalJapanCostsJPY.toLocaleString()}\n• Container sharing: ¥${oceanShippingJPY.toLocaleString()}\n\n⚠️ Use our advanced calculator for precise figures.\n\n💡 Pro Tip: Budget 10-15% extra for unexpected costs`
+                  // Show detailed breakdown in toast
+                  toast.success(
+                    <div className="space-y-3 w-full">
+                      <div>
+                        <p className="font-bold text-base mb-2">💰 Total Cost Estimate</p>
+                        <p className="text-2xl font-bold text-green-600">
+                          {currency}{Math.round(total).toLocaleString()}
+                        </p>
+                      </div>
 
-                  alert(breakdown)
+                      <div className="border-t pt-3">
+                        <p className="font-semibold text-sm mb-2">Cost Breakdown:</p>
+                        <div className="space-y-1.5 text-sm">
+                          <div className="flex justify-between">
+                            <span className="text-gray-600">Vehicle Price:</span>
+                            <span className="font-medium">{currency}{Math.round(localPrice).toLocaleString()}</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-gray-600">Japan-side fees:</span>
+                            <span className="font-medium">{currency}{Math.round(japanFeesLocal).toLocaleString()}</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-gray-600">Ocean Shipping:</span>
+                            <span className="font-medium">{currency}{Math.round(shippingLocal).toLocaleString()}</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-gray-600">Duties & Taxes:</span>
+                            <span className="font-medium">{currency}{Math.round(duties).toLocaleString()}</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-gray-600">Clearing Agent:</span>
+                            <span className="font-medium">{currency}{Math.round(clearingLocal).toLocaleString()}</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-gray-600">Registration:</span>
+                            <span className="font-medium">{currency}{Math.round(registrationLocal).toLocaleString()}</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="border-t pt-3">
+                        <p className="text-xs text-gray-500 mb-2">
+                          Based on: ¥1 = {currency}{exchangeRate.toFixed(3)}
+                        </p>
+                        <p className="text-xs text-gray-500">
+                          Japan costs: ¥{totalJapanCostsJPY.toLocaleString()} | Shipping: ¥{oceanShippingJPY.toLocaleString()}
+                        </p>
+                      </div>
+
+                      <div className="flex gap-2 mt-4">
+                        <Button
+                          size="sm"
+                          onClick={() => {
+                            toast.dismiss()
+                            window.location.href = '/portal/calculator'
+                          }}
+                          className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+                        >
+                          Use Advanced Calculator
+                        </Button>
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={() => toast.dismiss()}
+                        >
+                          Close
+                        </Button>
+                      </div>
+
+                      <p className="text-xs text-amber-600 font-medium">
+                        💡 Pro Tip: Budget 10-15% extra for unexpected costs
+                      </p>
+                    </div>,
+                    {
+                      duration: 30000, // Show for 30 seconds
+                      closeButton: true,
+                    }
+                  )
                 } else {
-                  alert('Please enter a vehicle price')
+                  toast.error('Please enter a vehicle price')
                 }
               }}
             >
