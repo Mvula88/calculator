@@ -489,24 +489,66 @@ export default function BeginnerGuidePage() {
                 const country = (document.getElementById('simple-country') as HTMLSelectElement)?.value
 
                 if (price > 0) {
-                  // Simple rough calculation
-                  const exchangeRate = country === 'za' ? 0.13 : 0.14 // Rough exchange rates
+                  // Exchange rates (JPY to local currency)
+                  const exchangeRates = {
+                    'na': 0.13,  // JPY to NAD
+                    'za': 0.13,  // JPY to ZAR (roughly same as NAD)
+                    'bw': 0.096, // JPY to BWP (0.13 / 1.35)
+                    'zm': 0.191  // JPY to ZMW (0.13 / 0.68)
+                  }
+
+                  // Japan-side costs (matching main calculator)
+                  const japanCostsJPY = {
+                    biddingCharge: 11000,
+                    recyclingFee: 440,
+                    deliveryFee: 57200,
+                    thc: 18000,
+                    operationFee: 33000,
+                    loadingCharges: 40000
+                  }
+                  const totalJapanCostsJPY = Object.values(japanCostsJPY).reduce((sum, cost) => sum + cost, 0) // 159,640 JPY
+
+                  // Ocean shipping (container sharing per vehicle)
+                  const oceanShippingJPY = 137000 // Approximate for container sharing
+
+                  // Default clearing costs by country (matching main calculator)
+                  const clearingCosts = {
+                    'na': 26255.65,
+                    'za': 35000.00,
+                    'bw': 18000.00,
+                    'zm': 45000.00
+                  }
+
+                  const exchangeRate = exchangeRates[country as keyof typeof exchangeRates] || 0.13
                   const localPrice = price * exchangeRate
-                  const duties = localPrice * 0.65 // Rough 65% for all duties/taxes
-                  const shipping = 25000 // Average shipping
-                  const clearing = 12000 // Average clearing
-                  const registration = 5000 // Average registration
-                  const japanFees = 150000 // Japan-side costs
-                  const total = localPrice + duties + shipping + clearing + registration + japanFees
+
+                  // Calculate CIF (for Namibia, add 10% for freight/insurance)
+                  const cif = country === 'na' ? localPrice * 1.10 : localPrice
+
+                  // Estimate duties and taxes (varies by country)
+                  const dutiesRate = {
+                    'na': 0.45,  // ~45% combined (ICD + ENV + VAT)
+                    'za': 0.50,  // ~50% combined
+                    'bw': 0.45,  // ~45% combined
+                    'zm': 0.55   // ~55% combined (higher due to excise)
+                  }[country] || 0.45
+
+                  const duties = cif * dutiesRate
+                  const japanFeesLocal = totalJapanCostsJPY * exchangeRate
+                  const shippingLocal = oceanShippingJPY * exchangeRate
+                  const clearingLocal = clearingCosts[country as keyof typeof clearingCosts] || 26255.65
+                  const registrationLocal = 3500 // Registration costs
+
+                  const total = localPrice + japanFeesLocal + shippingLocal + duties + clearingLocal + registrationLocal
 
                   const currency = {
                     'na': 'N$',
                     'za': 'R',
                     'bw': 'P',
-                    'zm': 'ZK'
+                    'zm': 'K'
                   }[country] || 'N$'
 
-                  const breakdown = `ROUGH TOTAL COST ESTIMATE:\n\nVehicle Price: ${currency}${Math.round(localPrice).toLocaleString()}\n\nAdditional Costs:\n• Japan-side fees: ${currency}${Math.round(japanFees).toLocaleString()}\n• Ocean Shipping: ${currency}${Math.round(shipping).toLocaleString()}\n• Duties & Taxes: ${currency}${Math.round(duties).toLocaleString()}\n• Clearing & Agent: ${currency}${Math.round(clearing).toLocaleString()}\n• Registration: ${currency}${Math.round(registration).toLocaleString()}\n\n━━━━━━━━━━━━━━━\nTOTAL LANDED COST: ${currency}${Math.round(total).toLocaleString()}\n━━━━━━━━━━━━━━━\n\n⚠️ This is a rough estimate. Use our advanced calculator for accurate figures.\n\n💡 Rule of thumb: Budget for vehicle price + 80-100% additional costs`
+                  const breakdown = `TOTAL COST ESTIMATE:\n\nVehicle Price: ${currency}${Math.round(localPrice).toLocaleString()}\n\nAdditional Costs:\n• Japan-side fees: ${currency}${Math.round(japanFeesLocal).toLocaleString()}\n• Ocean Shipping: ${currency}${Math.round(shippingLocal).toLocaleString()}\n• Duties & Taxes: ${currency}${Math.round(duties).toLocaleString()}\n• Clearing Agent: ${currency}${Math.round(clearingLocal).toLocaleString()}\n• Registration: ${currency}${Math.round(registrationLocal).toLocaleString()}\n\n━━━━━━━━━━━━━━━\nTOTAL LANDED COST: ${currency}${Math.round(total).toLocaleString()}\n━━━━━━━━━━━━━━━\n\nℹ️ Based on:\n• Exchange rate: ¥1 = ${currency}${exchangeRate.toFixed(3)}\n• Japan costs: ¥${totalJapanCostsJPY.toLocaleString()}\n• Container sharing: ¥${oceanShippingJPY.toLocaleString()}\n\n⚠️ Use our advanced calculator for precise figures.\n\n💡 Pro Tip: Budget 10-15% extra for unexpected costs`
 
                   alert(breakdown)
                 } else {
