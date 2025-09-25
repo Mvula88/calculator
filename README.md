@@ -18,6 +18,7 @@ A professional car import duty calculator for Southern African countries (Namibi
 - **Authentication**: Supabase Auth
 - **Database**: Supabase (PostgreSQL)
 - **Payments**: Stripe
+- **Deployment**: Vercel
 - **Monitoring**: Sentry
 
 ## Setup Instructions
