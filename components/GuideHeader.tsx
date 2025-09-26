@@ -94,7 +94,7 @@ export default function GuideHeader({
                   </Button>
                 </Link>
 
-                <Link href="/#countries" className="group">
+                <Link href={`/${country}/guide#pricing`} className="group">
                   <Button
                     size="sm"
                     className={`font-bold text-sm px-4 py-2 bg-gradient-to-r ${currentGradient} shadow-lg group-hover:scale-105 transition-all duration-300`}
