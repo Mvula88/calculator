@@ -153,7 +153,7 @@ export default function HomePage() {
 
   return (
     <>
-      <GuideHeader country="na" />
+      <GuideHeader country="na" showCountrySelector={false} />
 
       {/* Hero Section - Clear Value Proposition */}
       <section className="relative pt-20 pb-32 overflow-hidden">

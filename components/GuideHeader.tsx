@@ -13,13 +13,15 @@ interface GuideHeaderProps {
   trusted?: string
   primaryColor?: string
   secondaryColor?: string
+  showCountrySelector?: boolean
 }
 
 export default function GuideHeader({
   country,
   trusted = 'Real Import Experience, Real Guidance',
   primaryColor = 'blue-600',
-  secondaryColor = 'purple-600'
+  secondaryColor = 'purple-600',
+  showCountrySelector = true
 }: GuideHeaderProps) {
   const [user, setUser] = useState<any>(null)
   const [loading, setLoading] = useState(true)
@@ -105,7 +107,7 @@ export default function GuideHeader({
               </>
             )}
 
-            <HeaderCountrySelector country={country} />
+            {showCountrySelector && <HeaderCountrySelector country={country} />}
           </div>
         </div>
       </div>
