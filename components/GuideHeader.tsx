@@ -47,7 +47,10 @@ export default function GuideHeader({
   }
 
   const currentGradient = gradients[country as keyof typeof gradients] || gradients.na
-  
+
+  // Get Started button link - only NA has pricing section
+  const getStartedLink = country === 'na' ? '/na/guide#pricing' : `/${country}/guide`
+
   return (
     <header className="bg-white border-b border-gray-200 shadow-sm sticky top-0 z-40">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
@@ -94,7 +97,7 @@ export default function GuideHeader({
                   </Button>
                 </Link>
 
-                <Link href={`/${country}/guide#pricing`} className="group">
+                <Link href={getStartedLink} className="group">
                   <Button
                     size="sm"
                     className={`font-bold text-sm px-4 py-2 bg-gradient-to-r ${currentGradient} shadow-lg group-hover:scale-105 transition-all duration-300`}
