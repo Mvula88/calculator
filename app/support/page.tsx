@@ -37,11 +37,11 @@ export default function SupportPage() {
       questions: [
         {
           q: 'How do I access my purchased guide?',
-          a: 'After purchase, you\'ll receive an email with login credentials to access your guide through our portal. You can also access it directly at impota.com/portal.'
+          a: 'After purchase, your account is created automatically and you\'ll receive an email with login credentials to access your guide through our portal at impota.com/portal. Access is instant after successful payment.'
         },
         {
-          q: 'Which package should I choose?',
-          a: 'The Mistake Guide (N$499) is perfect for avoiding costly errors. Import Mastery (N$1,999) includes everything plus calculators, agent contacts, and video tutorials. Most users start with Mistake Guide and upgrade later.'
+          q: 'What is included in the guide?',
+          a: 'Our comprehensive guide (N$1,499) includes step-by-step import instructions, duty calculators, verified clearing agent contacts, documentation templates, Japan auction guidance, and regular updates. Everything you need to import successfully from Japan.'
         },
         {
           q: 'Do I need any prior experience?',
@@ -62,8 +62,8 @@ export default function SupportPage() {
           a: 'All our guides are one-time purchases with lifetime access. No recurring fees or hidden charges.'
         },
         {
-          q: 'Can I upgrade from Mistake Guide to Import Mastery?',
-          a: 'Yes! You can upgrade anytime and only pay the difference. Your Mistake Guide content remains accessible.'
+          q: 'Do you offer different pricing tiers?',
+          a: 'We offer a single, comprehensive package at N$1,499 (or equivalent in your local currency: R1,499 for South Africa, P1,499 for Botswana, K1,499 for Zambia). This includes lifetime access to all features and updates.'
         }
       ]
     },
@@ -81,7 +81,7 @@ export default function SupportPage() {
         },
         {
           q: 'Can I download the guide for offline access?',
-          a: 'Yes, PDF versions are available for download in your portal. Video content requires internet connection.'
+          a: 'Yes, PDF versions of the guides are available for download in your portal. The calculators and some interactive features require internet connection.'
         }
       ]
     },
@@ -99,7 +99,7 @@ export default function SupportPage() {
         },
         {
           q: 'Do you handle the import for me?',
-          a: 'We provide comprehensive guides and support, but you handle the import yourself. This is how you import efficiently compared to using agents.'
+          a: 'We provide comprehensive guides and support, but you handle the import yourself. This is how you save money compared to using import agents. Our guide teaches you the entire process step-by-step.'
         }
       ]
     }
@@ -127,8 +127,8 @@ export default function SupportPage() {
         },
         {
           id: 'wrong-product',
-          title: 'Wrong product purchased',
-          solution: 'If you purchased the wrong guide, contact us immediately at support@impota.com. We can help upgrade you to the right package or provide guidance on which guide best suits your needs.'
+          title: 'Wrong country guide purchased',
+          solution: 'If you purchased the guide for the wrong country, contact us immediately at support@impota.com. We can help transfer your access to the correct country guide that suits your import destination.'
         },
         {
           id: 'duplicate-charges',
@@ -165,7 +165,7 @@ export default function SupportPage() {
         {
           id: 'understanding-content',
           title: 'Understanding content',
-          solution: 'Each guide section includes detailed explanations and examples. Start with the introduction chapter for overview. Use the table of contents to navigate to specific topics. For Import Mastery users, video tutorials provide visual walkthroughs. Email specific questions to support@impota.com.'
+          solution: 'Each guide section includes detailed explanations and examples. Start with the introduction chapter for overview. Use the table of contents to navigate to specific topics. The guide includes visual aids and real examples. Email specific questions to support@impota.com.'
         },
         {
           id: 'missing-information',
