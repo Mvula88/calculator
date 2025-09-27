@@ -545,7 +545,7 @@ export default function BotswanaGuidePage() {
 
       {/* Premium Final CTA Section - Mobile Optimized */}
       {!user && (
-      <section className="py-12 sm:py-24 bg-gradient-to-br from-slate-900 via-blue-900 to-purple-900 text-white relative overflow-hidden">
+      <section id="pricing" className="py-12 sm:py-24 bg-gradient-to-br from-slate-900 via-blue-900 to-purple-900 text-white relative overflow-hidden">
         {/* Background Effects */}
         <div className="absolute inset-0">
           <div className="absolute top-0 left-1/4 w-64 h-64 sm:w-96 sm:h-96 bg-blue-500/20 rounded-full blur-3xl"></div>

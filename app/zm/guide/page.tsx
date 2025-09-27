@@ -283,33 +283,17 @@ export default function ZambiaGuidePage() {
                     </Button>
                   </Link>
                 ) : (
-                  // Not logged in - show both options
-                  <>
-                    <Link href="/register?country=zm&package=mistake" className="group">
-                      <Button
-                        size="lg"
-                        variant="outline"
-                        className="w-full sm:w-auto font-bold text-sm sm:text-base md:text-lg px-4 py-2 sm:px-6 sm:py-3 md:px-8 md:py-4 h-auto border-2 border-white/30 bg-black/30 text-white hover:bg-white/20 transition-all duration-300 group-hover:scale-105 min-h-[44px]"
-                      >
-                        <BookOpen className="mr-3 h-6 w-6" />
-                        Essential Guide
-                        <ArrowRight className="ml-3 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-                      </Button>
-                    </Link>
-
-                    <div className="text-white font-bold text-lg">OR</div>
-
-                    <Link href="/register?country=zm&package=mastery" className="group">
-                      <Button
-                        size="lg"
-                        className="w-full sm:w-auto font-bold text-sm sm:text-base md:text-lg px-4 py-2 sm:px-6 sm:py-3 md:px-8 md:py-4 h-auto bg-gradient-to-r from-emerald-600 via-teal-600 to-green-600 hover:from-emerald-700 hover:via-teal-700 hover:to-green-700 shadow-2xl group-hover:scale-105 transition-all duration-300 group-hover:shadow-emerald-500/25 min-h-[44px]"
-                      >
-                        <Crown className="mr-3 h-6 w-6" />
-                        Get Started
-                        <Sparkles className="ml-3 h-5 w-5 group-hover:rotate-12 transition-transform" />
-                      </Button>
-                    </Link>
-                  </>
+                  // Not logged in - show Get Started button
+                  <a href="#pricing" className="group">
+                    <Button
+                      size="lg"
+                      className="w-full sm:w-auto font-bold text-sm sm:text-base md:text-lg px-4 py-2 sm:px-6 sm:py-3 md:px-8 md:py-4 h-auto bg-gradient-to-r from-emerald-600 via-teal-600 to-green-600 hover:from-emerald-700 hover:via-teal-700 hover:to-green-700 shadow-2xl group-hover:scale-105 transition-all duration-300 group-hover:shadow-emerald-500/25 min-h-[44px]"
+                    >
+                      <Crown className="mr-3 h-6 w-6" />
+                      Get Started
+                      <Sparkles className="ml-3 h-5 w-5 group-hover:rotate-12 transition-transform" />
+                    </Button>
+                  </a>
                 )}
               </div>
               
@@ -547,7 +531,7 @@ export default function ZambiaGuidePage() {
 
       {/* Premium Final CTA Section */}
       {!user && (
-      <section className="py-24 bg-gradient-to-br from-slate-900 via-emerald-900 to-teal-900 text-white relative overflow-hidden">
+      <section id="pricing" className="py-24 bg-gradient-to-br from-slate-900 via-emerald-900 to-teal-900 text-white relative overflow-hidden">
         <div className="absolute inset-0">
           <div className="absolute top-0 left-1/4 w-96 h-96 bg-emerald-500/20 rounded-full blur-3xl"></div>
           <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-teal-500/20 rounded-full blur-3xl"></div>
@@ -587,31 +571,17 @@ export default function ZambiaGuidePage() {
                   </p>
                 </div>
                 
-                <div className="flex flex-col lg:flex-row gap-6 justify-center items-center mb-8">
-                  <Link href="/register?country=zm&package=mistake" className="group">
-                    <Button 
-                      variant="outline"
-                      size="lg"
-                      className="h-16 px-12 text-xl font-bold border-2 border-white/30 text-white hover:bg-white hover:text-slate-900 transition-all duration-300 group-hover:scale-105 group-hover:shadow-2xl"
-                    >
-                      <BookOpen className="mr-4 h-6 w-6" />
-                      Essential Guide - K500
-                      <ArrowRight className="ml-4 h-6 w-6 group-hover:translate-x-2 transition-transform" />
-                    </Button>
-                  </Link>
-                  
-                  <div className="text-white text-2xl font-bold">OR</div>
-                  
-                  <Link href="/register?country=zm&package=mastery" className="group">
-                    <Button 
-                      size="lg"
-                      className="h-16 px-12 text-xl font-bold bg-gradient-to-r from-emerald-500 via-teal-600 to-green-600 hover:from-emerald-600 hover:via-teal-700 hover:to-green-700 shadow-2xl group-hover:scale-105 transition-all duration-300 group-hover:shadow-emerald-500/30"
-                    >
-                      <Crown className="mr-4 h-6 w-6" />
-                      Get Complete Mastery
-                      <Sparkles className="ml-4 h-6 w-6 group-hover:rotate-12 transition-transform" />
-                    </Button>
-                  </Link>
+                <div className="flex justify-center items-center mb-8">
+                  <ValidatedCheckoutButton
+                    tier="mastery"
+                    country="zm"
+                    size="lg"
+                    className="h-16 px-12 text-xl font-bold bg-gradient-to-r from-emerald-500 via-teal-600 to-green-600 hover:from-emerald-600 hover:via-teal-700 hover:to-green-700 shadow-2xl hover:scale-105 transition-all duration-300 hover:shadow-emerald-500/30"
+                  >
+                    <Crown className="mr-4 h-6 w-6" />
+                    Get Complete Access - K1,499
+                    <Sparkles className="ml-4 h-6 w-6 group-hover:rotate-12 transition-transform" />
+                  </ValidatedCheckoutButton>
                 </div>
               </CardContent>
             </Card>

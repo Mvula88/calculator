@@ -158,6 +158,9 @@ export default function ValidatedCheckoutButton({
           <p className="text-sm text-gray-600">
             We'll check if you already have an account before proceeding to payment
           </p>
+          <p className="text-xs text-gray-500">
+            Access is created automatically after successful payment
+          </p>
         </div>
 
         <div className="space-y-2">

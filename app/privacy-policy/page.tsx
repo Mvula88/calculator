@@ -55,7 +55,7 @@ export default function PrivacyPolicyPage() {
               <li>Process transactions and send related information</li>
               <li>Send administrative information and updates</li>
               <li>Respond to comments and questions</li>
-              <li>Send marketing and promotional communications (with consent)</li>
+              <li>We currently do not send marketing or promotional emails. We may only send service-related emails, such as account confirmations, payment receipts, or important updates related to your purchase</li>
               <li>Improve and personalize user experience</li>
               <li>Analyze usage patterns and trends</li>
               <li>Protect against fraudulent or illegal activity</li>

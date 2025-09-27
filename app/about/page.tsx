@@ -152,6 +152,22 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* Our Story Section */}
+      <section className="py-20 px-6 bg-white">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-black mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              Our Story
+            </h2>
+          </div>
+          <Card className="p-8 md:p-12 shadow-lg border-2 border-gray-100">
+            <p className="text-lg md:text-xl text-gray-700 leading-relaxed text-center">
+              Impota was created by someone who personally imported cars from Japan through Walvis Bay and learned the process step by step. Having experienced the challenges, we built Impota to make the process clear for others in Namibia, South Africa, Botswana, and Zambia.
+            </p>
+          </Card>
+        </div>
+      </section>
+
       {/* What We Do Section */}
       <section className="py-20 px-6 bg-gray-50/50">
         <div className="max-w-6xl mx-auto">

@@ -11,8 +11,12 @@ export default function RefundPolicyPage() {
         </Link>
         
         <h1 className="text-4xl font-bold mb-8">Refund Policy</h1>
-        <p className="text-sm text-gray-600 mb-8">Last updated: January 2025</p>
-        
+        <p className="text-sm text-gray-600 mb-4">Last updated: January 2025</p>
+
+        <p className="text-lg text-gray-800 font-medium mb-8">
+          Impota provides digital educational products. Because of their nature, refunds are only available in specific situations outlined below.
+        </p>
+
         <div className="prose prose-lg max-w-none space-y-8">
           <section className="bg-blue-50 border-l-4 border-blue-400 p-6">
             <h2 className="text-2xl font-semibold mb-4">Our Refund Policy</h2>
