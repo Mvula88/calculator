@@ -5,6 +5,7 @@ import Link from 'next/link'
 import Script from 'next/script'
 import { createClient } from '@/lib/supabase/client'
 import { Button } from '@/components/ui/button'
+import ValidatedCheckoutButton from '@/components/validated-checkout-button'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { GuidePageSkeleton } from '@/components/skeletons/GuidePageSkeleton'
 import {
