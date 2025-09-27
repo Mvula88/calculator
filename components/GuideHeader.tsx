@@ -48,8 +48,12 @@ export default function GuideHeader({
 
   const currentGradient = gradients[country as keyof typeof gradients] || gradients.na
 
-  // Get Started button link - only NA has pricing section
-  const getStartedLink = country === 'na' ? '/na/guide#pricing' : `/${country}/guide`
+  // Get Started button link logic
+  // On landing page (showCountrySelector is false), link to countries section
+  // On guide pages (showCountrySelector is true), link to pricing for NA or guide for others
+  const getStartedLink = !showCountrySelector
+    ? '/#countries'  // Landing page: go to country selection
+    : (country === 'na' ? '/na/guide#pricing' : `/${country}/guide`) // Guide pages
 
   return (
     <header className="bg-white border-b border-gray-200 shadow-sm sticky top-0 z-40">
