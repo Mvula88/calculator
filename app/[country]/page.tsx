@@ -121,7 +121,7 @@ const countryData = {
 export default async function CountryLandingPage({ params }: PageProps) {
   const { country: countryCode } = await params
   const country = countryData[countryCode]
-  
+
   if (!country) {
     return <div>Country not found</div>
   }
@@ -136,7 +136,7 @@ export default async function CountryLandingPage({ params }: PageProps) {
               <CheckCircle className="h-5 w-5" />
               <span className="font-semibold">Access {country.members} Dealers Won't Share</span>
             </div>
-            
+
             {/* Strong H1 with primary keywords */}
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black mb-6">
               Import Cars to {country.name} from Japan
@@ -144,7 +144,7 @@ export default async function CountryLandingPage({ params }: PageProps) {
                 Learn What Dealers Won't Tell You
               </span>
             </h1>
-            
+
             {/* Strong H2 with secondary keywords */}
             <h2 className="text-xl sm:text-2xl text-gray-700 max-w-3xl mx-auto mb-8">
               The only comprehensive guide revealing what dealers keep secret - insider knowledge dealers charge thousands to never tell. Real import experience, real guidance.
@@ -290,7 +290,7 @@ export default async function CountryLandingPage({ params }: PageProps) {
           <h2 className="text-3xl font-bold text-center mb-12">
             {country.name} Car Import Process - Step by Step
           </h2>
-          
+
           <div className="grid md:grid-cols-3 gap-6">
             <Card className="p-6">
               <div className="text-3xl font-bold text-blue-600 mb-3">Step 1</div>
@@ -346,7 +346,7 @@ export default async function CountryLandingPage({ params }: PageProps) {
           <p className="text-xl mb-8 text-blue-100">
             Access exclusive knowledge - what dealers won't tell you about importing to {country.name}
           </p>
-          
+
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href={`/register?country=${countryCode}&package=mastery`}>
               <Button size="lg" className="bg-white text-blue-600 hover:bg-gray-100">
@@ -355,7 +355,7 @@ export default async function CountryLandingPage({ params }: PageProps) {
               </Button>
             </Link>
           </div>
-          
+
           <p className="mt-8 text-blue-200">
             ⚡ Instant access • 💰 Secure checkout • 📞 Local support
           </p>

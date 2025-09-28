@@ -15,7 +15,7 @@ export default function PortalLoginPage() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
-    
+
     if (!email) {
       setMessage('Please enter your email')
       return
@@ -38,7 +38,7 @@ export default function PortalLoginPage() {
         // Successfully logged in
         setStatus('success')
         setMessage('Access granted! Redirecting to portal...')
-        
+
         // Redirect to portal
         setTimeout(() => {
           window.location.href = '/portal'

@@ -71,7 +71,6 @@ export default function PortalPage() {
   const currency = 'N$'
   const countryName = 'Namibia'
 
-
   // Quick access cards
   const quickAccessCards = [
     {
@@ -175,7 +174,6 @@ export default function PortalPage() {
           </div>
         </div>
 
-
         {/* Quick Access - Mobile Optimized */}
         <div className="mb-6">
           <div className="flex items-center justify-between mb-4">
@@ -186,7 +184,7 @@ export default function PortalPage() {
               </span>
             )}
           </div>
-          
+
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
             {quickAccessCards.map((card) => (
               <div key={card.title} className="relative">

@@ -32,10 +32,10 @@ export function SimpleAuthProvider({ children }: { children: React.ReactNode }) 
   async function checkAccess() {
     try {
       setLoading(true)
-      
+
       // Simply check if user has access via our API
       const response = await fetch('/api/auth-simple/check')
-      
+
       if (response.ok) {
         const data = await response.json()
         if (data.hasAccess && data.user) {
@@ -47,7 +47,7 @@ export function SimpleAuthProvider({ children }: { children: React.ReactNode }) 
         setUser(null)
       }
     } catch (error) {
-      console.error('Auth check failed:', error)
+
       setUser(null)
     } finally {
       setLoading(false)
@@ -60,7 +60,7 @@ export function SimpleAuthProvider({ children }: { children: React.ReactNode }) 
       setUser(null)
       router.push('/')
     } catch (error) {
-      console.error('Sign out failed:', error)
+
     }
   }
 

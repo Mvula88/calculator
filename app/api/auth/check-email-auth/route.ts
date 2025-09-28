@@ -15,8 +15,6 @@ export async function POST(req: NextRequest) {
     const supabase = await createClient()
     const normalizedEmail = email.toLowerCase().trim()
 
-    console.log('[EMAIL CHECK AUTH] Checking email:', normalizedEmail)
-
     // Method 1: Check entitlements table
     let hasEntitlement = false
     try {
@@ -27,9 +25,9 @@ export async function POST(req: NextRequest) {
         .eq('active', true)
 
       hasEntitlement = !!(entitlements && entitlements.length > 0)
-      console.log('[EMAIL CHECK AUTH] Entitlements found:', entitlements?.length || 0)
+
     } catch (e) {
-      console.error('[EMAIL CHECK AUTH] Error checking entitlements:', e)
+
     }
 
     // Method 2: Try to get all users and check manually
@@ -49,7 +47,7 @@ export async function POST(req: NextRequest) {
       // If we get "User not found" error, account doesn't exist
       // If we get no error or a different error (like rate limit), account likely exists
       if (otpError) {
-        console.log('[EMAIL CHECK AUTH] OTP check error:', otpError.message)
+
         // Check if error indicates user doesn't exist
         hasAuthAccount = !otpError.message.toLowerCase().includes('not found') &&
                         !otpError.message.toLowerCase().includes('not exist') &&
@@ -59,7 +57,7 @@ export async function POST(req: NextRequest) {
         hasAuthAccount = true
       }
     } catch (e) {
-      console.error('[EMAIL CHECK AUTH] Error checking auth:', e)
+
     }
 
     // Method 3: Check if we can query public profiles or users table
@@ -78,14 +76,6 @@ export async function POST(req: NextRequest) {
 
     const exists = hasEntitlement || hasAuthAccount || hasProfile
 
-    console.log('[EMAIL CHECK AUTH RESULT]', {
-      email: normalizedEmail,
-      hasEntitlement,
-      hasAuthAccount,
-      hasProfile,
-      exists
-    })
-
     return NextResponse.json({
       exists,
       message: exists
@@ -99,7 +89,7 @@ export async function POST(req: NextRequest) {
     })
 
   } catch (error) {
-    console.error('[EMAIL CHECK AUTH] Fatal error:', error)
+
     return NextResponse.json(
       {
         error: 'Failed to check email',

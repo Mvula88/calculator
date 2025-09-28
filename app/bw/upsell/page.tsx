@@ -1,16 +1,13 @@
 'use client'
-
 import { useState, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Card, CardContent } from '@/components/ui/card'
 import { CheckCircle, Star, ArrowRight, Clock, Shield, TrendingUp, Mail } from 'lucide-react'
-
 export default function BotswanaUpsellPage() {
   const [email, setEmail] = useState('')
   const [loading, setLoading] = useState(false)
   const [showEmailInput, setShowEmailInput] = useState(false)
-
   useEffect(() => {
     // Try to get email from localStorage (saved during initial purchase)
     const savedEmail = localStorage.getItem('checkout_email')
@@ -20,14 +17,12 @@ export default function BotswanaUpsellPage() {
       setShowEmailInput(true)
     }
   }, [])
-
   async function handleUpgrade() {
     if (!email) {
       setShowEmailInput(true)
       alert('Please enter your email address')
       return
     }
-    
     setLoading(true)
     try {
       const res = await fetch('/api/stripe/checkout', {
@@ -41,25 +36,20 @@ export default function BotswanaUpsellPage() {
           isUpgrade: true  // Flag this as an upgrade
         })
       })
-      
       const { url, error } = await res.json()
-      
       if (error) {
         alert(`Error: ${error}`)
         return
       }
-      
       if (url) {
         window.location.href = url
       }
     } catch (error) {
-      console.error('Checkout error:', error)
       alert('Failed to start checkout')
     } finally {
       setLoading(false)
     }
   }
-
   return (
     <main className="min-h-screen bg-gradient-to-b from-purple-50 to-white">
       {/* Header */}
@@ -71,7 +61,6 @@ export default function BotswanaUpsellPage() {
           </div>
         </div>
       </header>
-      
       <div className="max-w-4xl mx-auto px-6 py-12">
         {/* Hero */}
         <div className="text-center mb-12">
@@ -79,17 +68,14 @@ export default function BotswanaUpsellPage() {
             <Star className="h-5 w-5" />
             <span className="font-semibold">UPGRADE TO IMPORT MASTERY</span>
           </div>
-          
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
             Upgrade to Import Mastery
           </h1>
-          
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
             Go beyond the basics. Master the complete import process from 
             Japan to Botswana with advanced strategies and insider secrets.
           </p>
         </div>
-
         {/* Comparison */}
         <div className="grid md:grid-cols-2 gap-8 mb-12">
           {/* Basic Guide */}
@@ -112,7 +98,6 @@ export default function BotswanaUpsellPage() {
               ))}
             </div>
           </Card>
-
           {/* Mastery Upgrade */}
           <Card className="p-6 border-2 border-purple-500 bg-gradient-to-br from-purple-50 to-white">
             <div className="text-center mb-4">
@@ -143,7 +128,6 @@ export default function BotswanaUpsellPage() {
             </div>
           </Card>
         </div>
-
         {/* Benefits */}
         <div className="grid md:grid-cols-3 gap-6 mb-12">
           <Card className="p-6 text-center border-0 shadow-lg">
@@ -153,7 +137,6 @@ export default function BotswanaUpsellPage() {
               Advanced tax strategies and agent negotiations
             </p>
           </Card>
-          
           <Card className="p-6 text-center border-0 shadow-lg">
             <Clock className="h-8 w-8 text-blue-600 mx-auto mb-3" />
             <h3 className="font-bold mb-2">50% Faster</h3>
@@ -161,7 +144,6 @@ export default function BotswanaUpsellPage() {
               VIP connections and priority processing
             </p>
           </Card>
-          
           <Card className="p-6 text-center border-0 shadow-lg">
             <Shield className="h-8 w-8 text-purple-600 mx-auto mb-3" />
             <h3 className="font-bold mb-2">Lifetime Value</h3>
@@ -170,13 +152,11 @@ export default function BotswanaUpsellPage() {
             </p>
           </Card>
         </div>
-
         {/* Exclusive Content */}
         <Card className="p-8 mb-8 bg-gradient-to-br from-yellow-50 to-white border-2 border-yellow-200">
           <h2 className="text-2xl font-bold mb-6 text-center">
             Exclusive Mastery Content:
           </h2>
-          
           <div className="grid md:grid-cols-2 gap-4">
             {[
               'Live auction bidding strategies for USS & TAA',
@@ -197,7 +177,6 @@ export default function BotswanaUpsellPage() {
             ))}
           </div>
         </Card>
-
         {/* CTA */}
         <Card className="p-8 bg-gradient-to-r from-purple-600 to-pink-600 text-white border-0">
           <div className="text-center">
@@ -210,7 +189,6 @@ export default function BotswanaUpsellPage() {
             <p className="text-purple-100 mb-6">
               Lifetime access & updates
             </p>
-            
             <div className="max-w-md mx-auto space-y-4">
               {showEmailInput && (
                 <div className="mb-4">
@@ -230,7 +208,6 @@ export default function BotswanaUpsellPage() {
                   </p>
                 </div>
               )}
-              
               {!showEmailInput && (
                 <Input
                   type="email"
@@ -241,7 +218,6 @@ export default function BotswanaUpsellPage() {
                   required
                 />
               )}
-              
               <Button 
                 onClick={handleUpgrade}
                 disabled={loading || !email}
@@ -255,14 +231,12 @@ export default function BotswanaUpsellPage() {
                   </span>
                 )}
               </Button>
-              
               <p className="text-sm text-purple-100">
                 Secure payment • Instant access • Lifetime access & updates
               </p>
             </div>
           </div>
         </Card>
-
         {/* Social Proof - Disabled: Testimonials removed for Stripe compliance */}
         {/* Stripe policy requires genuine, verifiable reviews only */}
       </div>

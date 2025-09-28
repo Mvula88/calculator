@@ -278,7 +278,7 @@ export function EmergencyQuickReference() {
                       </div>
                     )}
                   </div>
-                  
+
                   <div className="space-y-2">
                     {contact.phone && (
                       <div className="flex items-center gap-2">
@@ -296,7 +296,7 @@ export function EmergencyQuickReference() {
                         </button>
                       </div>
                     )}
-                    
+
                     {contact.email && (
                       <div className="flex items-center gap-2">
                         <Mail className="h-4 w-4 text-blue-600" />
@@ -313,7 +313,7 @@ export function EmergencyQuickReference() {
                         </button>
                       </div>
                     )}
-                    
+
                     <div className="flex items-center gap-2">
                       <Clock className="h-4 w-4 text-gray-500" />
                       <span className="text-sm text-gray-600">{contact.hours}</span>

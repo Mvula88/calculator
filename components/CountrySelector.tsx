@@ -42,7 +42,7 @@ export default function CountrySelector() {
   const handleCountryChange = (countryCode: string) => {
     // Set cookie for persistence
     document.cookie = `user-country=${countryCode}; max-age=${60 * 60 * 24 * 30}; path=/; SameSite=Lax`
-    
+
     // Redirect to the country-specific guide page
     window.location.href = `/${countryCode}/guide`
   }
@@ -130,7 +130,7 @@ export default function CountrySelector() {
                 <X className="h-4 w-4" />
               </Button>
             </div>
-            
+
             <p className="text-sm text-gray-600 mb-6">
               Choose your country to see local pricing and port information
             </p>

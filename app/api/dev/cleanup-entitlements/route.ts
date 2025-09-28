@@ -32,7 +32,7 @@ export async function POST(request: NextRequest) {
 
     // Keep the best entitlement (prefer mastery over mistake, then latest)
     let entitlementToKeep
-    
+
     // First check if there's a mastery tier
     const masteryEntitlement = entitlements.find(e => e.tier === 'mastery')
     if (masteryEntitlement) {
@@ -68,7 +68,7 @@ export async function POST(request: NextRequest) {
     })
 
   } catch (error) {
-    console.error('Error cleaning entitlements:', error)
+
     return NextResponse.json({ 
       error: 'Failed to clean entitlements',
       details: error instanceof Error ? error.message : 'Unknown error'

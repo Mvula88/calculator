@@ -1,5 +1,4 @@
 'use client'
-
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { 
@@ -18,7 +17,6 @@ import {
   Shield,
   Package
 } from 'lucide-react'
-
 interface ShippingCompany {
   name: string
   logo: string
@@ -43,7 +41,6 @@ interface ShippingCompany {
   features: string[]
   color: string
 }
-
 const shippingCompanies: ShippingCompany[] = [
   {
     name: 'Maersk Line',
@@ -190,7 +187,6 @@ const shippingCompanies: ShippingCompany[] = [
     color: 'bg-green-600'
   }
 ]
-
 export default function ShippingContent() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -206,7 +202,6 @@ export default function ShippingContent() {
           Connect with trusted shipping lines for your vehicle import. Compare rates, routes, and transit times.
         </p>
       </div>
-
       {/* Container Sharing Platform */}
       <Card className="mb-8 p-6 bg-gradient-to-r from-green-50 to-blue-50 border-green-200">
         <div className="flex items-start justify-between">
@@ -248,7 +243,6 @@ export default function ShippingContent() {
           </div>
         </div>
       </Card>
-
       {/* Important Tips */}
       <Card className="mb-8 p-4 bg-amber-50 border-amber-200">
         <div className="flex items-start gap-3">
@@ -265,7 +259,6 @@ export default function ShippingContent() {
           </div>
         </div>
       </Card>
-
       {/* Shipping Companies Grid */}
       <h2 className="text-2xl font-bold mb-6">Major Shipping Lines Serving Africa</h2>
       <div className="grid md:grid-cols-2 gap-6 mb-8">
@@ -290,9 +283,7 @@ export default function ShippingContent() {
                 </div>
               </div>
             </div>
-            
             <p className="text-gray-600 mb-4">{company.description}</p>
-            
             <div className="space-y-3 mb-4">
               <div>
                 <span className="text-sm font-semibold text-gray-700">Main Routes:</span>
@@ -304,7 +295,6 @@ export default function ShippingContent() {
                   ))}
                 </div>
               </div>
-              
               <div className="grid grid-cols-2 gap-4 text-sm">
                 <div>
                   <span className="text-gray-500">Transit Time:</span>
@@ -315,7 +305,6 @@ export default function ShippingContent() {
                   <p className="font-semibold text-green-600">{company.priceRange}</p>
                 </div>
               </div>
-              
               <div>
                 <span className="text-sm font-semibold text-gray-700">Key Features:</span>
                 <div className="flex flex-wrap gap-2 mt-1">
@@ -327,10 +316,8 @@ export default function ShippingContent() {
                 </div>
               </div>
             </div>
-            
             <div className="border-t pt-4 space-y-3">
               <h4 className="font-semibold text-sm mb-2">Contact Information:</h4>
-              
               {company.contact.namibia && (
                 <div className="space-y-1">
                   <p className="text-xs font-semibold text-gray-700">🇳🇦 Namibia Office:</p>
@@ -352,7 +339,6 @@ export default function ShippingContent() {
                   </div>
                 </div>
               )}
-              
               {company.contact.southAfrica && (
                 <div className="space-y-1">
                   <p className="text-xs font-semibold text-gray-700">🇿🇦 South Africa Office:</p>
@@ -374,7 +360,6 @@ export default function ShippingContent() {
                   </div>
                 </div>
               )}
-              
               <div className="pt-2">
                 <a 
                   href={company.contact.website} 
@@ -388,7 +373,6 @@ export default function ShippingContent() {
                 </a>
               </div>
             </div>
-            
             <div className="mt-4">
               <a 
                 href={company.contact.website} 
@@ -403,7 +387,6 @@ export default function ShippingContent() {
           </Card>
         ))}
       </div>
-
       {/* How to Choose Section */}
       <Card className="p-6 bg-gray-50">
         <h3 className="text-xl font-bold mb-4 flex items-center gap-2">

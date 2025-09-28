@@ -3,18 +3,18 @@ import { stripe } from '@/lib/stripe/config'
 
 export async function GET(req: NextRequest) {
   const sessionId = req.nextUrl.searchParams.get('session_id')
-  
+
   if (!sessionId) {
     return NextResponse.json({ 
       error: 'Please provide a session_id query parameter',
       example: '/api/stripe/verify-urls?session_id=cs_test_...'
     })
   }
-  
+
   try {
     // Retrieve the session from Stripe
     const session = await stripe.checkout.sessions.retrieve(sessionId)
-    
+
     return NextResponse.json({
       sessionId: session.id,
       success_url: session.success_url,

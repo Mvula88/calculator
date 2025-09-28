@@ -220,7 +220,6 @@ export default function ExitIntentPopup({ country: propCountry }: ExitIntentPopu
               </div>
             </div>
 
-
             {/* Action Buttons */}
             <div className="space-y-3 pt-2">
               <ValidatedCheckoutButton

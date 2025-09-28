@@ -18,8 +18,6 @@ export async function POST(req: NextRequest) {
     const supabase = await createClient()
     const normalizedEmail = email.toLowerCase().trim()
 
-    console.log('[EMAIL CHECK STRICT] Checking ONLY entitlements for:', normalizedEmail)
-
     // ONLY check the entitlements table - ignore auth completely
     const { data: existingEntitlements, error } = await supabase
       .from('entitlements')
@@ -45,7 +43,7 @@ export async function POST(req: NextRequest) {
     ]
 
     if (error && error.code !== 'PGRST116') {
-      console.error('[EMAIL CHECK STRICT] Database error:', error)
+
       return NextResponse.json(
         { error: 'Failed to check email' },
         { status: 500 }
@@ -53,13 +51,6 @@ export async function POST(req: NextRequest) {
     }
 
     const exists = allEntitlements && allEntitlements.length > 0
-
-    console.log('[EMAIL CHECK STRICT RESULT]', {
-      email: normalizedEmail,
-      hasActiveEntitlement: exists,
-      entitlementCount: allEntitlements?.length || 0,
-      foundEmails: allEntitlements?.map(e => e.email) || []
-    })
 
     return NextResponse.json({
       exists,
@@ -74,7 +65,7 @@ export async function POST(req: NextRequest) {
     })
 
   } catch (error) {
-    console.error('[EMAIL CHECK STRICT] Fatal error:', error)
+
     return NextResponse.json(
       {
         error: 'Failed to check email',

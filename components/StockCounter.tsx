@@ -16,21 +16,21 @@ export default function StockCounter({ initialStock = 23, country }: StockCounte
     // Get stored stock from localStorage or use initial
     const storedStock = localStorage.getItem(`stock_${country}`)
     const storedTime = localStorage.getItem(`stock_time_${country}`)
-    
+
     if (storedStock && storedTime) {
       const timeDiff = Date.now() - parseInt(storedTime)
       const hoursPassed = timeDiff / (1000 * 60 * 60)
-      
+
       // Decrease stock by 1 every 2 hours
       const decrease = Math.floor(hoursPassed / 2)
       const newStock = Math.max(3, parseInt(storedStock) - decrease) // Never go below 3
       setStock(newStock)
     }
-    
+
     // Save current stock and time
     localStorage.setItem(`stock_${country}`, stock.toString())
     localStorage.setItem(`stock_time_${country}`, Date.now().toString())
-    
+
     // Randomly decrease stock every 5-10 minutes while user is on page
     const interval = setInterval(() => {
       setStock(prev => {
@@ -39,12 +39,12 @@ export default function StockCounter({ initialStock = 23, country }: StockCounte
         return newStock
       })
     }, Math.random() * 300000 + 300000) // 5-10 minutes
-    
+
     // Randomly change viewing now number
     const viewingInterval = setInterval(() => {
       setViewingNow(Math.floor(Math.random() * 6) + 5) // 5-10 people
     }, 30000) // Every 30 seconds
-    
+
     return () => {
       clearInterval(interval)
       clearInterval(viewingInterval)

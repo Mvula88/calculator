@@ -102,7 +102,7 @@ const getColorClasses = (color: string) => {
       shadow: 'group-hover:shadow-orange-500/25'
     }
   }
-  
+
   return colorMap[color] || colorMap.blue // Default to blue if color not found
 }
 
@@ -162,10 +162,10 @@ export default function NamibiaGuidePage() {
     <>
       {/* Hidden H1 for SEO */}
       <h1 className="sr-only">Import Cars from Japan to Namibia 2024 - Complete Walvis Bay Port Guide | Save N$65,000</h1>
-      
+
       {/* Purchase Notifications */}
       <ImportSuccessNotifications />
-      
+
       <main className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-50 overflow-x-hidden" itemScope itemType="https://schema.org/Guide">
       <CountrySelector />
       <GuideHeader 
@@ -174,20 +174,20 @@ export default function NamibiaGuidePage() {
         primaryColor="blue-600"
         secondaryColor="purple-600"
       />
-      
+
       {/* Modern Hero Section - Mobile Optimized */}
       <section className="relative overflow-hidden w-full min-h-0 md:min-h-screen flex items-center py-16 md:py-0 w-full">
         {/* Professional Background */}
         <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-blue-900 to-purple-900"></div>
         <div className="absolute inset-0 bg-[url('/japan-cars-hero.png')] bg-cover bg-center opacity-20"></div>
         <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-transparent to-black/50"></div>
-        
+
         {/* Animated Background Elements */}
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute -top-1/2 -left-1/2 w-full h-full bg-gradient-to-br from-blue-500/10 to-transparent rounded-full animate-pulse"></div>
           <div className="absolute -bottom-1/2 -right-1/2 w-full h-full bg-gradient-to-tl from-purple-500/10 to-transparent rounded-full animate-pulse delay-1000"></div>
         </div>
-        
+
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-16 z-20 w-full">
           {/* Premium Trust Badge - Mobile Optimized */}
           <div className="flex justify-center mb-6 sm:mb-8">
@@ -197,7 +197,7 @@ export default function NamibiaGuidePage() {
               <Crown className="h-4 w-4 sm:h-6 sm:w-6" />
             </div>
           </div>
-          
+
           {/* Modern Typography - Mobile Optimized */}
           <div className="text-center mb-8 sm:mb-12">
             <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-black mb-4 sm:mb-6 leading-tight tracking-tight">
@@ -208,16 +208,16 @@ export default function NamibiaGuidePage() {
                 Direct From Japan
               </span>
             </h1>
-            
+
             <p className="text-sm sm:text-base md:text-lg lg:text-xl text-blue-100 mb-4 sm:mb-6 font-light leading-relaxed max-w-2xl sm:max-w-3xl mx-auto px-4">
               Access <span className="font-bold text-emerald-300">quality vehicles</span> from Japan with our complete import guide.
             </p>
-            
+
             <p className="hidden sm:block text-base md:text-lg text-gray-300 max-w-xl sm:max-w-2xl mx-auto px-4 leading-relaxed">
               Professional guidance for successful imports through Walvis Bay — no experience required.
             </p>
           </div>
-          
+
           {/* Modern Value Proposition Cards - Mobile Optimized */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-4 max-w-4xl mx-auto mb-6 sm:mb-10 px-4">
             <div className="group">
@@ -236,7 +236,7 @@ export default function NamibiaGuidePage() {
                 </CardContent>
               </Card>
             </div>
-            
+
             <div className="group">
               <Card className="bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 transition-all duration-300 h-full">
                 <CardContent className="p-3 sm:p-4">
@@ -253,7 +253,7 @@ export default function NamibiaGuidePage() {
                 </CardContent>
               </Card>
             </div>
-            
+
             <div className="group hidden sm:block lg:col-span-1">
               <Card className="bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 transition-all duration-300 h-full">
                 <CardContent className="p-3 sm:p-4">
@@ -317,7 +317,7 @@ export default function NamibiaGuidePage() {
                   </div>
                 )}
               </div>
-              
+
               <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 mt-3 sm:mt-4 text-xs sm:text-sm text-gray-300">
                 <div className="flex items-center gap-1 sm:gap-2">
                   <Zap className="h-3 w-3 sm:h-4 sm:w-4 text-emerald-400" />
@@ -347,7 +347,7 @@ export default function NamibiaGuidePage() {
                     </div>
                     <p className="text-gray-300 text-xs sm:text-sm md:text-base leading-relaxed">All procedures designed for full regulatory compliance</p>
                   </div>
-                  
+
                   <div>
                     <div className="flex items-center justify-center gap-1 sm:gap-2 md:gap-3 mb-1 sm:mb-2">
                       <GraduationCap className="h-5 w-5 sm:h-6 sm:w-6 md:h-8 md:w-8 text-blue-400" />
@@ -355,7 +355,7 @@ export default function NamibiaGuidePage() {
                     </div>
                     <p className="text-gray-300 text-xs sm:text-sm md:text-base leading-relaxed">Step-by-step professional instruction</p>
                   </div>
-                  
+
                   <div className="sm:col-span-2 lg:col-span-1">
                     <div className="flex items-center justify-center gap-1 sm:gap-2 md:gap-3 mb-1 sm:mb-2">
                       <Trophy className="h-5 w-5 sm:h-6 sm:w-6 md:h-8 md:w-8 text-purple-400" />
@@ -393,7 +393,7 @@ export default function NamibiaGuidePage() {
               <span className="font-semibold text-gray-800">No experience required</span> — our comprehensive system covers everything.
             </p>
           </div>
-          
+
           {/* Process Steps Grid - Mobile Optimized */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             {[
@@ -447,12 +447,12 @@ export default function NamibiaGuidePage() {
                     <div className="absolute top-2 sm:top-4 right-2 sm:right-4 text-4xl sm:text-5xl lg:text-6xl font-black text-gray-100 group-hover:text-blue-100 transition-colors">
                       {item.step}
                     </div>
-                    
+
                     {/* Icon */}
                     <div className={`relative ${getColorClasses(item.color).background} w-12 h-12 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl flex items-center justify-center mb-4 sm:mb-6 shadow-lg ${getColorClasses(item.color).shadow} group-hover:scale-110 transition-all duration-300`}>
                       <item.icon className="h-6 w-6 sm:h-8 sm:w-8 text-white" />
                     </div>
-                    
+
                     {/* Content */}
                     <h3 className="font-bold text-lg sm:text-xl mb-3 sm:mb-4 text-gray-900 group-hover:text-blue-900 transition-colors">
                       {item.title}
@@ -460,7 +460,7 @@ export default function NamibiaGuidePage() {
                     <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
                       {item.description}
                     </p>
-                    
+
                     {/* Learn More Link */}
                     <div className="flex items-center gap-2 mt-4 sm:mt-6 text-blue-600 font-semibold opacity-0 group-hover:opacity-100 transition-opacity">
                       <span className="text-sm sm:text-base">Learn the details</span>
@@ -471,10 +471,9 @@ export default function NamibiaGuidePage() {
               </div>
             ))}
           </div>
-          
+
         </div>
       </section>
-
 
       {/* Professional FAQ Section - Mobile Optimized */}
       <section className="py-12 sm:py-24 bg-gradient-to-b from-white to-gray-50 overflow-x-hidden" aria-labelledby="faq-heading">
@@ -498,7 +497,7 @@ export default function NamibiaGuidePage() {
               Get instant answers to the most common questions about importing cars from Japan to Namibia.
             </p>
           </div>
-          
+
           {/* FAQ Cards - Mobile Optimized */}
           <div className="space-y-3 sm:space-y-4" itemScope itemType="https://schema.org/FAQPage">
             {faqs.map((faq, index) => (
@@ -527,7 +526,7 @@ export default function NamibiaGuidePage() {
                     </div>
                   </CardContent>
                 </button>
-                
+
                 {expandedFaq === index && (
                   <div 
                     className="border-t border-gray-100 bg-gradient-to-r from-blue-50 to-purple-50"
@@ -548,11 +547,9 @@ export default function NamibiaGuidePage() {
               </Card>
             ))}
           </div>
-          
+
         </div>
       </section>
-
-
 
       {/* Pricing Section - Only show for non-logged-in users */}
       {!user && (

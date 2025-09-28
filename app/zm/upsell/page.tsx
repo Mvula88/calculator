@@ -1,16 +1,13 @@
 'use client'
-
 import { useState, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Card, CardContent } from '@/components/ui/card'
 import { CheckCircle, Star, ArrowRight, Clock, Shield, TrendingUp, DollarSign, Mail } from 'lucide-react'
-
 export default function ZambiaUpsellPage() {
   const [email, setEmail] = useState('')
   const [loading, setLoading] = useState(false)
   const [showEmailInput, setShowEmailInput] = useState(false)
-
   useEffect(() => {
     // Try to get email from localStorage (saved during initial purchase)
     const savedEmail = localStorage.getItem('checkout_email')
@@ -20,14 +17,12 @@ export default function ZambiaUpsellPage() {
       setShowEmailInput(true)
     }
   }, [])
-
   async function handleUpgrade() {
     if (!email) {
       setShowEmailInput(true)
       alert('Please enter your email address')
       return
     }
-    
     setLoading(true)
     try {
       const res = await fetch('/api/stripe/checkout', {
@@ -41,25 +36,20 @@ export default function ZambiaUpsellPage() {
           isUpgrade: true  // Flag this as an upgrade
         })
       })
-      
       const { url, error } = await res.json()
-      
       if (error) {
         alert(`Error: ${error}`)
         return
       }
-      
       if (url) {
         window.location.href = url
       }
     } catch (error) {
-      console.error('Checkout error:', error)
       alert('Failed to start checkout')
     } finally {
       setLoading(false)
     }
   }
-
   return (
     <main className="min-h-screen bg-gradient-to-b from-green-50 to-white">
       {/* Header */}
@@ -71,7 +61,6 @@ export default function ZambiaUpsellPage() {
           </div>
         </div>
       </header>
-      
       <div className="max-w-4xl mx-auto px-6 py-12">
         {/* Hero */}
         <div className="text-center mb-12">
@@ -79,18 +68,15 @@ export default function ZambiaUpsellPage() {
             <DollarSign className="h-5 w-5" />
             <span className="font-semibold">UPGRADE TO IMPORT MASTERY</span>
           </div>
-          
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
             Unlock Maximum Savings<br />
             with Import Mastery
           </h1>
-          
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
             You're already saving with Walvis Bay. Now discover the advanced 
             strategies that can save you thousands per vehicle import to Zambia.
           </p>
         </div>
-
         {/* Comparison */}
         <div className="grid md:grid-cols-2 gap-8 mb-12">
           {/* Basic Guide */}
@@ -114,7 +100,6 @@ export default function ZambiaUpsellPage() {
               ))}
             </div>
           </Card>
-
           {/* Mastery Upgrade */}
           <Card className="p-6 border-2 border-green-500 bg-gradient-to-br from-green-50 to-white">
             <div className="text-center mb-4">
@@ -146,13 +131,11 @@ export default function ZambiaUpsellPage() {
             </div>
           </Card>
         </div>
-
         {/* Advanced Savings Breakdown */}
         <Card className="p-8 mb-8 bg-gradient-to-br from-yellow-50 to-white border-2 border-yellow-200">
           <h2 className="text-2xl font-bold mb-6 text-center">
             Additional Savings with Mastery:
           </h2>
-          
           <div className="grid md:grid-cols-2 gap-6">
             <div className="space-y-3">
               <div className="flex justify-between items-center p-3 bg-white rounded-lg">
@@ -183,14 +166,12 @@ export default function ZambiaUpsellPage() {
               </div>
             </div>
           </div>
-          
           <div className="mt-6 p-4 bg-green-100 rounded-lg text-center">
             <p className="text-2xl font-bold text-green-700">
               Total Savings: Thousands per vehicle
             </p>
           </div>
         </Card>
-
         {/* Benefits */}
         <div className="grid md:grid-cols-3 gap-6 mb-12">
           <Card className="p-6 text-center border-0 shadow-lg">
@@ -200,7 +181,6 @@ export default function ZambiaUpsellPage() {
               Advanced strategies for maximum cost reduction
             </p>
           </Card>
-          
           <Card className="p-6 text-center border-0 shadow-lg">
             <Clock className="h-8 w-8 text-blue-600 mx-auto mb-3" />
             <h3 className="font-bold mb-2">3x Faster</h3>
@@ -208,7 +188,6 @@ export default function ZambiaUpsellPage() {
               VIP processing and priority handling
             </p>
           </Card>
-          
           <Card className="p-6 text-center border-0 shadow-lg">
             <Shield className="h-8 w-8 text-purple-600 mx-auto mb-3" />
             <h3 className="font-bold mb-2">Risk Elimination</h3>
@@ -217,13 +196,11 @@ export default function ZambiaUpsellPage() {
             </p>
           </Card>
         </div>
-
         {/* Exclusive Content */}
         <Card className="p-8 mb-8 bg-gradient-to-br from-emerald-50 to-white border-2 border-emerald-200">
           <h2 className="text-2xl font-bold mb-6 text-center">
             Exclusive Mastery Content for Zambia:
           </h2>
-          
           <div className="grid md:grid-cols-2 gap-4">
             {[
               'Live auction bidding for Japanese imports',
@@ -244,7 +221,6 @@ export default function ZambiaUpsellPage() {
             ))}
           </div>
         </Card>
-
         {/* CTA */}
         <Card className="p-8 bg-gradient-to-r from-green-600 to-emerald-600 text-white border-0">
           <div className="text-center">
@@ -257,7 +233,6 @@ export default function ZambiaUpsellPage() {
             <p className="text-green-100 mb-6">
               Lifetime access & updates
             </p>
-            
             <div className="max-w-md mx-auto space-y-4">
               {showEmailInput && (
                 <div className="mb-4">
@@ -277,7 +252,6 @@ export default function ZambiaUpsellPage() {
                   </p>
                 </div>
               )}
-              
               {!showEmailInput && (
                 <Input
                   type="email"
@@ -288,7 +262,6 @@ export default function ZambiaUpsellPage() {
                   required
                 />
               )}
-              
               <Button 
                 onClick={handleUpgrade}
                 disabled={loading || !email}
@@ -302,14 +275,12 @@ export default function ZambiaUpsellPage() {
                   </span>
                 )}
               </Button>
-              
               <p className="text-sm text-green-100">
                 Secure payment • Instant access • Lifetime access & updates
               </p>
             </div>
           </div>
         </Card>
-
         {/* Social Proof */}
         <div className="mt-12 text-center">
           <p className="text-gray-600 italic mb-4">

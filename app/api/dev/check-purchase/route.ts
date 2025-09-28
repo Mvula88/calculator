@@ -40,7 +40,7 @@ export async function POST(request: NextRequest) {
     // If user has completed payment but no entitlement, create it
     if (completedSessions.length > 0 && (!entitlements || entitlements.length === 0)) {
       const latestSession = completedSessions[0]
-      
+
       // Extract metadata from session
       const tier = latestSession.metadata?.tier || 'mistake'
       const country = latestSession.metadata?.country || 'na'
@@ -100,7 +100,7 @@ export async function POST(request: NextRequest) {
     })
 
   } catch (error) {
-    console.error('Error checking purchase:', error)
+
     return NextResponse.json({ 
       error: 'Failed to check purchase',
       details: error instanceof Error ? error.message : 'Unknown error'

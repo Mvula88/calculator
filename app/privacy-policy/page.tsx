@@ -9,10 +9,10 @@ export default function PrivacyPolicyPage() {
           <ArrowLeft className="h-4 w-4 mr-2" />
           Back to Home
         </Link>
-        
+
         <h1 className="text-4xl font-bold mb-8">Privacy Policy</h1>
         <p className="text-sm text-gray-600 mb-8">Last updated: January 2025</p>
-        
+
         <div className="prose prose-lg max-w-none space-y-8">
           <section>
             <h2 className="text-2xl font-semibold mb-4">Introduction</h2>
@@ -25,7 +25,7 @@ export default function PrivacyPolicyPage() {
 
           <section>
             <h2 className="text-2xl font-semibold mb-4">Information We Collect</h2>
-            
+
             <h3 className="text-xl font-semibold mb-3">Personal Information</h3>
             <p className="text-gray-700 mb-4">We collect information you provide directly to us, such as:</p>
             <ul className="list-disc pl-6 text-gray-700 space-y-2 mb-4">
@@ -65,7 +65,7 @@ export default function PrivacyPolicyPage() {
           <section>
             <h2 className="text-2xl font-semibold mb-4">Information Sharing</h2>
             <p className="text-gray-700 mb-4">We may share your information with:</p>
-            
+
             <h3 className="text-xl font-semibold mb-3">Service Providers</h3>
             <p className="text-gray-700 mb-4">
               Third-party vendors who perform services on our behalf, including payment processing, 

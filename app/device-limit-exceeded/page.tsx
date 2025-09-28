@@ -12,15 +12,15 @@ export default function DeviceLimitExceededPage() {
               <AlertTriangle className="h-12 w-12 text-red-600" />
             </div>
           </div>
-          
+
           <h1 className="text-2xl font-bold text-center mb-4 text-gray-900">
             Device Limit Reached
           </h1>
-          
+
           <p className="text-gray-600 text-center mb-8">
             Your account has reached the maximum number of allowed devices.
           </p>
-          
+
           <div className="bg-gray-50 rounded-lg p-6 mb-6">
             <h2 className="font-semibold text-gray-900 mb-4">Account Device Limits:</h2>
             <div className="space-y-3">
@@ -40,14 +40,14 @@ export default function DeviceLimitExceededPage() {
               </div>
             </div>
           </div>
-          
+
           <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6">
             <p className="text-sm text-yellow-800">
               <strong>Note:</strong> Only one device can be active at a time. 
               Logging in here will automatically log you out from other devices.
             </p>
           </div>
-          
+
           <div className="space-y-4">
             <p className="text-sm text-gray-600 text-center">
               To use this device, you need to:
@@ -58,7 +58,7 @@ export default function DeviceLimitExceededPage() {
               <li>Or contact support for assistance</li>
             </ol>
           </div>
-          
+
           <div className="mt-8 flex flex-col gap-3">
             <Link href="/login">
               <Button className="w-full" variant="outline">

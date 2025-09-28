@@ -1,8 +1,6 @@
 import { zambiaGuideMetadata, zambiaGuideJsonLd, zambiaFAQJsonLd, zambiaBreadcrumbJsonLd, zambiaProductJsonLd } from './metadata'
 import Script from 'next/script'
-
 export const metadata = zambiaGuideMetadata
-
 export default function ZambiaGuideLayout({
   children,
 }: {
@@ -31,7 +29,6 @@ export default function ZambiaGuideLayout({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(zambiaProductJsonLd) }}
       />
-      
       {children}
     </>
   )

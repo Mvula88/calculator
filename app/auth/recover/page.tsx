@@ -64,7 +64,7 @@ export default function RecoverPage() {
         .maybeSingle()
 
       if (entError) {
-        console.error('Entitlement error:', entError)
+
       }
 
       setDetails({

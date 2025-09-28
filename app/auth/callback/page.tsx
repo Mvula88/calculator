@@ -13,12 +13,12 @@ function CallbackContent() {
     const handleCallback = async () => {
       const selectedPackage = searchParams.get('package') || 'mistake'
       const country = searchParams.get('country') || 'na'
-      
+
       const supabase = createClient()
-      
+
       // Check if user is authenticated
       const { data: { user } } = await supabase.auth.getUser()
-      
+
       if (user) {
         // Redirect to checkout
         try {
@@ -34,14 +34,14 @@ function CallbackContent() {
           })
 
           const checkoutData = await response.json()
-          
+
           if (checkoutData.url) {
             window.location.href = checkoutData.url
           } else {
             router.push('/portal')
           }
         } catch (error) {
-          console.error('Failed to create checkout:', error)
+
           router.push('/portal')
         }
       } else {

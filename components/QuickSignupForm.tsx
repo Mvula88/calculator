@@ -38,14 +38,14 @@ export default function QuickSignupForm({
     }
 
     setLoading(true)
-    
+
     // Redirect to register page with email and package pre-filled
     const params = new URLSearchParams({
       email: email,
       package: selectedTier,
       country: country
     })
-    
+
     window.location.href = `/register?${params.toString()}`
   }
 
@@ -57,11 +57,11 @@ export default function QuickSignupForm({
           <span className="text-sm font-bold text-gray-600">EXPERT IMPORT GUIDANCE</span>
           <Trophy className="h-5 w-5 text-yellow-500" />
         </div>
-        
+
         <h3 className="text-2xl sm:text-3xl font-black text-center mb-4">
           Start Your Import Journey Today
         </h3>
-        
+
         <div className="bg-gradient-to-r from-purple-50 to-blue-50 p-4 rounded-lg border-2 border-purple-200 mb-4">
           <div className="flex justify-between items-center">
             <div>
@@ -77,7 +77,7 @@ export default function QuickSignupForm({
             </div>
           </div>
         </div>
-        
+
         <div className="space-y-3">
           <Input
             type="email"
@@ -87,7 +87,7 @@ export default function QuickSignupForm({
             className="h-14 text-lg"
             required
           />
-          
+
           <Button 
             onClick={handleQuickSignup}
             disabled={!email || loading}
@@ -105,7 +105,7 @@ export default function QuickSignupForm({
             )}
           </Button>
         </div>
-        
+
         <div className="flex items-center justify-center gap-4 mt-4">
           <div className="flex items-center gap-1 text-xs text-gray-600">
             <Shield className="h-3 w-3" />
@@ -136,7 +136,7 @@ export default function QuickSignupForm({
             <p className="text-sm text-gray-600">Start importing today</p>
           </div>
         </div>
-        
+
         <div className="flex gap-2">
           <Input
             type="email"
@@ -164,7 +164,7 @@ export default function QuickSignupForm({
         <h3 className="text-2xl font-bold mb-2">Get Instant Access</h3>
         <p className="text-gray-600">Choose your package and start saving today</p>
       </div>
-      
+
       <div className="bg-gradient-to-r from-purple-50 to-blue-50 p-6 rounded-lg border-2 border-purple-200 mb-6">
         <div className="flex items-center justify-between">
           <div>
@@ -182,7 +182,7 @@ export default function QuickSignupForm({
           </div>
         </div>
       </div>
-      
+
       <div className="space-y-4">
         <Input
           type="email"
@@ -192,7 +192,7 @@ export default function QuickSignupForm({
           className="h-12"
           required
         />
-        
+
         <Button 
           onClick={handleQuickSignup}
           disabled={!email || loading}
@@ -209,7 +209,7 @@ export default function QuickSignupForm({
           )}
         </Button>
       </div>
-      
+
       <div className="flex items-center justify-center gap-6 mt-6">
         <div className="flex items-center gap-1 text-xs text-gray-600">
           <Shield className="h-3 w-3" />

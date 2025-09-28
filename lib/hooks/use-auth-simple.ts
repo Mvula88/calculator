@@ -22,25 +22,23 @@ export function useAuthSimple(): UseAuthReturn {
 
   useEffect(() => {
     let mounted = true
-    console.log('[useAuthSimple] Starting auth check...')
 
     const checkAuth = async () => {
       try {
         const supabase = createClient()
-        
+
         // Get user without timeout - let it complete naturally
         const { data: { user }, error: userError } = await supabase.auth.getUser()
 
         if (!mounted) return
 
         if (userError) {
-          console.error('[useAuthSimple] User error:', userError)
+
           setError(userError.message)
           setLoading(false)
           return
         }
 
-        console.log('[useAuthSimple] User:', user?.email)
         setUser(user)
 
         // Only get entitlements if we have a user
@@ -53,24 +51,24 @@ export function useAuthSimple(): UseAuthReturn {
               .single()
 
             if (!mounted) return
-            
+
             if (entError) {
-              console.log('[useAuthSimple] No entitlements found (this is OK):', entError.message)
+
               // Not having entitlements is OK - user might not have purchased yet
               setUserTier(null)
             } else {
-              console.log('[useAuthSimple] User tier:', entitlements?.tier)
+
               setUserTier(entitlements?.tier || null)
             }
           } catch (e) {
-            console.error('[useAuthSimple] Entitlements error:', e)
+
             setUserTier(null)
           }
         }
 
         setLoading(false)
       } catch (error) {
-        console.error('[useAuthSimple] Auth error:', error)
+
         if (mounted) {
           setError(String(error))
           setLoading(false)
@@ -92,7 +90,7 @@ export function useAuthSimple(): UseAuthReturn {
       setUser(null)
       setUserTier(null)
     } catch (error) {
-      console.error('[useAuthSimple] Sign out error:', error)
+
     }
   }
 

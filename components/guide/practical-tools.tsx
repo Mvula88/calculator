@@ -1,5 +1,4 @@
 'use client'
-
 import { useState } from 'react'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -21,7 +20,6 @@ import {
   Activity as ProgressIcon,
   Mail
 } from 'lucide-react'
-
 interface DutyCalculation {
   vehicleValue: number
   engineSize: number
@@ -33,7 +31,6 @@ interface DutyCalculation {
   totalVat: number
   totalTaxes: number
 }
-
 interface ProgressStep {
   id: string
   title: string
@@ -44,7 +41,6 @@ interface ProgressStep {
   estimatedDuration: string
   dependencies?: string[]
 }
-
 interface ServiceProvider {
   name: string
   type: 'clearing-agent' | 'translator' | 'transporter' | 'insurance' | 'finance'
@@ -55,7 +51,6 @@ interface ServiceProvider {
   rating?: number
   notes?: string
 }
-
 const defaultProgressSteps: ProgressStep[] = [
   {
     id: 'vehicle-selected',
@@ -236,7 +231,6 @@ const defaultProgressSteps: ProgressStep[] = [
     dependencies: ['license-plates']
   }
 ]
-
 const serviceProviders: ServiceProvider[] = [
   {
     name: "ABC Clearing & Forwarding",
@@ -284,7 +278,6 @@ const serviceProviders: ServiceProvider[] = [
     rating: 4.0
   }
 ]
-
 export function PracticalTools() {
   const [activeTab, setActiveTab] = useState<'duty' | 'progress' | 'contacts'>('duty')
   const [dutyCalc, setDutyCalc] = useState({
@@ -296,33 +289,25 @@ export function PracticalTools() {
   const [progressSteps, setProgressSteps] = useState<ProgressStep[]>(defaultProgressSteps)
   const [searchProvider, setSearchProvider] = useState('')
   const [filterProviderType, setFilterProviderType] = useState<string>('all')
-
   const calculateDuty = (): DutyCalculation | null => {
     const value = parseFloat(dutyCalc.vehicleValue)
     const engine = parseFloat(dutyCalc.engineSize)
     const age = parseInt(dutyCalc.age)
-
     if (!value || !engine || !age) return null
-
     // Simplified duty calculation - actual rates vary
     let dutyRate = 0.25 // Base 25%
-    
     // Adjust by engine size
     if (engine > 2000) dutyRate += 0.05
     if (engine > 3000) dutyRate += 0.05
-    
     // Adjust by fuel type
     if (dutyCalc.fuelType === 'diesel') dutyRate += 0.02
-    
     // Adjust by age
     if (age > 8) dutyRate += 0.03
-    
     const vatRate = 0.15 // 15% VAT
     const totalDuty = value * dutyRate
     const dutyInclusiveValue = value + totalDuty
     const totalVat = dutyInclusiveValue * vatRate
     const totalTaxes = totalDuty + totalVat
-
     return {
       vehicleValue: value,
       engineSize: engine,
@@ -335,23 +320,19 @@ export function PracticalTools() {
       totalTaxes
     }
   }
-
   const toggleProgressStep = (id: string) => {
     setProgressSteps(prev => prev.map(step => 
       step.id === id ? { ...step, completed: !step.completed } : step
     ))
   }
-
   const resetProgress = () => {
     setProgressSteps(prev => prev.map(step => ({ ...step, completed: false })))
   }
-
   const getCompletionStats = () => {
     const required = progressSteps.filter(s => !s.optional)
     const optional = progressSteps.filter(s => s.optional)
     const completedRequired = required.filter(s => s.completed)
     const completedOptional = optional.filter(s => s.completed)
-
     return {
       requiredTotal: required.length,
       requiredCompleted: completedRequired.length,
@@ -360,17 +341,14 @@ export function PracticalTools() {
       overallCompletion: Math.round((progressSteps.filter(s => s.completed).length / progressSteps.length) * 100)
     }
   }
-
   const filteredProviders = serviceProviders.filter(provider => {
     const matchesSearch = provider.name.toLowerCase().includes(searchProvider.toLowerCase()) ||
                           provider.speciality.toLowerCase().includes(searchProvider.toLowerCase())
     const matchesType = filterProviderType === 'all' || provider.type === filterProviderType
     return matchesSearch && matchesType
   })
-
   const dutyResult = calculateDuty()
   const stats = getCompletionStats()
-
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -378,7 +356,6 @@ export function PracticalTools() {
         <h2 className="text-2xl font-bold mb-2">🛠️ Practical Import Tools</h2>
         <p className="text-gray-600">Interactive calculators, progress tracking, and contact directory</p>
       </div>
-
       {/* Tab Navigation */}
       <div className="flex flex-wrap gap-2 mb-6 border-b">
         <button
@@ -415,7 +392,6 @@ export function PracticalTools() {
           Service Providers
         </button>
       </div>
-
       {/* Duty Calculator Tab */}
       {activeTab === 'duty' && (
         <Card className="overflow-hidden">
@@ -442,7 +418,6 @@ export function PracticalTools() {
                     onChange={(e) => setDutyCalc(prev => ({ ...prev, vehicleValue: e.target.value }))}
                   />
                 </div>
-                
                 <div>
                   <Label htmlFor="engineSize">Engine Size (CC)</Label>
                   <Input
@@ -453,7 +428,6 @@ export function PracticalTools() {
                     onChange={(e) => setDutyCalc(prev => ({ ...prev, engineSize: e.target.value }))}
                   />
                 </div>
-
                 <div>
                   <Label>Fuel Type</Label>
                   <div className="flex gap-4 mt-2">
@@ -479,7 +453,6 @@ export function PracticalTools() {
                     </label>
                   </div>
                 </div>
-
                 <div>
                   <Label htmlFor="age">Vehicle Age (years)</Label>
                   <Input
@@ -491,7 +464,6 @@ export function PracticalTools() {
                   />
                 </div>
               </div>
-
               {/* Results */}
               <div>
                 {dutyResult ? (
@@ -525,7 +497,6 @@ export function PracticalTools() {
                         </div>
                       </div>
                     </div>
-
                     <div className="p-3 bg-yellow-50 border border-yellow-200 rounded">
                       <p className="text-xs text-yellow-800">
                         <AlertTriangle className="h-3 w-3 inline mr-1" />
@@ -545,7 +516,6 @@ export function PracticalTools() {
           </div>
         </Card>
       )}
-
       {/* Progress Tracker Tab */}
       {activeTab === 'progress' && (
         <Card className="overflow-hidden">
@@ -564,7 +534,6 @@ export function PracticalTools() {
                 Reset Progress
               </Button>
             </div>
-            
             {/* Progress Stats */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
               <div className="p-3 bg-white rounded border">
@@ -581,14 +550,12 @@ export function PracticalTools() {
               </div>
             </div>
           </div>
-
           <div className="p-6">
             <div className="space-y-6">
               {/* Group by stages */}
               {Array.from(new Set(progressSteps.map(s => s.stage))).map(stage => {
                 const stageSteps = progressSteps.filter(s => s.stage === stage)
                 const stageCompleted = stageSteps.filter(s => s.completed).length
-                
                 return (
                   <div key={stage} className="border rounded-lg overflow-hidden">
                     <div className="bg-gray-50 p-4 border-b">
@@ -599,7 +566,6 @@ export function PracticalTools() {
                         </span>
                       </div>
                     </div>
-                    
                     <div className="p-4 space-y-3">
                       {stageSteps.map(step => (
                         <div key={step.id} className="flex items-start gap-3">
@@ -613,7 +579,6 @@ export function PracticalTools() {
                               <Circle className="h-5 w-5 text-gray-400" />
                             )}
                           </button>
-                          
                           <div className="flex-1">
                             <div className="flex items-center gap-2 mb-1">
                               <span className={`${step.completed ? 'line-through text-gray-500' : 'text-gray-900'} font-medium`}>
@@ -625,7 +590,6 @@ export function PracticalTools() {
                                 </span>
                               )}
                             </div>
-                            
                             <div className="flex items-center gap-4 text-xs text-gray-500">
                               <div className="flex items-center gap-1">
                                 <Clock className="h-3 w-3" />
@@ -651,7 +615,6 @@ export function PracticalTools() {
           </div>
         </Card>
       )}
-
       {/* Service Providers Tab */}
       {activeTab === 'contacts' && (
         <Card className="overflow-hidden">
@@ -664,7 +627,6 @@ export function PracticalTools() {
               Recommended service providers for your import needs
             </p>
           </div>
-
           <div className="p-6">
             {/* Search and Filter */}
             <div className="flex flex-col md:flex-row gap-4 mb-6">
@@ -691,7 +653,6 @@ export function PracticalTools() {
                 ))}
               </div>
             </div>
-
             {/* Provider List */}
             <div className="grid gap-4">
               {filteredProviders.map((provider, index) => (
@@ -713,15 +674,12 @@ export function PracticalTools() {
                     </div>
                     <div className="text-sm text-gray-500">{provider.location}</div>
                   </div>
-
                   <p className="text-sm text-gray-700 mb-3">{provider.speciality}</p>
-                  
                   {provider.notes && (
                     <p className="text-xs text-blue-600 bg-blue-50 p-2 rounded mb-3">
                       {provider.notes}
                     </p>
                   )}
-
                   <div className="flex flex-wrap gap-3 text-sm">
                     {provider.phone && (
                       <div className="flex items-center gap-1">
@@ -739,14 +697,12 @@ export function PracticalTools() {
                 </div>
               ))}
             </div>
-
             {filteredProviders.length === 0 && (
               <div className="text-center py-8 text-gray-500">
                 <Users className="h-12 w-12 mx-auto mb-3 text-gray-300" />
                 <p>No service providers match your search criteria</p>
               </div>
             )}
-
             {/* Disclaimer */}
             <div className="mt-6 p-3 bg-yellow-50 border border-yellow-200 rounded">
               <p className="text-xs text-yellow-800">

@@ -1,10 +1,8 @@
 import { Metadata } from 'next'
-
 export const botswanaGuideMetadata: Metadata = {
   title: 'Import Cars to Botswana from Japan 2024 | Complete Guide | Complete Import Guide',
   description: 'Step-by-step guide to importing cars from Japan to Botswana. Professional import guidance system. Includes BURS duty calculator, customs clearance at Gaborone, vehicle registration, and container sharing. Based on real import experience.',
   keywords: 'import cars Botswana, Japan car import Botswana, Gaborone customs clearance, BURS duty calculator, Botswana vehicle registration, import duty Botswana 2024, Japanese used cars Botswana, car import costs Botswana, Botswana clearing agents, import permit Botswana, vehicle import process Botswana, Botswana car import guide, Japanese auction cars Botswana, import taxes Botswana vehicles, Trans Kalahari Corridor, Kazungula border post',
-  
   openGraph: {
     title: 'Complete Import Guide for Cars to Botswana | Complete 2024 Guide',
     description: 'The complete guide to import cars from Japan to Botswana. BURS customs navigation, duty calculations, and proven import strategies. Expert import guidance system.',
@@ -21,14 +19,12 @@ export const botswanaGuideMetadata: Metadata = {
     locale: 'en_BW',
     type: 'website',
   },
-  
   twitter: {
     card: 'summary_large_image',
     title: 'Import Cars to Botswana from Japan | Complete Import Guide',
     description: 'Complete guide to importing vehicles to Botswana. BURS duty calculator, customs clearance, and proven strategies.',
     images: ['https://www.impota.com/twitter-botswana-guide.jpg'],
   },
-  
   alternates: {
     canonical: 'https://www.impota.com/bw/guide',
     languages: {
@@ -38,7 +34,6 @@ export const botswanaGuideMetadata: Metadata = {
       'en-ZM': 'https://www.impota.com/zm/guide',
     },
   },
-  
   robots: {
     index: true,
     follow: true,
@@ -51,7 +46,6 @@ export const botswanaGuideMetadata: Metadata = {
     },
   },
 }
-
 // JSON-LD Structured Data
 export const botswanaGuideJsonLd = {
   '@context': 'https://schema.org',
@@ -117,7 +111,6 @@ export const botswanaGuideJsonLd = {
     }
   ]
 }
-
 // FAQ Schema
 export const botswanaFAQJsonLd = {
   '@context': 'https://schema.org',
@@ -157,7 +150,6 @@ export const botswanaFAQJsonLd = {
     }
   ]
 }
-
 // Breadcrumb Schema
 export const botswanaBreadcrumbJsonLd = {
   '@context': 'https://schema.org',
@@ -183,7 +175,6 @@ export const botswanaBreadcrumbJsonLd = {
     }
   ]
 }
-
 // Product Schema
 export const botswanaProductJsonLd = {
   '@context': 'https://schema.org',

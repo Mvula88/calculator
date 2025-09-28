@@ -1,5 +1,4 @@
 'use client'
-
 import { useEffect, useState } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
 import Link from 'next/link'
@@ -22,7 +21,6 @@ import {
   Gavel 
 } from 'lucide-react'
 import Image from 'next/image'
-
 export default function SimplePortalLayout({
   children,
 }: {
@@ -32,7 +30,6 @@ export default function SimplePortalLayout({
   const pathname = usePathname()
   const { user, userEmail, hasAccess, loading, error, signOut } = useAuthImmediate()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  
   useEffect(() => {
     // Don't check auth for activation or login pages
     if (pathname === '/portal/login' || 
@@ -41,11 +38,9 @@ export default function SimplePortalLayout({
         pathname === '/portal/debug') {
       return
     }
-    
     // Don't auto-redirect - let the user click the login button
     // This prevents redirect loops
   }, [pathname])
-  
   const handleSignOut = async () => {
     // Clear all auth-related storage first
     localStorage.clear()
@@ -56,14 +51,12 @@ export default function SimplePortalLayout({
     // Force redirect to home page with a full page reload
     window.location.href = '/'
   }
-  
   // For activation/login pages, just render the content
   if (pathname === '/portal/login' || 
       pathname === '/portal/activate' || 
       pathname === '/portal/activate-simple') {
     return <>{children}</>
   }
-  
   // Show loading state briefly
   if (loading) {
     return (
@@ -75,7 +68,6 @@ export default function SimplePortalLayout({
       </div>
     )
   }
-  
   // If there's an error or no user, redirect to login
   if (error || !user) {
     if (typeof window !== 'undefined') {
@@ -90,7 +82,6 @@ export default function SimplePortalLayout({
       </div>
     )
   }
-  
   const navigation = [
     {
       name: 'Dashboard',
@@ -141,7 +132,6 @@ export default function SimplePortalLayout({
       description: 'Verified agents'
     },
   ]
-  
   return (
     <SimpleContentProtection userEmail={userEmail}>
         <div className="min-h-screen bg-gray-50">
@@ -173,7 +163,6 @@ export default function SimplePortalLayout({
                 </Link>
               </div>
             </div>
-            
             {/* User Menu */}
             <div className="flex items-center space-x-2 sm:space-x-4">
               <div className="hidden md:flex items-center space-x-3">
@@ -198,7 +187,6 @@ export default function SimplePortalLayout({
           </div>
         </div>
       </header>
-      
       {/* Mobile Navigation Menu */}
       {mobileMenuOpen && (
         <div className="lg:hidden fixed inset-0 z-50 pt-16">
@@ -221,7 +209,6 @@ export default function SimplePortalLayout({
                   </Link>
                 ))}
               </div>
-              
               {/* Mobile Menu Footer */}
               <div className="mt-8 pt-8 border-t border-gray-200">
                 <div className="space-y-4">
@@ -238,7 +225,6 @@ export default function SimplePortalLayout({
           </nav>
         </div>
       )}
-      
       <div className="flex h-screen pt-16">
         {/* Sidebar Navigation */}
         <aside className="hidden lg:flex lg:flex-shrink-0">
@@ -259,7 +245,6 @@ export default function SimplePortalLayout({
                   </Link>
                 ))}
               </nav>
-              
               {/* Sidebar Footer */}
               <div className="flex-shrink-0 px-4 py-4 border-t border-gray-200">
                 <div className="space-y-3">
@@ -267,7 +252,6 @@ export default function SimplePortalLayout({
                   <div className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
                     ✅ Portal Access Active
                   </div>
-                  
                   {/* User Info */}
                   <div className="text-xs text-gray-500">
                     <p>Licensed to:</p>
@@ -278,7 +262,6 @@ export default function SimplePortalLayout({
             </div>
           </div>
         </aside>
-        
         {/* Main Content Area */}
         <main className="flex-1 overflow-y-auto">
           <div className="py-4 sm:py-6">

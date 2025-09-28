@@ -1,17 +1,14 @@
 'use client'
-
 import { useState, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Star, Trophy, Users, Calculator, BookOpen, Shield, Mail } from 'lucide-react'
 import Link from 'next/link'
-
 export default function NamibiaUpsellPage() {
   const [loading, setLoading] = useState(false)
   const [email, setEmail] = useState('')
   const [showEmailInput, setShowEmailInput] = useState(false)
-  
   useEffect(() => {
     // Try to get email from localStorage (saved during initial purchase)
     const savedEmail = localStorage.getItem('checkout_email')
@@ -21,14 +18,12 @@ export default function NamibiaUpsellPage() {
       setShowEmailInput(true)
     }
   }, [])
-  
   async function handleMasteryUpgrade() {
     if (!email) {
       setShowEmailInput(true)
       alert('Please enter your email address')
       return
     }
-    
     setLoading(true)
     try {
       const res = await fetch('/api/stripe/checkout', {
@@ -42,25 +37,20 @@ export default function NamibiaUpsellPage() {
           isUpgrade: true  // Flag this as an upgrade
         })
       })
-      
       const { url, error } = await res.json()
-      
       if (error) {
         alert(`Error: ${error}`)
         return
       }
-      
       if (url) {
         window.location.href = url
       }
     } catch (error) {
-      console.error('Checkout error:', error)
       alert('Failed to start checkout')
     } finally {
       setLoading(false)
     }
   }
-  
   return (
     <main className="min-h-screen bg-gradient-to-b from-purple-50 to-white">
       <div className="max-w-4xl mx-auto px-6 py-16">
@@ -70,24 +60,20 @@ export default function NamibiaUpsellPage() {
             <Trophy className="h-5 w-5" />
             <span className="font-semibold">UPGRADE TO IMPORT MASTERY</span>
           </div>
-          
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
             Congratulations! You Qualify for<br />
             Import Mastery Package
           </h1>
-          
           <p className="text-xl text-gray-600">
             Join our growing community of successful importers
           </p>
         </div>
-        
         {/* What You Get */}
         <Card className="p-8 mb-8 border-2 border-purple-200 shadow-xl">
           <div className="text-center mb-6">
             <h2 className="text-2xl font-bold">Import Mastery Includes Everything:</h2>
             <p className="text-gray-600 mt-2">Lifetime access to all premium features</p>
           </div>
-          
           <div className="grid md:grid-cols-2 gap-6">
             <div className="space-y-4">
               <div className="flex gap-3">
@@ -97,7 +83,6 @@ export default function NamibiaUpsellPage() {
                   <p className="text-sm text-gray-600">Connect with other importers</p>
                 </div>
               </div>
-              
               <div className="flex gap-3">
                 <Users className="h-6 w-6 text-blue-500 flex-shrink-0" />
                 <div>
@@ -105,7 +90,6 @@ export default function NamibiaUpsellPage() {
                   <p className="text-sm text-gray-600">Pre-vetted agents with transparent pricing</p>
                 </div>
               </div>
-              
               <div className="flex gap-3">
                 <Calculator className="h-6 w-6 text-green-500 flex-shrink-0" />
                 <div>
@@ -114,7 +98,6 @@ export default function NamibiaUpsellPage() {
                 </div>
               </div>
             </div>
-            
             <div className="space-y-4">
               <div className="flex gap-3">
                 <BookOpen className="h-6 w-6 text-purple-500 flex-shrink-0" />
@@ -123,7 +106,6 @@ export default function NamibiaUpsellPage() {
                   <p className="text-sm text-gray-600">15 video lessons</p>
                 </div>
               </div>
-              
               <div className="flex gap-3">
                 <Shield className="h-6 w-6 text-red-500 flex-shrink-0" />
                 <div>
@@ -131,7 +113,6 @@ export default function NamibiaUpsellPage() {
                   <p className="text-sm text-gray-600">Identify and avoid scams</p>
                 </div>
               </div>
-              
               <div className="flex gap-3">
                 <Star className="h-6 w-6 text-yellow-500 flex-shrink-0" />
                 <div>
@@ -142,7 +123,6 @@ export default function NamibiaUpsellPage() {
             </div>
           </div>
         </Card>
-        
         {/* Pricing */}
         <Card className="p-8 bg-gradient-to-r from-orange-600 to-red-600 text-white">
           <div className="text-center">
@@ -151,7 +131,6 @@ export default function NamibiaUpsellPage() {
               <span className="text-5xl font-bold text-green-600 ml-4">N$1,499</span>
               <span className="text-sm ml-2 opacity-80">One-time payment</span>
             </div>
-            
             {showEmailInput && (
               <div className="mb-4 max-w-md mx-auto">
                 <div className="relative">
@@ -170,7 +149,6 @@ export default function NamibiaUpsellPage() {
                 </p>
               </div>
             )}
-            
             <Button 
               onClick={handleMasteryUpgrade}
               disabled={loading}
@@ -179,7 +157,6 @@ export default function NamibiaUpsellPage() {
             >
               {loading ? 'Processing...' : 'Upgrade to Import Mastery Now'}
             </Button>
-            
             <div className="mt-6 space-y-2">
               <p className="text-sm opacity-90">
                 ✓ Lifetime access & updates
@@ -193,7 +170,6 @@ export default function NamibiaUpsellPage() {
             </div>
           </div>
         </Card>
-        
         {/* Skip Link */}
         <div className="text-center mt-8">
           <Link 

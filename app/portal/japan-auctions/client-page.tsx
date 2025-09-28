@@ -278,7 +278,7 @@ export default function JapanAuctionsClientPage() {
                 <li>• No auction access</li>
               </ul>
             </Card>
-            
+
             <Card className="p-3 sm:p-4 border-2 border-green-200 bg-green-50">
               <h3 className="font-bold text-sm sm:text-base mb-2">🔨 Auction Exporters</h3>
               <p className="text-xs sm:text-sm text-gray-600 mb-2">e.g., Integrity, SAT</p>
@@ -610,7 +610,7 @@ export default function JapanAuctionsClientPage() {
             <p className="text-xs sm:text-sm text-gray-600 mb-4">
               Companies with real auction access. Verify before engaging.
             </p>
-            
+
             <div className="space-y-3">
               {exporters.map((exporter, index) => (
                 <Card key={index} className="p-3 sm:p-4">

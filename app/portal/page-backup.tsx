@@ -27,11 +27,11 @@ import {
 
 export default function PortalPage() {
   const { hasAccess, loading, userEmail, userTier } = useAuth()
-  
+
   // Clean up the display email - if it looks like a session ID, show a cleaner version
   const displayEmail = userEmail || 'user@example.com'
   const cleanEmail = displayEmail.startsWith('user_cs_test_') ? 'Portal User' : displayEmail
-  
+
   // Use actual tier from session
   const user = hasAccess ? { email: cleanEmail } : null
   const entitlement = hasAccess ? {
@@ -65,7 +65,6 @@ export default function PortalPage() {
                       entitlement.country === 'za' ? 'South Africa' :
                       entitlement.country === 'bw' ? 'Botswana' :
                       entitlement.country === 'zm' ? 'Zambia' : 'Namibia'
-
 
   // Statistics
   const stats = [
@@ -166,7 +165,6 @@ export default function PortalPage() {
       highlight: 'Mastery'
     }
   ]
-
 
   // Process steps
   const processSteps = [

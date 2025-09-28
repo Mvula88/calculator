@@ -1,5 +1,4 @@
 'use client'
-
 import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
@@ -33,7 +32,6 @@ import {
 } from 'lucide-react'
 import GuideHeader from '@/components/GuideHeader'
 import ValidatedCheckoutButton from '@/components/validated-checkout-button'
-
 export default function HomePage() {
   const [showBeginnerQuiz, setShowBeginnerQuiz] = useState(false)
   const [quizScore, setQuizScore] = useState(0)
@@ -41,7 +39,6 @@ export default function HomePage() {
   const [loading, setLoading] = useState(true)
   const [currentSlide, setCurrentSlide] = useState(0)
   const carouselRef = useRef<HTMLDivElement>(null)
-
   useEffect(() => {
     // Simulate initial page load
     const timer = setTimeout(() => {
@@ -49,7 +46,6 @@ export default function HomePage() {
     }, 500)
     return () => clearTimeout(timer)
   }, [])
-
   const beginnerQuiz = [
     {
       question: "Do you have sufficient budget for importing a vehicle?",
@@ -72,11 +68,9 @@ export default function HomePage() {
       no: 0
     }
   ]
-
   const handleQuizAnswer = (points: number) => {
     const newScore = quizScore + points
     setQuizScore(newScore)
-
     if (currentQuestion < beginnerQuiz.length - 1) {
       setCurrentQuestion(currentQuestion + 1)
     } else {
@@ -145,16 +139,13 @@ export default function HomePage() {
       }
     }
   }
-
   // Show skeleton while loading
   if (loading) {
     return <LandingPageSkeleton />
   }
-
   return (
     <>
       <GuideHeader country="na" showCountrySelector={false} />
-
       {/* Hero Section - Clear Value Proposition */}
       <section className="relative pt-20 pb-32 overflow-hidden">
         {/* Background Image */}
@@ -177,17 +168,14 @@ export default function HomePage() {
               <Globe className="h-4 w-4" />
               <span className="font-semibold">The Complete Import Education Guide</span>
             </div>
-
             <h1 className="text-4xl sm:text-6xl font-bold text-white mb-6 drop-shadow-lg">
               Learn How to Import Cars from Japan
               <span className="block text-yellow-300 mt-2 text-2xl sm:text-3xl">Step-by-Step Guide for Southern Africa</span>
             </h1>
-
             <p className="text-xl text-white mb-8 leading-relaxed bg-black/30 backdrop-blur-sm rounded-lg p-4">
               <strong>What we do:</strong> We guide you through every step of importing a quality used car from Japan to
               Namibia, South Africa, Botswana, or Zambia. From finding the right car to driving it home.
             </p>
-
             {/* Service Highlights */}
             <div className="grid sm:grid-cols-3 gap-4 mb-10">
               <div className="bg-white/95 backdrop-blur-sm p-4 rounded-lg shadow-sm border border-gray-200">
@@ -206,7 +194,6 @@ export default function HomePage() {
                 <div className="text-sm text-gray-600">Trusted clearing agents network</div>
               </div>
             </div>
-
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button
@@ -232,7 +219,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-
       {/* Choose Your Country */}
       <section id="countries" className="py-20 bg-white scroll-mt-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -248,7 +234,6 @@ export default function HomePage() {
               <span className="font-semibold">Primary Port: Walvis Bay - Fastest & Most Efficient Route</span>
             </div>
           </div>
-
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             <Link href="/na/guide">
               <Card className="hover:shadow-xl transition-all cursor-pointer border-2 hover:border-blue-300">
@@ -267,7 +252,6 @@ export default function HomePage() {
                 </CardContent>
               </Card>
             </Link>
-
             <Link href="/za/guide">
               <Card className="hover:shadow-xl transition-all cursor-pointer border-2 hover:border-green-300">
                 <CardContent className="pt-6 text-center">
@@ -285,7 +269,6 @@ export default function HomePage() {
                 </CardContent>
               </Card>
             </Link>
-
             <Link href="/bw/guide">
               <Card className="hover:shadow-xl transition-all cursor-pointer border-2 hover:border-yellow-300">
                 <CardContent className="pt-6 text-center">
@@ -303,7 +286,6 @@ export default function HomePage() {
                 </CardContent>
               </Card>
             </Link>
-
             <Link href="/zm/guide">
               <Card className="hover:shadow-xl transition-all cursor-pointer border-2 hover:border-purple-300">
                 <CardContent className="pt-6 text-center">
@@ -324,7 +306,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-
       {/* Beginner Quiz Modal */}
       {showBeginnerQuiz && (
         <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
@@ -361,7 +342,6 @@ export default function HomePage() {
           </Card>
         </div>
       )}
-
       {/* Import Basics - Minimal Education */}
       <section id="import-basics" className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -373,7 +353,6 @@ export default function HomePage() {
               Understanding the fundamentals before you start
             </p>
           </div>
-
           <div className="grid lg:grid-cols-2 gap-8">
             {/* Left Column - What is Car Importing? */}
             <Card className="h-fit">
@@ -406,7 +385,6 @@ export default function HomePage() {
                 </div>
               </CardContent>
             </Card>
-
             {/* Right Column - Why Walvis Bay Port? */}
             <Card className="h-fit">
               <CardHeader className="bg-gradient-to-r from-blue-50 to-purple-50">
@@ -451,10 +429,8 @@ export default function HomePage() {
               </CardContent>
             </Card>
           </div>
-
         </div>
       </section>
-
       {/* What's Included - Clear Value Proposition */}
       <section id="get-access" className="py-20 bg-gradient-to-b from-gray-50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -466,7 +442,6 @@ export default function HomePage() {
               Complete import platform and professional tools
             </p>
           </div>
-
           {/* Carousel Implementation */}
           <div className="relative">
             {/* Desktop: Show 4 cards, Mobile: Show carousel */}
@@ -483,7 +458,6 @@ export default function HomePage() {
                   </p>
                 </CardContent>
               </Card>
-
               <Card className="border-2 hover:border-purple-300 transition-colors">
                 <CardHeader>
                   <Users className="h-10 w-10 text-purple-600 mb-3" />
@@ -495,7 +469,6 @@ export default function HomePage() {
                   </p>
                 </CardContent>
               </Card>
-
               <Card className="border-2 hover:border-green-300 transition-colors">
                 <CardHeader>
                   <FileText className="h-10 w-10 text-green-600 mb-3" />
@@ -507,7 +480,6 @@ export default function HomePage() {
                   </p>
                 </CardContent>
               </Card>
-
               <Card className="border-2 hover:border-orange-300 transition-colors">
                 <CardHeader>
                   <Map className="h-10 w-10 text-orange-600 mb-3" />
@@ -520,7 +492,6 @@ export default function HomePage() {
                 </CardContent>
               </Card>
             </div>
-
             <div className="hidden lg:grid lg:grid-cols-4 gap-6 mb-12">
               {/* Second 4 cards for desktop */}
               <Card className="border-2 hover:border-cyan-300 transition-colors">
@@ -534,7 +505,6 @@ export default function HomePage() {
                   </p>
                 </CardContent>
               </Card>
-
               <Card className="border-2 hover:border-indigo-300 transition-colors">
                 <CardHeader>
                   <Ship className="h-10 w-10 text-indigo-600 mb-3" />
@@ -546,7 +516,6 @@ export default function HomePage() {
                   </p>
                 </CardContent>
               </Card>
-
               <Card className="border-2 hover:border-pink-300 transition-colors">
                 <CardHeader>
                   <BookOpen className="h-10 w-10 text-pink-600 mb-3" />
@@ -558,7 +527,6 @@ export default function HomePage() {
                   </p>
                 </CardContent>
               </Card>
-
               <Card className="border-2 hover:border-teal-300 transition-colors">
                 <CardHeader>
                   <TrendingUp className="h-10 w-10 text-teal-600 mb-3" />
@@ -571,7 +539,6 @@ export default function HomePage() {
                 </CardContent>
               </Card>
             </div>
-
             {/* Mobile Carousel */}
             <div className="lg:hidden">
               <div className="overflow-x-auto pb-4">
@@ -587,7 +554,6 @@ export default function HomePage() {
                       </p>
                     </CardContent>
                   </Card>
-
                   <Card className="border-2 hover:border-purple-300 transition-colors w-72">
                     <CardHeader>
                       <Users className="h-10 w-10 text-purple-600 mb-3" />
@@ -599,7 +565,6 @@ export default function HomePage() {
                       </p>
                     </CardContent>
                   </Card>
-
                   <Card className="border-2 hover:border-green-300 transition-colors w-72">
                     <CardHeader>
                       <FileText className="h-10 w-10 text-green-600 mb-3" />
@@ -611,7 +576,6 @@ export default function HomePage() {
                       </p>
                     </CardContent>
                   </Card>
-
                   <Card className="border-2 hover:border-orange-300 transition-colors w-72">
                     <CardHeader>
                       <Map className="h-10 w-10 text-orange-600 mb-3" />
@@ -623,7 +587,6 @@ export default function HomePage() {
                       </p>
                     </CardContent>
                   </Card>
-
                   <Card className="border-2 hover:border-cyan-300 transition-colors w-72">
                     <CardHeader>
                       <Package className="h-10 w-10 text-cyan-600 mb-3" />
@@ -635,7 +598,6 @@ export default function HomePage() {
                       </p>
                     </CardContent>
                   </Card>
-
                   <Card className="border-2 hover:border-indigo-300 transition-colors w-72">
                     <CardHeader>
                       <Ship className="h-10 w-10 text-indigo-600 mb-3" />
@@ -647,7 +609,6 @@ export default function HomePage() {
                       </p>
                     </CardContent>
                   </Card>
-
                   <Card className="border-2 hover:border-pink-300 transition-colors w-72">
                     <CardHeader>
                       <BookOpen className="h-10 w-10 text-pink-600 mb-3" />
@@ -659,7 +620,6 @@ export default function HomePage() {
                       </p>
                     </CardContent>
                   </Card>
-
                   <Card className="border-2 hover:border-teal-300 transition-colors w-72">
                     <CardHeader>
                       <TrendingUp className="h-10 w-10 text-teal-600 mb-3" />
@@ -676,8 +636,6 @@ export default function HomePage() {
               <p className="text-center text-sm text-gray-500 mt-2">← Swipe to see more features →</p>
             </div>
           </div>
-
-
           {/* CTA */}
           <div className="text-center mt-12">
             <ValidatedCheckoutButton

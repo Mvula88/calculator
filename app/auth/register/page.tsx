@@ -49,14 +49,14 @@ function RegisterForm() {
           const data = await res.json()
           if (data.email) {
             setEmail(data.email)
-            console.log('Pre-filled email from Stripe:', data.email)
+
           }
           if (data.customerName) {
             setFullName(data.customerName)
-            console.log('Pre-filled name from Stripe:', data.customerName)
+
           }
         } catch (error) {
-          console.error('Failed to fetch email from session:', error)
+
         } finally {
           setFetchingEmail(false)
         }
@@ -116,7 +116,7 @@ function RegisterForm() {
       })
 
       if (signInError) {
-        console.error('Auto sign-in failed:', signInError)
+
         // Even if auto-login fails, show success and redirect to login
         setSuccess(true)
         setTimeout(() => {
@@ -128,7 +128,7 @@ function RegisterForm() {
       // Verify session is established
       const { data: { session } } = await supabase.auth.getSession()
       if (!session) {
-        console.log('Session not established, refreshing...')
+
         await supabase.auth.refreshSession()
       }
 
@@ -162,7 +162,7 @@ function RegisterForm() {
         }, 2000)
       } else if (isFromPayment) {
         // Coming back from payment - user is now signed in, go directly to portal
-        console.log('Registration with payment successful, redirecting to portal...')
+
         setTimeout(() => {
           // Use replace for clean navigation with fresh session
           window.location.replace('/portal')
@@ -237,7 +237,7 @@ function RegisterForm() {
                 : 'Start importing cars smarter today'}
           </CardDescription>
         </CardHeader>
-        
+
         <form onSubmit={handleRegister}>
           <CardContent className="space-y-4">
             {error && (
@@ -246,7 +246,7 @@ function RegisterForm() {
                 <span className="text-sm">{error}</span>
               </div>
             )}
-            
+
             <div className="space-y-2">
               <Label htmlFor="name">Full Name</Label>
               <div className="relative">
@@ -262,7 +262,7 @@ function RegisterForm() {
                 />
               </div>
             </div>
-            
+
             <div className="space-y-2">
               <Label htmlFor="email">
                 Email
@@ -284,7 +284,7 @@ function RegisterForm() {
                 />
               </div>
             </div>
-            
+
             <div className="space-y-2">
               <Label htmlFor="password">Password</Label>
               <div className="relative">
@@ -303,7 +303,7 @@ function RegisterForm() {
                 Must be at least 8 characters
               </p>
             </div>
-            
+
             <div className="space-y-2">
               <Label htmlFor="confirm-password">Confirm Password</Label>
               <div className="relative">
@@ -320,7 +320,7 @@ function RegisterForm() {
               </div>
             </div>
           </CardContent>
-          
+
           <CardFooter className="flex flex-col gap-4">
             <Button 
               type="submit" 
@@ -329,7 +329,7 @@ function RegisterForm() {
             >
               {loading ? 'Creating account...' : 'Create Account'}
             </Button>
-            
+
             <p className="text-sm text-center text-gray-600">
               {isFromPayment ? 'Already registered?' : 'Already have an account?'}{' '}
               <Link

@@ -7,7 +7,7 @@ import QuickSignupForm from '@/components/QuickSignupForm'
 
 export default function PurchasePage() {
   // Show floating signup button
-  
+
   const countries = [
     { code: 'na', name: 'Namibia', flag: '🇳🇦', masteryPrice: 'N$1,499', masteryOriginal: 'N$2,999', currency: 'N$' },
     { code: 'za', name: 'South Africa', flag: '🇿🇦', masteryPrice: 'R1,499', masteryOriginal: 'R2,999', currency: 'R' },
@@ -78,7 +78,7 @@ export default function PurchasePage() {
           <h2 className="text-center text-lg sm:text-xl font-bold mb-4 text-gray-700">
             Select Your Country
           </h2>
-          
+
           {/* Mobile: Vertical Stack, Desktop: Grid */}
           <div className="space-y-4 sm:space-y-0 sm:grid sm:grid-cols-2 sm:gap-6">
             {countries.map((country) => (
@@ -93,7 +93,7 @@ export default function PurchasePage() {
                     </div>
                   </div>
                 </div>
-                
+
                 {/* Package Option - Mobile Optimized */}
                 <div className="p-4 sm:p-6">
                   {/* Import Mastery - Single Option */}
@@ -166,7 +166,7 @@ export default function PurchasePage() {
         {/* Mobile-Optimized Trust Section */}
         <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-xl sm:rounded-2xl p-6 sm:p-8">
           <h3 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-center">Why Choose IMPOTA?</h3>
-          
+
           {/* Mobile: Stack, Tablet+: Grid */}
           <div className="space-y-4 sm:space-y-0 sm:grid sm:grid-cols-3 sm:gap-6">
             <div className="flex sm:flex-col items-center sm:text-center">
@@ -176,7 +176,7 @@ export default function PurchasePage() {
                 <p className="text-xs sm:text-sm text-gray-600">Fully compliant with customs</p>
               </div>
             </div>
-            
+
             <div className="flex sm:flex-col items-center sm:text-center">
               <Clock className="h-10 w-10 sm:h-12 sm:w-12 text-purple-600 mr-4 sm:mr-0 sm:mb-3 flex-shrink-0" />
               <div className="flex-1">
@@ -184,7 +184,7 @@ export default function PurchasePage() {
                 <p className="text-xs sm:text-sm text-gray-600">Start importing today</p>
               </div>
             </div>
-            
+
             <div className="flex sm:flex-col items-center sm:text-center">
               <CheckCircle className="h-10 w-10 sm:h-12 sm:w-12 text-green-600 mr-4 sm:mr-0 sm:mb-3 flex-shrink-0" />
               <div className="flex-1">

@@ -21,21 +21,21 @@ function CreateAccountForm() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const sessionId = searchParams.get('session_id')
-  
+
   const [loading, setLoading] = useState(true)
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState('')
   const [sessionData, setSessionData] = useState<SessionData | null>(null)
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
-  
+
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
     password: '',
     confirmPassword: ''
   })
-  
+
   const [passwordStrength, setPasswordStrength] = useState({
     hasMinLength: false,
     hasUpperCase: false,
@@ -43,42 +43,39 @@ function CreateAccountForm() {
     hasNumber: false,
     hasSpecial: false
   })
-  
+
   // Fetch session data on mount
   useEffect(() => {
     async function fetchSessionData() {
-      console.log('CreateAccount: Session ID:', sessionId)
-      
+
       if (!sessionId) {
         setError('No payment session found. Please complete your purchase first.')
         setLoading(false)
         return
       }
-      
+
       try {
         // First, sign out any existing user to prevent conflicts
         const supabase = createClient()
         const { data: { user: currentUser } } = await supabase.auth.getUser()
-        
+
         if (currentUser) {
-          console.log('User already logged in, signing out to create new account...')
+
           await supabase.auth.signOut()
         }
-        
-        console.log('Verifying session with Stripe...')
+
         const response = await fetch('/api/stripe/verify-session', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ sessionId })
         })
-        
+
         const data = await response.json()
-        console.log('Session verification response:', data)
-        
+
         if (!response.ok) {
           throw new Error(data.error || 'Failed to verify payment')
         }
-        
+
         // Check if user already exists with this email
         if (data.userExists) {
           // Show message that account exists
@@ -88,7 +85,7 @@ function CreateAccountForm() {
           }, 3000)
           return
         }
-        
+
         setSessionData(data)
         setFormData(prev => ({ ...prev, email: data.email }))
       } catch (err: any) {
@@ -97,10 +94,10 @@ function CreateAccountForm() {
         setLoading(false)
       }
     }
-    
+
     fetchSessionData()
   }, [sessionId, router])
-  
+
   // Check password strength
   useEffect(() => {
     const password = formData.password
@@ -112,26 +109,26 @@ function CreateAccountForm() {
       hasSpecial: /[!@#$%^&*]/.test(password)
     })
   }, [formData.password])
-  
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setError('')
-    
+
     // Validate passwords match
     if (formData.password !== formData.confirmPassword) {
       setError('Passwords do not match')
       return
     }
-    
+
     // Validate password strength
     const isStrongPassword = Object.values(passwordStrength).every(v => v)
     if (!isStrongPassword) {
       setError('Please meet all password requirements')
       return
     }
-    
+
     setSubmitting(true)
-    
+
     try {
       // Create account with Supabase
       const supabase = createClient()
@@ -146,9 +143,9 @@ function CreateAccountForm() {
           }
         }
       })
-      
+
       if (signUpError) throw signUpError
-      
+
       // Link entitlement to user
       const response = await fetch('/api/auth/link-entitlement', {
         method: 'POST',
@@ -159,20 +156,20 @@ function CreateAccountForm() {
           sessionId
         })
       })
-      
+
       if (!response.ok) {
         const data = await response.json()
         throw new Error(data.error || 'Failed to link purchase to account')
       }
-      
+
       // Auto sign in
       const { error: signInError } = await supabase.auth.signInWithPassword({
         email: formData.email,
         password: formData.password
       })
-      
+
       if (signInError) throw signInError
-      
+
       // Redirect to portal
       router.push('/portal')
     } catch (err: any) {
@@ -180,7 +177,7 @@ function CreateAccountForm() {
       setSubmitting(false)
     }
   }
-  
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -188,7 +185,7 @@ function CreateAccountForm() {
       </div>
     )
   }
-  
+
   if (error && !sessionData) {
     return (
       <div className="min-h-screen flex items-center justify-center p-4">
@@ -208,11 +205,11 @@ function CreateAccountForm() {
       </div>
     )
   }
-  
+
   const tierDisplay = sessionData?.tier === 'mastery' 
     ? 'Import Mastery (N$1,999)' 
     : 'Mistake Guide (N$499)'
-  
+
   return (
     <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-blue-50 via-white to-purple-50">
       <Card className="max-w-md w-full">
@@ -229,7 +226,7 @@ function CreateAccountForm() {
             Create your account to access your content
           </CardDescription>
         </CardHeader>
-        
+
         <form onSubmit={handleSubmit}>
           <CardContent className="space-y-4">
             {error && (
@@ -238,7 +235,7 @@ function CreateAccountForm() {
                 <AlertDescription className="text-red-800">{error}</AlertDescription>
               </Alert>
             )}
-            
+
             <div className="space-y-2">
               <Label htmlFor="fullName">Full Name</Label>
               <Input
@@ -251,7 +248,7 @@ function CreateAccountForm() {
                 disabled={submitting}
               />
             </div>
-            
+
             <div className="space-y-2">
               <Label htmlFor="email">Email Address</Label>
               <Input
@@ -265,7 +262,7 @@ function CreateAccountForm() {
                 This is the email you used for payment
               </p>
             </div>
-            
+
             <div className="space-y-2">
               <Label htmlFor="password">Password</Label>
               <div className="relative">
@@ -286,7 +283,7 @@ function CreateAccountForm() {
                   {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                 </button>
               </div>
-              
+
               {/* Password strength indicators */}
               <div className="space-y-1 mt-2">
                 <p className="text-xs font-medium text-gray-700">Password must have:</p>
@@ -314,7 +311,7 @@ function CreateAccountForm() {
                 </div>
               </div>
             </div>
-            
+
             <div className="space-y-2">
               <Label htmlFor="confirmPassword">Confirm Password</Label>
               <div className="relative">
@@ -337,7 +334,7 @@ function CreateAccountForm() {
               </div>
             </div>
           </CardContent>
-          
+
           <CardFooter>
             <Button
               type="submit"

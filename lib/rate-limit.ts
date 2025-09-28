@@ -35,18 +35,18 @@ export function rateLimit(config: RateLimitConfig) {
       request.headers.get('x-forwarded-for')?.split(',')[0] || 
       request.headers.get('x-real-ip') || 
       'anonymous'
-    
+
     const now = Date.now()
     const resetTime = now + config.interval
-    
+
     // Get or initialize request count for this identifier
     let requestData = requestCounts.get(id)
-    
+
     if (!requestData || requestData.resetTime < now) {
       // First request in this interval or interval has expired
       requestData = { count: 1, resetTime }
       requestCounts.set(id, requestData)
-      
+
       return {
         success: true,
         limit: config.uniqueTokenPerInterval,
@@ -54,7 +54,7 @@ export function rateLimit(config: RateLimitConfig) {
         reset: new Date(resetTime)
       }
     }
-    
+
     // Check if limit exceeded
     if (requestData.count >= config.uniqueTokenPerInterval) {
       return {
@@ -64,11 +64,11 @@ export function rateLimit(config: RateLimitConfig) {
         reset: new Date(requestData.resetTime)
       }
     }
-    
+
     // Increment count
     requestData.count++
     requestCounts.set(id, requestData)
-    
+
     return {
       success: true,
       limit: config.uniqueTokenPerInterval,

@@ -48,7 +48,7 @@ export default function FixPurchasePage() {
 
       const data = await res.json()
       setResult(data)
-      
+
       if (data.entitlement) {
         // Refresh the check
         setTimeout(() => checkPurchase(), 1000)
@@ -64,7 +64,7 @@ export default function FixPurchasePage() {
     <div className="max-w-4xl mx-auto p-8">
       <Card className="p-6">
         <h1 className="text-2xl font-bold mb-6">🔧 Fix Purchase Access</h1>
-        
+
         <div className="space-y-4">
           <div>
             <label className="block text-sm font-medium mb-2">

@@ -29,7 +29,7 @@ export function GuideNavigation({ currentSection, onNavigate }: NavigationProps)
     const handleScroll = () => {
       setIsSticky(window.scrollY > 200)
     }
-    
+
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])

@@ -16,11 +16,11 @@ export const emailTemplates = {
         <h1 style="color: #333; border-bottom: 2px solid #3b82f6; padding-bottom: 10px;">
           Welcome to IMPOTA!
         </h1>
-        
+
         <p style="color: #555; font-size: 16px; line-height: 1.6;">
           Thank you for purchasing the <strong>${tier === 'mastery' ? 'Import Mastery' : 'Mistake Guide'}</strong> package!
         </p>
-        
+
         <div style="background: #f3f4f6; padding: 20px; border-radius: 8px; margin: 20px 0;">
           <h2 style="color: #333; font-size: 18px; margin-top: 0;">What's Next?</h2>
           <ol style="color: #555; line-height: 1.8;">
@@ -30,17 +30,17 @@ export const emailTemplates = {
             <li>Access your import calculator immediately</li>
           </ol>
         </div>
-        
+
         <div style="background: #fef3c7; padding: 15px; border-left: 4px solid #f59e0b; margin: 20px 0;">
           <p style="color: #92400e; margin: 0;">
             <strong>Important:</strong> Keep this email for your records. Your access is tied to this email address: ${email}
           </p>
         </div>
-        
+
         <p style="color: #555; font-size: 14px; margin-top: 30px;">
           Need help? Reply to this email or contact support@impota.com
         </p>
-        
+
         <div style="border-top: 1px solid #e5e7eb; margin-top: 30px; padding-top: 20px;">
           <p style="color: #9ca3af; font-size: 12px; text-align: center;">
             © 2024 IMPOTA. All rights reserved.<br>
@@ -75,11 +75,11 @@ Need help? Reply to this email or contact support@impota.com
         <h1 style="color: #333; border-bottom: 2px solid #10b981; padding-bottom: 10px;">
           Payment Confirmed ✓
         </h1>
-        
+
         <p style="color: #555; font-size: 16px; line-height: 1.6;">
           Your payment has been successfully processed!
         </p>
-        
+
         <div style="background: #f3f4f6; padding: 20px; border-radius: 8px; margin: 20px 0;">
           <h2 style="color: #333; font-size: 18px; margin-top: 0;">Order Details</h2>
           <table style="width: 100%; color: #555;">
@@ -101,7 +101,7 @@ Need help? Reply to this email or contact support@impota.com
             </tr>
           </table>
         </div>
-        
+
         <div style="background: #d1fae5; padding: 20px; border-radius: 8px; margin: 20px 0; text-align: center;">
           <h3 style="color: #065f46; margin-top: 0;">Ready to Start?</h3>
           <a href="${process.env.NEXT_PUBLIC_APP_URL}/auth/setup-account" 
@@ -110,7 +110,7 @@ Need help? Reply to this email or contact support@impota.com
             Set Up Your Account →
           </a>
         </div>
-        
+
         <p style="color: #555; font-size: 14px; line-height: 1.6;">
           <strong>What you get with ${tier === 'mastery' ? 'Import Mastery' : 'Mistake Guide'}:</strong>
         </p>
@@ -132,7 +132,7 @@ Need help? Reply to this email or contact support@impota.com
             <li>Lifetime updates</li>
           `}
         </ul>
-        
+
         <div style="border-top: 1px solid #e5e7eb; margin-top: 30px; padding-top: 20px;">
           <p style="color: #9ca3af; font-size: 12px; text-align: center;">
             This is your official receipt. Please keep it for your records.<br>
@@ -168,11 +168,11 @@ This is your official receipt. Please keep it for your records.
         <h1 style="color: #333; border-bottom: 2px solid #3b82f6; padding-bottom: 10px;">
           Password Reset Request
         </h1>
-        
+
         <p style="color: #555; font-size: 16px; line-height: 1.6;">
           We received a request to reset your password for ${email}.
         </p>
-        
+
         <div style="background: #f3f4f6; padding: 20px; border-radius: 8px; margin: 20px 0; text-align: center;">
           <p style="color: #555; margin-bottom: 20px;">
             Click the button below to reset your password:
@@ -186,11 +186,11 @@ This is your official receipt. Please keep it for your records.
             This link expires in 1 hour
           </p>
         </div>
-        
+
         <p style="color: #555; font-size: 14px; line-height: 1.6;">
           If you didn't request this password reset, you can safely ignore this email.
         </p>
-        
+
         <div style="border-top: 1px solid #e5e7eb; margin-top: 30px; padding-top: 20px;">
           <p style="color: #9ca3af; font-size: 12px; text-align: center;">
             © 2024 IMPOTA. All rights reserved.
@@ -218,7 +218,7 @@ If you didn't request this password reset, you can safely ignore this email.
 export async function sendEmail(options: EmailOptions): Promise<boolean> {
   try {
     const supabase = createServiceClient()
-    
+
     // Check if Supabase Edge Function is configured for email
     if (process.env.SUPABASE_EMAIL_FUNCTION_URL) {
       const response = await fetch(process.env.SUPABASE_EMAIL_FUNCTION_URL, {
@@ -229,20 +229,17 @@ export async function sendEmail(options: EmailOptions): Promise<boolean> {
         },
         body: JSON.stringify(options)
       })
-      
+
       if (response.ok) {
-        console.log(`Email sent successfully to ${options.to}`)
+
         return true
       }
     }
-    
+
     // Fallback: Log email (in production, integrate with SendGrid, Resend, etc.)
-    console.log('Email would be sent:', {
-      to: options.to,
-      subject: options.subject,
-      preview: options.text?.substring(0, 100)
+
     })
-    
+
     // Store email log in database
     await supabase.from('email_logs').insert({
       to: options.to,
@@ -250,10 +247,10 @@ export async function sendEmail(options: EmailOptions): Promise<boolean> {
       sent_at: new Date().toISOString(),
       status: 'pending' // In production, this would be 'sent'
     })
-    
+
     return true
   } catch (error) {
-    console.error('Failed to send email:', error)
+
     return false
   }
 }

@@ -84,10 +84,10 @@ export default function NamibiaGuidePage() {
     <>
       {/* Hidden H1 for SEO */}
       <h1 className="sr-only">Import Cars from Japan to Namibia 2024 - Complete Walvis Bay Port Guide | Save N$65,000</h1>
-      
+
       {/* Purchase Notifications */}
       <ImportSuccessNotifications />
-      
+
       <main className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-50" itemScope itemType="https://schema.org/Guide">
       <StickySignupHeader country="na" />
       <CountrySelector />
@@ -97,20 +97,20 @@ export default function NamibiaGuidePage() {
         primaryColor="blue-600"
         secondaryColor="purple-600"
       />
-      
+
       {/* Modern Hero Section - Mobile Optimized */}
       <section className="relative overflow-hidden min-h-screen flex items-center">
         {/* Professional Background */}
         <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-blue-900 to-purple-900"></div>
         <div className="absolute inset-0 bg-[url('/japan-cars-hero.png')] bg-cover bg-center opacity-20"></div>
         <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-transparent to-black/50"></div>
-        
+
         {/* Animated Background Elements */}
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute -top-1/2 -left-1/2 w-full h-full bg-gradient-to-br from-blue-500/10 to-transparent rounded-full animate-pulse"></div>
           <div className="absolute -bottom-1/2 -right-1/2 w-full h-full bg-gradient-to-tl from-purple-500/10 to-transparent rounded-full animate-pulse delay-1000"></div>
         </div>
-        
+
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-20 z-20">
           {/* Premium Trust Badge - Mobile Optimized */}
           <div className="flex justify-center mb-6 sm:mb-8">
@@ -120,7 +120,7 @@ export default function NamibiaGuidePage() {
               <Crown className="h-4 w-4 sm:h-6 sm:w-6" />
             </div>
           </div>
-          
+
           {/* Modern Typography - Mobile Optimized */}
           <div className="text-center mb-8 sm:mb-12">
             <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-black mb-4 sm:mb-6 leading-tight">
@@ -131,16 +131,16 @@ export default function NamibiaGuidePage() {
                 Save Up to 45%
               </span>
             </h1>
-            
+
             <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-blue-100 mb-4 sm:mb-6 font-light leading-relaxed max-w-4xl mx-auto px-4">
               Access <span className="font-bold text-emerald-300">3 million+ quality vehicles</span> from Japan with our complete step-by-step import mastery system.
             </p>
-            
+
             <p className="text-base sm:text-lg md:text-xl text-gray-300 max-w-2xl mx-auto px-4">
               Professional guidance for successful imports through Walvis Bay — no experience required.
             </p>
           </div>
-          
+
           {/* Modern Value Proposition Cards - Mobile Optimized */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-5xl mx-auto mb-8 sm:mb-12 px-4">
             <div className="group">
@@ -159,7 +159,7 @@ export default function NamibiaGuidePage() {
                 </CardContent>
               </Card>
             </div>
-            
+
             <div className="group">
               <Card className="bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 transition-all duration-300 h-full">
                 <CardContent className="p-4 sm:p-6">
@@ -176,7 +176,7 @@ export default function NamibiaGuidePage() {
                 </CardContent>
               </Card>
             </div>
-            
+
             <div className="group sm:col-span-2 lg:col-span-1">
               <Card className="bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 transition-all duration-300 h-full">
                 <CardContent className="p-4 sm:p-6">
@@ -210,9 +210,9 @@ export default function NamibiaGuidePage() {
                     <ArrowRight className="ml-2 sm:ml-3 h-4 w-4 sm:h-5 sm:w-5 group-hover:translate-x-1 transition-transform" />
                   </Button>
                 </Link>
-                
+
                 <div className="text-white font-bold text-base sm:text-lg">OR</div>
-                
+
                 <Link href="/register?country=na&package=mastery" className="group w-full sm:w-auto">
                   <Button 
                     size="lg" 
@@ -224,7 +224,7 @@ export default function NamibiaGuidePage() {
                   </Button>
                 </Link>
               </div>
-              
+
               <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6 mt-4 sm:mt-6 text-xs sm:text-sm text-gray-300">
                 <div className="flex items-center gap-2">
                   <Zap className="h-3 w-3 sm:h-4 sm:w-4 text-emerald-400" />
@@ -254,7 +254,7 @@ export default function NamibiaGuidePage() {
                     </div>
                     <p className="text-gray-300 text-sm sm:text-base">All procedures designed for full regulatory compliance</p>
                   </div>
-                  
+
                   <div>
                     <div className="flex items-center justify-center gap-2 sm:gap-3 mb-2">
                       <GraduationCap className="h-6 w-6 sm:h-8 sm:w-8 text-blue-400" />
@@ -262,7 +262,7 @@ export default function NamibiaGuidePage() {
                     </div>
                     <p className="text-gray-300 text-sm sm:text-base">Step-by-step professional instruction</p>
                   </div>
-                  
+
                   <div className="sm:col-span-2 lg:col-span-1">
                     <div className="flex items-center justify-center gap-2 sm:gap-3 mb-2">
                       <Trophy className="h-6 w-6 sm:h-8 sm:w-8 text-purple-400" />
@@ -300,7 +300,7 @@ export default function NamibiaGuidePage() {
               <span className="font-semibold text-gray-800">No experience required</span> — our comprehensive system covers everything.
             </p>
           </div>
-          
+
           {/* Process Steps Grid - Mobile Optimized */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             {[
@@ -354,12 +354,12 @@ export default function NamibiaGuidePage() {
                     <div className="absolute top-2 sm:top-4 right-2 sm:right-4 text-4xl sm:text-5xl lg:text-6xl font-black text-gray-100 group-hover:text-blue-100 transition-colors">
                       {item.step}
                     </div>
-                    
+
                     {/* Icon */}
                     <div className={`relative bg-gradient-to-br from-${item.color}-500 to-${item.color}-600 w-12 h-12 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl flex items-center justify-center mb-4 sm:mb-6 shadow-lg group-hover:shadow-${item.color}-500/25 group-hover:scale-110 transition-all duration-300`}>
                       <item.icon className="h-6 w-6 sm:h-8 sm:w-8 text-white" />
                     </div>
-                    
+
                     {/* Content */}
                     <h3 className="font-bold text-lg sm:text-xl mb-3 sm:mb-4 text-gray-900 group-hover:text-blue-900 transition-colors">
                       {item.title}
@@ -367,7 +367,7 @@ export default function NamibiaGuidePage() {
                     <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
                       {item.description}
                     </p>
-                    
+
                     {/* Learn More Link */}
                     <div className="flex items-center gap-2 mt-4 sm:mt-6 text-blue-600 font-semibold opacity-0 group-hover:opacity-100 transition-opacity">
                       <span className="text-sm sm:text-base">Learn the details</span>
@@ -378,7 +378,7 @@ export default function NamibiaGuidePage() {
               </div>
             ))}
           </div>
-          
+
           {/* Call to Action - Mobile Optimized */}
           <div className="text-center mt-12 sm:mt-16">
             <Card className="bg-gradient-to-r from-blue-600 to-purple-600 border-0 max-w-4xl mx-auto">
@@ -438,13 +438,13 @@ export default function NamibiaGuidePage() {
             <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-600 max-w-3xl mx-auto mb-6 sm:mb-8 px-4">
               Choose the perfect package for your import journey. Both options include comprehensive guidance and lifetime support.
             </p>
-            
+
             {/* Stock Counter */}
             <div className="flex justify-center">
               <StockCounter country="na" />
             </div>
           </div>
-          
+
           {/* Package Cards - Mobile Optimized */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 max-w-6xl mx-auto">
             {/* Essential Guide */}
@@ -467,7 +467,7 @@ export default function NamibiaGuidePage() {
                     </div>
                   </div>
                 </CardHeader>
-                
+
                 <CardContent className="p-6 sm:p-8">
                   <div className="space-y-3 sm:space-y-4 mb-6 sm:mb-8">
                     {[
@@ -487,7 +487,7 @@ export default function NamibiaGuidePage() {
                       </div>
                     ))}
                   </div>
-                  
+
                   <div className="space-y-3 sm:space-y-4">
                     <Link href="/register?country=na&package=mistake">
                       <Button 
@@ -518,7 +518,7 @@ export default function NamibiaGuidePage() {
                   <Crown className="h-4 w-4 sm:h-5 sm:w-5" />
                 </div>
               </div>
-              
+
               <Card className="h-full border-2 border-purple-300 hover:border-purple-500 shadow-2xl bg-gradient-to-br from-white via-purple-50/30 to-pink-50/30 overflow-hidden group-hover:shadow-purple-500/20 transition-all duration-300">
                 <CardHeader className="bg-gradient-to-r from-purple-50 via-pink-50 to-orange-50 border-b border-purple-200">
                   <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0">
@@ -539,7 +539,7 @@ export default function NamibiaGuidePage() {
                     </div>
                   </div>
                 </CardHeader>
-                
+
                 <CardContent className="p-6 sm:p-8">
                   <div className="bg-gradient-to-r from-purple-100 to-pink-100 rounded-xl sm:rounded-2xl p-3 sm:p-4 mb-4 sm:mb-6 border border-purple-200">
                     <div className="flex items-center gap-2">
@@ -547,7 +547,7 @@ export default function NamibiaGuidePage() {
                       <p className="text-purple-800 font-bold text-sm sm:text-base">Everything in Essential Guide PLUS:</p>
                     </div>
                   </div>
-                  
+
                   <div className="space-y-3 sm:space-y-4 mb-6 sm:mb-8">
                     {[
                       "Advanced live duty calculator tool with real-time rates",
@@ -566,7 +566,7 @@ export default function NamibiaGuidePage() {
                       </div>
                     ))}
                   </div>
-                  
+
                   <div className="space-y-3 sm:space-y-4">
                     <Link href="/register?country=na&package=mastery">
                       <Button 
@@ -599,7 +599,7 @@ export default function NamibiaGuidePage() {
                     <h4 className="font-bold text-gray-900 mb-1 text-sm sm:text-base">Secure Checkout</h4>
                     <p className="text-xs sm:text-sm text-gray-600">256-bit encryption</p>
                   </div>
-                  
+
                   <div>
                     <div className="bg-blue-100 w-12 h-12 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl flex items-center justify-center mx-auto mb-2 sm:mb-3">
                       <Zap className="h-6 w-6 sm:h-8 sm:w-8 text-blue-600" />
@@ -607,7 +607,7 @@ export default function NamibiaGuidePage() {
                     <h4 className="font-bold text-gray-900 mb-1 text-sm sm:text-base">Instant Access</h4>
                     <p className="text-xs sm:text-sm text-gray-600">Immediate download</p>
                   </div>
-                  
+
                   <div>
                     <div className="bg-purple-100 w-12 h-12 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl flex items-center justify-center mx-auto mb-2 sm:mb-3">
                       <Heart className="h-6 w-6 sm:h-8 sm:w-8 text-purple-600" />
@@ -615,7 +615,7 @@ export default function NamibiaGuidePage() {
                     <h4 className="font-bold text-gray-900 mb-1 text-sm sm:text-base">Lifetime Updates</h4>
                     <p className="text-xs sm:text-sm text-gray-600">Always current info</p>
                   </div>
-                  
+
                   <div>
                     <div className="bg-amber-100 w-12 h-12 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl flex items-center justify-center mx-auto mb-2 sm:mb-3">
                       <BadgeCheck className="h-6 w-6 sm:h-8 sm:w-8 text-amber-600" />
@@ -652,7 +652,7 @@ export default function NamibiaGuidePage() {
               Get instant answers to the most common questions about importing cars from Japan to Namibia.
             </p>
           </div>
-          
+
           {/* FAQ Cards - Mobile Optimized */}
           <div className="space-y-3 sm:space-y-4" itemScope itemType="https://schema.org/FAQPage">
             {faqs.map((faq, index) => (
@@ -681,7 +681,7 @@ export default function NamibiaGuidePage() {
                     </div>
                   </CardContent>
                 </button>
-                
+
                 {expandedFaq === index && (
                   <div 
                     className="border-t border-gray-100 bg-gradient-to-r from-blue-50 to-purple-50"
@@ -702,7 +702,7 @@ export default function NamibiaGuidePage() {
               </Card>
             ))}
           </div>
-          
+
           {/* FAQ CTA - Mobile Optimized */}
           <div className="mt-12 sm:mt-16 text-center">
             <Card className="bg-gradient-to-r from-blue-600 to-purple-600 border-0 max-w-4xl mx-auto">
@@ -842,7 +842,7 @@ export default function NamibiaGuidePage() {
           <div className="absolute top-0 left-1/4 w-64 h-64 sm:w-96 sm:h-96 bg-blue-500/20 rounded-full blur-3xl"></div>
           <div className="absolute bottom-0 right-1/4 w-64 h-64 sm:w-96 sm:h-96 bg-purple-500/20 rounded-full blur-3xl"></div>
         </div>
-        
+
         <div className="relative max-w-6xl mx-auto px-4 sm:px-6 text-center z-10">
           {/* Premium Badge */}
           <div className="inline-flex items-center gap-2 bg-gradient-to-r from-emerald-500 to-blue-500 px-4 sm:px-6 py-2 sm:py-3 rounded-xl sm:rounded-2xl font-bold text-white mb-6 sm:mb-8 shadow-2xl border border-white/20">
@@ -850,7 +850,7 @@ export default function NamibiaGuidePage() {
             <span className="text-sm sm:text-base">Transform Your Import Dreams Into Reality</span>
             <Rocket className="h-4 w-4 sm:h-5 sm:w-5" />
           </div>
-          
+
           {/* Main Headline */}
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black mb-6 sm:mb-8 leading-tight">
             <span className="text-white drop-shadow-2xl">
@@ -861,11 +861,11 @@ export default function NamibiaGuidePage() {
               Success Story Today
             </span>
           </h2>
-          
+
           <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl mb-8 sm:mb-12 text-blue-100 max-w-4xl mx-auto font-light leading-relaxed px-4">
             Join the growing community of successful importers across Namibia who've saved thousands using our proven import system.
           </p>
-          
+
           {/* Value Proposition Cards - Mobile Optimized */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-5xl mx-auto mb-8 sm:mb-12 px-4">
             <div className="bg-white/10 backdrop-blur-md rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-white/20">
@@ -873,13 +873,13 @@ export default function NamibiaGuidePage() {
               <h3 className="text-lg sm:text-xl font-bold mb-2">Complete Guidance</h3>
               <p className="text-sm sm:text-base text-blue-200">Every step mapped out from start to finish</p>
             </div>
-            
+
             <div className="bg-white/10 backdrop-blur-md rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-white/20">
               <Users className="h-10 w-10 sm:h-12 sm:w-12 text-blue-400 mx-auto mb-3 sm:mb-4" />
               <h3 className="text-lg sm:text-xl font-bold mb-2">Proven Community</h3>
               <p className="text-sm sm:text-base text-blue-200">Learn from hundreds of successful importers</p>
             </div>
-            
+
             <div className="bg-white/10 backdrop-blur-md rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-white/20 sm:col-span-2 lg:col-span-1">
               <DollarSign className="h-10 w-10 sm:h-12 sm:w-12 text-purple-400 mx-auto mb-3 sm:mb-4" />
               <h3 className="text-lg sm:text-xl font-bold mb-2">Guaranteed Savings</h3>
@@ -900,7 +900,7 @@ export default function NamibiaGuidePage() {
                     Get instant access to everything you need to import Japanese cars to Namibia like a professional.
                   </p>
                 </div>
-                
+
                 {/* Premium CTA Buttons - Mobile Optimized */}
                 <div className="flex flex-col gap-4 sm:gap-6 justify-center items-center mb-6 sm:mb-8">
                   <Link href="/register?country=na&package=mistake" className="group w-full sm:w-auto">
@@ -914,9 +914,9 @@ export default function NamibiaGuidePage() {
                       <ArrowRight className="ml-3 sm:ml-4 h-5 w-5 sm:h-6 sm:w-6 group-hover:translate-x-2 transition-transform" />
                     </Button>
                   </Link>
-                  
+
                   <div className="text-white text-xl sm:text-2xl font-bold">OR</div>
-                  
+
                   <Link href="/register?country=na&package=mastery" className="group w-full sm:w-auto">
                     <Button 
                       size="lg"
@@ -928,7 +928,7 @@ export default function NamibiaGuidePage() {
                     </Button>
                   </Link>
                 </div>
-                
+
                 {/* Trust Indicators - Mobile Optimized */}
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 lg:gap-8 text-base sm:text-lg">
                   <div className="flex items-center gap-2 sm:gap-3 text-emerald-300">
@@ -947,7 +947,7 @@ export default function NamibiaGuidePage() {
               </CardContent>
             </Card>
           </div>
-          
+
           {/* Final Trust Message - Mobile Optimized */}
           <div className="mt-8 sm:mt-12 max-w-3xl mx-auto">
             <p className="text-base sm:text-lg text-blue-200 leading-relaxed px-4">

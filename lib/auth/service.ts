@@ -31,11 +31,11 @@ export class AuthService {
   static async getUser() {
     const supabase = await createClient()
     const { data: { user }, error } = await supabase.auth.getUser()
-    
+
     if (error || !user) {
       return null
     }
-    
+
     return {
       id: user.id,
       email: user.email!,
@@ -54,13 +54,13 @@ export class AuthService {
 
     try {
       const supabase = createServiceClient()
-      
+
       // Build query
       let query = supabase
         .from('entitlements')
         .select('*')
         .eq('active', true)
-      
+
       // Check by both email and user_id
       const conditions = []
       if (email) {
@@ -69,27 +69,27 @@ export class AuthService {
       if (userId) {
         conditions.push(`user_id.eq.${userId}`)
       }
-      
+
       if (conditions.length > 0) {
         query = query.or(conditions.join(','))
       }
-      
+
       const { data: entitlements, error } = await query
-      
+
       if (error) {
-        console.error('Error fetching entitlements:', error)
+
         return null
       }
-      
+
       // Return the best entitlement (mastery > mistake)
       if (entitlements && entitlements.length > 0) {
         const masteryEntitlement = entitlements.find((e: Entitlement) => e.tier === 'mastery')
         return masteryEntitlement || entitlements[0]
       }
-      
+
       return null
     } catch (error) {
-      console.error('Error in getUserEntitlement:', error)
+
       return null
     }
   }
@@ -109,7 +109,7 @@ export class AuthService {
   }): Promise<Entitlement | null> {
     try {
       const supabase = createServiceClient()
-      
+
       // First check if entitlement exists
       const { data: existing } = await supabase
         .from('entitlements')
@@ -117,11 +117,11 @@ export class AuthService {
         .eq('email', data.email.toLowerCase())
         .eq('country', data.country)
         .single()
-      
+
       if (existing) {
         // Update existing entitlement (upgrade tier if needed)
         const shouldUpgrade = data.tier === 'mastery' && existing.tier === 'mistake'
-        
+
         if (shouldUpgrade || !existing.active) {
           const { data: updated, error } = await supabase
             .from('entitlements')
@@ -136,15 +136,15 @@ export class AuthService {
             .eq('id', existing.id)
             .select()
             .single()
-          
+
           if (error) {
-            console.error('Error updating entitlement:', error)
+
             return null
           }
-          
+
           return updated
         }
-        
+
         return existing
       } else {
         // Create new entitlement
@@ -162,16 +162,16 @@ export class AuthService {
           })
           .select()
           .single()
-        
+
         if (error) {
-          console.error('Error creating entitlement:', error)
+
           return null
         }
-        
+
         return created
       }
     } catch (error) {
-      console.error('Error in createOrUpdateEntitlement:', error)
+
       return null
     }
   }
@@ -182,11 +182,11 @@ export class AuthService {
    */
   static async requireAuth(redirectTo: string = '/portal') {
     const user = await this.getUser()
-    
+
     if (!user) {
       redirect(`/auth/login?redirect=${encodeURIComponent(redirectTo)}`)
     }
-    
+
     return user
   }
 
@@ -197,11 +197,11 @@ export class AuthService {
   static async requireEntitlement(redirectTo: string = '/portal') {
     const user = await this.requireAuth(redirectTo)
     const entitlement = await this.getUserEntitlement(user.email, user.id)
-    
+
     if (!entitlement) {
       redirect('/purchase')
     }
-    
+
     return { user, entitlement }
   }
 
@@ -225,11 +225,11 @@ export class ClientAuthService {
   static async getUser() {
     const supabase = createBrowserClient()
     const { data: { user }, error } = await supabase.auth.getUser()
-    
+
     if (error || !user) {
       return null
     }
-    
+
     return {
       id: user.id,
       email: user.email!,
@@ -242,16 +242,16 @@ export class ClientAuthService {
    */
   static async signIn(email: string, password: string) {
     const supabase = createBrowserClient()
-    
+
     const { data, error } = await supabase.auth.signInWithPassword({
       email,
       password
     })
-    
+
     if (error) {
       throw error
     }
-    
+
     return data.user
   }
 
@@ -260,16 +260,16 @@ export class ClientAuthService {
    */
   static async signUp(email: string, password: string) {
     const supabase = createBrowserClient()
-    
+
     const { data, error } = await supabase.auth.signUp({
       email,
       password
     })
-    
+
     if (error) {
       throw error
     }
-    
+
     return data.user
   }
 

@@ -17,7 +17,5 @@ export async function GET(req: NextRequest) {
     }
   })
 
-  console.log('[Redirect API] Redirecting to:', newUrl.toString())
-
   return NextResponse.redirect(newUrl)
 }

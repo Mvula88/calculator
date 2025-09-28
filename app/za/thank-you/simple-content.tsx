@@ -1,17 +1,14 @@
 'use client'
-
 import { useEffect, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { CheckCircle, Mail, ArrowRight, Loader2, AlertCircle } from 'lucide-react'
-
 export default function SimpleThankYouContent() {
   const searchParams = useSearchParams()
   const [status, setStatus] = useState<'loading' | 'success' | 'error'>('loading')
   const [errorMessage, setErrorMessage] = useState('')
-  
   useEffect(() => {
     const sessionId = searchParams.get('session_id')
     if (sessionId) {
@@ -21,40 +18,29 @@ export default function SimpleThankYouContent() {
       setErrorMessage('No payment session found')
     }
   }, [searchParams])
-  
   async function grantAccess(sessionId: string) {
     try {
-      console.log('Granting access for session:', sessionId)
-      
       const res = await fetch('/api/auth-simple/grant-access-v2', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ sessionId })
       })
-      
       const data = await res.json()
-      console.log('Grant access response:', data)
-      
       if (res.ok && data.success) {
         setStatus('success')
-        console.log('Access granted, will redirect in 3 seconds')
         // Redirect to portal after 3 seconds to ensure cookie is set
         setTimeout(() => {
-          console.log('Redirecting to portal...')
           window.location.href = '/portal'
         }, 3000)
       } else {
-        console.error('Grant access failed:', data)
         setStatus('error')
         setErrorMessage(data.error || 'Failed to activate your access')
       }
     } catch (error) {
-      console.error('Grant access error:', error)
       setStatus('error')
       setErrorMessage('Connection error. Please refresh the page and try again.')
     }
   }
-  
   if (status === 'loading') {
     return (
       <main className="min-h-screen bg-gradient-to-b from-green-50 to-white flex items-center justify-center">
@@ -68,7 +54,6 @@ export default function SimpleThankYouContent() {
       </main>
     )
   }
-  
   if (status === 'error') {
     return (
       <main className="min-h-screen bg-gradient-to-b from-red-50 to-white flex items-center justify-center">
@@ -85,33 +70,27 @@ export default function SimpleThankYouContent() {
       </main>
     )
   }
-  
   return (
     <main className="min-h-screen bg-gradient-to-b from-green-50 to-white flex items-center justify-center">
       <Card className="p-8 max-w-md">
         <div className="text-center">
           <CheckCircle className="h-16 w-16 text-green-500 mx-auto mb-4" />
-          
           <h1 className="text-2xl font-bold mb-4">
             Payment Successful!
           </h1>
-          
           <p className="text-gray-600 mb-6">
             Your portal access has been activated.
           </p>
-          
           <div className="bg-blue-50 p-4 rounded-lg mb-6">
             <Mail className="h-6 w-6 text-blue-600 mx-auto mb-2" />
             <p className="text-sm text-gray-700">
               Check your email for your receipt
             </p>
           </div>
-          
           <div className="space-y-3">
             <p className="text-sm text-gray-500">
               Redirecting to your portal...
             </p>
-            
             <Button asChild size="lg" className="w-full">
               <Link href="/portal">
                 Go to Portal Now

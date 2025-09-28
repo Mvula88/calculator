@@ -50,7 +50,7 @@ export default function CheckoutEmailPage() {
 
   const handleContinue = async () => {
     setError('')
-    
+
     // Validate email
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     if (!email) {
@@ -61,9 +61,9 @@ export default function CheckoutEmailPage() {
       setError('Please enter a valid email address')
       return
     }
-    
+
     setLoading(true)
-    
+
     try {
       // Create Stripe checkout session
       const response = await fetch('/api/stripe/checkout', {
@@ -76,13 +76,13 @@ export default function CheckoutEmailPage() {
           productId: selectedPackage
         })
       })
-      
+
       const data = await response.json()
-      
+
       if (!response.ok) {
         throw new Error(data.error || 'Failed to create checkout session')
       }
-      
+
       // Redirect to Stripe checkout
       if (data.url) {
         window.location.href = data.url
@@ -142,7 +142,7 @@ export default function CheckoutEmailPage() {
               We'll use this for your receipt and account creation
             </CardDescription>
           </CardHeader>
-          
+
           <CardContent className="space-y-6">
             {/* Selected package display */}
             <div className="bg-gradient-to-r from-blue-50 to-purple-50 p-4 rounded-lg">
@@ -194,7 +194,7 @@ export default function CheckoutEmailPage() {
               </Alert>
             )}
           </CardContent>
-          
+
           <CardFooter className="flex gap-3">
             <Button
               variant="outline"

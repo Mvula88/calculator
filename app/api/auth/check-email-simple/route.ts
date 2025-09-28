@@ -15,8 +15,6 @@ export async function POST(req: NextRequest) {
     const supabase = await createClient()
     const normalizedEmail = email.toLowerCase().trim()
 
-    console.log('[EMAIL CHECK] Checking email:', normalizedEmail)
-
     // Only check the entitlements table - this is our source of truth
     // If someone has an active entitlement, they've already paid
     const { data: existingEntitlements, error, count } = await supabase
@@ -26,12 +24,6 @@ export async function POST(req: NextRequest) {
       .eq('active', true)
 
     if (error) {
-      console.error('[EMAIL CHECK ERROR] Database error:', {
-        error: error.message,
-        code: error.code,
-        details: error.details,
-        hint: error.hint
-      })
 
       // Don't fail silently - if we can't check, we should block payment to be safe
       if (error.code !== 'PGRST116') { // PGRST116 is "not found" which is ok
@@ -50,16 +42,6 @@ export async function POST(req: NextRequest) {
 
     const exists = existingEntitlements && existingEntitlements.length > 0
 
-    console.log('[EMAIL CHECK RESULT]', {
-      email: normalizedEmail,
-      exists,
-      count: count || 0,
-      entitlements: existingEntitlements?.map(e => ({
-        id: e.id,
-        tier: e.tier,
-        country: e.country,
-        created: e.created_at
-      }))
     })
 
     return NextResponse.json({
@@ -78,7 +60,7 @@ export async function POST(req: NextRequest) {
     })
 
   } catch (error) {
-    console.error('Check email error:', error)
+
     return NextResponse.json(
       { error: 'Failed to check email' },
       { status: 500 }

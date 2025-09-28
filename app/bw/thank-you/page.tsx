@@ -1,7 +1,6 @@
 import { Suspense } from 'react'
 import DirectThankYouContent from './direct-content'
 import { Loader2 } from 'lucide-react'
-
 export default function BotswanaThankYouPage() {
   return (
     <Suspense 

@@ -9,7 +9,7 @@ export default function RefundPolicyPage() {
           <ArrowLeft className="h-4 w-4 mr-2" />
           Back to Home
         </Link>
-        
+
         <h1 className="text-4xl font-bold mb-8">Refund Policy</h1>
         <p className="text-sm text-gray-600 mb-4">Last updated: January 2025</p>
 

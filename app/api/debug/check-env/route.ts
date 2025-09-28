@@ -4,7 +4,7 @@ export async function GET(req: NextRequest) {
   const appUrl = process.env.NEXT_PUBLIC_APP_URL
   const nodeEnv = process.env.NODE_ENV
   const vercelUrl = process.env.VERCEL_URL
-  
+
   return NextResponse.json({
     NEXT_PUBLIC_APP_URL: appUrl || 'NOT SET',
     NODE_ENV: nodeEnv || 'NOT SET',

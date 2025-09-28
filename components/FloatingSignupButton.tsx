@@ -55,7 +55,7 @@ export default function FloatingSignupButton({ country = 'na' }: FloatingSignupB
             >
               <X className="h-4 w-4" />
             </button>
-            
+
             <div className="text-center">
               <div className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-r from-purple-100 to-blue-100 rounded-full mb-3">
                 <Sparkles className="h-6 w-6 text-purple-600" />

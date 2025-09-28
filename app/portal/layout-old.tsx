@@ -25,7 +25,7 @@ export default async function PortalLayout({
 }) {
   // Require both authentication and entitlement
   const { user, entitlement } = await AuthService.requireEntitlement('/portal')
-  
+
   // User has entitlement - show portal with content protection
   const navigation = [
     { 
@@ -79,7 +79,7 @@ export default async function PortalLayout({
       },
     ] : []),
   ]
-  
+
   return (
     <ContentProtection tier={entitlement.tier}>
       <div className="min-h-screen bg-gray-50">
@@ -112,7 +112,7 @@ export default async function PortalLayout({
                   </Link>
                 </div>
               </div>
-              
+
               {/* User Menu */}
               <div className="flex items-center space-x-4">
                 <div className="hidden sm:flex items-center space-x-3">
@@ -136,7 +136,7 @@ export default async function PortalLayout({
             </div>
           </div>
         </header>
-        
+
         <div className="flex h-screen pt-16">
           {/* Sidebar Navigation */}
           <aside className="hidden lg:flex lg:flex-shrink-0">
@@ -157,7 +157,7 @@ export default async function PortalLayout({
                     </Link>
                   ))}
                 </nav>
-                
+
                 {/* Sidebar Footer */}
                 <div className="flex-shrink-0 px-4 py-4 border-t border-gray-200">
                   <div className="space-y-3">
@@ -169,7 +169,7 @@ export default async function PortalLayout({
                     }`}>
                       {entitlement.tier === 'mastery' ? '✨ Mastery Member' : '📚 Guide Member'}
                     </div>
-                    
+
                     {/* User Info */}
                     <div className="text-xs text-gray-500">
                       <p>Licensed to:</p>
@@ -180,7 +180,7 @@ export default async function PortalLayout({
               </div>
             </div>
           </aside>
-          
+
           {/* Mobile Sidebar - Sliding Panel */}
           <div className="lg:hidden">
             <div className="fixed inset-0 z-40 hidden" id="mobile-sidebar-backdrop">
@@ -218,14 +218,14 @@ export default async function PortalLayout({
               </div>
             </div>
           </div>
-          
+
           {/* Main Content Area */}
           <main className="flex-1 overflow-y-auto">
             <div className="py-6">
               <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
                 {children}
               </div>
-              
+
               {/* Footer notice */}
               <div className="mt-16 py-4 text-center text-xs text-gray-500">
                 <p>This content is licensed to {user.email} • Do not share or redistribute</p>

@@ -1,6 +1,5 @@
 'use client'
 import Link from 'next/link'
-
 import { useState } from 'react'
 import { useAuth } from '@/lib/hooks/use-auth'
 import { Card } from '@/components/ui/card'
@@ -15,37 +14,31 @@ import {
   Eye,
   Star
 } from 'lucide-react'
-
 interface Document {
   name: string
   file: string
   description: string
   highlight: string
 }
-
 interface DocumentCategory {
   title: string
   description: string
   documents: Document[]
 }
-
 export default function DocumentsPage() {
   const { user, loading, userEmail, userTier } = useAuth()
-
   // Clean up email display if it's a session-based email
   const displayEmail = userEmail || 'user@example.com'
   let cleanEmail = displayEmail
   if (displayEmail.startsWith('user_cs_test_') || (displayEmail.startsWith('user_') && displayEmail.endsWith('@impota.com'))) {
     cleanEmail = 'Portal User'
   }
-
   // Use user directly instead of hasAccess
   const entitlement = user ? {
     country: 'na',
     tier: userTier || 'mastery'
   } : null
   const [selectedDocument, setSelectedDocument] = useState<{name: string, url: string} | null>(null)
-
   const handleViewDocument = (docName: string, fileName: string) => {
     // In production, this would be the actual URL to your PDF
     // For now, we'll use a placeholder
@@ -54,7 +47,6 @@ export default function DocumentsPage() {
       url: `/documents/${fileName}` // This would be your actual PDF URL
     })
   }
-
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
@@ -65,7 +57,6 @@ export default function DocumentsPage() {
       </div>
     )
   }
-
   // Remove access check - all portal users have access
   // Just check if still loading
   if (loading) {
@@ -78,12 +69,10 @@ export default function DocumentsPage() {
       </div>
     )
   }
-
   const currency = entitlement?.country === 'na' ? 'N$' :
                    entitlement?.country === 'za' ? 'R' :
                    entitlement?.country === 'bw' ? 'P' :
                    entitlement?.country === 'zm' ? 'K' : 'N$'
-
   // Document categories with descriptions
   const documentCategories: DocumentCategory[] = [
     {
@@ -219,7 +208,6 @@ export default function DocumentsPage() {
       ]
     }
   ]
-
   return (
     <main className="min-h-screen bg-gradient-to-b from-gray-50 to-white pb-20">
       <div className="w-full">
@@ -235,7 +223,6 @@ export default function DocumentsPage() {
               <span className="truncate max-w-[150px] sm:max-w-none">Licensed to: {cleanEmail}</span>
             </div>
           </div>
-          
           <div className="bg-green-50 border border-green-200 rounded-lg p-3 sm:p-4">
             <div className="flex items-start gap-2">
               <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5 text-green-600 flex-shrink-0 mt-0.5" />
@@ -251,7 +238,6 @@ export default function DocumentsPage() {
             </div>
           </div>
         </div>
-
         {/* Document Value Box - Mobile Optimized */}
         <div className="px-4 sm:px-6 max-w-5xl mx-auto">
           <Card className="p-4 sm:p-6 mb-6 sm:mb-8 bg-gradient-to-r from-blue-50 to-purple-50 border-purple-200">
@@ -273,7 +259,6 @@ export default function DocumentsPage() {
             </div>
           </Card>
         </div>
-
         {/* Document Categories - Mobile Optimized */}
         <div className="px-4 sm:px-6 max-w-5xl mx-auto">
           {documentCategories.map((category, categoryIndex) => (
@@ -282,7 +267,6 @@ export default function DocumentsPage() {
                 <h2 className="text-xl sm:text-2xl font-bold">{category.title}</h2>
                 <p className="text-sm sm:text-base text-gray-600">{category.description}</p>
               </div>
-              
               <div className="space-y-3">
                 {category.documents.map((doc, docIndex) => (
                   <Card key={docIndex} className="p-3 sm:p-4 hover:shadow-lg transition-shadow">
@@ -314,7 +298,6 @@ export default function DocumentsPage() {
             </div>
           ))}
         </div>
-
         {/* Important Notes - Mobile Optimized */}
         <div className="px-4 sm:px-6 max-w-5xl mx-auto">
           <Card className="p-4 sm:p-6 bg-yellow-50 border-yellow-200">
@@ -333,8 +316,6 @@ export default function DocumentsPage() {
             </div>
           </Card>
         </div>
-
-
         {/* Document Timeline - Mobile Optimized */}
         <div className="mt-8 sm:mt-12 px-4 sm:px-6 max-w-5xl mx-auto">
           <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6">📅 When You Need Each Document</h2>
@@ -372,7 +353,6 @@ export default function DocumentsPage() {
           </div>
         </div>
       </div>
-
       {/* PDF Viewer Modal */}
       {selectedDocument && (
         <PDFViewer

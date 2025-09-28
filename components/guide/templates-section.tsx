@@ -255,7 +255,7 @@ export function TemplatesSection() {
 
   const stages = ['All', ...Array.from(new Set(templates.map(t => t.stage)))]
   const priorities = ['All', 'required', 'helpful', 'emergency']
-  
+
   const filteredTemplates = templates.filter(template => {
     const stageMatch = selectedStage === 'All' || template.stage === selectedStage
     const priorityMatch = selectedPriority === 'All' || template.priority === selectedPriority
@@ -271,7 +271,7 @@ export function TemplatesSection() {
     const fullText = template.subject 
       ? `Subject: ${template.subject}\n\n${template.content}`
       : template.content
-      
+
     await navigator.clipboard.writeText(fullText)
     setCopiedId(template.id)
     setTimeout(() => setCopiedId(null), 2000)
@@ -341,7 +341,7 @@ export function TemplatesSection() {
             ))}
           </div>
         </div>
-        
+
         <div className="flex-1">
           <h4 className="font-medium mb-2">Filter by Priority:</h4>
           <div className="flex flex-wrap gap-2">
@@ -397,7 +397,7 @@ export function TemplatesSection() {
                           </span>
                         )}
                       </div>
-                      
+
                       {/* Labels */}
                       <div className="flex flex-wrap items-center gap-2 mb-2">
                         <span className="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded-full">
@@ -414,7 +414,7 @@ export function TemplatesSection() {
                       </div>
                     </div>
                   </div>
-                  
+
                   <Button
                     size="sm"
                     variant="outline"

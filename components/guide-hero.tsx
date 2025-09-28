@@ -12,7 +12,7 @@ export default function GuideHero({ country, port, flag }: GuideHeroProps) {
   return (
     <>
       <CountrySelector />
-      
+
       {/* Header */}
       <header className="bg-white border-b">
         <div className="max-w-6xl mx-auto px-6 py-4">
@@ -35,11 +35,11 @@ export default function GuideHero({ country, port, flag }: GuideHeroProps) {
               <AlertTriangle className="h-5 w-5" />
               <span className="font-semibold">{port} Port Import Guide</span>
             </div>
-            
+
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
               The Complete {country} Car Import Guide
             </h1>
-            
+
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
               Avoid costly mistakes and save thousands with battle-tested strategies from 
               real importers who've successfully cleared vehicles through {port}.

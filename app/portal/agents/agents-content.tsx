@@ -1,5 +1,4 @@
 'use client'
-
 import { useState } from 'react'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -26,7 +25,6 @@ import {
   Truck,
   Search
 } from 'lucide-react'
-
 const agents = [
   // NAMIBIA
   {
@@ -119,7 +117,6 @@ const agents = [
     verified: true,
     tier: "Gold"
   },
-
   // SOUTH AFRICA
   {
     id: 4,
@@ -227,7 +224,6 @@ const agents = [
     verified: true,
     tier: "Gold"
   },
-
   // BOTSWANA
   {
     id: 8,
@@ -313,7 +309,6 @@ const agents = [
     verified: true,
     tier: "Silver"
   },
-
   // ZAMBIA
   {
     id: 11,
@@ -403,7 +398,6 @@ const agents = [
     verified: true,
     tier: "Gold"
   },
-
   // MULTI-COUNTRY AGENTS
   {
     id: 14,
@@ -432,10 +426,8 @@ const agents = [
     tier: "Platinum"
   }
 ]
-
 // Add country filter options
 const countries = ["All", "Namibia", "South Africa", "Botswana", "Zambia", "Multi-Country"]
-
 const getTierColor = (tier: string) => {
   switch (tier) {
     case 'Platinum':
@@ -448,7 +440,6 @@ const getTierColor = (tier: string) => {
       return 'text-blue-600 bg-blue-100'
   }
 }
-
 const getRatingStars = (rating: number) => {
   return Array.from({ length: 5 }, (_, i) => (
     <Star
@@ -457,15 +448,12 @@ const getRatingStars = (rating: number) => {
     />
   ))
 }
-
 export default function AgentsContent() {
   const [selectedCountry, setSelectedCountry] = useState("All")
-
   // Filter agents based on selected country
   const filteredAgents = selectedCountry === "All"
     ? agents
     : agents.filter(agent => agent.country === selectedCountry)
-
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* Header */}
@@ -494,7 +482,6 @@ export default function AgentsContent() {
           </p>
         </div>
       </div>
-
       {/* Country Filter */}
       <div className="mb-6 p-4 bg-gray-50 rounded-lg">
         <div className="flex items-center gap-2 mb-3">
@@ -527,7 +514,6 @@ export default function AgentsContent() {
           </p>
         )}
       </div>
-
       {/* Featured Agent - Transworld Cargo */}
       <Card className="p-6 mb-8 bg-gradient-to-r from-blue-50 to-purple-50 border-2 border-purple-300">
         <div className="flex items-center justify-between mb-4">
@@ -565,7 +551,6 @@ export default function AgentsContent() {
           </div>
         </div>
       </Card>
-
       {/* Agent Listings */}
       <div className="space-y-6">
         {filteredAgents.length === 0 ? (
@@ -624,7 +609,6 @@ export default function AgentsContent() {
                       <div className="text-xl font-bold text-green-600">{agent.fees.standard}</div>
                     </div>
                   </div>
-
                   {/* Specialities */}
                   <div className="mb-4">
                     <div className="flex flex-wrap gap-2">
@@ -635,7 +619,6 @@ export default function AgentsContent() {
                       ))}
                     </div>
                   </div>
-
                   {/* Key Stats */}
                   <div className="grid grid-cols-2 gap-4 mb-4">
                     <div className="flex items-center gap-2">
@@ -647,7 +630,6 @@ export default function AgentsContent() {
                       <span className="text-sm">Processing: <strong>{agent.avgProcessingTime}</strong></span>
                     </div>
                   </div>
-
                   {/* Services */}
                   <div className="mb-4">
                     <h4 className="font-semibold text-sm mb-2">Services Offered:</h4>
@@ -659,7 +641,6 @@ export default function AgentsContent() {
                       ))}
                     </div>
                   </div>
-
                   {/* Offices (if available) */}
                   {agent.offices && (
                     <div className="mb-4 p-3 bg-blue-50 rounded-lg">
@@ -671,7 +652,6 @@ export default function AgentsContent() {
                       </ul>
                     </div>
                   )}
-
                   {/* Recent Success */}
                   <div className="mb-4 p-3 bg-green-50 rounded-lg">
                     <div className="flex items-center gap-2 mb-1">
@@ -680,7 +660,6 @@ export default function AgentsContent() {
                     </div>
                     <p className="text-green-800 text-sm">{agent.recentSuccess}</p>
                   </div>
-
                   {/* Testimonial (if available) */}
                   {agent.testimonial && (
                     <div className="p-3 bg-purple-50 rounded-lg">
@@ -692,7 +671,6 @@ export default function AgentsContent() {
                     </div>
                   )}
                 </div>
-
                 {/* Contact & Pricing */}
                 <div className="space-y-6">
                   {/* Contact Information */}
@@ -733,7 +711,6 @@ export default function AgentsContent() {
                       )}
                     </div>
                   </div>
-
                   {/* Pricing */}
                   <div>
                     <h4 className="font-semibold mb-3">Service Pricing</h4>
@@ -746,7 +723,6 @@ export default function AgentsContent() {
                       ))}
                     </div>
                   </div>
-
                   {/* Certifications */}
                   <div>
                     <h4 className="font-semibold mb-3">Certifications</h4>
@@ -759,7 +735,6 @@ export default function AgentsContent() {
                       ))}
                     </div>
                   </div>
-
                   {/* Action Buttons */}
                   <div className="space-y-2">
                     {agent.contact.phone && (
@@ -785,14 +760,12 @@ export default function AgentsContent() {
           </Card>
         )))}
       </div>
-
       {/* Regulatory Bodies - Comprehensive Information */}
       <div className="mt-12 space-y-6">
         <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
           <Building className="h-6 w-6 text-blue-600" />
           Customs & Revenue Authorities
         </h2>
-
         {/* Namibia - NamRA */}
         <Card className="p-6 bg-gradient-to-r from-blue-50 to-sky-50 border-blue-200">
           <div className="mb-4">
@@ -833,7 +806,6 @@ export default function AgentsContent() {
             </div>
           </div>
         </Card>
-
         {/* South Africa - SARS */}
         <Card className="p-6 bg-gradient-to-r from-green-50 to-emerald-50 border-green-200">
           <div className="mb-4">
@@ -871,7 +843,6 @@ export default function AgentsContent() {
             </div>
           </div>
         </Card>
-
         {/* Botswana - BURS */}
         <Card className="p-6 bg-gradient-to-r from-yellow-50 to-amber-50 border-yellow-200">
           <div className="mb-4">
@@ -911,7 +882,6 @@ export default function AgentsContent() {
             </div>
           </div>
         </Card>
-
         {/* Zambia - ZRA */}
         <Card className="p-6 bg-gradient-to-r from-purple-50 to-pink-50 border-purple-200">
           <div className="mb-4">
@@ -950,7 +920,6 @@ export default function AgentsContent() {
             </div>
           </div>
         </Card>
-
         {/* Quick Reference Card */}
         <Card className="p-6 bg-gradient-to-r from-gray-50 to-slate-50 border-gray-300">
           <h3 className="font-bold text-gray-900 text-lg mb-4">📞 Quick Reference - Emergency Contacts</h3>
@@ -980,7 +949,6 @@ export default function AgentsContent() {
           </div>
         </Card>
       </div>
-
       {/* Shipping Lines Section */}
       <div className="mt-12 space-y-6">
         <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
@@ -990,7 +958,6 @@ export default function AgentsContent() {
         <p className="text-gray-600 mb-6">
           Direct Japan-Africa shipping lines with negotiated rates for IMPOTA members
         </p>
-
         <div className="grid md:grid-cols-2 gap-6">
           <Card className="p-6">
             <h3 className="font-bold text-lg mb-3">🚢 Mitsui O.S.K. Lines (MOL)</h3>
@@ -1006,7 +973,6 @@ export default function AgentsContent() {
               </div>
             </div>
           </Card>
-
           <Card className="p-6">
             <h3 className="font-bold text-lg mb-3">🚢 NYK Line</h3>
             <div className="space-y-2 text-sm">
@@ -1023,7 +989,6 @@ export default function AgentsContent() {
           </Card>
         </div>
       </div>
-
       {/* Transport Companies Section */}
       <div className="mt-12 space-y-6">
         <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
@@ -1033,7 +998,6 @@ export default function AgentsContent() {
         <p className="text-gray-600 mb-6">
           Reliable vehicle transport from ports to final destination
         </p>
-
         <div className="grid md:grid-cols-2 gap-6">
           <Card className="p-6">
             <h3 className="font-bold text-lg mb-3">🚚 Cross Border Logistics</h3>
@@ -1049,7 +1013,6 @@ export default function AgentsContent() {
               </div>
             </div>
           </Card>
-
           <Card className="p-6">
             <h3 className="font-bold text-lg mb-3">🚚 SafeHaul Transport</h3>
             <div className="space-y-2 text-sm">
@@ -1066,7 +1029,6 @@ export default function AgentsContent() {
           </Card>
         </div>
       </div>
-
       {/* Pre-Purchase Inspection Services */}
       <div className="mt-12 space-y-6">
         <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
@@ -1076,7 +1038,6 @@ export default function AgentsContent() {
         <p className="text-gray-600 mb-6">
           Professional vehicle inspection services in Japan before purchase
         </p>
-
         <div className="grid md:grid-cols-2 gap-6">
           <Card className="p-6">
             <h3 className="font-bold text-lg mb-3">🔍 JEVIC</h3>
@@ -1092,7 +1053,6 @@ export default function AgentsContent() {
               </div>
             </div>
           </Card>
-
           <Card className="p-6">
             <h3 className="font-bold text-lg mb-3">🔍 EAA Co. Ltd</h3>
             <div className="space-y-2 text-sm">
@@ -1108,14 +1068,12 @@ export default function AgentsContent() {
             </div>
           </Card>
         </div>
-
         <Card className="p-4 bg-yellow-50 border border-yellow-200">
           <p className="text-sm text-yellow-800">
             <strong>⚠️ Important:</strong> Always verify current rates and availability. IMPOTA negotiated rates require mentioning your membership when contacting service providers.
           </p>
         </Card>
       </div>
-
       {/* Bottom Notice */}
       <Card className="mt-6 p-6 bg-amber-50 border-amber-200">
         <div className="flex items-start gap-3">

@@ -3,7 +3,7 @@ import { MetadataRoute } from 'next'
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://impota.com'
   const currentDate = new Date()
-  
+
   // High priority pages
   const mainPages = [
     {

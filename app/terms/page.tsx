@@ -9,10 +9,10 @@ export default function TermsPage() {
           <ArrowLeft className="h-4 w-4 mr-2" />
           Back to Home
         </Link>
-        
+
         <h1 className="text-4xl font-bold mb-8">Terms of Service</h1>
         <p className="text-sm text-gray-600 mb-8">Last updated: January 2025</p>
-        
+
         <div className="prose prose-lg max-w-none space-y-8">
           <section>
             <h2 className="text-2xl font-semibold mb-4">1. Acceptance of Terms</h2>

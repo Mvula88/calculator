@@ -1,10 +1,8 @@
 import { Metadata } from 'next'
-
 export const namibiaGuideMetadata: Metadata = {
   title: 'Import Cars to Namibia from Japan 2024 | Complete Walvis Bay Guide | Save N$65,000+',
   description: 'Step-by-step guide to importing cars from Japan to Namibia through Walvis Bay port. Professional import guidance system. Includes duty calculator, customs clearance, NaTIS registration, and scam prevention. Get real import guidance.',
   keywords: 'import cars Namibia, Japan car import Namibia, Walvis Bay port clearance, Namibia customs duty calculator, NaTIS vehicle registration, import duty Namibia 2024, Japanese used cars Namibia, car import costs Namibia, Namibia clearing agents, import permit Namibia, vehicle import process Namibia, Walvis Bay port fees, Namibia car import guide, Japanese auction cars Namibia, import taxes Namibia vehicles',
-  
   openGraph: {
     title: 'Save N$65,000+ Importing Cars to Namibia | Complete 2024 Guide',
     description: 'The only guide you need to import cars from Japan to Namibia. Walvis Bay port navigation, duty calculations, and step-by-step process. Expert import guidance system.',
@@ -21,14 +19,12 @@ export const namibiaGuideMetadata: Metadata = {
     locale: 'en_NA',
     type: 'website',
   },
-  
   twitter: {
     card: 'summary_large_image',
     title: 'Import Cars to Namibia from Japan | Save N$65,000+',
     description: 'Complete guide to importing vehicles through Walvis Bay. Duty calculator, customs clearance, and expert strategies.',
     images: ['https://www.impota.com/twitter-namibia-guide.jpg'],
   },
-  
   alternates: {
     canonical: 'https://www.impota.com/na/guide',
     languages: {
@@ -38,7 +34,6 @@ export const namibiaGuideMetadata: Metadata = {
       'en-ZM': 'https://www.impota.com/zm/guide',
     },
   },
-  
   robots: {
     index: true,
     follow: true,
@@ -50,12 +45,10 @@ export const namibiaGuideMetadata: Metadata = {
       'max-snippet': -1,
     },
   },
-  
   verification: {
     google: 'google-verification-code',
   },
 }
-
 // JSON-LD Structured Data
 export const namibiaGuideJsonLd = {
   '@context': 'https://schema.org',
@@ -115,7 +108,6 @@ export const namibiaGuideJsonLd = {
     }
   ]
 }
-
 // FAQ Schema
 export const namibiaFAQJsonLd = {
   '@context': 'https://schema.org',
@@ -155,7 +147,6 @@ export const namibiaFAQJsonLd = {
     }
   ]
 }
-
 // Breadcrumb Schema
 export const namibiaBreadcrumbJsonLd = {
   '@context': 'https://schema.org',
@@ -181,7 +172,6 @@ export const namibiaBreadcrumbJsonLd = {
     }
   ]
 }
-
 // Product Schema for the guides
 export const namibiaProductJsonLd = {
   '@context': 'https://schema.org',

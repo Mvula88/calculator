@@ -38,7 +38,7 @@ export function useAuthImmediate(): UseAuthReturn {
           setLoading(false)
         }
       } catch (error) {
-        console.error('[useAuthImmediate] Error:', error)
+
         if (mounted) {
           setError(String(error))
           setLoading(false)
@@ -59,11 +59,11 @@ export function useAuthImmediate(): UseAuthReturn {
       const supabase = createClient()
       await supabase.auth.signOut()
     } catch (error) {
-      console.error('[useAuthImmediate] Sign out error:', error)
+
     }
     setUser(null)
     setUserTier(null)
-    
+
     // Clear cookies
     document.cookie.split(";").forEach(cookie => {
       const eqPos = cookie.indexOf("=")

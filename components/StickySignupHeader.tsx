@@ -11,7 +11,7 @@ interface StickySignupHeaderProps {
 
 export default function StickySignupHeader({ country = 'na' }: StickySignupHeaderProps) {
   const [isVisible, setIsVisible] = useState(false)
-  
+
   // Currency and pricing based on country
   const pricing = {
     na: { 
@@ -35,7 +35,7 @@ export default function StickySignupHeader({ country = 'na' }: StickySignupHeade
       masteryPrice: '2,000'
     }
   }
-  
+
   const countryPricing = pricing[country as keyof typeof pricing] || pricing.na
 
   useEffect(() => {
@@ -47,7 +47,6 @@ export default function StickySignupHeader({ country = 'na' }: StickySignupHeade
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
-
 
   if (!isVisible) return null
 
@@ -67,7 +66,7 @@ export default function StickySignupHeader({ country = 'na' }: StickySignupHeade
               </p>
             </div>
           </div>
-          
+
           <div className="flex items-center gap-2">
             <Link href={`/register?country=${country}&package=mistake`}>
               <Button 

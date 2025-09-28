@@ -16,11 +16,11 @@ export class ClientAuthService {
   static async getUser() {
     const supabase = createBrowserClient()
     const { data: { user }, error } = await supabase.auth.getUser()
-    
+
     if (error || !user) {
       return null
     }
-    
+
     return {
       id: user.id,
       email: user.email!,
@@ -33,16 +33,16 @@ export class ClientAuthService {
    */
   static async signIn(email: string, password: string) {
     const supabase = createBrowserClient()
-    
+
     const { data, error } = await supabase.auth.signInWithPassword({
       email,
       password
     })
-    
+
     if (error) {
       throw error
     }
-    
+
     return data.user
   }
 
@@ -51,16 +51,16 @@ export class ClientAuthService {
    */
   static async signUp(email: string, password: string) {
     const supabase = createBrowserClient()
-    
+
     const { data, error } = await supabase.auth.signUp({
       email,
       password
     })
-    
+
     if (error) {
       throw error
     }
-    
+
     return data.user
   }
 

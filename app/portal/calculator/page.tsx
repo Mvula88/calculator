@@ -47,7 +47,6 @@ const japanCosts = {
   specialHandlingFee: 0 // Optional, user can input
 }
 
-
 // Default clearing costs by country (in local currency)
 const defaultClearingCosts: Record<Country, number> = {
   'NA': 26255.65,  // Namibia clearing costs
@@ -114,7 +113,6 @@ const exchangeRates: Record<Country, number> = {
   'BW': 1.35,      // BWP to NAD
   'ZM': 0.68       // ZMW to NAD
 }
-
 
 export default function DutyCalculator() {
   const { user, loading, userTier, debugInfo, userEmail } = useAuthDebug()

@@ -46,7 +46,7 @@ export function useAuth(options?: {
 
       // Get current user
       const { data: { user: authUser }, error: userError } = await supabase.auth.getUser()
-      
+
       if (userError) {
         throw userError
       }
@@ -56,16 +56,16 @@ export function useAuth(options?: {
         const portalSessionCookie = document.cookie
           .split('; ')
           .find(row => row.startsWith('portal_session='))
-        
+
         if (portalSessionCookie) {
           // User has portal access via payment but no Supabase account
           // Try to get entitlement directly
           if (options?.requireEntitlement) {
             const response = await fetch('/api/auth/entitlement')
-            
+
             if (response.ok) {
               const { entitlement: userEntitlement } = await response.json()
-              
+
               if (userEntitlement) {
                 // Set a pseudo-user for portal access
                 setUser({
@@ -80,7 +80,7 @@ export function useAuth(options?: {
             }
           }
         }
-        
+
         if (options?.requireAuth) {
           const redirectPath = options.redirectTo || '/portal'
           router.push(`/auth/login?redirect=${encodeURIComponent(redirectPath)}`)
@@ -104,7 +104,7 @@ export function useAuth(options?: {
       // Check entitlement through API endpoint
       if (options?.requireEntitlement) {
         const response = await fetch('/api/auth/entitlement')
-        
+
         if (!response.ok) {
           if (response.status === 404) {
             // No entitlement found
@@ -115,7 +115,7 @@ export function useAuth(options?: {
         }
 
         const { entitlement: userEntitlement } = await response.json()
-        
+
         if (!userEntitlement) {
           router.push('/purchase')
           return
@@ -124,9 +124,9 @@ export function useAuth(options?: {
         setEntitlement(userEntitlement)
       }
     } catch (err) {
-      console.error('Error checking auth:', err)
+
       setError(err instanceof Error ? err.message : 'Authentication error')
-      
+
       if (options?.requireAuth) {
         const redirectPath = options.redirectTo || '/portal'
         router.push(`/auth/login?redirect=${encodeURIComponent(redirectPath)}`)
@@ -143,7 +143,7 @@ export function useAuth(options?: {
       setEntitlement(null)
       router.push('/')
     } catch (err) {
-      console.error('Error signing out:', err)
+
       setError(err instanceof Error ? err.message : 'Sign out error')
     }
   }

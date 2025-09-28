@@ -56,7 +56,7 @@ export default function HeaderCountrySelector({ country }: HeaderCountrySelector
   const handleCountryChange = (countryCode: string) => {
     // Set cookie for persistence
     document.cookie = `user-country=${countryCode}; max-age=${60 * 60 * 24 * 30}; path=/; SameSite=Lax`
-    
+
     // Redirect to the country-specific guide page
     window.location.href = `/${countryCode}/guide`
   }
@@ -70,7 +70,7 @@ export default function HeaderCountrySelector({ country }: HeaderCountrySelector
     bw: 'from-blue-500 to-sky-500 hover:from-blue-600 hover:to-sky-600',
     zm: 'from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600'
   }
-  
+
   const currentGradient = gradients[currentCountry as keyof typeof gradients] || gradients.na
 
   return (
@@ -104,7 +104,7 @@ export default function HeaderCountrySelector({ country }: HeaderCountrySelector
           {countries.map((country) => {
             const isActive = currentCountry === country.code
             const countryGradient = gradients[country.code as keyof typeof gradients] || gradients.na
-            
+
             return (
               <button
                 key={country.code}

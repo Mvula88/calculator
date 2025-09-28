@@ -121,10 +121,10 @@ const mistakes: Mistake[] = [
 export function MistakeCards() {
   const [selectedStage, setSelectedStage] = useState<string>('all')
   const [selectedSeverity, setSelectedSeverity] = useState<string>('all')
-  
+
   const stages = ['all', ...Array.from(new Set(mistakes.map(m => m.stage)))]
   const severities = ['all', 'deal-breaker', 'major', 'minor']
-  
+
   const filteredMistakes = mistakes.filter(mistake => {
     const stageMatch = selectedStage === 'all' || mistake.stage === selectedStage
     const severityMatch = selectedSeverity === 'all' || mistake.severity === selectedSeverity
@@ -244,7 +244,7 @@ export function MistakeCards() {
                   <XCircle className="h-6 w-6 text-red-500 flex-shrink-0 mt-0.5" />
                   <div className="flex-1">
                     <h3 className="font-semibold text-lg mb-2">{mistake.title}</h3>
-                    
+
                     {/* Tags */}
                     <div className="flex flex-wrap items-center gap-2 mb-2">
                       <span className="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded-full">

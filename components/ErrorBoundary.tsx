@@ -32,8 +32,7 @@ export class ErrorBoundary extends Component<Props, State> {
   }
 
   public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    console.error('ErrorBoundary caught an error:', error, errorInfo)
-    
+
     // Log to error reporting service (Sentry)
     if (typeof window !== 'undefined' && window.Sentry) {
       window.Sentry.captureException(error, {
@@ -44,7 +43,7 @@ export class ErrorBoundary extends Component<Props, State> {
         }
       })
     }
-    
+
     this.setState({
       error,
       errorInfo
@@ -91,7 +90,7 @@ export class ErrorBoundary extends Component<Props, State> {
                 </div>
               </div>
             </CardHeader>
-            
+
             <CardContent>
               {process.env.NODE_ENV === 'development' && this.state.error && (
                 <div className="bg-gray-50 rounded-lg p-4 space-y-2">
@@ -111,7 +110,7 @@ export class ErrorBoundary extends Component<Props, State> {
                   )}
                 </div>
               )}
-              
+
               <div className="mt-4 p-4 bg-blue-50 rounded-lg">
                 <p className="text-sm text-blue-800">
                   <strong>What you can try:</strong>
@@ -124,7 +123,7 @@ export class ErrorBoundary extends Component<Props, State> {
                 </ul>
               </div>
             </CardContent>
-            
+
             <CardFooter className="flex gap-3">
               <Button 
                 onClick={this.handleReload}
@@ -184,13 +183,12 @@ export function AsyncErrorBoundary({ children }: { children: ReactNode }) {
 // Hook for error handling in functional components
 export function useErrorHandler() {
   return (error: Error, errorInfo?: ErrorInfo) => {
-    console.error('Error caught by useErrorHandler:', error, errorInfo)
-    
+
     // Log to Sentry
     if (typeof window !== 'undefined' && window.Sentry) {
       window.Sentry.captureException(error)
     }
-    
+
     // You can also trigger a state update or navigation here
     throw error // Re-throw to be caught by ErrorBoundary
   }

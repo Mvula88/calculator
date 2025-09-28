@@ -35,22 +35,21 @@ export function useSimpleAuth(options?: {
   async function checkAuth() {
     try {
       setLoading(true)
-      
+
       // Check for session cookie
       const sessionCookie = document.cookie
         .split('; ')
         .find(row => row.startsWith('impota_session='))
-      
+
       if (!sessionCookie) {
-        console.log('[SimpleAuth] No session cookie found, checking localStorage')
-        
+
         // Try localStorage as fallback
         const storedSession = localStorage.getItem('impota_session')
         if (storedSession) {
           try {
             const session = JSON.parse(storedSession)
             if (session.email) {
-              console.log('[SimpleAuth] Found session in localStorage')
+
               setUser({ email: session.email })
               setEntitlement({
                 email: session.email,
@@ -62,10 +61,10 @@ export function useSimpleAuth(options?: {
               return
             }
           } catch (e) {
-            console.error('[SimpleAuth] localStorage parse error:', e)
+
           }
         }
-        
+
         if (options?.requireAuth) {
           // Instead of going to purchase, go to login
           router.push('/portal/login')
@@ -73,25 +72,23 @@ export function useSimpleAuth(options?: {
         setLoading(false)
         return
       }
-      
-      console.log('[SimpleAuth] Session cookie found:', sessionCookie)
 
       // Parse session
       try {
         const sessionValue = decodeURIComponent(sessionCookie.split('=')[1])
         const session = JSON.parse(sessionValue)
-        
+
         if (session.email) {
           // Set user
           setUser({ email: session.email })
-          
+
           // Check entitlement if required
           if (options?.requireEntitlement) {
             const response = await fetch('/api/auth-simple/check')
-            
+
             if (response.ok) {
               const data = await response.json()
-              
+
               if (data.hasAccess && data.user?.entitlement) {
                 setEntitlement({
                   email: data.user.email,
@@ -101,12 +98,12 @@ export function useSimpleAuth(options?: {
                 })
               } else {
                 // No entitlement - go to login instead of purchase
-                console.log('[SimpleAuth] No entitlement found, redirecting to login')
+
                 router.push('/portal/login')
                 return
               }
             } else {
-              console.log('[SimpleAuth] Entitlement check failed')
+
               router.push('/portal/login')
               return
             }
@@ -117,13 +114,13 @@ export function useSimpleAuth(options?: {
           }
         }
       } catch (e) {
-        console.error('Session parse error:', e)
+
         if (options?.requireAuth) {
           router.push(options.redirectTo || '/purchase')
         }
       }
     } catch (error) {
-      console.error('Auth check error:', error)
+
       if (options?.requireAuth) {
         router.push(options.redirectTo || '/purchase')
       }

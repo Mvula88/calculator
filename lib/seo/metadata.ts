@@ -124,10 +124,10 @@ export function generateCountryMetadata(country: 'na' | 'za' | 'bw' | 'zm'): Met
     bw: 'Botswana',
     zm: 'Zambia'
   }
-  
+
   const countryName = countryNames[country]
   const keywords = countryKeywords[country]
-  
+
   return {
     title: `Import Cars to ${countryName} from Japan - Complete Guide | IMPOTA 2024`,
     description: `Complete guide to importing cars to ${countryName} from Japan. Our proven import guidance system with duty calculator, documentation templates, and step-by-step import process. Expert guidance based on real import experience.`,
@@ -235,7 +235,7 @@ export function generateGuideMetadata(country: string, tier: 'mistake' | 'master
   const title = tier === 'mistake' 
     ? `Common Car Import Mistakes - ${country.toUpperCase()} Guide`
     : `Complete Car Import Mastery Course - ${country.toUpperCase()}`
-    
+
   return {
     title,
     description: tier === 'mistake'

@@ -24,7 +24,7 @@ export async function POST(req: NextRequest) {
       .maybeSingle()
 
     if (entitlementError && entitlementError.code !== 'PGRST116') {
-      console.error('Database error checking entitlements:', entitlementError)
+
     }
 
     // Also check if user exists in auth system
@@ -45,16 +45,10 @@ export async function POST(req: NextRequest) {
       // If no error or different error, account likely exists
       userExistsInAuth = !signInError || !signInError.message?.includes('not found')
     } catch (authCheckError) {
-      console.log('Auth check error (expected):', authCheckError)
+
     }
 
     const exists = !!(existingEntitlement || userExistsInAuth)
-
-    console.log('Email check for:', normalizedEmail, {
-      hasEntitlement: !!existingEntitlement,
-      hasAuthAccount: userExistsInAuth,
-      exists
-    })
 
     return NextResponse.json({
       exists,
@@ -64,7 +58,7 @@ export async function POST(req: NextRequest) {
     })
 
   } catch (error) {
-    console.error('Check email error:', error)
+
     return NextResponse.json(
       { error: 'Failed to check email' },
       { status: 500 }

@@ -16,7 +16,7 @@ export async function GET(req: NextRequest) {
       .limit(10)
 
     if (allError) {
-      console.error('Error accessing entitlements table:', allError)
+
       return NextResponse.json({
         error: 'Cannot access entitlements table',
         details: allError.message,
@@ -48,7 +48,7 @@ export async function GET(req: NextRequest) {
     })
 
   } catch (error) {
-    console.error('Test endpoint error:', error)
+
     return NextResponse.json({
       error: 'Test failed',
       details: error instanceof Error ? error.message : 'Unknown error'
@@ -66,8 +66,6 @@ export async function POST(req: NextRequest) {
 
     const supabase = await createClient()
     const normalizedEmail = email.toLowerCase().trim()
-
-    console.log('Testing email check for:', normalizedEmail)
 
     // Check multiple ways
     const checks = {
@@ -107,7 +105,7 @@ export async function POST(req: NextRequest) {
     })
 
   } catch (error) {
-    console.error('Test POST error:', error)
+
     return NextResponse.json({
       error: 'Test failed',
       details: error instanceof Error ? error.message : 'Unknown error'

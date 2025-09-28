@@ -185,8 +185,6 @@ const namibiaTimelineSteps = [
   }
 ]
 
-
-
 export default function GuidePage() {
   const router = useRouter()
   const { user, userEmail, hasAccess, loading, userTier } = useAuthImmediate()
@@ -207,7 +205,7 @@ export default function GuidePage() {
       element.scrollIntoView({ behavior: 'smooth', block: 'start' })
     }
   }
-  
+
   // Loading state
   if (loading) {
     return (
@@ -219,7 +217,7 @@ export default function GuidePage() {
       </div>
     )
   }
-  
+
   // No access - redirect to portal home or show message
   if (!user) {
     router.replace('/portal')
@@ -231,7 +229,7 @@ export default function GuidePage() {
       </div>
     )
   }
-  
+
   // Has access - show the guide
   const countryName = 'Namibia' // Default for now
   const port = 'Walvis Bay'
@@ -318,7 +316,7 @@ export default function GuidePage() {
               <div className="text-center">
                 <CheckCircle className="h-16 w-16 text-green-600 mx-auto mb-4" />
                 <h2 className="text-2xl font-bold mb-4">Your Import Success Formula</h2>
-                
+
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
                   <div className="p-4 bg-white rounded-lg border">
                     <div className="text-3xl font-bold text-blue-600 mb-2">95%</div>
@@ -356,7 +354,7 @@ export default function GuidePage() {
                       </li>
                     </ul>
                   </div>
-                  
+
                   <div>
                     <h3 className="font-semibold mb-3">Your Next Steps:</h3>
                     <ul className="space-y-2 text-sm">

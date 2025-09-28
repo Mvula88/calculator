@@ -30,8 +30,6 @@ function LoginForm() {
     const paymentStatus = searchParams.get('payment_status')
     const redirectTo = searchParams.get('redirectTo')
 
-    console.log('Login page params:', { msg, redirectEmail, sessionId, paymentStatus, redirectTo })
-
     if (msg === 'account-exists' && redirectEmail) {
       setMessage('You already have an account. Please login to access your purchase.')
       setEmail(redirectEmail)
@@ -72,17 +70,16 @@ function LoginForm() {
         }
 
         // SUCCESS - Force session refresh and redirect
-        console.log('Login successful, establishing session...')
 
         // Get fresh session to ensure it's properly set
         const { data: { session: freshSession } } = await supabase.auth.getSession()
 
         if (freshSession) {
-          console.log('Session confirmed, redirecting to portal...')
+
           // Use replace to ensure clean navigation
           window.location.replace('/portal')
         } else {
-          console.error('Session not established properly')
+
           setError('Authentication issue. Please try logging in again.')
           setLoading(false)
           // Refresh auth state
@@ -93,12 +90,11 @@ function LoginForm() {
         setLoading(false)
       }
     } catch (err) {
-      console.error('Login error:', err)
+
       setError('An unexpected error occurred. Please try again.')
       setLoading(false)
     }
   }
-
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white flex items-center justify-center px-4">
@@ -111,14 +107,14 @@ function LoginForm() {
             Sign in to access your import calculator
           </CardDescription>
         </CardHeader>
-        
+
         <CardContent>
           {message && (
             <Alert className="mb-4 border-blue-200 bg-blue-50">
               <AlertDescription className="text-blue-800">{message}</AlertDescription>
             </Alert>
           )}
-          
+
           <div className="space-y-4">
                 <form onSubmit={handlePasswordLogin}>
                   {error && (
@@ -137,7 +133,7 @@ function LoginForm() {
                       )}
                     </div>
                   )}
-                  
+
                   <div className="space-y-4">
                     <div className="space-y-2">
                       <Label htmlFor="email-password">Email Address</Label>
@@ -155,7 +151,7 @@ function LoginForm() {
                         />
                       </div>
                     </div>
-                    
+
                     <div className="space-y-2">
                       <Label htmlFor="password">Password</Label>
                       <div className="relative">
@@ -183,7 +179,7 @@ function LoginForm() {
                         </button>
                       </div>
                     </div>
-                    
+
                     <div className="flex items-center justify-between">
                       <Link
                         href="/auth/forgot-password"
@@ -192,7 +188,7 @@ function LoginForm() {
                         Forgot password?
                       </Link>
                     </div>
-                    
+
                     <Button 
                       type="submit" 
                       className="w-full" 
@@ -211,7 +207,7 @@ function LoginForm() {
                 </form>
             </div>
         </CardContent>
-        
+
         <CardFooter className="flex flex-col gap-4">
           <p className="text-sm text-center text-gray-600">
             Just purchased a guide?{' '}

@@ -26,7 +26,7 @@ import { Button } from '@/components/ui/button'
 
 export default function SupportPage() {
   const [expandedIssue, setExpandedIssue] = useState<string | null>(null)
-  
+
   const toggleIssue = (issueId: string) => {
     setExpandedIssue(expandedIssue === issueId ? null : issueId)
   }
@@ -188,7 +188,7 @@ export default function SupportPage() {
           <ArrowLeft className="h-4 w-4 mr-2" />
           Back to Home
         </Link>
-        
+
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold mb-4">Customer Support Center</h1>
           <p className="text-xl text-gray-600">We're here to help you succeed with your import journey</p>

@@ -1,8 +1,6 @@
 import { namibiaGuideMetadata, namibiaGuideJsonLd, namibiaFAQJsonLd, namibiaBreadcrumbJsonLd, namibiaProductJsonLd } from './metadata'
 import Script from 'next/script'
-
 export const metadata = namibiaGuideMetadata
-
 export default function NamibiaGuideLayout({
   children,
 }: {
@@ -31,11 +29,9 @@ export default function NamibiaGuideLayout({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(namibiaProductJsonLd) }}
       />
-      
       {/* Preconnect to external domains for performance */}
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
-      
       {children}
     </>
   )

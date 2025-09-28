@@ -42,7 +42,7 @@ export default function SetupAccountPage() {
   async function checkExistingSession() {
     const supabase = createClient()
     const { data: { user } } = await supabase.auth.getUser()
-    
+
     if (user) {
       setEmail(user.email || '')
       // If user is logged in and doesn't need password reset, redirect
@@ -82,12 +82,12 @@ export default function SetupAccountPage() {
 
   async function handleSetPassword(e: React.FormEvent) {
     e.preventDefault()
-    
+
     if (!isPasswordValid) {
       setError('Please meet all password requirements')
       return
     }
-    
+
     if (!passwordsMatch) {
       setError('Passwords do not match')
       return
@@ -134,7 +134,7 @@ export default function SetupAccountPage() {
     })
 
     setSuccess(true)
-    
+
     // Redirect to calculator after 2 seconds
     setTimeout(() => {
       router.push('/portal')

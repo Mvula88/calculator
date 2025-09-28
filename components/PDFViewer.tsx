@@ -53,14 +53,14 @@ export default function PDFViewer({ isOpen, onClose, documentName, documentUrl }
   const fetchDocumentContent = async (url: string) => {
     try {
       const response = await fetch(getViewerUrl(url))
-      
+
       if (!response.ok) {
         throw new Error('Failed to load document')
       }
-      
+
       // Check if it's an image or PDF
       const contentType = response.headers.get('content-type')
-      
+
       if (contentType?.includes('image')) {
         // For images, convert to base64
         const blob = await response.blob()
@@ -78,7 +78,7 @@ export default function PDFViewer({ isOpen, onClose, documentName, documentUrl }
         setLoading(false)
       }
     } catch (err) {
-      console.error('Error loading document:', err)
+
       setError(true)
       setLoading(false)
     }
@@ -121,7 +121,7 @@ export default function PDFViewer({ isOpen, onClose, documentName, documentUrl }
     // Add timestamp to prevent caching issues
     // Include session info in URL for authentication
     const baseUrl = `/api/documents/${url}?t=${Date.now()}`
-    
+
     // Try to get session from localStorage or cookies
     if (typeof window !== 'undefined') {
       const sessionStr = localStorage.getItem('impota-session')
@@ -131,11 +131,11 @@ export default function PDFViewer({ isOpen, onClose, documentName, documentUrl }
           // Add session ID as query param for authentication
           return `${baseUrl}&sid=${session.sessionId}`
         } catch (e) {
-          console.log('Could not parse session for document fetch')
+
         }
       }
     }
-    
+
     return baseUrl
   }
 
@@ -148,7 +148,7 @@ export default function PDFViewer({ isOpen, onClose, documentName, documentUrl }
         className="absolute inset-0 bg-black/50"
         onClick={onClose}
       />
-      
+
       {/* Modal Content */}
       <div
         className="relative bg-white rounded-lg shadow-xl max-w-7xl w-full mx-4 h-[90vh] flex flex-col"
@@ -199,7 +199,7 @@ export default function PDFViewer({ isOpen, onClose, documentName, documentUrl }
             </div>
           </div>
         </div>
-        
+
         {/* Document Viewer */}
         <div className="relative flex-1 bg-gray-100 overflow-hidden">
           {/* Loading indicator */}

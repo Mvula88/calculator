@@ -119,7 +119,7 @@ export function CostBreakdown({ showTimelineIntegration = true }: CostBreakdownP
   const [selectedItems, setSelectedItems] = useState<Set<string>>(new Set())
   const [selectedStage, setSelectedStage] = useState<string>('all')
   const [showBufferCalculator, setShowBufferCalculator] = useState(false)
-  
+
   const toggleItem = (category: string) => {
     setSelectedItems(prev => {
       const newSet = new Set(prev)
@@ -135,7 +135,7 @@ export function CostBreakdown({ showTimelineIntegration = true }: CostBreakdownP
   const calculateEstimate = () => {
     let min = 0
     let max = 0
-    
+
     selectedItems.forEach(category => {
       const item = costData.find(c => c.category === category)
       if (item) {
@@ -151,12 +151,12 @@ export function CostBreakdown({ showTimelineIntegration = true }: CostBreakdownP
         }
       }
     })
-    
+
     return { min, max }
   }
 
   const stages = ['all', ...Array.from(new Set(costData.map(item => item.stage)))]
-  
+
   const filteredCostData = selectedStage === 'all' 
     ? costData 
     : costData.filter(item => item.stage === selectedStage)

@@ -1,10 +1,8 @@
 import { Metadata } from 'next'
-
 export const zambiaGuideMetadata: Metadata = {
   title: 'Import Cars to Zambia from Japan 2024 | Lusaka Guide | Complete Import Guide',
   description: 'Complete guide to importing cars from Japan to Zambia. Expert guidance with our proven system. Includes ZRA duty calculator, customs clearance, RTSA registration, and Nakonde/Chirundu border posts. Based on real import experience.',
   keywords: 'import cars Zambia, Japan car import Zambia, Lusaka customs clearance, ZRA duty calculator, RTSA vehicle registration, import duty Zambia 2024, Japanese used cars Zambia, car import costs Zambia, Zambia clearing agents, import permit Zambia, vehicle import process Zambia, Nakonde border post, Chirundu border crossing, Zambia car import guide, Japanese auction cars Zambia, import taxes Zambia vehicles',
-  
   openGraph: {
     title: 'Complete Import Guide for Cars to Zambia | Complete 2024 Guide',
     description: 'The ultimate guide to import cars from Japan to Zambia. ZRA customs navigation, duty calculations, and border post procedures. Join our growing community of successful importers.',
@@ -21,14 +19,12 @@ export const zambiaGuideMetadata: Metadata = {
     locale: 'en_ZM',
     type: 'website',
   },
-  
   twitter: {
     card: 'summary_large_image',
     title: 'Import Cars to Zambia from Japan | Complete Import Guide',
     description: 'Complete guide to importing vehicles to Zambia. ZRA duty calculator, customs clearance, and proven strategies.',
     images: ['https://www.impota.com/twitter-zambia-guide.jpg'],
   },
-  
   alternates: {
     canonical: 'https://www.impota.com/zm/guide',
     languages: {
@@ -38,7 +34,6 @@ export const zambiaGuideMetadata: Metadata = {
       'en-BW': 'https://www.impota.com/bw/guide',
     },
   },
-  
   robots: {
     index: true,
     follow: true,
@@ -51,7 +46,6 @@ export const zambiaGuideMetadata: Metadata = {
     },
   },
 }
-
 // JSON-LD Structured Data
 export const zambiaGuideJsonLd = {
   '@context': 'https://schema.org',
@@ -127,7 +121,6 @@ export const zambiaGuideJsonLd = {
     }
   ]
 }
-
 // FAQ Schema
 export const zambiaFAQJsonLd = {
   '@context': 'https://schema.org',
@@ -175,7 +168,6 @@ export const zambiaFAQJsonLd = {
     }
   ]
 }
-
 // Breadcrumb Schema
 export const zambiaBreadcrumbJsonLd = {
   '@context': 'https://schema.org',
@@ -201,7 +193,6 @@ export const zambiaBreadcrumbJsonLd = {
     }
   ]
 }
-
 // Product Schema
 export const zambiaProductJsonLd = {
   '@context': 'https://schema.org',

@@ -32,19 +32,19 @@ export default function GuideCTA({ country, mistakePrice, masteryPrice }: GuideC
           productId: `${countryCode}-guide`
         })
       })
-      
+
       const { url, error } = await res.json()
-      
+
       if (error) {
         alert(`Error: ${error}`)
         return
       }
-      
+
       if (url) {
         window.location.href = url
       }
     } catch (error) {
-      console.error('Checkout error:', error)
+
       alert('Failed to start checkout')
     } finally {
       setLoading(false)
@@ -162,7 +162,7 @@ export default function GuideCTA({ country, mistakePrice, masteryPrice }: GuideC
               🔒 Secure checkout • Create account after payment
             </p>
           </div>
-          
+
           <div className="mt-8 flex items-center justify-center gap-6 text-sm">
             <div className="flex items-center gap-2">
               <Shield className="h-4 w-4" />
@@ -194,7 +194,7 @@ export default function GuideCTA({ country, mistakePrice, masteryPrice }: GuideC
           </p>
           <p className="text-sm text-gray-500">— Johan M., Windhoek</p>
         </Card>
-        
+
         <Card className="p-6">
           <div className="flex gap-1 mb-2">
             {[...Array(5)].map((_, i) => (

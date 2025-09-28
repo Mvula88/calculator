@@ -19,15 +19,13 @@ export async function POST(req: NextRequest) {
     // Get the email from the session
     const email = session.customer_email || session.customer_details?.email || null
 
-    console.log('Retrieved email from Stripe session:', { sessionId, email })
-
     return NextResponse.json({
       email,
       customerName: session.customer_details?.name || null
     })
 
   } catch (error: any) {
-    console.error('Error fetching session email:', error)
+
     return NextResponse.json(
       { error: error.message || 'Failed to fetch session details' },
       { status: 500 }

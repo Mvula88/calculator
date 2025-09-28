@@ -20,7 +20,7 @@ export function useAuth(): UseAuthReturn {
 
   useEffect(() => {
     const supabase = createClient()
-    
+
     // Get initial session
     const getSession = async () => {
       try {
@@ -37,11 +37,11 @@ export function useAuth(): UseAuthReturn {
             .order('created_at', { ascending: false })
             .limit(1)
             .single()
-          
+
           setUserTier(entitlements?.tier || null)
         }
       } catch (error) {
-        console.error('Error getting session:', error)
+
       } finally {
         setLoading(false)
       }
@@ -52,7 +52,7 @@ export function useAuth(): UseAuthReturn {
     // Listen for auth changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
       setUser(session?.user || null)
-      
+
       if (session?.user) {
         // Get user's entitlements - check by both user_id and email
         const { data: entitlements } = await supabase
@@ -63,12 +63,12 @@ export function useAuth(): UseAuthReturn {
           .order('created_at', { ascending: false })
           .limit(1)
           .single()
-        
+
         setUserTier(entitlements?.tier || null)
       } else {
         setUserTier(null)
       }
-      
+
       setLoading(false)
     })
 

@@ -42,10 +42,9 @@ export default function ValidatedCheckoutButton({
       })
 
       const data = await res.json()
-      console.log('[ValidatedCheckoutButton] Email check response:', data)
 
       if (data.error) {
-        console.error('[ValidatedCheckoutButton] API Error:', data.error)
+
         // Don't return false on error - be safe and assume account might exist
         return {
           exists: true,
@@ -59,7 +58,7 @@ export default function ValidatedCheckoutButton({
         message: data.message || (data.exists ? 'An account with this email already exists.' : null)
       }
     } catch (error) {
-      console.error('[ValidatedCheckoutButton] Network error checking email:', error)
+
       // On network error, be safe and suggest login
       return {
         exists: true,
@@ -144,7 +143,7 @@ export default function ValidatedCheckoutButton({
         window.location.href = url
       }
     } catch (error) {
-      console.error('Checkout error:', error)
+
       alert('Failed to start checkout. Please try again.')
       setLoading(false)
     }

@@ -70,7 +70,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
       // Get current user
       const { data: { user: authUser }, error: userError } = await supabase.auth.getUser()
-      
+
       if (userError) {
         throw userError
       }
@@ -97,7 +97,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       // Check entitlement through API endpoint
       try {
         const response = await fetch('/api/auth/entitlement')
-        
+
         if (response.ok) {
           const { entitlement: userEntitlement } = await response.json()
           setEntitlement(userEntitlement)
@@ -105,11 +105,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           setEntitlement(null)
         }
       } catch (err) {
-        console.error('Error fetching entitlement:', err)
+
         setEntitlement(null)
       }
     } catch (err) {
-      console.error('Error checking auth:', err)
+
       setError(err instanceof Error ? err.message : 'Authentication error')
       setUser(null)
       setEntitlement(null)
@@ -125,7 +125,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setEntitlement(null)
       router.push('/')
     } catch (err) {
-      console.error('Error signing out:', err)
+
       setError(err instanceof Error ? err.message : 'Sign out error')
     }
   }

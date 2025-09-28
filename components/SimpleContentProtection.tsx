@@ -9,7 +9,7 @@ interface SimpleContentProtectionProps {
 
 export default function SimpleContentProtection({ children, userEmail = 'Portal User' }: SimpleContentProtectionProps) {
   const [isProtected, setIsProtected] = useState(true)
-  
+
   useEffect(() => {
     // Get email from session if not provided
     let email = userEmail
@@ -25,33 +25,33 @@ export default function SimpleContentProtection({ children, userEmail = 'Portal 
         } catch (e) {}
       }
     }
-    
+
     // Disable right-click
     const handleContextMenu = (e: MouseEvent) => {
       e.preventDefault()
       return false
     }
-    
+
     // Disable text selection
     const handleSelectStart = (e: Event) => {
       e.preventDefault()
       return false
     }
-    
+
     // Disable copy
     const handleCopy = (e: ClipboardEvent) => {
       e.preventDefault()
       e.clipboardData?.setData('text/plain', 'Content protected - Licensed to ' + email)
       return false
     }
-    
+
     // Disable print
     const handlePrint = (e: Event) => {
       e.preventDefault()
       alert('Printing is disabled for protected content')
       return false
     }
-    
+
     // Detect developer tools
     const devtools = { open: false }
     const threshold = 160
@@ -63,7 +63,7 @@ export default function SimpleContentProtection({ children, userEmail = 'Portal 
         document.body.style.display = 'block'
       }
     }
-    
+
     // Check window size difference
     const checkDevTools = setInterval(() => {
       if (window.outerHeight - window.innerHeight > threshold || 
@@ -79,7 +79,7 @@ export default function SimpleContentProtection({ children, userEmail = 'Portal 
         }
       }
     }, 500)
-    
+
     // Disable keyboard shortcuts
     const handleKeyDown = (e: KeyboardEvent) => {
       // Disable F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U
@@ -90,50 +90,47 @@ export default function SimpleContentProtection({ children, userEmail = 'Portal 
         e.preventDefault()
         return false
       }
-      
+
       // Disable Ctrl+A, Ctrl+C, Ctrl+X, Ctrl+V
       if (e.ctrlKey && (e.keyCode === 65 || e.keyCode === 67 || e.keyCode === 88 || e.keyCode === 86)) {
         e.preventDefault()
         return false
       }
-      
+
       // Disable Print (Ctrl+P)
       if (e.ctrlKey && e.keyCode === 80) {
         e.preventDefault()
         alert('Printing is disabled for protected content')
         return false
       }
-      
+
       // Disable Save (Ctrl+S)
       if (e.ctrlKey && e.keyCode === 83) {
         e.preventDefault()
         return false
       }
     }
-    
+
     // Add console warning
     const consoleWarning = () => {
-      console.log('%cSTOP!', 'color: red; font-size: 50px; font-weight: bold;')
-      console.log('%cThis is a browser feature intended for developers. Content here is protected by copyright law.', 'color: red; font-size: 16px;')
-      console.log('%cUnauthorized access or copying is illegal and will be prosecuted.', 'color: red; font-size: 16px;')
-      console.log('%cLicensed to: ' + email, 'color: red; font-size: 14px;')
+
     }
     consoleWarning()
     const warningInterval = setInterval(consoleWarning, 10000)
-    
+
     // Add event listeners
     document.addEventListener('contextmenu', handleContextMenu)
     document.addEventListener('selectstart', handleSelectStart)
     document.addEventListener('copy', handleCopy)
     window.addEventListener('beforeprint', handlePrint)
     document.addEventListener('keydown', handleKeyDown)
-    
+
     // Disable drag
     const imgs = document.getElementsByTagName('img')
     for (let i = 0; i < imgs.length; i++) {
       imgs[i].draggable = false
     }
-    
+
     // Clean up
     return () => {
       document.removeEventListener('contextmenu', handleContextMenu)
@@ -145,7 +142,7 @@ export default function SimpleContentProtection({ children, userEmail = 'Portal 
       clearInterval(warningInterval)
     }
   }, [userEmail])
-  
+
   return (
     <div className="relative select-none">
       {/* Anti-screenshot overlay */}
@@ -156,7 +153,7 @@ export default function SimpleContentProtection({ children, userEmail = 'Portal 
              opacity: 0.01
            }} 
       />
-      
+
       {/* Watermark Grid - Dense Pattern */}
       <div className="fixed inset-0 z-40 pointer-events-none overflow-hidden">
         {Array.from({ length: 30 }).map((_, i) => (
@@ -172,7 +169,7 @@ export default function SimpleContentProtection({ children, userEmail = 'Portal 
           </div>
         ))}
       </div>
-      
+
       {/* Moving watermark */}
       <div 
         className="fixed z-40 pointer-events-none text-red-500/25 font-bold text-lg animate-pulse"
@@ -184,7 +181,7 @@ export default function SimpleContentProtection({ children, userEmail = 'Portal 
       >
         PROTECTED CONTENT - {userEmail}
       </div>
-      
+
       {/* Main content */}
       <div 
         className="relative z-30 no-select"
@@ -200,7 +197,7 @@ export default function SimpleContentProtection({ children, userEmail = 'Portal 
       >
         {children}
       </div>
-      
+
       {/* CSS for animations */}
       <style jsx>{`
         @keyframes float {
@@ -220,7 +217,7 @@ export default function SimpleContentProtection({ children, userEmail = 'Portal 
             transform: translate(0, 0);
           }
         }
-        
+
         /* Disable print */
         @media print {
           body * {
@@ -234,7 +231,7 @@ export default function SimpleContentProtection({ children, userEmail = 'Portal 
             margin-top: 50%;
           }
         }
-        
+
         /* Make everything unselectable */
         * {
           -webkit-touch-callout: none !important;
@@ -244,12 +241,12 @@ export default function SimpleContentProtection({ children, userEmail = 'Portal 
           -ms-user-select: none !important;
           user-select: none !important;
         }
-        
+
         /* Disable highlighting */
         ::selection {
           background: transparent !important;
         }
-        
+
         ::-moz-selection {
           background: transparent !important;
         }

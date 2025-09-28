@@ -30,8 +30,6 @@ export async function POST(req: NextRequest) {
       )
     }
 
-    console.log('[FIX ENTITLEMENTS] Checking for:', normalizedEmail)
-
     // Check if entitlement already exists
     const { data: existing } = await supabase
       .from('entitlements')
@@ -65,7 +63,7 @@ export async function POST(req: NextRequest) {
       .single()
 
     if (createError) {
-      console.error('[FIX ENTITLEMENTS] Error creating entitlement:', createError)
+
       return NextResponse.json(
         {
           error: 'Failed to create entitlement',
@@ -75,8 +73,6 @@ export async function POST(req: NextRequest) {
       )
     }
 
-    console.log('[FIX ENTITLEMENTS] Created entitlement:', newEntitlement)
-
     return NextResponse.json({
       success: true,
       message: 'Entitlement created successfully',
@@ -84,7 +80,7 @@ export async function POST(req: NextRequest) {
     })
 
   } catch (error) {
-    console.error('[FIX ENTITLEMENTS] Error:', error)
+
     return NextResponse.json(
       {
         error: 'Failed to fix entitlements',
@@ -117,7 +113,7 @@ export async function GET(req: NextRequest) {
       .eq('email', user.email?.toLowerCase())
 
     if (error) {
-      console.error('[FIX ENTITLEMENTS] Error fetching:', error)
+
       return NextResponse.json(
         {
           error: 'Failed to fetch entitlements',
@@ -137,7 +133,7 @@ export async function GET(req: NextRequest) {
     })
 
   } catch (error) {
-    console.error('[FIX ENTITLEMENTS] GET Error:', error)
+
     return NextResponse.json(
       {
         error: 'Failed to get entitlements',

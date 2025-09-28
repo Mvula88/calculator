@@ -57,7 +57,7 @@ export default function TestEntitlementPage() {
     <div className="max-w-2xl mx-auto p-8">
       <Card className="p-6">
         <h1 className="text-2xl font-bold mb-6">Test Entitlement Creator</h1>
-        
+
         <div className="space-y-4">
           <div>
             <label className="block text-sm font-medium mb-2">Email</label>

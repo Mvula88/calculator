@@ -1,10 +1,8 @@
 import { Metadata } from 'next'
-
 export const southAfricaGuideMetadata: Metadata = {
   title: 'Import Cars to South Africa from Japan 2024 | Durban Port Guide | Complete Import Guide',
   description: 'Complete guide to importing cars from Japan to South Africa through Durban port. Expert guidance with our proven system. Includes SARS duty calculator, customs clearance, eNaTIS registration, and verified clearing agents. Based on real import experience.',
   keywords: 'import cars South Africa, Japan car import SA, Durban port clearance, SARS duty calculator, eNaTIS vehicle registration, import duty South Africa 2024, Japanese used cars SA, car import costs South Africa, SA clearing agents, import permit South Africa, vehicle import process SA, Durban port fees, South Africa car import guide, Japanese auction cars SA, import taxes South Africa vehicles, ITAC import permit, roadworthy certificate SA',
-  
   openGraph: {
     title: 'Complete Import Guide for Cars to South Africa | Complete 2024 Guide',
     description: 'The definitive guide to import cars from Japan to South Africa. Durban port navigation, SARS duty calculations, and step-by-step process. Join our growing community of successful importers.',
@@ -21,14 +19,12 @@ export const southAfricaGuideMetadata: Metadata = {
     locale: 'en_ZA',
     type: 'website',
   },
-  
   twitter: {
     card: 'summary_large_image',
     title: 'Import Cars to South Africa from Japan | Complete Import Guide',
     description: 'Complete guide to importing vehicles through Durban port. SARS duty calculator, customs clearance, and proven strategies.',
     images: ['https://www.impota.com/twitter-sa-guide.jpg'],
   },
-  
   alternates: {
     canonical: 'https://www.impota.com/za/guide',
     languages: {
@@ -38,7 +34,6 @@ export const southAfricaGuideMetadata: Metadata = {
       'en-ZM': 'https://www.impota.com/zm/guide',
     },
   },
-  
   robots: {
     index: true,
     follow: true,
@@ -51,7 +46,6 @@ export const southAfricaGuideMetadata: Metadata = {
     },
   },
 }
-
 // JSON-LD Structured Data
 export const southAfricaGuideJsonLd = {
   '@context': 'https://schema.org',
@@ -117,7 +111,6 @@ export const southAfricaGuideJsonLd = {
     }
   ]
 }
-
 // FAQ Schema
 export const southAfricaFAQJsonLd = {
   '@context': 'https://schema.org',
@@ -165,7 +158,6 @@ export const southAfricaFAQJsonLd = {
     }
   ]
 }
-
 // Breadcrumb Schema
 export const southAfricaBreadcrumbJsonLd = {
   '@context': 'https://schema.org',
@@ -191,7 +183,6 @@ export const southAfricaBreadcrumbJsonLd = {
     }
   ]
 }
-
 // Product Schema
 export const southAfricaProductJsonLd = {
   '@context': 'https://schema.org',

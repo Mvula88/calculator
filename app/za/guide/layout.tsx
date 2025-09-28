@@ -1,8 +1,6 @@
 import { southAfricaGuideMetadata, southAfricaGuideJsonLd, southAfricaFAQJsonLd, southAfricaBreadcrumbJsonLd, southAfricaProductJsonLd } from './metadata'
 import Script from 'next/script'
-
 export const metadata = southAfricaGuideMetadata
-
 export default function SouthAfricaGuideLayout({
   children,
 }: {
@@ -31,7 +29,6 @@ export default function SouthAfricaGuideLayout({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(southAfricaProductJsonLd) }}
       />
-      
       {children}
     </>
   )

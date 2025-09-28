@@ -1,8 +1,6 @@
 import { botswanaGuideMetadata, botswanaGuideJsonLd, botswanaFAQJsonLd, botswanaBreadcrumbJsonLd, botswanaProductJsonLd } from './metadata'
 import Script from 'next/script'
-
 export const metadata = botswanaGuideMetadata
-
 export default function BotswanaGuideLayout({
   children,
 }: {
@@ -31,7 +29,6 @@ export default function BotswanaGuideLayout({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(botswanaProductJsonLd) }}
       />
-      
       {children}
     </>
   )
