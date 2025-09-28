@@ -22,9 +22,31 @@ export default function PDFViewer({ isOpen, onClose, documentName, documentUrl }
       setLoading(true)
       setError(false)
       setDocumentContent(null)
-      
+
       // Fetch the document content directly
       fetchDocumentContent(documentUrl)
+
+      // Disable right-click context menu
+      const handleContextMenu = (e: MouseEvent) => {
+        e.preventDefault()
+        return false
+      }
+
+      // Disable print
+      const handlePrint = (e: KeyboardEvent) => {
+        if ((e.ctrlKey || e.metaKey) && e.key === 'p') {
+          e.preventDefault()
+          return false
+        }
+      }
+
+      document.addEventListener('contextmenu', handleContextMenu)
+      document.addEventListener('keydown', handlePrint)
+
+      return () => {
+        document.removeEventListener('contextmenu', handleContextMenu)
+        document.removeEventListener('keydown', handlePrint)
+      }
     }
   }, [isOpen, documentUrl])
 
@@ -128,7 +150,16 @@ export default function PDFViewer({ isOpen, onClose, documentName, documentUrl }
       />
       
       {/* Modal Content */}
-      <div className="relative bg-white rounded-lg shadow-xl max-w-7xl w-full mx-4 h-[90vh] flex flex-col">
+      <div
+        className="relative bg-white rounded-lg shadow-xl max-w-7xl w-full mx-4 h-[90vh] flex flex-col"
+        style={{
+          userSelect: 'none',
+          WebkitUserSelect: 'none',
+          MozUserSelect: 'none',
+          msUserSelect: 'none'
+        }}
+        onContextMenu={(e) => e.preventDefault()}
+      >
         {/* Header */}
         <div className="px-6 py-4 border-b bg-white">
           <div className="flex items-center justify-between">
@@ -220,12 +251,15 @@ export default function PDFViewer({ isOpen, onClose, documentName, documentUrl }
                     }}
                   />
                 ) : (
-                  // Display PDF
-                  <embed
-                    src={documentContent}
-                    type="application/pdf"
+                  // Display PDF with download/print disabled
+                  <iframe
+                    src={`${documentContent}#toolbar=0&navpanes=0&scrollbar=0`}
                     className="w-full h-full min-h-[800px]"
-                    style={{ border: 'none' }}
+                    style={{
+                      border: 'none',
+                      pointerEvents: 'auto'
+                    }}
+                    title={documentName}
                   />
                 )}
               </div>
