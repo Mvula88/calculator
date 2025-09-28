@@ -228,7 +228,7 @@ export default function PortalPage() {
             <div>
               <h3 className="font-semibold text-blue-900 mb-2 text-sm">Quick Tips</h3>
               <ul className="space-y-1 text-xs text-blue-800">
-                <li>• Start with the Import Guide for basics</li>
+                <li>• Start with the Beginner Journey for complete beginners</li>
                 <li>• Check Documents for real examples</li>
                 {isMastery && <li>• Use Calculator before buying</li>}
                 {isMastery && <li>• Compare shipping rates</li>}

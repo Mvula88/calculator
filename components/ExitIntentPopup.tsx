@@ -25,10 +25,13 @@ export default function ExitIntentPopup({ country: propCountry }: ExitIntentPopu
     if (pathname.startsWith('/bw')) return 'bw'
     if (pathname.startsWith('/zm')) return 'zm'
     if (pathname.startsWith('/na')) return 'na'
-    return propCountry || 'na'
+    return propCountry || null
   }
 
   const country = getCountryFromPath()
+
+  // Don't show popup on landing page or pages without a country
+  const isLandingPage = pathname === '/' || (!country && !pathname.includes('/guide'))
 
   // Currency mapping based on country
   const currencies = {
@@ -38,7 +41,7 @@ export default function ExitIntentPopup({ country: propCountry }: ExitIntentPopu
     zm: { symbol: 'K', price: '2,043', originalPrice: '4,086' }
   }
 
-  const currency = currencies[country as keyof typeof currencies] || currencies.na
+  const currency = country ? currencies[country as keyof typeof currencies] : currencies.na
 
   useEffect(() => {
     // Check if user is authenticated
@@ -57,6 +60,11 @@ export default function ExitIntentPopup({ country: propCountry }: ExitIntentPopu
   useEffect(() => {
     // Don't show popup for authenticated users
     if (isAuthenticated) {
+      return
+    }
+
+    // Don't show popup on landing page
+    if (isLandingPage) {
       return
     }
 
@@ -115,10 +123,10 @@ export default function ExitIntentPopup({ country: propCountry }: ExitIntentPopu
       document.removeEventListener('mouseleave', handleMouseLeave)
       if (mobileTimer) clearTimeout(mobileTimer)
     }
-  }, [hasShown, isVisible, isAuthenticated])
+  }, [hasShown, isVisible, isAuthenticated, isLandingPage])
 
-  // Don't render anything for authenticated users
-  if (isAuthenticated || !isVisible) return null
+  // Don't render anything for authenticated users or on landing page
+  if (isAuthenticated || !isVisible || isLandingPage) return null
 
   const handleClose = () => {
     setIsVisible(false)
@@ -217,7 +225,7 @@ export default function ExitIntentPopup({ country: propCountry }: ExitIntentPopu
             <div className="space-y-3 pt-2">
               <ValidatedCheckoutButton
                 tier="mastery"
-                country={country}
+                country={country || 'na'}
                 className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold py-6 text-base shadow-lg hover:shadow-xl transition-all duration-200 group"
               >
                 <span>Get Instant Access</span>
