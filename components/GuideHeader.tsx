@@ -50,10 +50,10 @@ export default function GuideHeader({
 
   // Get Started button link logic
   // On landing page (showCountrySelector is false), link to countries section
-  // On guide pages (showCountrySelector is true), link to pricing for NA or guide for others
+  // On guide pages (showCountrySelector is true), link to pricing section
   const getStartedLink = !showCountrySelector
     ? '/#countries'  // Landing page: go to country selection
-    : (country === 'na' ? '/na/guide#pricing' : `/${country}/guide`) // Guide pages
+    : `/${country}/guide#pricing` // Guide pages: go to pricing section
 
   return (
     <header className="bg-white border-b border-gray-200 shadow-sm sticky top-0 z-40">
