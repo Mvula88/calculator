@@ -4,14 +4,41 @@ import { useState, useEffect } from 'react'
 import { X, Clock, Sparkles, ArrowRight, CheckCircle2, Lock } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import ValidatedCheckoutButton from '@/components/validated-checkout-button'
 
-export default function ExitIntentPopup() {
+interface ExitIntentPopupProps {
+  country?: 'na' | 'za' | 'bw' | 'zm'
+}
+
+export default function ExitIntentPopup({ country: propCountry }: ExitIntentPopupProps) {
   const [isVisible, setIsVisible] = useState(false)
   const [hasShown, setHasShown] = useState(false)
   const [timeLeft, setTimeLeft] = useState('')
   const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const pathname = usePathname()
+
+  // Detect country from URL path
+  const getCountryFromPath = () => {
+    if (pathname.startsWith('/za')) return 'za'
+    if (pathname.startsWith('/bw')) return 'bw'
+    if (pathname.startsWith('/zm')) return 'zm'
+    if (pathname.startsWith('/na')) return 'na'
+    return propCountry || 'na'
+  }
+
+  const country = getCountryFromPath()
+
+  // Currency mapping based on country
+  const currencies = {
+    na: { symbol: 'N$', price: '1,499', originalPrice: '2,999' },
+    za: { symbol: 'R', price: '1,499', originalPrice: '2,999' },
+    bw: { symbol: 'P', price: '1,151', originalPrice: '2,302' },
+    zm: { symbol: 'K', price: '2,043', originalPrice: '4,086' }
+  }
+
+  const currency = currencies[country as keyof typeof currencies] || currencies.na
 
   useEffect(() => {
     // Check if user is authenticated
@@ -140,8 +167,8 @@ export default function ExitIntentPopup() {
             {/* Price Display */}
             <div className="text-center">
               <div className="flex items-center justify-center gap-4 mb-2">
-                <span className="text-3xl text-gray-400 line-through font-light">N$2,999</span>
-                <span className="text-5xl font-bold text-gray-900">N$1,499</span>
+                <span className="text-3xl text-gray-400 line-through font-light">{currency.symbol}{currency.originalPrice}</span>
+                <span className="text-5xl font-bold text-gray-900">{currency.symbol}{currency.price}</span>
               </div>
               <p className="text-sm text-gray-600 flex items-center justify-center gap-1">
                 <Clock className="h-3.5 w-3.5" />
@@ -190,7 +217,7 @@ export default function ExitIntentPopup() {
             <div className="space-y-3 pt-2">
               <ValidatedCheckoutButton
                 tier="mastery"
-                country="na"
+                country={country}
                 className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold py-6 text-base shadow-lg hover:shadow-xl transition-all duration-200 group"
               >
                 <span>Get Instant Access</span>

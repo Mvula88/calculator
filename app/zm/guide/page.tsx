@@ -576,10 +576,10 @@ export default function ZambiaGuidePage() {
                 <CardTitle className="text-2xl font-bold">Complete Import Mastery</CardTitle>
                 <div className="mt-4">
                   <div className="flex items-center gap-3">
-                    <span className="text-3xl font-bold text-gray-400 line-through">K2,999</span>
-                    <span className="text-4xl font-bold text-emerald-600">K1,499</span>
+                    <span className="text-3xl font-bold text-gray-400 line-through">K4,086</span>
+                    <span className="text-4xl font-bold text-emerald-600">K2,043</span>
                   </div>
-                  <span className="text-green-600 font-semibold">Save K1,500 - Limited Time!</span>
+                  <span className="text-green-600 font-semibold">Save K2,043 - Limited Time!</span>
                 </div>
               </CardHeader>
               <CardContent className="space-y-4">
@@ -628,7 +628,7 @@ export default function ZambiaGuidePage() {
                     size="lg"
                     className="w-full bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-bold py-4 text-lg rounded-lg transition-all duration-300 hover:shadow-xl"
                   >
-                    Get Lifetime Access - K1,499
+                    Get Lifetime Access - K2,043
                     <Sparkles className="ml-2 h-5 w-5" />
                   </ValidatedCheckoutButton>
                 </div>

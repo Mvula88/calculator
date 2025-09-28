@@ -575,10 +575,10 @@ export default function BotswanaGuidePage() {
                 <CardTitle className="text-2xl font-bold">Complete Import Mastery</CardTitle>
                 <div className="mt-4">
                   <div className="flex items-center gap-3">
-                    <span className="text-3xl font-bold text-gray-400 line-through">P2,999</span>
-                    <span className="text-4xl font-bold text-blue-600">P1,499</span>
+                    <span className="text-3xl font-bold text-gray-400 line-through">P2,302</span>
+                    <span className="text-4xl font-bold text-blue-600">P1,151</span>
                   </div>
-                  <span className="text-green-600 font-semibold">Save P1,500 - Limited Time!</span>
+                  <span className="text-green-600 font-semibold">Save P1,151 - Limited Time!</span>
                 </div>
               </CardHeader>
               <CardContent className="space-y-4">
@@ -627,7 +627,7 @@ export default function BotswanaGuidePage() {
                     size="lg"
                     className="w-full bg-gradient-to-r from-blue-600 to-sky-600 hover:from-blue-700 hover:to-sky-700 text-white font-bold py-4 text-lg rounded-lg transition-all duration-300 hover:shadow-xl"
                   >
-                    Get Lifetime Access - P1,499
+                    Get Lifetime Access - P1,151
                     <Sparkles className="ml-2 h-5 w-5" />
                   </ValidatedCheckoutButton>
                 </div>
