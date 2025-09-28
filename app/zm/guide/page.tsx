@@ -6,7 +6,7 @@ import Script from 'next/script'
 import { createClient } from '@/lib/supabase/client'
 import { Button } from '@/components/ui/button'
 import ValidatedCheckoutButton from '@/components/validated-checkout-button'
-import { Card, CardContent, CardHeader } from '@/components/ui/card'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { GuidePageSkeleton } from '@/components/skeletons/GuidePageSkeleton'
 import {
   CheckCircle,
@@ -532,56 +532,89 @@ export default function ZambiaGuidePage() {
 
       {/* Premium Final CTA Section */}
       {!user && (
-      <section id="pricing" className="py-24 bg-gradient-to-br from-slate-900 via-emerald-900 to-teal-900 text-white relative overflow-hidden">
-        <div className="absolute inset-0">
-          <div className="absolute top-0 left-1/4 w-96 h-96 bg-emerald-500/20 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-teal-500/20 rounded-full blur-3xl"></div>
-        </div>
-        
-        <div className="relative max-w-6xl mx-auto px-6 text-center z-10">
-          <div className="inline-flex items-center gap-2 bg-gradient-to-r from-emerald-500 to-teal-500 px-6 py-3 rounded-2xl font-bold text-white mb-8 shadow-2xl border border-white/20">
-            <Rocket className="h-5 w-5" />
-            <span>Transform Your Import Dreams Into Reality</span>
-            <Rocket className="h-5 w-5" />
+      <section id="pricing" className="py-16 sm:py-20 bg-gradient-to-b from-gray-50 to-white overflow-x-hidden">
+        <div className="container mx-auto px-4 max-w-7xl">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 text-gray-800">
+              Complete Import Package
+            </h2>
+            <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">
+              Everything you need to import cars successfully - one comprehensive package with lifetime access.
+            </p>
           </div>
-          
-          <h2 className="text-5xl md:text-7xl font-black mb-8 leading-tight">
-            <span className="text-white drop-shadow-2xl">
-              Start Your Import
-            </span>
-            <br />
-            <span className="bg-gradient-to-r from-emerald-400 via-teal-400 to-green-400 bg-clip-text text-transparent">
-              Success Story Today
-            </span>
-          </h2>
-          
-          <p className="text-2xl md:text-3xl mb-12 text-emerald-100 max-w-4xl mx-auto font-light leading-relaxed">
-            Join the growing community of successful importers across Zambia who've saved thousands using our proven import system.
-          </p>
-          
-          <div className="max-w-4xl mx-auto">
-            <Card className="bg-white/10 backdrop-blur-md border border-white/20 overflow-hidden">
-              <CardContent className="p-12">
-                <div className="mb-8">
-                  <Crown className="h-16 w-16 text-teal-400 mx-auto mb-6" />
-                  <h3 className="text-4xl font-bold mb-4 text-white">
-                    Your Import Journey Starts Now
-                  </h3>
-                  <p className="text-2xl text-emerald-100 max-w-2xl mx-auto">
-                    Get instant access to everything you need to import Japanese cars to Zambia like a professional.
-                  </p>
+        
+          {/* Single Comprehensive Package */}
+          <div className="max-w-xl mx-auto">
+            {/* Complete Import Mastery - Single Comprehensive Package */}
+            <Card className="relative overflow-hidden hover:shadow-2xl transition-all duration-300 border-2 hover:border-emerald-500">
+              <div className="absolute top-0 right-0 bg-gradient-to-r from-emerald-600 to-teal-600 text-white text-xs font-bold px-4 py-2 rounded-bl-lg">
+                EVERYTHING INCLUDED
+              </div>
+              <div className="absolute top-0 left-0 w-32 h-32 bg-emerald-500 opacity-10 rounded-full -ml-16 -mt-16"></div>
+              <CardHeader className="pb-6">
+                <div className="flex items-center justify-between mb-4">
+                  <Crown className="h-12 w-12 text-emerald-500" />
+                  <span className="text-sm font-semibold bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full">
+                    Complete Solution
+                  </span>
                 </div>
-                
-                <div className="flex justify-center items-center mb-8">
+                <CardTitle className="text-2xl font-bold">Complete Import Mastery</CardTitle>
+                <div className="mt-4">
+                  <div className="flex items-center gap-3">
+                    <span className="text-3xl font-bold text-gray-400 line-through">K2,999</span>
+                    <span className="text-4xl font-bold text-emerald-600">K1,499</span>
+                  </div>
+                  <span className="text-green-600 font-semibold">Save K1,500 - Limited Time!</span>
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <ul className="space-y-3">
+                  <li className="flex items-start gap-3">
+                    <Star className="h-5 w-5 text-emerald-500 mt-0.5 flex-shrink-0" />
+                    <span className="text-gray-700 font-semibold">Complete import timeline & process</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                    <span className="text-gray-700">Comprehensive mistake avoidance checklist</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                    <span className="text-gray-700">Live duty & tax calculator</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                    <span className="text-gray-700">Document templates & email samples</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                    <span className="text-gray-700">Japan auction bidding guide</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                    <span className="text-gray-700">Verified agent contacts & reviews</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                    <span className="text-gray-700">Container sharing network</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                    <span className="text-gray-700">Priority WhatsApp support</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                    <span className="text-gray-700">Monthly updates & new features</span>
+                  </li>
+                </ul>
+                <div className="pt-6">
                   <ValidatedCheckoutButton
                     tier="mastery"
                     country="zm"
                     size="lg"
-                    className="h-16 px-12 text-xl font-bold bg-gradient-to-r from-emerald-500 via-teal-600 to-green-600 hover:from-emerald-600 hover:via-teal-700 hover:to-green-700 shadow-2xl hover:scale-105 transition-all duration-300 hover:shadow-emerald-500/30"
+                    className="w-full bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-bold py-4 text-lg rounded-lg transition-all duration-300 hover:shadow-xl"
                   >
-                    <Crown className="mr-4 h-6 w-6" />
-                    Get Complete Access - K1,499
-                    <Sparkles className="ml-4 h-6 w-6 group-hover:rotate-12 transition-transform" />
+                    Get Lifetime Access - K1,499
+                    <Sparkles className="ml-2 h-5 w-5" />
                   </ValidatedCheckoutButton>
                 </div>
               </CardContent>

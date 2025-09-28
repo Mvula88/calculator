@@ -5,7 +5,8 @@ import { createClient } from '@/lib/supabase/client'
 import Link from 'next/link'
 import Script from 'next/script'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader } from '@/components/ui/card'
+import ValidatedCheckoutButton from '@/components/validated-checkout-button'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { GuidePageSkeleton } from '@/components/skeletons/GuidePageSkeleton'
 import {
   CheckCircle,
@@ -270,7 +271,7 @@ export default function SouthAfricaGuidePage() {
           </div>
 
           {/* Premium CTA Section - Mobile Optimized */}
-          <div className="text-center mb-6 sm:mb-10" id="pricing">
+          <div className="text-center mb-6 sm:mb-10">
             <div className="bg-white/5 backdrop-blur-md rounded-lg sm:rounded-xl p-4 sm:p-6 border border-white/10 max-w-3xl mx-auto">
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center">
                 {user ? (
@@ -472,6 +473,101 @@ export default function SouthAfricaGuidePage() {
         </div>
       </section>
 
+
+      {/* Pricing Section */}
+      {!user && (
+      <section id="pricing" className="py-16 sm:py-20 bg-gradient-to-b from-gray-50 to-white overflow-x-hidden">
+        <div className="container mx-auto px-4 max-w-7xl">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 text-gray-800">
+              Complete Import Package
+            </h2>
+            <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">
+              Everything you need to import cars successfully - one comprehensive package with lifetime access.
+            </p>
+          </div>
+
+          {/* Single Comprehensive Package */}
+          <div className="max-w-xl mx-auto">
+            {/* Complete Import Mastery - Single Comprehensive Package */}
+            <Card className="relative overflow-hidden hover:shadow-2xl transition-all duration-300 border-2 hover:border-green-500">
+              <div className="absolute top-0 right-0 bg-gradient-to-r from-green-600 to-emerald-600 text-white text-xs font-bold px-4 py-2 rounded-bl-lg">
+                EVERYTHING INCLUDED
+              </div>
+              <div className="absolute top-0 left-0 w-32 h-32 bg-green-500 opacity-10 rounded-full -ml-16 -mt-16"></div>
+              <CardHeader className="pb-6">
+                <div className="flex items-center justify-between mb-4">
+                  <Crown className="h-12 w-12 text-green-500" />
+                  <span className="text-sm font-semibold bg-green-100 text-green-700 px-3 py-1 rounded-full">
+                    Complete Solution
+                  </span>
+                </div>
+                <CardTitle className="text-2xl font-bold">Complete Import Mastery</CardTitle>
+                <div className="mt-4">
+                  <div className="flex items-center gap-3">
+                    <span className="text-3xl font-bold text-gray-400 line-through">R2,999</span>
+                    <span className="text-4xl font-bold text-green-600">R1,499</span>
+                  </div>
+                  <span className="text-green-600 font-semibold">Save R1,500 - Limited Time!</span>
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <ul className="space-y-3">
+                  <li className="flex items-start gap-3">
+                    <Star className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                    <span className="text-gray-700 font-semibold">Complete import timeline & process</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                    <span className="text-gray-700">Comprehensive mistake avoidance checklist</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                    <span className="text-gray-700">Live duty & tax calculator</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                    <span className="text-gray-700">Document templates & email samples</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                    <span className="text-gray-700">Japan auction bidding guide</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                    <span className="text-gray-700">Verified agent contacts & reviews</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                    <span className="text-gray-700">Container sharing network</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                    <span className="text-gray-700">Priority WhatsApp support</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                    <span className="text-gray-700">Monthly updates & new features</span>
+                  </li>
+                </ul>
+                <div className="pt-6">
+                  <ValidatedCheckoutButton
+                    tier="mastery"
+                    country="za"
+                    size="lg"
+                    className="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-bold py-4 text-lg rounded-lg transition-all duration-300 hover:shadow-xl"
+                  >
+                    Get Lifetime Access - R1,499
+                    <Sparkles className="ml-2 h-5 w-5" />
+                  </ValidatedCheckoutButton>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+        </div>
+      </section>
+      )}
 
       {/* Professional FAQ Section - Mobile Optimized */}
       <section className="py-12 sm:py-24 bg-gradient-to-b from-white to-gray-50" aria-labelledby="faq-heading">
