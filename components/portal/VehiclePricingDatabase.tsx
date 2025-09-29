@@ -33,14 +33,14 @@ const vehicleDatabase: VehiclePricing[] = [
   { model: 'VW Golf 6', year: '2009-2012', engineSize: '1.4L TSI', priceRangeJPY: '¥200,000-400,000', priceRangeNAD: 'N$24,000-48,000', category: 'Hatchback' },
   { model: 'VW Golf 7', year: '2013-2018', engineSize: '1.4L TSI', priceRangeJPY: '¥600,000-700,000', priceRangeNAD: 'N$72,000-84,000', category: 'Hatchback', popularity: 'high' },
   { model: 'VW Golf 7 GTI', year: '2013-2018', engineSize: '2.0L TSI', priceRangeJPY: '¥1,000,000-1,400,000', priceRangeNAD: 'N$120,000-168,000', category: 'Sport', notes: 'Performance model' },
-  { model: 'VW Golf 7R', year: '2013-2018', engineSize: '2.0L TSI', priceRangeJPY: '¥1,300,000-2,000,000+', priceRangeNAD: 'N$156,000-240,000+', category: 'Sport', notes: 'Top performance' },
+  { model: 'VW Golf 7R', year: '2013-2018', engineSize: '2.0L TSI', priceRangeJPY: '¥500,000-2,000,000+', priceRangeNAD: 'N$60,000-240,000+', category: 'Sport', notes: 'Top performance' },
   { model: 'VW Tiguan', year: '2013-2016', engineSize: '1.4L/2.0L TSI', priceRangeJPY: '¥700,000-800,000', priceRangeNAD: 'N$84,000-96,000', category: 'SUV' },
 
   // Audi
   { model: 'Audi A1', year: '2013-2018', engineSize: '1.4L TFSI', priceRangeJPY: '¥500,000', priceRangeNAD: 'N$60,000', category: 'Hatchback' },
   { model: 'Audi A3 Sportback', year: '2013-2017', engineSize: '1.4L/1.8L TFSI', priceRangeJPY: '¥500,000-700,000', priceRangeNAD: 'N$60,000-84,000', category: 'Hatchback', popularity: 'high' },
   { model: 'Audi A4 B8/B9', year: '2013-2018', engineSize: '1.8L/2.0L TFSI', priceRangeJPY: '¥200,000-750,000', priceRangeNAD: 'N$24,000-90,000', category: 'Sedan', popularity: 'high' },
-  { model: 'Audi A5', year: '2013-2016', engineSize: '2.0L TFSI', priceRangeJPY: 'Limited data', priceRangeNAD: 'Contact dealer', category: 'Coupe', notes: 'Limited auction history' },
+  { model: 'Audi A5', year: '2013-2016', engineSize: '2.0L TFSI', priceRangeJPY: '¥300,000+', priceRangeNAD: 'N$36,000+', category: 'Coupe', notes: 'Limited auction history' },
   { model: 'Audi A6', year: '2013-2016', engineSize: '2.0L/3.0L TFSI', priceRangeJPY: '¥400,000-600,000', priceRangeNAD: 'N$48,000-72,000', category: 'Sedan' },
   { model: 'Audi Q3', year: '2013-2016', engineSize: '1.4L/2.0L TFSI', priceRangeJPY: '¥500,000-600,000', priceRangeNAD: 'N$60,000-72,000', category: 'SUV' },
   { model: 'Audi Q5', year: '2013-2018', engineSize: '2.0L TFSI', priceRangeJPY: '¥800,000-1,500,000', priceRangeNAD: 'N$96,000-180,000', category: 'SUV', popularity: 'high' },

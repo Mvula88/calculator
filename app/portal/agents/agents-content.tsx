@@ -114,9 +114,40 @@ const agents = [
     verified: true,
     tier: "Gold"
   },
-  // SOUTH AFRICA
   {
     id: 4,
+    name: "Manica Group Namibia",
+    country: "Namibia",
+    location: "Walvis Bay",
+    rating: 4.8,
+    reviews: 687,
+    specialities: ["Freight Forwarding", "Customs Clearing", "Logistics Solutions"],
+    experience: "20+ years",
+    avgProcessingTime: "5-8 days",
+    successRate: "98.2%",
+    fees: {
+      standard: "N$11,000",
+      express: "N$16,500",
+      specialized: "N$21,000"
+    },
+    contact: {
+      phone: "+264 64 201 2911",
+      email: "info@manica.com.na",
+      website: "manica.com"
+    },
+    offices: [
+      "2 Third Str, Walvis Bay, Namibia"
+    ],
+    services: ["Vehicle Clearing", "Freight Forwarding", "Customs Brokerage", "Supply Chain Solutions", "Documentation"],
+    certifications: ["NamRA Licensed", "International Freight Forwarder", "Customs Accredited"],
+    recentSuccess: "Leading freight and logistics provider with global network",
+    testimonial: "Professional and efficient clearing services with excellent communication.",
+    verified: true,
+    tier: "Gold"
+  },
+  // SOUTH AFRICA
+  {
+    id: 5,
     name: "Transworld Cargo South Africa",
     country: "South Africa",
     location: "Johannesburg / Upington",
@@ -144,7 +175,7 @@ const agents = [
     featured: true
   },
   {
-    id: 5,
+    id: 6,
     name: "Durban Clearing & Forwarding",
     country: "South Africa",
     location: "Durban",
@@ -172,7 +203,7 @@ const agents = [
     tier: "Gold"
   },
   {
-    id: 6,
+    id: 7,
     name: "Cargo Compass SA",
     country: "South Africa",
     location: "All Major Ports",
@@ -197,7 +228,7 @@ const agents = [
     tier: "Platinum"
   },
   {
-    id: 7,
+    id: 8,
     name: "Sediba Clearing",
     country: "South Africa",
     location: "Beitbridge / JHB / DBN / Komatipoort",
@@ -223,7 +254,7 @@ const agents = [
   },
   // BOTSWANA
   {
-    id: 8,
+    id: 9,
     name: "Transworld Cargo Botswana (TriOptimum)",
     country: "Botswana",
     location: "Gaborone",
@@ -253,7 +284,7 @@ const agents = [
     featured: true
   },
   {
-    id: 9,
+    id: 10,
     name: "Swift Logistics Botswana",
     country: "Botswana",
     location: "Gaborone",
@@ -281,7 +312,7 @@ const agents = [
     tier: "Silver"
   },
   {
-    id: 10,
+    id: 11,
     name: "Trans-Tech Botswana",
     country: "Botswana",
     location: "Gaborone",
@@ -308,7 +339,7 @@ const agents = [
   },
   // ZAMBIA
   {
-    id: 11,
+    id: 12,
     name: "Transworld Cargo Zambia",
     country: "Zambia",
     location: "Via Katima Mulilo / Walvis Bay",
@@ -336,7 +367,7 @@ const agents = [
     featured: true
   },
   {
-    id: 12,
+    id: 13,
     name: "ESSE Clearing Ltd",
     country: "Zambia",
     location: "Livingstone / Lusaka / All Borders",
@@ -370,7 +401,7 @@ const agents = [
     tier: "Platinum"
   },
   {
-    id: 13,
+    id: 14,
     name: "DSV Zambia",
     country: "Zambia",
     location: "Lusaka",
@@ -397,7 +428,7 @@ const agents = [
   },
   // MULTI-COUNTRY AGENTS
   {
-    id: 14,
+    id: 15,
     name: "Blackie's Consultants",
     country: "Multi-Country",
     location: "SA / Namibia / Botswana / Zimbabwe",
