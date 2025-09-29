@@ -48,7 +48,7 @@ const shippingCompanies: ShippingCompany[] = [
     description: 'World\'s largest container shipping company with extensive African coverage',
     routes: ['Europe → Southern Africa', 'Asia → Southern Africa', 'Americas → Africa'],
     avgTransitTime: '21-28 days',
-    priceRange: 'R28,000 - R42,000',
+    priceRange: 'R70,000 - R165,000',
     rating: 4.5,
     contact: {
       namibia: {
@@ -72,7 +72,7 @@ const shippingCompanies: ShippingCompany[] = [
     description: 'Second largest global carrier with competitive rates to Africa',
     routes: ['Europe → West Africa', 'Mediterranean → Southern Africa', 'Asia → Africa'],
     avgTransitTime: '22-30 days',
-    priceRange: 'R26,000 - R38,000',
+    priceRange: 'R70,000 - R165,000',
     rating: 4.3,
     contact: {
       namibia: {
@@ -96,7 +96,7 @@ const shippingCompanies: ShippingCompany[] = [
     description: 'French carrier with strong Europe-Africa connections',
     routes: ['France → West Africa', 'Europe → Southern Africa', 'Asia → Africa via Europe'],
     avgTransitTime: '24-32 days',
-    priceRange: 'R25,000 - R36,000',
+    priceRange: 'R70,000 - R165,000',
     rating: 4.2,
     contact: {
       namibia: {
@@ -120,7 +120,7 @@ const shippingCompanies: ShippingCompany[] = [
     description: 'German precision shipping with reliable Africa services',
     routes: ['Germany → Southern Africa', 'Europe → East Africa', 'Middle East → Africa'],
     avgTransitTime: '23-29 days',
-    priceRange: 'R27,000 - R40,000',
+    priceRange: 'R70,000 - R165,000',
     rating: 4.4,
     contact: {
       namibia: {
@@ -168,7 +168,7 @@ const shippingCompanies: ShippingCompany[] = [
     description: 'Chinese state-owned carrier with competitive Asia-Africa rates',
     routes: ['China → Africa', 'Asia → Southern Africa', 'Far East → West Africa'],
     avgTransitTime: '30-38 days',
-    priceRange: 'R24,000 - R35,000',
+    priceRange: 'R70,000 - R165,000',
     rating: 4.0,
     contact: {
       namibia: {
