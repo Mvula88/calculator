@@ -279,7 +279,7 @@ const serviceProviders: ServiceProvider[] = [
   }
 ]
 export function PracticalTools() {
-  const [activeTab, setActiveTab] = useState<'duty' | 'progress' | 'contacts'>('duty')
+  const [activeTab, setActiveTab] = useState<'duty' | 'progress'>('duty')
   const [dutyCalc, setDutyCalc] = useState({
     vehicleValue: '',
     engineSize: '',
@@ -379,17 +379,6 @@ export function PracticalTools() {
         >
           <ProgressIcon className="h-4 w-4 inline mr-2" />
           Progress Tracker
-        </button>
-        <button
-          onClick={() => setActiveTab('contacts')}
-          className={`px-4 py-2 font-medium border-b-2 transition-colors ${
-            activeTab === 'contacts'
-              ? 'border-blue-600 text-blue-600'
-              : 'border-transparent text-gray-600 hover:text-gray-900'
-          }`}
-        >
-          <Users className="h-4 w-4 inline mr-2" />
-          Service Providers
         </button>
       </div>
       {/* Duty Calculator Tab */}
@@ -611,105 +600,6 @@ export function PracticalTools() {
                   </div>
                 )
               })}
-            </div>
-          </div>
-        </Card>
-      )}
-      {/* Service Providers Tab */}
-      {activeTab === 'contacts' && (
-        <Card className="overflow-hidden">
-          <div className="bg-gradient-to-r from-purple-50 to-pink-50 p-6">
-            <h3 className="text-xl font-bold mb-2 flex items-center gap-2">
-              <Users className="h-5 w-5 text-purple-600" />
-              Service Provider Directory
-            </h3>
-            <p className="text-sm text-gray-600">
-              Recommended service providers for your import needs
-            </p>
-          </div>
-          <div className="p-6">
-            {/* Search and Filter */}
-            <div className="flex flex-col md:flex-row gap-4 mb-6">
-              <div className="flex-1">
-                <Input
-                  placeholder="Search providers..."
-                  value={searchProvider}
-                  onChange={(e) => setSearchProvider(e.target.value)}
-                />
-              </div>
-              <div className="flex gap-2">
-                {['all', 'clearing-agent', 'translator', 'transporter', 'insurance', 'finance'].map(type => (
-                  <button
-                    key={type}
-                    onClick={() => setFilterProviderType(type)}
-                    className={`px-3 py-2 text-sm rounded border transition-colors ${
-                      filterProviderType === type
-                        ? 'bg-blue-100 border-blue-300 text-blue-700'
-                        : 'bg-white border-gray-300 text-gray-600 hover:border-gray-400'
-                    }`}
-                  >
-                    {type === 'all' ? 'All' : type.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())}
-                  </button>
-                ))}
-              </div>
-            </div>
-            {/* Provider List */}
-            <div className="grid gap-4">
-              {filteredProviders.map((provider, index) => (
-                <div key={index} className="border rounded-lg p-4 hover:bg-gray-50">
-                  <div className="flex items-start justify-between mb-3">
-                    <div>
-                      <h4 className="font-bold text-lg">{provider.name}</h4>
-                      <div className="flex items-center gap-2 mt-1">
-                        <span className="px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded-full">
-                          {provider.type.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())}
-                        </span>
-                        {provider.rating && (
-                          <div className="flex items-center gap-1">
-                            <span className="text-yellow-500">★</span>
-                            <span className="text-sm font-medium">{provider.rating}</span>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                    <div className="text-sm text-gray-500">{provider.location}</div>
-                  </div>
-                  <p className="text-sm text-gray-700 mb-3">{provider.speciality}</p>
-                  {provider.notes && (
-                    <p className="text-xs text-blue-600 bg-blue-50 p-2 rounded mb-3">
-                      {provider.notes}
-                    </p>
-                  )}
-                  <div className="flex flex-wrap gap-3 text-sm">
-                    {provider.phone && (
-                      <div className="flex items-center gap-1">
-                        <Phone className="h-4 w-4 text-green-600" />
-                        <span className="font-mono">{provider.phone}</span>
-                      </div>
-                    )}
-                    {provider.email && (
-                      <div className="flex items-center gap-1">
-                        <Mail className="h-4 w-4 text-blue-600" />
-                        <span>{provider.email}</span>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
-            {filteredProviders.length === 0 && (
-              <div className="text-center py-8 text-gray-500">
-                <Users className="h-12 w-12 mx-auto mb-3 text-gray-300" />
-                <p>No service providers match your search criteria</p>
-              </div>
-            )}
-            {/* Disclaimer */}
-            <div className="mt-6 p-3 bg-yellow-50 border border-yellow-200 rounded">
-              <p className="text-xs text-yellow-800">
-                <Info className="h-3 w-3 inline mr-1" />
-                <strong>Note:</strong> This directory is for reference only. Always verify credentials, get written quotes, 
-                and check references before engaging any service provider.
-              </p>
             </div>
           </div>
         </Card>

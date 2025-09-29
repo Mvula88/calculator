@@ -13,10 +13,10 @@ interface Warning {
 const criticalWarnings: Warning[] = [
   {
     title: 'Inland Transport Costs Are Extreme',
-    description: 'Transport from Walvis Bay to Windhoek can cost R36,000-R73,000 per vehicle',
+    description: 'Transport from Walvis Bay to Windhoek can cost N$4,500-N$12,500 per vehicle',
     impact: 'high',
     solution: 'Factor 20-30% of vehicle value for inland transport. Consider buying multiple cars to share truck costs.',
-    realExample: 'Honda Fit inland transport: R44,875 (53% of purchase price!)'
+    realExample: 'Honda Fit inland transport: N$8,500 for single vehicle delivery'
   },
   {
     title: 'Storage Fees Accumulate Fast',
