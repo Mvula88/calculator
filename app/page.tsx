@@ -542,8 +542,8 @@ export default function HomePage() {
             {/* Mobile Carousel */}
             <div className="lg:hidden">
               <div className="overflow-x-auto pb-4">
-                <div className="flex gap-4" style={{ width: 'max-content' }}>
-                  <Card className="border-2 hover:border-blue-300 transition-colors w-72">
+                <div className="flex gap-4 px-4" style={{ width: 'max-content' }}>
+                  <Card className="border-2 hover:border-blue-300 transition-colors w-64 sm:w-72">
                     <CardHeader>
                       <Calculator className="h-10 w-10 text-blue-600 mb-3" />
                       <CardTitle>Advanced Calculators</CardTitle>
@@ -554,7 +554,7 @@ export default function HomePage() {
                       </p>
                     </CardContent>
                   </Card>
-                  <Card className="border-2 hover:border-purple-300 transition-colors w-72">
+                  <Card className="border-2 hover:border-purple-300 transition-colors w-64 sm:w-72">
                     <CardHeader>
                       <Users className="h-10 w-10 text-purple-600 mb-3" />
                       <CardTitle>Verified Clearing Agents</CardTitle>
@@ -565,7 +565,7 @@ export default function HomePage() {
                       </p>
                     </CardContent>
                   </Card>
-                  <Card className="border-2 hover:border-green-300 transition-colors w-72">
+                  <Card className="border-2 hover:border-green-300 transition-colors w-64 sm:w-72">
                     <CardHeader>
                       <FileText className="h-10 w-10 text-green-600 mb-3" />
                       <CardTitle>Complete Guides</CardTitle>
@@ -576,7 +576,7 @@ export default function HomePage() {
                       </p>
                     </CardContent>
                   </Card>
-                  <Card className="border-2 hover:border-orange-300 transition-colors w-72">
+                  <Card className="border-2 hover:border-orange-300 transition-colors w-64 sm:w-72">
                     <CardHeader>
                       <Map className="h-10 w-10 text-orange-600 mb-3" />
                       <CardTitle>Real Import Examples</CardTitle>
@@ -587,7 +587,7 @@ export default function HomePage() {
                       </p>
                     </CardContent>
                   </Card>
-                  <Card className="border-2 hover:border-cyan-300 transition-colors w-72">
+                  <Card className="border-2 hover:border-cyan-300 transition-colors w-64 sm:w-72">
                     <CardHeader>
                       <Package className="h-10 w-10 text-cyan-600 mb-3" />
                       <CardTitle>Container Sharing Guide</CardTitle>
@@ -598,7 +598,7 @@ export default function HomePage() {
                       </p>
                     </CardContent>
                   </Card>
-                  <Card className="border-2 hover:border-indigo-300 transition-colors w-72">
+                  <Card className="border-2 hover:border-indigo-300 transition-colors w-64 sm:w-72">
                     <CardHeader>
                       <Ship className="h-10 w-10 text-indigo-600 mb-3" />
                       <CardTitle>Shipping Resources</CardTitle>
@@ -609,7 +609,7 @@ export default function HomePage() {
                       </p>
                     </CardContent>
                   </Card>
-                  <Card className="border-2 hover:border-pink-300 transition-colors w-72">
+                  <Card className="border-2 hover:border-pink-300 transition-colors w-64 sm:w-72">
                     <CardHeader>
                       <BookOpen className="h-10 w-10 text-pink-600 mb-3" />
                       <CardTitle>Document Guides</CardTitle>
@@ -620,7 +620,7 @@ export default function HomePage() {
                       </p>
                     </CardContent>
                   </Card>
-                  <Card className="border-2 hover:border-teal-300 transition-colors w-72">
+                  <Card className="border-2 hover:border-teal-300 transition-colors w-64 sm:w-72">
                     <CardHeader>
                       <TrendingUp className="h-10 w-10 text-teal-600 mb-3" />
                       <CardTitle>Market Education</CardTitle>
@@ -637,18 +637,18 @@ export default function HomePage() {
             </div>
           </div>
           {/* CTA */}
-          <div className="text-center mt-12">
+          <div className="text-center mt-12 px-4">
             <ValidatedCheckoutButton
               tier="mastery"
               country="na"
               size="lg"
-              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold py-6 px-12 text-lg rounded-lg transition-all duration-300 hover:shadow-xl"
+              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold py-4 sm:py-6 px-6 sm:px-12 text-base sm:text-lg rounded-lg transition-all duration-300 hover:shadow-xl w-full sm:w-auto"
             >
-              <Sparkles className="mr-2 h-5 w-5" />
-              Get Lifetime Access - N$1,499
-              <ArrowRight className="ml-2 h-5 w-5" />
+              <Sparkles className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
+              <span className="truncate">Get Lifetime Access - N$1,499</span>
+              <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
             </ValidatedCheckoutButton>
-            <p className="text-sm text-gray-600 mt-4">
+            <p className="text-xs sm:text-sm text-gray-600 mt-4">
               One-time payment • Instant access • Regular updates
             </p>
           </div>
