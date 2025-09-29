@@ -2,10 +2,33 @@
 
 import { useState, useEffect } from 'react'
 import { X, Clock, TrendingDown, Zap } from 'lucide-react'
+import { createClient } from '@/lib/supabase/client'
 
 export default function SaleBanner() {
   const [timeLeft, setTimeLeft] = useState('')
   const [isVisible, setIsVisible] = useState(true)
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [checkingAuth, setCheckingAuth] = useState(true)
+
+  useEffect(() => {
+    // Check if user is authenticated
+    const checkAuth = async () => {
+      try {
+        const supabase = createClient()
+        const { data: { user } } = await supabase.auth.getUser()
+        if (user) {
+          setIsAuthenticated(true)
+          setIsVisible(false) // Hide banner for authenticated users
+        }
+      } catch (error) {
+        // If there's an error checking auth, show the banner
+      } finally {
+        setCheckingAuth(false)
+      }
+    }
+
+    checkAuth()
+  }, [])
 
   useEffect(() => {
     // Sale ends on Oct 31, 2025
@@ -40,7 +63,8 @@ export default function SaleBanner() {
     return () => clearInterval(timer)
   }, [])
 
-  if (!isVisible) return null
+  // Don't show banner for authenticated users or while checking auth
+  if (!isVisible || isAuthenticated || checkingAuth) return null
 
   return (
     <div className="bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 text-white relative overflow-hidden">
