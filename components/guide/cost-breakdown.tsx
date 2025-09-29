@@ -212,7 +212,6 @@ export function CostBreakdown({ showTimelineIntegration = true }: CostBreakdownP
                 <tr className="border-b">
                   <th className="text-left py-3 px-2">Select</th>
                   <th className="text-left py-3 px-2">Cost Item</th>
-                  <th className="text-left py-3 px-2">Amount (NAD)</th>
                   <th className="text-left py-3 px-2">When Due</th>
                   <th className="text-left py-3 px-2">Priority</th>
                   <th className="text-left py-3 px-2">Notes</th>
@@ -241,7 +240,6 @@ export function CostBreakdown({ showTimelineIntegration = true }: CostBreakdownP
                       </div>
                       <div className="text-xs text-gray-500 mt-1">{item.stage}</div>
                     </td>
-                    <td className="py-3 px-2 font-mono text-sm font-medium">{item.range}</td>
                     <td className="py-3 px-2 text-sm text-gray-600">{item.paymentTiming}</td>
                     <td className="py-3 px-2">
                       <span className={`px-2 py-1 text-xs rounded-full border ${getPriorityColor(item.priority)}`}>

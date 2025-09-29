@@ -191,22 +191,13 @@ export function PreImportEssentials({ onNavigateToSection }: PreImportEssentials
       </div>
 
       {/* Quick Summary Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
         <Card className="p-4 bg-gradient-to-br from-blue-50 to-blue-100">
           <div className="flex items-start gap-3">
             <CheckCircle className="h-5 w-5 text-blue-600 mt-1" />
             <div>
               <p className="font-semibold text-blue-900">Vehicle Rules</p>
               <p className="text-sm text-blue-700">Max 12 years, RHD only</p>
-            </div>
-          </div>
-        </Card>
-        <Card className="p-4 bg-gradient-to-br from-green-50 to-green-100">
-          <div className="flex items-start gap-3">
-            <DollarSign className="h-5 w-5 text-green-600 mt-1" />
-            <div>
-              <p className="font-semibold text-green-900">Total Budget</p>
-              <p className="text-sm text-green-700">N${Math.round(totalCapitalNeeded / 1000)}k needed</p>
             </div>
           </div>
         </Card>
@@ -265,52 +256,6 @@ export function PreImportEssentials({ onNavigateToSection }: PreImportEssentials
                 </div>
               </div>
             ))}
-          </div>
-        </div>
-      </Card>
-
-      {/* Capital Requirements */}
-      <Card className="overflow-hidden">
-        <div className="bg-gradient-to-r from-green-50 to-yellow-50 p-6">
-          <h3 className="text-xl font-bold mb-2 flex items-center gap-2">
-            <DollarSign className="h-5 w-5 text-green-600" />
-            Required Capital Breakdown
-          </h3>
-          <p className="text-sm text-gray-600">
-            You need N${Math.round(totalCapitalNeeded / 1000)}k total - here's when each payment is due
-          </p>
-        </div>
-        <div className="p-6">
-          <div className="space-y-3">
-            {capitalRequirements.map((req, index) => (
-              <div key={index} className="flex items-center gap-4 p-3 border rounded-lg">
-                <div className={`p-2 rounded-lg ${req.critical ? 'bg-red-100' : 'bg-gray-100'}`}>
-                  {req.critical ? (
-                    <AlertTriangle className="h-4 w-4 text-red-600" />
-                  ) : (
-                    <Info className="h-4 w-4 text-gray-600" />
-                  )}
-                </div>
-                <div className="flex-1">
-                  <div className="flex items-center justify-between">
-                    <h4 className="font-medium">{req.stage}</h4>
-                    <span className="font-bold text-lg">{req.amount}</span>
-                  </div>
-                  <p className="text-sm text-gray-600">{req.description}</p>
-                  <p className="text-xs text-gray-500 mt-1">Due: {req.timing}</p>
-                </div>
-                {req.critical && (
-                  <span className="px-2 py-1 bg-red-100 text-red-700 text-xs rounded-full">
-                    Critical
-                  </span>
-                )}
-              </div>
-            ))}
-          </div>
-          <div className="mt-4 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
-            <p className="text-sm text-yellow-800">
-              <strong>💡 Pro tip:</strong> Keep the emergency buffer separate - 15-20% of imports need it for storage fees, delays, or document corrections.
-            </p>
           </div>
         </div>
       </Card>

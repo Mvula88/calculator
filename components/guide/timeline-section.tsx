@@ -58,40 +58,12 @@ export function TimelineSection({ steps }: TimelineSectionProps) {
 
   return (
     <div className="space-y-4">
-      {/* Header with cost overview toggle */}
-      <div className="flex items-center justify-between mb-6">
-        <div>
-          <h2 className="text-2xl font-bold">📅 Complete Import Timeline</h2>
-          <p className="text-gray-600 text-sm mt-1">Step-by-step process with costs and delays at each stage</p>
-        </div>
-        <button
-          onClick={() => setShowCostBreakdown(!showCostBreakdown)}
-          className="flex items-center gap-2 px-4 py-2 bg-blue-50 border border-blue-200 rounded-lg text-blue-700 hover:bg-blue-100 transition-colors"
-        >
-          <DollarSign className="h-4 w-4" />
-          {showCostBreakdown ? 'Hide' : 'Show'} Cost Overview
-        </button>
+      {/* Header */}
+      <div className="mb-6">
+        <h2 className="text-2xl font-bold">📅 Complete Import Timeline</h2>
+        <p className="text-gray-600 text-sm mt-1">Step-by-step process with delays at each stage</p>
       </div>
 
-      {/* Cost Overview */}
-      {showCostBreakdown && (
-        <Card className="mb-6 p-4 bg-gradient-to-r from-green-50 to-blue-50 border-green-200">
-          <h3 className="font-bold mb-3 flex items-center gap-2">
-            <TrendingUp className="h-5 w-5 text-green-600" />
-            Cost Timeline Overview
-          </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-            {steps.map((step, idx) => (
-              step.costAtStage && (
-                <div key={idx} className="flex items-center justify-between p-2 bg-white rounded border">
-                  <span className="text-sm font-medium">{step.title}</span>
-                  <span className="text-sm font-bold text-green-700">{step.costAtStage}</span>
-                </div>
-              )
-            ))}
-          </div>
-        </Card>
-      )}
 
       {steps.map((step, index) => (
         <Card key={index} className="overflow-hidden">
@@ -112,12 +84,6 @@ export function TimelineSection({ steps }: TimelineSectionProps) {
                         <Clock className="h-4 w-4" />
                         <span>{step.duration}</span>
                       </div>
-                      {step.costAtStage && (
-                        <div className="flex items-center gap-1 text-green-600">
-                          <DollarSign className="h-4 w-4" />
-                          <span>{step.costAtStage}</span>
-                        </div>
-                      )}
                       {step.urgencyLevel && (
                         <span className={`px-2 py-1 text-xs rounded-full border ${getUrgencyColor(step.urgencyLevel)}`}>
                           {step.urgencyLevel} urgency

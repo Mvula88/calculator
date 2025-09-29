@@ -21,7 +21,6 @@ const namibiaTimelineSteps = [
   {
     title: 'Pre-Import Planning',
     duration: '7–14 days',
-    costAtStage: 'N$25,000-45,000',
     urgencyLevel: 'critical' as 'low' | 'medium' | 'high' | 'critical',
     required: [
       'Pick a car that meets import rules (max 12 years old for Namibia)',
@@ -57,7 +56,6 @@ const namibiaTimelineSteps = [
   {
     title: 'Documentation Preparation',
     duration: '3–5 days',
-    costAtStage: 'N$2,000-5,000',
     urgencyLevel: 'high' as 'low' | 'medium' | 'high' | 'critical',
     required: [
       'SAD 500 form (clearing firm prepares)',
@@ -94,7 +92,6 @@ const namibiaTimelineSteps = [
   {
     title: 'Shipping & Arrival',
     duration: '35–45 days',
-    costAtStage: 'N$18,000-35,000',
     urgencyLevel: 'medium' as 'low' | 'medium' | 'high' | 'critical',
     required: [
       'Track container location weekly',
@@ -123,7 +120,6 @@ const namibiaTimelineSteps = [
   {
     title: 'Clearance & Collection',
     duration: '5–10 days',
-    costAtStage: 'N$40,000-80,000',
     urgencyLevel: 'critical' as 'low' | 'medium' | 'high' | 'critical',
     required: [
       'Submit documents to clearing agent',
@@ -157,7 +153,6 @@ const namibiaTimelineSteps = [
   {
     title: 'Registration',
     duration: '7–14 days',
-    costAtStage: 'N$2,500-4,500',
     urgencyLevel: 'medium' as 'low' | 'medium' | 'high' | 'critical',
     required: [
       'Roadworthy certificate',
@@ -323,14 +318,10 @@ export default function GuidePage() {
                 <CheckCircle className="h-16 w-16 text-green-600 mx-auto mb-4" />
                 <h2 className="text-2xl font-bold mb-4">Your Import Success Formula</h2>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                   <div className="p-4 bg-white rounded-lg border">
                     <div className="text-3xl font-bold text-blue-600 mb-2">95%</div>
                     <p className="text-sm text-gray-600">Success rate when following all steps</p>
-                  </div>
-                  <div className="p-4 bg-white rounded-lg border">
-                    <div className="text-3xl font-bold text-green-600 mb-2">{currency}30-50k</div>
-                    <p className="text-sm text-gray-600">Average savings vs dealer prices</p>
                   </div>
                   <div className="p-4 bg-white rounded-lg border">
                     <div className="text-3xl font-bold text-purple-600 mb-2">60-75</div>
