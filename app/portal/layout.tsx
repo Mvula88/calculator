@@ -229,7 +229,7 @@ export default function SimplePortalLayout({
         {/* Sidebar Navigation */}
         <aside className="hidden lg:flex lg:flex-shrink-0">
           <div className="flex flex-col w-64">
-            <div className="flex flex-col flex-grow bg-white border-r border-gray-200 pt-5 pb-4 overflow-y-auto">
+            <div className="flex flex-col flex-grow bg-white border-r border-gray-200 pt-5 pb-4">
               <nav className="mt-5 flex-1 px-2 space-y-1">
                 {navigation.map((item) => (
                   <Link
