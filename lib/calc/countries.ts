@@ -266,9 +266,9 @@ export function calcBW(params: Inputs): FullOutput {
  *   - ≤1500cc: ZMW 50,000 | 1501-2000cc: ZMW 100,000 | 2001-3000cc: ZMW 150,000 | >3000cc: ZMW 200,000
  * - Import VAT = 16% × [CIF + Duty + Excise]
  *
- * ⚠️ WARNING: zra_specific_duty_2025.json may be outdated (uses pre-2025 rates)
- * Official 2025 rates published Jan 3, 2025 (9.55 MB PDF) show significantly higher values
- * Example: Sedan 1501-2500cc, 2-5 years = ZMW 61,225 (vs ~ZMW 30,000 in current file)
+ * ✅ UPDATED: zra_specific_duty_2025.json now uses official ZRA 2025 rates
+ * Source: ZRA Revised Used Motor Vehicle Specific Duty Rates 2025 (Published Jan 2025)
+ * Example: Sedan 1501-2500cc = ZMW 33,844.12 | SUV 1501-2500cc = ZMW 49,078.78
  */
 export function calcZM(params: Inputs): FullOutput {
   const { cif, zm = {} } = params;
@@ -368,11 +368,11 @@ export function calcZM(params: Inputs): FullOutput {
   // Add Zambia specific notes with 2025 updates
   output.breakdownNotes = [
     ...(output.breakdownNotes || []),
-    '🚨 CRITICAL: Your duty table (zra_specific_duty_2025.json) appears OUTDATED.',
-    'Official ZRA 2025 rates (published Jan 3, 2025) show significantly higher values.',
-    'Download updated rates: https://www.zra.org.zm/download/used-motor-vehicle-specific-duty-rates-2025/',
+    '✅ Using official ZRA 2025 specific duty rates (Revised, published Jan 2025).',
+    `Specific Duty: ZMW ${duty.toLocaleString()} for ${type} ${cc}cc, ${ageYears} years old.`,
     `Carbon Surtax (NEW 2025): ZMW ${carbonSurtax.toLocaleString()} based on ${cc}cc engine.`,
-    `Excise duty: ${calculatedExciseRate}% of CIF (${fuelType === 'hybrid' ? 'reduced hybrid rate' : 'standard rate'}).`
+    `Excise duty: ${calculatedExciseRate}% of CIF (${fuelType === 'hybrid' ? 'reduced hybrid rate 25%' : fuelType === 'electric' ? 'EV exempt 0%' : 'standard rate'}).`,
+    'VAT: 16% × (CIF + Duty + Excise). Note: Carbon surtax not included in VAT base.'
   ];
 
   if (isEV || fuelType === 'electric') {
