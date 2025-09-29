@@ -52,7 +52,6 @@ const agents = [
     testimonial: "The most reliable clearing agent in Namibia. Their experience shows in every transaction.",
     verified: true,
     tier: "Platinum",
-    featured: true
   },
   {
     id: 2,
@@ -203,7 +202,6 @@ const agents = [
     recentSuccess: "Strategic presence in key South African locations for vehicle imports",
     verified: true,
     tier: "Platinum",
-    featured: true
   },
   {
     id: 6,
@@ -514,27 +512,6 @@ const agents = [
   },
   // ZAMBIA
   {
-    id: 14,
-    name: "DSV Zambia",
-    country: "Zambia",
-    location: "Lusaka",
-    rating: 4.5,
-    reviews: 445,
-    specialities: ["30+ Years Experience", "International Network", "All Transport Modes"],
-    experience: "30+ years",
-    avgProcessingTime: "8-12 days",
-    successRate: "96.8%",
-    contact: {
-      phone: "+260 211 846 340",
-      email: "zambia@zm.dsv.com"
-    },
-    services: ["Air/Sea/Road Freight", "Project Transport", "Logistics Solutions", "Vehicle Imports"],
-    certifications: ["ZRA Licensed", "International Network", "30+ Years Experience"],
-    recentSuccess: "International freight forwarder with strong local presence",
-    verified: true,
-    tier: "Gold"
-  },
-  {
     id: 30,
     name: "DSV Air & Sea Zambia",
     country: "Zambia",
@@ -791,15 +768,6 @@ export default function AgentsContent() {
           Reputable, licensed clearing agents across Namibia, South Africa, Botswana, and Zambia.
           All agents are properly registered with their respective customs authorities.
         </p>
-        <div className="mt-4 p-4 bg-green-50 border border-green-200 rounded-lg">
-          <div className="flex items-center gap-2">
-            <Shield className="h-5 w-5 text-green-600" />
-            <span className="font-semibold text-green-900">TRANSWORLD CARGO FEATURED</span>
-          </div>
-          <p className="text-green-800 text-sm mt-1">
-            Transworld Cargo operates across all listed countries with 39+ years of experience in vehicle imports.
-          </p>
-        </div>
       </div>
       {/* Country Filter */}
       <div className="mb-6 p-4 bg-gray-50 rounded-lg">
@@ -833,43 +801,6 @@ export default function AgentsContent() {
           </p>
         )}
       </div>
-      {/* Featured Agent - Transworld Cargo */}
-      <Card className="p-6 mb-8 bg-gradient-to-r from-blue-50 to-purple-50 border-2 border-purple-300">
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center gap-3">
-            <Building className="h-8 w-8 text-purple-600" />
-            <div>
-              <h2 className="text-2xl font-bold text-purple-900">Transworld Cargo</h2>
-              <p className="text-purple-700">Operating in All 4 Countries • ISO 9001 Certified</p>
-            </div>
-          </div>
-          <div className="text-right">
-            <span className="px-4 py-2 bg-purple-600 text-white rounded-full text-sm font-bold">
-              FEATURED PARTNER
-            </span>
-          </div>
-        </div>
-        <div className="grid md:grid-cols-2 gap-6">
-          <div>
-            <h4 className="font-semibold mb-2">Regional Presence:</h4>
-            <ul className="text-sm space-y-1">
-              <li>• <strong>Namibia:</strong> Windhoek, Walvis Bay, Lüderitz</li>
-              <li>• <strong>South Africa:</strong> Johannesburg, Upington</li>
-              <li>• <strong>Botswana:</strong> Gaborone (TriOptimum)</li>
-              <li>• <strong>Zambia:</strong> Via Katima Mulilo corridor</li>
-            </ul>
-          </div>
-          <div>
-            <h4 className="font-semibold mb-2">Contact Information:</h4>
-            <div className="text-sm space-y-1">
-              <p><Phone className="inline h-3 w-3" /> +264 61 371 100</p>
-              <p><Mail className="inline h-3 w-3" /> info@transworldcargo.net</p>
-              <p><Globe className="inline h-3 w-3" /> transworldcargo.net</p>
-              <p className="font-semibold text-purple-700 mt-2">39+ Years of Excellence</p>
-            </div>
-          </div>
-        </div>
-      </Card>
       {/* Agent Listings */}
       <div className="space-y-6">
         {filteredAgents.length === 0 ? (
@@ -880,7 +811,7 @@ export default function AgentsContent() {
           </Card>
         ) : (
           filteredAgents.map((agent) => (
-          <Card key={agent.id} className={agent.featured ? 'ring-2 ring-purple-400' : ''}>
+          <Card key={agent.id}>
             <div className="p-6">
               <div className="grid lg:grid-cols-3 gap-6">
                 {/* Agent Info */}
@@ -896,11 +827,6 @@ export default function AgentsContent() {
                               {agent.tier.toUpperCase()}
                             </span>
                           </div>
-                        )}
-                        {agent.featured && (
-                          <span className="px-2 py-1 bg-purple-600 text-white rounded-full text-xs font-medium">
-                            TRANSWORLD
-                          </span>
                         )}
                       </div>
                       <div className="flex items-center gap-4 text-sm text-gray-600 mb-3">
@@ -1236,7 +1162,6 @@ export default function AgentsContent() {
               <li>• Always verify current licensing status before engaging services</li>
               <li>• Exchange rates and fees are subject to change</li>
               <li>• Contact details current as of 2024 - verify before use</li>
-              <li>• Transworld Cargo is our featured partner across all four countries</li>
             </ul>
           </div>
         </div>
