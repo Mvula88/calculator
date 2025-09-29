@@ -1,5 +1,7 @@
 'use client'
 
+import { useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import { useAuthImmediate } from '@/lib/hooks/use-auth-immediate'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -25,6 +27,7 @@ import {
 } from 'lucide-react'
 
 export default function PortalPage() {
+  const router = useRouter()
   const { user, userEmail, hasAccess, loading, userTier } = useAuthImmediate()
 
   const displayEmail = userEmail || 'user@example.com'
@@ -38,6 +41,13 @@ export default function PortalPage() {
   } : null
   const isMastery = true // Since we only have one tier now
 
+  // Handle redirect in useEffect to avoid hydration issues
+  useEffect(() => {
+    if (!loading && !user) {
+      router.push('/auth/login?redirectTo=/portal')
+    }
+  }, [loading, user, router])
+
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
@@ -49,12 +59,8 @@ export default function PortalPage() {
     )
   }
 
-  // If no user, redirect to login
+  // If no user, show redirecting message
   if (!user) {
-    // Use useEffect to avoid hydration issues
-    if (typeof window !== 'undefined') {
-      window.location.href = '/auth/login?redirectTo=/portal'
-    }
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
         <div className="text-center">
