@@ -35,11 +35,6 @@ const agents = [
     experience: "39+ years",
     avgProcessingTime: "5-8 days",
     successRate: "99.5%",
-    fees: {
-      standard: "N$12,000",
-      express: "N$18,000",
-      luxury: "N$22,000"
-    },
     contact: {
       phone: "+264 61 371 100",
       email: "info@transworldcargo.net",
@@ -70,11 +65,6 @@ const agents = [
     experience: "15 years",
     avgProcessingTime: "6-9 days",
     successRate: "97.8%",
-    fees: {
-      standard: "N$10,500",
-      express: "N$15,000",
-      specialized: "N$20,000"
-    },
     contact: {
       phone: "+264 64 275 480",
       fax: "+264 64 275 484",
@@ -103,11 +93,6 @@ const agents = [
     experience: "20+ years",
     avgProcessingTime: "5-8 days",
     successRate: "98.2%",
-    fees: {
-      standard: "N$11,000",
-      express: "N$16,500",
-      specialized: "N$21,000"
-    },
     contact: {
       phone: "+264 64 2012911",
       fax: "+264 64 202530",
@@ -135,11 +120,6 @@ const agents = [
     experience: "25+ years",
     avgProcessingTime: "6-9 days",
     successRate: "97.5%",
-    fees: {
-      standard: "N$12,000",
-      express: "N$17,500",
-      specialized: "N$22,500"
-    },
     contact: {
       phone: "+264 64 271200",
       fax: "+264 64 203421",
@@ -163,11 +143,6 @@ const agents = [
     experience: "30+ years",
     avgProcessingTime: "7-10 days",
     successRate: "96.8%",
-    fees: {
-      standard: "N$11,500",
-      express: "N$16,500",
-      container: "N$19,500"
-    },
     contact: {
       phone: "+264 64 273 0112",
       email: "johan.van.dyk@maersk.com",
@@ -190,11 +165,6 @@ const agents = [
     experience: "20+ years",
     avgProcessingTime: "6-9 days",
     successRate: "96.2%",
-    fees: {
-      standard: "N$10,500",
-      express: "N$15,500",
-      specialized: "N$20,000"
-    },
     contact: {
       phone: "+264 61 376 550 (Windhoek) / +264 64 277 300 (Walvis Bay)",
       fax: "+264 61 433 9811",
@@ -223,11 +193,6 @@ const agents = [
     experience: "39+ years",
     avgProcessingTime: "7-10 days",
     successRate: "98.9%",
-    fees: {
-      standard: "R15,000",
-      express: "R22,000",
-      luxury: "R28,000"
-    },
     contact: {
       phone: "+264 61 371 100",
       email: "info@transworldcargo.net",
@@ -251,11 +216,6 @@ const agents = [
     experience: "18 years",
     avgProcessingTime: "8-12 days",
     successRate: "96.5%",
-    fees: {
-      standard: "R12,500",
-      express: "R18,000",
-      commercial: "R22,000"
-    },
     contact: {
       phone: "072 186 3363",
       email: "info@durbanclearing.co.za",
@@ -279,11 +239,6 @@ const agents = [
     experience: "20+ years",
     avgProcessingTime: "7-11 days",
     successRate: "97.8%",
-    fees: {
-      standard: "R14,000",
-      express: "R20,000",
-      premium: "R25,000"
-    },
     contact: {
       website: "cargocompasssa.co.za"
     },
@@ -304,11 +259,6 @@ const agents = [
     experience: "15 years",
     avgProcessingTime: "9-13 days",
     successRate: "95.7%",
-    fees: {
-      standard: "R11,500",
-      crossBorder: "R16,500",
-      tracking: "R19,000"
-    },
     contact: {
       website: "sedibaclearing.co.za"
     },
@@ -329,11 +279,6 @@ const agents = [
     experience: "15 years",
     avgProcessingTime: "7-10 days",
     successRate: "96.8%",
-    fees: {
-      standard: "R13,000",
-      express: "R18,000",
-      crossBorder: "R21,000"
-    },
     contact: {
       phone: "+27 (0) 31 207 6233",
       email: "operationsdbn@tradeocean.co.za",
@@ -360,11 +305,6 @@ const agents = [
     experience: "15+ years",
     avgProcessingTime: "6-9 days",
     successRate: "97.2%",
-    fees: {
-      standard: "P12,000",
-      express: "P17,000",
-      storage: "P20,000"
-    },
     contact: {
       phone: "+267 310 5743",
       website: "trioptimumlogistics.co.za"
@@ -390,11 +330,6 @@ const agents = [
     experience: "10 years",
     avgProcessingTime: "7-10 days",
     successRate: "94.8%",
-    fees: {
-      standard: "P10,500",
-      express: "P15,000",
-      premium: "P18,500"
-    },
     contact: {
       phone: "+267 396 9911",
       email: "info@swift-bw.com"
@@ -418,11 +353,6 @@ const agents = [
     experience: "8 years",
     avgProcessingTime: "8-11 days",
     successRate: "95.3%",
-    fees: {
-      standard: "P9,500",
-      japanese: "P14,000",
-      singapore: "P15,500"
-    },
     contact: {
       phone: "+267 75 124 326",
       email: "transtechbw18@gmail.com"
@@ -445,11 +375,6 @@ const agents = [
     experience: "39+ years",
     avgProcessingTime: "10-14 days",
     successRate: "96.5%",
-    fees: {
-      standard: "K8,000",
-      express: "K12,000",
-      crossBorder: "K15,000"
-    },
     contact: {
       phone: "+264 61 371 100",
       email: "info@transworldcargo.net",
@@ -473,11 +398,6 @@ const agents = [
     experience: "21 years",
     avgProcessingTime: "7-11 days",
     successRate: "98.2%",
-    fees: {
-      standard: "K7,500",
-      express: "K11,000",
-      allBorders: "K14,000"
-    },
     contact: {
       phone: "+260 213 322553",
       email: "info@esseclearing.com",
@@ -507,11 +427,6 @@ const agents = [
     experience: "30+ years",
     avgProcessingTime: "8-12 days",
     successRate: "96.8%",
-    fees: {
-      standard: "K8,500",
-      air: "K12,500",
-      project: "K18,000"
-    },
     contact: {
       phone: "+260 211 846 340",
       email: "zambia@zm.dsv.com"
@@ -534,11 +449,6 @@ const agents = [
     experience: "25+ years",
     avgProcessingTime: "8 hours - 2 days",
     successRate: "99.1%",
-    fees: {
-      standard: "Varies by country",
-      express: "Premium rates",
-      sameDay: "Available"
-    },
     contact: {
       website: "blackiessa.com"
     },
@@ -728,10 +638,6 @@ export default function AgentsContent() {
                         <span className="text-gray-500">({agent.reviews} reviews)</span>
                       </div>
                     </div>
-                    <div className="text-right">
-                      <div className="text-sm text-gray-600">From</div>
-                      <div className="text-xl font-bold text-green-600">{agent.fees.standard}</div>
-                    </div>
                   </div>
                   {/* Specialities */}
                   <div className="mb-4">
@@ -795,7 +701,7 @@ export default function AgentsContent() {
                     </div>
                   )}
                 </div>
-                {/* Contact & Pricing */}
+                {/* Contact Information */}
                 <div className="space-y-6">
                   {/* Contact Information */}
                   <div>
@@ -833,18 +739,6 @@ export default function AgentsContent() {
                           </a>
                         </div>
                       )}
-                    </div>
-                  </div>
-                  {/* Pricing */}
-                  <div>
-                    <h4 className="font-semibold mb-3">Service Pricing</h4>
-                    <div className="space-y-2">
-                      {Object.entries(agent.fees).map(([service, price]) => (
-                        <div key={service} className="flex justify-between items-center">
-                          <span className="text-sm capitalize">{service.replace('_', ' ')}</span>
-                          <span className="font-semibold text-green-600">{price}</span>
-                        </div>
-                      ))}
                     </div>
                   </div>
                   {/* Certifications */}
