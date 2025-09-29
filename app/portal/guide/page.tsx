@@ -13,6 +13,7 @@ import { MistakeCards } from '@/components/guide/mistake-cards'
 import { TemplatesSection } from '@/components/guide/templates-section'
 import { EmergencyQuickReference } from '@/components/guide/emergency-quick-reference'
 import { PracticalTools } from '@/components/guide/practical-tools'
+import CriticalImportWarnings from '@/components/portal/CriticalImportWarnings'
 import { AlertTriangle, CheckCircle, Info, TrendingDown, Lock, Shield } from 'lucide-react'
 
 // Timeline data for Namibia guide
@@ -278,6 +279,11 @@ export default function GuidePage() {
           {/* 2. Pre-Import Essentials */}
           <section id="essentials">
             <PreImportEssentials onNavigateToSection={handleNavigateToSection} />
+          </section>
+
+          {/* Critical Warnings Section */}
+          <section id="warnings">
+            <CriticalImportWarnings />
           </section>
 
           {/* 3. Cost Breakdown */}

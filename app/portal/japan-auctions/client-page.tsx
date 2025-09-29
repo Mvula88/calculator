@@ -22,7 +22,9 @@ import {
   Info,
   Lock,
   Star,
-  Clock
+  Clock,
+  XCircle,
+  Package
 } from 'lucide-react'
 
 interface Exporter {
@@ -1119,6 +1121,213 @@ export default function JapanAuctionsClientPage() {
           </Card>
         </div>
       )}
+
+      {/* Exporter Insights Section */}
+      <div className="mt-8">
+        <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
+          <TrendingUp className="h-6 w-6 text-purple-600" />
+          Real Exporter Insights & Communication Tips
+        </h2>
+
+        <div className="grid md:grid-cols-2 gap-6">
+          {/* Communication Best Practices */}
+          <Card className="p-6 bg-gradient-to-br from-blue-50 to-indigo-50">
+            <h3 className="text-lg font-semibold mb-4 text-blue-900">
+              How to Communicate with Japanese Exporters
+            </h3>
+            <div className="space-y-3 text-sm">
+              <div className="bg-white/80 p-3 rounded">
+                <p className="font-medium text-blue-800 mb-1">Always Include:</p>
+                <ul className="space-y-1 text-gray-700">
+                  <li>• Your full name and country</li>
+                  <li>• Specific car model and auction grade</li>
+                  <li>• Your budget in USD or JPY</li>
+                  <li>• Port of destination (Walvis Bay)</li>
+                </ul>
+              </div>
+              <div className="bg-white/80 p-3 rounded">
+                <p className="font-medium text-amber-800 mb-1">Response Times:</p>
+                <p className="text-gray-700">
+                  Expect 12-24 hour delays due to timezone. Japanese business hours:
+                  9 AM - 6 PM JST (2 AM - 11 AM Namibian time)
+                </p>
+              </div>
+              <div className="bg-white/80 p-3 rounded">
+                <p className="font-medium text-green-800 mb-1">Pro Tip:</p>
+                <p className="text-gray-700">
+                  Use simple, clear English. Avoid slang. Number your questions for clear answers.
+                </p>
+              </div>
+            </div>
+          </Card>
+
+          {/* Hidden Costs Revealed */}
+          <Card className="p-6 bg-gradient-to-br from-amber-50 to-orange-50">
+            <h3 className="text-lg font-semibold mb-4 text-amber-900">
+              Hidden Japan-Side Costs (Often Not Mentioned)
+            </h3>
+            <div className="space-y-2 text-sm">
+              <div className="flex justify-between p-2 bg-white/80 rounded">
+                <span className="text-gray-700">Radiation inspection (2011 models)</span>
+                <span className="font-medium">¥15,000</span>
+              </div>
+              <div className="flex justify-between p-2 bg-white/80 rounded">
+                <span className="text-gray-700">Recycling fee</span>
+                <span className="font-medium">¥8,000-18,000</span>
+              </div>
+              <div className="flex justify-between p-2 bg-white/80 rounded">
+                <span className="text-gray-700">Inland transport (auction to port)</span>
+                <span className="font-medium">¥30,000-60,000</span>
+              </div>
+              <div className="flex justify-between p-2 bg-white/80 rounded">
+                <span className="text-gray-700">Pre-export inspection</span>
+                <span className="font-medium">¥10,000</span>
+              </div>
+              <div className="flex justify-between p-2 bg-white/80 rounded">
+                <span className="text-gray-700">Document handling</span>
+                <span className="font-medium">¥5,000</span>
+              </div>
+              <div className="p-3 bg-red-50 border border-red-200 rounded mt-3">
+                <p className="text-xs text-red-800">
+                  <strong>Total hidden costs:</strong> ¥68,000-108,000 (R8,840-14,040)
+                </p>
+              </div>
+            </div>
+          </Card>
+
+          {/* Negotiation Tactics */}
+          <Card className="p-6">
+            <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
+              <DollarSign className="h-5 w-5 text-green-600" />
+              Smart Negotiation Tactics
+            </h3>
+            <div className="space-y-3 text-sm">
+              <div className="border-l-4 border-green-500 pl-3">
+                <p className="font-medium text-green-800">Bundle Discount</p>
+                <p className="text-gray-600">
+                  Buying 2+ cars? Ask for 5-10% discount on FOB prices
+                </p>
+              </div>
+              <div className="border-l-4 border-blue-500 pl-3">
+                <p className="font-medium text-blue-800">Free Shipping Arrangement</p>
+                <p className="text-gray-600">
+                  Some exporters waive inland transport if you buy 3+ cars
+                </p>
+              </div>
+              <div className="border-l-4 border-purple-500 pl-3">
+                <p className="font-medium text-purple-800">Payment Terms</p>
+                <p className="text-gray-600">
+                  Ask for 50% deposit, 50% on Bill of Lading receipt
+                </p>
+              </div>
+              <div className="border-l-4 border-amber-500 pl-3">
+                <p className="font-medium text-amber-800">Inspection Inclusion</p>
+                <p className="text-gray-600">
+                  Request free detailed inspection report with underbody photos
+                </p>
+              </div>
+            </div>
+          </Card>
+
+          {/* Red Flags */}
+          <Card className="p-6 bg-red-50 border-red-200">
+            <h3 className="text-lg font-semibold mb-4 text-red-900 flex items-center gap-2">
+              <AlertTriangle className="h-5 w-5" />
+              Exporter Red Flags
+            </h3>
+            <div className="space-y-2 text-sm">
+              <div className="flex items-start gap-2">
+                <XCircle className="h-4 w-4 text-red-600 mt-0.5 flex-shrink-0" />
+                <p className="text-red-800">Refuses to provide company registration details</p>
+              </div>
+              <div className="flex items-start gap-2">
+                <XCircle className="h-4 w-4 text-red-600 mt-0.5 flex-shrink-0" />
+                <p className="text-red-800">Asks for 100% payment before shipping</p>
+              </div>
+              <div className="flex items-start gap-2">
+                <XCircle className="h-4 w-4 text-red-600 mt-0.5 flex-shrink-0" />
+                <p className="text-red-800">No physical office address in Japan</p>
+              </div>
+              <div className="flex items-start gap-2">
+                <XCircle className="h-4 w-4 text-red-600 mt-0.5 flex-shrink-0" />
+                <p className="text-red-800">Unusually low prices (30%+ below market)</p>
+              </div>
+              <div className="flex items-start gap-2">
+                <XCircle className="h-4 w-4 text-red-600 mt-0.5 flex-shrink-0" />
+                <p className="text-red-800">Won't provide auction sheet translation</p>
+              </div>
+              <div className="flex items-start gap-2">
+                <XCircle className="h-4 w-4 text-red-600 mt-0.5 flex-shrink-0" />
+                <p className="text-red-800">Pressures for immediate payment</p>
+              </div>
+            </div>
+          </Card>
+        </div>
+
+        {/* Container Loading Intelligence */}
+        <Card className="p-6 mt-6 bg-gradient-to-r from-purple-50 to-pink-50">
+          <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
+            <Package className="h-5 w-5 text-purple-600" />
+            Container Loading Intelligence from Exporters
+          </h3>
+          <div className="grid md:grid-cols-2 gap-4 text-sm">
+            <div>
+              <h4 className="font-medium text-purple-800 mb-2">What Fits in a 40ft Container:</h4>
+              <ul className="space-y-1 text-gray-700">
+                <li>• <strong>4 sedans:</strong> Corolla, Camry, Accord size</li>
+                <li>• <strong>4 small cars:</strong> Vitz, March, Fit, Demio</li>
+                <li>• <strong>3 SUVs + 1 small car:</strong> RAV4, CRV, X-Trail</li>
+                <li>• <strong>2 vans + 2 small cars:</strong> Noah, Voxy, Alphard</li>
+                <li>• <strong>3 pickups:</strong> Hilux, Navara, D-Max</li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-medium text-pink-800 mb-2">Loading Day Checklist:</h4>
+              <ul className="space-y-1 text-gray-700">
+                <li>✓ Request loading photos from multiple angles</li>
+                <li>✓ Confirm all VINs match your documents</li>
+                <li>✓ Get container number and seal number</li>
+                <li>✓ Verify fumigation certificate issued</li>
+                <li>✓ Ensure less than 1/4 tank of fuel</li>
+              </ul>
+            </div>
+          </div>
+          <div className="mt-4 p-3 bg-white/80 rounded">
+            <p className="text-xs text-gray-700">
+              <strong>Money Saver:</strong> Japanese exporters can arrange "consolidation" -
+              they'll find other buyers to share your container. This service usually costs
+              ¥20,000 but saves you R55,000+ on shipping.
+            </p>
+          </div>
+        </Card>
+
+        {/* Best Months to Buy */}
+        <Card className="p-6 mt-6">
+          <h3 className="text-lg font-semibold mb-4">
+            📅 Best Times to Buy (Insider Knowledge)
+          </h3>
+          <div className="grid md:grid-cols-3 gap-4 text-sm">
+            <div className="p-3 bg-green-50 rounded">
+              <p className="font-medium text-green-800 mb-1">April-May (Golden Week)</p>
+              <p className="text-gray-700">Auction prices drop 10-15% during Japanese holidays</p>
+            </div>
+            <div className="p-3 bg-blue-50 rounded">
+              <p className="font-medium text-blue-800 mb-1">December-January</p>
+              <p className="text-gray-700">Year-end clearance, dealers dumping inventory</p>
+            </div>
+            <div className="p-3 bg-amber-50 rounded">
+              <p className="font-medium text-amber-800 mb-1">August (Obon)</p>
+              <p className="text-gray-700">Another holiday period with reduced competition</p>
+            </div>
+          </div>
+          <div className="mt-4 p-3 bg-red-50 rounded">
+            <p className="text-xs text-red-800">
+              <strong>Avoid:</strong> March (fiscal year end) and September (half-year close) -
+              prices spike 20-30% as dealers stock up.
+            </p>
+          </div>
+        </Card>
+      </div>
     </div>
   )
 }

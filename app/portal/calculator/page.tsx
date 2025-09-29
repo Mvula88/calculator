@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import Link from 'next/link'
+import VehiclePricingDatabase from '@/components/portal/VehiclePricingDatabase'
 import {
   Calculator,
   DollarSign,
@@ -1315,6 +1316,11 @@ export default function DutyCalculator() {
             </Card>
           )}
         </div>
+      </div>
+
+      {/* Vehicle Pricing Database */}
+      <div className="mt-8 sm:mt-12 px-4 sm:px-6 max-w-6xl mx-auto">
+        <VehiclePricingDatabase />
       </div>
 
       {/* Additional Information - Mobile Optimized */}

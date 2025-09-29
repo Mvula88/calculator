@@ -5,10 +5,11 @@ import { useAuth } from '@/lib/hooks/use-auth'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import PDFViewer from '@/components/PDFViewer'
-import { 
-  FileText, 
-  Lock, 
-  Shield, 
+import RealImportExamples from '@/components/portal/RealImportExamples'
+import {
+  FileText,
+  Lock,
+  Shield,
   CheckCircle,
   AlertTriangle,
   Eye,
@@ -353,6 +354,12 @@ export default function DocumentsPage() {
           </div>
         </div>
       </div>
+
+      {/* Real Import Examples Section */}
+      <div className="mt-8 px-4 sm:px-6 max-w-7xl mx-auto">
+        <RealImportExamples />
+      </div>
+
       {/* PDF Viewer Modal */}
       {selectedDocument && (
         <PDFViewer
