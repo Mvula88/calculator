@@ -125,8 +125,23 @@ export function generateCountryMetadata(country: 'na' | 'za' | 'bw' | 'zm'): Met
     zm: 'Zambia'
   }
 
+  // Validate country code
+  if (!country || !countryNames[country]) {
+    console.error(`Invalid country code: ${country}`)
+    country = 'na' // Fallback to Namibia
+  }
+
   const countryName = countryNames[country]
   const keywords = countryKeywords[country]
+
+  // Safety check for keywords
+  if (!keywords || !keywords.primary || !keywords.secondary) {
+    console.error(`Missing keywords for country: ${country}`)
+    return {
+      title: `Import Cars from Japan - Complete Guide | IMPOTA 2024`,
+      description: `Complete guide to importing cars from Japan. Professional import guides, duty calculators, and expert support.`,
+    }
+  }
 
   return {
     title: `Import Cars to ${countryName} from Japan - Complete Guide | IMPOTA 2024`,

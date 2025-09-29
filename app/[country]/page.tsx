@@ -31,6 +31,13 @@ interface PageProps {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { country } = await params
+
+  // Validate country parameter
+  const validCountries: CountryCode[] = ['na', 'za', 'bw', 'zm']
+  if (!validCountries.includes(country)) {
+    return generateCountryMetadata('na') // Fallback to Namibia
+  }
+
   return generateCountryMetadata(country)
 }
 
