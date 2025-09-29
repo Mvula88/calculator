@@ -47,7 +47,7 @@ const shippingCompanies: ShippingCompany[] = [
     logo: '🚢',
     description: 'World\'s largest container shipping company with extensive African coverage',
     routes: ['Europe → Southern Africa', 'Asia → Southern Africa', 'Americas → Africa'],
-    avgTransitTime: '21-28 days',
+    avgTransitTime: '75-90 days',
     priceRange: 'R70,000 - R165,000',
     rating: 4.5,
     contact: {
@@ -71,7 +71,7 @@ const shippingCompanies: ShippingCompany[] = [
     logo: '⚓',
     description: 'Second largest global carrier with competitive rates to Africa',
     routes: ['Europe → West Africa', 'Mediterranean → Southern Africa', 'Asia → Africa'],
-    avgTransitTime: '22-30 days',
+    avgTransitTime: '75-90 days',
     priceRange: 'R70,000 - R165,000',
     rating: 4.3,
     contact: {
@@ -95,7 +95,7 @@ const shippingCompanies: ShippingCompany[] = [
     logo: '🌊',
     description: 'French carrier with strong Europe-Africa connections',
     routes: ['France → West Africa', 'Europe → Southern Africa', 'Asia → Africa via Europe'],
-    avgTransitTime: '24-32 days',
+    avgTransitTime: '75-90 days',
     priceRange: 'R70,000 - R165,000',
     rating: 4.2,
     contact: {
@@ -119,7 +119,7 @@ const shippingCompanies: ShippingCompany[] = [
     logo: '🛳️',
     description: 'German precision shipping with reliable Africa services',
     routes: ['Germany → Southern Africa', 'Europe → East Africa', 'Middle East → Africa'],
-    avgTransitTime: '23-29 days',
+    avgTransitTime: '75-90 days',
     priceRange: 'R70,000 - R165,000',
     rating: 4.4,
     contact: {
@@ -167,7 +167,7 @@ const shippingCompanies: ShippingCompany[] = [
     logo: '🏴',
     description: 'Chinese state-owned carrier with competitive Asia-Africa rates',
     routes: ['China → Africa', 'Asia → Southern Africa', 'Far East → West Africa'],
-    avgTransitTime: '30-38 days',
+    avgTransitTime: '75-90 days',
     priceRange: 'R70,000 - R165,000',
     rating: 4.0,
     contact: {
