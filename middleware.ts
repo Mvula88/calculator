@@ -8,31 +8,46 @@ const PROTECTED_ROUTES = ['/portal/calculator', '/portal/dashboard', '/portal/ac
 // Public auth routes
 const AUTH_ROUTES = ['/auth/login', '/auth/setup-account', '/auth/forgot-password', '/auth/callback']
 
-// Country detection function
+// In-memory cache for country detection (lasts for process lifetime)
+const countryCache = new Map<string, { country: string; timestamp: number }>()
+const CACHE_DURATION = 1000 * 60 * 60 * 24 // 24 hours
+
+// Country detection function with caching
 async function detectCountryFromIP(ip: string | null): Promise<string> {
   if (!ip || ip === '::1' || ip === '127.0.0.1') return 'namibia'
-  
+
+  // Check cache first
+  const cached = countryCache.get(ip)
+  if (cached && Date.now() - cached.timestamp < CACHE_DURATION) {
+    return cached.country
+  }
+
   try {
     const response = await fetch(`https://ipapi.co/${ip}/country_code/`, {
-      signal: AbortSignal.timeout(3000)
+      signal: AbortSignal.timeout(2000) // Reduced timeout from 3s to 2s
     })
-    
+
     if (response.ok) {
       const countryCode = await response.text()
-      
+
       const countryMap: { [key: string]: string } = {
         'NA': 'namibia',
         'ZA': 'south-africa',
         'BW': 'botswana',
         'ZM': 'zambia'
       }
-      
-      return countryMap[countryCode.trim()] || 'namibia'
+
+      const country = countryMap[countryCode.trim()] || 'namibia'
+
+      // Cache the result
+      countryCache.set(ip, { country, timestamp: Date.now() })
+
+      return country
     }
   } catch (error) {
-    console.error('Country detection failed:', error)
+    // Silent fail - don't log on every request
   }
-  
+
   return 'namibia'
 }
 
@@ -97,14 +112,14 @@ export async function middleware(request: NextRequest) {
   // Get authenticated user
   const { data: { user } } = await supabase.auth.getUser()
 
-  // Get user's entitlements if authenticated
+  // Get user's entitlements if authenticated (ONLY for portal routes to reduce DB calls)
   let userTier = null
-  if (user) {
+  if (user && request.nextUrl.pathname.startsWith('/portal')) {
     // Check for entitlements by BOTH user_id and email
     // This handles cases where payment was made before account creation
     const { data: entitlements } = await supabase
       .from('entitlements')
-      .select('*')
+      .select('tier, id, user_id, email') // Select only needed fields
       .or(`user_id.eq.${user.id},email.eq.${user.email?.toLowerCase()}`)
       .eq('active', true)
       .order('created_at', { ascending: false })
@@ -116,15 +131,15 @@ export async function middleware(request: NextRequest) {
 
       // Auto-link orphaned entitlements (where user_id is null but email matches)
       if (!entitlements.user_id && entitlements.email === user.email?.toLowerCase()) {
-        await supabase
+        // Fire and forget - don't await to avoid slowing down request
+        supabase
           .from('entitlements')
           .update({
             user_id: user.id,
             updated_at: new Date().toISOString()
           })
           .eq('id', entitlements.id)
-
-        console.log('Auto-linked entitlement for user:', user.email)
+          .then(() => {})
       }
     }
   }

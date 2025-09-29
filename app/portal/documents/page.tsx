@@ -41,11 +41,10 @@ export default function DocumentsPage() {
   } : null
   const [selectedDocument, setSelectedDocument] = useState<{name: string, url: string} | null>(null)
   const handleViewDocument = (docName: string, fileName: string) => {
-    // In production, this would be the actual URL to your PDF
-    // For now, we'll use a placeholder
+    // Use API route for authenticated access to Supabase Storage
     setSelectedDocument({
       name: docName,
-      url: `/documents/${fileName}` // This would be your actual PDF URL
+      url: `/api/documents/${fileName}`
     })
   }
   if (loading) {
@@ -354,12 +353,10 @@ export default function DocumentsPage() {
           </div>
         </div>
       </div>
-
       {/* Real Import Examples Section */}
       <div className="mt-8 px-4 sm:px-6 max-w-7xl mx-auto">
         <RealImportExamples />
       </div>
-
       {/* PDF Viewer Modal */}
       {selectedDocument && (
         <PDFViewer

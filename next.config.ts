@@ -19,6 +19,19 @@ const nextConfig: NextConfig = {
             key: 'Referrer-Policy',
             value: 'origin-when-cross-origin',
           },
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=3600, stale-while-revalidate=86400',
+          },
+        ],
+      },
+      {
+        source: '/api/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'no-store, max-age=0',
+          },
         ],
       },
     ];
@@ -28,6 +41,15 @@ const nextConfig: NextConfig = {
   // Image optimization
   images: {
     domains: ['impota.com'],
+    formats: ['image/avif', 'image/webp'],
+    minimumCacheTTL: 86400, // Cache images for 24 hours
+  },
+  // Performance optimizations
+  compress: true,
+  poweredByHeader: false,
+  // Experimental features for better performance
+  experimental: {
+    optimizePackageImports: ['lucide-react', '@radix-ui/react-dialog', '@radix-ui/react-select'],
   },
 };
 

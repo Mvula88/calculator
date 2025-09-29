@@ -387,7 +387,6 @@ export default function ShippingContent() {
           </Card>
         ))}
       </div>
-
       {/* How to Choose Section */}
       <Card className="p-6 bg-gray-50">
         <h3 className="text-xl font-bold mb-4 flex items-center gap-2">

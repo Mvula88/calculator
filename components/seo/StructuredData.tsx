@@ -25,7 +25,7 @@ export default function StructuredData({ type, data }: StructuredDataProps) {
         ],
         "contactPoint": {
           "@type": "ContactPoint",
-          "telephone": "+264-81-XXX-XXXX",
+          "email": "support@impota.com",
           "contactType": "customer support",
           "areaServed": ["NA", "ZA", "BW", "ZM"],
           "availableLanguage": ["en"]
