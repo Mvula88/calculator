@@ -229,46 +229,6 @@ const agents = [
     tier: "Gold"
   },
   {
-    id: 7,
-    name: "Cargo Compass SA",
-    country: "South Africa",
-    location: "All Major Ports",
-    rating: 4.7,
-    reviews: 1102,
-    specialities: ["Market Leader", "All Transport Modes", "Customs Brokerage"],
-    experience: "20+ years",
-    avgProcessingTime: "7-11 days",
-    successRate: "97.8%",
-    contact: {
-      website: "cargocompasssa.co.za"
-    },
-    services: ["Full Clearing", "All Ports of Entry", "Customs Brokerage", "Logistics"],
-    certifications: ["SARS Accredited", "Licensed at All Ports", "Market Leader"],
-    recentSuccess: "Market leader in clearing and forwarding across South Africa",
-    verified: true,
-    tier: "Platinum"
-  },
-  {
-    id: 8,
-    name: "Sediba Clearing",
-    country: "South Africa",
-    location: "Beitbridge / JHB / DBN / Komatipoort",
-    rating: 4.5,
-    reviews: 623,
-    specialities: ["Cross-Border", "Vehicle Tracking", "Multiple Borders"],
-    experience: "15 years",
-    avgProcessingTime: "9-13 days",
-    successRate: "95.7%",
-    contact: {
-      website: "sedibaclearing.co.za"
-    },
-    services: ["Border Clearing", "Vehicle Movement Tracking", "Multi-Point Operations"],
-    certifications: ["SARS Accredited", "SA Association of Freight Forwarders Member"],
-    recentSuccess: "Excellence in vehicle movement tracking across borders",
-    verified: true,
-    tier: "Gold"
-  },
-  {
     id: 19,
     name: "Trade Ocean South Africa",
     country: "South Africa",
@@ -290,6 +250,107 @@ const agents = [
     services: ["Vehicle Clearing", "Port Operations", "Documentation", "Cross-Border Transport to Namibia"],
     certifications: ["SARS Accredited", "Durban Port Licensed", "Cross-Border Operations"],
     recentSuccess: "Specializes in vehicle imports through Durban port with direct operations to Namibia",
+    verified: true,
+    tier: "Gold"
+  },
+  {
+    id: 20,
+    name: "Ziegler South Africa",
+    country: "South Africa",
+    location: "Durban",
+    rating: 4.6,
+    reviews: 523,
+    specialities: ["Freight Forwarding", "Customs Clearing", "Global Network"],
+    experience: "25+ years",
+    avgProcessingTime: "7-10 days",
+    successRate: "97.2%",
+    contact: {
+      phone: "+27 (0) 31 700 2544",
+      email: "info@ziegler.co.za",
+      website: "ziegler.co.za"
+    },
+    offices: [
+      "151 South Coast Road, Rossburgh, Durban, 4072"
+    ],
+    services: ["Vehicle Clearing", "Freight Forwarding", "Customs Brokerage", "Port Operations", "Documentation"],
+    certifications: ["SARS Accredited", "Global Logistics Network", "ISO Certified"],
+    recentSuccess: "International freight forwarder with strong presence in Durban port operations",
+    verified: true,
+    tier: "Gold"
+  },
+  {
+    id: 21,
+    name: "DSV South Africa",
+    country: "South Africa",
+    location: "Durban",
+    rating: 4.7,
+    reviews: 689,
+    specialities: ["Global Logistics", "Air & Sea Freight", "Supply Chain Solutions"],
+    experience: "30+ years",
+    avgProcessingTime: "7-11 days",
+    successRate: "97.5%",
+    contact: {
+      phone: "+27 31 310 6000",
+      email: "za.info@za.dsv.com",
+      website: "dsv.com"
+    },
+    offices: [
+      "10 Quarry Park Close, Riverhorse Valley, Newlands East, 4017 Durban, KwaZulu-Natal"
+    ],
+    services: ["Vehicle Clearing", "Air Freight", "Ocean Freight", "Road Transport", "Project Logistics", "Documentation"],
+    certifications: ["SARS Accredited", "Global DSV Network", "ISO 9001 Certified"],
+    recentSuccess: "Leading global transport and logistics provider with comprehensive South African operations",
+    verified: true,
+    tier: "Platinum"
+  },
+  {
+    id: 22,
+    name: "AVECS - Africa Vehicle Clearance Specialist",
+    country: "South Africa",
+    location: "Durban / Westville",
+    rating: 4.8,
+    reviews: 892,
+    specialities: ["Vehicle Import Specialist", "Japan Imports", "Quick Processing"],
+    experience: "15+ years",
+    avgProcessingTime: "5-8 days",
+    successRate: "98.5%",
+    contact: {
+      phone: "+27 31 266 0859",
+      website: "avecs.co.za"
+    },
+    offices: [
+      "Unit 3, 9-11 University Road, Imperial Office Park, Westville, Durban, 3631"
+    ],
+    services: ["Specialized Vehicle Clearing", "Japan Import Experts", "Documentation", "NRCS Compliance", "Transport Arrangement"],
+    certifications: ["SARS Accredited", "Vehicle Import Specialist", "Japan Trade Expert"],
+    recentSuccess: "Africa's leading vehicle clearance specialist with expertise in Japanese imports",
+    testimonial: "The best in the business for Japanese vehicle imports. Fast and reliable service.",
+    verified: true,
+    tier: "Platinum"
+  },
+  {
+    id: 23,
+    name: "Calthol Clearing & Forwarding",
+    country: "South Africa",
+    location: "Johannesburg / Cape Town / Durban",
+    rating: 4.5,
+    reviews: 756,
+    specialities: ["National Coverage", "Multi-Port Operations", "Established Provider"],
+    experience: "20+ years",
+    avgProcessingTime: "8-12 days",
+    successRate: "96.3%",
+    contact: {
+      phone: "+27 11 396 1700 (JHB) / +27 21 030 0050 (CPT) / +27 31 368 2173 (DBN)",
+      website: "calthol.co.za"
+    },
+    offices: [
+      "Johannesburg: +27 11 396 1700",
+      "Cape Town: +27 21 030 0050",
+      "Durban: +27 31 368 2173"
+    ],
+    services: ["Vehicle Clearing", "National Coverage", "All Ports of Entry", "Documentation", "Transport Solutions"],
+    certifications: ["SARS Accredited", "Multi-Port Licensed", "National Operations"],
+    recentSuccess: "Established clearing and forwarding company with offices in all major South African cities",
     verified: true,
     tier: "Gold"
   },
@@ -363,6 +424,163 @@ const agents = [
     verified: true,
     tier: "Silver"
   },
+  {
+    id: 24,
+    name: "Bolloré Logistics Botswana",
+    country: "Botswana",
+    location: "Gaborone / Kazungula / Mamuno",
+    rating: 4.7,
+    reviews: 567,
+    specialities: ["Multi-Border Operations", "International Network", "Freight Forwarding"],
+    experience: "25+ years",
+    avgProcessingTime: "6-9 days",
+    successRate: "97.3%",
+    contact: {
+      phone: "+267 395 1961",
+      email: "g.lendrum@bollore.co.bw",
+      website: "bollore-logistics.com"
+    },
+    offices: [
+      "Head Office: Plot 5625, Lejara Rd, Broadhurst Industrial, Gaborone",
+      "Kazungula/Chobe Office: +267 625 2635",
+      "Mamuno/Trans-Kalahari: +267 723 09605 / 728 91181"
+    ],
+    services: ["Vehicle Clearing", "Multi-Border Operations", "Freight Forwarding", "Documentation", "Customs Brokerage"],
+    certifications: ["BURS Licensed", "Formerly SDV/AMI", "Global Bolloré Network"],
+    recentSuccess: "Strategic presence at all major Botswana border posts with international backing",
+    verified: true,
+    tier: "Platinum"
+  },
+  {
+    id: 25,
+    name: "Manica Freight Services Botswana",
+    country: "Botswana",
+    location: "Gaborone / Kasane / Ngoma / Mamuno",
+    rating: 4.6,
+    reviews: 432,
+    specialities: ["National Coverage", "Cross-Border", "Established Network"],
+    experience: "20+ years",
+    avgProcessingTime: "7-10 days",
+    successRate: "96.8%",
+    contact: {
+      phone: "+267 391 2677",
+      fax: "+267 391 2326",
+      email: "manica@info.bw",
+      website: "manica.com"
+    },
+    offices: [
+      "Gaborone: Plot 20741, Pharathe Crescent, Broadhurst Industrial, P.O. Box 1372",
+      "Kasane/Chobe: P.O. Box 226, Tel: +267 625 0070",
+      "Ngoma: +267 620 0050",
+      "Mamuno: +267 659 2013"
+    ],
+    services: ["Vehicle Clearing", "Kasane/Ngoma Corridor", "Documentation", "Cross-Border Operations"],
+    certifications: ["BURS Licensed", "Part of Manica Group", "Regional Network"],
+    recentSuccess: "Comprehensive coverage of all major Botswana border posts",
+    verified: true,
+    tier: "Gold"
+  },
+  {
+    id: 26,
+    name: "DHL International Botswana",
+    country: "Botswana",
+    location: "Gaborone",
+    rating: 4.5,
+    reviews: 389,
+    specialities: ["Express Services", "Global Network", "Air Freight"],
+    experience: "30+ years",
+    avgProcessingTime: "5-8 days",
+    successRate: "97.5%",
+    contact: {
+      phone: "+267 391 2000 / 316 6340",
+      fax: "+267 397 4168",
+      email: "enquiries@dhl.co.bw",
+      website: "dhl.com"
+    },
+    offices: [
+      "P.O. Box 1077, Gaborone"
+    ],
+    services: ["Express Clearing", "Air Freight", "Documentation", "Global Logistics", "Vehicle Imports"],
+    certifications: ["BURS Licensed", "DHL Global Network", "Express Service Leader"],
+    recentSuccess: "World's leading express logistics provider with strong Botswana presence",
+    verified: true,
+    tier: "Gold"
+  },
+  {
+    id: 27,
+    name: "Röhlig Botswana",
+    country: "Botswana",
+    location: "Gaborone",
+    rating: 4.4,
+    reviews: 278,
+    specialities: ["Freight Forwarding", "Supply Chain", "German Quality"],
+    experience: "15+ years",
+    avgProcessingTime: "7-10 days",
+    successRate: "96.2%",
+    contact: {
+      phone: "+267 395 3505",
+      fax: "+267 395 3473",
+      website: "rohlig.com"
+    },
+    offices: [
+      "Plot 22049, P.O. Box 1973, Gaborone"
+    ],
+    services: ["Vehicle Clearing", "Freight Forwarding", "Supply Chain Solutions", "Documentation"],
+    certifications: ["BURS Licensed", "International Freight Forwarder", "German Network"],
+    recentSuccess: "German logistics excellence with strong local expertise",
+    verified: true,
+    tier: "Silver"
+  },
+  {
+    id: 28,
+    name: "AGS Frasers Botswana",
+    country: "Botswana",
+    location: "Gaborone",
+    rating: 4.3,
+    reviews: 223,
+    specialities: ["International Moving", "Vehicle Imports", "Relocation Services"],
+    experience: "18+ years",
+    avgProcessingTime: "8-11 days",
+    successRate: "95.7%",
+    contact: {
+      phone: "+267 392 2558",
+      website: "ags-frasers.com"
+    },
+    offices: [
+      "Plot 14398, New Lobatse Rd, G-West, Gaborone"
+    ],
+    services: ["Vehicle Clearing", "International Moving", "Relocation Services", "Documentation"],
+    certifications: ["BURS Licensed", "AGS International Network", "Relocation Specialist"],
+    recentSuccess: "Leading international moving and vehicle import specialist",
+    verified: true,
+    tier: "Silver"
+  },
+  {
+    id: 29,
+    name: "Elliott Forwarding Botswana",
+    country: "Botswana",
+    location: "Gaborone",
+    rating: 4.5,
+    reviews: 345,
+    specialities: ["Regional Network", "Cross-Border", "Established Provider"],
+    experience: "25+ years",
+    avgProcessingTime: "7-10 days",
+    successRate: "96.5%",
+    contact: {
+      phone: "+267 391 2531",
+      fax: "+267 391 2726",
+      email: "info@elliott.co.za",
+      website: "elliott.co.za"
+    },
+    offices: [
+      "Unit 4/B/2, Western Industrial Estate, Plot 22098, P.O. Box 2044, Gaborone"
+    ],
+    services: ["Vehicle Clearing", "Freight Forwarding", "Cross-Border Operations", "Documentation"],
+    certifications: ["BURS Licensed", "Regional Elliott Network", "SADC Operations"],
+    recentSuccess: "Established freight forwarder with strong regional presence",
+    verified: true,
+    tier: "Gold"
+  },
   // ZAMBIA
   {
     id: 12,
@@ -386,35 +604,6 @@ const agents = [
     verified: true,
     tier: "Gold",
     featured: true
-  },
-  {
-    id: 13,
-    name: "ESSE Clearing Ltd",
-    country: "Zambia",
-    location: "Livingstone / Lusaka / All Borders",
-    rating: 4.8,
-    reviews: 867,
-    specialities: ["Leading Customs Agent", "All Border Posts", "Since 2003"],
-    experience: "21 years",
-    avgProcessingTime: "7-11 days",
-    successRate: "98.2%",
-    contact: {
-      phone: "+260 213 322553",
-      email: "info@esseclearing.com",
-      whatsapp: "+260 977 849697"
-    },
-    offices: [
-      "Livingstone HQ: Plot 2652 Linda Road",
-      "Lusaka Airport: +260 211 271276",
-      "Kazungula: +260 977 740450",
-      "Chirundu: +260 974 771555",
-      "Nakonde: +260 971 259936"
-    ],
-    services: ["All Border Posts", "Airport Clearing", "Vehicle Imports", "Documentation", "Express Service"],
-    certifications: ["ZRA Licensed", "Leading Agent Since 2003", "All Borders Coverage"],
-    recentSuccess: "Zambia's leading customs clearance agent with presence at all major borders",
-    verified: true,
-    tier: "Platinum"
   },
   {
     id: 14,
