@@ -9,7 +9,7 @@ export type Country = 'NA' | 'ZA' | 'BW' | 'ZM';
 
 export type FuelType = 'petrol' | 'diesel';
 
-export type VehicleType = 'passenger' | 'suv' | 'pickup' | 'van' | 'truck';
+export type VehicleType = 'passenger' | 'suv' | 'pickup' | 'van' | 'truck' | 'double-cab';
 
 export interface BaseInputs {
   country: Country;
@@ -18,6 +18,7 @@ export interface BaseInputs {
   co2?: number;                 // g/km CO2 emissions
   rrp?: number;                  // Retail recommended price (for ADV calculation)
   isNewVehicle?: boolean;        // For ZA CO2 levy
+  vehicleType?: VehicleType;     // For ZA CO2 levy (passenger vs double-cab)
   containerCars?: number;        // Number of cars user is importing (container holds 4 total)
   japanSideCosts?: number;       // Total Japan-side costs in local currency
   localClearingCosts?: number;   // Total container clearing costs (for all 4 cars)
@@ -124,28 +125,41 @@ export function calcNA(params: Inputs): FullOutput {
 
 /**
  * South Africa (ZA) Calculation
- * Formula:
+ * Formula (Updated 2025):
  * - Duty = 25% × CIF (HS 8703 baseline)
- * - ADV = min(30%, (0.00003 × RRP - 0.75)%) × RRP
- * - CO₂ levy = applicable only for new vehicles (user toggle)
+ * - ADV = min(30%, (0.00003 × RRP - 0.75)%) × RRP (verify for imported used vehicles)
+ * - CO₂ levy = applicable only for new vehicles (updated April 2024)
+ *   - Passenger cars: (CO2 - 95) × R146 per g/km
+ *   - Double cabs/goods vehicles: (CO2 - 175) × R195 per g/km
  * - Import VAT = 15% × [(CIF + 10%) + Duty + ADV + CO₂ levy]
+ * - Note: 10% uplift applies for imports from outside SACU
  */
 export function calcZA(params: Inputs): FullOutput {
-  const { cif, co2 = 0, rrp = cif * 1.5, isNewVehicle = false } = params;
+  const { cif, co2 = 0, rrp = cif * 1.5, isNewVehicle = false, vehicleType = 'passenger' } = params;
 
   // Customs Duty = 25% of CIF
   const duty = cif * 0.25;
 
   // Ad Valorem Duty (ADV) - Schedule 1 Part 2B style
+  // Note: Verify applicability to imported used vehicles (typically for locally manufactured)
   const advRate = Math.min(0.30, Math.max(0, (0.00003 * rrp - 0.75) / 100));
   const adv = rrp * advRate;
 
-  // CO₂ levy - only for new vehicles
-  // Simplified placeholder - actual ZA CO₂ levy has complex bands
-  // For demo: R120 per g/km above 120 (adjust as per actual policy)
+  // CO₂ levy - only for new vehicles (updated April 2024)
+  // Rates: R146/g for passenger cars (95g/km threshold), R195/g for double cabs (175g/km threshold)
   let co2Levy = 0;
-  if (isNewVehicle && co2 > 120) {
-    co2Levy = (co2 - 120) * 120; // Placeholder rate
+  if (isNewVehicle && co2 > 0) {
+    if (vehicleType === 'double-cab' || vehicleType === 'pickup') {
+      // Double cabs/goods vehicles: 175 g/km threshold at R195 per g/km
+      if (co2 > 175) {
+        co2Levy = (co2 - 175) * 195;
+      }
+    } else {
+      // Passenger cars: 95 g/km threshold at R146 per g/km
+      if (co2 > 95) {
+        co2Levy = (co2 - 95) * 146;
+      }
+    }
   }
 
   // Import VAT = 15% × [(CIF + 10%) + Duty + ADV + CO₂ levy]
@@ -165,42 +179,54 @@ export function calcZA(params: Inputs): FullOutput {
     totalTaxes
   });
 
-  // Add warning for used vehicles
+  // Add South Africa specific notes with prominent ITAC warning
+  output.breakdownNotes = [
+    ...(output.breakdownNotes || []),
+    'South Africa rates updated for 2025. CO2 levy: R146/g (passenger, 95g/km threshold), R195/g (double cab, 175g/km threshold).',
+    '10% CIF uplift applies for imports from outside SACU (Southern African Customs Union).',
+  ];
+
   if (!isNewVehicle) {
-    output.breakdownNotes = [
-      ...(output.breakdownNotes || []),
-      'Used vehicle imports to South Africa generally require an ITAC import permit under limited categories.'
-    ];
+    output.breakdownNotes.push(
+      '🚨 CRITICAL: Used vehicle imports to South Africa are HEAVILY RESTRICTED.',
+      'ITAC permits required and only granted for: returning residents with permanent employment abroad, bona fide immigrants with permanent residence, disabled persons, inherited vehicles, or racing vehicles.',
+      '⚠️ Commercial used vehicle imports are generally PROHIBITED. Consult ITAC before proceeding.'
+    );
+  } else {
+    output.breakdownNotes.push(
+      `CO2 levy applied: ${vehicleType === 'double-cab' || vehicleType === 'pickup' ? 'Double cab rate (R195/g, 175g/km threshold)' : 'Passenger car rate (R146/g, 95g/km threshold)'}`
+    );
   }
 
   return output;
 }
 
 /**
- * Botswana (BW) Calculation
+ * Botswana (BW) Calculation (Updated 2025)
  * Formula:
- * - Duty = 25% × CIF (HS 8703 default, make editable)
- * - ADV = min(30%, (0.00003 × RRP - 0.75)%) × RRP
- * - Import VAT = 12% × [CIF + Duty + ADV] (no uplift for Botswana)
+ * - Duty = 27% × CIF (for non-SACU imports, HS 8703)
+ * - Import VAT = 12% × [CIF + Duty] (no uplift, no ADV)
+ * Note: Ad Valorem (ADV) removed - Namibian ADV formula does not apply in Botswana
+ * Ad valorem excise duties in SACU are typically for manufacturers, not importers
  */
 export function calcBW(params: Inputs): FullOutput {
-  const { cif, rrp = cif * 1.5 } = params;
+  const { cif } = params;
 
-  // Customs Duty = 25% of CIF (default for HS 8703)
-  const duty = cif * 0.25;
+  // Customs Duty = 27% of CIF (updated 2025 rate for non-SACU imports)
+  const duty = cif * 0.27;
 
-  // Ad Valorem Duty (ADV)
-  const advRate = Math.min(0.30, Math.max(0, (0.00003 * rrp - 0.75) / 100));
-  const adv = rrp * advRate;
+  // No Ad Valorem (ADV) for Botswana
+  // The Namibian ADV formula is specific to Namibia and does not apply in Botswana
+  const adv = 0;
 
-  // Import VAT = 12% × [CIF + Duty + ADV]
-  // Botswana does not apply the 10% uplift on CIF
-  const vatBase = cif + duty + adv;
+  // Import VAT = 12% × [CIF + Duty]
+  // Botswana does not apply the 10% uplift on CIF (no ADV either)
+  const vatBase = cif + duty;
   const vat = vatBase * 0.12;
 
-  const totalTaxes = duty + adv + vat;
+  const totalTaxes = duty + vat;
 
-  return buildFullOutput(params, {
+  const output = buildFullOutput(params, {
     duty,
     env: 0,
     adv,
@@ -209,6 +235,17 @@ export function calcBW(params: Inputs): FullOutput {
     vat,
     totalTaxes
   });
+
+  // Add Botswana specific notes
+  output.breakdownNotes = [
+    ...(output.breakdownNotes || []),
+    'Botswana rates updated for 2025: 27% customs duty for non-SACU imports (increased from 25%).',
+    'VAT at 12% with no CIF uplift applied.',
+    '⚠️ Ad Valorem (ADV) removed - only applies to manufacturers in SACU, not vehicle imports.',
+    'Formula simplified to: Duty (27%) + VAT (12%). Consult BURS (Botswana Unified Revenue Service) for verification.'
+  ];
+
+  return output;
 }
 
 /**
@@ -284,16 +321,16 @@ export function calcZM(params: Inputs): FullOutput {
     totalTaxes
   });
 
+  // Add Zambia specific notes
+  output.breakdownNotes = [
+    ...(output.breakdownNotes || []),
+    'Zambia uses ZRA specific duty table (2025 rates). Verify current rates with customs.',
+  ];
+
   if (isEV) {
-    output.breakdownNotes = [
-      ...(output.breakdownNotes || []),
-      'Electric vehicles receive zero customs duty and reduced excise in Zambia.'
-    ];
+    output.breakdownNotes.push('Electric vehicles receive zero customs duty and reduced excise in Zambia.');
   } else if (isHybrid) {
-    output.breakdownNotes = [
-      ...(output.breakdownNotes || []),
-      'Hybrid vehicles receive reduced excise duty in Zambia.'
-    ];
+    output.breakdownNotes.push('Hybrid vehicles receive reduced excise duty in Zambia.');
   }
 
   return output;
@@ -379,7 +416,7 @@ export function getCountryRequirements(country: Country): {
     case 'BW':
       return {
         requiresCO2: false,
-        requiresRRP: true,
+        requiresRRP: false, // No ADV in Botswana, RRP not needed
         requiresZMFields: false,
         requiresNewVehicleToggle: false,
         vatRate: 12,
