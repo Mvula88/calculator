@@ -749,17 +749,17 @@ export default function JapanAuctionsClientPage() {
                 <div className="border-l-4 border-blue-500 pl-4">
                   <h4 className="font-semibold text-sm">Direct Purchase Sites:</h4>
                   <ul className="text-xs sm:text-sm space-y-1">
-                    <li>• <strong>SBT Japan:</strong> Fixed prices, beginner-friendly, English support</li>
-                    <li>• <strong>BE FORWARD:</strong> Large inventory, negotiable prices</li>
-                    <li>• <strong>Japan Partner:</strong> Good for parts and accessories</li>
+                    <li>• <a href="https://www.sbtjapan.com" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline"><strong>SBT Japan:</strong></a> Fixed prices, beginner-friendly, English support</li>
+                    <li>• <a href="https://www.beforward.jp" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline"><strong>BE FORWARD:</strong></a> Large inventory, negotiable prices</li>
+                    <li>• <a href="https://www.japan-partner.com" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline"><strong>Japan Partner:</strong></a> Good for parts and accessories</li>
                   </ul>
                 </div>
                 <div className="border-l-4 border-green-500 pl-4">
                   <h4 className="font-semibold text-sm">Auction Access (Agent Required):</h4>
                   <ul className="text-xs sm:text-sm space-y-1">
-                    <li>• <strong>USS Auctions:</strong> Largest, 150,000+ cars weekly</li>
-                    <li>• <strong>JAA:</strong> Luxury/sports car focus</li>
-                    <li>• <strong>TAA:</strong> Toyota specialist auctions</li>
+                    <li>• <a href="https://www.ussnet.co.jp" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline"><strong>USS Auctions:</strong></a> Largest, 150,000+ cars weekly</li>
+                    <li>• <a href="https://www.jaa.co.jp" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline"><strong>JAA:</strong></a> Luxury/sports car focus</li>
+                    <li>• <a href="https://www.taag.co.jp" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline"><strong>TAA:</strong></a> Toyota specialist auctions</li>
                   </ul>
                 </div>
               </div>
@@ -899,10 +899,10 @@ export default function JapanAuctionsClientPage() {
               <div>
                 <h3 className="font-semibold mb-2">Largest Auction Groups:</h3>
                 <ul className="space-y-1 text-gray-700">
-                  <li>• <strong>USS:</strong> 150,000+ cars weekly, 19 locations</li>
-                  <li>• <strong>JAA:</strong> Premium/luxury focus</li>
-                  <li>• <strong>TAA:</strong> Toyota specialized</li>
-                  <li>• <strong>HAA:</strong> Honda/Nissan focus</li>
+                  <li>• <a href="https://www.ussnet.co.jp" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline"><strong>USS:</strong></a> 150,000+ cars weekly, 19 locations</li>
+                  <li>• <a href="https://www.jaa.co.jp" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline"><strong>JAA:</strong></a> Premium/luxury focus</li>
+                  <li>• <a href="https://www.taag.co.jp" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline"><strong>TAA:</strong></a> Toyota specialized</li>
+                  <li>• <a href="https://www.haa.co.jp" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline"><strong>HAA:</strong></a> Honda/Nissan focus</li>
                 </ul>
               </div>
               <div>
