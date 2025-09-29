@@ -356,75 +356,6 @@ const agents = [
   },
   // BOTSWANA
   {
-    id: 9,
-    name: "Transworld Cargo Botswana (TriOptimum)",
-    country: "Botswana",
-    location: "Gaborone",
-    rating: 4.7,
-    reviews: 412,
-    specialities: ["Vehicle Storage", "Bonded Warehousing", "Automotive Transport"],
-    experience: "15+ years",
-    avgProcessingTime: "6-9 days",
-    successRate: "97.2%",
-    contact: {
-      phone: "+267 310 5743",
-      website: "trioptimumlogistics.co.za"
-    },
-    offices: [
-      "Plot 22072 Unit 20 & 21 Technology Park, Gaborone West"
-    ],
-    services: ["Vehicle Clearing", "Bonded Storage", "Transport", "Documentation"],
-    certifications: ["BURS Licensed", "Bonded Warehouse", "Part of Transworld Network"],
-    recentSuccess: "Leading automotive logistics provider in Botswana",
-    verified: true,
-    tier: "Platinum",
-    featured: true
-  },
-  {
-    id: 10,
-    name: "Swift Logistics Botswana",
-    country: "Botswana",
-    location: "Gaborone",
-    rating: 4.4,
-    reviews: 287,
-    specialities: ["Quick Processing", "Technology Park Based", "Efficient Service"],
-    experience: "10 years",
-    avgProcessingTime: "7-10 days",
-    successRate: "94.8%",
-    contact: {
-      phone: "+267 396 9911",
-      email: "info@swift-bw.com"
-    },
-    offices: [
-      "Plot 22072/2 Unit 28, Gaborone Technology Park"
-    ],
-    services: ["Vehicle Clearing", "Documentation", "Transport", "Express Service"],
-    certifications: ["BURS Registered", "Technology Park Licensed"],
-    verified: true,
-    tier: "Silver"
-  },
-  {
-    id: 11,
-    name: "Trans-Tech Botswana",
-    country: "Botswana",
-    location: "Gaborone",
-    rating: 4.5,
-    reviews: 198,
-    specialities: ["Japanese Vehicles", "Singapore Imports", "100% Citizen Owned"],
-    experience: "8 years",
-    avgProcessingTime: "8-11 days",
-    successRate: "95.3%",
-    contact: {
-      phone: "+267 75 124 326",
-      email: "transtechbw18@gmail.com"
-    },
-    services: ["Japanese Vehicle Specialists", "Singapore Imports", "Documentation", "Local Support"],
-    certifications: ["100% Citizen Owned", "BURS Licensed", "Japanese Specialist"],
-    recentSuccess: "Specialized in Japanese and Singapore vehicle imports",
-    verified: true,
-    tier: "Silver"
-  },
-  {
     id: 24,
     name: "Bolloré Logistics Botswana",
     country: "Botswana",
@@ -583,29 +514,6 @@ const agents = [
   },
   // ZAMBIA
   {
-    id: 12,
-    name: "Transworld Cargo Zambia",
-    country: "Zambia",
-    location: "Via Katima Mulilo / Walvis Bay",
-    rating: 4.6,
-    reviews: 334,
-    specialities: ["Walvis Bay Route", "Cross-Border", "Vehicle Imports"],
-    experience: "39+ years",
-    avgProcessingTime: "10-14 days",
-    successRate: "96.5%",
-    contact: {
-      phone: "+264 61 371 100",
-      email: "info@transworldcargo.net",
-      website: "transworldcargo.net"
-    },
-    services: ["Zambia Vehicle Imports", "Walvis Bay Port", "Cross-Border Transport", "Documentation"],
-    certifications: ["ISO 9001", "Cross-Border Licensed", "Katima Mulilo Corridor"],
-    recentSuccess: "Facilitating Zambian imports via Walvis Bay port efficiently",
-    verified: true,
-    tier: "Gold",
-    featured: true
-  },
-  {
     id: 14,
     name: "DSV Zambia",
     country: "Zambia",
@@ -625,6 +533,194 @@ const agents = [
     recentSuccess: "International freight forwarder with strong local presence",
     verified: true,
     tier: "Gold"
+  },
+  {
+    id: 30,
+    name: "DSV Air & Sea Zambia",
+    country: "Zambia",
+    location: "Lusaka / Livingstone",
+    rating: 4.6,
+    reviews: 478,
+    specialities: ["Full License", "Air & Sea Freight", "International Network"],
+    experience: "25+ years",
+    avgProcessingTime: "7-10 days",
+    successRate: "97.3%",
+    contact: {
+      phone: "+260 977 865 435",
+      email: "kris.vanheerden@zm.dsv.com",
+      website: "dsv.com"
+    },
+    offices: [
+      "Plot 9466 Off Kafue Rd, Makeni, Lusaka",
+      "DSV Damb Central, Livingstone"
+    ],
+    services: ["Vehicle Clearing", "Air Freight", "Sea Freight", "Cross-Border Operations", "Documentation"],
+    certifications: ["ZRA Full License", "DSV Global Network", "ISO Certified"],
+    recentSuccess: "Strategic presence in Lusaka and Livingstone for Katima/Sesheke corridor",
+    verified: true,
+    tier: "Platinum"
+  },
+  {
+    id: 31,
+    name: "Bolloré Transport & Logistics Zambia",
+    country: "Zambia",
+    location: "Lusaka",
+    rating: 4.7,
+    reviews: 567,
+    specialities: ["Full License", "Global Network", "Heavy Industrial"],
+    experience: "30+ years",
+    avgProcessingTime: "7-11 days",
+    successRate: "97.5%",
+    contact: {
+      phone: "+260 977 122 107",
+      email: "richard.chapuswike@bollore.com",
+      website: "bollore-logistics.com"
+    },
+    offices: [
+      "Plot 3535, corner Lumumba/Malambo Rd, Heavy Industrial Area, Lusaka"
+    ],
+    services: ["Vehicle Clearing", "Freight Forwarding", "Project Cargo", "Documentation", "Supply Chain"],
+    certifications: ["ZRA Full License", "Bolloré Global Network", "ISO 9001"],
+    recentSuccess: "Leading international logistics provider with strong industrial area presence",
+    verified: true,
+    tier: "Platinum"
+  },
+  {
+    id: 32,
+    name: "CEVA Logistics Zambia",
+    country: "Zambia",
+    location: "Lusaka",
+    rating: 4.5,
+    reviews: 423,
+    specialities: ["Full License", "Supply Chain Solutions", "Contract Logistics"],
+    experience: "20+ years",
+    avgProcessingTime: "8-11 days",
+    successRate: "96.8%",
+    contact: {
+      phone: "+260 979 542 332",
+      email: "dalisop@ami-worldwide.com",
+      website: "cevalogistics.com"
+    },
+    services: ["Vehicle Clearing", "Contract Logistics", "Freight Management", "Documentation"],
+    certifications: ["ZRA Full License", "CEVA Global Network", "AMI Worldwide Partner"],
+    recentSuccess: "Global logistics leader with comprehensive Zambian operations",
+    verified: true,
+    tier: "Gold"
+  },
+  {
+    id: 33,
+    name: "C. Steinweg Bridge Zambia",
+    country: "Zambia",
+    location: "Ndola",
+    rating: 4.4,
+    reviews: 312,
+    specialities: ["Full License", "Copperbelt Operations", "Commodity Logistics"],
+    experience: "15+ years",
+    avgProcessingTime: "8-12 days",
+    successRate: "96.2%",
+    contact: {
+      phone: "+260 966 431 121",
+      email: "compliance.zambia@za.steinweg.com",
+      website: "steinweg.com"
+    },
+    offices: [
+      "Plot 39375/M Kabwe Hwy, Ndola"
+    ],
+    services: ["Vehicle Clearing", "Commodity Handling", "Freight Forwarding", "Documentation"],
+    certifications: ["ZRA Full License", "Steinweg International Group", "Copperbelt Specialist"],
+    recentSuccess: "Strategic Copperbelt location serving mining and industrial sectors",
+    verified: true,
+    tier: "Gold"
+  },
+  {
+    id: 34,
+    name: "Continental Freight Services",
+    country: "Zambia",
+    location: "Lusaka",
+    rating: 4.3,
+    reviews: 289,
+    specialities: ["Full License", "Freight Services", "Local Expertise"],
+    experience: "12+ years",
+    avgProcessingTime: "9-12 days",
+    successRate: "95.7%",
+    contact: {
+      phone: "+260 968 679 439",
+      email: "fps@freight.co.zm",
+      website: "freight.co.zm"
+    },
+    services: ["Vehicle Clearing", "Freight Services", "Documentation", "Local Transport"],
+    certifications: ["ZRA Full License", "Local Freight Specialist"],
+    recentSuccess: "Established local freight forwarder with strong Zambian market knowledge",
+    verified: true,
+    tier: "Silver"
+  },
+  {
+    id: 35,
+    name: "Cargo Management & Logistics (CML)",
+    country: "Zambia",
+    location: "Lusaka",
+    rating: 4.4,
+    reviews: 334,
+    specialities: ["Full License", "Cargo Management", "Logistics Solutions"],
+    experience: "14+ years",
+    avgProcessingTime: "8-11 days",
+    successRate: "96.1%",
+    contact: {
+      phone: "+260 966 999 202",
+      email: "info@cmlzambia.co.zm",
+      website: "cmlzambia.co.zm"
+    },
+    services: ["Vehicle Clearing", "Cargo Management", "Logistics Solutions", "Documentation"],
+    certifications: ["ZRA Full License", "Cargo Management Specialist"],
+    recentSuccess: "Comprehensive cargo management and logistics solutions provider",
+    verified: true,
+    tier: "Silver"
+  },
+  {
+    id: 36,
+    name: "Cacitex Logistics Zambia",
+    country: "Zambia",
+    location: "Lusaka",
+    rating: 4.2,
+    reviews: 267,
+    specialities: ["Full License", "Clearing Services", "Local Operations"],
+    experience: "10+ years",
+    avgProcessingTime: "9-13 days",
+    successRate: "95.3%",
+    contact: {
+      phone: "+260 950 235 729",
+      email: "clearing@cacitex.com.zm",
+      website: "cacitex.com.zm"
+    },
+    services: ["Vehicle Clearing", "Customs Clearance", "Documentation", "Transport Arrangement"],
+    certifications: ["ZRA Full License", "Local Operations Expert"],
+    recentSuccess: "Reliable local clearing services with competitive pricing",
+    verified: true,
+    tier: "Silver"
+  },
+  {
+    id: 37,
+    name: "Bridge Cargo Ltd",
+    country: "Zambia",
+    location: "Lusaka",
+    rating: 4.1,
+    reviews: 223,
+    specialities: ["Full License", "Makeni Area", "Cargo Services"],
+    experience: "8+ years",
+    avgProcessingTime: "10-13 days",
+    successRate: "94.8%",
+    contact: {
+      phone: "+260 977 878 360",
+      email: "kamangahassany2016@gmail.com"
+    },
+    offices: [
+      "36346 Kafue Rd, Makeni, Lusaka"
+    ],
+    services: ["Vehicle Clearing", "Cargo Services", "Documentation", "Local Transport"],
+    certifications: ["ZRA Full License", "Makeni Area Specialist"],
+    recentSuccess: "Strategic location on Kafue Road serving Makeni industrial area",
+    verified: true,
+    tier: "Silver"
   },
   // MULTI-COUNTRY AGENTS
   {
