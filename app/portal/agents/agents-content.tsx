@@ -61,12 +61,12 @@ const agents = [
   },
   {
     id: 2,
-    name: "Trade Ocean Namibia",
+    name: "Trade Ocean Shipping",
     country: "Namibia",
     location: "Walvis Bay",
     rating: 4.7,
     reviews: 523,
-    specialities: ["Private Vehicles", "Industrial Vehicles", "Specialized Equipment"],
+    specialities: ["Private Vehicles", "Industrial Vehicles", "Specialized Equipment", "Multi-Country Operations"],
     experience: "15 years",
     avgProcessingTime: "6-9 days",
     successRate: "97.8%",
@@ -77,40 +77,18 @@ const agents = [
     },
     contact: {
       phone: "+264 64 275 480",
+      fax: "+264 64 275 484",
       email: "infonam@tradeocean.co.za",
-      website: "tradeocean.co.na"
+      website: "tradeocean.co.za"
     },
     offices: [
-      "165 Rikumbi Kandanga, Walvis Bay, 13013"
+      "Namibia: 165 Rikumbi Kandanga, Walvis Bay, P.O. Box 9096",
+      "South Africa - Durban: Suite 404 Cowey Park, 91 Problem Mkhize (Cowey) Road, Durban, 4001"
     ],
-    services: ["Licensed Vehicle Clearance", "Port Operations", "Documentation", "Transport Arrangement"],
-    certifications: ["NamRA Licensed", "SADC Approved"],
-    recentSuccess: "Specialized in clearing industrial and specialized vehicles",
-    verified: true,
-    tier: "Gold"
-  },
-  {
-    id: 3,
-    name: "Namibian Clearing Agency",
-    country: "Namibia",
-    location: "Windhoek / SA Border",
-    rating: 4.8,
-    reviews: 892,
-    specialities: ["SA-Namibia Cross Border", "Quick Processing", "Documentation"],
-    experience: "12 years",
-    avgProcessingTime: "4-7 days",
-    successRate: "98.5%",
-    fees: {
-      standard: "N$9,000",
-      express: "N$13,500",
-      crossBorder: "N$16,000"
-    },
-    contact: {
-      website: "namibianclearingagency.com"
-    },
-    services: ["Cross-Border Clearing", "Documentation", "SARS Liaison", "Express Service"],
-    certifications: ["#1 Choice for SA-Namibia", "NamRA Registered"],
-    recentSuccess: "#1 rated for South Africa to Namibia vehicle imports",
+    services: ["Licensed Vehicle Clearance", "Port Operations", "Documentation", "Transport Arrangement", "Cross-Border Services"],
+    certifications: ["NamRA Licensed", "SADC Approved", "Multi-Country Operations"],
+    recentSuccess: "Specialized in clearing industrial and specialized vehicles with operations in Namibia and South Africa",
+    testimonial: "Excellent cross-border clearing services between Namibia and South Africa.",
     verified: true,
     tier: "Gold"
   },
@@ -131,8 +109,9 @@ const agents = [
       specialized: "N$21,000"
     },
     contact: {
-      phone: "+264 64 201 2911",
-      email: "info@manica.com.na",
+      phone: "+264 64 2012911",
+      fax: "+264 64 202530",
+      email: "contact@manica.com.na",
       website: "manica.com"
     },
     offices: [
@@ -142,6 +121,93 @@ const agents = [
     certifications: ["NamRA Licensed", "International Freight Forwarder", "Customs Accredited"],
     recentSuccess: "Leading freight and logistics provider with global network",
     testimonial: "Professional and efficient clearing services with excellent communication.",
+    verified: true,
+    tier: "Gold"
+  },
+  {
+    id: 16,
+    name: "Kuehne & Nagel Namibia",
+    country: "Namibia",
+    location: "Walvis Bay",
+    rating: 4.7,
+    reviews: 542,
+    specialities: ["Global Logistics", "Supply Chain Solutions", "Freight Forwarding"],
+    experience: "25+ years",
+    avgProcessingTime: "6-9 days",
+    successRate: "97.5%",
+    fees: {
+      standard: "N$12,000",
+      express: "N$17,500",
+      specialized: "N$22,500"
+    },
+    contact: {
+      phone: "+264 64 271200",
+      fax: "+264 64 203421",
+      email: "jacqueline.hebbard@kuehne-nagel.com",
+      website: "kuehne-nagel.com"
+    },
+    services: ["Vehicle Clearing", "Sea & Air Freight", "Contract Logistics", "Integrated Logistics", "Documentation"],
+    certifications: ["NamRA Licensed", "Global Network", "ISO Certified"],
+    recentSuccess: "Leading global logistics provider with strong local presence",
+    verified: true,
+    tier: "Gold"
+  },
+  {
+    id: 17,
+    name: "Maersk Namibia",
+    country: "Namibia",
+    location: "Walvis Bay",
+    rating: 4.6,
+    reviews: 428,
+    specialities: ["Container Shipping", "Logistics Solutions", "Supply Chain Management"],
+    experience: "30+ years",
+    avgProcessingTime: "7-10 days",
+    successRate: "96.8%",
+    fees: {
+      standard: "N$11,500",
+      express: "N$16,500",
+      container: "N$19,500"
+    },
+    contact: {
+      phone: "+264 64 273 0112",
+      email: "johan.van.dyk@maersk.com",
+      website: "maersk.com"
+    },
+    services: ["Vehicle Clearing", "Container Handling", "Ocean Transport", "Inland Services", "Documentation"],
+    certifications: ["NamRA Licensed", "World's Largest Container Shipping Line", "ISO Certified"],
+    recentSuccess: "Global leader in container logistics with comprehensive Namibian operations",
+    verified: true,
+    tier: "Gold"
+  },
+  {
+    id: 18,
+    name: "Schenker Namibia (Pty) Ltd",
+    country: "Namibia",
+    location: "Windhoek / Walvis Bay",
+    rating: 4.5,
+    reviews: 396,
+    specialities: ["DB Schenker Network", "Air & Ocean Freight", "Land Transport"],
+    experience: "20+ years",
+    avgProcessingTime: "6-9 days",
+    successRate: "96.2%",
+    fees: {
+      standard: "N$10,500",
+      express: "N$15,500",
+      specialized: "N$20,000"
+    },
+    contact: {
+      phone: "+264 61 376 550 (Windhoek) / +264 64 277 300 (Walvis Bay)",
+      fax: "+264 61 433 9811",
+      email: "info.Namibia@dbschenker.com",
+      website: "dbschenker.com"
+    },
+    offices: [
+      "Windhoek Office: +264 61 376 550",
+      "Walvis Bay Office: +264 64 277 300"
+    ],
+    services: ["Vehicle Clearing", "Air Freight", "Ocean Freight", "Land Transport", "Contract Logistics", "Documentation"],
+    certifications: ["NamRA Licensed", "Part of DB Schenker Global Network", "ISO 9001 Certified"],
+    recentSuccess: "Global logistics network with strong presence in both Windhoek and Walvis Bay",
     verified: true,
     tier: "Gold"
   },
@@ -249,6 +315,36 @@ const agents = [
     services: ["Border Clearing", "Vehicle Movement Tracking", "Multi-Point Operations"],
     certifications: ["SARS Accredited", "SA Association of Freight Forwarders Member"],
     recentSuccess: "Excellence in vehicle movement tracking across borders",
+    verified: true,
+    tier: "Gold"
+  },
+  {
+    id: 19,
+    name: "Trade Ocean South Africa",
+    country: "South Africa",
+    location: "Durban",
+    rating: 4.6,
+    reviews: 412,
+    specialities: ["Port Operations", "Vehicle Imports", "Cross-Border to Namibia"],
+    experience: "15 years",
+    avgProcessingTime: "7-10 days",
+    successRate: "96.8%",
+    fees: {
+      standard: "R13,000",
+      express: "R18,000",
+      crossBorder: "R21,000"
+    },
+    contact: {
+      phone: "+27 (0) 31 207 6233",
+      email: "operationsdbn@tradeocean.co.za",
+      website: "tradeocean.co.za"
+    },
+    offices: [
+      "Suite 404 Cowey Park, 91 Problem Mkhize (Cowey) Road, Durban, 4001"
+    ],
+    services: ["Vehicle Clearing", "Port Operations", "Documentation", "Cross-Border Transport to Namibia"],
+    certifications: ["SARS Accredited", "Durban Port Licensed", "Cross-Border Operations"],
+    recentSuccess: "Specializes in vehicle imports through Durban port with direct operations to Namibia",
     verified: true,
     tier: "Gold"
   },
