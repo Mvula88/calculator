@@ -143,8 +143,8 @@ const shippingCompanies: ShippingCompany[] = [
     logo: '🇯🇵',
     description: 'Japanese carrier ideal for Japan to Africa vehicle shipments',
     routes: ['Japan → Southern Africa', 'Asia → Africa', 'Japan → East Africa'],
-    avgTransitTime: '28-35 days',
-    priceRange: 'R30,000 - R45,000',
+    avgTransitTime: '75-90 days',
+    priceRange: 'R70,000 - R165,000',
     rating: 4.6,
     contact: {
       namibia: {
@@ -397,8 +397,8 @@ export default function ShippingContent() {
           <div>
             <h4 className="font-semibold mb-2">For Japan Imports</h4>
             <p className="text-sm text-gray-600">
-              MOL is your best choice for vehicles from Japan. They specialize in RoRo (Roll-on/Roll-off) 
-              and have the most direct routes from Japanese ports.
+              Maersk and MOL are your best choices for vehicles from Japan. Maersk offers the most reliable service
+              with extensive coverage, while MOL specializes in RoRo (Roll-on/Roll-off) with direct routes from Japanese ports.
             </p>
           </div>
           <div>
@@ -411,8 +411,10 @@ export default function ShippingContent() {
           <div>
             <h4 className="font-semibold mb-2">For Budget Imports</h4>
             <p className="text-sm text-gray-600">
-              Consider COSCO for the lowest rates, or better yet, use ContShare.com to 
-              share container space and save significantly.
+              Consider COSCO for the lowest rates, or better yet, use{' '}
+              <a href="https://www.contshare.com" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline">
+                ContShare.com
+              </a>{' '}to share container space and save significantly.
             </p>
           </div>
         </div>
