@@ -16,58 +16,58 @@ interface VehiclePricing {
 
 const vehicleDatabase: VehiclePricing[] = [
   // Toyota
-  { model: 'Toyota Vitz', year: '2013-2018', engineSize: '1.3L Auto', priceRangeJPY: '¥300,000-600,000', priceRangeNAD: 'N$39,000-78,000', category: 'Compact', popularity: 'high' },
-  { model: 'Toyota Wish', year: '2013-2016', engineSize: '1.8L/2.0L', priceRangeJPY: '¥500,000-800,000', priceRangeNAD: 'N$65,000-104,000', category: 'MPV' },
-  { model: 'Toyota Hilux', year: '2017+', engineSize: 'Diesel', priceRangeJPY: '¥2,500,000-3,000,000', priceRangeNAD: 'N$325,000-390,000', category: 'Pickup', notes: '2013-2016 not recommended' },
-  { model: 'Toyota Passo', year: '2013-2018', engineSize: '1.0L', priceRangeJPY: '¥200,000-300,000', priceRangeNAD: 'N$26,000-39,000', category: 'Compact' },
+  { model: 'Toyota Vitz', year: '2013-2018', engineSize: '1.3L Auto', priceRangeJPY: '¥300,000-600,000', priceRangeNAD: 'N$36,000-72,000', category: 'Compact', popularity: 'high' },
+  { model: 'Toyota Wish', year: '2013-2016', engineSize: '1.8L/2.0L', priceRangeJPY: '¥500,000-800,000', priceRangeNAD: 'N$60,000-96,000', category: 'MPV' },
+  { model: 'Toyota Hilux', year: '2017+', engineSize: 'Diesel', priceRangeJPY: '¥2,500,000-3,000,000', priceRangeNAD: 'N$300,000-360,000', category: 'Pickup', notes: '2013-2016 not recommended' },
+  { model: 'Toyota Passo', year: '2013-2018', engineSize: '1.0L', priceRangeJPY: '¥200,000-300,000', priceRangeNAD: 'N$24,000-36,000', category: 'Compact' },
 
   // Mazda
-  { model: 'Mazda Demio', year: '2014-2018', engineSize: '1.3L/1.5L', priceRangeJPY: '¥200,000-300,000', priceRangeNAD: 'N$26,000-39,000', category: 'Compact', popularity: 'medium' },
-  { model: 'Mazda6', year: '2019+', engineSize: '2.0L/2.5L', priceRangeJPY: '¥2,000,000+', priceRangeNAD: 'N$260,000+', category: 'Sedan', notes: '2013-2016 limited data' },
-  { model: 'Mazda CX-3', year: '2014-2018', engineSize: '1.5L/2.0L', priceRangeJPY: '¥500,000-600,000', priceRangeNAD: 'N$65,000-78,000', category: 'SUV' },
-  { model: 'Mazda CX-5', year: '2014-2016', engineSize: '2.0L/2.5L', priceRangeJPY: '¥300,000-400,000', priceRangeNAD: 'N$39,000-52,000', category: 'SUV', popularity: 'high' },
+  { model: 'Mazda Demio', year: '2014-2018', engineSize: '1.3L/1.5L', priceRangeJPY: '¥200,000-300,000', priceRangeNAD: 'N$24,000-36,000', category: 'Compact', popularity: 'medium' },
+  { model: 'Mazda6', year: '2019+', engineSize: '2.0L/2.5L', priceRangeJPY: '¥2,000,000+', priceRangeNAD: 'N$240,000+', category: 'Sedan', notes: '2013-2016 limited data' },
+  { model: 'Mazda CX-3', year: '2014-2018', engineSize: '1.5L/2.0L', priceRangeJPY: '¥500,000-600,000', priceRangeNAD: 'N$60,000-72,000', category: 'SUV' },
+  { model: 'Mazda CX-5', year: '2014-2016', engineSize: '2.0L/2.5L', priceRangeJPY: '¥300,000-400,000', priceRangeNAD: 'N$36,000-48,000', category: 'SUV', popularity: 'high' },
 
   // Volkswagen
-  { model: 'VW Polo TSI', year: '2013-2018', engineSize: '1.2L/1.4L', priceRangeJPY: '¥400,000-600,000', priceRangeNAD: 'N$52,000-78,000', category: 'Hatchback', popularity: 'high' },
-  { model: 'VW Polo GTI', year: '2013-2018', engineSize: '1.8L', priceRangeJPY: '¥600,000-1,000,000', priceRangeNAD: 'N$78,000-130,000', category: 'Sport', notes: 'Performance model' },
-  { model: 'VW Golf 6', year: '2009-2012', engineSize: '1.4L TSI', priceRangeJPY: '¥200,000-400,000', priceRangeNAD: 'N$26,000-52,000', category: 'Hatchback' },
-  { model: 'VW Golf 7', year: '2013-2018', engineSize: '1.4L TSI', priceRangeJPY: '¥600,000-700,000', priceRangeNAD: 'N$78,000-91,000', category: 'Hatchback', popularity: 'high' },
-  { model: 'VW Golf 7 GTI', year: '2013-2018', engineSize: '2.0L TSI', priceRangeJPY: '¥1,000,000-1,400,000', priceRangeNAD: 'N$130,000-182,000', category: 'Sport', notes: 'Performance model' },
-  { model: 'VW Golf 7R', year: '2013-2018', engineSize: '2.0L TSI', priceRangeJPY: '¥1,300,000-2,000,000+', priceRangeNAD: 'N$169,000-260,000+', category: 'Sport', notes: 'Top performance' },
-  { model: 'VW Tiguan', year: '2013-2016', engineSize: '1.4L/2.0L TSI', priceRangeJPY: '¥700,000-800,000', priceRangeNAD: 'N$91,000-104,000', category: 'SUV' },
+  { model: 'VW Polo TSI', year: '2013-2018', engineSize: '1.2L/1.4L', priceRangeJPY: '¥400,000-600,000', priceRangeNAD: 'N$48,000-72,000', category: 'Hatchback', popularity: 'high' },
+  { model: 'VW Polo GTI', year: '2013-2018', engineSize: '1.8L', priceRangeJPY: '¥600,000-1,000,000', priceRangeNAD: 'N$72,000-120,000', category: 'Sport', notes: 'Performance model' },
+  { model: 'VW Golf 6', year: '2009-2012', engineSize: '1.4L TSI', priceRangeJPY: '¥200,000-400,000', priceRangeNAD: 'N$24,000-48,000', category: 'Hatchback' },
+  { model: 'VW Golf 7', year: '2013-2018', engineSize: '1.4L TSI', priceRangeJPY: '¥600,000-700,000', priceRangeNAD: 'N$72,000-84,000', category: 'Hatchback', popularity: 'high' },
+  { model: 'VW Golf 7 GTI', year: '2013-2018', engineSize: '2.0L TSI', priceRangeJPY: '¥1,000,000-1,400,000', priceRangeNAD: 'N$120,000-168,000', category: 'Sport', notes: 'Performance model' },
+  { model: 'VW Golf 7R', year: '2013-2018', engineSize: '2.0L TSI', priceRangeJPY: '¥1,300,000-2,000,000+', priceRangeNAD: 'N$156,000-240,000+', category: 'Sport', notes: 'Top performance' },
+  { model: 'VW Tiguan', year: '2013-2016', engineSize: '1.4L/2.0L TSI', priceRangeJPY: '¥700,000-800,000', priceRangeNAD: 'N$84,000-96,000', category: 'SUV' },
 
   // Audi
-  { model: 'Audi A1', year: '2013-2018', engineSize: '1.4L TFSI', priceRangeJPY: '¥500,000', priceRangeNAD: 'N$65,000', category: 'Hatchback' },
-  { model: 'Audi A3 Sportback', year: '2013-2017', engineSize: '1.4L/1.8L TFSI', priceRangeJPY: '¥500,000-700,000', priceRangeNAD: 'N$65,000-91,000', category: 'Hatchback', popularity: 'high' },
-  { model: 'Audi A4 B8/B9', year: '2013-2018', engineSize: '1.8L/2.0L TFSI', priceRangeJPY: '¥200,000-750,000', priceRangeNAD: 'N$26,000-97,500', category: 'Sedan', popularity: 'high' },
+  { model: 'Audi A1', year: '2013-2018', engineSize: '1.4L TFSI', priceRangeJPY: '¥500,000', priceRangeNAD: 'N$60,000', category: 'Hatchback' },
+  { model: 'Audi A3 Sportback', year: '2013-2017', engineSize: '1.4L/1.8L TFSI', priceRangeJPY: '¥500,000-700,000', priceRangeNAD: 'N$60,000-84,000', category: 'Hatchback', popularity: 'high' },
+  { model: 'Audi A4 B8/B9', year: '2013-2018', engineSize: '1.8L/2.0L TFSI', priceRangeJPY: '¥200,000-750,000', priceRangeNAD: 'N$24,000-90,000', category: 'Sedan', popularity: 'high' },
   { model: 'Audi A5', year: '2013-2016', engineSize: '2.0L TFSI', priceRangeJPY: 'Limited data', priceRangeNAD: 'Contact dealer', category: 'Coupe', notes: 'Limited auction history' },
-  { model: 'Audi A6', year: '2013-2016', engineSize: '2.0L/3.0L TFSI', priceRangeJPY: '¥400,000-600,000', priceRangeNAD: 'N$52,000-78,000', category: 'Sedan' },
-  { model: 'Audi Q3', year: '2013-2016', engineSize: '1.4L/2.0L TFSI', priceRangeJPY: '¥500,000-600,000', priceRangeNAD: 'N$65,000-78,000', category: 'SUV' },
-  { model: 'Audi Q5', year: '2013-2018', engineSize: '2.0L TFSI', priceRangeJPY: '¥800,000-1,500,000', priceRangeNAD: 'N$104,000-195,000', category: 'SUV', popularity: 'high' },
+  { model: 'Audi A6', year: '2013-2016', engineSize: '2.0L/3.0L TFSI', priceRangeJPY: '¥400,000-600,000', priceRangeNAD: 'N$48,000-72,000', category: 'Sedan' },
+  { model: 'Audi Q3', year: '2013-2016', engineSize: '1.4L/2.0L TFSI', priceRangeJPY: '¥500,000-600,000', priceRangeNAD: 'N$60,000-72,000', category: 'SUV' },
+  { model: 'Audi Q5', year: '2013-2018', engineSize: '2.0L TFSI', priceRangeJPY: '¥800,000-1,500,000', priceRangeNAD: 'N$96,000-180,000', category: 'SUV', popularity: 'high' },
 
   // BMW
-  { model: 'BMW 1 Series', year: '2013-2016', engineSize: '116i/118i', priceRangeJPY: '¥300,000-400,000', priceRangeNAD: 'N$39,000-52,000', category: 'Hatchback' },
-  { model: 'BMW 3 Series F30', year: '2013-2016', engineSize: '320i/328i', priceRangeJPY: '¥400,000-600,000', priceRangeNAD: 'N$52,000-78,000', category: 'Sedan', popularity: 'high' },
-  { model: 'BMW 4 Series', year: '2013-2016', engineSize: '420i/428i', priceRangeJPY: '¥600,000-800,000', priceRangeNAD: 'N$78,000-104,000', category: 'Coupe' },
-  { model: 'BMW 5 Series', year: '2013-2016', engineSize: '520i/528i', priceRangeJPY: '¥500,000-600,000', priceRangeNAD: 'N$65,000-78,000', category: 'Sedan' },
-  { model: 'BMW 6 Series', year: '2013-2016', engineSize: '640i/650i', priceRangeJPY: '¥700,000+', priceRangeNAD: 'N$91,000+', category: 'Coupe', notes: 'Luxury model' },
-  { model: 'BMW 7 Series', year: '2013-2017', engineSize: '740i/750i', priceRangeJPY: '¥500,000-1,400,000', priceRangeNAD: 'N$65,000-182,000', category: 'Sedan', notes: 'Luxury flagship' },
-  { model: 'BMW X1', year: '2013-2017', engineSize: 'sDrive18i/20i', priceRangeJPY: '¥300,000-800,000', priceRangeNAD: 'N$39,000-104,000', category: 'SUV' },
-  { model: 'BMW X3', year: '2013-2016', engineSize: 'xDrive20i/28i', priceRangeJPY: '¥400,000-800,000', priceRangeNAD: 'N$52,000-104,000', category: 'SUV', popularity: 'high' },
-  { model: 'BMW X5', year: '2013-2017', engineSize: 'xDrive35i/50i', priceRangeJPY: '¥1,500,000+', priceRangeNAD: 'N$195,000+', category: 'SUV', notes: 'Premium SUV' },
+  { model: 'BMW 1 Series', year: '2013-2016', engineSize: '116i/118i', priceRangeJPY: '¥300,000-400,000', priceRangeNAD: 'N$36,000-48,000', category: 'Hatchback' },
+  { model: 'BMW 3 Series F30', year: '2013-2016', engineSize: '320i/328i', priceRangeJPY: '¥400,000-600,000', priceRangeNAD: 'N$48,000-72,000', category: 'Sedan', popularity: 'high' },
+  { model: 'BMW 4 Series', year: '2013-2016', engineSize: '420i/428i', priceRangeJPY: '¥600,000-800,000', priceRangeNAD: 'N$72,000-96,000', category: 'Coupe' },
+  { model: 'BMW 5 Series', year: '2013-2016', engineSize: '520i/528i', priceRangeJPY: '¥500,000-600,000', priceRangeNAD: 'N$60,000-72,000', category: 'Sedan' },
+  { model: 'BMW 6 Series', year: '2013-2016', engineSize: '640i/650i', priceRangeJPY: '¥700,000+', priceRangeNAD: 'N$84,000+', category: 'Coupe', notes: 'Luxury model' },
+  { model: 'BMW 7 Series', year: '2013-2017', engineSize: '740i/750i', priceRangeJPY: '¥500,000-1,400,000', priceRangeNAD: 'N$60,000-168,000', category: 'Sedan', notes: 'Luxury flagship' },
+  { model: 'BMW X1', year: '2013-2017', engineSize: 'sDrive18i/20i', priceRangeJPY: '¥300,000-800,000', priceRangeNAD: 'N$36,000-96,000', category: 'SUV' },
+  { model: 'BMW X3', year: '2013-2016', engineSize: 'xDrive20i/28i', priceRangeJPY: '¥400,000-800,000', priceRangeNAD: 'N$48,000-96,000', category: 'SUV', popularity: 'high' },
+  { model: 'BMW X5', year: '2013-2017', engineSize: 'xDrive35i/50i', priceRangeJPY: '¥1,500,000+', priceRangeNAD: 'N$180,000+', category: 'SUV', notes: 'Premium SUV' },
 
   // Mercedes-Benz
-  { model: 'Mercedes A-Class', year: '2013-2016', engineSize: 'A180/A200', priceRangeJPY: '¥400,000', priceRangeNAD: 'N$52,000', category: 'Hatchback' },
-  { model: 'Mercedes C-Class', year: '2013-2016', engineSize: 'C180/C200', priceRangeJPY: '¥600,000-900,000', priceRangeNAD: 'N$78,000-117,000', category: 'Sedan', popularity: 'high' },
-  { model: 'Mercedes E-Class', year: '2013-2016', engineSize: 'E250/E350', priceRangeJPY: '¥700,000-1,300,000', priceRangeNAD: 'N$91,000-169,000', category: 'Sedan' },
-  { model: 'Mercedes B-Class', year: '2013-2016', engineSize: 'B180/B200', priceRangeJPY: '¥200,000-300,000', priceRangeNAD: 'N$26,000-39,000', category: 'MPV' },
-  { model: 'Mercedes C63 AMG', year: '2013-2017', engineSize: '6.2L V8', priceRangeJPY: '¥4,000,000+', priceRangeNAD: 'N$520,000+', category: 'Sport', notes: 'High performance AMG' },
+  { model: 'Mercedes A-Class', year: '2013-2016', engineSize: 'A180/A200', priceRangeJPY: '¥400,000', priceRangeNAD: 'N$48,000', category: 'Hatchback' },
+  { model: 'Mercedes C-Class', year: '2013-2016', engineSize: 'C180/C200', priceRangeJPY: '¥600,000-900,000', priceRangeNAD: 'N$72,000-108,000', category: 'Sedan', popularity: 'high' },
+  { model: 'Mercedes E-Class', year: '2013-2016', engineSize: 'E250/E350', priceRangeJPY: '¥700,000-1,300,000', priceRangeNAD: 'N$84,000-156,000', category: 'Sedan' },
+  { model: 'Mercedes B-Class', year: '2013-2016', engineSize: 'B180/B200', priceRangeJPY: '¥200,000-300,000', priceRangeNAD: 'N$24,000-36,000', category: 'MPV' },
+  { model: 'Mercedes C63 AMG', year: '2013-2017', engineSize: '6.2L V8', priceRangeJPY: '¥4,000,000+', priceRangeNAD: 'N$480,000+', category: 'Sport', notes: 'High performance AMG' },
 
   // Honda
-  { model: 'Honda Fit', year: '2013-2018', engineSize: '1.3L/1.5L', priceRangeJPY: '¥250,000-400,000', priceRangeNAD: 'N$32,500-52,000', category: 'Compact', popularity: 'high' },
+  { model: 'Honda Fit', year: '2013-2018', engineSize: '1.3L/1.5L', priceRangeJPY: '¥250,000-400,000', priceRangeNAD: 'N$30,000-48,000', category: 'Compact', popularity: 'high' },
 
   // Nissan
-  { model: 'Nissan Note', year: '2013-2018', engineSize: '1.2L', priceRangeJPY: '¥150,000-300,000', priceRangeNAD: 'N$19,500-39,000', category: 'Compact' }
+  { model: 'Nissan Note', year: '2013-2018', engineSize: '1.2L', priceRangeJPY: '¥150,000-300,000', priceRangeNAD: 'N$18,000-36,000', category: 'Compact' }
 ]
 
 export default function VehiclePricingDatabase() {
@@ -112,7 +112,7 @@ export default function VehiclePricingDatabase() {
             <p className="text-sm text-amber-700">
               <strong>Important:</strong> These are auction prices only. Add ¥120,000-150,000 for FOB costs,
               plus N$70,000-165,000 for shipping, duties, clearing, and local charges for total landed cost.
-              Exchange rate: ¥1 = N$0.13 (approximate)
+              Exchange rate: ¥1 = N$0.12 (approximate)
             </p>
           </div>
         </div>
@@ -218,7 +218,7 @@ export default function VehiclePricingDatabase() {
           <strong>Source:</strong> Direct from Japanese export agents with current market data (December 2024)
         </p>
         <p className="text-sm text-gray-600 mt-2">
-          <strong>Exchange Rate:</strong> ¥1 = N$0.13 (approximate, check current rates)
+          <strong>Exchange Rate:</strong> ¥1 = N$0.12 (approximate, check current rates)
         </p>
       </div>
     </div>
