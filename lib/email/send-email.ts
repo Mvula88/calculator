@@ -238,8 +238,6 @@ export async function sendEmail(options: EmailOptions): Promise<boolean> {
 
     // Fallback: Log email (in production, integrate with SendGrid, Resend, etc.)
 
-    })
-
     // Store email log in database
     await supabase.from('email_logs').insert({
       to: options.to,

@@ -42,8 +42,6 @@ export async function POST(req: NextRequest) {
 
     const exists = existingEntitlements && existingEntitlements.length > 0
 
-    })
-
     return NextResponse.json({
       exists,
       message: exists
