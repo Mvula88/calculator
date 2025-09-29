@@ -29,9 +29,10 @@ export interface ZambiaSpecifics {
   type?: VehicleType;
   cc?: number;                  // Engine capacity in cc
   ageYears?: number;             // Vehicle age in years
-  exciseRate?: number;           // Excise duty percentage
+  exciseRate?: number;           // Excise duty percentage (optional override)
   isEV?: boolean;                // Electric vehicle
   isHybrid?: boolean;            // Hybrid vehicle
+  fuelType?: 'petrol' | 'diesel' | 'electric' | 'hybrid';  // Fuel type for excise calculation
 }
 
 export interface Inputs extends BaseInputs {
@@ -44,6 +45,7 @@ export interface TaxOutput {
   adv: number;                   // Ad valorem excise duty
   excise: number;                // Excise duty (ZM only)
   co2Levy: number;               // CO2 levy (ZA new vehicles only)
+  carbonSurtax: number;          // Carbon surtax (ZM only, 2025)
   vat: number;                   // Value added tax
   totalTaxes: number;            // Sum of all taxes
 }
@@ -109,6 +111,7 @@ export function calcNA(params: Inputs): FullOutput {
     adv,
     excise: 0,
     co2Levy: 0,
+    carbonSurtax: 0,
     vat,
     totalTaxes
   });
@@ -175,6 +178,7 @@ export function calcZA(params: Inputs): FullOutput {
     adv,
     excise: 0,
     co2Levy,
+    carbonSurtax: 0,
     vat,
     totalTaxes
   });
@@ -232,6 +236,7 @@ export function calcBW(params: Inputs): FullOutput {
     adv,
     excise: 0,
     co2Levy: 0,
+    carbonSurtax: 0,
     vat,
     totalTaxes
   });
@@ -249,12 +254,21 @@ export function calcBW(params: Inputs): FullOutput {
 }
 
 /**
- * Zambia (ZM) Calculation
+ * Zambia (ZM) Calculation (Updated 2025)
  * Formula:
- * - Duty = Specific duty from ZRA table based on type/cc/age
- * - Excise = rate% × (CIF + Duty)
+ * - Duty = Specific duty from ZRA table based on type/cc/age (EVs exempt: 0%)
+ * - Excise = rate% × CIF (varies by CC and fuel type, updated 2024/2025)
+ *   - ≤1500cc: 15-20% | >1500cc ≤3000cc: 25-30% | >3000cc: 30-35%
+ *   - Hybrids: 25% (reduced from 30% in 2024)
+ *   - EVs: 0% (exempt)
+ *   - Commercial/pickups: 10%
+ * - Carbon Surtax (NEW 2025): Based on engine capacity
+ *   - ≤1500cc: ZMW 50,000 | 1501-2000cc: ZMW 100,000 | 2001-3000cc: ZMW 150,000 | >3000cc: ZMW 200,000
  * - Import VAT = 16% × [CIF + Duty + Excise]
- * - EV/Hybrid get reduced/zero duty and excise
+ *
+ * ⚠️ WARNING: zra_specific_duty_2025.json may be outdated (uses pre-2025 rates)
+ * Official 2025 rates published Jan 3, 2025 (9.55 MB PDF) show significantly higher values
+ * Example: Sedan 1501-2500cc, 2-5 years = ZMW 61,225 (vs ~ZMW 30,000 in current file)
  */
 export function calcZM(params: Inputs): FullOutput {
   const { cif, zm = {} } = params;
@@ -262,16 +276,17 @@ export function calcZM(params: Inputs): FullOutput {
     type = 'passenger',
     cc = 1500,
     ageYears = 3,
-    exciseRate = 30,
+    exciseRate, // Optional override
     isEV = false,
-    isHybrid = false
+    isHybrid = false,
+    fuelType = 'petrol'
   } = zm;
 
   // Lookup specific duty from ZRA table
   let duty = 0;
 
-  if (isEV) {
-    // EVs get zero duty (as per policy)
+  if (isEV || fuelType === 'electric') {
+    // EVs get zero customs duty (2024/2025 exemption)
     duty = 0;
   } else {
     // Find matching duty from table
@@ -286,30 +301,58 @@ export function calcZM(params: Inputs): FullOutput {
     if (dutyEntry) {
       duty = dutyEntry.duty_kwacha;
     } else {
-      // Fallback if no exact match - use a percentage
+      // Fallback if no exact match - use 25% of CIF for passenger vehicles
       duty = cif * 0.25;
     }
   }
 
-  // Excise Duty
+  // Excise Duty (Updated 2025 logic)
   let excise = 0;
-  if (isEV) {
-    // EVs may have reduced/zero excise
-    excise = 0;
-  } else if (isHybrid) {
-    // Hybrids get reduced excise (e.g., half rate)
-    excise = (cif + duty) * (exciseRate / 2) / 100;
-  } else {
-    // Standard excise
-    excise = (cif + duty) * exciseRate / 100;
+  let calculatedExciseRate = exciseRate; // Use override if provided
+
+  if (!calculatedExciseRate) {
+    // Calculate excise rate based on 2025 rules
+    if (isEV || fuelType === 'electric') {
+      calculatedExciseRate = 0; // EVs exempt
+    } else if (isHybrid || fuelType === 'hybrid') {
+      calculatedExciseRate = 25; // Reduced from 30% in 2024
+    } else if (type === 'pickup' || type === 'van' || type === 'truck') {
+      calculatedExciseRate = 10; // Commercial vehicles
+    } else {
+      // Passenger/SUV excise rates by engine capacity
+      if (cc <= 1500) {
+        calculatedExciseRate = 20; // Using upper bound of 15-20% range
+      } else if (cc <= 3000) {
+        calculatedExciseRate = 30; // Using upper bound of 25-30% range
+      } else {
+        calculatedExciseRate = 35; // Using upper bound of 30-35% range
+      }
+    }
+  }
+
+  // Excise calculated on CIF (not CIF + duty as before)
+  excise = cif * (calculatedExciseRate / 100);
+
+  // Carbon Emission Surtax (NEW 2025)
+  let carbonSurtax = 0;
+  if (!isEV && fuelType !== 'electric') {
+    if (cc <= 1500) {
+      carbonSurtax = 50000;
+    } else if (cc <= 2000) {
+      carbonSurtax = 100000;
+    } else if (cc <= 3000) {
+      carbonSurtax = 150000;
+    } else {
+      carbonSurtax = 200000;
+    }
   }
 
   // Import VAT = 16% × [CIF + Duty + Excise]
-  // Zambia applies 16% VAT on the sum of CIF, duty and excise
+  // Note: VAT does NOT include carbon surtax in the base
   const vatBase = cif + duty + excise;
   const vat = vatBase * 0.16;
 
-  const totalTaxes = duty + excise + vat;
+  const totalTaxes = duty + excise + carbonSurtax + vat;
 
   const output = buildFullOutput(params, {
     duty,
@@ -317,20 +360,25 @@ export function calcZM(params: Inputs): FullOutput {
     adv: 0,
     excise,
     co2Levy: 0,
+    carbonSurtax,
     vat,
     totalTaxes
   });
 
-  // Add Zambia specific notes
+  // Add Zambia specific notes with 2025 updates
   output.breakdownNotes = [
     ...(output.breakdownNotes || []),
-    'Zambia uses ZRA specific duty table (2025 rates). Verify current rates with customs.',
+    '🚨 CRITICAL: Your duty table (zra_specific_duty_2025.json) appears OUTDATED.',
+    'Official ZRA 2025 rates (published Jan 3, 2025) show significantly higher values.',
+    'Download updated rates: https://www.zra.org.zm/download/used-motor-vehicle-specific-duty-rates-2025/',
+    `Carbon Surtax (NEW 2025): ZMW ${carbonSurtax.toLocaleString()} based on ${cc}cc engine.`,
+    `Excise duty: ${calculatedExciseRate}% of CIF (${fuelType === 'hybrid' ? 'reduced hybrid rate' : 'standard rate'}).`
   ];
 
-  if (isEV) {
-    output.breakdownNotes.push('Electric vehicles receive zero customs duty and reduced excise in Zambia.');
-  } else if (isHybrid) {
-    output.breakdownNotes.push('Hybrid vehicles receive reduced excise duty in Zambia.');
+  if (isEV || fuelType === 'electric') {
+    output.breakdownNotes.push('✅ Electric vehicles: 0% customs duty + 0% excise (2024/2025 exemption).');
+  } else if (isHybrid || fuelType === 'hybrid') {
+    output.breakdownNotes.push('✅ Hybrid vehicles: 25% excise duty (reduced from 30% in 2024).');
   }
 
   return output;
