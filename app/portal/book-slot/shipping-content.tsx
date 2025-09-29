@@ -1,7 +1,6 @@
 'use client'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import ContainerCapacityGuide from '@/components/portal/ContainerCapacityGuide'
 import {
   Ship,
   Phone,
@@ -388,8 +387,6 @@ export default function ShippingContent() {
           </Card>
         ))}
       </div>
-      {/* Container Capacity Guide */}
-      <ContainerCapacityGuide />
 
       {/* How to Choose Section */}
       <Card className="p-6 bg-gray-50">
