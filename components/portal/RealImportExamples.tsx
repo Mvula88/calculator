@@ -26,112 +26,112 @@ interface ImportExample {
 
 const realImportExamples: ImportExample[] = [
   {
-    id: 'honda-fit-2016',
-    vehicle: 'Honda Fit 2016',
-    year: 2016,
-    purchasePrice: 85000,
-    totalCost: 232855,
-    timeline: '85 days',
-    breakdown: {
-      vehiclePrice: 85000,
-      japanCosts: 22000,
-      oceanFreight: 18500,
-      clearingCosts: 6564,
-      duties: 23375,
-      vat: 32541,
-      inland: 44875
-    },
-    lessons: [
-      'ContShare saved R55,500 on ocean freight',
-      'Clearing agent handled all documentation smoothly',
-      'Vehicle arrived in perfect condition'
-    ],
-    warnings: [
-      'Inland transport from Walvis Bay was expensive',
-      'Had to pay storage fees for 3 extra days'
-    ],
-    date: 'October 2024'
-  },
-  {
-    id: 'toyota-voxy-2015',
-    vehicle: 'Toyota Voxy 2015',
+    id: 'golf-7r-2015',
+    vehicle: '2015 Golf 7R',
     year: 2015,
-    purchasePrice: 185000,
-    totalCost: 412750,
-    timeline: '90 days',
+    purchasePrice: 53206,
+    totalCost: 125566,
+    timeline: '6-12 weeks',
     breakdown: {
-      vehiclePrice: 185000,
-      japanCosts: 22000,
-      oceanFreight: 18500,
-      clearingCosts: 6564,
-      duties: 50875,
-      vat: 56811,
-      inland: 73000
+      vehiclePrice: 53206,
+      japanCosts: 18668,
+      oceanFreight: 16020,
+      clearingCosts: 0,
+      duties: 25275, // ICD + ENV + ADV
+      vat: 12397,
+      inland: 0
     },
     lessons: [
-      'Larger van takes same container space as sedan',
-      'Popular family vehicle, easy to resell',
-      'Japanese auction grading was accurate'
+      'Popular performance vehicle with strong resale value',
+      'Grade 4 auction rating ensured excellent condition',
+      'Container sharing made shipping affordable'
     ],
     warnings: [
-      'ENV levy higher due to engine size',
-      'Needed special permit for commercial registration'
+      'Higher ENV levy due to 2.0L turbo engine',
+      'Performance parts may need import permits'
     ],
-    date: 'September 2024'
+    date: 'Actual Import Example'
   },
   {
-    id: 'mazda-demio-2017',
-    vehicle: 'Mazda Demio 2017',
+    id: 'audi-a3-2017',
+    vehicle: '2017 AUDI A3 SPORTBACK 1.4L',
     year: 2017,
-    purchasePrice: 75000,
-    totalCost: 208650,
-    timeline: '82 days',
+    purchasePrice: 23504,
+    totalCost: 73767,
+    timeline: '6-12 weeks',
     breakdown: {
-      vehiclePrice: 75000,
-      japanCosts: 22000,
-      oceanFreight: 18500,
-      clearingCosts: 6564,
-      duties: 20625,
-      vat: 29961,
-      inland: 36000
+      vehiclePrice: 23504,
+      japanCosts: 15709,
+      oceanFreight: 16020,
+      clearingCosts: 0,
+      duties: 12435, // ICD + ENV + ADV
+      vat: 6098,
+      inland: 0
     },
     lessons: [
-      'Small cars have lower ENV levy',
-      'Fuel efficient - great for city driving',
-      'Documentation was straightforward'
+      'Smaller engine (1.4L) resulted in lower ENV levy',
+      'Newer model year helped with registration',
+      'Compact luxury car with good fuel economy'
     ],
     warnings: [
-      'Auction photos didn\'t show minor scratches',
-      'Shipping delayed by 1 week due to port congestion'
+      'Audi parts can be expensive in Namibia',
+      'Service history important for warranty claims'
     ],
-    date: 'August 2024'
+    date: 'Actual Import Example'
   },
   {
-    id: 'toyota-rav4-2016',
-    vehicle: 'Toyota RAV4 2016',
-    year: 2016,
-    purchasePrice: 185000,
-    totalCost: 408275,
-    timeline: '88 days',
+    id: 'audi-a5-2015',
+    vehicle: '2015 AUDI A5 QUATTRO 2.0L',
+    year: 2015,
+    purchasePrice: 27012,
+    totalCost: 80230,
+    timeline: '6-12 weeks',
     breakdown: {
-      vehiclePrice: 185000,
-      japanCosts: 22000,
-      oceanFreight: 18500,
-      clearingCosts: 6564,
-      duties: 50875,
-      vat: 56811,
-      inland: 68525
+      vehiclePrice: 27012,
+      japanCosts: 14552,
+      oceanFreight: 16020,
+      clearingCosts: 0,
+      duties: 15477, // ICD + ENV + ADV
+      vat: 7169,
+      inland: 0
     },
     lessons: [
-      'SUVs hold value well in Namibian market',
-      'All-wheel drive version worth the extra cost',
-      'Grade 4 auction rating meant excellent condition'
+      'Quattro AWD system ideal for Namibian roads',
+      'Luxury coupe with strong market demand',
+      'Well-maintained examples hold value'
     ],
     warnings: [
-      'Higher duties on SUVs',
-      'Needed to replace tires to meet local standards'
+      'Higher ENV levy for 2.0L engine',
+      'AWD system requires specialized maintenance'
     ],
-    date: 'July 2024'
+    date: 'Actual Import Example'
+  },
+  {
+    id: 'audi-a4-2012',
+    vehicle: '2012 AUDI A4 QUATTRO 2.0L',
+    year: 2012,
+    purchasePrice: 23387,
+    totalCost: 74735,
+    timeline: '6-12 weeks',
+    breakdown: {
+      vehiclePrice: 23387,
+      japanCosts: 14449,
+      oceanFreight: 16020,
+      clearingCosts: 0,
+      duties: 14353, // ICD + ENV + ADV
+      vat: 6526,
+      inland: 0
+    },
+    lessons: [
+      'Older model but still within import age limit',
+      'Quattro system adds value in resale market',
+      'Lower purchase price offset by same shipping costs'
+    ],
+    warnings: [
+      'Closer to age limit - import while still eligible',
+      'May need suspension refresh for local roads'
+    ],
+    date: 'Actual Import Example'
   }
 ]
 
@@ -195,7 +195,7 @@ export default function RealImportExamples() {
               <h4 className="font-semibold text-gray-900">{example.vehicle}</h4>
               <p className="text-sm text-gray-600 mt-1">Year: {example.year}</p>
               <p className="text-lg font-bold text-blue-600 mt-2">
-                R{example.totalCost.toLocaleString()}
+                N$ {example.totalCost.toLocaleString()}
               </p>
               <p className="text-xs text-gray-500">Total landed cost</p>
             </div>
@@ -215,50 +215,57 @@ export default function RealImportExamples() {
 
             <div className="space-y-3">
               <div className="flex justify-between items-center pb-2 border-b">
-                <span className="font-medium">Vehicle Purchase Price</span>
-                <span className="font-bold">R{selectedExample.breakdown.vehiclePrice.toLocaleString()}</span>
+                <span className="font-medium">Japan Auction Price</span>
+                <span className="font-bold">N$ {selectedExample.breakdown.vehiclePrice.toLocaleString()}</span>
               </div>
 
               <div className="space-y-2">
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-600">Japan-side Costs</span>
-                  <span>R{selectedExample.breakdown.japanCosts.toLocaleString()}</span>
+                  <span>N$ {selectedExample.breakdown.japanCosts.toLocaleString()}</span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-600">Ocean Freight (ContShare)</span>
-                  <span>R{selectedExample.breakdown.oceanFreight.toLocaleString()}</span>
+                  <span className="text-gray-600">Ocean Freight</span>
+                  <span>N$ {selectedExample.breakdown.oceanFreight.toLocaleString()}</span>
                 </div>
-                <div className="flex justify-between text-sm">
-                  <span className="text-gray-600">Clearing Agent Fees</span>
-                  <span>R{selectedExample.breakdown.clearingCosts.toLocaleString()}</span>
+                {selectedExample.breakdown.clearingCosts > 0 && (
+                  <div className="flex justify-between text-sm">
+                    <span className="text-gray-600">Clearing Agent Fees</span>
+                    <span>N$ {selectedExample.breakdown.clearingCosts.toLocaleString()}</span>
+                  </div>
+                )}
+                <div className="pt-2 border-t">
+                  <p className="font-medium text-gray-700 mb-2">Custom Duties and Taxes:</p>
+                  <div className="flex justify-between text-sm pl-4">
+                    <span className="text-gray-600">• Total Duties (ICD + ENV + ADV)</span>
+                    <span>N$ {selectedExample.breakdown.duties.toLocaleString()}</span>
+                  </div>
+                  <div className="flex justify-between text-sm pl-4">
+                    <span className="text-gray-600">• Import VAT</span>
+                    <span>N$ {selectedExample.breakdown.vat.toLocaleString()}</span>
+                  </div>
                 </div>
-                <div className="flex justify-between text-sm">
-                  <span className="text-gray-600">Import Duties</span>
-                  <span>R{selectedExample.breakdown.duties.toLocaleString()}</span>
-                </div>
-                <div className="flex justify-between text-sm">
-                  <span className="text-gray-600">Import VAT</span>
-                  <span>R{selectedExample.breakdown.vat.toLocaleString()}</span>
-                </div>
-                <div className="flex justify-between text-sm">
-                  <span className="text-gray-600">Inland Transport</span>
-                  <span>R{selectedExample.breakdown.inland.toLocaleString()}</span>
-                </div>
+                {selectedExample.breakdown.inland > 0 && (
+                  <div className="flex justify-between text-sm">
+                    <span className="text-gray-600">Inland Transport</span>
+                    <span>N$ {selectedExample.breakdown.inland.toLocaleString()}</span>
+                  </div>
+                )}
               </div>
 
               <div className="flex justify-between items-center pt-3 border-t border-gray-200">
                 <span className="text-lg font-bold">Total Landed Cost</span>
                 <span className="text-xl font-bold text-green-600">
-                  R{selectedExample.totalCost.toLocaleString()}
+                  N$ {selectedExample.totalCost.toLocaleString()}
                 </span>
               </div>
 
               <div className="bg-blue-50 p-3 rounded-lg">
                 <p className="text-sm text-blue-900">
-                  <strong>Timeline:</strong> {selectedExample.timeline} from purchase to delivery
+                  <strong>Timeline:</strong> {selectedExample.timeline} total
                 </p>
                 <p className="text-sm text-blue-900 mt-1">
-                  <strong>Import Date:</strong> {selectedExample.date}
+                  <strong>Source:</strong> {selectedExample.date}
                 </p>
               </div>
             </div>
