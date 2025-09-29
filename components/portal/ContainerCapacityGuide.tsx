@@ -34,7 +34,7 @@ const containerConfigs: ContainerConfig[] = [
   {
     type: '40ft Container',
     cars: 4,
-    description: '4 cars (mix of sizes)',
+    description: '3-4 cars (depends on size)',
     advantages: [
       'Lowest cost per car',
       'Most economical option',
@@ -42,8 +42,8 @@ const containerConfigs: ContainerConfig[] = [
       'Industry standard'
     ],
     disadvantages: [
-      'Need more partners',
-      'Takes longer to fill',
+      'May only fit 3 larger vehicles',
+      'Need compatible partners',
       'Higher total cost'
     ],
     costPerCar: 18500,
@@ -70,37 +70,37 @@ const containerConfigs: ContainerConfig[] = [
 
 const realExamples = [
   {
-    configuration: '4 cars in 40ft',
+    configuration: '4 small cars in 40ft',
     vehicles: ['Honda Fit', 'Toyota Vitz', 'Mazda Demio', 'Nissan Note'],
     totalCost: 74000,
     perCarCost: 18500,
-    note: 'Most common setup'
+    note: 'Achievable with compact cars'
   },
   {
-    configuration: '3 SUVs + 1 sedan',
-    vehicles: ['Honda Vezel', 'Toyota RAV4', 'Nissan X-Trail', 'Toyota Corolla'],
+    configuration: '3 SUVs in 40ft',
+    vehicles: ['Honda Vezel', 'Toyota RAV4', 'Nissan X-Trail'],
     totalCost: 74000,
-    perCarCost: 18500,
-    note: 'Mixed sizes work well'
+    perCarCost: 24667,
+    note: 'Conservative and reliable'
   },
   {
-    configuration: '2 large vans + 2 cars',
+    configuration: '2 vans + 2 small cars',
     vehicles: ['Toyota Noah', 'Toyota Voxy', 'Honda Fit', 'Nissan March'],
     totalCost: 74000,
     perCarCost: 18500,
-    note: 'Vans fit if loaded carefully'
+    note: 'Depends on van dimensions'
   }
 ]
 
 const loadingTips = [
-  'Smaller cars (Vitz, March, Demio) can be loaded 5 in a 40ft container with proper arrangement',
-  'SUVs and larger sedans typically fit 4 per 40ft container',
-  'Vans like Noah/Voxy take more space - maximum 2 vans + 2 small cars',
-  'Pickup trucks (Hilux, Navara) usually fit 3 per 40ft container',
-  'Always confirm vehicle dimensions with your exporter before booking',
-  'Container must be fumigated before shipping (cost included in freight)',
-  'Vehicles must have less than 1/4 tank of fuel for shipping',
-  'Remove all personal items from vehicles to avoid customs issues'
+  'Small cars: 4 guaranteed, 5 possible with special loading arrangements',
+  'Standard sedans: 3 guaranteed, 4 possible if compact models',
+  'SUVs/Crossovers: 3 is standard (4 only for very compact models)',
+  'Vans vary greatly - 2 large vans or 3 compact minivans per container',
+  'Pickup trucks: 3 standard size units per 40ft container',
+  'Always verify exact vehicle dimensions before confirming container booking',
+  'Fuel requirements vary: Most shippers require 1/8 tank or less',
+  'Container consolidation depends on matching destinations and timing'
 ]
 
 export default function ContainerCapacityGuide() {
@@ -250,20 +250,23 @@ export default function ContainerCapacityGuide() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <h4 className="font-semibold text-amber-800 mb-2">Vehicle Size Guidelines</h4>
+            <h4 className="font-semibold text-amber-800 mb-2">Vehicle Size Guidelines (Conservative Estimates)*</h4>
             <ul className="space-y-1 text-sm text-amber-700">
-              <li>• <strong>Small cars:</strong> 5 units possible in 40ft</li>
-              <li>• <strong>Standard sedans:</strong> 4 units in 40ft</li>
-              <li>• <strong>SUVs/Crossovers:</strong> 4 units in 40ft</li>
-              <li>• <strong>Large vans:</strong> 2-3 units in 40ft</li>
+              <li>• <strong>Small cars:</strong> 4-5 units (5 requires special arrangement)</li>
+              <li>• <strong>Standard sedans:</strong> 3-4 units (3 guaranteed, 4 if compact)</li>
+              <li>• <strong>SUVs/Crossovers:</strong> 3 units (4 only for compact crossovers)</li>
+              <li>• <strong>Large vans:</strong> 2 units (3 only for minivans)</li>
               <li>• <strong>Pickup trucks:</strong> 3 units in 40ft</li>
             </ul>
+            <p className="text-xs text-amber-600 mt-2 italic">
+              *Actual capacity depends on specific vehicle dimensions and loading method
+            </p>
           </div>
 
           <div>
             <h4 className="font-semibold text-amber-800 mb-2">Pre-Shipping Requirements</h4>
             <ul className="space-y-1 text-sm text-amber-700">
-              <li>• Fuel level must be below 1/4 tank</li>
+              <li>• Fuel level: Maximum 1/8 to 1/4 tank (varies by shipper)</li>
               <li>• Remove all personal belongings</li>
               <li>• Container fumigation required</li>
               <li>• Secure loose parts (mirrors, antennas)</li>
@@ -290,13 +293,17 @@ export default function ContainerCapacityGuide() {
 
         <div className="mt-6 p-4 bg-white/70 rounded-lg">
           <p className="text-sm font-semibold text-gray-900 mb-2">
-            Container Sharing Strategy:
+            Container Sharing Strategy (Consolidation):
           </p>
           <p className="text-sm text-gray-600">
-            Join ContShare.com to find partners shipping to the same destination.
-            Most containers leave Japan with 2-3 weeks notice, giving you time to
-            coordinate with other importers. Sharing a 40ft container with 3 other
-            importers saves each person approximately R55,500 compared to solo shipping.
+            Container sharing can save significant costs but requires careful coordination.
+            Success depends on matching destinations, timing compatibility, and vehicle
+            dimensions. Not always feasible but worth exploring through platforms like
+            ContShare.com or your exporter's consolidation service.
+          </p>
+          <p className="text-xs text-amber-600 mt-2">
+            <strong>Note:</strong> Requires legal agreements between parties and may face
+            delays if partners change plans.
           </p>
         </div>
       </div>

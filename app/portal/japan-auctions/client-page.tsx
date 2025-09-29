@@ -1272,14 +1272,17 @@ export default function JapanAuctionsClientPage() {
           </h3>
           <div className="grid md:grid-cols-2 gap-4 text-sm">
             <div>
-              <h4 className="font-medium text-purple-800 mb-2">What Fits in a 40ft Container:</h4>
+              <h4 className="font-medium text-purple-800 mb-2">Typical 40ft Container Capacity:*</h4>
               <ul className="space-y-1 text-gray-700">
-                <li>• <strong>4 sedans:</strong> Corolla, Camry, Accord size</li>
-                <li>• <strong>4 small cars:</strong> Vitz, March, Fit, Demio</li>
-                <li>• <strong>3 SUVs + 1 small car:</strong> RAV4, CRV, X-Trail</li>
-                <li>• <strong>2 vans + 2 small cars:</strong> Noah, Voxy, Alphard</li>
-                <li>• <strong>3 pickups:</strong> Hilux, Navara, D-Max</li>
+                <li>• <strong>3-4 sedans:</strong> 3 guaranteed (Camry size), 4 if compact</li>
+                <li>• <strong>4-5 small cars:</strong> 4 standard, 5 with special arrangement</li>
+                <li>• <strong>3 SUVs:</strong> Standard for RAV4, CRV size vehicles</li>
+                <li>• <strong>2 large vans:</strong> Noah, Voxy, Alphard (3 if smaller)</li>
+                <li>• <strong>3 pickups:</strong> Hilux, Navara, D-Max standard</li>
               </ul>
+              <p className="text-xs text-amber-600 mt-2 italic">
+                *Always confirm with exporter - actual capacity varies by specific models
+              </p>
             </div>
             <div>
               <h4 className="font-medium text-pink-800 mb-2">Loading Day Checklist:</h4>
@@ -1288,7 +1291,7 @@ export default function JapanAuctionsClientPage() {
                 <li>✓ Confirm all VINs match your documents</li>
                 <li>✓ Get container number and seal number</li>
                 <li>✓ Verify fumigation certificate issued</li>
-                <li>✓ Ensure less than 1/4 tank of fuel</li>
+                <li>✓ Ensure fuel level: 1/8 tank or less (check shipper requirements)</li>
               </ul>
             </div>
           </div>
