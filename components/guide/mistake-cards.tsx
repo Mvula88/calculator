@@ -33,7 +33,7 @@ const mistakes: Mistake[] = [
     cost: 'N$7,000+ storage fees',
     problem: 'Consignee has unpaid bills with carrier',
     fix: 'Confirm consignee good standing BEFORE you pay. If in doubt, list yourself or clean clearing firm as consignee',
-    realStory: 'Our container was held for 2 weeks because the consignee owed the shipping line. We paid N$7,000 in storage. Delays can last months or even longer depending on when the outstanding debt is settled with the shipping line.',
+    realStory: 'Our container was held for 7 MONTHS because the consignee owed the shipping line. Delays can last months or even longer depending on when the outstanding debt is settled with the shipping line.',
     stage: 'Pre-Import Planning',
     severity: 'deal-breaker',
     timeImpact: 'Indefinite hold - can last months',
