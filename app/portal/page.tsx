@@ -141,16 +141,16 @@ export default function PortalPage() {
     <main className="min-h-screen bg-gradient-to-b from-gray-50 to-white pb-20">
       <div className="w-full">
         {/* Welcome Header - Mobile Optimized */}
-        <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg p-4 sm:p-6 mb-6 text-white">
-          <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+        <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg p-4 sm:p-6 lg:p-8 mb-4 sm:mb-6 text-white">
+          <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 sm:gap-4">
             <div className="flex-1">
-              <h1 className="text-xl sm:text-2xl font-bold mb-2">
+              <h1 className="text-lg sm:text-xl lg:text-2xl font-bold mb-1 sm:mb-2">
                 Welcome back!
               </h1>
-              <p className="text-sm sm:text-base text-blue-100 mb-3">
+              <p className="text-xs sm:text-sm lg:text-base text-blue-100 mb-2 sm:mb-3">
                 {isMastery ? 'Import Mastery Member' : 'Mistake Guide Member'}
               </p>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-1.5 sm:gap-2">
                 <div className="inline-flex items-center gap-1 bg-white/20 px-2 py-1 rounded-full text-xs">
                   <CheckCircle className="h-3 w-3" />
                   <span>Active Access</span>
@@ -162,9 +162,9 @@ export default function PortalPage() {
               </div>
             </div>
             {!isMastery && (
-              <Button 
-                size="sm" 
-                className="w-full sm:w-auto bg-white text-purple-600 hover:bg-gray-100"
+              <Button
+                size="sm"
+                className="w-full sm:w-auto bg-white text-purple-600 hover:bg-gray-100 min-h-[44px] px-4 py-2.5 font-semibold"
                 onClick={() => {
                   // Store the user's email before redirecting
                   if (userEmail) {
@@ -173,7 +173,7 @@ export default function PortalPage() {
                   window.location.href = '/na/upsell'
                 }}
               >
-                <Zap className="h-4 w-4 mr-1" />
+                <Zap className="h-4 w-4 mr-1.5" />
                 Upgrade
               </Button>
             )}
@@ -181,9 +181,9 @@ export default function PortalPage() {
         </div>
 
         {/* Quick Access - Mobile Optimized */}
-        <div className="mb-6">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-bold text-gray-900">Quick Access</h2>
+        <div className="mb-4 sm:mb-6">
+          <div className="flex items-center justify-between mb-3 sm:mb-4">
+            <h2 className="text-base sm:text-lg font-bold text-gray-900">Quick Access</h2>
             {!isMastery && (
               <span className="text-xs text-gray-500">
                 {quickAccessCards.filter(c => c.available).length}/{quickAccessCards.length}
@@ -191,32 +191,32 @@ export default function PortalPage() {
             )}
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2.5 sm:gap-3 lg:gap-4">
             {quickAccessCards.map((card) => (
               <div key={card.title} className="relative">
                 {card.available ? (
                   <Link href={card.href}>
-                    <Card className="p-4 hover:shadow-lg transition-all active:scale-95 touch-manipulation h-full">
-                      <div className="flex flex-col items-center text-center">
-                        <div className={`${card.color} rounded-lg p-3 mb-2`}>
-                          <card.icon className="h-6 w-6" />
+                    <Card className="p-3 sm:p-4 hover:shadow-lg transition-all active:scale-95 touch-manipulation h-full min-h-[120px] sm:min-h-[140px]">
+                      <div className="flex flex-col items-center text-center h-full justify-center">
+                        <div className={`${card.color} rounded-lg p-2.5 sm:p-3 mb-2`}>
+                          <card.icon className="h-5 w-5 sm:h-6 sm:w-6" />
                         </div>
-                        <h3 className="font-semibold text-sm mb-1">{card.title}</h3>
-                        <p className="text-xs text-gray-600 line-clamp-2">{card.description}</p>
+                        <h3 className="font-semibold text-xs sm:text-sm mb-1 leading-tight">{card.title}</h3>
+                        <p className="text-[10px] sm:text-xs text-gray-600 line-clamp-2">{card.description}</p>
                       </div>
                     </Card>
                   </Link>
                 ) : (
-                  <Card className="p-4 opacity-60 relative h-full">
+                  <Card className="p-3 sm:p-4 opacity-60 relative h-full min-h-[120px] sm:min-h-[140px]">
                     <div className="absolute inset-0 bg-gray-100/50 rounded-lg flex items-center justify-center">
-                      <Lock className="h-5 w-5 text-gray-400" />
+                      <Lock className="h-4 w-4 sm:h-5 sm:w-5 text-gray-400" />
                     </div>
-                    <div className="flex flex-col items-center text-center">
-                      <div className={`bg-gray-100 rounded-lg p-3 mb-2`}>
-                        <card.icon className="h-6 w-6 text-gray-400" />
+                    <div className="flex flex-col items-center text-center h-full justify-center">
+                      <div className={`bg-gray-100 rounded-lg p-2.5 sm:p-3 mb-2`}>
+                        <card.icon className="h-5 w-5 sm:h-6 sm:w-6 text-gray-400" />
                       </div>
-                      <h3 className="font-semibold text-sm mb-1 text-gray-400">{card.title}</h3>
-                      <p className="text-xs text-gray-400 line-clamp-2">{card.description}</p>
+                      <h3 className="font-semibold text-xs sm:text-sm mb-1 text-gray-400 leading-tight">{card.title}</h3>
+                      <p className="text-[10px] sm:text-xs text-gray-400 line-clamp-2">{card.description}</p>
                     </div>
                   </Card>
                 )}
@@ -226,14 +226,14 @@ export default function PortalPage() {
         </div>
 
         {/* Quick Tips - Mobile Optimized */}
-        <Card className="p-4 bg-blue-50 border-blue-200">
-          <div className="flex items-start gap-3">
-            <Shield className="h-5 w-5 text-blue-600 flex-shrink-0 mt-0.5" />
-            <div>
-              <h3 className="font-semibold text-blue-900 mb-2 text-sm">Quick Tips</h3>
-              <ul className="space-y-1 text-xs text-blue-800">
-                <li>• Start with the Beginner Journey for complete beginners</li>
-                <li>• Check Documents for real examples</li>
+        <Card className="p-3 sm:p-4 bg-blue-50 border-blue-200">
+          <div className="flex items-start gap-2.5 sm:gap-3">
+            <Shield className="h-4 w-4 sm:h-5 sm:w-5 text-blue-600 flex-shrink-0 mt-0.5" />
+            <div className="flex-1 min-w-0">
+              <h3 className="font-semibold text-blue-900 mb-1.5 sm:mb-2 text-xs sm:text-sm">Quick Tips</h3>
+              <ul className="space-y-0.5 sm:space-y-1 text-[11px] sm:text-xs text-blue-800">
+                <li>• Start with Beginner Journey</li>
+                <li>• Check Documents for examples</li>
                 {isMastery && <li>• Use Calculator before buying</li>}
                 {isMastery && <li>• Compare shipping rates</li>}
               </ul>
@@ -242,9 +242,9 @@ export default function PortalPage() {
         </Card>
 
         {/* Mobile-Only Bottom Navigation Hint */}
-        <div className="mt-8 text-center lg:hidden">
-          <p className="text-xs text-gray-500">
-            Tap the menu icon above to explore all features
+        <div className="mt-6 sm:mt-8 text-center lg:hidden">
+          <p className="text-[11px] sm:text-xs text-gray-500">
+            Tap the menu icon to explore all features
           </p>
         </div>
       </div>
