@@ -57,58 +57,58 @@ export default function GuideHeader({
 
   return (
     <header className="bg-white border-b border-gray-200 shadow-sm sticky top-0 z-40">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        <div className="flex items-center justify-between h-16">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6">
+        <div className="flex items-center justify-between h-14 sm:h-16">
           {/* Logo Section */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center flex-shrink-0">
             <Link href="/" className="flex items-center">
-              <Image 
-                src="/impota-logo.png" 
-                alt="IMPOTA" 
-                width={150} 
+              <Image
+                src="/impota-logo.png"
+                alt="IMPOTA"
+                width={150}
                 height={40}
-                className="h-8 sm:h-10 w-auto"
+                className="h-7 sm:h-10 w-auto"
                 priority
               />
             </Link>
           </div>
 
           {/* Right Section - Buttons and Country Selector */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-1.5 sm:gap-3">
             {user ? (
               // User is logged in - show portal access only
               <Link href="/portal" className="group">
                 <Button
                   size="sm"
-                  className={`font-bold text-sm px-4 py-2 bg-gradient-to-r ${currentGradient} shadow-lg group-hover:scale-105 transition-all duration-300`}
+                  className={`font-bold text-xs sm:text-sm px-2.5 py-2 sm:px-4 sm:py-2 bg-gradient-to-r ${currentGradient} shadow-lg group-hover:scale-105 transition-all duration-300`}
                 >
-                  <Crown className="mr-2 h-4 w-4" />
-                  Access Portal
-                  <Sparkles className="ml-2 h-3 w-3 group-hover:rotate-12 transition-transform" />
+                  <Crown className="mr-1 sm:mr-2 h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                  <span className="hidden xs:inline">Access </span>Portal
+                  <Sparkles className="ml-1 sm:ml-2 h-3 w-3 group-hover:rotate-12 transition-transform" />
                 </Button>
               </Link>
             ) : (
               // Not logged in - show both Member Login and Get Started buttons
               <>
-                <Link href="/auth/login" className="group">
+                <Link href="/auth/login" className="group hidden sm:block">
                   <Button
                     size="sm"
                     variant="outline"
-                    className="font-bold text-sm px-4 py-2 border-2 hover:scale-105 transition-all duration-300"
+                    className="font-bold text-xs sm:text-sm px-2.5 py-2 sm:px-4 sm:py-2 border-2 hover:scale-105 transition-all duration-300"
                   >
-                    <User className="mr-2 h-4 w-4" />
-                    Member Login
+                    <User className="mr-1 sm:mr-2 h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                    <span className="hidden md:inline">Member </span>Login
                   </Button>
                 </Link>
 
                 <Link href={getStartedLink} className="group">
                   <Button
                     size="sm"
-                    className={`font-bold text-sm px-4 py-2 bg-gradient-to-r ${currentGradient} shadow-lg group-hover:scale-105 transition-all duration-300`}
+                    className={`font-bold text-xs sm:text-sm px-2.5 py-2 sm:px-4 sm:py-2 bg-gradient-to-r ${currentGradient} shadow-lg group-hover:scale-105 transition-all duration-300 whitespace-nowrap`}
                   >
-                    <Crown className="mr-2 h-4 w-4" />
+                    <Crown className="mr-1 sm:mr-2 h-3.5 w-3.5 sm:h-4 sm:w-4" />
                     Get Started
-                    <Sparkles className="ml-2 h-3 w-3 group-hover:rotate-12 transition-transform" />
+                    <Sparkles className="ml-1 sm:ml-2 h-3 w-3 group-hover:rotate-12 transition-transform" />
                   </Button>
                 </Link>
               </>
