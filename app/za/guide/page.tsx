@@ -211,9 +211,14 @@ export default function SouthAfricaGuidePage() {
               </span>
             </h1>
 
-            <p className="text-sm sm:text-base md:text-lg lg:text-xl text-white mb-6 sm:mb-8 leading-relaxed bg-black/30 backdrop-blur-sm rounded-lg p-4 max-w-3xl mx-auto">
-              <strong>What we do:</strong> We guide you through every step of importing a quality used car from Japan to South Africa. From finding the right car to driving it home.
+            <p className="text-sm sm:text-base md:text-lg lg:text-xl text-white mb-4 sm:mb-6 leading-relaxed bg-black/30 backdrop-blur-sm rounded-lg p-4 max-w-3xl mx-auto">
+              <strong>What we provide:</strong> Educational resources and guides to help you understand the process of importing a quality used car from Japan to South Africa. From research to documentation.
             </p>
+            <div className="bg-yellow-100 border-2 border-yellow-400 rounded-lg p-3 mb-6 max-w-3xl mx-auto">
+              <p className="text-sm text-gray-900">
+                <strong>📚 Educational Content Only:</strong> We provide guides and information. We do not import vehicles, provide clearing services, or act as agents. You are responsible for your own import decisions.
+              </p>
+            </div>
           </div>
 
           {/* Modern Value Proposition Cards - Mobile Optimized */}
@@ -507,7 +512,7 @@ export default function SouthAfricaGuidePage() {
                     <span className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-400 line-through">$79</span>
                     <span className="text-3xl sm:text-4xl font-bold text-green-600">$49</span>
                   </div>
-                  <span className="text-green-600 font-semibold text-xs sm:text-sm lg:text-base">Save $30 - Ends October 5!</span>
+                  <span className="text-green-600 font-semibold text-xs sm:text-sm lg:text-base">Special Offer - Save $30</span>
                 </div>
               </CardHeader>
               <CardContent className="space-y-3 sm:space-y-4 px-4 sm:px-6">
@@ -534,7 +539,7 @@ export default function SouthAfricaGuidePage() {
                   </li>
                   <li className="flex items-start gap-2 sm:gap-3">
                     <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                    <span className="text-gray-700 text-sm sm:text-base">Verified agent contacts & reviews</span>
+                    <span className="text-gray-700 text-sm sm:text-base">Agent contact directory (not our services)</span>
                   </li>
                   <li className="flex items-start gap-2 sm:gap-3">
                     <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5 text-green-500 mt-0.5 flex-shrink-0" />
@@ -559,6 +564,9 @@ export default function SouthAfricaGuidePage() {
                     Get Lifetime Access - $49 USD
                     <Sparkles className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
                   </ValidatedCheckoutButton>
+                  <p className="text-xs text-gray-600 mt-3 text-center">
+                    Educational materials only • 7-day refund if no content accessed
+                  </p>
                 </div>
               </CardContent>
             </Card>
