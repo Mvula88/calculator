@@ -182,6 +182,8 @@ export async function POST(req: NextRequest) {
         email: email ? email.toLowerCase() : '',
         idempotency_key: idempotencyKey
       },
+      // Enable promotion codes/coupons
+      allow_promotion_codes: true,
       // Force collection of all details
       billing_address_collection: 'required',
       phone_number_collection: {
