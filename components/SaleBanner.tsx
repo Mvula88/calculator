@@ -31,8 +31,8 @@ export default function SaleBanner() {
   }, [])
 
   useEffect(() => {
-    // Sale ends on Oct 31, 2025
-    const saleEndDate = new Date('2025-10-31T23:59:59')
+    // Sale ends on Oct 5, 2024
+    const saleEndDate = new Date('2024-10-05T23:59:59')
 
     const timer = setInterval(() => {
       const now = new Date()
@@ -88,11 +88,11 @@ export default function SaleBanner() {
               <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4">
                 <span className="font-bold text-lg flex items-center gap-2">
                   <TrendingDown className="h-5 w-5" />
-                  50% OFF LAUNCH SALE
+                  LIMITED TIME: $49 USD
                 </span>
                 <span className="hidden sm:inline">•</span>
                 <span className="text-sm sm:text-base">
-                  <span className="font-semibold">Save up to N$1,500</span> on Import Mastery
+                  <span className="font-semibold">Save $30</span> - Regular Price $79
                 </span>
                 <span className="hidden md:inline">•</span>
                 <span className="text-sm flex items-center gap-1">
