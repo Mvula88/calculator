@@ -166,16 +166,20 @@ export default function HomePage() {
             {/* What We Do - Crystal Clear */}
             <div className="mb-6 inline-flex items-center gap-2 bg-white/90 text-blue-800 px-4 py-2 rounded-full backdrop-blur-sm">
               <Globe className="h-4 w-4" />
-              <span className="font-semibold">The Complete Import Education Guide</span>
+              <span className="font-semibold">Educational Resources & Import Guides</span>
             </div>
             <h1 className="text-4xl sm:text-6xl font-bold text-white mb-6 drop-shadow-lg">
               Learn How to Import Cars from Japan
-              <span className="block text-yellow-300 mt-2 text-2xl sm:text-3xl">Step-by-Step Guide for Southern Africa</span>
+              <span className="block text-yellow-300 mt-2 text-2xl sm:text-3xl">Step-by-Step Educational Guide for Southern Africa</span>
             </h1>
-            <p className="text-xl text-white mb-8 leading-relaxed bg-black/30 backdrop-blur-sm rounded-lg p-4">
-              <strong>What we do:</strong> We guide you through every step of importing a quality used car from Japan to
-              Namibia, South Africa, Botswana, or Zambia. From finding the right car to driving it home.
+            <p className="text-xl text-white mb-6 leading-relaxed bg-black/30 backdrop-blur-sm rounded-lg p-4">
+              <strong>What we provide:</strong> Educational resources and guides to help you understand the process of importing a quality used car from Japan to Namibia, South Africa, Botswana, or Zambia. From research to documentation.
             </p>
+            <div className="bg-yellow-100 border-2 border-yellow-400 rounded-lg p-3 mb-6 inline-block">
+              <p className="text-sm text-gray-900">
+                <strong>📚 Educational Content Only:</strong> We provide guides and information. We do not import vehicles, provide clearing services, or act as agents. You are responsible for your own import decisions.
+              </p>
+            </div>
             {/* Service Highlights */}
             <div className="grid sm:grid-cols-3 gap-4 mb-10">
               <div className="bg-white/95 backdrop-blur-sm p-4 rounded-lg shadow-sm border border-gray-200">
@@ -190,8 +194,8 @@ export default function HomePage() {
               </div>
               <div className="bg-white/95 backdrop-blur-sm p-4 rounded-lg shadow-sm border border-gray-200">
                 <Users className="h-6 w-6 text-purple-600 mx-auto mb-2" />
-                <div className="font-bold text-gray-900">Verified Agents</div>
-                <div className="text-sm text-gray-600">Trusted clearing agents network</div>
+                <div className="font-bold text-gray-900">Agent Directory</div>
+                <div className="text-sm text-gray-600">Contact info for clearing agents</div>
               </div>
             </div>
             {/* CTA Buttons */}
@@ -461,11 +465,11 @@ export default function HomePage() {
               <Card className="border-2 hover:border-purple-300 transition-colors">
                 <CardHeader>
                   <Users className="h-10 w-10 text-purple-600 mb-3" />
-                  <CardTitle>Verified Clearing Agents</CardTitle>
+                  <CardTitle>Clearing Agent Directory</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <p className="text-sm text-gray-600">
-                    Licensed clearing agents across 4 countries with verified contact information.
+                    Contact directory of clearing agents across 4 countries. We don't provide clearing services.
                   </p>
                 </CardContent>
               </Card>
@@ -557,11 +561,11 @@ export default function HomePage() {
                   <Card className="border-2 hover:border-purple-300 transition-colors w-64 sm:w-72">
                     <CardHeader>
                       <Users className="h-10 w-10 text-purple-600 mb-3" />
-                      <CardTitle>Verified Clearing Agents</CardTitle>
+                      <CardTitle>Agent Directory</CardTitle>
                     </CardHeader>
                     <CardContent>
                       <p className="text-sm text-gray-600">
-                        Licensed clearing agents across 4 countries.
+                        Contact info for clearing agents (not our services).
                       </p>
                     </CardContent>
                   </Card>
@@ -640,7 +644,7 @@ export default function HomePage() {
           <div className="text-center mt-12 px-4">
             <div className="mb-4 inline-block">
               <span className="bg-gradient-to-r from-orange-500 to-red-500 text-white px-4 py-2 rounded-full text-sm font-bold">
-                🔥 Limited Time: $49 USD (Reg. $79) - Ends Oct 5
+                🔥 Special Offer: $49 USD
               </span>
             </div>
             <ValidatedCheckoutButton
@@ -654,7 +658,10 @@ export default function HomePage() {
               <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
             </ValidatedCheckoutButton>
             <p className="text-xs sm:text-sm text-gray-600 mt-4">
-              One-time payment • Instant access • Regular updates
+              One-time payment • Instant digital access • Educational materials only
+            </p>
+            <p className="text-xs text-gray-500 mt-2">
+              7-day refund available if you haven't accessed the content
             </p>
           </div>
         </div>

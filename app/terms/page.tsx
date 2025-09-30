@@ -25,15 +25,28 @@ export default function TermsPage() {
           <section>
             <h2 className="text-2xl font-semibold mb-4">2. Service Description</h2>
             <p className="text-gray-700 mb-4">
-              IMPOTA provides educational content, guides, and tools related to importing vehicles from Japan 
+              IMPOTA provides educational content, guides, and tools related to importing vehicles from Japan
               to Southern African countries. Our services include:
             </p>
             <ul className="list-disc pl-6 text-gray-700 space-y-2">
-              <li>Import guides and documentation</li>
-              <li>Cost calculation tools</li>
-              <li>Agent and shipping company directories</li>
+              <li>Digital import guides and educational documentation</li>
+              <li>Cost calculation tools and estimators</li>
+              <li>Contact directories for clearing agents and shipping companies</li>
               <li>Educational content about the import process</li>
             </ul>
+            <p className="text-gray-700 mt-4 font-semibold">
+              Important: IMPOTA is an educational platform only. We do not:
+            </p>
+            <ul className="list-disc pl-6 text-gray-700 space-y-2 mt-2">
+              <li>Import or sell vehicles</li>
+              <li>Provide clearing or customs services</li>
+              <li>Act as agents or representatives</li>
+              <li>Guarantee the accuracy of third-party services listed in our directories</li>
+              <li>Take responsibility for your import decisions or outcomes</li>
+            </ul>
+            <p className="text-gray-700 mt-4">
+              The directories we provide contain contact information for third-party service providers. We are not affiliated with these providers and do not endorse or guarantee their services. You are responsible for conducting your own due diligence.
+            </p>
           </section>
 
           <section>
@@ -72,19 +85,25 @@ export default function TermsPage() {
 
           <section>
             <h2 className="text-2xl font-semibold mb-4">6. Disclaimer of Warranties</h2>
-            <p className="text-gray-700">
-              IMPOTA provides information for educational purposes only. We do not guarantee the accuracy, 
-              completeness, or timeliness of the information provided. The import process involves various 
+            <p className="text-gray-700 mb-4">
+              IMPOTA provides information for educational purposes only. We do not guarantee the accuracy,
+              completeness, or timeliness of the information provided. The import process involves various
               regulations and requirements that may change. Users should verify all information independently.
+            </p>
+            <p className="text-gray-700">
+              We provide contact directories for third-party service providers (clearing agents, shipping companies, etc.) as a convenience only. We do not verify, endorse, or guarantee the quality, reliability, or legality of these third-party services. Any transactions or interactions you have with third-party providers are solely between you and them.
             </p>
           </section>
 
           <section>
             <h2 className="text-2xl font-semibold mb-4">7. Limitation of Liability</h2>
             <p className="text-gray-700">
-              IMPOTA shall not be liable for any indirect, incidental, special, consequential, or punitive 
-              damages resulting from your use or inability to use our services. This includes but is not 
-              limited to damages related to vehicle imports, customs issues, or financial losses.
+              IMPOTA shall not be liable for any indirect, incidental, special, consequential, or punitive
+              damages resulting from your use or inability to use our services. This includes but is not
+              limited to damages related to vehicle imports, customs issues, financial losses, or issues arising from third-party service providers listed in our directories.
+            </p>
+            <p className="text-gray-700 mt-4">
+              You acknowledge that any dealings with third-party service providers (clearing agents, shipping companies, etc.) found through our directories are at your own risk. IMPOTA is not responsible for the actions, services, or failures of any third-party providers.
             </p>
           </section>
 

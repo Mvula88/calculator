@@ -20,9 +20,11 @@ export default function RefundPolicyPage() {
         <div className="prose prose-lg max-w-none space-y-8">
           <section className="bg-blue-50 border-l-4 border-blue-400 p-6">
             <h2 className="text-2xl font-semibold mb-4">Our Refund Policy</h2>
-            <p className="text-gray-700 font-semibold">
-              Due to the digital nature of our products, we generally do not offer refunds once you have accessed the content. 
-              However, we will consider refunds in specific circumstances outlined below.
+            <p className="text-gray-700 font-semibold mb-4">
+              We offer a 7-day refund window for digital educational products if you have not accessed the content.
+            </p>
+            <p className="text-gray-700">
+              Once you have accessed or downloaded the content, refunds are only available in specific circumstances outlined below due to the digital nature of our products.
             </p>
           </section>
 
@@ -32,10 +34,11 @@ export default function RefundPolicyPage() {
               We will provide a full refund in the following situations:
             </p>
             <ul className="list-disc pl-6 text-gray-700 space-y-2">
+              <li><strong>7-Day No-Access Refund:</strong> Request a refund within 7 days of purchase if you haven't accessed or downloaded any content</li>
               <li><strong>Duplicate Purchases:</strong> If you accidentally purchase the same product twice</li>
               <li><strong>Technical Issues:</strong> If you cannot access your purchased content and we cannot resolve the issue within 48 hours</li>
               <li><strong>Payment Errors:</strong> If you were charged incorrectly or without authorization</li>
-              <li><strong>Pre-Access Refunds:</strong> If you request a refund before accessing any of the purchased content</li>
+              <li><strong>Product Not As Described:</strong> If the content materially differs from what was advertised</li>
               <li><strong>Service Unavailability:</strong> If our platform is down for more than 72 consecutive hours</li>
             </ul>
           </section>
@@ -46,12 +49,12 @@ export default function RefundPolicyPage() {
               We cannot offer refunds in these situations:
             </p>
             <ul className="list-disc pl-6 text-gray-700 space-y-2">
-              <li>You've already accessed and viewed the digital content</li>
-              <li>You've downloaded the guides or materials</li>
-              <li>You changed your mind after purchasing</li>
-              <li>You claim the content didn't meet expectations (please review before buying)</li>
-              <li>You found the information elsewhere after purchasing</li>
+              <li>More than 7 days have passed since purchase</li>
+              <li>You've already accessed, viewed, or downloaded the digital content</li>
+              <li>You changed your mind after accessing the content</li>
+              <li>You found the information elsewhere after accessing our content</li>
               <li>Your financial situation changed after purchase</li>
+              <li>You used the information but claim it wasn't helpful</li>
             </ul>
           </section>
 
@@ -74,13 +77,13 @@ export default function RefundPolicyPage() {
               If you believe you qualify for a refund based on the criteria above:
             </p>
             <ol className="list-decimal pl-6 text-gray-700 space-y-2">
-              <li>Contact us within 7 days of purchase</li>
+              <li>Contact us within 7 days of purchase for no-access refunds</li>
               <li>Email support@impota.com with your order number and reason for refund</li>
               <li>Include any relevant screenshots or error messages for technical issues</li>
-              <li>Allow up to 5 business days for review and processing</li>
+              <li>Allow up to 3 business days for review and processing</li>
             </ol>
             <p className="text-gray-700 mt-4">
-              Approved refunds will be credited to your original payment method within 5-10 business days.
+              Approved refunds will be processed to your original payment method within 5-10 business days. No-access refunds within the 7-day window are typically approved automatically.
             </p>
           </section>
 
