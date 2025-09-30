@@ -161,7 +161,7 @@ export default function PrivacyPolicyPage() {
             <p className="text-gray-700">
               If you have questions about this Privacy Policy, please contact us at:
               <br />Email: privacy@impota.com
-              <br />US Office: 8195, 1021 E Lincolnway, Cheyenne, WY, Laramie, US, 82001
+              <br />US Office: 8195, 1021 E Lincolnway, Cheyenne, WY, 82001, United States
               <br />Namibian Office: Independence Avenue, Windhoek, Namibia
             </p>
           </section>

@@ -61,8 +61,8 @@ export default function ContactPage() {
       title: 'US Office',
       lines: [
         '8195, 1021 E Lincolnway',
-        'Cheyenne, WY, Laramie',
-        'US, 82001'
+        'Cheyenne, WY, 82001',
+        'United States'
       ],
       color: 'from-blue-500 to-indigo-500',
       icon: '🇺🇸'
