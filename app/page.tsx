@@ -32,6 +32,7 @@ import {
 } from 'lucide-react'
 import GuideHeader from '@/components/GuideHeader'
 import ValidatedCheckoutButton from '@/components/validated-checkout-button'
+import PricingCountdown from '@/components/PricingCountdown'
 export default function HomePage() {
   const [showBeginnerQuiz, setShowBeginnerQuiz] = useState(false)
   const [quizScore, setQuizScore] = useState(0)
@@ -642,6 +643,13 @@ export default function HomePage() {
           </div>
           {/* CTA */}
           <div className="text-center mt-12 px-4">
+            <div className="mb-6">
+              <div className="mb-4">
+                <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">LIMITED TIME: $49 USD</h3>
+                <p className="text-sm text-gray-600 mb-4">Save $30 - Regular Price $79</p>
+              </div>
+              <PricingCountdown />
+            </div>
             <ValidatedCheckoutButton
               tier="mastery"
               country="na"
