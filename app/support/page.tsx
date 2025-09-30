@@ -63,7 +63,7 @@ export default function SupportPage() {
         },
         {
           q: 'Do you offer different pricing tiers?',
-          a: 'We offer a single, comprehensive package at N$1,499 (or equivalent in your local currency: R1,499 for South Africa, P1,499 for Botswana, K1,499 for Zambia). This includes lifetime access to all features and updates.'
+          a: 'We offer a single, comprehensive package at $49 USD (limited time offer, regular price $79 USD - ends October 5). This includes lifetime access to all features and updates across all countries.'
         }
       ]
     },

@@ -591,10 +591,10 @@ export default function NamibiaGuidePage() {
                 <CardTitle className="text-2xl font-bold">Complete Import Mastery</CardTitle>
                 <div className="mt-4">
                   <div className="flex items-center gap-3">
-                    <span className="text-3xl font-bold text-gray-400 line-through">N$2,999</span>
-                    <span className="text-4xl font-bold text-purple-600">N$1,499</span>
+                    <span className="text-3xl font-bold text-gray-400 line-through">$79 USD</span>
+                    <span className="text-4xl font-bold text-purple-600">$49 USD</span>
                   </div>
-                  <span className="text-green-600 font-semibold">Save N$1,500 - Limited Time!</span>
+                  <span className="text-green-600 font-semibold">Save $30 - Ends October 5!</span>
                 </div>
               </CardHeader>
               <CardContent className="space-y-4">
@@ -643,7 +643,7 @@ export default function NamibiaGuidePage() {
                     size="lg"
                     className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold py-4 text-lg rounded-lg transition-all duration-300 hover:shadow-xl"
                   >
-                    Get Lifetime Access - N$1,499
+                    Get Lifetime Access - $49 USD
                     <Sparkles className="ml-2 h-5 w-5" />
                   </ValidatedCheckoutButton>
                 </div>

@@ -127,9 +127,9 @@ export default function SouthAfricaUpsellPage() {
         <Card className="p-8 bg-gradient-to-r from-green-600 to-blue-600 text-white">
           <div className="text-center">
             <div className="mb-4">
-              <span className="text-4xl font-bold line-through text-gray-300">R2,999</span>
-              <span className="text-5xl font-bold text-white ml-4">R1,499</span>
-              <span className="text-sm ml-2 opacity-80">Limited time offer!</span>
+              <span className="text-4xl font-bold line-through text-gray-300">$79 USD</span>
+              <span className="text-5xl font-bold text-white ml-4">$49 USD</span>
+              <span className="text-sm ml-2 opacity-80">Ends October 5!</span>
             </div>
             {showEmailInput && (
               <div className="mb-4 max-w-md mx-auto">

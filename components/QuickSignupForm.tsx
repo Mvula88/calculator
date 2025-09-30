@@ -69,10 +69,10 @@ export default function QuickSignupForm({
               <div className="text-xs text-gray-600">Complete professional toolkit</div>
             </div>
             <div className="text-right">
-              <div className="text-sm font-bold text-gray-400 line-through">N$2,999</div>
-              <div className="text-2xl font-black text-purple-600">N$1,499</div>
-              <span className="bg-gradient-to-r from-purple-600 to-pink-600 text-white text-xs px-2 py-1 rounded-full font-bold">
-                SAVE 50%
+              <div className="text-sm font-bold text-gray-400 line-through">$79 USD</div>
+              <div className="text-2xl font-black text-purple-600">$49 USD</div>
+              <span className="bg-gradient-to-r from-orange-600 to-red-600 text-white text-xs px-2 py-1 rounded-full font-bold">
+                ENDS OCT 5
               </span>
             </div>
           </div>
@@ -176,9 +176,9 @@ export default function QuickSignupForm({
             <div className="text-sm text-gray-600">Complete professional toolkit</div>
           </div>
           <div className="text-right">
-            <div className="text-2xl font-bold text-gray-400 line-through">N$2,999</div>
-            <div className="text-3xl font-black text-purple-600">N$1,499</div>
-            <div className="text-sm text-green-600 font-semibold">Save 50%</div>
+            <div className="text-2xl font-bold text-gray-400 line-through">$79 USD</div>
+            <div className="text-3xl font-black text-purple-600">$49 USD</div>
+            <div className="text-sm text-green-600 font-semibold">Ends Oct 5</div>
           </div>
         </div>
       </div>
@@ -203,7 +203,7 @@ export default function QuickSignupForm({
             'Processing...'
           ) : (
             <>
-              Get Instant Access - N$1,499
+              Get Instant Access - $49 USD
               <ArrowRight className="ml-2 h-5 w-5" />
             </>
           )}

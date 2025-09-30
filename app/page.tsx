@@ -638,6 +638,11 @@ export default function HomePage() {
           </div>
           {/* CTA */}
           <div className="text-center mt-12 px-4">
+            <div className="mb-4 inline-block">
+              <span className="bg-gradient-to-r from-orange-500 to-red-500 text-white px-4 py-2 rounded-full text-sm font-bold">
+                🔥 Limited Time: $49 USD (Reg. $79) - Ends Oct 5
+              </span>
+            </div>
             <ValidatedCheckoutButton
               tier="mastery"
               country="na"
@@ -645,7 +650,7 @@ export default function HomePage() {
               className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold py-4 sm:py-6 px-6 sm:px-12 text-base sm:text-lg rounded-lg transition-all duration-300 hover:shadow-xl w-full sm:w-auto"
             >
               <Sparkles className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
-              <span className="truncate">Get Lifetime Access - N$1,499</span>
+              <span className="truncate">Get Lifetime Access - $49 USD</span>
               <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
             </ValidatedCheckoutButton>
             <p className="text-xs sm:text-sm text-gray-600 mt-4">
