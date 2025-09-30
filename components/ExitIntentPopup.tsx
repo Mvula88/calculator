@@ -33,12 +33,12 @@ export default function ExitIntentPopup({ country: propCountry }: ExitIntentPopu
   // Don't show popup on landing page or pages without a country
   const isLandingPage = pathname === '/' || (!country && !pathname.includes('/guide'))
 
-  // Currency mapping based on country
+  // Universal USD pricing for all countries
   const currencies = {
-    na: { symbol: 'N$', price: '1,499', originalPrice: '2,999' },
-    za: { symbol: 'R', price: '1,499', originalPrice: '2,999' },
-    bw: { symbol: 'P', price: '1,151', originalPrice: '2,302' },
-    zm: { symbol: 'K', price: '2,043', originalPrice: '4,086' }
+    na: { symbol: '$', price: '49', originalPrice: '79' },
+    za: { symbol: '$', price: '49', originalPrice: '79' },
+    bw: { symbol: '$', price: '49', originalPrice: '79' },
+    zm: { symbol: '$', price: '49', originalPrice: '79' }
   }
 
   const currency = country ? currencies[country as keyof typeof currencies] : currencies.na
