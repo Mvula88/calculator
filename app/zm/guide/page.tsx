@@ -584,7 +584,7 @@ export default function ZambiaGuidePage() {
                     <span className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-400 line-through">$79</span>
                     <span className="text-3xl sm:text-4xl font-bold text-emerald-600">$49</span>
                   </div>
-                  <span className="text-green-600 font-semibold text-xs sm:text-sm lg:text-base">Special Offer - Save $30</span>
+                  <span className="text-green-600 font-semibold text-xs sm:text-sm lg:text-base">Save $30 - Ends October 5!</span>
                 </div>
               </CardHeader>
               <CardContent className="space-y-3 sm:space-y-4 px-4 sm:px-6">

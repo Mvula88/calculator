@@ -644,7 +644,7 @@ export default function HomePage() {
           <div className="text-center mt-12 px-4">
             <div className="mb-4 inline-block">
               <span className="bg-gradient-to-r from-orange-500 to-red-500 text-white px-4 py-2 rounded-full text-sm font-bold">
-                🔥 Special Offer: $49 USD
+                🔥 Limited Time: $49 USD (Reg. $79) - Ends Oct 5
               </span>
             </div>
             <ValidatedCheckoutButton
