@@ -546,13 +546,13 @@ export default function BotswanaGuidePage() {
 
       {/* Pricing Section */}
       {!user && (
-      <section id="pricing" className="py-16 sm:py-20 bg-gradient-to-b from-gray-50 to-white overflow-x-hidden">
-        <div className="container mx-auto px-4 max-w-7xl">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 text-gray-800">
+      <section id="pricing" className="py-12 sm:py-16 lg:py-20 bg-gradient-to-b from-gray-50 to-white overflow-x-hidden">
+        <div className="container mx-auto px-3 sm:px-4 max-w-7xl">
+          <div className="text-center mb-8 sm:mb-10 lg:mb-12">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold mb-3 sm:mb-4 text-gray-800 px-2">
               Complete Import Package
             </h2>
-            <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-sm sm:text-base lg:text-lg xl:text-xl text-gray-600 max-w-3xl mx-auto px-4">
               Everything you need to import cars successfully - one comprehensive package with lifetime access.
             </p>
           </div>
@@ -561,74 +561,74 @@ export default function BotswanaGuidePage() {
           <div className="max-w-xl mx-auto">
             {/* Complete Import Mastery - Single Comprehensive Package */}
             <Card className="relative overflow-hidden hover:shadow-2xl transition-all duration-300 border-2 hover:border-blue-500">
-              <div className="absolute top-0 right-0 bg-gradient-to-r from-blue-600 to-sky-600 text-white text-xs font-bold px-4 py-2 rounded-bl-lg">
+              <div className="absolute top-0 right-0 bg-gradient-to-r from-blue-600 to-sky-600 text-white text-[10px] sm:text-xs font-bold px-2 py-1 sm:px-4 sm:py-2 rounded-bl-lg">
                 EVERYTHING INCLUDED
               </div>
               <div className="absolute top-0 left-0 w-32 h-32 bg-blue-500 opacity-10 rounded-full -ml-16 -mt-16"></div>
-              <CardHeader className="pb-6">
-                <div className="flex items-center justify-between mb-4">
-                  <Crown className="h-12 w-12 text-blue-500" />
-                  <span className="text-sm font-semibold bg-blue-100 text-blue-700 px-3 py-1 rounded-full">
+              <CardHeader className="pb-4 sm:pb-6 pt-8 sm:pt-6">
+                <div className="flex items-center justify-between mb-3 sm:mb-4">
+                  <Crown className="h-8 w-8 sm:h-10 sm:w-10 lg:h-12 lg:w-12 text-blue-500" />
+                  <span className="text-xs sm:text-sm font-semibold bg-blue-100 text-blue-700 px-2 py-1 sm:px-3 sm:py-1 rounded-full">
                     Complete Solution
                   </span>
                 </div>
-                <CardTitle className="text-2xl font-bold">Complete Import Mastery</CardTitle>
-                <div className="mt-4">
-                  <div className="flex items-center gap-3">
-                    <span className="text-3xl font-bold text-gray-400 line-through">$79 USD</span>
-                    <span className="text-4xl font-bold text-blue-600">$49 USD</span>
+                <CardTitle className="text-lg sm:text-xl lg:text-2xl font-bold">Complete Import Mastery</CardTitle>
+                <div className="mt-3 sm:mt-4">
+                  <div className="flex items-center gap-2 sm:gap-3">
+                    <span className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-400 line-through">$79</span>
+                    <span className="text-3xl sm:text-4xl font-bold text-blue-600">$49</span>
                   </div>
-                  <span className="text-green-600 font-semibold">Save $30 - Ends October 5!</span>
+                  <span className="text-green-600 font-semibold text-xs sm:text-sm lg:text-base">Save $30 - Ends October 5!</span>
                 </div>
               </CardHeader>
-              <CardContent className="space-y-4">
-                <ul className="space-y-3">
-                  <li className="flex items-start gap-3">
-                    <Star className="h-5 w-5 text-blue-500 mt-0.5 flex-shrink-0" />
-                    <span className="text-gray-700 font-semibold">Complete import timeline & process</span>
+              <CardContent className="space-y-3 sm:space-y-4 px-4 sm:px-6">
+                <ul className="space-y-2 sm:space-y-3">
+                  <li className="flex items-start gap-2 sm:gap-3">
+                    <Star className="h-4 w-4 sm:h-5 sm:w-5 text-blue-500 mt-0.5 flex-shrink-0" />
+                    <span className="text-gray-700 font-semibold text-sm sm:text-base">Complete import timeline & process</span>
                   </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                    <span className="text-gray-700">Comprehensive mistake avoidance checklist</span>
+                  <li className="flex items-start gap-2 sm:gap-3">
+                    <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                    <span className="text-gray-700 text-sm sm:text-base">Comprehensive mistake avoidance checklist</span>
                   </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                    <span className="text-gray-700">Live duty & tax calculator</span>
+                  <li className="flex items-start gap-2 sm:gap-3">
+                    <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                    <span className="text-gray-700 text-sm sm:text-base">Live duty & tax calculator</span>
                   </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                    <span className="text-gray-700">Document templates & email samples</span>
+                  <li className="flex items-start gap-2 sm:gap-3">
+                    <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                    <span className="text-gray-700 text-sm sm:text-base">Document templates & email samples</span>
                   </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                    <span className="text-gray-700">Japan auction bidding guide</span>
+                  <li className="flex items-start gap-2 sm:gap-3">
+                    <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                    <span className="text-gray-700 text-sm sm:text-base">Japan auction bidding guide</span>
                   </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                    <span className="text-gray-700">Verified agent contacts & reviews</span>
+                  <li className="flex items-start gap-2 sm:gap-3">
+                    <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                    <span className="text-gray-700 text-sm sm:text-base">Verified agent contacts & reviews</span>
                   </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                    <span className="text-gray-700">Container sharing network</span>
+                  <li className="flex items-start gap-2 sm:gap-3">
+                    <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                    <span className="text-gray-700 text-sm sm:text-base">Container sharing network</span>
                   </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                    <span className="text-gray-700">Priority WhatsApp support</span>
+                  <li className="flex items-start gap-2 sm:gap-3">
+                    <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                    <span className="text-gray-700 text-sm sm:text-base">Priority WhatsApp support</span>
                   </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                    <span className="text-gray-700">Monthly updates & new features</span>
+                  <li className="flex items-start gap-2 sm:gap-3">
+                    <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                    <span className="text-gray-700 text-sm sm:text-base">Monthly updates & new features</span>
                   </li>
                 </ul>
-                <div className="pt-6">
+                <div className="pt-4 sm:pt-6">
                   <ValidatedCheckoutButton
                     tier="mastery"
                     country="bw"
                     size="lg"
-                    className="w-full bg-gradient-to-r from-blue-600 to-sky-600 hover:from-blue-700 hover:to-sky-700 text-white font-bold py-4 text-lg rounded-lg transition-all duration-300 hover:shadow-xl"
+                    className="w-full bg-gradient-to-r from-blue-600 to-sky-600 hover:from-blue-700 hover:to-sky-700 text-white font-bold py-3.5 sm:py-4 text-sm sm:text-base lg:text-lg rounded-lg transition-all duration-300 hover:shadow-xl min-h-[48px] active:scale-95 touch-manipulation"
                   >
                     Get Lifetime Access - $49 USD
-                    <Sparkles className="ml-2 h-5 w-5" />
+                    <Sparkles className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
                   </ValidatedCheckoutButton>
                 </div>
               </CardContent>
