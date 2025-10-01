@@ -35,6 +35,28 @@ export default function RootLayout({
         <link rel="alternate" hrefLang="en-bw" href="https://impota.com/bw" />
         <link rel="alternate" hrefLang="en-zm" href="https://impota.com/zm" />
         <link rel="alternate" hrefLang="x-default" href="https://impota.com" />
+
+        {/* PWA Meta Tags */}
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="application-name" content="IMPOTA" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="apple-mobile-web-app-title" content="IMPOTA" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="msapplication-TileColor" content="#1e3a8a" />
+        <meta name="msapplication-tap-highlight" content="no" />
+
+        {/* Apple Touch Icons */}
+        <link rel="apple-touch-icon" sizes="192x192" href="/icon-192x192.png" />
+        <link rel="apple-touch-icon" sizes="256x256" href="/icon-256x256.png" />
+        <link rel="apple-touch-icon" sizes="384x384" href="/icon-384x384.png" />
+        <link rel="apple-touch-icon" sizes="512x512" href="/icon-512x512.png" />
+
+        {/* Favicon */}
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+        <link rel="shortcut icon" href="/favicon.ico" />
       </head>
       <body className={inter.className}>
         <StructuredData type="organization" />
