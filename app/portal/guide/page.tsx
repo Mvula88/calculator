@@ -14,10 +14,47 @@ import { TemplatesSection } from '@/components/guide/templates-section'
 import { EmergencyQuickReference } from '@/components/guide/emergency-quick-reference'
 import { PracticalTools } from '@/components/guide/practical-tools'
 import CriticalImportWarnings from '@/components/portal/CriticalImportWarnings'
+import { CountrySelector, type Country } from '@/components/guide/CountrySelector'
+import { namibiaTimelineSteps } from '@/lib/guide-data/namibia-timeline'
+import { southAfricaTimelineSteps } from '@/lib/guide-data/south-africa-timeline'
+import { botswanaTimelineSteps } from '@/lib/guide-data/botswana-timeline'
+import { zambiaTimelineSteps } from '@/lib/guide-data/zambia-timeline'
 import { AlertTriangle, CheckCircle, Info, TrendingDown, Lock, Shield } from 'lucide-react'
 
-// Timeline data for Namibia guide
-const namibiaTimelineSteps = [
+// Country-specific data
+const countryData = {
+  'namibia': {
+    name: 'Namibia',
+    port: 'Walvis Bay',
+    currency: 'N$',
+    timeline: namibiaTimelineSteps,
+    daysRange: '60-75'
+  },
+  'south-africa': {
+    name: 'South Africa',
+    port: 'Walvis Bay or Durban',
+    currency: 'R',
+    timeline: southAfricaTimelineSteps,
+    daysRange: '65-90'
+  },
+  'botswana': {
+    name: 'Botswana',
+    port: 'Walvis Bay',
+    currency: 'P',
+    timeline: botswanaTimelineSteps,
+    daysRange: '60-80'
+  },
+  'zambia': {
+    name: 'Zambia',
+    port: 'Walvis Bay',
+    currency: 'K',
+    timeline: zambiaTimelineSteps,
+    daysRange: '70-95'
+  }
+} as const
+
+// Old timeline data - kept for backward compatibility, will be removed
+const _oldNamibiaTimelineSteps = [
   {
     title: 'Pre-Import Planning',
     duration: '7–14 days',
@@ -185,6 +222,10 @@ export default function GuidePage() {
   const router = useRouter()
   const { user, userEmail, hasAccess, loading, userTier } = useAuthImmediate()
   const [currentSection, setCurrentSection] = useState<string>('overview')
+  const [selectedCountry, setSelectedCountry] = useState<Country>('namibia')
+
+  // Get current country data
+  const currentCountryData = countryData[selectedCountry]
 
   // Clean up email display
   const displayEmail = userEmail || 'Portal User'
@@ -227,10 +268,6 @@ export default function GuidePage() {
   }
 
   // Has access - show the guide
-  const countryName = 'Namibia' // Default for now
-  const port = 'Walvis Bay'
-  const currency = 'N$'
-
   return (
     <main className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
       <div className="w-full">
@@ -239,7 +276,7 @@ export default function GuidePage() {
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
             <div>
               <h1 className="text-3xl sm:text-4xl font-bold mb-2">Complete Vehicle Import Guide</h1>
-              <p className="text-gray-600">Your step-by-step roadmap to importing vehicles into Namibia</p>
+              <p className="text-gray-600">Your step-by-step roadmap to importing vehicles into {currentCountryData.name}</p>
             </div>
             <div className="flex items-center gap-2 text-xs sm:text-sm text-gray-600">
               <Shield className="h-3 w-3 sm:h-4 sm:w-4" />
@@ -256,6 +293,14 @@ export default function GuidePage() {
                 </p>
               </div>
             </div>
+          </div>
+
+          {/* Country Selector */}
+          <div className="mt-6">
+            <CountrySelector
+              selectedCountry={selectedCountry}
+              onCountryChange={setSelectedCountry}
+            />
           </div>
         </div>
 
@@ -288,7 +333,7 @@ export default function GuidePage() {
 
           {/* 4. Step-by-Step Timeline */}
           <section id="timeline">
-            <TimelineSection steps={namibiaTimelineSteps} />
+            <TimelineSection steps={currentCountryData.timeline} />
           </section>
 
           {/* 5. Common Mistakes */}
@@ -324,7 +369,7 @@ export default function GuidePage() {
                     <p className="text-sm text-gray-600">Success rate when following all steps</p>
                   </div>
                   <div className="p-4 bg-white rounded-lg border">
-                    <div className="text-3xl font-bold text-purple-600 mb-2">60-75</div>
+                    <div className="text-3xl font-bold text-purple-600 mb-2">{currentCountryData.daysRange}</div>
                     <p className="text-sm text-gray-600">Days from purchase to registration</p>
                   </div>
                 </div>
@@ -382,7 +427,7 @@ export default function GuidePage() {
         {/* Support Notice */}
         <div className="mt-16 text-center text-xs sm:text-sm text-gray-600 px-4 sm:px-6 pb-8">
           <p>Need help? Use the emergency contacts section or consult with your clearing agent.</p>
-          <p className="mt-2">This guide is specifically for {port} port imports to {countryName}. Other ports may have different procedures.</p>
+          <p className="mt-2">This guide is specifically for {currentCountryData.port} port imports to {currentCountryData.name}. Other ports may have different procedures.</p>
         </div>
       </div>
     </main>
