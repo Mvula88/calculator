@@ -185,15 +185,6 @@ export default function BotswanaGuidePage() {
         </div>
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-16 z-20">
-          {/* Premium Trust Badge - Mobile Optimized */}
-          <div className="flex justify-center mb-6 sm:mb-8">
-            <div className="inline-flex items-center gap-2 sm:gap-3 bg-gradient-to-r from-blue-500 via-sky-600 to-cyan-600 text-white px-3 py-1.5 sm:px-6 sm:py-3 rounded-xl sm:rounded-2xl shadow-2xl border border-white/20 backdrop-blur-sm text-center">
-              <Crown className="h-4 w-4 sm:h-6 sm:w-6" />
-              <span className="font-bold text-xs sm:text-base tracking-tight sm:tracking-wide">BOTSWANA'S PREMIER IMPORT EDUCATION PLATFORM</span>
-              <Crown className="h-4 w-4 sm:h-6 sm:w-6" />
-            </div>
-          </div>
-
           {/* Modern Typography - Mobile Optimized */}
           <div className="text-center mb-8 sm:mb-12">
             <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-black mb-4 sm:mb-6 leading-tight tracking-tight">
