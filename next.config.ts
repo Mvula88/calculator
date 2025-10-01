@@ -1,5 +1,6 @@
 import type { NextConfig } from "next";
 import { withSentryConfig } from '@sentry/nextjs';
+// @ts-ignore - next-pwa doesn't have TypeScript definitions
 import withPWA from 'next-pwa';
 
 const nextConfig: NextConfig = {
