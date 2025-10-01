@@ -383,7 +383,7 @@ export default function SouthAfricaGuidePage() {
               </span>
             </h2>
             <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed px-4">
-              Professional guidance for importing vehicles from Japan to South Africa through Durban port. 
+              Professional guidance for importing vehicles from Japan to South Africa through Walvis Bay or Durban port.
               <span className="font-semibold text-gray-800">No experience required</span> — our comprehensive system covers everything.
             </p>
           </div>
@@ -421,8 +421,8 @@ export default function SouthAfricaGuidePage() {
               },
               {
                 icon: MapPin,
-                title: "Navigate Durban Port",
-                description: "Professional port procedures guide. Clear customs efficiently with step-by-step instructions.",
+                title: "Navigate Port Procedures",
+                description: "Professional guide for Walvis Bay or Durban port. Clear customs efficiently with step-by-step instructions.",
                 color: "rose",
                 step: "05"
               },

@@ -380,7 +380,7 @@ export default function ZambiaGuidePage() {
               </span>
             </h2>
             <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              Professional guidance for importing vehicles from Japan to Zambia via Dar es Salaam. 
+              Professional guidance for importing vehicles from Japan to Zambia via Walvis Bay port.
               <span className="font-semibold text-gray-800">No experience required</span> — our comprehensive system covers everything.
             </p>
           </div>
@@ -418,8 +418,8 @@ export default function ZambiaGuidePage() {
               },
               {
                 icon: MapPin,
-                title: "Navigate Cross-Border Process",
-                description: "Professional border procedures guide. Clear customs efficiently with step-by-step instructions.",
+                title: "Navigate Walvis Bay Port",
+                description: "Professional port and cross-border procedures guide. Clear customs efficiently with step-by-step instructions.",
                 color: "lime",
                 step: "05"
               },
