@@ -178,7 +178,7 @@ export default function HomePage() {
             </p>
             <div className="bg-yellow-100 border-2 border-yellow-400 rounded-lg p-3 mb-6 inline-block">
               <p className="text-sm text-gray-900">
-                <strong>📚 Educational Content Only:</strong> We provide guides and information. We do not import vehicles, provide clearing services, or act as agents. You are responsible for your own import decisions.
+                <strong>📚 Educational Content Only:</strong> We provide guides and information. We do not import vehicles, provide clearing services, or act as agents.
               </p>
             </div>
             {/* Service Highlights */}
