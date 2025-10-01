@@ -43,7 +43,7 @@ export function CountrySelector({ selectedCountry, onCountryChange }: CountrySel
   const selected = countries.find(c => c.id === selectedCountry) || countries[0]
 
   return (
-    <Card className="p-4 bg-gradient-to-r from-blue-50 to-purple-50 border-blue-200">
+    <Card className="p-4 bg-gradient-to-r from-blue-50 to-purple-50 border-blue-200 relative z-50">
       <div className="flex items-center justify-between mb-2">
         <div className="flex items-center gap-2">
           <Flag className="h-5 w-5 text-blue-600" />
@@ -51,7 +51,7 @@ export function CountrySelector({ selectedCountry, onCountryChange }: CountrySel
         </div>
       </div>
 
-      <div className="relative">
+      <div className="relative z-50">
         <button
           onClick={() => setIsOpen(!isOpen)}
           className="w-full flex items-center justify-between p-3 bg-white border-2 border-gray-200 rounded-lg hover:border-blue-400 transition-colors"
@@ -67,7 +67,7 @@ export function CountrySelector({ selectedCountry, onCountryChange }: CountrySel
         </button>
 
         {isOpen && (
-          <div className="absolute top-full left-0 right-0 mt-2 bg-white border-2 border-gray-200 rounded-lg shadow-xl z-50">
+          <div className="absolute top-full left-0 right-0 mt-2 bg-white border-2 border-gray-200 rounded-lg shadow-xl z-[9999]">
             {countries.map((country) => (
               <button
                 key={country.id}
