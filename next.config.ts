@@ -186,7 +186,7 @@ const pwaConfig = withPWA({
       }
     },
     {
-      urlPattern: ({ url }) => {
+      urlPattern: ({ url }: { url: URL }) => {
         const isSameOrigin = self.origin === url.origin;
         if (!isSameOrigin) return false;
         const pathname = url.pathname;
