@@ -227,6 +227,18 @@ export default function GuidePage() {
   // Get current country data
   const currentCountryData = countryData[selectedCountry]
 
+  // Handle country change - scroll to timeline section
+  const handleCountryChange = (country: Country) => {
+    setSelectedCountry(country)
+    // Scroll to timeline section after country change
+    setTimeout(() => {
+      const timelineElement = document.getElementById('timeline')
+      if (timelineElement) {
+        timelineElement.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      }
+    }, 100)
+  }
+
   // Clean up email display
   const displayEmail = userEmail || 'Portal User'
   const cleanEmail = displayEmail.startsWith('user_cs_test_') ||
@@ -275,8 +287,13 @@ export default function GuidePage() {
         <div className="mb-8 px-4 sm:px-6 max-w-6xl mx-auto">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
             <div>
-              <h1 className="text-3xl sm:text-4xl font-bold mb-2">Complete Vehicle Import Guide</h1>
-              <p className="text-gray-600">Your step-by-step roadmap to importing vehicles into {currentCountryData.name}</p>
+              <div className="flex items-center gap-2 mb-2">
+                <h1 className="text-3xl sm:text-4xl font-bold">Complete Vehicle Import Guide</h1>
+                <span className="px-3 py-1 bg-blue-100 text-blue-700 text-sm font-semibold rounded-full">
+                  {currentCountryData.name}
+                </span>
+              </div>
+              <p className="text-gray-600">Your step-by-step roadmap to importing vehicles via {currentCountryData.port}</p>
             </div>
             <div className="flex items-center gap-2 text-xs sm:text-sm text-gray-600">
               <Shield className="h-3 w-3 sm:h-4 sm:w-4" />
@@ -299,7 +316,7 @@ export default function GuidePage() {
           <div className="mt-6">
             <CountrySelector
               selectedCountry={selectedCountry}
-              onCountryChange={setSelectedCountry}
+              onCountryChange={handleCountryChange}
             />
           </div>
         </div>
@@ -332,7 +349,7 @@ export default function GuidePage() {
           </section>
 
           {/* 4. Step-by-Step Timeline */}
-          <section id="timeline">
+          <section id="timeline" key={`timeline-${selectedCountry}`}>
             <TimelineSection steps={currentCountryData.timeline} />
           </section>
 
