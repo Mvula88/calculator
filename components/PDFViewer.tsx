@@ -117,10 +117,14 @@ export default function PDFViewer({ isOpen, onClose, documentName, documentUrl }
 
   // Always use our API route which fetches from Supabase Storage
   const getViewerUrl = (url: string) => {
-    // Use our API route that fetches from Supabase
-    // Add timestamp to prevent caching issues
-    // Include session info in URL for authentication
-    const baseUrl = `/api/documents/${url}?t=${Date.now()}`
+    // If URL already starts with /api/documents/, use it as-is
+    // Otherwise, prepend the API path
+    let baseUrl: string
+    if (url.startsWith('/api/documents/')) {
+      baseUrl = `${url}?t=${Date.now()}`
+    } else {
+      baseUrl = `/api/documents/${url}?t=${Date.now()}`
+    }
 
     // Try to get session from localStorage or cookies
     if (typeof window !== 'undefined') {
