@@ -90,14 +90,14 @@ export default function GuideHeader({
             ) : (
               // Not logged in - show both Member Login and Get Started buttons
               <>
-                <Link href="/auth/login" className="group hidden sm:block">
+                <Link href="/auth/login" className="group">
                   <Button
                     size="sm"
                     variant="outline"
-                    className="font-bold text-xs sm:text-sm px-2.5 py-2 sm:px-4 sm:py-2 border-2 hover:scale-105 transition-all duration-300"
+                    className="font-bold text-xs sm:text-sm px-2 sm:px-4 py-2 border-2 hover:scale-105 transition-all duration-300"
                   >
-                    <User className="mr-1 sm:mr-2 h-3.5 w-3.5 sm:h-4 sm:w-4" />
-                    <span className="hidden md:inline">Member </span>Login
+                    <User className="h-3.5 w-3.5 sm:h-4 sm:w-4 sm:mr-1" />
+                    <span className="hidden sm:inline ml-1">Login</span>
                   </Button>
                 </Link>
 
