@@ -149,9 +149,9 @@ export default function PDFViewer({ isOpen, onClose, documentName, documentUrl }
         onClick={onClose}
       />
 
-      {/* Modal Content */}
+      {/* Modal Content - Mobile Optimized */}
       <div
-        className="relative bg-white rounded-lg shadow-xl max-w-7xl w-full mx-4 h-[90vh] flex flex-col"
+        className="relative bg-white rounded-lg shadow-xl max-w-7xl w-full mx-2 sm:mx-4 h-[95vh] sm:h-[90vh] flex flex-col"
         style={{
           userSelect: 'none',
           WebkitUserSelect: 'none',
@@ -160,34 +160,36 @@ export default function PDFViewer({ isOpen, onClose, documentName, documentUrl }
         }}
         onContextMenu={(e) => e.preventDefault()}
       >
-        {/* Header */}
-        <div className="px-6 py-4 border-b bg-white">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <FileText className="h-5 w-5 text-blue-600" />
-              <h2 className="text-lg font-semibold">{documentName}</h2>
+        {/* Header - Mobile Optimized */}
+        <div className="px-3 sm:px-6 py-3 sm:py-4 border-b bg-white">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-0">
+            <div className="flex items-center gap-2 sm:gap-3 flex-1 min-w-0">
+              <FileText className="h-4 w-4 sm:h-5 sm:w-5 text-blue-600 flex-shrink-0" />
+              <h2 className="text-sm sm:text-lg font-semibold truncate">{documentName}</h2>
             </div>
-            <div className="flex items-center gap-2">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={handleZoomOut}
-                disabled={scale <= 50}
-                className="hover:bg-gray-100"
-              >
-                <ZoomOut className="h-4 w-4" />
-              </Button>
-              <span className="text-sm font-medium px-2 min-w-[50px] text-center">{scale}%</span>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={handleZoomIn}
-                disabled={scale >= 200}
-                className="hover:bg-gray-100"
-              >
-                <ZoomIn className="h-4 w-4" />
-              </Button>
-              <div className="w-px h-6 bg-gray-200 mx-1" />
+            <div className="flex items-center justify-between sm:justify-end gap-2">
+              <div className="hidden sm:flex items-center gap-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={handleZoomOut}
+                  disabled={scale <= 50}
+                  className="hover:bg-gray-100"
+                >
+                  <ZoomOut className="h-4 w-4" />
+                </Button>
+                <span className="text-sm font-medium px-2 min-w-[50px] text-center">{scale}%</span>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={handleZoomIn}
+                  disabled={scale >= 200}
+                  className="hover:bg-gray-100"
+                >
+                  <ZoomIn className="h-4 w-4" />
+                </Button>
+                <div className="w-px h-6 bg-gray-200 mx-1" />
+              </div>
               <Button
                 variant="ghost"
                 size="sm"
@@ -274,9 +276,9 @@ export default function PDFViewer({ isOpen, onClose, documentName, documentUrl }
           </div>
         </div>
 
-        {/* Footer notice */}
-        <div className="px-6 py-3 border-t bg-gray-50 text-center">
-          <p className="text-xs text-gray-500">
+        {/* Footer notice - Mobile Optimized */}
+        <div className="px-3 sm:px-6 py-2 sm:py-3 border-t bg-gray-50 text-center">
+          <p className="text-[10px] sm:text-xs text-gray-500 leading-tight">
             📋 This document is for viewing only • Downloads are disabled • Content is protected by copyright
           </p>
         </div>
