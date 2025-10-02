@@ -118,7 +118,7 @@ const faqs = [
   },
   {
     question: 'What are the biggest mistakes first-time importers make?',
-    answer: 'First-time importers often make costly mistakes. Our Mistake Guide specifically addresses the top 5 pitfalls with step-by-step solutions based on real import experiences.'
+    answer: 'First-time importers often make costly mistakes. Our complete guide addresses the top 5 pitfalls with step-by-step solutions based on real import experiences.'
   },
   {
     question: 'Do I need connections or experience to import?',
