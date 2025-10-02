@@ -52,6 +52,16 @@ export default function PDFViewer({ isOpen, onClose, documentName, documentUrl }
 
   const fetchDocumentContent = async (url: string) => {
     try {
+      // On mobile, use direct URL instead of blob for better compatibility
+      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
+
+      if (isMobile) {
+        // For mobile, just use the API URL directly
+        setDocumentContent(getViewerUrl(url))
+        setLoading(false)
+        return
+      }
+
       const response = await fetch(getViewerUrl(url))
 
       if (!response.ok) {
