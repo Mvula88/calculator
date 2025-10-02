@@ -31,8 +31,8 @@ export default function SaleBanner() {
   }, [])
 
   useEffect(() => {
-    // Sale ends on Oct 5, 2024
-    const saleEndDate = new Date('2024-10-05T23:59:59')
+    // Sale ends on Oct 31, 2025
+    const saleEndDate = new Date('2025-10-31T23:59:59')
 
     const timer = setInterval(() => {
       const now = new Date()

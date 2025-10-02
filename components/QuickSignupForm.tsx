@@ -178,7 +178,7 @@ export default function QuickSignupForm({
           <div className="text-right">
             <div className="text-base sm:text-xl lg:text-2xl font-bold text-gray-400 line-through">$79</div>
             <div className="text-2xl sm:text-3xl font-black text-purple-600">$49</div>
-            <div className="text-xs sm:text-sm text-green-600 font-semibold">Ends Oct 5</div>
+            <div className="text-xs sm:text-sm text-green-600 font-semibold">Ends Oct 31</div>
           </div>
         </div>
       </div>

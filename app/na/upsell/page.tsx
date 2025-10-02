@@ -129,7 +129,7 @@ export default function NamibiaUpsellPage() {
             <div className="mb-4">
               <span className="text-4xl font-bold line-through text-gray-400">$79 USD</span>
               <span className="text-5xl font-bold text-green-600 ml-4">$49 USD</span>
-              <span className="text-sm ml-2 opacity-80">One-time payment - Ends Oct 5</span>
+              <span className="text-sm ml-2 opacity-80">One-time payment - Ends Oct 31</span>
             </div>
             {showEmailInput && (
               <div className="mb-4 max-w-md mx-auto">

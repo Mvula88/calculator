@@ -4,10 +4,10 @@ import { useState, useEffect } from 'react'
 import { Clock } from 'lucide-react'
 
 interface PricingCountdownProps {
-  endDate?: string // ISO date string, defaults to October 5, 2025
+  endDate?: string // ISO date string, defaults to October 31, 2025
 }
 
-export default function PricingCountdown({ endDate = '2025-10-05T23:59:59' }: PricingCountdownProps) {
+export default function PricingCountdown({ endDate = '2025-10-31T23:59:59' }: PricingCountdownProps) {
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
     hours: 0,
