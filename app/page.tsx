@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { toast } from 'sonner'
 import { LandingPageSkeleton } from '@/components/skeletons/LandingPageSkeleton'
+import { createClient } from '@/lib/supabase/client'
 import {
   ArrowRight,
   Calculator,
@@ -28,7 +29,8 @@ import {
   ChevronRight,
   Phone,
   TrendingUp,
-  Package
+  Package,
+  LogIn
 } from 'lucide-react'
 import GuideHeader from '@/components/GuideHeader'
 import ValidatedCheckoutButton from '@/components/validated-checkout-button'
@@ -39,8 +41,17 @@ export default function HomePage() {
   const [currentQuestion, setCurrentQuestion] = useState(0)
   const [loading, setLoading] = useState(true)
   const [currentSlide, setCurrentSlide] = useState(0)
+  const [user, setUser] = useState<any>(null)
   const carouselRef = useRef<HTMLDivElement>(null)
   useEffect(() => {
+    // Check user authentication
+    async function checkUser() {
+      const supabase = createClient()
+      const { data: { user } } = await supabase.auth.getUser()
+      setUser(user)
+    }
+    checkUser()
+
     // Simulate initial page load
     const timer = setTimeout(() => {
       setLoading(false)
@@ -201,6 +212,19 @@ export default function HomePage() {
             </div>
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              {!user && (
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="bg-white/10 backdrop-blur-sm border-2 border-white text-white hover:bg-white hover:text-blue-700 px-8 py-6 text-lg"
+                  asChild
+                >
+                  <Link href="/auth/login">
+                    <LogIn className="mr-2 h-5 w-5" />
+                    Already Have Access? Login
+                  </Link>
+                </Button>
+              )}
               <Button
                 size="lg"
                 className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-6 text-lg"
@@ -212,7 +236,7 @@ export default function HomePage() {
               <Button
                 size="lg"
                 variant="outline"
-                className="px-8 py-6 text-lg"
+                className="bg-white/10 backdrop-blur-sm border-2 border-white text-white hover:bg-white hover:text-blue-700 px-8 py-6 text-lg"
                 asChild
               >
                 <Link href="#import-basics">
