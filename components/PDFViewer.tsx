@@ -1,8 +1,14 @@
 'use client'
 // PDF Viewer component with custom modal implementation
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Button } from '@/components/ui/button'
 import { X, ZoomIn, ZoomOut, FileText, AlertCircle, CheckCircle } from 'lucide-react'
+import * as pdfjsLib from 'pdfjs-dist'
+
+// Configure PDF.js worker
+if (typeof window !== 'undefined') {
+  pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`
+}
 
 interface PDFViewerProps {
   isOpen: boolean
@@ -16,6 +22,9 @@ export default function PDFViewer({ isOpen, onClose, documentName, documentUrl }
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
   const [documentContent, setDocumentContent] = useState<string | null>(null)
+  const [numPages, setNumPages] = useState(0)
+  const canvasRefs = useRef<(HTMLCanvasElement | null)[]>([])
+  const [pdfDocument, setPdfDocument] = useState<any>(null)
 
   useEffect(() => {
     if (isOpen && documentUrl) {
@@ -52,16 +61,6 @@ export default function PDFViewer({ isOpen, onClose, documentName, documentUrl }
 
   const fetchDocumentContent = async (url: string) => {
     try {
-      // On mobile, use direct URL instead of blob for better compatibility
-      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
-
-      if (isMobile) {
-        // For mobile, just use the API URL directly
-        setDocumentContent(getViewerUrl(url))
-        setLoading(false)
-        return
-      }
-
       const response = await fetch(getViewerUrl(url))
 
       if (!response.ok) {
@@ -81,27 +80,60 @@ export default function PDFViewer({ isOpen, onClose, documentName, documentUrl }
         }
         reader.readAsDataURL(blob)
       } else {
-        // For PDFs, create object URL
-        const blob = await response.blob()
-        const objectUrl = URL.createObjectURL(blob)
-        setDocumentContent(objectUrl)
+        // For PDFs, use PDF.js to render as canvas
+        const arrayBuffer = await response.arrayBuffer()
+        const loadingTask = pdfjsLib.getDocument({ data: arrayBuffer })
+        const pdf = await loadingTask.promise
+        setPdfDocument(pdf)
+        setNumPages(pdf.numPages)
         setLoading(false)
       }
     } catch (err) {
-
       setError(true)
       setLoading(false)
     }
   }
 
+  // Render PDF pages when document is loaded
   useEffect(() => {
-    // Cleanup object URLs when component unmounts
-    return () => {
-      if (documentContent && documentContent.startsWith('blob:')) {
-        URL.revokeObjectURL(documentContent)
+    if (pdfDocument && numPages > 0) {
+      // Small delay to ensure canvas elements are mounted
+      const timer = setTimeout(() => {
+        renderAllPages()
+      }, 100)
+      return () => clearTimeout(timer)
+    }
+  }, [pdfDocument, numPages, scale])
+
+  const renderAllPages = async () => {
+    if (!pdfDocument) return
+
+    for (let pageNum = 1; pageNum <= numPages; pageNum++) {
+      try {
+        const page = await pdfDocument.getPage(pageNum)
+        const canvas = canvasRefs.current[pageNum - 1]
+        if (!canvas) continue
+
+        // Use higher scale for better quality on mobile
+        const baseScale = 1.5
+        const viewport = page.getViewport({ scale: baseScale * (scale / 100) })
+        const context = canvas.getContext('2d')
+        if (!context) continue
+
+        canvas.height = viewport.height
+        canvas.width = viewport.width
+
+        const renderContext = {
+          canvasContext: context,
+          viewport: viewport,
+        }
+
+        await page.render(renderContext).promise
+      } catch (err) {
+        console.error(`Error rendering page ${pageNum}:`, err)
       }
     }
-  }, [documentContent])
+  }
 
   const handleZoomIn = () => {
     setScale(prev => Math.min(prev + 10, 200))
@@ -109,17 +141,6 @@ export default function PDFViewer({ isOpen, onClose, documentName, documentUrl }
 
   const handleZoomOut = () => {
     setScale(prev => Math.max(prev - 10, 50))
-  }
-
-  const handleIframeLoad = () => {
-    setLoading(false)
-  }
-
-  const handleIframeError = () => {
-    setLoading(false)
-    setError(true)
-    // Automatically try to open in new tab if embed fails
-    window.open(getViewerUrl(documentUrl), '_blank')
   }
 
   // Check if file is an image
@@ -245,16 +266,16 @@ export default function PDFViewer({ isOpen, onClose, documentName, documentUrl }
           )}
 
           {/* Document Display */}
-          {!loading && !error && documentContent && (
+          {!loading && !error && (
             <div className="h-full overflow-auto p-4">
-              <div 
+              <div
                 className="mx-auto bg-white shadow-xl transition-all duration-200"
-                style={{ 
-                  width: `${scale}%`,
+                style={{
+                  width: isImage ? `${scale}%` : '100%',
                   minHeight: '100%'
                 }}
               >
-                {isImage ? (
+                {isImage && documentContent ? (
                   // Display image
                   // eslint-disable-next-line @next/next/no-img-element
                   <img
@@ -267,16 +288,24 @@ export default function PDFViewer({ isOpen, onClose, documentName, documentUrl }
                     }}
                   />
                 ) : (
-                  // Display PDF with download/print disabled
-                  <iframe
-                    src={`${documentContent}#toolbar=0&navpanes=0&scrollbar=0`}
-                    className="w-full h-full min-h-[800px]"
-                    style={{
-                      border: 'none',
-                      pointerEvents: 'auto'
-                    }}
-                    title={documentName}
-                  />
+                  // Display PDF as canvas pages (prevents download)
+                  <div className="flex flex-col gap-2 sm:gap-4 items-center w-full">
+                    {Array.from({ length: numPages }, (_, i) => (
+                      <canvas
+                        key={i}
+                        ref={(el) => {
+                          canvasRefs.current[i] = el
+                        }}
+                        className="shadow-lg w-full h-auto"
+                        style={{
+                          maxWidth: '100%',
+                          userSelect: 'none',
+                          pointerEvents: 'none',
+                          display: 'block'
+                        }}
+                      />
+                    ))}
+                  </div>
                 )}
               </div>
             </div>
