@@ -189,8 +189,8 @@ export async function POST(req: NextRequest) {
       phone_number_collection: {
         enabled: true,
       },
-      // Never pre-fill email - let Stripe collect it fresh
-      // customer_email: email ? email.toLowerCase() : undefined,
+      // Pre-fill email if provided
+      customer_email: email ? email.toLowerCase() : undefined,
       // Prevent using saved payment methods
       customer_creation: 'always',
       success_url: successUrl,
