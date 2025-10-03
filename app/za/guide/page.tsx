@@ -262,10 +262,10 @@ export default function SouthAfricaGuidePage() {
                   <h3 className="text-base sm:text-lg md:text-xl font-bold mb-2">💡 LESSON: Can Your Container Be Held Even After Arrival?</h3>
                   <p className="text-xs sm:text-sm md:text-base mb-1">Real case: 7-month hold. Daily fees accumulating. Risk of auction.</p>
                   <p className="text-xs sm:text-sm md:text-base mb-3">Cause: A preventable mistake made during planning stage.</p>
-                  <Link href="/za/guide#pricing" className="inline-flex items-center gap-2 bg-white text-orange-600 px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg font-semibold hover:bg-gray-100 transition-colors text-xs sm:text-sm md:text-base">
+                  <a href="#pricing" className="inline-flex items-center gap-2 bg-white text-orange-600 px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg font-semibold hover:bg-gray-100 transition-colors text-xs sm:text-sm md:text-base">
                     See all costly mistakes to avoid
                     <ArrowRight className="h-3 w-3 sm:h-4 sm:w-4" />
-                  </Link>
+                  </a>
                 </div>
               </div>
             </div>
