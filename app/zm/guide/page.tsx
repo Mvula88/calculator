@@ -347,7 +347,7 @@ export default function ZambiaGuidePage() {
               {
                 icon: Ship,
                 title: "Secure Professional Shipping",
-                description: "Connect with verified shipping lines and clearing agents. Access our container sharing platform to split costs with other importers.",
+                description: "Connect with verified shipping lines and clearing agents. Access container sharing opportunities to split costs with other importers.",
                 color: "green",
                 step: "03"
               }
