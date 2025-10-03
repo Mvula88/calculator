@@ -7,7 +7,8 @@ import * as pdfjsLib from 'pdfjs-dist'
 
 // Configure PDF.js worker for mobile compatibility with CORS-enabled CDN
 if (typeof window !== 'undefined') {
-  pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdn.jsdelivr.net/npm/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.js`
+  // Use specific version that exists on jsDelivr
+  pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`
 }
 
 interface PDFViewerProps {
@@ -93,9 +94,9 @@ export default function PDFViewer({ isOpen, onClose, documentName, documentUrl }
         try {
           const loadingTask = pdfjsLib.getDocument({
             data: arrayBuffer,
-            cMapUrl: `https://cdn.jsdelivr.net/npm/pdfjs-dist@${pdfjsLib.version}/cmaps/`,
+            cMapUrl: `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/cmaps/`,
             cMapPacked: true,
-            standardFontDataUrl: `https://cdn.jsdelivr.net/npm/pdfjs-dist@${pdfjsLib.version}/standard_fonts/`,
+            standardFontDataUrl: `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/standard_fonts/`,
           })
 
           loadingTask.onPassword = (updateCallback: any, reason: any) => {
