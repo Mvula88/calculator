@@ -108,9 +108,9 @@ export default function HomePage() {
                 <div className="text-sm text-gray-600">Step-by-step import process</div>
               </div>
               <div className="bg-white/95 backdrop-blur-sm p-4 rounded-lg shadow-sm border border-gray-200">
-                <Users className="h-6 w-6 text-purple-600 mx-auto mb-2" />
-                <div className="font-bold text-gray-900">Agent Directory</div>
-                <div className="text-sm text-gray-600">Contact info for clearing agents</div>
+                <Ship className="h-6 w-6 text-purple-600 mx-auto mb-2" />
+                <div className="font-bold text-gray-900">Container Sharing</div>
+                <div className="text-sm text-gray-600">Find platforms to share containers</div>
               </div>
             </div>
             {/* CTA Buttons */}

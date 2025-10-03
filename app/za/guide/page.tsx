@@ -209,14 +209,13 @@ export default function SouthAfricaGuidePage() {
                 <CardContent className="p-3 sm:p-4">
                   <div className="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3">
                     <div className="bg-emerald-500 p-1.5 sm:p-2 rounded-lg shadow-lg">
-                      <DollarSign className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
+                      <Calculator className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
                     </div>
                     <div>
-                      <h3 className="font-bold text-sm sm:text-base text-white">Cost Effective</h3>
-                      <p className="text-yellow-300 font-medium text-xs sm:text-sm">Direct import</p>
+                      <h3 className="font-bold text-sm sm:text-base text-white">Cost Calculator</h3>
+                      <p className="text-emerald-300 font-medium text-xs sm:text-sm">Calculate all import costs upfront</p>
                     </div>
                   </div>
-                  <p className="hidden sm:block text-gray-300 text-xs leading-relaxed">Direct access to Japanese market</p>
                 </CardContent>
               </Card>
             </div>
@@ -226,14 +225,13 @@ export default function SouthAfricaGuidePage() {
                 <CardContent className="p-3 sm:p-4">
                   <div className="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3">
                     <div className="bg-blue-500 p-1.5 sm:p-2 rounded-lg shadow-lg">
-                      <Clock className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
+                      <BookOpen className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
                     </div>
                     <div>
-                      <h3 className="font-bold text-sm sm:text-base text-white">45-60 Days</h3>
-                      <p className="text-blue-300 font-medium text-xs sm:text-sm">Process time</p>
+                      <h3 className="font-bold text-sm sm:text-base text-white">Complete Guides</h3>
+                      <p className="text-blue-300 font-medium text-xs sm:text-sm">Step-by-step import process</p>
                     </div>
                   </div>
-                  <p className="hidden sm:block text-gray-300 text-xs leading-relaxed">Purchase to registration</p>
                 </CardContent>
               </Card>
             </div>
@@ -243,14 +241,13 @@ export default function SouthAfricaGuidePage() {
                 <CardContent className="p-3 sm:p-4">
                   <div className="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3">
                     <div className="bg-purple-500 p-1.5 sm:p-2 rounded-lg shadow-lg">
-                      <Users className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
+                      <Ship className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
                     </div>
                     <div>
-                      <h3 className="font-bold text-sm sm:text-base text-white">Community</h3>
-                      <p className="text-purple-300 font-medium text-xs sm:text-sm">Success stories</p>
+                      <h3 className="font-bold text-sm sm:text-base text-white">Container Sharing</h3>
+                      <p className="text-purple-300 font-medium text-xs sm:text-sm">Find platforms to share containers</p>
                     </div>
                   </div>
-                  <p className="text-gray-300 text-xs leading-relaxed">Join successful importers</p>
                 </CardContent>
               </Card>
             </div>
