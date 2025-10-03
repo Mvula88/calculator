@@ -240,200 +240,81 @@ export default function HomePage() {
               Complete import platform and professional tools
             </p>
           </div>
-          {/* Carousel Implementation */}
-          <div className="relative">
-            {/* Desktop: Show 4 cards, Mobile: Show carousel */}
-            <div className="hidden lg:grid lg:grid-cols-4 gap-6 mb-6">
-              {/* First 4 cards for desktop */}
-              <Card className="border-2 hover:border-blue-300 transition-colors">
-                <CardHeader>
-                  <Calculator className="h-10 w-10 text-blue-600 mb-3" />
-                  <CardTitle>Advanced Calculators</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-gray-600">
-                    Professional duty calculator and budget estimator. Calculate all import costs accurately.
-                  </p>
-                </CardContent>
-              </Card>
-              <Card className="border-2 hover:border-purple-300 transition-colors">
-                <CardHeader>
-                  <Users className="h-10 w-10 text-purple-600 mb-3" />
-                  <CardTitle>Clearing Agent Directory</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-gray-600">
-                    Contact directory of clearing agents across 4 countries. We don't provide clearing services.
-                  </p>
-                </CardContent>
-              </Card>
-              <Card className="border-2 hover:border-green-300 transition-colors">
-                <CardHeader>
-                  <FileText className="h-10 w-10 text-green-600 mb-3" />
-                  <CardTitle>Complete Guides</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-gray-600">
-                    Import guides, documentation templates, and Japan auction system training.
-                  </p>
-                </CardContent>
-              </Card>
-              <Card className="border-2 hover:border-orange-300 transition-colors">
-                <CardHeader>
-                  <Map className="h-10 w-10 text-orange-600 mb-3" />
-                  <CardTitle>Real Import Examples</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-gray-600">
-                    Actual vehicle imports with complete cost breakdowns from Japan.
-                  </p>
-                </CardContent>
-              </Card>
-            </div>
-            <div className="hidden lg:grid lg:grid-cols-4 gap-6 mb-12">
-              {/* Second 4 cards for desktop */}
-              <Card className="border-2 hover:border-cyan-300 transition-colors">
-                <CardHeader>
-                  <Package className="h-10 w-10 text-cyan-600 mb-3" />
-                  <CardTitle>Container Sharing Guide</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-gray-600">
-                    Learn about container sharing options and connect with other importers through trusted platforms.
-                  </p>
-                </CardContent>
-              </Card>
-              <Card className="border-2 hover:border-indigo-300 transition-colors">
-                <CardHeader>
-                  <Ship className="h-10 w-10 text-indigo-600 mb-3" />
-                  <CardTitle>Shipping Resources</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-gray-600">
-                    Comprehensive directory of shipping lines and freight forwarders serving Southern Africa routes.
-                  </p>
-                </CardContent>
-              </Card>
-              <Card className="border-2 hover:border-pink-300 transition-colors">
-                <CardHeader>
-                  <BookOpen className="h-10 w-10 text-pink-600 mb-3" />
-                  <CardTitle>Document Guides</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-gray-600">
-                    Sample import documents and guides to help you understand required paperwork.
-                  </p>
-                </CardContent>
-              </Card>
-              <Card className="border-2 hover:border-teal-300 transition-colors">
-                <CardHeader>
-                  <TrendingUp className="h-10 w-10 text-teal-600 mb-3" />
-                  <CardTitle>Market Education</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-gray-600">
-                    Educational content about Japan auction markets and seasonal pricing patterns.
-                  </p>
-                </CardContent>
-              </Card>
-            </div>
-            {/* Mobile Carousel */}
-            <div className="lg:hidden">
-              <div className="overflow-x-auto pb-4">
-                <div className="flex gap-4 px-4" style={{ width: 'max-content' }}>
-                  <Card className="border-2 hover:border-blue-300 transition-colors w-64 sm:w-72">
-                    <CardHeader>
-                      <Calculator className="h-10 w-10 text-blue-600 mb-3" />
-                      <CardTitle>Advanced Calculators</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-sm text-gray-600">
-                        Professional duty calculator and budget estimator.
-                      </p>
-                    </CardContent>
-                  </Card>
-                  <Card className="border-2 hover:border-purple-300 transition-colors w-64 sm:w-72">
-                    <CardHeader>
-                      <Users className="h-10 w-10 text-purple-600 mb-3" />
-                      <CardTitle>Agent Directory</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-sm text-gray-600">
-                        Contact info for clearing agents (not our services).
-                      </p>
-                    </CardContent>
-                  </Card>
-                  <Card className="border-2 hover:border-green-300 transition-colors w-64 sm:w-72">
-                    <CardHeader>
-                      <FileText className="h-10 w-10 text-green-600 mb-3" />
-                      <CardTitle>Complete Guides</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-sm text-gray-600">
-                        Import guides and documentation templates.
-                      </p>
-                    </CardContent>
-                  </Card>
-                  <Card className="border-2 hover:border-orange-300 transition-colors w-64 sm:w-72">
-                    <CardHeader>
-                      <Map className="h-10 w-10 text-orange-600 mb-3" />
-                      <CardTitle>Real Import Examples</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-sm text-gray-600">
-                        Actual vehicle imports with cost breakdowns.
-                      </p>
-                    </CardContent>
-                  </Card>
-                  <Card className="border-2 hover:border-cyan-300 transition-colors w-64 sm:w-72">
-                    <CardHeader>
-                      <Package className="h-10 w-10 text-cyan-600 mb-3" />
-                      <CardTitle>Container Sharing Guide</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-sm text-gray-600">
-                        Learn about container sharing options.
-                      </p>
-                    </CardContent>
-                  </Card>
-                  <Card className="border-2 hover:border-indigo-300 transition-colors w-64 sm:w-72">
-                    <CardHeader>
-                      <Ship className="h-10 w-10 text-indigo-600 mb-3" />
-                      <CardTitle>Shipping Resources</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-sm text-gray-600">
-                        Directory of shipping lines and forwarders.
-                      </p>
-                    </CardContent>
-                  </Card>
-                  <Card className="border-2 hover:border-pink-300 transition-colors w-64 sm:w-72">
-                    <CardHeader>
-                      <BookOpen className="h-10 w-10 text-pink-600 mb-3" />
-                      <CardTitle>Document Guides</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-sm text-gray-600">
-                        Sample documents and paperwork guides.
-                      </p>
-                    </CardContent>
-                  </Card>
-                  <Card className="border-2 hover:border-teal-300 transition-colors w-64 sm:w-72">
-                    <CardHeader>
-                      <TrendingUp className="h-10 w-10 text-teal-600 mb-3" />
-                      <CardTitle>Market Education</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-sm text-gray-600">
-                        Learn about auction markets and pricing.
-                      </p>
-                    </CardContent>
-                  </Card>
-                </div>
-              </div>
-              <p className="text-center text-sm text-gray-500 mt-2">← Swipe to see more features →</p>
-            </div>
+          {/* 6 Essential Feature Cards */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+            <Card className="border-2 hover:border-blue-300 transition-colors">
+              <CardHeader>
+                <Calculator className="h-10 w-10 text-blue-600 mb-3" />
+                <CardTitle>Advanced Calculators</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-gray-600">
+                  Professional duty calculator and budget estimator. Calculate all import costs accurately.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="border-2 hover:border-green-300 transition-colors">
+              <CardHeader>
+                <FileText className="h-10 w-10 text-green-600 mb-3" />
+                <CardTitle>Complete Guides</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-gray-600">
+                  Import guides, documentation templates, and Japan auction system training.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="border-2 hover:border-pink-300 transition-colors">
+              <CardHeader>
+                <BookOpen className="h-10 w-10 text-pink-600 mb-3" />
+                <CardTitle>Document Guides</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-gray-600">
+                  Sample import documents and guides to help you understand required paperwork.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="border-2 hover:border-orange-300 transition-colors">
+              <CardHeader>
+                <Map className="h-10 w-10 text-orange-600 mb-3" />
+                <CardTitle>Real Import Examples</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-gray-600">
+                  Actual vehicle imports with complete cost breakdowns from Japan.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="border-2 hover:border-cyan-300 transition-colors">
+              <CardHeader>
+                <Package className="h-10 w-10 text-cyan-600 mb-3" />
+                <CardTitle>Container Sharing Guide</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-gray-600">
+                  Learn about container sharing options and connect with other importers through trusted platforms.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="border-2 hover:border-purple-300 transition-colors">
+              <CardHeader>
+                <Gavel className="h-10 w-10 text-purple-600 mb-3" />
+                <CardTitle>Where to Buy Cars</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-gray-600">
+                  Directory of Japan auction platforms and trusted exporters to source quality vehicles.
+                </p>
+              </CardContent>
+            </Card>
           </div>
+        </div>
           {/* CTA */}
           <div className="text-center mt-12 px-4">
             <div className="mb-6">
