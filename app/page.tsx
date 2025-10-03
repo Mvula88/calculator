@@ -314,7 +314,7 @@ export default function HomePage() {
               </CardContent>
             </Card>
           </div>
-        </div>
+
           {/* CTA */}
           <div className="text-center mt-12 px-4">
             <div className="mb-6">
