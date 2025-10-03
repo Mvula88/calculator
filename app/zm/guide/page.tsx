@@ -253,6 +253,24 @@ export default function ZambiaGuidePage() {
             </div>
           </div>
 
+          {/* Critical Warning Banner */}
+          <div className="max-w-4xl mx-auto mb-6 sm:mb-10 px-4">
+            <div className="bg-gradient-to-r from-amber-600 to-orange-600 rounded-lg p-4 sm:p-6 shadow-2xl border-2 border-amber-400">
+              <div className="flex items-start gap-3 sm:gap-4">
+                <AlertTriangle className="h-6 w-6 sm:h-8 sm:w-8 text-white flex-shrink-0 animate-pulse" />
+                <div className="text-white">
+                  <h3 className="text-base sm:text-lg md:text-xl font-bold mb-2">💡 LESSON: Can Your Container Be Held Even After Arrival?</h3>
+                  <p className="text-xs sm:text-sm md:text-base mb-1">Real case: 7-month hold. Daily fees accumulating. Risk of auction.</p>
+                  <p className="text-xs sm:text-sm md:text-base mb-3">Cause: A preventable mistake made during planning stage.</p>
+                  <a href="#signup" className="inline-flex items-center gap-2 bg-white text-orange-600 px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg font-semibold hover:bg-gray-100 transition-colors text-xs sm:text-sm md:text-base">
+                    See all costly mistakes to avoid
+                    <ArrowRight className="h-3 w-3 sm:h-4 sm:w-4" />
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
           {/* Premium CTA Section - Mobile Optimized */}
           <div className="text-center mb-6 sm:mb-10" id="signup">
             <div className="bg-white/5 backdrop-blur-md rounded-lg sm:rounded-xl p-4 sm:p-6 border border-white/10 max-w-3xl mx-auto">
