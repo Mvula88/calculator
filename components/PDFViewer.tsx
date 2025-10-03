@@ -3,11 +3,11 @@
 import { useState, useEffect, useRef } from 'react'
 import { Button } from '@/components/ui/button'
 import { X, ZoomIn, ZoomOut, FileText, AlertCircle, CheckCircle } from 'lucide-react'
-import * as pdfjsLib from 'pdfjs-dist'
+import * as pdfjsLib from 'pdfjs-dist/legacy/build/pdf'
 
-// Configure PDF.js worker with HTTPS for mobile compatibility
+// Configure PDF.js worker with legacy build for better mobile compatibility
 if (typeof window !== 'undefined') {
-  pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`
+  pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js'
 }
 
 interface PDFViewerProps {
@@ -90,8 +90,9 @@ export default function PDFViewer({ isOpen, onClose, documentName, documentUrl }
 
         const loadingTask = pdfjsLib.getDocument({
           data: arrayBuffer,
-          cMapUrl: 'https://cdn.jsdelivr.net/npm/pdfjs-dist@' + pdfjsLib.version + '/cmaps/',
+          cMapUrl: 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/cmaps/',
           cMapPacked: true,
+          verbosity: 0,
         })
 
         const pdf = await loadingTask.promise
