@@ -15,8 +15,6 @@ import {
   Shield,
   CheckCircle2,
   AlertCircle,
-  HelpCircle,
-  BookOpen,
   DollarSign,
   Map,
   Sparkles,
@@ -36,9 +34,6 @@ import GuideHeader from '@/components/GuideHeader'
 import ValidatedCheckoutButton from '@/components/validated-checkout-button'
 import PricingCountdown from '@/components/PricingCountdown'
 export default function HomePage() {
-  const [showBeginnerQuiz, setShowBeginnerQuiz] = useState(false)
-  const [quizScore, setQuizScore] = useState(0)
-  const [currentQuestion, setCurrentQuestion] = useState(0)
   const [loading, setLoading] = useState(true)
   const [currentSlide, setCurrentSlide] = useState(0)
   const [user, setUser] = useState<any>(null)
@@ -58,99 +53,6 @@ export default function HomePage() {
     }, 500)
     return () => clearTimeout(timer)
   }, [])
-  const beginnerQuiz = [
-    {
-      question: "Do you have sufficient budget for importing a vehicle?",
-      yes: 1,
-      no: 0
-    },
-    {
-      question: "Can you wait the typical import timeframe?",
-      yes: 1,
-      no: 0
-    },
-    {
-      question: "Are you comfortable handling import documentation?",
-      yes: 1,
-      no: 0
-    },
-    {
-      question: "Do you have arrangements for vehicle storage if needed?",
-      yes: 1,
-      no: 0
-    }
-  ]
-  const handleQuizAnswer = (points: number) => {
-    const newScore = quizScore + points
-    setQuizScore(newScore)
-    if (currentQuestion < beginnerQuiz.length - 1) {
-      setCurrentQuestion(currentQuestion + 1)
-    } else {
-      // Quiz complete
-      setShowBeginnerQuiz(false)
-      if (newScore >= 3) {
-        toast.success(
-          <div className="space-y-2">
-            <p className="font-semibold">🎉 Great! You're Ready to Import!</p>
-            <p className="text-sm">Based on your answers, you appear ready to start importing vehicles from Japan.</p>
-            <div className="flex gap-2 mt-3">
-              <Button
-                size="sm"
-                onClick={() => {
-                  toast.dismiss()
-                  document.getElementById('get-access')?.scrollIntoView({ behavior: 'smooth' })
-                }}
-                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
-              >
-                Get Access Now
-              </Button>
-              <Button
-                size="sm"
-                variant="outline"
-                onClick={() => {
-                  toast.dismiss()
-                  document.getElementById('import-basics')?.scrollIntoView({ behavior: 'smooth' })
-                }}
-              >
-                Learn More First
-              </Button>
-            </div>
-          </div>,
-          {
-            duration: 10000,
-          }
-        )
-      } else {
-        toast.info(
-          <div className="space-y-2">
-            <p className="font-semibold">📚 Let's Build Your Knowledge First</p>
-            <p className="text-sm">Importing requires preparation and knowledge. Our platform will help you get ready.</p>
-            <div className="flex gap-2 mt-3">
-              <Button
-                size="sm"
-                onClick={() => {
-                  toast.dismiss()
-                  document.getElementById('import-basics')?.scrollIntoView({ behavior: 'smooth' })
-                }}
-              >
-                Learn Import Basics
-              </Button>
-              <Button
-                size="sm"
-                variant="outline"
-                onClick={() => toast.dismiss()}
-              >
-                Close
-              </Button>
-            </div>
-          </div>,
-          {
-            duration: 10000,
-          }
-        )
-      }
-    }
-  }
   // Show skeleton while loading
   if (loading) {
     return <LandingPageSkeleton />
@@ -228,20 +130,11 @@ export default function HomePage() {
               <Button
                 size="lg"
                 className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-6 text-lg"
-                onClick={() => setShowBeginnerQuiz(true)}
-              >
-                <HelpCircle className="mr-2 h-5 w-5" />
-                Am I Ready to Import? (Take Quiz)
-              </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                className="bg-white/10 backdrop-blur-sm border-2 border-white text-white hover:bg-white hover:text-blue-700 px-8 py-6 text-lg"
                 asChild
               >
-                <Link href="#import-basics">
-                  <BookOpen className="mr-2 h-5 w-5" />
-                  Learn Import Basics First
+                <Link href="#countries">
+                  <Globe className="mr-2 h-5 w-5" />
+                  Select Your Country
                 </Link>
               </Button>
             </div>
@@ -332,131 +225,6 @@ export default function HomePage() {
                 </CardContent>
               </Card>
             </Link>
-          </div>
-        </div>
-      </section>
-      {/* Beginner Quiz Modal */}
-      {showBeginnerQuiz && (
-        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-          <Card className="max-w-lg w-full">
-            <CardHeader>
-              <CardTitle>Import Readiness Assessment</CardTitle>
-              <p className="text-sm text-gray-600">Question {currentQuestion + 1} of {beginnerQuiz.length}</p>
-            </CardHeader>
-            <CardContent>
-              <p className="text-lg mb-6">{beginnerQuiz[currentQuestion].question}</p>
-              <div className="flex gap-4">
-                <Button
-                  onClick={() => handleQuizAnswer(beginnerQuiz[currentQuestion].yes)}
-                  className="flex-1"
-                >
-                  Yes
-                </Button>
-                <Button
-                  onClick={() => handleQuizAnswer(beginnerQuiz[currentQuestion].no)}
-                  variant="outline"
-                  className="flex-1"
-                >
-                  No
-                </Button>
-              </div>
-              <Button
-                onClick={() => setShowBeginnerQuiz(false)}
-                variant="ghost"
-                className="w-full mt-4"
-              >
-                Close
-              </Button>
-            </CardContent>
-          </Card>
-        </div>
-      )}
-      {/* Import Basics - Minimal Education */}
-      <section id="import-basics" className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              Import Basics: What You Need to Know
-            </h2>
-            <p className="text-xl text-gray-600">
-              Understanding the fundamentals before you start
-            </p>
-          </div>
-          <div className="grid lg:grid-cols-2 gap-8">
-            {/* Left Column - What is Car Importing? */}
-            <Card className="h-fit">
-              <CardHeader className="bg-gradient-to-r from-blue-50 to-purple-50">
-                <CardTitle className="flex items-center gap-2">
-                  <HelpCircle className="h-6 w-6 text-blue-600" />
-                  What is Car Importing?
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="pt-6">
-                <p className="text-gray-700 mb-4">
-                  Car importing means buying a used vehicle from another country (usually Japan) and shipping it to your country.
-                  Instead of buying from local dealers who import cars and add their profit margins, you become the importer.
-                </p>
-                <div className="bg-green-50 border border-green-200 rounded-lg p-4">
-                  <p className="font-semibold text-green-900 mb-2">Why Japan?</p>
-                  <ul className="space-y-2 text-green-800 text-sm">
-                    <li>• Well-maintained vehicles with low mileage</li>
-                    <li>• Strict inspection system ensures quality</li>
-                    <li>• Large selection (50,000+ vehicles daily)</li>
-                    <li>• Right-hand drive like Southern Africa</li>
-                    <li>• Competitive prices due to high domestic turnover</li>
-                    <li>• Detailed auction grading and history reports</li>
-                  </ul>
-                </div>
-                <div className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
-                  <p className="text-sm text-blue-800">
-                    <strong>Want to learn the import terms and process?</strong> Get full access to our detailed guides, glossary, and tools in the portal.
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
-            {/* Right Column - Why Walvis Bay Port? */}
-            <Card className="h-fit">
-              <CardHeader className="bg-gradient-to-r from-blue-50 to-purple-50">
-                <CardTitle className="flex items-center gap-2">
-                  <Ship className="h-6 w-6 text-blue-600" />
-                  Why Walvis Bay Port?
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="pt-6">
-                <p className="text-gray-700 mb-4">
-                  Walvis Bay Port is the preferred entry point for vehicle imports to Southern Africa, offering significant advantages over other ports.
-                </p>
-                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                  <p className="font-semibold text-blue-900 mb-3">Key Advantages:</p>
-                  <ul className="space-y-3 text-blue-800">
-                    <li className="flex items-start gap-2">
-                      <CheckCircle2 className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
-                      <span><strong>Less congestion:</strong> Faster processing than other regional ports</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle2 className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
-                      <span><strong>Quick turnaround:</strong> Vessels cleared efficiently with minimal delays</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle2 className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
-                      <span><strong>Direct from Japan:</strong> Regular shipping lines with competitive rates</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle2 className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
-                      <span><strong>SADC connectivity:</strong> Excellent roads to all neighboring countries</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle2 className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
-                      <span><strong>Safe & secure:</strong> No car hijackings, stable environment</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle2 className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
-                      <span><strong>Namibia's stability:</strong> Reliable political and economic environment</span>
-                    </li>
-                  </ul>
-                </div>
-              </CardContent>
-            </Card>
           </div>
         </div>
       </section>
