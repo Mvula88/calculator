@@ -296,55 +296,7 @@ export default function BotswanaGuidePage() {
                   </>
                 )}
               </div>
-
-              <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 mt-3 sm:mt-4 text-xs sm:text-sm text-gray-300">
-                <div className="flex items-center gap-1 sm:gap-2">
-                  <Zap className="h-3 w-3 sm:h-4 sm:w-4 text-sky-400" />
-                  <span>Instant</span>
-                </div>
-                <div className="flex items-center gap-1 sm:gap-2">
-                  <Shield className="h-3 w-3 sm:h-4 sm:w-4 text-blue-400" />
-                  <span>Updates</span>
-                </div>
-                <div className="flex items-center gap-1 sm:gap-2">
-                  <BadgeCheck className="h-3 w-3 sm:h-4 sm:w-4 text-cyan-400" />
-                  <span>Secure</span>
-                </div>
-              </div>
             </div>
-          </div>
-
-          {/* Professional Trust Indicators - Mobile Optimized */}
-          <div className="max-w-6xl mx-auto px-4">
-            <Card className="bg-white/10 backdrop-blur-md border border-white/20 shadow-2xl">
-              <CardContent className="p-6 sm:p-8">
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 lg:gap-6 items-center text-center">
-                  <div>
-                    <div className="flex items-center justify-center gap-2 sm:gap-3 mb-2">
-                      <Shield className="h-6 w-6 sm:h-8 sm:w-8 text-sky-400" />
-                      <h3 className="font-bold text-white text-base sm:text-lg">Full Legal Compliance</h3>
-                    </div>
-                    <p className="text-gray-300 text-sm sm:text-base">All procedures designed for full regulatory compliance</p>
-                  </div>
-
-                  <div>
-                    <div className="flex items-center justify-center gap-2 sm:gap-3 mb-2">
-                      <GraduationCap className="h-6 w-6 sm:h-8 sm:w-8 text-blue-400" />
-                      <h3 className="font-bold text-white text-base sm:text-lg">Expert Guidance</h3>
-                    </div>
-                    <p className="text-gray-300 text-sm sm:text-base">Step-by-step professional instruction</p>
-                  </div>
-
-                  <div className="sm:col-span-2 lg:col-span-1">
-                    <div className="flex items-center justify-center gap-2 sm:gap-3 mb-2">
-                      <Trophy className="h-6 w-6 sm:h-8 sm:w-8 text-cyan-400" />
-                      <h3 className="font-bold text-white text-base sm:text-lg">Real Results</h3>
-                    </div>
-                    <p className="text-gray-300 text-sm sm:text-base">Successful imports across Botswana</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
           </div>
         </div>
       </section>

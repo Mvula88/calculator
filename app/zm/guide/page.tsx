@@ -298,55 +298,7 @@ export default function ZambiaGuidePage() {
                   </>
                 )}
               </div>
-
-              <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 mt-3 sm:mt-4 text-xs sm:text-sm text-gray-300">
-                <div className="flex items-center gap-1 sm:gap-2">
-                  <Zap className="h-3 w-3 sm:h-4 sm:w-4 text-emerald-400" />
-                  <span>Instant</span>
-                </div>
-                <div className="flex items-center gap-1 sm:gap-2">
-                  <Shield className="h-3 w-3 sm:h-4 sm:w-4 text-teal-400" />
-                  <span>Updates</span>
-                </div>
-                <div className="flex items-center gap-1 sm:gap-2">
-                  <BadgeCheck className="h-3 w-3 sm:h-4 sm:w-4 text-green-400" />
-                  <span>Secure</span>
-                </div>
-              </div>
             </div>
-          </div>
-
-          {/* Professional Trust Indicators */}
-          <div className="max-w-6xl mx-auto">
-            <Card className="bg-white/10 backdrop-blur-md border border-white/20 shadow-2xl">
-              <CardContent className="p-8">
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 lg:gap-6 items-center text-center">
-                  <div className="text-center md:text-left">
-                    <div className="flex items-center justify-center md:justify-start gap-3 mb-2">
-                      <Shield className="h-8 w-8 text-emerald-400" />
-                      <h3 className="font-bold text-white text-lg">Full Legal Compliance</h3>
-                    </div>
-                    <p className="text-gray-300">All procedures designed for full regulatory compliance</p>
-                  </div>
-
-                  <div className="text-center">
-                    <div className="flex items-center justify-center gap-3 mb-2">
-                      <GraduationCap className="h-8 w-8 text-teal-400" />
-                      <h3 className="font-bold text-white text-lg">Expert Guidance</h3>
-                    </div>
-                    <p className="text-gray-300">Step-by-step professional instruction</p>
-                  </div>
-
-                  <div className="text-center md:text-right">
-                    <div className="flex items-center justify-center md:justify-end gap-3 mb-2">
-                      <Trophy className="h-8 w-8 text-green-400" />
-                      <h3 className="font-bold text-white text-lg">Real Results</h3>
-                    </div>
-                    <p className="text-gray-300">Successful imports across Zambia</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
           </div>
         </div>
       </section>
