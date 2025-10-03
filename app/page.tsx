@@ -28,7 +28,8 @@ import {
   Phone,
   TrendingUp,
   Package,
-  LogIn
+  LogIn,
+  BookOpen
 } from 'lucide-react'
 import GuideHeader from '@/components/GuideHeader'
 import ValidatedCheckoutButton from '@/components/validated-checkout-button'
