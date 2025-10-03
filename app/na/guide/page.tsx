@@ -55,8 +55,6 @@ import {
   Briefcase
 } from 'lucide-react'
 import GuideHeader from '@/components/GuideHeader'
-import StockCounter from '@/components/StockCounter'
-import ImportSuccessNotifications from '@/components/PurchaseNotifications'
 
 // Function to get static Tailwind classes for colors
 const getColorClasses = (color: string) => {
@@ -173,9 +171,6 @@ export default function NamibiaGuidePage() {
     <>
       {/* Hidden H1 for SEO */}
       <h1 className="sr-only">Import Cars from Japan to Namibia 2024 - Complete Walvis Bay Port Guide | Save N$65,000</h1>
-
-      {/* Purchase Notifications */}
-      <ImportSuccessNotifications />
 
       <main className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-50 overflow-x-hidden" itemScope itemType="https://schema.org/Guide">
       <GuideHeader 
@@ -422,27 +417,6 @@ export default function NamibiaGuidePage() {
                 description: "Connect with verified shipping lines and clearing agents. Navigate container sharing and shipping schedules.",
                 color: "purple",
                 step: "03"
-              },
-              {
-                icon: FileText,
-                title: "Master Documentation",
-                description: "Complete guide to every form, stamp, and office visit. Streamline bureaucracy with insider knowledge.",
-                color: "amber",
-                step: "04"
-              },
-              {
-                icon: MapPin,
-                title: "Navigate Walvis Bay Port",
-                description: "Professional port procedures guide. Clear customs efficiently with step-by-step instructions.",
-                color: "rose",
-                step: "05"
-              },
-              {
-                icon: CheckCircle,
-                title: "Complete Registration",
-                description: "From police clearance to license plates. Final steps to get your vehicle road-ready in Namibia.",
-                color: "teal",
-                step: "06"
               }
             ].map((item, index) => (
               <div key={index} className="group">

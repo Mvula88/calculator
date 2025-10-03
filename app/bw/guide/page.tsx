@@ -55,8 +55,6 @@ import {
   Briefcase
 } from 'lucide-react'
 import GuideHeader from '@/components/GuideHeader'
-import StockCounter from '@/components/StockCounter'
-import ImportSuccessNotifications from '@/components/PurchaseNotifications'
 
 // Function to get static Tailwind classes for colors
 const getColorClasses = (color: string) => {
@@ -160,9 +158,6 @@ export default function BotswanaGuidePage() {
       {/* Hidden H1 for SEO */}
       <h1 className="sr-only">Import Cars from Japan to Botswana 2024 - Complete Durban/Walvis Bay Port Guide | Save P52,000</h1>
 
-      {/* Purchase Notifications */}
-      <ImportSuccessNotifications />
-
       <main className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-50 overflow-x-hidden" itemScope itemType="https://schema.org/Guide">
       <GuideHeader 
         country="bw" 
@@ -202,11 +197,6 @@ export default function BotswanaGuidePage() {
             <p className="text-sm sm:text-base md:text-lg lg:text-xl text-white mb-4 sm:mb-6 leading-relaxed bg-black/30 backdrop-blur-sm rounded-lg p-4 max-w-3xl mx-auto">
               <strong>What we provide:</strong> Educational resources and guides to help you understand the process of importing a quality used car from Japan to Botswana. From research to documentation.
             </p>
-            <div className="bg-yellow-100 border-2 border-yellow-400 rounded-lg p-3 mb-6 max-w-3xl mx-auto">
-              <p className="text-sm text-gray-900">
-                <strong>📚 Educational Content Only:</strong> We provide guides and information. We do not import vehicles, provide clearing services, or act as agents.
-              </p>
-            </div>
           </div>
 
           {/* Modern Value Proposition Cards - Mobile Optimized */}
@@ -406,27 +396,6 @@ export default function BotswanaGuidePage() {
                 description: "Connect with verified shipping lines and clearing agents. Navigate container sharing and shipping schedules.",
                 color: "purple",
                 step: "03"
-              },
-              {
-                icon: FileText,
-                title: "Master Documentation",
-                description: "Complete guide to every form, stamp, and office visit. Streamline bureaucracy with insider knowledge.",
-                color: "amber",
-                step: "04"
-              },
-              {
-                icon: MapPin,
-                title: "Navigate Durban/Walvis Bay Ports",
-                description: "Professional port procedures guide. Clear customs efficiently with step-by-step instructions.",
-                color: "rose",
-                step: "05"
-              },
-              {
-                icon: CheckCircle,
-                title: "Complete Registration",
-                description: "From police clearance to license plates. Final steps to get your vehicle road-ready in Botswana.",
-                color: "teal",
-                step: "06"
               }
             ].map((item, index) => (
               <div key={index} className="group">

@@ -64,12 +64,6 @@ export default function Footer() {
           <p>© {currentYear} IMPOTA Guide. All rights reserved.</p>
           <p className="text-gray-400">Support: <a href="mailto:support@impota.com" className="hover:text-white transition-colors">support@impota.com</a></p>
           <p>Not affiliated with any payment processors or financial institutions.</p>
-          <div className="flex items-center justify-center gap-2">
-            <span className="text-yellow-500">⚠️</span>
-            <p className="text-yellow-500/80">
-              This product is for educational purposes only. Not professional advice.
-            </p>
-          </div>
         </div>
       </div>
     </footer>
