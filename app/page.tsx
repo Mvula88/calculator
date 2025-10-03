@@ -79,7 +79,7 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center max-w-4xl mx-auto">
             {/* What We Do - Crystal Clear */}
-            <div className="mb-6 inline-flex items-center gap-2 bg-white/90 text-blue-800 px-4 py-2 rounded-full backdrop-blur-sm text-left sm:text-center w-full sm:w-auto justify-start sm:justify-center">
+            <div className="mb-6 inline-flex items-center gap-2 bg-white/90 text-blue-800 px-4 py-2 rounded-full backdrop-blur-sm">
               <Globe className="h-4 w-4" />
               <span className="font-semibold">Educational Resources & Import Guides</span>
             </div>
@@ -120,7 +120,7 @@ export default function HomePage() {
             <div className="max-w-4xl mx-auto mb-8">
               <div className="bg-gradient-to-r from-red-600 to-orange-600 rounded-lg p-6 shadow-2xl border-2 border-red-400">
                 <div className="flex items-start gap-4">
-                  <AlertCircle className="h-8 w-8 text-white flex-shrink-0 animate-pulse" />
+                  <AlertCircle className="hidden sm:block h-8 w-8 text-white flex-shrink-0 animate-pulse" />
                   <div className="text-white text-left sm:text-left">
                     <h3 className="text-xl font-bold mb-2">Real Case: Container Held 7 Months - Massive Fees Accumulated</h3>
                     <p className="text-sm sm:text-base mb-1"><strong>The Problem:</strong> A single wrong choice made before shipping</p>
@@ -166,14 +166,14 @@ export default function HomePage() {
       {/* Choose Your Country */}
       <section id="countries" className="py-20 bg-white scroll-mt-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-left sm:text-center mb-12">
+          <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">
               Select Your Country to Start
             </h2>
             <p className="text-xl text-gray-600">
               View specific import guides for your country
             </p>
-            <div className="mt-4 inline-flex items-center gap-2 bg-blue-100 text-blue-800 px-4 py-2 rounded-full text-sm w-full sm:w-auto justify-start sm:justify-center">
+            <div className="mt-4 inline-flex items-center gap-2 bg-blue-100 text-blue-800 px-4 py-2 rounded-full text-sm">
               <Ship className="h-4 w-4" />
               <span className="font-semibold">Primary Port: Walvis Bay - Fastest & Most Efficient Route</span>
             </div>
