@@ -77,17 +77,17 @@ export default function HomePage() {
           <div className="absolute inset-0 bg-gradient-to-b from-blue-900/70 via-blue-900/50 to-gray-900/70"></div>
         </div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center sm:text-center text-left max-w-4xl mx-auto">
+          <div className="text-center max-w-4xl mx-auto">
             {/* What We Do - Crystal Clear */}
             <div className="mb-6 inline-flex items-center gap-2 bg-white/90 text-blue-800 px-4 py-2 rounded-full backdrop-blur-sm">
               <Globe className="h-4 w-4" />
               <span className="font-semibold">Educational Resources & Import Guides</span>
             </div>
-            <h1 className="text-4xl sm:text-6xl font-bold text-white mb-6 drop-shadow-lg">
+            <h1 className="text-left sm:text-center text-4xl sm:text-6xl font-bold text-white mb-6 drop-shadow-lg">
               Learn How to Import Cars from Japan
               <span className="block text-yellow-300 mt-2 text-2xl sm:text-3xl">Step-by-Step Guide for Namibia</span>
             </h1>
-            <p className="text-xl text-white mb-6 leading-relaxed bg-black/30 backdrop-blur-sm rounded-lg p-4">
+            <p className="text-left sm:text-center text-xl text-white mb-6 leading-relaxed bg-black/30 backdrop-blur-sm rounded-lg p-4">
               <strong>What we provide:</strong> Educational resources and guides to help you understand the process of importing a quality used car from Japan to Namibia. From research to documentation.
             </p>
             <div className="bg-yellow-100 border-2 border-yellow-400 rounded-lg p-3 mb-6 inline-block">
