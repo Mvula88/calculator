@@ -6,9 +6,9 @@ import { X, ZoomIn, ZoomOut, FileText, AlertCircle, CheckCircle } from 'lucide-r
 import * as pdfjsLib from 'pdfjs-dist'
 
 // Configure PDF.js worker for mobile compatibility with CORS-enabled CDN
+// Using fixed version 4.0.379 which is stable and available on cdnjs
 if (typeof window !== 'undefined') {
-  // Use specific version that exists on jsDelivr
-  pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`
+  pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.0.379/pdf.worker.min.mjs'
 }
 
 interface PDFViewerProps {
@@ -94,9 +94,9 @@ export default function PDFViewer({ isOpen, onClose, documentName, documentUrl }
         try {
           const loadingTask = pdfjsLib.getDocument({
             data: arrayBuffer,
-            cMapUrl: `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/cmaps/`,
+            cMapUrl: 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.0.379/cmaps/',
             cMapPacked: true,
-            standardFontDataUrl: `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/standard_fonts/`,
+            standardFontDataUrl: 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.0.379/standard_fonts/',
           })
 
           loadingTask.onPassword = (updateCallback: any, reason: any) => {
