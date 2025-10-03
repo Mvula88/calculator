@@ -261,7 +261,7 @@ export default function HomePage() {
               </CardHeader>
               <CardContent>
                 <p className="text-sm text-gray-600">
-                  Import guides, documentation templates, and Japan auction system training.
+                  Import guides, documentation templates, Japan auction system training, and costly mistakes to avoid.
                 </p>
               </CardContent>
             </Card>

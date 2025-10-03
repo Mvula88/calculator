@@ -29,14 +29,14 @@ const mistakes: Mistake[] = [
     recoveryDifficulty: 'moderate'
   },
   {
-    title: 'Consignee/Account blocked with shipping line',
-    cost: 'N$7,000+ storage fees',
-    problem: 'Consignee has unpaid bills with carrier',
-    fix: 'Confirm consignee good standing BEFORE you pay. If in doubt, list yourself or clean clearing firm as consignee',
-    realStory: 'Our container was held for 7 MONTHS because the consignee owed the shipping line. Delays can last months or even longer depending on when the outstanding debt is settled with the shipping line.',
+    title: 'Using Unreliable Consignees/Agents - Blacklisted or Blocked Accounts',
+    cost: 'N$20,000-N$50,000+ in storage/demurrage fees (or total loss)',
+    problem: 'Consignee has unpaid debts with shipping line, gets blacklisted. Container transferred to state warehouse. Massive demurrage accumulates daily ($100-200/day). Risk of cargo auction if not claimed.',
+    fix: 'CRITICAL: Always vet your clearing agent thoroughly. Check if they have outstanding debts with shipping lines (Maersk, MSC, etc). Have backup contacts. Never let cargo sit for months without action. Understand who is responsible for which fees BEFORE shipping. If in doubt, list yourself or a verified clearing firm as consignee.',
+    realStory: 'REAL CASE (April 2025): Our container was held for 7 MONTHS because consignee was blacklisted by Maersk for unpaid bills. Container handed over to state warehouse. By the time we discovered it, demurrage was $18,000-36,000+. The agent never informed us about the blacklisting. Could have lost vehicles entirely if they were auctioned. This is the most expensive mistake you can make - always verify consignee standing with shipping lines BEFORE purchase.',
     stage: 'Pre-Import Planning',
     severity: 'deal-breaker',
-    timeImpact: 'Indefinite hold - can last months',
+    timeImpact: 'Indefinite hold - 3-12+ months possible',
     recoveryDifficulty: 'difficult'
   },
   {
