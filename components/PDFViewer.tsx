@@ -5,9 +5,9 @@ import { Button } from '@/components/ui/button'
 import { X, ZoomIn, ZoomOut, FileText, AlertCircle, CheckCircle } from 'lucide-react'
 import * as pdfjsLib from 'pdfjs-dist'
 
-// Configure PDF.js worker for mobile compatibility
+// Configure PDF.js worker for mobile compatibility with CORS-enabled CDN
 if (typeof window !== 'undefined') {
-  pdfjsLib.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.js`
+  pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdn.jsdelivr.net/npm/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.js`
 }
 
 interface PDFViewerProps {
@@ -62,11 +62,13 @@ export default function PDFViewer({ isOpen, onClose, documentName, documentUrl }
   const fetchDocumentContent = async (url: string) => {
     try {
       console.log('Fetching document:', url)
-      const response = await fetch(getViewerUrl(url))
+      const viewerUrl = getViewerUrl(url)
+      console.log('Viewer URL:', viewerUrl)
+      const response = await fetch(viewerUrl)
 
       if (!response.ok) {
         console.error('Fetch failed:', response.status, response.statusText)
-        throw new Error('Failed to load document')
+        throw new Error(`Failed to load document: ${response.status}`)
       }
 
       // Check if it's an image or PDF
@@ -88,20 +90,32 @@ export default function PDFViewer({ isOpen, onClose, documentName, documentUrl }
         const arrayBuffer = await response.arrayBuffer()
         console.log('ArrayBuffer size:', arrayBuffer.byteLength)
 
-        const loadingTask = pdfjsLib.getDocument({
-          data: arrayBuffer,
-          cMapUrl: `https://unpkg.com/pdfjs-dist@${pdfjsLib.version}/cmaps/`,
-          cMapPacked: true,
-        })
+        try {
+          const loadingTask = pdfjsLib.getDocument({
+            data: arrayBuffer,
+            cMapUrl: `https://cdn.jsdelivr.net/npm/pdfjs-dist@${pdfjsLib.version}/cmaps/`,
+            cMapPacked: true,
+            standardFontDataUrl: `https://cdn.jsdelivr.net/npm/pdfjs-dist@${pdfjsLib.version}/standard_fonts/`,
+          })
 
-        const pdf = await loadingTask.promise
-        console.log('PDF loaded, pages:', pdf.numPages)
-        setPdfDocument(pdf)
-        setNumPages(pdf.numPages)
-        setLoading(false)
+          loadingTask.onPassword = (updateCallback: any, reason: any) => {
+            console.error('PDF requires password:', reason)
+            throw new Error('Password protected PDFs are not supported')
+          }
+
+          const pdf = await loadingTask.promise
+          console.log('PDF loaded successfully, pages:', pdf.numPages)
+          setPdfDocument(pdf)
+          setNumPages(pdf.numPages)
+          setLoading(false)
+        } catch (pdfError) {
+          console.error('PDF.js error:', pdfError)
+          throw pdfError
+        }
       }
-    } catch (err) {
+    } catch (err: any) {
       console.error('Error loading document:', err)
+      console.error('Error details:', err.message, err.stack)
       setError(true)
       setLoading(false)
     }
