@@ -5,9 +5,9 @@ import { Button } from '@/components/ui/button'
 import { X, ZoomIn, ZoomOut, FileText, AlertCircle, CheckCircle } from 'lucide-react'
 import * as pdfjsLib from 'pdfjs-dist'
 
-// Configure PDF.js worker
+// Configure PDF.js worker with HTTPS for mobile compatibility
 if (typeof window !== 'undefined') {
-  pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`
+  pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`
 }
 
 interface PDFViewerProps {
@@ -61,14 +61,17 @@ export default function PDFViewer({ isOpen, onClose, documentName, documentUrl }
 
   const fetchDocumentContent = async (url: string) => {
     try {
+      console.log('Fetching document:', url)
       const response = await fetch(getViewerUrl(url))
 
       if (!response.ok) {
+        console.error('Fetch failed:', response.status, response.statusText)
         throw new Error('Failed to load document')
       }
 
       // Check if it's an image or PDF
       const contentType = response.headers.get('content-type')
+      console.log('Content type:', contentType)
 
       if (contentType?.includes('image')) {
         // For images, convert to base64
@@ -81,14 +84,24 @@ export default function PDFViewer({ isOpen, onClose, documentName, documentUrl }
         reader.readAsDataURL(blob)
       } else {
         // For PDFs, use PDF.js to render as canvas
+        console.log('Loading PDF with PDF.js')
         const arrayBuffer = await response.arrayBuffer()
-        const loadingTask = pdfjsLib.getDocument({ data: arrayBuffer })
+        console.log('ArrayBuffer size:', arrayBuffer.byteLength)
+
+        const loadingTask = pdfjsLib.getDocument({
+          data: arrayBuffer,
+          cMapUrl: 'https://cdn.jsdelivr.net/npm/pdfjs-dist@' + pdfjsLib.version + '/cmaps/',
+          cMapPacked: true,
+        })
+
         const pdf = await loadingTask.promise
+        console.log('PDF loaded, pages:', pdf.numPages)
         setPdfDocument(pdf)
         setNumPages(pdf.numPages)
         setLoading(false)
       }
     } catch (err) {
+      console.error('Error loading document:', err)
       setError(true)
       setLoading(false)
     }
