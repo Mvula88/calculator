@@ -61,15 +61,10 @@ export async function POST(req: NextRequest) {
         tier: tier as 'mistake' | 'mastery',
         country: country,
         active: true,
-        stripe_session_id: `offline_${Date.now()}`, // Mark as offline payment
-        stripe_customer_id: null,
-        created_at: new Date().toISOString(),
-        metadata: {
-          payment_method: paymentMethod || 'offline',
-          amount: amount || null,
-          added_by: 'admin',
-          added_at: new Date().toISOString()
-        }
+        stripe_session_id: `offline_${Date.now()}_${paymentMethod || 'cash'}`, // Mark as offline payment
+        amount_paid: amount ? parseInt(amount.replace(/[^0-9]/g, '')) : null,
+        currency: 'NAD',
+        created_at: new Date().toISOString()
       })
       .select()
       .single()
