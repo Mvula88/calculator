@@ -60,7 +60,8 @@ export async function POST(req: NextRequest) {
       user_metadata: {
         added_by: 'admin',
         payment_method: paymentMethod || 'offline',
-        offline_payment: true
+        offline_payment: true,
+        full_name: email.split('@')[0] // Use email prefix as default name
       }
     })
 
@@ -70,11 +71,21 @@ export async function POST(req: NextRequest) {
       }, { status: 500 })
     }
 
+    // Get the created user's ID (or find existing user)
+    let userId = authUser?.user?.id
+    if (!userId) {
+      // If user already existed, get their ID
+      const { data: existingUser } = await supabase.auth.admin.listUsers()
+      const foundUser = existingUser?.users?.find(u => u.email === normalizedEmail)
+      userId = foundUser?.id
+    }
+
     // Create entitlement for offline payment
     const { data: entitlement, error: createError } = await supabase
       .from('entitlements')
       .insert({
         email: normalizedEmail,
+        user_id: userId, // Link to auth user
         tier: tier as 'mistake' | 'mastery',
         country: country,
         active: true,
