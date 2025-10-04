@@ -8,6 +8,7 @@ import { AlertCircle, CheckCircle2 } from 'lucide-react'
 export default function AddOfflineUserPage() {
   const [email, setEmail] = useState('')
   const [displayName, setDisplayName] = useState('')
+  const [password, setPassword] = useState('')
   const [tier, setTier] = useState<'mistake' | 'mastery'>('mastery')
   const [country, setCountry] = useState<'na' | 'za' | 'bw' | 'zm'>('na')
   const [paymentMethod, setPaymentMethod] = useState('')
@@ -31,6 +32,7 @@ export default function AddOfflineUserPage() {
         body: JSON.stringify({
           email: email.trim(),
           displayName: displayName.trim() || null,
+          password: password.trim() || null,
           tier,
           country,
           paymentMethod: paymentMethod.trim() || 'offline',
@@ -49,6 +51,7 @@ export default function AddOfflineUserPage() {
         // Clear form
         setEmail('')
         setDisplayName('')
+        setPassword('')
         setPaymentMethod('')
         setAmount('')
       } else {
@@ -126,6 +129,23 @@ export default function AddOfflineUserPage() {
                 />
                 <p className="text-xs text-gray-500 mt-1">
                   Will use email prefix if not provided
+                </p>
+              </div>
+
+              {/* Password */}
+              <div>
+                <label className="block text-sm font-medium mb-2">
+                  Password (Optional)
+                </label>
+                <input
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="w-full px-4 py-2 border rounded-lg"
+                  placeholder="Set a password for the user"
+                />
+                <p className="text-xs text-gray-500 mt-1">
+                  If not set, user will need to set password via email verification
                 </p>
               </div>
 

@@ -7,7 +7,7 @@ const ADMIN_SECRET = process.env.ADMIN_SECRET || 'change-this-in-production'
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json()
-    const { email, displayName, tier, country, adminSecret, paymentMethod, amount } = body
+    const { email, displayName, password, tier, country, adminSecret, paymentMethod, amount } = body
 
     // Verify admin secret
     if (adminSecret !== ADMIN_SECRET) {
@@ -53,10 +53,11 @@ export async function POST(req: NextRequest) {
       }, { status: 400 })
     }
 
-    // Create Supabase auth user (so they can set password later)
+    // Create Supabase auth user with optional password
     const { data: authUser, error: authError } = await supabase.auth.admin.createUser({
       email: normalizedEmail,
       email_confirm: true, // Auto-confirm email
+      password: password || undefined, // Set password if provided
       user_metadata: {
         added_by: 'admin',
         payment_method: paymentMethod || 'offline',
