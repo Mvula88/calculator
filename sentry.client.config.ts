@@ -37,6 +37,9 @@ Sentry.init({
     'top.GLOBALS',
     // Facebook related errors
     'fb_xd_fragment',
+    // Facebook iOS in-app browser webkit errors (harmless)
+    'window.webkit.messageHandlers',
+    'webkit.messageHandlers',
     // Chrome extensions
     'Non-Error promise rejection captured',
     // Network errors
