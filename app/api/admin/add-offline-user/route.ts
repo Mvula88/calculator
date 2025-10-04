@@ -7,7 +7,7 @@ const ADMIN_SECRET = process.env.ADMIN_SECRET || 'change-this-in-production'
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json()
-    const { email, tier, country, adminSecret, paymentMethod, amount } = body
+    const { email, displayName, tier, country, adminSecret, paymentMethod, amount } = body
 
     // Verify admin secret
     if (adminSecret !== ADMIN_SECRET) {
@@ -61,7 +61,7 @@ export async function POST(req: NextRequest) {
         added_by: 'admin',
         payment_method: paymentMethod || 'offline',
         offline_payment: true,
-        full_name: email.split('@')[0] // Use email prefix as default name
+        full_name: displayName || email.split('@')[0] // Use provided name or email prefix
       }
     })
 
