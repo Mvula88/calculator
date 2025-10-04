@@ -53,6 +53,23 @@ export async function POST(req: NextRequest) {
       }, { status: 400 })
     }
 
+    // Create Supabase auth user (so they can set password later)
+    const { data: authUser, error: authError } = await supabase.auth.admin.createUser({
+      email: normalizedEmail,
+      email_confirm: true, // Auto-confirm email
+      user_metadata: {
+        added_by: 'admin',
+        payment_method: paymentMethod || 'offline',
+        offline_payment: true
+      }
+    })
+
+    if (authError && !authError.message.includes('already been registered')) {
+      return NextResponse.json({
+        error: `Failed to create auth account: ${authError.message}`
+      }, { status: 500 })
+    }
+
     // Create entitlement for offline payment
     const { data: entitlement, error: createError } = await supabase
       .from('entitlements')
