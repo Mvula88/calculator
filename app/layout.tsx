@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next'
 import { Inter } from 'next/font/google'
+import { Analytics } from '@vercel/analytics/next'
 import { ErrorBoundary } from '@/components/ErrorBoundary'
 import { homepageMetadata } from '@/lib/seo/metadata'
 import StructuredData from '@/components/seo/StructuredData'
@@ -71,6 +72,7 @@ export default function RootLayout({
           <ExitIntentPopup />
           <Toaster richColors closeButton position="top-center" />
         </ErrorBoundary>
+        <Analytics />
       </body>
     </html>
   )
