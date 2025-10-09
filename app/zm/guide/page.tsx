@@ -288,32 +288,45 @@ export default function ZambiaGuidePage() {
                     </Button>
                   </Link>
                 ) : (
-                  // Not logged in - show both Member Login and Get Started buttons
-                  <>
-                    {/* Member Login Button for returning customers */}
-                    <Link href="/auth/login" className="group">
+                  // Not logged in - show Free Guide, Member Login and Get Started buttons
+                  <div className="flex flex-col gap-3 sm:gap-4 w-full sm:w-auto">
+                    {/* Free Import Guide Button - Yellow */}
+                    <Link href="/import-guide" className="group w-full">
                       <Button
                         size="lg"
-                        variant="outline"
-                        className="w-full sm:w-auto font-bold text-sm sm:text-base md:text-lg px-4 py-2 sm:px-6 sm:py-3 md:px-6 md:py-4 h-auto border-2 border-white/30 bg-black/30 text-white hover:bg-white/20 transition-all duration-300 group-hover:scale-105 min-h-[44px]"
+                        className="w-full font-bold text-sm sm:text-base md:text-lg px-4 py-2 sm:px-6 sm:py-3 md:px-8 md:py-4 h-auto bg-yellow-500 hover:bg-yellow-600 text-gray-900 border-2 border-yellow-300 shadow-xl group-hover:scale-105 transition-all duration-300 min-h-[44px]"
                       >
-                        <User className="mr-2 sm:mr-3 h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6" />
-                        Member Login
+                        <BookOpen className="mr-2 sm:mr-3 h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6" />
+                        See Free Import Guide
                       </Button>
                     </Link>
 
-                    {/* Get Started Button for new customers */}
-                    <a href="#pricing" className="group">
-                      <Button
-                        size="lg"
-                        className="w-full sm:w-auto font-bold text-sm sm:text-base md:text-lg px-4 py-2 sm:px-6 sm:py-3 md:px-8 md:py-4 h-auto bg-gradient-to-r from-emerald-600 via-teal-600 to-green-600 hover:from-emerald-700 hover:via-teal-700 hover:to-green-700 shadow-2xl group-hover:scale-105 transition-all duration-300 group-hover:shadow-emerald-500/25 min-h-[44px]"
-                      >
-                        <Crown className="mr-3 h-6 w-6" />
-                        Get Started
-                        <Sparkles className="ml-3 h-5 w-5 group-hover:rotate-12 transition-transform" />
-                      </Button>
-                    </a>
-                  </>
+                    <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full">
+                      {/* Member Login Button for returning customers */}
+                      <Link href="/auth/login" className="group flex-1">
+                        <Button
+                          size="lg"
+                          variant="outline"
+                          className="w-full font-bold text-sm sm:text-base md:text-lg px-4 py-2 sm:px-6 sm:py-3 md:px-6 md:py-4 h-auto border-2 border-blue-600 text-blue-600 hover:bg-blue-50 hover:border-blue-700 shadow-lg group-hover:scale-105 transition-all duration-300 min-h-[44px]"
+                        >
+                          <User className="mr-2 sm:mr-3 h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6" />
+                          Member Login
+                        </Button>
+                      </Link>
+
+                      {/* Get Started Button for new customers */}
+                      <a href="#pricing" className="group flex-1">
+                        <Button
+                          size="lg"
+                          className="w-full font-bold text-sm sm:text-base md:text-lg px-4 py-2 sm:px-6 sm:py-3 md:px-8 md:py-4 h-auto bg-gradient-to-r from-purple-600 via-pink-600 to-purple-600 hover:from-purple-700 hover:via-pink-700 hover:to-purple-700 shadow-2xl group-hover:scale-105 transition-all duration-300 group-hover:shadow-purple-500/25 min-h-[44px]"
+                        >
+                          <Crown className="mr-2 sm:mr-3 h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6" />
+                          Get Started
+                          <Sparkles className="ml-2 sm:ml-3 h-3 w-3 sm:h-4 sm:w-4 md:h-5 md:w-5 group-hover:rotate-12 transition-transform" />
+                        </Button>
+                      </a>
+                    </div>
+                  </div>
                 )}
               </div>
             </div>
@@ -479,6 +492,33 @@ export default function ZambiaGuidePage() {
           </div>
         </div>
       </section>
+
+      {/* Free Guide CTA - Before Pricing */}
+      {!user && (
+      <section className="py-8 sm:py-12 bg-gradient-to-b from-white to-gray-50">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6">
+          <Card className="p-6 bg-gradient-to-r from-yellow-50 to-orange-50 border-2 border-yellow-300">
+            <p className="text-gray-900 font-semibold mb-3 text-center">
+              🎁 Not sure yet? <strong>View our FREE Import Guide</strong> first
+            </p>
+            <p className="text-sm text-gray-600 mb-4 text-center">
+              See a real vehicle import example with actual costs and invoice before buying
+            </p>
+            <div className="flex justify-center">
+              <Link href="/import-guide">
+                <Button
+                  variant="outline"
+                  className="border-2 border-yellow-600 text-yellow-800 hover:bg-yellow-600 hover:text-white font-bold"
+                >
+                  <BookOpen className="mr-2 h-4 w-4" />
+                  View Free Guide
+                </Button>
+              </Link>
+            </div>
+          </Card>
+        </div>
+      </section>
+      )}
 
       {/* Premium Final CTA Section */}
       {!user && (
