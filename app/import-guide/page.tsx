@@ -5,6 +5,7 @@ import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import PDFViewer from '@/components/PDFViewer'
+import ValidatedCheckoutButton from '@/components/validated-checkout-button'
 import {
   AlertTriangle,
   BookOpen,
@@ -457,12 +458,15 @@ export default function PublicImportGuide() {
               </div>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link href="/na">
-                  <Button size="lg" className="bg-white text-blue-600 hover:bg-blue-50 text-lg font-bold px-8 py-6">
-                    <Sparkles className="h-5 w-5 mr-2" />
-                    Get Instant Access
-                  </Button>
-                </Link>
+                <ValidatedCheckoutButton
+                  tier="mastery"
+                  country="na"
+                  size="lg"
+                  className="bg-white text-blue-600 hover:bg-blue-50 text-lg font-bold px-8 py-6 transition-all duration-300 hover:shadow-xl"
+                >
+                  <Sparkles className="h-5 w-5 mr-2" />
+                  Get Instant Access - $49 USD
+                </ValidatedCheckoutButton>
               </div>
 
               <p className="mt-6 text-sm text-blue-100">
