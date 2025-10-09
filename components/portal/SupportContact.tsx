@@ -37,7 +37,7 @@ export default function SupportContact() {
               <Mail className="h-4 w-4 text-blue-600 mt-0.5 flex-shrink-0" />
               <div className="flex-1">
                 <p className="text-sm font-semibold text-gray-900">Email Support</p>
-                <p className="text-xs text-gray-600">contact@impota.com</p>
+                <p className="text-xs text-gray-600">support@impota.com</p>
                 <p className="text-xs text-gray-500">Response within 24 hours</p>
               </div>
             </div>
@@ -67,7 +67,7 @@ export default function SupportContact() {
               </Button>
             </a>
             <a
-              href="mailto:contact@impota.com?subject=Import%20Mastery%20Portal%20Support"
+              href="mailto:support@impota.com?subject=Import%20Mastery%20Portal%20Support"
               className="flex-1"
             >
               <Button size="sm" variant="outline" className="w-full">

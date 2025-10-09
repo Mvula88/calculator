@@ -109,45 +109,46 @@ export default function WelcomeOnboarding({ userEmail, onClose }: WelcomeOnboard
   ]
 
   return (
-    <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 overflow-y-auto">
-      <div className="bg-white rounded-lg max-w-4xl w-full my-8">
+    <div className="fixed inset-0 bg-black/80 z-[100] flex items-center justify-center p-4 overflow-y-auto backdrop-blur-sm">
+      <div className="bg-white rounded-lg max-w-4xl w-full my-8 shadow-2xl border border-gray-200 max-h-[90vh] overflow-y-auto">
         {/* Header */}
-        <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-6 rounded-t-lg relative">
+        <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-4 sm:p-6 rounded-t-lg relative sticky top-0 z-10">
           {onClose && (
             <button
               onClick={onClose}
-              className="absolute top-4 right-4 text-white/80 hover:text-white"
+              className="absolute top-3 right-3 sm:top-4 sm:right-4 text-white/90 hover:text-white bg-white/10 hover:bg-white/20 rounded-full p-2 transition-all"
+              aria-label="Close welcome modal"
             >
-              <X className="h-6 w-6" />
+              <X className="h-5 w-5 sm:h-6 sm:w-6" />
             </button>
           )}
-          <div className="flex items-center gap-3 mb-2">
-            <Rocket className="h-8 w-8" />
-            <h1 className="text-2xl sm:text-3xl font-bold">Welcome to Import Mastery!</h1>
+          <div className="flex items-center gap-2 sm:gap-3 mb-2 pr-12">
+            <Rocket className="h-6 w-6 sm:h-8 sm:w-8 flex-shrink-0" />
+            <h1 className="text-xl sm:text-2xl md:text-3xl font-bold">Welcome to Import Mastery!</h1>
           </div>
-          <p className="text-blue-100">
+          <p className="text-xs sm:text-sm text-blue-100">
             Your complete vehicle import system • Licensed to: {userEmail || 'Portal User'}
           </p>
         </div>
 
-        <div className="p-6">
+        <div className="p-4 sm:p-6">
           {/* Quick Stats */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-            <div className="text-center p-4 bg-blue-50 rounded-lg">
-              <div className="text-2xl font-bold text-blue-600">5</div>
-              <div className="text-xs text-gray-600">Learning Steps</div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mb-6 sm:mb-8">
+            <div className="text-center p-3 sm:p-4 bg-blue-50 rounded-lg border border-blue-100">
+              <div className="text-xl sm:text-2xl font-bold text-blue-600">5</div>
+              <div className="text-[10px] sm:text-xs text-gray-600 font-medium">Learning Steps</div>
             </div>
-            <div className="text-center p-4 bg-green-50 rounded-lg">
-              <div className="text-2xl font-bold text-green-600">20+</div>
-              <div className="text-xs text-gray-600">Real Documents</div>
+            <div className="text-center p-3 sm:p-4 bg-green-50 rounded-lg border border-green-100">
+              <div className="text-xl sm:text-2xl font-bold text-green-600">20+</div>
+              <div className="text-[10px] sm:text-xs text-gray-600 font-medium">Real Documents</div>
             </div>
-            <div className="text-center p-4 bg-purple-50 rounded-lg">
-              <div className="text-2xl font-bold text-purple-600">4</div>
-              <div className="text-xs text-gray-600">Countries</div>
+            <div className="text-center p-3 sm:p-4 bg-purple-50 rounded-lg border border-purple-100">
+              <div className="text-xl sm:text-2xl font-bold text-purple-600">4</div>
+              <div className="text-[10px] sm:text-xs text-gray-600 font-medium">Countries</div>
             </div>
-            <div className="text-center p-4 bg-yellow-50 rounded-lg">
-              <div className="text-2xl font-bold text-yellow-600">1-2h</div>
-              <div className="text-xs text-gray-600">Total Learning</div>
+            <div className="text-center p-3 sm:p-4 bg-yellow-50 rounded-lg border border-yellow-100">
+              <div className="text-xl sm:text-2xl font-bold text-yellow-600">1-2h</div>
+              <div className="text-[10px] sm:text-xs text-gray-600 font-medium">Total Learning</div>
             </div>
           </div>
 
@@ -181,49 +182,47 @@ export default function WelcomeOnboarding({ userEmail, onClose }: WelcomeOnboard
 
           {/* Suggested Learning Path */}
           <div className="mb-6">
-            <h2 className="text-xl font-bold mb-4 flex items-center gap-2">
-              <BookOpen className="h-6 w-6 text-blue-600" />
+            <h2 className="text-lg sm:text-xl font-bold mb-3 sm:mb-4 flex items-center gap-2">
+              <BookOpen className="h-5 w-5 sm:h-6 sm:w-6 text-blue-600" />
               Your Suggested Learning Path
             </h2>
-            <p className="text-sm text-gray-600 mb-4">
+            <p className="text-xs sm:text-sm text-gray-600 mb-3 sm:mb-4">
               Follow this path to master the vehicle import process (1-2 hours total)
             </p>
 
-            <div className="space-y-4">
+            <div className="space-y-3 sm:space-y-4">
               {learningPath.map((item) => (
-                <Card key={item.step} className="p-4 hover:shadow-lg transition-all">
-                  <div className="flex items-start gap-4">
+                <Card key={item.step} className="p-3 sm:p-4 hover:shadow-lg transition-all border-2">
+                  <div className="flex flex-col sm:flex-row items-start gap-3 sm:gap-4">
                     <div className="flex-shrink-0">
-                      <div className={`${item.color} rounded-lg p-3`}>
-                        <item.icon className="h-6 w-6" />
+                      <div className={`${item.color} rounded-lg p-2.5 sm:p-3`}>
+                        <item.icon className="h-5 w-5 sm:h-6 sm:w-6" />
                       </div>
                     </div>
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-start justify-between gap-2 mb-2">
-                        <div>
-                          <div className="flex items-center gap-2 mb-1">
-                            <span className="text-xs font-semibold text-gray-500">STEP {item.step}</span>
-                            <span className="text-xs text-gray-500">• {item.duration}</span>
-                          </div>
-                          <h3 className="font-bold text-lg">{item.title}</h3>
+                    <div className="flex-1 min-w-0 w-full">
+                      <div className="mb-2">
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="text-[10px] sm:text-xs font-bold text-gray-500 bg-gray-100 px-2 py-0.5 rounded">STEP {item.step}</span>
+                          <span className="text-[10px] sm:text-xs text-gray-500">• {item.duration}</span>
                         </div>
+                        <h3 className="font-bold text-base sm:text-lg text-gray-900">{item.title}</h3>
                       </div>
-                      <p className="text-sm text-gray-600 mb-3">{item.description}</p>
+                      <p className="text-xs sm:text-sm text-gray-600 mb-2 sm:mb-3">{item.description}</p>
                       <div className="mb-3">
-                        <p className="text-xs font-semibold text-gray-700 mb-1">Key Takeaways:</p>
+                        <p className="text-[10px] sm:text-xs font-semibold text-gray-700 mb-1.5">Key Takeaways:</p>
                         <ul className="space-y-1">
                           {item.keyTakeaways.map((takeaway, idx) => (
-                            <li key={idx} className="text-xs text-gray-600 flex items-start gap-2">
+                            <li key={idx} className="text-[10px] sm:text-xs text-gray-600 flex items-start gap-1.5 sm:gap-2">
                               <CheckCircle className="h-3 w-3 text-green-600 mt-0.5 flex-shrink-0" />
                               <span>{takeaway}</span>
                             </li>
                           ))}
                         </ul>
                       </div>
-                      <Link href={item.href}>
-                        <Button size="sm" className="w-full sm:w-auto">
+                      <Link href={item.href} className="block">
+                        <Button size="sm" className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white font-medium">
                           {item.step === 1 ? 'Start Here' : `Go to Step ${item.step}`}
-                          <ArrowRight className="h-4 w-4 ml-2" />
+                          <ArrowRight className="h-3 w-3 sm:h-4 sm:w-4 ml-2" />
                         </Button>
                       </Link>
                     </div>
@@ -252,7 +251,7 @@ export default function WelcomeOnboarding({ userEmail, onClose }: WelcomeOnboard
                   <div className="flex items-start gap-2">
                     <CheckCircle className="h-4 w-4 text-blue-600 mt-0.5" />
                     <span className="text-blue-800">
-                      <strong>Email Support:</strong> contact@impota.com
+                      <strong>Email Support:</strong> support@impota.com
                     </span>
                   </div>
                   <div className="flex items-start gap-2">
@@ -298,15 +297,15 @@ export default function WelcomeOnboarding({ userEmail, onClose }: WelcomeOnboard
           </Card>
 
           {/* Action Buttons */}
-          <div className="flex flex-col sm:flex-row gap-3 mt-6">
+          <div className="flex flex-col sm:flex-row gap-3 mt-6 sticky bottom-0 bg-white pt-4 pb-2 border-t">
             <Link href="/portal/beginner" className="flex-1">
-              <Button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700">
-                <Rocket className="h-5 w-5 mr-2" />
+              <Button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-sm sm:text-base font-semibold py-6 sm:py-4 shadow-lg">
+                <Rocket className="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
                 Start Your Journey Now
               </Button>
             </Link>
             {onClose && (
-              <Button variant="outline" onClick={onClose} className="flex-1">
+              <Button variant="outline" onClick={onClose} className="flex-1 text-sm sm:text-base py-6 sm:py-4 border-2">
                 I'll Explore on My Own
               </Button>
             )}
