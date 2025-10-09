@@ -136,6 +136,16 @@ export default function HomePage() {
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button
+                size="lg"
+                className="bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold px-8 py-6 text-lg border-2 border-yellow-300 shadow-xl"
+                asChild
+              >
+                <Link href="/import-guide">
+                  <BookOpen className="mr-2 h-5 w-5" />
+                  See Free Import Guide
+                </Link>
+              </Button>
               {!user && (
                 <Button
                   size="lg"
@@ -333,6 +343,28 @@ export default function HomePage() {
                   Directory of Japan auction platforms and trusted exporters to source quality vehicles.
                 </p>
               </CardContent>
+            </Card>
+          </div>
+
+          {/* Free Guide CTA */}
+          <div className="text-center mb-8">
+            <Card className="inline-block p-6 bg-gradient-to-r from-yellow-50 to-orange-50 border-2 border-yellow-300">
+              <p className="text-gray-900 font-semibold mb-3">
+                🎁 Not sure yet? <strong>View our FREE Import Guide</strong> first
+              </p>
+              <p className="text-sm text-gray-600 mb-4">
+                See a real vehicle import example with actual costs and invoice before buying
+              </p>
+              <Button
+                variant="outline"
+                className="border-2 border-yellow-600 text-yellow-800 hover:bg-yellow-600 hover:text-white font-bold"
+                asChild
+              >
+                <Link href="/import-guide">
+                  <BookOpen className="mr-2 h-4 w-4" />
+                  View Free Guide
+                </Link>
+              </Button>
             </Card>
           </div>
 
