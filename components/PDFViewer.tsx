@@ -174,10 +174,14 @@ export default function PDFViewer({ isOpen, onClose, documentName, documentUrl }
   // Check if file is an image
   const isImage = documentUrl.toLowerCase().match(/\.(png|jpg|jpeg|gif|webp)$/);
 
-  // Always use our API route which fetches from Supabase Storage
+  // Handle both API routes and external Supabase URLs
   const getViewerUrl = (url: string) => {
-    // If URL already starts with /api/documents/, use it as-is
-    // Otherwise, prepend the API path
+    // If it's already a full URL (Supabase signed URL), use it directly
+    if (url.startsWith('http://') || url.startsWith('https://')) {
+      return url
+    }
+
+    // Otherwise, use our API route which fetches from Supabase Storage
     let baseUrl: string
     if (url.startsWith('/api/documents/')) {
       baseUrl = `${url}?t=${Date.now()}`
