@@ -15,6 +15,8 @@ import { EmergencyQuickReference } from '@/components/guide/emergency-quick-refe
 import { PracticalTools } from '@/components/guide/practical-tools'
 import CriticalImportWarnings from '@/components/portal/CriticalImportWarnings'
 import { CountrySelector, type Country } from '@/components/guide/CountrySelector'
+import LastUpdated from '@/components/portal/LastUpdated'
+import SupportContact from '@/components/portal/SupportContact'
 import { namibiaTimelineSteps } from '@/lib/guide-data/namibia-timeline'
 import { southAfricaTimelineSteps } from '@/lib/guide-data/south-africa-timeline'
 import { botswanaTimelineSteps } from '@/lib/guide-data/botswana-timeline'
@@ -293,12 +295,18 @@ export default function GuidePage() {
                   {currentCountryData.name}
                 </span>
               </div>
-              <p className="text-gray-600">Your step-by-step roadmap to importing vehicles via {currentCountryData.port}</p>
+              <p className="text-gray-600 mb-3">Your step-by-step roadmap to importing vehicles via {currentCountryData.port}</p>
+              <LastUpdated date="October 2025" note="Multi-country verified" />
             </div>
             <div className="flex items-center gap-2 text-xs sm:text-sm text-gray-600">
               <Shield className="h-3 w-3 sm:h-4 sm:w-4" />
               <span className="truncate max-w-[200px]">Licensed to: {cleanEmail}</span>
             </div>
+          </div>
+
+          {/* Support Section */}
+          <div className="mb-6">
+            <SupportContact />
           </div>
           <div className="bg-red-50 border border-red-200 rounded-lg p-3 sm:p-4">
             <div className="flex items-start gap-2">

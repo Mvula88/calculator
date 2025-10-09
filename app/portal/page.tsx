@@ -1,17 +1,19 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useAuthImmediate } from '@/lib/hooks/use-auth-immediate'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
-import { 
-  BookOpen, 
-  FileText, 
-  Calculator, 
-  Ship, 
-  Users, 
+import WelcomeOnboarding from '@/components/portal/WelcomeOnboarding'
+import SupportContact from '@/components/portal/SupportContact'
+import {
+  BookOpen,
+  FileText,
+  Calculator,
+  Ship,
+  Users,
   Star,
   TrendingUp,
   CheckCircle,
@@ -23,12 +25,14 @@ import {
   Award,
   Zap,
   Gavel,
-  Lock
+  Lock,
+  Rocket
 } from 'lucide-react'
 
 export default function PortalPage() {
   const router = useRouter()
   const { user, userEmail, hasAccess, loading, userTier } = useAuthImmediate()
+  const [showWelcome, setShowWelcome] = useState(false)
 
   const displayEmail = userEmail || 'user@example.com'
   const cleanEmail = displayEmail.startsWith('user_cs_test_') ? 'Portal User' : displayEmail
@@ -47,6 +51,23 @@ export default function PortalPage() {
       router.push('/auth/login?redirectTo=/portal')
     }
   }, [loading, user, router])
+
+  // Check if this is the user's first login
+  useEffect(() => {
+    if (user && userEmail) {
+      const hasSeenWelcome = localStorage.getItem(`welcome_seen_${userEmail}`)
+      if (!hasSeenWelcome) {
+        setShowWelcome(true)
+      }
+    }
+  }, [user, userEmail])
+
+  const handleCloseWelcome = () => {
+    if (userEmail) {
+      localStorage.setItem(`welcome_seen_${userEmail}`, 'true')
+    }
+    setShowWelcome(false)
+  }
 
   if (loading) {
     return (
@@ -79,6 +100,15 @@ export default function PortalPage() {
 
   // Quick access cards
   const quickAccessCards = [
+    {
+      title: '🚀 Start Here',
+      description: 'New? Start your learning journey',
+      icon: Rocket,
+      href: '/portal/start-here',
+      color: 'bg-gradient-to-br from-blue-100 to-purple-100 text-blue-600',
+      available: true,
+      featured: true
+    },
     {
       title: '🆕 Beginner Journey',
       description: 'Complete import process & simple calculator',
@@ -139,6 +169,14 @@ export default function PortalPage() {
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-gray-50 to-white pb-20">
+      {/* Welcome Modal for First-Time Users */}
+      {showWelcome && (
+        <WelcomeOnboarding
+          userEmail={cleanEmail}
+          onClose={handleCloseWelcome}
+        />
+      )}
+
       <div className="w-full">
         {/* Welcome Header - Mobile Optimized */}
         <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg p-4 sm:p-6 lg:p-8 mb-4 sm:mb-6 text-white">
@@ -225,8 +263,30 @@ export default function PortalPage() {
           </div>
         </div>
 
+        {/* Learning Path Highlight - Mobile Optimized */}
+        <Card className="p-3 sm:p-4 bg-gradient-to-br from-purple-50 to-blue-50 border-purple-200 mb-4 sm:mb-6">
+          <div className="flex items-start gap-2.5 sm:gap-3">
+            <Star className="h-4 w-4 sm:h-5 sm:w-5 text-purple-600 flex-shrink-0 mt-0.5" />
+            <div className="flex-1 min-w-0">
+              <h3 className="font-semibold text-purple-900 mb-1.5 sm:mb-2 text-xs sm:text-sm">Suggested Learning Path</h3>
+              <ol className="space-y-0.5 sm:space-y-1 text-[11px] sm:text-xs text-purple-800 mb-2">
+                <li>1. Start with Beginner Journey (15-20 min)</li>
+                <li>2. Study the Complete Guide (30-45 min)</li>
+                <li>3. Review Real Documents (20-30 min)</li>
+                <li>4. Use the Calculator before buying</li>
+              </ol>
+              <Link href="/portal/start-here">
+                <Button size="sm" className="bg-purple-600 hover:bg-purple-700 text-xs">
+                  <Rocket className="h-3 w-3 mr-1" />
+                  View Full Learning Path
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </Card>
+
         {/* Quick Tips - Mobile Optimized */}
-        <Card className="p-3 sm:p-4 bg-blue-50 border-blue-200">
+        <Card className="p-3 sm:p-4 bg-blue-50 border-blue-200 mb-4 sm:mb-6">
           <div className="flex items-start gap-2.5 sm:gap-3">
             <Shield className="h-4 w-4 sm:h-5 sm:w-5 text-blue-600 flex-shrink-0 mt-0.5" />
             <div className="flex-1 min-w-0">
@@ -240,6 +300,11 @@ export default function PortalPage() {
             </div>
           </div>
         </Card>
+
+        {/* Support Section */}
+        <div className="mb-4 sm:mb-6">
+          <SupportContact />
+        </div>
 
         {/* Mobile-Only Bottom Navigation Hint */}
         <div className="mt-6 sm:mt-8 text-center lg:hidden">

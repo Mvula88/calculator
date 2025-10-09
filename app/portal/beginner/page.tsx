@@ -3,6 +3,8 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { toast } from 'sonner'
+import LastUpdated from '@/components/portal/LastUpdated'
+import SupportContact from '@/components/portal/SupportContact'
 import {
   Calculator,
   Map,
@@ -18,12 +20,22 @@ export default function BeginnerGuidePage() {
     <div>
       {/* Page Header */}
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-3">
-          Complete Import Journey & Tools
-        </h1>
-        <p className="text-gray-600">
-          Everything you need to know about importing, from start to finish
-        </p>
+        <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-3">
+          <div>
+            <h1 className="text-3xl font-bold text-gray-900 mb-3">
+              Complete Import Journey & Tools
+            </h1>
+            <p className="text-gray-600">
+              Everything you need to know about importing, from start to finish
+            </p>
+          </div>
+          <LastUpdated date="October 2025" note="All current" />
+        </div>
+      </div>
+
+      {/* Support Section */}
+      <div className="mb-8">
+        <SupportContact />
       </div>
 
       {/* Import Terms Glossary */}
