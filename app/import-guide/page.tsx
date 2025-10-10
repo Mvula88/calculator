@@ -23,6 +23,36 @@ export default function PublicImportGuide() {
 
   return (
     <main className="min-h-screen bg-white">
+      {/* Sticky Navigation */}
+      <nav className="sticky top-0 z-50 bg-white border-b border-slate-200 shadow-sm">
+        <div className="max-w-7xl mx-auto px-6 py-4">
+          <div className="flex items-center justify-between">
+            {/* Logo/Brand */}
+            <Link href="/" className="flex items-center gap-2 group">
+              <div className="text-2xl font-bold text-blue-600 group-hover:text-blue-700 transition-colors">
+                Impota
+              </div>
+            </Link>
+
+            {/* Right side navigation */}
+            <div className="flex items-center gap-4">
+              <Link
+                href="/contact"
+                className="text-slate-600 hover:text-blue-600 transition-colors text-sm font-medium"
+              >
+                Contact
+              </Link>
+              <Link
+                href="/portal/login"
+                className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-all duration-300 hover:shadow-lg text-sm"
+              >
+                Login
+              </Link>
+            </div>
+          </div>
+        </div>
+      </nav>
+
       {/* Hero Section - Clean & Professional */}
       <section className="relative bg-gradient-to-br from-slate-50 via-white to-blue-50 border-b">
         <div className="max-w-4xl mx-auto px-6 py-16 sm:py-24">
@@ -42,17 +72,17 @@ export default function PublicImportGuide() {
 
           {/* Value Props */}
           <div className="grid sm:grid-cols-3 gap-4 mb-12">
-            <div className="bg-white border border-slate-200 rounded-xl p-6 text-center">
-              <div className="text-3xl font-bold text-blue-600 mb-1">Real Data</div>
-              <div className="text-sm text-slate-600">Actual import costs</div>
+            <div className="bg-white border border-slate-200 rounded-xl p-6 text-center transition-all duration-300 hover:shadow-lg hover:scale-105 hover:border-blue-300 cursor-pointer group">
+              <div className="text-3xl font-bold text-blue-600 mb-1 group-hover:scale-110 transition-transform duration-300">Real Data</div>
+              <div className="text-sm text-slate-600 group-hover:text-slate-900 transition-colors">Actual import costs</div>
             </div>
-            <div className="bg-white border border-slate-200 rounded-xl p-6 text-center">
-              <div className="text-3xl font-bold text-blue-600 mb-1">4 Countries</div>
-              <div className="text-sm text-slate-600">NA • ZA • BW • ZM</div>
+            <div className="bg-white border border-slate-200 rounded-xl p-6 text-center transition-all duration-300 hover:shadow-lg hover:scale-105 hover:border-blue-300 cursor-pointer group">
+              <div className="text-3xl font-bold text-blue-600 mb-1 group-hover:scale-110 transition-transform duration-300">4 Countries</div>
+              <div className="text-sm text-slate-600 group-hover:text-slate-900 transition-colors">NA • ZA • BW • ZM</div>
             </div>
-            <div className="bg-white border border-slate-200 rounded-xl p-6 text-center">
-              <div className="text-3xl font-bold text-blue-600 mb-1">Save N$40K</div>
-              <div className="text-sm text-slate-600">Container sharing</div>
+            <div className="bg-white border border-slate-200 rounded-xl p-6 text-center transition-all duration-300 hover:shadow-lg hover:scale-105 hover:border-blue-300 cursor-pointer group">
+              <div className="text-3xl font-bold text-blue-600 mb-1 group-hover:scale-110 transition-transform duration-300">Save N$40K</div>
+              <div className="text-sm text-slate-600 group-hover:text-slate-900 transition-colors">Container sharing</div>
             </div>
           </div>
         </div>
@@ -154,10 +184,10 @@ export default function PublicImportGuide() {
                     </div>
                   </div>
                   <Button
-                    className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium"
+                    className="w-full bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-bold py-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
                     onClick={() => setShowPDF(true)}
                   >
-                    <FileText className="h-4 w-4 mr-2" />
+                    <FileText className="h-5 w-5 mr-2" />
                     View Invoice Document
                   </Button>
                   <p className="text-xs text-slate-500 mt-3 text-center flex items-center justify-center gap-1">
@@ -200,9 +230,9 @@ export default function PublicImportGuide() {
               { term: 'Bill of Lading (B/L)', definition: 'Key shipping document and proof of shipment/ownership' },
               { term: 'Clearing Agent', definition: 'Licensed professional handling customs processes' },
             ].map((item, idx) => (
-              <Card key={idx} className="p-4 border border-slate-200 hover:border-blue-200 hover:shadow-sm transition-all">
-                <h4 className="font-semibold text-slate-900 mb-1">{item.term}</h4>
-                <p className="text-sm text-slate-600">{item.definition}</p>
+              <Card key={idx} className="p-4 border border-slate-200 hover:border-blue-300 hover:shadow-lg transition-all duration-300 cursor-pointer group hover:scale-105">
+                <h4 className="font-semibold text-slate-900 mb-1 group-hover:text-blue-600 transition-colors">{item.term}</h4>
+                <p className="text-sm text-slate-600 group-hover:text-slate-700 transition-colors">{item.definition}</p>
               </Card>
             ))}
           </div>
@@ -274,10 +304,10 @@ export default function PublicImportGuide() {
 
           <div className="grid sm:grid-cols-2 gap-6">
             {/* Namibia */}
-            <Card className="border-l-4 border-l-blue-600 p-6">
+            <Card className="border-l-4 border-l-blue-600 p-6 transition-all duration-300 hover:shadow-xl hover:scale-105 cursor-pointer group">
               <div className="flex items-center gap-2 mb-4">
-                <span className="text-3xl">🇳🇦</span>
-                <h3 className="font-bold text-xl">Namibia</h3>
+                <span className="text-3xl group-hover:scale-110 transition-transform duration-300">🇳🇦</span>
+                <h3 className="font-bold text-xl group-hover:text-blue-600 transition-colors">Namibia</h3>
               </div>
               <ul className="space-y-2 text-sm text-slate-700">
                 <li className="flex items-start gap-2">
@@ -296,10 +326,10 @@ export default function PublicImportGuide() {
             </Card>
 
             {/* South Africa */}
-            <Card className="border-l-4 border-l-amber-600 p-6">
+            <Card className="border-l-4 border-l-amber-600 p-6 transition-all duration-300 hover:shadow-xl hover:scale-105 cursor-pointer group">
               <div className="flex items-center gap-2 mb-4">
-                <span className="text-3xl">🇿🇦</span>
-                <h3 className="font-bold text-xl">South Africa</h3>
+                <span className="text-3xl group-hover:scale-110 transition-transform duration-300">🇿🇦</span>
+                <h3 className="font-bold text-xl group-hover:text-amber-600 transition-colors">South Africa</h3>
               </div>
               <ul className="space-y-2 text-sm text-slate-700">
                 <li className="flex items-start gap-2">
@@ -314,10 +344,10 @@ export default function PublicImportGuide() {
             </Card>
 
             {/* Botswana */}
-            <Card className="border-l-4 border-l-green-600 p-6">
+            <Card className="border-l-4 border-l-green-600 p-6 transition-all duration-300 hover:shadow-xl hover:scale-105 cursor-pointer group">
               <div className="flex items-center gap-2 mb-4">
-                <span className="text-3xl">🇧🇼</span>
-                <h3 className="font-bold text-xl">Botswana</h3>
+                <span className="text-3xl group-hover:scale-110 transition-transform duration-300">🇧🇼</span>
+                <h3 className="font-bold text-xl group-hover:text-green-600 transition-colors">Botswana</h3>
               </div>
               <ul className="space-y-2 text-sm text-slate-700">
                 <li className="flex items-start gap-2">
@@ -336,10 +366,10 @@ export default function PublicImportGuide() {
             </Card>
 
             {/* Zambia */}
-            <Card className="border-l-4 border-l-orange-600 p-6">
+            <Card className="border-l-4 border-l-orange-600 p-6 transition-all duration-300 hover:shadow-xl hover:scale-105 cursor-pointer group">
               <div className="flex items-center gap-2 mb-4">
-                <span className="text-3xl">🇿🇲</span>
-                <h3 className="font-bold text-xl">Zambia</h3>
+                <span className="text-3xl group-hover:scale-110 transition-transform duration-300">🇿🇲</span>
+                <h3 className="font-bold text-xl group-hover:text-orange-600 transition-colors">Zambia</h3>
               </div>
               <ul className="space-y-2 text-sm text-slate-700">
                 <li className="flex items-start gap-2">
@@ -371,22 +401,22 @@ export default function PublicImportGuide() {
           </div>
 
           <div className="space-y-4">
-            <Card className="border-l-4 border-l-green-500 p-6">
-              <h4 className="font-semibold text-slate-900 mb-2 flex items-center gap-2">
-                <Clock className="h-5 w-5 text-green-600" />
+            <Card className="border-l-4 border-l-green-500 p-6 transition-all duration-300 hover:shadow-lg hover:scale-105 cursor-pointer group">
+              <h4 className="font-semibold text-slate-900 mb-2 flex items-center gap-2 group-hover:text-green-600 transition-colors">
+                <Clock className="h-5 w-5 text-green-600 group-hover:scale-110 transition-transform" />
                 Best Case: 7-8 weeks (51-57 days)
               </h4>
-              <p className="text-sm text-slate-600">
+              <p className="text-sm text-slate-600 group-hover:text-slate-700 transition-colors">
                 Direct shipping, no delays, documents ready, quick customs clearance.
               </p>
             </Card>
 
-            <Card className="border-l-4 border-l-blue-500 p-6 bg-blue-50">
-              <h4 className="font-semibold text-slate-900 mb-2 flex items-center gap-2">
-                <Clock className="h-5 w-5 text-blue-600" />
+            <Card className="border-l-4 border-l-blue-500 p-6 bg-blue-50 transition-all duration-300 hover:shadow-lg hover:scale-105 cursor-pointer group">
+              <h4 className="font-semibold text-slate-900 mb-2 flex items-center gap-2 group-hover:text-blue-600 transition-colors">
+                <Clock className="h-5 w-5 text-blue-600 group-hover:scale-110 transition-transform" />
                 Realistic: 9-10 weeks (60-70 days)
               </h4>
-              <p className="text-sm text-slate-600 mb-2">
+              <p className="text-sm text-slate-600 mb-2 group-hover:text-slate-700 transition-colors">
                 Standard processing, minor port delays, average customs time.
               </p>
               <p className="text-sm font-semibold text-blue-700">
@@ -394,12 +424,12 @@ export default function PublicImportGuide() {
               </p>
             </Card>
 
-            <Card className="border-l-4 border-l-orange-500 p-6">
-              <h4 className="font-semibold text-slate-900 mb-2 flex items-center gap-2">
-                <Clock className="h-5 w-5 text-orange-600" />
+            <Card className="border-l-4 border-l-orange-500 p-6 transition-all duration-300 hover:shadow-lg hover:scale-105 cursor-pointer group">
+              <h4 className="font-semibold text-slate-900 mb-2 flex items-center gap-2 group-hover:text-orange-600 transition-colors">
+                <Clock className="h-5 w-5 text-orange-600 group-hover:scale-110 transition-transform" />
                 Extended: 11-13 weeks (75-90 days)
               </h4>
-              <p className="text-sm text-slate-600">
+              <p className="text-sm text-slate-600 group-hover:text-slate-700 transition-colors">
                 Vessel delays, port congestion, documentation issues, inspection delays.
               </p>
             </Card>
@@ -419,22 +449,22 @@ export default function PublicImportGuide() {
 
           <Card className="border-2 border-green-100 p-8 bg-gradient-to-br from-green-50 to-emerald-50">
             <div className="grid sm:grid-cols-2 gap-6 mb-8">
-              <div className="bg-white rounded-xl p-6 border-2 border-red-200">
+              <div className="bg-white rounded-xl p-6 border-2 border-red-200 transition-all duration-300 hover:shadow-lg hover:scale-105 cursor-pointer group">
                 <div className="flex items-center gap-2 mb-2">
-                  <Ship className="h-5 w-5 text-red-600" />
+                  <Ship className="h-5 w-5 text-red-600 group-hover:scale-110 transition-transform" />
                   <div className="text-sm font-semibold text-red-600">Solo Shipping</div>
                 </div>
-                <div className="text-4xl font-bold text-red-600 mb-2">N$75,000</div>
-                <p className="text-sm text-slate-600">40ft container • 1 vehicle</p>
+                <div className="text-4xl font-bold text-red-600 mb-2 group-hover:scale-105 transition-transform">N$75,000</div>
+                <p className="text-sm text-slate-600 group-hover:text-slate-700 transition-colors">40ft container • 1 vehicle</p>
               </div>
 
-              <div className="bg-white rounded-xl p-6 border-2 border-green-500 shadow-lg">
+              <div className="bg-white rounded-xl p-6 border-2 border-green-500 shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-105 cursor-pointer group">
                 <div className="flex items-center gap-2 mb-2">
-                  <Ship className="h-5 w-5 text-green-600" />
+                  <Ship className="h-5 w-5 text-green-600 group-hover:scale-110 transition-transform" />
                   <div className="text-sm font-semibold text-green-600">Container Sharing</div>
                 </div>
-                <div className="text-4xl font-bold text-green-600 mb-2">N$18,750</div>
-                <p className="text-sm text-slate-600 mb-2">40ft container ÷ 4 cars</p>
+                <div className="text-4xl font-bold text-green-600 mb-2 group-hover:scale-105 transition-transform">N$18,750</div>
+                <p className="text-sm text-slate-600 mb-2 group-hover:text-slate-700 transition-colors">40ft container ÷ 4 cars</p>
                 <p className="text-sm font-bold text-green-700">Save N$56,250!</p>
               </div>
             </div>
