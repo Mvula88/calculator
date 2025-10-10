@@ -83,10 +83,9 @@ export default function HomePage() {
               <Globe className="h-4 w-4" />
               <span className="font-semibold">Educational Resources & Import Guides</span>
             </div>
-            <h1 className="text-left sm:text-center text-4xl sm:text-6xl font-bold text-white mb-6 drop-shadow-lg">
-              Learn How<br />
-              to Import Cars<br />
-              from Japan
+            <h1 className="text-center text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-6 drop-shadow-lg leading-tight">
+              <span className="block">Learn How to Import Cars</span>
+              <span className="block mb-2">from Japan</span>
               <span className="block text-yellow-300 mt-2 text-2xl sm:text-3xl">Step-by-Step Guide for Namibia</span>
             </h1>
             <p className="text-left sm:text-center text-xl text-white mb-6 leading-relaxed bg-black/30 backdrop-blur-sm rounded-lg p-4">
