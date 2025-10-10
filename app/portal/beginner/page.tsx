@@ -1,5 +1,6 @@
 'use client'
 
+import { useState } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { toast } from 'sonner'
@@ -12,10 +13,13 @@ import {
   AlertCircle,
   DollarSign,
   Clock,
-  BookOpen
+  BookOpen,
+  ChevronDown,
+  ChevronUp
 } from 'lucide-react'
 
 export default function BeginnerGuidePage() {
+  const [showAllTerms, setShowAllTerms] = useState(false)
   return (
     <div>
       {/* Page Header */}
@@ -47,63 +51,286 @@ export default function BeginnerGuidePage() {
           </CardTitle>
         </CardHeader>
         <CardContent className="pt-6">
-          <div className="grid md:grid-cols-2 gap-4">
-            <div className="p-3 bg-gray-50 rounded-lg">
-              <h4 className="font-semibold text-gray-900">FOB Price</h4>
-              <p className="text-sm text-gray-600">The car's price in Japan (before shipping)</p>
+          {/* Essential Terms - Always Visible */}
+          <div className="mb-4">
+            <h3 className="text-lg font-bold text-gray-900 mb-4">Essential Terms</h3>
+            <div className="grid md:grid-cols-2 gap-4">
+              <div className="p-3 bg-gray-50 rounded-lg">
+                <h4 className="font-semibold text-gray-900">FOB Price</h4>
+                <p className="text-sm text-gray-600">Free On Board - the car's price in Japan up to loading on ship</p>
+              </div>
+              <div className="p-3 bg-gray-50 rounded-lg">
+                <h4 className="font-semibold text-gray-900">CIF Value</h4>
+                <p className="text-sm text-gray-600">Cost, Insurance & Freight - car price + shipping + insurance to destination</p>
+              </div>
+              <div className="p-3 bg-gray-50 rounded-lg">
+                <h4 className="font-semibold text-gray-900">ICD</h4>
+                <p className="text-sm text-gray-600">Import Customs Duty - main import tax (25% in Namibia)</p>
+              </div>
+              <div className="p-3 bg-gray-50 rounded-lg">
+                <h4 className="font-semibold text-gray-900">ENV Levy</h4>
+                <p className="text-sm text-gray-600">Environmental levy on vehicle imports</p>
+              </div>
+              <div className="p-3 bg-gray-50 rounded-lg">
+                <h4 className="font-semibold text-gray-900">VAT</h4>
+                <p className="text-sm text-gray-600">Value Added Tax on imported goods (15-16%)</p>
+              </div>
+              <div className="p-3 bg-gray-50 rounded-lg">
+                <h4 className="font-semibold text-gray-900">Clearing Agent</h4>
+                <p className="text-sm text-gray-600">Licensed professional handling customs processes</p>
+              </div>
+              <div className="p-3 bg-gray-50 rounded-lg">
+                <h4 className="font-semibold text-gray-900">Bill of Lading (B/L)</h4>
+                <p className="text-sm text-gray-600">Key shipping document and proof of shipment/ownership</p>
+              </div>
+              <div className="p-3 bg-gray-50 rounded-lg">
+                <h4 className="font-semibold text-gray-900">Landed Cost</h4>
+                <p className="text-sm text-gray-600">Total cost to get the car out of port, before registration</p>
+              </div>
+              <div className="p-3 bg-gray-50 rounded-lg">
+                <h4 className="font-semibold text-gray-900">Consignee</h4>
+                <p className="text-sm text-gray-600">Person/entity receiving the imported vehicle</p>
+              </div>
+              <div className="p-3 bg-gray-50 rounded-lg">
+                <h4 className="font-semibold text-gray-900">Demurrage</h4>
+                <p className="text-sm text-gray-600">Daily charges if cargo stays too long at port after free days</p>
+              </div>
             </div>
-            <div className="p-3 bg-gray-50 rounded-lg">
-              <h4 className="font-semibold text-gray-900">CIF Value</h4>
-              <p className="text-sm text-gray-600">Car price + shipping + insurance costs</p>
+          </div>
+
+          {/* Expandable Detailed Terms */}
+          {showAllTerms && (
+            <div className="space-y-6 mt-8 pt-6 border-t">
+              {/* Auction & Vehicle Report */}
+              <div>
+                <h3 className="text-lg font-bold text-gray-900 mb-4">Auction & Vehicle Report (Japan)</h3>
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div className="p-3 bg-blue-50 rounded-lg">
+                    <h4 className="font-semibold text-gray-900">Auction Sheet</h4>
+                    <p className="text-sm text-gray-600">One-page vehicle report used in Japanese auctions</p>
+                  </div>
+                  <div className="p-3 bg-blue-50 rounded-lg">
+                    <h4 className="font-semibold text-gray-900">Overall Grade (R/RA/0–6)</h4>
+                    <p className="text-sm text-gray-600">Quick condition score (e.g., 3.5 = average used; R/RA = repaired/accident history)</p>
+                  </div>
+                  <div className="p-3 bg-blue-50 rounded-lg">
+                    <h4 className="font-semibold text-gray-900">Interior/Exterior Grade (A–D)</h4>
+                    <p className="text-sm text-gray-600">Cabin/body condition letters</p>
+                  </div>
+                  <div className="p-3 bg-blue-50 rounded-lg">
+                    <h4 className="font-semibold text-gray-900">Panel Map</h4>
+                    <p className="text-sm text-gray-600">Diagram with codes for damage (A = scratch, U = dent, W = wave, X = replace, S = rust)</p>
+                  </div>
+                  <div className="p-3 bg-blue-50 rounded-lg">
+                    <h4 className="font-semibold text-gray-900">Chassis/Model Code</h4>
+                    <p className="text-sm text-gray-600">e.g., DBA-GK4 (Fit) - unique to each variant</p>
+                  </div>
+                  <div className="p-3 bg-blue-50 rounded-lg">
+                    <h4 className="font-semibold text-gray-900">Odometer (km)</h4>
+                    <p className="text-sm text-gray-600">Mileage reading - note if "rewound/unknown" is flagged</p>
+                  </div>
+                  <div className="p-3 bg-blue-50 rounded-lg">
+                    <h4 className="font-semibold text-gray-900">Reserve Price</h4>
+                    <p className="text-sm text-gray-600">Minimum the seller will accept</p>
+                  </div>
+                  <div className="p-3 bg-blue-50 rounded-lg">
+                    <h4 className="font-semibold text-gray-900">Hammer Price</h4>
+                    <p className="text-sm text-gray-600">Winning auction price in Japan</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Purchase & Incoterms */}
+              <div>
+                <h3 className="text-lg font-bold text-gray-900 mb-4">Purchase & Incoterms</h3>
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div className="p-3 bg-green-50 rounded-lg">
+                    <h4 className="font-semibold text-gray-900">Invoice / Pro-forma Invoice</h4>
+                    <p className="text-sm text-gray-600">Cost breakdown before/after purchase</p>
+                  </div>
+                  <div className="p-3 bg-green-50 rounded-lg">
+                    <h4 className="font-semibold text-gray-900">CFR/CNF</h4>
+                    <p className="text-sm text-gray-600">Cost & Freight - FOB + ocean freight to destination</p>
+                  </div>
+                  <div className="p-3 bg-green-50 rounded-lg">
+                    <h4 className="font-semibold text-gray-900">TT (Telegraphic Transfer)</h4>
+                    <p className="text-sm text-gray-600">Bank wire payment method</p>
+                  </div>
+                  <div className="p-3 bg-green-50 rounded-lg">
+                    <h4 className="font-semibold text-gray-900">Buyer's Fee / Auction Fee</h4>
+                    <p className="text-sm text-gray-600">Fees charged by auction/agent on top of hammer price</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Shipping & Logistics */}
+              <div>
+                <h3 className="text-lg font-bold text-gray-900 mb-4">Shipping & Logistics</h3>
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div className="p-3 bg-orange-50 rounded-lg">
+                    <h4 className="font-semibold text-gray-900">Ro-Ro (Roll-on/Roll-off)</h4>
+                    <p className="text-sm text-gray-600">Vehicle drives on/off ship (usually cheaper)</p>
+                  </div>
+                  <div className="p-3 bg-orange-50 rounded-lg">
+                    <h4 className="font-semibold text-gray-900">Container (20ft/40ft/40HC)</h4>
+                    <p className="text-sm text-gray-600">Car shipped in container (safer, pricier)</p>
+                  </div>
+                  <div className="p-3 bg-orange-50 rounded-lg">
+                    <h4 className="font-semibold text-gray-900">Consolidation / Container Share</h4>
+                    <p className="text-sm text-gray-600">Sharing container with others to split costs</p>
+                  </div>
+                  <div className="p-3 bg-orange-50 rounded-lg">
+                    <h4 className="font-semibold text-gray-900">ETD / ETA</h4>
+                    <p className="text-sm text-gray-600">Estimated Time of Departure/Arrival</p>
+                  </div>
+                  <div className="p-3 bg-orange-50 rounded-lg">
+                    <h4 className="font-semibold text-gray-900">Transit Time</h4>
+                    <p className="text-sm text-gray-600">Sailing days from Japan to destination port</p>
+                  </div>
+                  <div className="p-3 bg-orange-50 rounded-lg">
+                    <h4 className="font-semibold text-gray-900">Carrier / Shipping Line</h4>
+                    <p className="text-sm text-gray-600">Company transporting the cargo (ocean)</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Port & Handling */}
+              <div>
+                <h3 className="text-lg font-bold text-gray-900 mb-4">Port & Handling (Walvis Bay / Namibia)</h3>
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div className="p-3 bg-purple-50 rounded-lg">
+                    <h4 className="font-semibold text-gray-900">THC (Terminal Handling Charge)</h4>
+                    <p className="text-sm text-gray-600">Loading/unloading & terminal services</p>
+                  </div>
+                  <div className="p-3 bg-purple-50 rounded-lg">
+                    <h4 className="font-semibold text-gray-900">Wharfage / Port Dues</h4>
+                    <p className="text-sm text-gray-600">Fees charged by port authority</p>
+                  </div>
+                  <div className="p-3 bg-purple-50 rounded-lg">
+                    <h4 className="font-semibold text-gray-900">Storage / Demurrage</h4>
+                    <p className="text-sm text-gray-600">Daily charges if car stays too long after free days</p>
+                  </div>
+                  <div className="p-3 bg-purple-50 rounded-lg">
+                    <h4 className="font-semibold text-gray-900">Release Order</h4>
+                    <p className="text-sm text-gray-600">Document allowing cargo pickup after clearance</p>
+                  </div>
+                  <div className="p-3 bg-purple-50 rounded-lg">
+                    <h4 className="font-semibold text-gray-900">Namport</h4>
+                    <p className="text-sm text-gray-600">Namibia's port authority at Walvis Bay</p>
+                  </div>
+                  <div className="p-3 bg-purple-50 rounded-lg">
+                    <h4 className="font-semibold text-gray-900">Documentation Fee</h4>
+                    <p className="text-sm text-gray-600">Port/agent paperwork charges</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Customs & Taxes */}
+              <div>
+                <h3 className="text-lg font-bold text-gray-900 mb-4">Customs & Taxes (Namibia)</h3>
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div className="p-3 bg-red-50 rounded-lg">
+                    <h4 className="font-semibold text-gray-900">NamRA</h4>
+                    <p className="text-sm text-gray-600">Namibia Revenue Agency (customs & tax)</p>
+                  </div>
+                  <div className="p-3 bg-red-50 rounded-lg">
+                    <h4 className="font-semibold text-gray-900">HS Code</h4>
+                    <p className="text-sm text-gray-600">Tariff classification number for vehicle</p>
+                  </div>
+                  <div className="p-3 bg-red-50 rounded-lg">
+                    <h4 className="font-semibold text-gray-900">Customs Value</h4>
+                    <p className="text-sm text-gray-600">Usually CIF value used to calculate duties & VAT</p>
+                  </div>
+                  <div className="p-3 bg-red-50 rounded-lg">
+                    <h4 className="font-semibold text-gray-900">ADV (Ad Valorem)</h4>
+                    <p className="text-sm text-gray-600">Percentage-based import tax</p>
+                  </div>
+                  <div className="p-3 bg-red-50 rounded-lg">
+                    <h4 className="font-semibold text-gray-900">Entry / SAD 500</h4>
+                    <p className="text-sm text-gray-600">Customs declaration form submitted by clearing agent</p>
+                  </div>
+                  <div className="p-3 bg-red-50 rounded-lg">
+                    <h4 className="font-semibold text-gray-900">Tariff Determination</h4>
+                    <p className="text-sm text-gray-600">Official ruling on duty rate if classification unclear</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Documents */}
+              <div>
+                <h3 className="text-lg font-bold text-gray-900 mb-4">Documents (Japan → Namibia)</h3>
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div className="p-3 bg-yellow-50 rounded-lg">
+                    <h4 className="font-semibold text-gray-900">Export/Deregistration Certificate</h4>
+                    <p className="text-sm text-gray-600">Proof car has been deregistered for export from Japan</p>
+                  </div>
+                  <div className="p-3 bg-yellow-50 rounded-lg">
+                    <h4 className="font-semibold text-gray-900">Translation</h4>
+                    <p className="text-sm text-gray-600">Official English translation of dereg certificate</p>
+                  </div>
+                  <div className="p-3 bg-yellow-50 rounded-lg">
+                    <h4 className="font-semibold text-gray-900">Commercial Invoice</h4>
+                    <p className="text-sm text-gray-600">Seller's final bill to buyer</p>
+                  </div>
+                  <div className="p-3 bg-yellow-50 rounded-lg">
+                    <h4 className="font-semibold text-gray-900">Packing List</h4>
+                    <p className="text-sm text-gray-600">Itemized list (mostly for containers/parts)</p>
+                  </div>
+                  <div className="p-3 bg-yellow-50 rounded-lg">
+                    <h4 className="font-semibold text-gray-900">Insurance Certificate</h4>
+                    <p className="text-sm text-gray-600">Marine insurance policy if buying CIF</p>
+                  </div>
+                  <div className="p-3 bg-yellow-50 rounded-lg">
+                    <h4 className="font-semibold text-gray-900">Pre-Shipment Inspection</h4>
+                    <p className="text-sm text-gray-600">JEVIC/JAAI inspection certificate (if required)</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Post-Clearance & Registration */}
+              <div>
+                <h3 className="text-lg font-bold text-gray-900 mb-4">Post-Clearance & Registration</h3>
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div className="p-3 bg-indigo-50 rounded-lg">
+                    <h4 className="font-semibold text-gray-900">Temporary Permit</h4>
+                    <p className="text-sm text-gray-600">Permit to move vehicle before full registration</p>
+                  </div>
+                  <div className="p-3 bg-indigo-50 rounded-lg">
+                    <h4 className="font-semibold text-gray-900">Roadworthy Test</h4>
+                    <p className="text-sm text-gray-600">Inspection required by NaTIS before registration</p>
+                  </div>
+                  <div className="p-3 bg-indigo-50 rounded-lg">
+                    <h4 className="font-semibold text-gray-900">NaTIS</h4>
+                    <p className="text-sm text-gray-600">Namibia Traffic Information System (vehicle registration)</p>
+                  </div>
+                  <div className="p-3 bg-indigo-50 rounded-lg">
+                    <h4 className="font-semibold text-gray-900">Police Clearance</h4>
+                    <p className="text-sm text-gray-600">Police verification before registration</p>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div className="p-3 bg-gray-50 rounded-lg">
-              <h4 className="font-semibold text-gray-900">ICD</h4>
-              <p className="text-sm text-gray-600">Import Customs Duty - main import tax</p>
-            </div>
-            <div className="p-3 bg-gray-50 rounded-lg">
-              <h4 className="font-semibold text-gray-900">ENV</h4>
-              <p className="text-sm text-gray-600">Environmental levy on vehicle imports</p>
-            </div>
-            <div className="p-3 bg-gray-50 rounded-lg">
-              <h4 className="font-semibold text-gray-900">ADV</h4>
-              <p className="text-sm text-gray-600">Ad Valorem tax - percentage-based import tax</p>
-            </div>
-            <div className="p-3 bg-gray-50 rounded-lg">
-              <h4 className="font-semibold text-gray-900">VAT</h4>
-              <p className="text-sm text-gray-600">Value Added Tax on imported goods</p>
-            </div>
-            <div className="p-3 bg-gray-50 rounded-lg">
-              <h4 className="font-semibold text-gray-900">Clearing Agent</h4>
-              <p className="text-sm text-gray-600">Company that handles customs paperwork for you</p>
-            </div>
-            <div className="p-3 bg-gray-50 rounded-lg">
-              <h4 className="font-semibold text-gray-900">Auction Grade</h4>
-              <p className="text-sm text-gray-600">Japan's car condition rating (3.5+ is good)</p>
-            </div>
-            <div className="p-3 bg-gray-50 rounded-lg">
-              <h4 className="font-semibold text-gray-900">Landed Cost</h4>
-              <p className="text-sm text-gray-600">Total cost including all fees and taxes</p>
-            </div>
-            <div className="p-3 bg-gray-50 rounded-lg">
-              <h4 className="font-semibold text-gray-900">Container Sharing</h4>
-              <p className="text-sm text-gray-600">Split shipping costs with other importers</p>
-            </div>
-            <div className="p-3 bg-gray-50 rounded-lg">
-              <h4 className="font-semibold text-gray-900">RoRo</h4>
-              <p className="text-sm text-gray-600">Roll-on/Roll-off shipping (drive on/off ship)</p>
-            </div>
-            <div className="p-3 bg-gray-50 rounded-lg">
-              <h4 className="font-semibold text-gray-900">De-registration</h4>
-              <p className="text-sm text-gray-600">Removing vehicle from Japan's registry for export</p>
-            </div>
-            <div className="p-3 bg-gray-50 rounded-lg">
-              <h4 className="font-semibold text-gray-900">Export Certificate</h4>
-              <p className="text-sm text-gray-600">Japan's official document allowing export</p>
-            </div>
-            <div className="p-3 bg-gray-50 rounded-lg">
-              <h4 className="font-semibold text-gray-900">Bill of Lading</h4>
-              <p className="text-sm text-gray-600">Shipping document proving ownership</p>
-            </div>
+          )}
+
+          {/* See More/Less Button */}
+          <div className="mt-6 text-center">
+            <Button
+              variant="outline"
+              onClick={() => setShowAllTerms(!showAllTerms)}
+              className="w-full sm:w-auto px-8"
+            >
+              {showAllTerms ? (
+                <>
+                  <ChevronUp className="h-4 w-4 mr-2" />
+                  Show Less Terms
+                </>
+              ) : (
+                <>
+                  <ChevronDown className="h-4 w-4 mr-2" />
+                  See More Terms (60+ Additional Terms)
+                </>
+              )}
+            </Button>
           </div>
         </CardContent>
       </Card>

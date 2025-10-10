@@ -60,6 +60,126 @@ export default function PublicImportGuide() {
 
       <div className="max-w-4xl mx-auto px-6 py-16">
 
+        {/* Real Vehicle Example - THE HOOK! */}
+        <section className="mb-20">
+          <div className="mb-8">
+            <h2 className="text-3xl font-bold text-slate-900 mb-3">
+              Real Import Example
+            </h2>
+            <p className="text-lg text-slate-600">
+              Actual vehicle import with complete cost breakdown and invoice
+            </p>
+          </div>
+
+          <Card className="border-2 border-blue-100 overflow-hidden">
+            <div className="bg-gradient-to-br from-blue-50 to-slate-50 p-8">
+              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+                <div>
+                  <h3 className="text-2xl font-bold text-slate-900 mb-1">
+                    2015 Audi A5 Sportback 2.0L Quattro
+                  </h3>
+                  <p className="text-slate-600">Complete import to Namibia via Walvis Bay</p>
+                </div>
+                <div className="text-right">
+                  <div className="text-4xl font-bold text-blue-600">N$80,229</div>
+                  <div className="text-sm text-slate-600">Total Landed Cost</div>
+                </div>
+              </div>
+
+              <div className="bg-white rounded-xl p-6 shadow-sm">
+                <h4 className="font-bold text-slate-900 mb-4">Complete Cost Breakdown:</h4>
+                <div className="space-y-3">
+                  <div className="flex justify-between items-center pb-3 border-b border-slate-100">
+                    <span className="text-slate-700">Japan Auction Price</span>
+                    <div className="text-right">
+                      <div className="font-semibold text-slate-900">N$27,012</div>
+                      <div className="text-xs text-slate-500">¥231,000</div>
+                    </div>
+                  </div>
+                  <div className="flex justify-between items-center pb-3 border-b border-slate-100">
+                    <span className="text-slate-700">Japan-side Costs</span>
+                    <div className="text-right">
+                      <div className="font-semibold text-slate-900">N$14,551</div>
+                      <div className="text-xs text-slate-500">¥124,440</div>
+                    </div>
+                  </div>
+                  <div className="flex justify-between items-center pb-3 border-b border-slate-100">
+                    <span className="text-slate-700">Ocean Freight (Shared container)</span>
+                    <div className="text-right">
+                      <div className="font-semibold text-slate-900">N$16,020</div>
+                      <div className="text-xs text-slate-500">¥137,000</div>
+                    </div>
+                  </div>
+
+                  <div className="pt-3">
+                    <p className="font-bold text-slate-900 mb-3">Namibian Customs Duties & Taxes:</p>
+                    <div className="space-y-2 pl-4">
+                      <div className="flex justify-between">
+                        <span className="text-slate-600">ICD (Import Customs Duty)</span>
+                        <span className="font-semibold text-slate-900">N$10,862</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-slate-600">ENV Levy</span>
+                        <span className="font-semibold text-slate-900">N$3,960</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-slate-600">ADV (Ad Valorem)</span>
+                        <span className="font-semibold text-slate-900">N$653</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-slate-600">VAT (15%)</span>
+                        <span className="font-semibold text-slate-900">N$7,169</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="flex justify-between items-center pt-4 border-t-2 border-blue-200">
+                    <span className="text-lg font-bold text-slate-900">Total Landed Cost</span>
+                    <span className="text-3xl font-bold text-blue-600">N$80,229</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-6">
+                <Card className="bg-white border border-blue-200 p-6">
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center gap-3">
+                      <div className="p-2 bg-blue-100 rounded-lg">
+                        <FileText className="h-5 w-5 text-blue-600" />
+                      </div>
+                      <div>
+                        <h4 className="font-bold text-slate-900">View the Actual Invoice</h4>
+                        <p className="text-sm text-slate-600">Real invoice from Japanese auction</p>
+                      </div>
+                    </div>
+                  </div>
+                  <Button
+                    className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium"
+                    onClick={() => setShowPDF(true)}
+                  >
+                    <FileText className="h-4 w-4 mr-2" />
+                    View Invoice Document
+                  </Button>
+                  <p className="text-xs text-slate-500 mt-3 text-center flex items-center justify-center gap-1">
+                    <Shield className="h-3 w-3" />
+                    Protected viewing • No downloads
+                  </p>
+                </Card>
+              </div>
+
+              <div className="mt-6 p-4 bg-amber-50 border border-amber-200 rounded-lg">
+                <p className="text-sm text-amber-900">
+                  <strong className="flex items-center gap-2 mb-1">
+                    <Sparkles className="h-4 w-4" />
+                    This is 1 of 4 real vehicle examples
+                  </strong>
+                  Get full access to all imports (Golf 7R, Audi A3, Audi A4) + advanced calculator + 20+ documents for N$850 lifetime.
+                </p>
+              </div>
+            </div>
+          </Card>
+        </section>
+
         {/* Import Terms Dictionary */}
         <section className="mb-20">
           <div className="mb-8">
@@ -194,126 +314,6 @@ export default function PublicImportGuide() {
               </ul>
             </Card>
           </div>
-        </section>
-
-        {/* Real Vehicle Example */}
-        <section className="mb-20">
-          <div className="mb-8">
-            <h2 className="text-3xl font-bold text-slate-900 mb-3">
-              Real Import Example
-            </h2>
-            <p className="text-lg text-slate-600">
-              Actual vehicle import with complete cost breakdown and invoice
-            </p>
-          </div>
-
-          <Card className="border-2 border-blue-100 overflow-hidden">
-            <div className="bg-gradient-to-br from-blue-50 to-slate-50 p-8">
-              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
-                <div>
-                  <h3 className="text-2xl font-bold text-slate-900 mb-1">
-                    2015 Audi A5 Sportback 2.0L Quattro
-                  </h3>
-                  <p className="text-slate-600">Complete import to Namibia via Walvis Bay</p>
-                </div>
-                <div className="text-right">
-                  <div className="text-4xl font-bold text-blue-600">N$80,229</div>
-                  <div className="text-sm text-slate-600">Total Landed Cost</div>
-                </div>
-              </div>
-
-              <div className="bg-white rounded-xl p-6 shadow-sm">
-                <h4 className="font-bold text-slate-900 mb-4">Complete Cost Breakdown:</h4>
-                <div className="space-y-3">
-                  <div className="flex justify-between items-center pb-3 border-b border-slate-100">
-                    <span className="text-slate-700">Japan Auction Price</span>
-                    <div className="text-right">
-                      <div className="font-semibold text-slate-900">N$27,012</div>
-                      <div className="text-xs text-slate-500">¥231,000</div>
-                    </div>
-                  </div>
-                  <div className="flex justify-between items-center pb-3 border-b border-slate-100">
-                    <span className="text-slate-700">Japan-side Costs</span>
-                    <div className="text-right">
-                      <div className="font-semibold text-slate-900">N$14,551</div>
-                      <div className="text-xs text-slate-500">¥124,440</div>
-                    </div>
-                  </div>
-                  <div className="flex justify-between items-center pb-3 border-b border-slate-100">
-                    <span className="text-slate-700">Ocean Freight (Shared container)</span>
-                    <div className="text-right">
-                      <div className="font-semibold text-slate-900">N$16,020</div>
-                      <div className="text-xs text-slate-500">¥137,000</div>
-                    </div>
-                  </div>
-
-                  <div className="pt-3">
-                    <p className="font-bold text-slate-900 mb-3">Namibian Customs Duties & Taxes:</p>
-                    <div className="space-y-2 pl-4">
-                      <div className="flex justify-between">
-                        <span className="text-slate-600">ICD (Import Customs Duty)</span>
-                        <span className="font-semibold text-slate-900">N$10,862</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-slate-600">ENV Levy</span>
-                        <span className="font-semibold text-slate-900">N$3,960</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-slate-600">ADV (Ad Valorem)</span>
-                        <span className="font-semibold text-slate-900">N$653</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-slate-600">VAT (15%)</span>
-                        <span className="font-semibold text-slate-900">N$7,169</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="flex justify-between items-center pt-4 border-t-2 border-blue-200">
-                    <span className="text-lg font-bold text-slate-900">Total Landed Cost</span>
-                    <span className="text-3xl font-bold text-blue-600">N$80,229</span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="mt-6">
-                <Card className="bg-white border border-blue-200 p-6">
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="flex items-center gap-3">
-                      <div className="p-2 bg-blue-100 rounded-lg">
-                        <FileText className="h-5 w-5 text-blue-600" />
-                      </div>
-                      <div>
-                        <h4 className="font-bold text-slate-900">View the Actual Invoice</h4>
-                        <p className="text-sm text-slate-600">Real invoice from Japanese auction</p>
-                      </div>
-                    </div>
-                  </div>
-                  <Button
-                    className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium"
-                    onClick={() => setShowPDF(true)}
-                  >
-                    <FileText className="h-4 w-4 mr-2" />
-                    View Invoice Document
-                  </Button>
-                  <p className="text-xs text-slate-500 mt-3 text-center flex items-center justify-center gap-1">
-                    <Shield className="h-3 w-3" />
-                    Protected viewing • No downloads
-                  </p>
-                </Card>
-              </div>
-
-              <div className="mt-6 p-4 bg-amber-50 border border-amber-200 rounded-lg">
-                <p className="text-sm text-amber-900">
-                  <strong className="flex items-center gap-2 mb-1">
-                    <Sparkles className="h-4 w-4" />
-                    This is 1 of 4 real vehicle examples
-                  </strong>
-                  Get full access to all imports (Golf 7R, Audi A3, Audi A4) + advanced calculator + 20+ documents for N$850 lifetime.
-                </p>
-              </div>
-            </div>
-          </Card>
         </section>
 
         {/* Timeline Expectations */}
