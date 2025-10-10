@@ -92,24 +92,6 @@ export default function HomePage() {
               <strong>What we provide:</strong> Educational resources and guides to help you understand the process of importing a quality used car from Japan to Namibia. From research to documentation.
             </p>
 
-            {/* Critical Warning Banner */}
-            <div className="max-w-4xl mx-auto mb-8">
-              <div className="bg-gradient-to-r from-red-600 to-orange-600 rounded-lg p-6 shadow-2xl border-2 border-red-400">
-                <div className="flex items-start gap-4">
-                  <AlertCircle className="hidden sm:block h-8 w-8 text-white flex-shrink-0 animate-pulse" />
-                  <div className="text-white text-left sm:text-left">
-                    <h3 className="text-xl font-bold mb-2">Real Case: Container Held 7 Months - Massive Fees Accumulated</h3>
-                    <p className="text-sm sm:text-base mb-1"><strong>The Problem:</strong> A single wrong choice made before shipping</p>
-                    <p className="text-sm sm:text-base mb-3"><strong>The Solution:</strong> Proper vetting process (included in guide)</p>
-                    <a href="#countries" className="inline-flex items-center gap-2 bg-white text-red-600 px-4 py-2 rounded-lg font-semibold hover:bg-gray-100 transition-colors text-sm sm:text-base">
-                      Learn the 9 deal-breaker mistakes
-                      <ArrowRight className="h-4 w-4" />
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-
             {/* CTA Buttons - Free Guide as Primary */}
             <div className="flex flex-col gap-6 justify-center items-center">
               {/* PRIMARY CTA - FREE GUIDE (Big, Yellow, Prominent) */}
