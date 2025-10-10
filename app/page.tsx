@@ -60,36 +60,7 @@ export default function HomePage() {
   }
   return (
     <>
-      {/* Sticky Navigation */}
-      <nav className="sticky top-0 z-50 bg-white border-b border-slate-200 shadow-sm">
-        <div className="max-w-7xl mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
-            {/* Logo/Brand */}
-            <Link href="/" className="flex items-center gap-2 group">
-              <div className="text-2xl font-bold text-blue-600 group-hover:text-blue-700 transition-colors">
-                Impota
-              </div>
-            </Link>
-
-            {/* Right side navigation */}
-            <div className="flex items-center gap-4">
-              <Link
-                href="/contact"
-                className="text-slate-600 hover:text-blue-600 transition-colors text-sm font-medium"
-              >
-                Contact
-              </Link>
-              <Link
-                href="/portal/login"
-                className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-all duration-300 hover:shadow-lg text-sm"
-              >
-                Login
-              </Link>
-            </div>
-          </div>
-        </div>
-      </nav>
-
+      <GuideHeader country="na" showCountrySelector={false} />
       {/* Hero Section - Clear Value Proposition */}
       <section className="relative pt-20 pb-32 overflow-hidden">
         {/* Background Image */}
