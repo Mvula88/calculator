@@ -200,78 +200,6 @@ export default function BotswanaGuidePage() {
             </p>
           </div>
 
-          {/* Modern Value Proposition Cards - Mobile Optimized */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-4 max-w-4xl mx-auto mb-6 sm:mb-10 px-4">
-            <div className="group">
-              <Card className="bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 transition-all duration-300 h-full">
-                <CardContent className="p-3 sm:p-4">
-                  <div className="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3">
-                    <div className="bg-emerald-500 p-1.5 sm:p-2 rounded-lg shadow-lg">
-                      <Calculator className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
-                    </div>
-                    <div>
-                      <h3 className="font-bold text-sm sm:text-base text-white">Cost Calculator</h3>
-                      <p className="text-emerald-300 font-medium text-xs sm:text-sm">Calculate all import costs upfront</p>
-                    </div>
-                  </div>
-                  <p className="hidden sm:block text-gray-300 text-xs leading-relaxed">Know all costs before you buy</p>
-                </CardContent>
-              </Card>
-            </div>
-
-            <div className="group">
-              <Card className="bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 transition-all duration-300 h-full">
-                <CardContent className="p-3 sm:p-4">
-                  <div className="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3">
-                    <div className="bg-blue-500 p-1.5 sm:p-2 rounded-lg shadow-lg">
-                      <BookOpen className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
-                    </div>
-                    <div>
-                      <h3 className="font-bold text-sm sm:text-base text-white">Complete Guides</h3>
-                      <p className="text-blue-300 font-medium text-xs sm:text-sm">Step-by-step import process</p>
-                    </div>
-                  </div>
-                  <p className="hidden sm:block text-gray-300 text-xs leading-relaxed">Everything you need to know</p>
-                </CardContent>
-              </Card>
-            </div>
-
-            <div className="group hidden sm:block lg:col-span-1">
-              <Card className="bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 transition-all duration-300 h-full">
-                <CardContent className="p-3 sm:p-4">
-                  <div className="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3">
-                    <div className="bg-purple-500 p-1.5 sm:p-2 rounded-lg shadow-lg">
-                      <Ship className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
-                    </div>
-                    <div>
-                      <h3 className="font-bold text-sm sm:text-base text-white">Container Sharing</h3>
-                      <p className="text-purple-300 font-medium text-xs sm:text-sm">Find platforms to share containers</p>
-                    </div>
-                  </div>
-                  <p className="text-gray-300 text-xs leading-relaxed">Save on shipping expenses</p>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-
-          {/* Critical Warning Banner */}
-          <div className="max-w-4xl mx-auto mb-6 sm:mb-10 px-4">
-            <div className="bg-gradient-to-r from-amber-600 to-orange-600 rounded-lg p-4 sm:p-6 shadow-2xl border-2 border-amber-400">
-              <div className="flex items-start gap-3 sm:gap-4">
-                <AlertTriangle className="h-6 w-6 sm:h-8 sm:w-8 text-white flex-shrink-0 animate-pulse" />
-                <div className="text-white">
-                  <h3 className="text-base sm:text-lg md:text-xl font-bold mb-2">💡 LESSON: Can Your Container Be Held Even After Arrival?</h3>
-                  <p className="text-xs sm:text-sm md:text-base mb-1">Real case: 7-month hold. Daily fees accumulating. Risk of auction.</p>
-                  <p className="text-xs sm:text-sm md:text-base mb-3">Cause: A preventable mistake made during planning stage.</p>
-                  <a href="#pricing" className="inline-flex items-center gap-2 bg-white text-orange-600 px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg font-semibold hover:bg-gray-100 transition-colors text-xs sm:text-sm md:text-base">
-                    See all costly mistakes to avoid
-                    <ArrowRight className="h-3 w-3 sm:h-4 sm:w-4" />
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-
           {/* Premium CTA Section - Mobile Optimized */}
           <div className="text-center mb-6 sm:mb-10" id="signup">
             <div className="bg-white/5 backdrop-blur-md rounded-lg sm:rounded-xl p-4 sm:p-6 border border-white/10 max-w-3xl mx-auto">
@@ -331,6 +259,49 @@ export default function BotswanaGuidePage() {
                 )}
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Service Highlights */}
+      <section className="py-16 bg-gradient-to-b from-white to-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+              Everything You Need to Import Successfully
+            </h2>
+            <p className="text-xl text-gray-600">
+              Professional tools and comprehensive resources
+            </p>
+          </div>
+          <div className="grid sm:grid-cols-3 gap-6 max-w-5xl mx-auto">
+            <Card className="bg-white border-2 border-emerald-100 hover:border-emerald-300 hover:shadow-xl transition-all duration-300">
+              <CardContent className="p-6">
+                <div className="bg-emerald-500 w-12 h-12 rounded-lg flex items-center justify-center mb-4">
+                  <Calculator className="h-6 w-6 text-white" />
+                </div>
+                <h3 className="font-bold text-lg mb-2 text-gray-900">Cost Calculator</h3>
+                <p className="text-gray-600 text-sm">Calculate all import costs upfront with our comprehensive calculator tool</p>
+              </CardContent>
+            </Card>
+            <Card className="bg-white border-2 border-blue-100 hover:border-blue-300 hover:shadow-xl transition-all duration-300">
+              <CardContent className="p-6">
+                <div className="bg-blue-500 w-12 h-12 rounded-lg flex items-center justify-center mb-4">
+                  <BookOpen className="h-6 w-6 text-white" />
+                </div>
+                <h3 className="font-bold text-lg mb-2 text-gray-900">Complete Guides</h3>
+                <p className="text-gray-600 text-sm">Step-by-step guidance through the entire import process</p>
+              </CardContent>
+            </Card>
+            <Card className="bg-white border-2 border-purple-100 hover:border-purple-300 hover:shadow-xl transition-all duration-300">
+              <CardContent className="p-6">
+                <div className="bg-purple-500 w-12 h-12 rounded-lg flex items-center justify-center mb-4">
+                  <Ship className="h-6 w-6 text-white" />
+                </div>
+                <h3 className="font-bold text-lg mb-2 text-gray-900">Container Sharing</h3>
+                <p className="text-gray-600 text-sm">Find platforms to share containers and reduce shipping costs</p>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>
