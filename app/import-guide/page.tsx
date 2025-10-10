@@ -43,7 +43,7 @@ export default function PublicImportGuide() {
                 Contact
               </Link>
               <Link
-                href="/portal/login"
+                href="/auth/login"
                 className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-all duration-300 hover:shadow-lg text-sm"
               >
                 Login
