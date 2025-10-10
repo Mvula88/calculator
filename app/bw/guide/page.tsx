@@ -165,7 +165,7 @@ export default function BotswanaGuidePage() {
         secondaryColor="cyan-600"
       />
 
-      <main className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-50 overflow-x-hidden" itemScope itemType="https://schema.org/Guide">
+      <main className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-50 overflow-x-hidden pt-14 sm:pt-16" itemScope itemType="https://schema.org/Guide">
 
       {/* Modern Hero Section - Mobile Optimized */}
       <section className="relative overflow-hidden w-full min-h-0 md:min-h-screen flex items-center py-16 md:py-0">
