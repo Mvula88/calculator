@@ -90,23 +90,6 @@ export default function PublicImportGuide() {
 
       <div className="max-w-4xl mx-auto px-6 py-16">
 
-        {/* Critical Warning Banner */}
-        <section className="mb-12">
-          <div className="bg-gradient-to-r from-red-600 to-orange-600 rounded-lg p-6 shadow-2xl border-2 border-red-400">
-            <div className="flex items-start gap-4">
-              <AlertTriangle className="hidden sm:block h-8 w-8 text-white flex-shrink-0 animate-pulse" />
-              <div className="text-white text-left sm:text-left">
-                <h3 className="text-xl font-bold mb-2">Real Case: Container Held 7 Months - Massive Fees Accumulated</h3>
-                <p className="text-sm sm:text-base mb-1"><strong>The Problem:</strong> A single wrong choice made before shipping</p>
-                <p className="text-sm sm:text-base mb-3"><strong>The Solution:</strong> Proper vetting process (included in guide)</p>
-                <p className="text-sm sm:text-base font-semibold bg-white/20 backdrop-blur-sm rounded-lg p-3 inline-block">
-                  Learn the 9 deal-breaker mistakes that can cost you everything
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
         {/* Real Vehicle Example - THE HOOK! */}
         <section className="mb-20">
           <div className="mb-8">
@@ -403,6 +386,23 @@ export default function PublicImportGuide() {
                 </li>
               </ul>
             </Card>
+          </div>
+        </section>
+
+        {/* Critical Warning Banner */}
+        <section className="mb-20">
+          <div className="bg-gradient-to-r from-red-600 to-orange-600 rounded-lg p-6 shadow-2xl border-2 border-red-400">
+            <div className="flex items-start gap-4">
+              <AlertTriangle className="hidden sm:block h-8 w-8 text-white flex-shrink-0 animate-pulse" />
+              <div className="text-white text-left sm:text-left">
+                <h3 className="text-xl font-bold mb-2">Real Case: Container Held 7 Months - Massive Fees Accumulated</h3>
+                <p className="text-sm sm:text-base mb-1"><strong>The Problem:</strong> A single wrong choice made before shipping</p>
+                <p className="text-sm sm:text-base mb-3"><strong>The Solution:</strong> Proper vetting process (included in guide)</p>
+                <p className="text-sm sm:text-base font-semibold bg-white/20 backdrop-blur-sm rounded-lg p-3 inline-block">
+                  Learn the 9 deal-breaker mistakes that can cost you everything
+                </p>
+              </div>
+            </div>
           </div>
         </section>
 
