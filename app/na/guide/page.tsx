@@ -212,11 +212,6 @@ export default function NamibiaGuidePage() {
             <p className="text-sm sm:text-base md:text-lg lg:text-xl text-white mb-4 sm:mb-6 leading-relaxed bg-black/30 backdrop-blur-sm rounded-lg p-4 max-w-3xl mx-auto">
               <strong>What we provide:</strong> Educational resources and guides to help you understand the process of importing a quality used car from Japan to Namibia. From research to documentation.
             </p>
-            <div className="bg-yellow-100 border-2 border-yellow-400 rounded-lg p-3 mb-6 max-w-3xl mx-auto">
-              <p className="text-sm text-gray-900">
-                <strong>📚 Educational Content Only:</strong> We provide guides and information. We do not import vehicles, provide clearing services, or act as agents.
-              </p>
-            </div>
           </div>
 
           {/* Modern Value Proposition Cards - Mobile Optimized */}

@@ -59,6 +59,13 @@ export default function Footer() {
           </ul>
         </nav>
 
+        {/* Disclaimer */}
+        <div className="mb-6 bg-gray-800 border border-gray-700 rounded-lg p-4 max-w-2xl mx-auto">
+          <p className="text-sm text-gray-300">
+            <strong>📚 Educational Content Only:</strong> We provide guides and information. We do not import vehicles, provide clearing services, or act as agents.
+          </p>
+        </div>
+
         {/* Copyright and Disclaimers */}
         <div className="space-y-3 text-xs text-gray-500">
           <p>© {currentYear} IMPOTA Guide. All rights reserved.</p>
