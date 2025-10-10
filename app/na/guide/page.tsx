@@ -172,13 +172,14 @@ export default function NamibiaGuidePage() {
       {/* Hidden H1 for SEO */}
       <h1 className="sr-only">Import Cars from Japan to Namibia 2024 - Complete Walvis Bay Port Guide | Save N$65,000</h1>
 
-      <main className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-50 overflow-x-hidden" itemScope itemType="https://schema.org/Guide">
       <GuideHeader
         country="na"
         trusted="Real Import Experience, Real Guidance"
         primaryColor="blue-600"
         secondaryColor="purple-600"
       />
+
+      <main className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-50 overflow-x-hidden" itemScope itemType="https://schema.org/Guide">
 
       {/* Modern Hero Section - Mobile Optimized */}
       <section className="relative overflow-hidden w-full min-h-0 md:min-h-screen flex items-center py-16 md:py-0 w-full">

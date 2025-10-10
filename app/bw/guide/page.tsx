@@ -158,13 +158,14 @@ export default function BotswanaGuidePage() {
       {/* Hidden H1 for SEO */}
       <h1 className="sr-only">Import Cars from Japan to Botswana 2024 - Complete Durban/Walvis Bay Port Guide | Save P52,000</h1>
 
-      <main className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-50 overflow-x-hidden" itemScope itemType="https://schema.org/Guide">
       <GuideHeader
         country="bw"
         trusted="Real Import Experience, Real Guidance"
         primaryColor="sky-600"
         secondaryColor="cyan-600"
       />
+
+      <main className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-50 overflow-x-hidden" itemScope itemType="https://schema.org/Guide">
 
       {/* Modern Hero Section - Mobile Optimized */}
       <section className="relative overflow-hidden w-full min-h-0 md:min-h-screen flex items-center py-16 md:py-0">

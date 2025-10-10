@@ -158,13 +158,14 @@ export default function ZambiaGuidePage() {
       {/* Hidden H1 for SEO */}
       <h1 className="sr-only">Import Cars from Japan to Zambia 2024 - Complete Cross-Border Guide | Save K2M</h1>
 
-      <main className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-50 overflow-x-hidden" itemScope itemType="https://schema.org/Guide">
       <GuideHeader
         country="zm"
         trusted="Real Import Experience, Real Guidance"
         primaryColor="emerald-600"
         secondaryColor="teal-600"
       />
+
+      <main className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-50 overflow-x-hidden" itemScope itemType="https://schema.org/Guide">
 
       {/* Modern Hero Section - Mobile Optimized */}
       <section className="relative overflow-hidden w-full min-h-0 md:min-h-screen flex items-center py-16 md:py-0">

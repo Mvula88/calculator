@@ -161,13 +161,14 @@ export default function SouthAfricaGuidePage() {
       {/* Hidden H1 for SEO */}
       <h1 className="sr-only">Import Cars from Japan to South Africa 2024 - Complete Durban Port Guide | Save R65,000</h1>
 
-      <main className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-50 overflow-x-hidden" itemScope itemType="https://schema.org/Guide">
       <GuideHeader
         country="za"
         trusted="Real Import Experience, Real Guidance"
         primaryColor="green-600"
         secondaryColor="emerald-600"
       />
+
+      <main className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-50 overflow-x-hidden" itemScope itemType="https://schema.org/Guide">
 
       {/* Modern Hero Section - Mobile Optimized */}
       <section className="relative overflow-hidden w-full min-h-0 md:min-h-screen flex items-center py-16 md:py-0">
