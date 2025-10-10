@@ -133,41 +133,53 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button
-                size="lg"
-                className="bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold px-8 py-6 text-lg border-2 border-yellow-300 shadow-xl"
-                asChild
-              >
-                <Link href="/import-guide">
-                  <BookOpen className="mr-2 h-5 w-5" />
-                  See Free Import Guide
-                </Link>
-              </Button>
-              {!user && (
+            {/* CTA Buttons - Free Guide as Primary */}
+            <div className="flex flex-col gap-6 justify-center items-center">
+              {/* PRIMARY CTA - FREE GUIDE (Big, Yellow, Prominent) */}
+              <div className="w-full max-w-md">
                 <Button
                   size="lg"
-                  variant="outline"
-                  className="bg-white/10 backdrop-blur-sm border-2 border-white text-white hover:bg-white hover:text-blue-700 px-8 py-6 text-lg"
+                  className="w-full bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-500 hover:to-yellow-600 text-gray-900 font-bold px-10 py-8 text-xl border-3 border-yellow-300 shadow-2xl hover:shadow-yellow-500/50 transition-all duration-300 hover:scale-105"
                   asChild
                 >
-                  <Link href="/auth/login">
-                    <LogIn className="mr-2 h-5 w-5" />
-                    Already Have Access? Login
+                  <Link href="/import-guide">
+                    <span className="mr-3 text-2xl">🎁</span>
+                    Get FREE Import Guide
+                    <ArrowRight className="ml-3 h-6 w-6" />
                   </Link>
                 </Button>
-              )}
-              <Button
-                size="lg"
-                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-6 text-lg"
-                asChild
-              >
-                <Link href="#countries">
-                  <Globe className="mr-2 h-5 w-5" />
-                  Select Your Country
-                </Link>
-              </Button>
+                <p className="text-white text-sm mt-2 text-center font-semibold">
+                  No signup required • Instant access
+                </p>
+              </div>
+
+              {/* Secondary CTAs - Smaller, Less Prominent */}
+              <div className="flex flex-col sm:flex-row gap-3 w-full max-w-md">
+                {!user && (
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    className="flex-1 bg-white/10 backdrop-blur-sm border-2 border-white/50 text-white hover:bg-white hover:text-blue-700 px-6 py-3 text-sm"
+                    asChild
+                  >
+                    <Link href="/auth/login">
+                      <LogIn className="mr-2 h-4 w-4" />
+                      Member Login
+                    </Link>
+                  </Button>
+                )}
+                <Button
+                  size="sm"
+                  variant="outline"
+                  className="flex-1 border-2 border-white/50 text-white hover:bg-white/10 px-6 py-3 text-sm"
+                  asChild
+                >
+                  <Link href="#countries">
+                    <Globe className="mr-2 h-4 w-4" />
+                    Select Country
+                  </Link>
+                </Button>
+              </div>
             </div>
           </div>
         </div>
