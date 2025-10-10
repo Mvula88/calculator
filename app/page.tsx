@@ -91,24 +91,6 @@ export default function HomePage() {
             <p className="text-left sm:text-center text-xl text-white mb-6 leading-relaxed bg-black/30 backdrop-blur-sm rounded-lg p-4">
               <strong>What we provide:</strong> Educational resources and guides to help you understand the process of importing a quality used car from Japan to Namibia. From research to documentation.
             </p>
-            {/* Service Highlights */}
-            <div className="grid sm:grid-cols-3 gap-4 mb-10">
-              <div className="bg-white/95 backdrop-blur-sm p-4 rounded-lg shadow-sm border border-gray-200">
-                <Calculator className="h-6 w-6 text-green-600 mx-auto mb-2" />
-                <div className="font-bold text-gray-900">Cost Calculator</div>
-                <div className="text-sm text-gray-600">Calculate all import costs upfront</div>
-              </div>
-              <div className="bg-white/95 backdrop-blur-sm p-4 rounded-lg shadow-sm border border-gray-200">
-                <FileText className="h-6 w-6 text-blue-600 mx-auto mb-2" />
-                <div className="font-bold text-gray-900">Complete Guides</div>
-                <div className="text-sm text-gray-600">Step-by-step import process</div>
-              </div>
-              <div className="bg-white/95 backdrop-blur-sm p-4 rounded-lg shadow-sm border border-gray-200">
-                <Ship className="h-6 w-6 text-purple-600 mx-auto mb-2" />
-                <div className="font-bold text-gray-900">Container Sharing</div>
-                <div className="text-sm text-gray-600">Find platforms to share containers</div>
-              </div>
-            </div>
 
             {/* Critical Warning Banner */}
             <div className="max-w-4xl mx-auto mb-8">
@@ -138,7 +120,6 @@ export default function HomePage() {
                   asChild
                 >
                   <Link href="/import-guide">
-                    <span className="mr-3 text-2xl">🎁</span>
                     Get FREE Import Guide
                     <ArrowRight className="ml-3 h-6 w-6" />
                   </Link>
@@ -166,7 +147,7 @@ export default function HomePage() {
                 <Button
                   size="sm"
                   variant="outline"
-                  className="flex-1 border-2 border-white/50 text-white hover:bg-white/10 px-6 py-3 text-sm"
+                  className="flex-1 bg-white/20 backdrop-blur-sm border-2 border-white/50 text-white hover:bg-white hover:text-blue-700 px-6 py-3 text-sm"
                   asChild
                 >
                   <Link href="#countries">
@@ -175,6 +156,36 @@ export default function HomePage() {
                   </Link>
                 </Button>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      {/* Service Highlights */}
+      <section className="py-16 bg-gradient-to-b from-white to-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+              Everything You Need to Import Successfully
+            </h2>
+            <p className="text-xl text-gray-600">
+              Professional tools and comprehensive resources
+            </p>
+          </div>
+          <div className="grid sm:grid-cols-3 gap-6 max-w-5xl mx-auto">
+            <div className="bg-white p-6 rounded-lg shadow-lg border-2 border-gray-200 hover:border-green-400 transition-all hover:shadow-xl">
+              <Calculator className="h-8 w-8 text-green-600 mx-auto mb-3" />
+              <div className="font-bold text-gray-900 text-lg mb-2">Cost Calculator</div>
+              <div className="text-sm text-gray-600">Calculate all import costs upfront</div>
+            </div>
+            <div className="bg-white p-6 rounded-lg shadow-lg border-2 border-gray-200 hover:border-blue-400 transition-all hover:shadow-xl">
+              <FileText className="h-8 w-8 text-blue-600 mx-auto mb-3" />
+              <div className="font-bold text-gray-900 text-lg mb-2">Complete Guides</div>
+              <div className="text-sm text-gray-600">Step-by-step import process</div>
+            </div>
+            <div className="bg-white p-6 rounded-lg shadow-lg border-2 border-gray-200 hover:border-purple-400 transition-all hover:shadow-xl">
+              <Ship className="h-8 w-8 text-purple-600 mx-auto mb-3" />
+              <div className="font-bold text-gray-900 text-lg mb-2">Container Sharing</div>
+              <div className="text-sm text-gray-600">Find platforms to share containers</div>
             </div>
           </div>
         </div>
