@@ -159,35 +159,12 @@ export default function ZambiaGuidePage() {
       <h1 className="sr-only">Import Cars from Japan to Zambia 2024 - Complete Cross-Border Guide | Save K2M</h1>
 
       <main className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-50 overflow-x-hidden" itemScope itemType="https://schema.org/Guide">
-      {/* Sticky Navigation */}
-      <nav className="sticky top-0 z-50 bg-white border-b border-slate-200 shadow-sm">
-        <div className="max-w-7xl mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
-            {/* Logo/Brand */}
-            <Link href="/" className="flex items-center gap-2 group">
-              <div className="text-2xl font-bold text-blue-600 group-hover:text-blue-700 transition-colors">
-                Impota
-              </div>
-            </Link>
-
-            {/* Right side navigation */}
-            <div className="flex items-center gap-4">
-              <Link
-                href="/contact"
-                className="text-slate-600 hover:text-blue-600 transition-colors text-sm font-medium"
-              >
-                Contact
-              </Link>
-              <Link
-                href="/portal/login"
-                className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-all duration-300 hover:shadow-lg text-sm"
-              >
-                Login
-              </Link>
-            </div>
-          </div>
-        </div>
-      </nav>
+      <GuideHeader
+        country="zm"
+        trusted="Real Import Experience, Real Guidance"
+        primaryColor="emerald-600"
+        secondaryColor="teal-600"
+      />
 
       {/* Modern Hero Section - Mobile Optimized */}
       <section className="relative overflow-hidden w-full min-h-0 md:min-h-screen flex items-center py-16 md:py-0">
