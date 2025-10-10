@@ -180,7 +180,7 @@ export default function PublicImportGuide() {
           </Card>
         </section>
 
-        {/* Import Terms Dictionary */}
+        {/* Import Terms Dictionary - Preview */}
         <section className="mb-20">
           <div className="mb-8">
             <h2 className="text-3xl font-bold text-slate-900 mb-3">
@@ -191,16 +191,14 @@ export default function PublicImportGuide() {
             </p>
           </div>
 
-          <div className="grid sm:grid-cols-2 gap-4">
+          <div className="grid sm:grid-cols-2 gap-4 mb-6">
             {[
-              { term: 'FOB Price', definition: "The car's price in Japan before shipping" },
-              { term: 'CIF Value', definition: 'Car price + shipping + insurance costs' },
+              { term: 'FOB Price', definition: "Free On Board - the car's price in Japan up to loading on ship" },
+              { term: 'CIF Value', definition: 'Cost, Insurance & Freight - car price + shipping + insurance to destination' },
               { term: 'ICD', definition: 'Import Customs Duty - main import tax (25% in Namibia)' },
-              { term: 'ENV Levy', definition: 'Environmental levy on vehicle imports' },
-              { term: 'ADV', definition: 'Ad Valorem tax - percentage-based import tax' },
-              { term: 'VAT', definition: 'Value Added Tax on imported goods (15-16%)' },
-              { term: 'Clearing Agent', definition: 'Company that handles customs paperwork for you' },
-              { term: 'Bill of Lading', definition: 'Shipping document proving ownership' },
+              { term: 'Landed Cost', definition: 'Total cost to get the car out of port, before registration' },
+              { term: 'Bill of Lading (B/L)', definition: 'Key shipping document and proof of shipment/ownership' },
+              { term: 'Clearing Agent', definition: 'Licensed professional handling customs processes' },
             ].map((item, idx) => (
               <Card key={idx} className="p-4 border border-slate-200 hover:border-blue-200 hover:shadow-sm transition-all">
                 <h4 className="font-semibold text-slate-900 mb-1">{item.term}</h4>
@@ -208,6 +206,51 @@ export default function PublicImportGuide() {
               </Card>
             ))}
           </div>
+
+          {/* CTA to see full dictionary */}
+          <Card className="border-2 border-purple-200 overflow-hidden">
+            <div className="bg-gradient-to-br from-purple-50 to-pink-50 p-8 text-center">
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-purple-100 border border-purple-200 rounded-full text-sm font-semibold text-purple-700 mb-4">
+                <BookOpen className="h-4 w-4" />
+                Complete Import Terms Dictionary
+              </div>
+              <h3 className="text-2xl font-bold text-slate-900 mb-3">
+                60+ Additional Import Terms Inside
+              </h3>
+              <p className="text-slate-700 max-w-2xl mx-auto mb-6">
+                Get full access to our comprehensive dictionary covering <strong>Auction Reports, Shipping Logistics, Customs Documentation, Port Handling,</strong> and more—organized by category for easy learning.
+              </p>
+
+              <div className="grid sm:grid-cols-3 gap-4 mb-8 max-w-3xl mx-auto">
+                <div className="bg-white rounded-lg p-4 border border-purple-100">
+                  <div className="text-xl font-bold text-purple-600 mb-1">Auction Terms</div>
+                  <div className="text-sm text-slate-600">Grade systems, panel maps, chassis codes</div>
+                </div>
+                <div className="bg-white rounded-lg p-4 border border-purple-100">
+                  <div className="text-xl font-bold text-purple-600 mb-1">Shipping & Logistics</div>
+                  <div className="text-sm text-slate-600">Ro-Ro, containers, ETD/ETA, carriers</div>
+                </div>
+                <div className="bg-white rounded-lg p-4 border border-purple-100">
+                  <div className="text-xl font-bold text-purple-600 mb-1">Customs & Docs</div>
+                  <div className="text-sm text-slate-600">NamRA, HS codes, SAD 500, certificates</div>
+                </div>
+              </div>
+
+              <ValidatedCheckoutButton
+                tier="mastery"
+                country="na"
+                size="lg"
+                className="bg-purple-600 hover:bg-purple-700 text-white text-lg font-bold px-8 py-6"
+              >
+                <Sparkles className="h-5 w-5 mr-2" />
+                Get Full Access to All 70+ Terms - N$850
+              </ValidatedCheckoutButton>
+
+              <p className="mt-4 text-sm text-slate-600">
+                Includes: Complete terms dictionary + 4 vehicle examples + advanced calculator + 20+ documents
+              </p>
+            </div>
+          </Card>
         </section>
 
         {/* Country Restrictions */}
