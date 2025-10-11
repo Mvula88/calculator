@@ -86,27 +86,6 @@ export default function PublicImportGuide() {
             </p>
           </div>
 
-          {/* Value Props - Refined */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-4xl mx-auto">
-            {[
-              { title: 'Real Data', desc: 'Actual import costs', color: 'blue' },
-              { title: '4 Countries', desc: 'NA • ZA • BW • ZM', color: 'blue' },
-              { title: 'Save N$40K', desc: 'Container sharing', color: 'blue' }
-            ].map((item, idx) => (
-              <div
-                key={idx}
-                className="group bg-white/80 backdrop-blur-sm border border-slate-200/60 rounded-2xl p-5 sm:p-6 text-center transition-all duration-300 hover:shadow-xl hover:scale-[1.02] hover:border-blue-300 hover:bg-white cursor-pointer"
-              >
-                <div className="text-2xl sm:text-3xl font-extrabold text-blue-600 mb-1 group-hover:scale-105 transition-transform duration-300">
-                  {item.title}
-                </div>
-                <div className="text-sm text-slate-600 group-hover:text-slate-900 transition-colors">
-                  {item.desc}
-                </div>
-              </div>
-            ))}
-          </div>
-
           {/* Scroll Indicator */}
           <div className="flex justify-center mt-12 sm:mt-16">
             <a href="#navigation" className="animate-bounce">
