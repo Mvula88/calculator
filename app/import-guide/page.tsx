@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
+import Image from 'next/image'
 import PDFViewer from '@/components/PDFViewer'
 import ValidatedCheckoutButton from '@/components/validated-checkout-button'
 import {
@@ -28,10 +29,15 @@ export default function PublicImportGuide() {
         <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             {/* Logo/Brand */}
-            <Link href="/" className="flex items-center gap-2 group">
-              <div className="text-2xl font-bold text-blue-600 group-hover:text-blue-700 transition-colors">
-                Impota
-              </div>
+            <Link href="/" className="flex items-center">
+              <Image
+                src="/impota-logo.png"
+                alt="IMPOTA"
+                width={150}
+                height={40}
+                className="h-8 w-auto"
+                priority
+              />
             </Link>
 
             {/* Right side navigation */}
@@ -503,7 +509,7 @@ export default function PublicImportGuide() {
                 </li>
                 <li className="flex items-start gap-3">
                   <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
-                  <span>Find container partners via ContShare.com</span>
+                  <span>Find container partners via <a href="https://contshare.com" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline font-semibold">ContShare.com</a></span>
                 </li>
               </ul>
             </div>
