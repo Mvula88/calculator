@@ -1,4 +1,7 @@
--- Cleanup script to remove duplicate entitlements
+-- Cleanup s
+
+
+cript to remove duplicate entitlements
 -- Run this in Supabase SQL Editor to clean existing duplicates
 
 -- First, identify duplicates (keeping the most recent one)
