@@ -209,32 +209,90 @@ export default function JapanAuctionsClientPage() {
         </div>
       </div>
 
-      {/* Tab Navigation - Mobile Optimized */}
-      <div className="flex gap-2 bg-gray-100 p-1 rounded-lg mb-6">
-        <Button
-          variant={selectedTab === 'guide' ? 'default' : 'ghost'}
-          onClick={() => setSelectedTab('guide')}
-          className="flex-1 text-xs sm:text-sm"
-        >
-          <Info className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
-          Guide
-        </Button>
-        <Button
-          variant={selectedTab === 'auction-sheet' ? 'default' : 'ghost'}
-          onClick={() => setSelectedTab('auction-sheet')}
-          className="flex-1 text-xs sm:text-sm"
-        >
-          <FileText className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
-          Auction Sheet
-        </Button>
-        <Button
-          variant={selectedTab === 'exporters' ? 'default' : 'ghost'}
-          onClick={() => setSelectedTab('exporters')}
-          className="flex-1 text-xs sm:text-sm"
-        >
-          <Building2 className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
-          Exporters
-        </Button>
+      {/* Explore Sections Notice */}
+      <Card className="mb-4 bg-gradient-to-r from-blue-50 to-purple-50 border-2 border-blue-200">
+        <div className="p-3 sm:p-4">
+          <div className="flex items-start gap-2 sm:gap-3">
+            <div className="bg-blue-600 text-white rounded-full p-1.5 sm:p-2 flex-shrink-0">
+              <Info className="h-4 w-4 sm:h-5 sm:w-5" />
+            </div>
+            <div className="flex-1">
+              <h3 className="font-bold text-sm sm:text-base text-blue-900 mb-1">
+                Explore All 3 Sections Below
+              </h3>
+              <p className="text-xs sm:text-sm text-blue-800 mb-2">
+                This guide is organized into three comprehensive sections. Make sure to explore each tab to get the complete picture.
+              </p>
+              <div className="flex flex-wrap gap-2 text-xs">
+                <span className="flex items-center gap-1 bg-white/70 px-2 py-1 rounded-full">
+                  <Info className="h-3 w-3 text-blue-600" />
+                  <span className="font-medium">1. Guide</span>
+                </span>
+                <span className="flex items-center gap-1 bg-white/70 px-2 py-1 rounded-full">
+                  <FileText className="h-3 w-3 text-purple-600" />
+                  <span className="font-medium">2. Auction Sheet</span>
+                </span>
+                <span className="flex items-center gap-1 bg-white/70 px-2 py-1 rounded-full">
+                  <Building2 className="h-3 w-3 text-green-600" />
+                  <span className="font-medium">3. Exporters</span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </Card>
+
+      {/* Tab Navigation - Enhanced Visibility */}
+      <div className="mb-6">
+        <div className="flex items-center justify-between mb-2">
+          <p className="text-xs sm:text-sm font-medium text-gray-600">
+            Select a section to explore:
+          </p>
+          <span className="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full font-medium">
+            {selectedTab === 'guide' ? '1' : selectedTab === 'auction-sheet' ? '2' : '3'} of 3
+          </span>
+        </div>
+        <div className="flex gap-2 bg-gradient-to-r from-gray-100 to-gray-200 p-2 rounded-xl shadow-sm border border-gray-300">
+          <Button
+            variant={selectedTab === 'guide' ? 'default' : 'ghost'}
+            onClick={() => setSelectedTab('guide')}
+            className={`flex-1 text-xs sm:text-sm transition-all duration-200 ${
+              selectedTab === 'guide'
+                ? 'shadow-md scale-105'
+                : 'hover:bg-white/70 hover:scale-102'
+            }`}
+          >
+            <Info className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
+            <span className="hidden sm:inline">Guide</span>
+            <span className="sm:hidden">Guide</span>
+          </Button>
+          <Button
+            variant={selectedTab === 'auction-sheet' ? 'default' : 'ghost'}
+            onClick={() => setSelectedTab('auction-sheet')}
+            className={`flex-1 text-xs sm:text-sm transition-all duration-200 ${
+              selectedTab === 'auction-sheet'
+                ? 'shadow-md scale-105'
+                : 'hover:bg-white/70 hover:scale-102'
+            }`}
+          >
+            <FileText className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
+            <span className="hidden sm:inline">Auction Sheet</span>
+            <span className="sm:hidden">Sheet</span>
+          </Button>
+          <Button
+            variant={selectedTab === 'exporters' ? 'default' : 'ghost'}
+            onClick={() => setSelectedTab('exporters')}
+            className={`flex-1 text-xs sm:text-sm transition-all duration-200 ${
+              selectedTab === 'exporters'
+                ? 'shadow-md scale-105'
+                : 'hover:bg-white/70 hover:scale-102'
+            }`}
+          >
+            <Building2 className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
+            <span className="hidden sm:inline">Exporters</span>
+            <span className="sm:hidden">Exporters</span>
+          </Button>
+        </div>
       </div>
 
       {selectedTab === 'guide' ? (
