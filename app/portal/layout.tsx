@@ -5,20 +5,21 @@ import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { useAuthImmediate } from '@/lib/hooks/use-auth-immediate'
 import SimpleContentProtection from '@/components/SimpleContentProtection'
+import PortalScrollToTop from '@/components/PortalScrollToTop'
 import { createClient } from '@/lib/supabase/client'
-import { 
-  Calculator, 
-  Users, 
-  BookOpen, 
-  Package, 
-  Home, 
-  LogOut, 
-  Star, 
+import {
+  Calculator,
+  Users,
+  BookOpen,
+  Package,
+  Home,
+  LogOut,
+  Star,
   FileText,
   Ship,
   Menu,
   X,
-  Gavel 
+  Gavel
 } from 'lucide-react'
 import Image from 'next/image'
 export default function SimplePortalLayout({
@@ -271,6 +272,7 @@ export default function SimplePortalLayout({
           </div>
         </main>
       </div>
+      <PortalScrollToTop />
     </div>
     </SimpleContentProtection>
   )
