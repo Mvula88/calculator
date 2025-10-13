@@ -8,6 +8,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import Link from 'next/link'
 import VehiclePricingDatabase from '@/components/portal/VehiclePricingDatabase'
+import PortalPageNavigation from '@/components/portal/PortalPageNavigation'
 import {
   Calculator,
   DollarSign,
@@ -1386,6 +1387,11 @@ export default function DutyCalculator() {
             </ul>
           </Card>
         </div>
+      </div>
+
+      {/* Portal Page Navigation */}
+      <div className="px-4 sm:px-6">
+        <PortalPageNavigation currentPath="/portal/calculator" />
       </div>
     </div>
   )

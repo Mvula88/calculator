@@ -17,6 +17,7 @@ import CriticalImportWarnings from '@/components/portal/CriticalImportWarnings'
 import { CountrySelector, type Country } from '@/components/guide/CountrySelector'
 import LastUpdated from '@/components/portal/LastUpdated'
 import SupportContact from '@/components/portal/SupportContact'
+import PortalPageNavigation from '@/components/portal/PortalPageNavigation'
 import { namibiaTimelineSteps } from '@/lib/guide-data/namibia-timeline'
 import { southAfricaTimelineSteps } from '@/lib/guide-data/south-africa-timeline'
 import { botswanaTimelineSteps } from '@/lib/guide-data/botswana-timeline'
@@ -454,6 +455,9 @@ export default function GuidePage() {
           <p>Need help? Use the emergency contacts section or consult with your clearing agent.</p>
           <p className="mt-2">This guide is specifically for {currentCountryData.port} port imports to {currentCountryData.name}. Other ports may have different procedures.</p>
         </div>
+
+        {/* Portal Page Navigation */}
+        <PortalPageNavigation currentPath="/portal/guide" />
       </div>
     </main>
   )

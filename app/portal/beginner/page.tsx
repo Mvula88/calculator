@@ -17,6 +17,7 @@ import {
   ChevronDown,
   ChevronUp
 } from 'lucide-react'
+import PortalPageNavigation from '@/components/portal/PortalPageNavigation'
 
 export default function BeginnerGuidePage() {
   const [showAllTerms, setShowAllTerms] = useState(false)
@@ -1094,6 +1095,9 @@ export default function BeginnerGuidePage() {
           </div>
         </CardContent>
       </Card>
+
+      {/* Page Navigation */}
+      <PortalPageNavigation currentPath="/portal/beginner" />
     </div>
   )
 }

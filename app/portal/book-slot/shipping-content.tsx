@@ -1,6 +1,7 @@
 'use client'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
+import PortalPageNavigation from '@/components/portal/PortalPageNavigation'
 import {
   Ship,
   Phone,
@@ -419,6 +420,9 @@ export default function ShippingContent() {
           </div>
         </div>
       </Card>
+
+      {/* Portal Page Navigation */}
+      <PortalPageNavigation currentPath="/portal/book-slot" />
     </div>
   )
 }

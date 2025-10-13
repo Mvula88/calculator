@@ -2,6 +2,7 @@
 import { useState } from 'react'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
+import PortalPageNavigation from '@/components/portal/PortalPageNavigation'
 import {
   Users,
   MapPin,
@@ -1166,6 +1167,9 @@ export default function AgentsContent() {
           </div>
         </div>
       </Card>
+
+      {/* Portal Page Navigation */}
+      <PortalPageNavigation currentPath="/portal/agents" />
     </div>
   )
 }

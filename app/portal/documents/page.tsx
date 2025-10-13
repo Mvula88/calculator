@@ -6,6 +6,7 @@ import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import PDFViewer from '@/components/PDFViewer'
 import RealImportExamples from '@/components/portal/RealImportExamples'
+import PortalPageNavigation from '@/components/portal/PortalPageNavigation'
 import {
   FileText,
   Lock,
@@ -357,6 +358,12 @@ export default function DocumentsPage() {
       <div className="mt-8 px-4 sm:px-6 max-w-7xl mx-auto">
         <RealImportExamples />
       </div>
+
+      {/* Portal Page Navigation */}
+      <div className="px-4 sm:px-6">
+        <PortalPageNavigation currentPath="/portal/documents" />
+      </div>
+
       {/* PDF Viewer Modal */}
       {selectedDocument && (
         <PDFViewer

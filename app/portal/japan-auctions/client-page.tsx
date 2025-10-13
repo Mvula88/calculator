@@ -5,6 +5,7 @@ import { useAuth } from '@/lib/hooks/use-auth'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
+import PortalPageNavigation from '@/components/portal/PortalPageNavigation'
 import {
   AlertCircle,
   CheckCircle,
@@ -1331,6 +1332,9 @@ export default function JapanAuctionsClientPage() {
           </div>
         </Card>
       </div>
+
+      {/* Portal Page Navigation */}
+      <PortalPageNavigation currentPath="/portal/japan-auctions" />
     </div>
   )
 }
