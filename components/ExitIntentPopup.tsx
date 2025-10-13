@@ -141,45 +141,45 @@ export default function ExitIntentPopup({ country: propCountry }: ExitIntentPopu
         aria-hidden="true"
       />
 
-      {/* Professional Modal */}
-      <div className="fixed inset-0 flex items-center justify-center z-[9999] p-4 sm:p-6 lg:p-8 overflow-y-auto" role="dialog" aria-modal="true">
-        <div className="bg-white rounded-3xl shadow-2xl w-full max-w-xl mx-auto my-auto animate-scaleUp overflow-hidden max-h-[90vh] flex flex-col">
-          {/* Elegant Header */}
-          <div className="relative bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 p-8 text-white">
-            {/* Close Button - More Visible */}
+      {/* Professional Modal - Mobile Optimized */}
+      <div className="fixed inset-0 flex items-center justify-center z-[9999] p-3 sm:p-6 lg:p-8 overflow-y-auto safe-padding-top safe-padding-bottom" role="dialog" aria-modal="true">
+        <div className="bg-white rounded-2xl sm:rounded-3xl shadow-2xl w-full max-w-xl mx-auto my-auto animate-scaleUp overflow-hidden max-h-[95vh] sm:max-h-[90vh] flex flex-col">
+          {/* Elegant Header - Mobile Optimized */}
+          <div className="relative bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 p-6 sm:p-8 text-white">
+            {/* Close Button - Touch Optimized */}
             <button
               onClick={handleClose}
-              className="absolute top-4 right-4 p-2 bg-black/20 hover:bg-black/30 rounded-full transition-all duration-200 group border border-white/30"
+              className="absolute top-3 right-3 sm:top-4 sm:right-4 min-h-touch min-w-touch p-2.5 sm:p-2 bg-black/20 hover:bg-black/30 active:bg-black/40 rounded-full transition-all duration-200 group border border-white/30"
               aria-label="Close offer"
             >
-              <X className="h-6 w-6 text-white drop-shadow-lg group-hover:rotate-90 transition-transform duration-200" />
+              <X className="h-5 w-5 sm:h-6 sm:w-6 text-white drop-shadow-lg group-hover:rotate-90 transition-transform duration-200" />
             </button>
 
             {/* Discount Badge */}
-            <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-3 py-1.5 rounded-full text-sm font-medium mb-4">
-              <Sparkles className="h-4 w-4" />
+            <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-3 py-1.5 rounded-full text-xs sm:text-sm font-medium mb-3 sm:mb-4">
+              <Sparkles className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
               <span>LIMITED TIME OFFER</span>
             </div>
 
             {/* Main Heading */}
-            <h2 className="text-3xl font-bold mb-2">
+            <h2 className="text-2xl sm:text-3xl font-bold mb-2">
               Save 50% Today
             </h2>
-            <p className="text-white/90 text-lg">
+            <p className="text-white/90 text-base sm:text-lg">
               Launch pricing ends {timeLeft.includes('day') ? `in ${timeLeft.split(',')[0]}` : 'soon'}
             </p>
           </div>
 
-          {/* Content - Scrollable */}
-          <div className="p-6 sm:p-8 lg:p-10 space-y-6 overflow-y-auto flex-1">
-            {/* Price Display */}
+          {/* Content - Scrollable - Mobile Optimized */}
+          <div className="p-5 sm:p-8 lg:p-10 space-y-5 sm:space-y-6 overflow-y-auto flex-1">
+            {/* Price Display - Mobile Optimized */}
             <div className="text-center">
-              <div className="flex items-center justify-center gap-4 mb-2">
-                <span className="text-3xl text-gray-400 line-through font-light">{currency.symbol}{currency.originalPrice}</span>
-                <span className="text-5xl font-bold text-gray-900">{currency.symbol}{currency.price}</span>
+              <div className="flex items-center justify-center gap-3 sm:gap-4 mb-2">
+                <span className="text-2xl sm:text-3xl text-gray-400 line-through font-light">{currency.symbol}{currency.originalPrice}</span>
+                <span className="text-4xl sm:text-5xl font-bold text-gray-900">{currency.symbol}{currency.price}</span>
               </div>
-              <p className="text-sm text-gray-600 flex items-center justify-center gap-1">
-                <Clock className="h-3.5 w-3.5" />
+              <p className="text-xs sm:text-sm text-gray-600 flex items-center justify-center gap-1">
+                <Clock className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
                 Offer expires October 31, 2025
               </p>
             </div>
@@ -220,20 +220,20 @@ export default function ExitIntentPopup({ country: propCountry }: ExitIntentPopu
               </div>
             </div>
 
-            {/* Action Buttons */}
+            {/* Action Buttons - Touch Optimized */}
             <div className="space-y-3 pt-2">
               <ValidatedCheckoutButton
                 tier="mastery"
                 country={country || 'na'}
-                className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold py-6 text-base shadow-lg hover:shadow-xl transition-all duration-200 group"
+                className="w-full min-h-touch-lg bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 active:from-indigo-800 active:to-purple-800 text-white font-semibold py-4 sm:py-6 px-6 text-base sm:text-lg shadow-lg hover:shadow-xl active:shadow-md transition-all duration-200 group"
               >
                 <span>Get Instant Access</span>
-                <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5 group-hover:translate-x-1 transition-transform" />
               </ValidatedCheckoutButton>
 
               <button
                 onClick={handleClose}
-                className="w-full text-gray-500 hover:text-gray-700 text-sm font-medium transition-colors duration-200"
+                className="w-full min-h-touch text-gray-500 hover:text-gray-700 active:text-gray-800 text-sm sm:text-base font-medium transition-colors duration-200 py-3"
               >
                 Continue to website
               </button>

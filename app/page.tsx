@@ -61,8 +61,8 @@ export default function HomePage() {
   return (
     <>
       <GuideHeader country="na" showCountrySelector={false} />
-      {/* Hero Section - Clear Value Proposition */}
-      <section className="relative pt-20 pb-32 overflow-hidden">
+      {/* Hero Section - Mobile Optimized */}
+      <section className="relative pt-24 pb-16 sm:pt-28 sm:pb-24 md:pt-32 md:pb-32 overflow-hidden mobile-section">
         {/* Background Image */}
         <div
           className="absolute inset-0 z-0"
@@ -74,39 +74,39 @@ export default function HomePage() {
           }}
         >
           {/* Overlay for better text readability */}
-          <div className="absolute inset-0 bg-gradient-to-b from-blue-900/70 via-blue-900/50 to-gray-900/70"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-blue-900/75 via-blue-900/60 to-gray-900/75"></div>
         </div>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="max-w-7xl mx-auto mobile-padding relative z-10">
           <div className="text-center max-w-4xl mx-auto">
             {/* What We Do - Crystal Clear */}
-            <div className="mb-6 inline-flex items-center gap-2 bg-white/90 text-blue-800 px-4 py-2 rounded-full backdrop-blur-sm">
-              <Globe className="h-4 w-4" />
-              <span className="font-semibold">Educational Resources & Import Guides</span>
+            <div className="mb-4 sm:mb-6 inline-flex items-center gap-2 bg-white/95 text-blue-800 px-4 py-2.5 sm:py-2 rounded-full backdrop-blur-sm shadow-lg">
+              <Globe className="h-4 w-4 flex-shrink-0" />
+              <span className="font-semibold text-xs sm:text-sm">Educational Resources & Import Guides</span>
             </div>
-            <h1 className="text-center text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-6 drop-shadow-lg leading-tight">
+            <h1 className="text-center text-3xl xs:text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-4 sm:mb-6 drop-shadow-lg leading-tight">
               <span className="block">Learn How to Import Cars</span>
-              <span className="block mb-2">from Japan</span>
-              <span className="block text-yellow-300 mt-2 text-2xl sm:text-3xl">Step-by-Step Guide for Namibia</span>
+              <span className="block mb-1 sm:mb-2">from Japan</span>
+              <span className="block text-yellow-300 mt-1 sm:mt-2 text-xl xs:text-2xl sm:text-3xl md:text-4xl">Step-by-Step Guide for Namibia</span>
             </h1>
-            <p className="text-left sm:text-center text-xl text-white mb-6 leading-relaxed bg-black/30 backdrop-blur-sm rounded-lg p-4">
+            <p className="text-left sm:text-center text-base sm:text-lg md:text-xl text-white mb-6 sm:mb-8 leading-relaxed bg-black/40 backdrop-blur-sm rounded-lg p-4 sm:p-5">
               <strong>What we provide:</strong> Educational resources and guides to help you understand the process of importing a quality used car from Japan to Namibia. From research to documentation.
             </p>
 
-            {/* CTA Buttons - Free Guide as Primary */}
-            <div className="flex flex-col gap-6 justify-center items-center">
+            {/* CTA Buttons - Free Guide as Primary - Mobile Optimized */}
+            <div className="flex flex-col gap-4 sm:gap-6 justify-center items-center">
               {/* PRIMARY CTA - FREE GUIDE (Big, Yellow, Prominent) */}
               <div className="w-full max-w-md">
                 <Button
                   size="lg"
-                  className="w-full bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-500 hover:to-yellow-600 text-gray-900 font-bold px-10 py-8 text-xl border-3 border-yellow-300 shadow-2xl hover:shadow-yellow-500/50 transition-all duration-300 hover:scale-105"
+                  className="w-full min-h-touch-lg bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-500 hover:to-yellow-600 text-gray-900 font-bold px-6 py-4 sm:px-10 sm:py-6 text-lg sm:text-xl border-3 border-yellow-300 shadow-2xl hover:shadow-yellow-500/50 transition-all duration-300 hover:scale-105 active:scale-95"
                   asChild
                 >
                   <Link href="/import-guide">
                     Get FREE Import Guide
-                    <ArrowRight className="ml-3 h-6 w-6" />
+                    <ArrowRight className="ml-2 sm:ml-3 h-5 w-5 sm:h-6 sm:w-6" />
                   </Link>
                 </Button>
-                <p className="text-white text-sm mt-2 text-center font-semibold">
+                <p className="text-white text-xs sm:text-sm mt-2 text-center font-semibold drop-shadow">
                   No signup required • Instant access
                 </p>
               </div>
@@ -117,7 +117,7 @@ export default function HomePage() {
                   <Button
                     size="sm"
                     variant="outline"
-                    className="flex-1 bg-white/10 backdrop-blur-sm border-2 border-white/50 text-white hover:bg-white hover:text-blue-700 px-6 py-3 text-sm"
+                    className="flex-1 min-h-touch bg-white/10 backdrop-blur-sm border-2 border-white/50 text-white hover:bg-white hover:text-blue-700 px-4 py-3 sm:px-6 sm:py-3 text-sm sm:text-base transition-all active:scale-95"
                     asChild
                   >
                     <Link href="/auth/login">
@@ -129,7 +129,7 @@ export default function HomePage() {
                 <Button
                   size="sm"
                   variant="outline"
-                  className="flex-1 bg-white/20 backdrop-blur-sm border-2 border-white/50 text-white hover:bg-white hover:text-blue-700 px-6 py-3 text-sm"
+                  className="flex-1 min-h-touch bg-white/20 backdrop-blur-sm border-2 border-white/50 text-white hover:bg-white hover:text-blue-700 px-4 py-3 sm:px-6 sm:py-3 text-sm sm:text-base transition-all active:scale-95"
                   asChild
                 >
                   <Link href="#countries">
@@ -142,115 +142,115 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-      {/* Service Highlights */}
-      <section className="py-16 bg-gradient-to-b from-white to-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-10">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+      {/* Service Highlights - Mobile Optimized */}
+      <section className="mobile-section bg-gradient-to-b from-white to-gray-50">
+        <div className="max-w-7xl mx-auto mobile-padding">
+          <div className="text-center mb-8 sm:mb-10">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">
               Everything You Need to Import Successfully
             </h2>
-            <p className="text-xl text-gray-600">
+            <p className="text-lg sm:text-xl text-gray-600">
               Professional tools and comprehensive resources
             </p>
           </div>
-          <div className="grid sm:grid-cols-3 gap-6 max-w-5xl mx-auto">
-            <div className="bg-white p-6 rounded-lg shadow-lg border-2 border-gray-200 hover:border-green-400 transition-all hover:shadow-xl">
-              <Calculator className="h-8 w-8 text-green-600 mx-auto mb-3" />
-              <div className="font-bold text-gray-900 text-lg mb-2">Cost Calculator</div>
-              <div className="text-sm text-gray-600">Calculate all import costs upfront</div>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 max-w-5xl mx-auto">
+            <div className="bg-white mobile-card shadow-lg border-2 border-gray-200 hover:border-green-400 transition-all hover:shadow-xl active:scale-95">
+              <Calculator className="h-10 w-10 sm:h-8 sm:w-8 text-green-600 mx-auto mb-3" />
+              <div className="font-bold text-gray-900 text-lg sm:text-base md:text-lg mb-2 text-center">Cost Calculator</div>
+              <div className="text-sm text-gray-600 text-center">Calculate all import costs upfront</div>
             </div>
-            <div className="bg-white p-6 rounded-lg shadow-lg border-2 border-gray-200 hover:border-blue-400 transition-all hover:shadow-xl">
-              <FileText className="h-8 w-8 text-blue-600 mx-auto mb-3" />
-              <div className="font-bold text-gray-900 text-lg mb-2">Complete Guides</div>
-              <div className="text-sm text-gray-600">Step-by-step import process</div>
+            <div className="bg-white mobile-card shadow-lg border-2 border-gray-200 hover:border-blue-400 transition-all hover:shadow-xl active:scale-95">
+              <FileText className="h-10 w-10 sm:h-8 sm:w-8 text-blue-600 mx-auto mb-3" />
+              <div className="font-bold text-gray-900 text-lg sm:text-base md:text-lg mb-2 text-center">Complete Guides</div>
+              <div className="text-sm text-gray-600 text-center">Step-by-step import process</div>
             </div>
-            <div className="bg-white p-6 rounded-lg shadow-lg border-2 border-gray-200 hover:border-purple-400 transition-all hover:shadow-xl">
-              <Ship className="h-8 w-8 text-purple-600 mx-auto mb-3" />
-              <div className="font-bold text-gray-900 text-lg mb-2">Container Sharing</div>
-              <div className="text-sm text-gray-600">Find platforms to share containers</div>
+            <div className="bg-white mobile-card shadow-lg border-2 border-gray-200 hover:border-purple-400 transition-all hover:shadow-xl active:scale-95">
+              <Ship className="h-10 w-10 sm:h-8 sm:w-8 text-purple-600 mx-auto mb-3" />
+              <div className="font-bold text-gray-900 text-lg sm:text-base md:text-lg mb-2 text-center">Container Sharing</div>
+              <div className="text-sm text-gray-600 text-center">Find platforms to share containers</div>
             </div>
           </div>
         </div>
       </section>
-      {/* Choose Your Country */}
-      <section id="countries" className="py-20 bg-white scroll-mt-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+      {/* Choose Your Country - Mobile Optimized */}
+      <section id="countries" className="mobile-section bg-white scroll-mt-20">
+        <div className="max-w-7xl mx-auto mobile-padding">
+          <div className="text-center mb-8 sm:mb-12">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">
               Select Your Country to Start
             </h2>
-            <p className="text-xl text-gray-600">
+            <p className="text-base sm:text-lg md:text-xl text-gray-600 mb-3 sm:mb-4">
               View specific import guides for your country
             </p>
-            <div className="mt-4 inline-flex items-center gap-2 bg-blue-100 text-blue-800 px-4 py-2 rounded-full text-sm">
-              <Ship className="h-4 w-4" />
+            <div className="mt-3 sm:mt-4 inline-flex items-center gap-2 bg-blue-100 text-blue-800 px-3 sm:px-4 py-2 rounded-full text-xs sm:text-sm">
+              <Ship className="h-3 w-3 sm:h-4 sm:w-4 flex-shrink-0" />
               <span className="font-semibold">Primary Port: Walvis Bay - Fastest & Most Efficient Route</span>
             </div>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <Link href="/na/guide">
-              <Card className="hover:shadow-xl transition-all cursor-pointer border-2 hover:border-blue-300">
-                <CardContent className="pt-6 text-center">
-                  <div className="text-4xl mb-3">🇳🇦</div>
-                  <h3 className="font-bold text-lg mb-2">Namibia</h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+            <Link href="/na/guide" className="block group">
+              <Card className="hover:shadow-xl transition-all cursor-pointer border-2 hover:border-blue-300 active:scale-95 h-full">
+                <CardContent className="mobile-card text-center">
+                  <div className="text-5xl sm:text-4xl mb-3">🇳🇦</div>
+                  <h3 className="font-bold text-xl sm:text-lg mb-2">Namibia</h3>
                   <p className="text-sm font-semibold text-blue-600 mb-2">Direct to Walvis Bay</p>
-                  <div className="text-xs text-gray-600 space-y-1">
+                  <div className="text-xs sm:text-xs text-gray-600 space-y-1">
                     <p>✓ Home port advantage</p>
                     <p>✓ Fastest clearance</p>
                     <p>✓ Local expertise</p>
                   </div>
-                  <div className="mt-4 text-blue-600 font-semibold">
+                  <div className="mt-4 text-blue-600 font-semibold min-h-touch flex items-center justify-center">
                     View Guide →
                   </div>
                 </CardContent>
               </Card>
             </Link>
-            <Link href="/za/guide">
-              <Card className="hover:shadow-xl transition-all cursor-pointer border-2 hover:border-green-300">
-                <CardContent className="pt-6 text-center">
-                  <div className="text-4xl mb-3">🇿🇦</div>
-                  <h3 className="font-bold text-lg mb-2">South Africa</h3>
+            <Link href="/za/guide" className="block group">
+              <Card className="hover:shadow-xl transition-all cursor-pointer border-2 hover:border-green-300 active:scale-95 h-full">
+                <CardContent className="mobile-card text-center">
+                  <div className="text-5xl sm:text-4xl mb-3">🇿🇦</div>
+                  <h3 className="font-bold text-xl sm:text-lg mb-2">South Africa</h3>
                   <p className="text-sm font-semibold text-blue-600 mb-2">Durban / Walvis Bay</p>
                   <div className="text-xs text-gray-600 space-y-1">
                     <p>✓ Two port options</p>
                     <p>✓ Walvis Bay faster</p>
                     <p>✓ Direct transport home</p>
                   </div>
-                  <div className="mt-4 text-green-600 font-semibold">
+                  <div className="mt-4 text-green-600 font-semibold min-h-touch flex items-center justify-center">
                     View Guide →
                   </div>
                 </CardContent>
               </Card>
             </Link>
-            <Link href="/bw/guide">
-              <Card className="hover:shadow-xl transition-all cursor-pointer border-2 hover:border-yellow-300">
-                <CardContent className="pt-6 text-center">
-                  <div className="text-4xl mb-3">🇧🇼</div>
-                  <h3 className="font-bold text-lg mb-2">Botswana</h3>
+            <Link href="/bw/guide" className="block group">
+              <Card className="hover:shadow-xl transition-all cursor-pointer border-2 hover:border-yellow-300 active:scale-95 h-full">
+                <CardContent className="mobile-card text-center">
+                  <div className="text-5xl sm:text-4xl mb-3">🇧🇼</div>
+                  <h3 className="font-bold text-xl sm:text-lg mb-2">Botswana</h3>
                   <p className="text-sm font-semibold text-blue-600 mb-2">Via Walvis Bay</p>
                   <div className="text-xs text-gray-600 space-y-1">
                     <p>✓ Trans-Kalahari route</p>
                     <p>✓ Faster than Durban</p>
                     <p>✓ Efficient route</p>
                   </div>
-                  <div className="mt-4 text-yellow-600 font-semibold">
+                  <div className="mt-4 text-yellow-600 font-semibold min-h-touch flex items-center justify-center">
                     View Guide →
                   </div>
                 </CardContent>
               </Card>
             </Link>
-            <Link href="/zm/guide">
-              <Card className="hover:shadow-xl transition-all cursor-pointer border-2 hover:border-purple-300">
-                <CardContent className="pt-6 text-center">
-                  <div className="text-4xl mb-3">🇿🇲</div>
-                  <h3 className="font-bold text-lg mb-2">Zambia</h3>
+            <Link href="/zm/guide" className="block group">
+              <Card className="hover:shadow-xl transition-all cursor-pointer border-2 hover:border-purple-300 active:scale-95 h-full">
+                <CardContent className="mobile-card text-center">
+                  <div className="text-5xl sm:text-4xl mb-3">🇿🇲</div>
+                  <h3 className="font-bold text-xl sm:text-lg mb-2">Zambia</h3>
                   <p className="text-sm font-semibold text-blue-600 mb-2">Via Walvis Bay</p>
                   <div className="text-xs text-gray-600 space-y-1">
                     <p>✓ Katima Mulilo corridor</p>
                     <p>✓ Shorter transit time</p>
                     <p>✓ Better port efficiency</p>
                   </div>
-                  <div className="mt-4 text-purple-600 font-semibold">
+                  <div className="mt-4 text-purple-600 font-semibold min-h-touch flex items-center justify-center">
                     View Guide →
                   </div>
                 </CardContent>

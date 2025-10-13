@@ -12,12 +12,42 @@ const config: Config = {
   theme: {
     container: {
       center: true,
-      padding: "2rem",
+      padding: "1rem",
       screens: {
+        sm: "640px",
+        md: "768px",
+        lg: "1024px",
+        xl: "1280px",
         "2xl": "1400px",
       },
     },
     extend: {
+      screens: {
+        'xs': '480px',
+        // Add extra-small breakpoint for very small phones
+      },
+      spacing: {
+        'safe-top': 'env(safe-area-inset-top)',
+        'safe-bottom': 'env(safe-area-inset-bottom)',
+        'safe-left': 'env(safe-area-inset-left)',
+        'safe-right': 'env(safe-area-inset-right)',
+      },
+      minHeight: {
+        'touch': '44px', // Minimum touch target size
+        'touch-lg': '48px',
+      },
+      minWidth: {
+        'touch': '44px',
+        'touch-lg': '48px',
+      },
+      fontSize: {
+        // Mobile-optimized font sizes
+        'xs-mobile': ['0.75rem', { lineHeight: '1.25rem' }],
+        'sm-mobile': ['0.875rem', { lineHeight: '1.375rem' }],
+        'base-mobile': ['1rem', { lineHeight: '1.5rem' }],
+        'lg-mobile': ['1.125rem', { lineHeight: '1.75rem' }],
+        'xl-mobile': ['1.25rem', { lineHeight: '1.875rem' }],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
