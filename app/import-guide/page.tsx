@@ -64,24 +64,34 @@ export default function PublicImportGuide() {
       </nav>
 
       {/* Hero Section - Enhanced */}
-      <section className="relative bg-gradient-to-br from-slate-50 via-white to-blue-50/30 border-b border-slate-100">
-        <div className="absolute inset-0 bg-grid-slate-100 [mask-image:linear-gradient(0deg,white,rgba(255,255,255,0.6))] pointer-events-none" />
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20 lg:py-28 relative">
+      <section className="relative overflow-hidden">
+        {/* Professional Background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-blue-900 to-purple-900"></div>
+        <div className="absolute inset-0 bg-[url('/japan-cars-hero.png')] bg-cover bg-center opacity-20"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-transparent to-black/50"></div>
+
+        {/* Animated Background Elements */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute -top-1/2 -left-1/2 w-full h-full bg-gradient-to-br from-blue-500/10 to-transparent rounded-full animate-pulse"></div>
+          <div className="absolute -bottom-1/2 -right-1/2 w-full h-full bg-gradient-to-tl from-purple-500/10 to-transparent rounded-full animate-pulse delay-1000"></div>
+        </div>
+
+        <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20 lg:py-28 z-20">
           <div className="text-center mb-10 sm:mb-14">
             {/* Badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 border border-blue-200 rounded-full text-sm font-semibold text-blue-700 mb-6 sm:mb-8 shadow-sm">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-sm font-semibold text-white mb-6 sm:mb-8 shadow-lg">
               <BookOpen className="h-4 w-4" />
               Free Import Guide
             </div>
 
             {/* Main Heading */}
-            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 mb-5 sm:mb-7 leading-tight tracking-tight">
+            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white mb-5 sm:mb-7 leading-tight tracking-tight drop-shadow-2xl">
               Import Your Dream Car<br className="hidden sm:block" />
-              <span className="bg-gradient-to-r from-blue-600 to-blue-700 bg-clip-text text-transparent"> Without the Costly Mistakes</span>
+              <span className="bg-gradient-to-r from-emerald-400 via-blue-400 to-purple-400 bg-clip-text text-transparent drop-shadow-2xl"> Without the Costly Mistakes</span>
             </h1>
 
             {/* Subheading */}
-            <p className="text-lg sm:text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed">
+            <p className="text-lg sm:text-xl text-white/90 max-w-2xl mx-auto leading-relaxed drop-shadow-lg">
               Learn how importing from Japan can save you thousands—or cost you everything if done wrong.
             </p>
           </div>
@@ -89,7 +99,7 @@ export default function PublicImportGuide() {
           {/* Scroll Indicator */}
           <div className="flex justify-center mt-12 sm:mt-16">
             <a href="#navigation" className="animate-bounce">
-              <ChevronDown className="h-6 w-6 text-slate-400" />
+              <ChevronDown className="h-6 w-6 text-white/60" />
             </a>
           </div>
         </div>
