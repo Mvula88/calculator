@@ -306,9 +306,9 @@ export default function PublicImportGuide() {
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8 sm:mb-10 max-w-3xl mx-auto">
                 {[
-                  { title: 'Auction Terms', desc: 'Grade systems, panel maps, chassis codes' },
-                  { title: 'Shipping & Logistics', desc: 'Ro-Ro, containers, ETD/ETA, carriers' },
-                  { title: 'Customs & Docs', desc: 'NamRA, HS codes, SAD 500, certificates' }
+                  { title: 'Auction Terms', desc: 'Japanese auction terminology and vehicle grading' },
+                  { title: 'Shipping & Logistics', desc: 'Ocean freight and transportation methods' },
+                  { title: 'Customs & Docs', desc: 'Import documentation and clearance requirements' }
                 ].map((cat, idx) => (
                   <div key={idx} className="bg-white rounded-xl p-4 sm:p-5 border-2 border-purple-100 shadow-md hover:shadow-lg transition-shadow">
                     <div className="text-lg sm:text-xl font-bold text-purple-600 mb-1.5">{cat.title}</div>
