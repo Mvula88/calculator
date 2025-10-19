@@ -110,6 +110,25 @@ export default function JapanAuctionsClientPage() {
       auctionAccess: 'Yes',
       description: 'Very low fees (~¥60,000)',
       highlight: 'Low Fees'
+    },
+    {
+      name: 'Karmen Ltd',
+      website: 'kar-men.com',
+      auctionAccess: 'Likely',
+      description: 'Est. 1995, 31,255+ vehicles, worldwide export'
+    },
+    {
+      name: 'Nikkyo Cars',
+      website: 'nikkyocars.com',
+      auctionAccess: 'Yes',
+      description: 'Stock & auction, Namibia focus, Walvis Bay shipping',
+      highlight: 'Namibia'
+    },
+    {
+      name: 'Autocom Japan',
+      website: 'autocj.co.jp',
+      auctionAccess: 'Likely',
+      description: 'Large inventory, 360° views, comprehensive platform'
     }
   ]
 
