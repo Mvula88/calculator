@@ -52,7 +52,9 @@ export default function SimpleContentProtection({ children, userEmail = 'Portal 
       return false
     }
 
-    // Detect developer tools
+    // Detect developer tools - ONLY ON DESKTOP
+    // Mobile browsers have large UI elements (address bar, toolbars) that cause false positives
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
     const devtools = { open: false }
     const threshold = 160
     const emitEvent = (state: boolean) => {
@@ -64,21 +66,24 @@ export default function SimpleContentProtection({ children, userEmail = 'Portal 
       }
     }
 
-    // Check window size difference
-    const checkDevTools = setInterval(() => {
-      if (window.outerHeight - window.innerHeight > threshold || 
-          window.outerWidth - window.innerWidth > threshold) {
-        if (!devtools.open) {
-          emitEvent(true)
-          devtools.open = true
+    // Check window size difference - SKIP ON MOBILE
+    let checkDevTools: NodeJS.Timeout | null = null
+    if (!isMobile) {
+      checkDevTools = setInterval(() => {
+        if (window.outerHeight - window.innerHeight > threshold ||
+            window.outerWidth - window.innerWidth > threshold) {
+          if (!devtools.open) {
+            emitEvent(true)
+            devtools.open = true
+          }
+        } else {
+          if (devtools.open) {
+            emitEvent(false)
+            devtools.open = false
+          }
         }
-      } else {
-        if (devtools.open) {
-          emitEvent(false)
-          devtools.open = false
-        }
-      }
-    }, 500)
+      }, 500)
+    }
 
     // Disable keyboard shortcuts
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -138,7 +143,7 @@ export default function SimpleContentProtection({ children, userEmail = 'Portal 
       document.removeEventListener('copy', handleCopy)
       window.removeEventListener('beforeprint', handlePrint)
       document.removeEventListener('keydown', handleKeyDown)
-      clearInterval(checkDevTools)
+      if (checkDevTools) clearInterval(checkDevTools)
       clearInterval(warningInterval)
     }
   }, [userEmail])

@@ -55,15 +55,44 @@ export async function POST(req: NextRequest) {
         break
       }
 
-      // Check if user already exists (don't create automatically)
+      // Check if user already exists, create if not
       const { data: { users }, error: listError } = await supabase.auth.admin.listUsers()
       const existingUser = users?.find(u => u.email?.toLowerCase() === email.toLowerCase())
 
-      const userId = existingUser?.id
+      let userId = existingUser?.id
 
-      // Don't create user automatically - they'll create account after payment
+      // IMPORTANT: Create user automatically to prevent orphaned entitlements
+      // This fixes the issue where users pay but never complete registration
       if (!userId) {
+        // Create the user in Supabase Auth
+        const { data: newUser, error: createError } = await supabase.auth.admin.createUser({
+          email: email.toLowerCase(),
+          email_confirm: true, // Auto-confirm since they paid
+          user_metadata: {
+            tier: tier,
+            country: country,
+            stripe_session_id: session.id,
+            created_via: 'webhook_auto',
+            payment_completed: true
+          }
+        })
 
+        if (createError) {
+          // Log error but don't fail webhook - entitlement will still be created
+          console.error('Failed to auto-create user in webhook:', createError)
+        } else if (newUser.user) {
+          userId = newUser.user.id
+
+          // Send password reset email so they can set their password
+          try {
+            await supabase.auth.resetPasswordForEmail(email.toLowerCase(), {
+              redirectTo: `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/auth/reset-password`
+            })
+          } catch (resetError) {
+            // Non-critical error, just log it
+            console.error('Failed to send password reset email:', resetError)
+          }
+        }
       }
 
       // Use idempotency key if available to prevent duplicates
