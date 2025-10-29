@@ -52,38 +52,17 @@ export default function SimpleContentProtection({ children, userEmail = 'Portal 
       return false
     }
 
-    // Detect developer tools - ONLY ON DESKTOP
-    // Mobile browsers have large UI elements (address bar, toolbars) that cause false positives
-    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
-    const devtools = { open: false }
-    const threshold = 160
-    const emitEvent = (state: boolean) => {
-      if (state) {
-        document.body.style.display = 'none'
-        alert('Developer tools detected. Content hidden for security.')
-      } else {
-        document.body.style.display = 'block'
-      }
-    }
+    // Detect developer tools - DISABLED FOR NOW
+    // This feature causes false positives on mobile AND desktop browsers
+    // Mobile: Browser UI (address bar, toolbars) exceeds threshold
+    // Desktop: Some browsers/zoom levels trigger false positives
+    // TODO: Implement more reliable devtools detection or remove entirely
 
-    // Check window size difference - SKIP ON MOBILE
+    const devtools = { open: false }
     let checkDevTools: NodeJS.Timeout | null = null
-    if (!isMobile) {
-      checkDevTools = setInterval(() => {
-        if (window.outerHeight - window.innerHeight > threshold ||
-            window.outerWidth - window.innerWidth > threshold) {
-          if (!devtools.open) {
-            emitEvent(true)
-            devtools.open = true
-          }
-        } else {
-          if (devtools.open) {
-            emitEvent(false)
-            devtools.open = false
-          }
-        }
-      }, 500)
-    }
+
+    // DEVTOOLS DETECTION DISABLED - TOO MANY FALSE POSITIVES
+    // Watermarks and content protection still active
 
     // Disable keyboard shortcuts
     const handleKeyDown = (e: KeyboardEvent) => {
