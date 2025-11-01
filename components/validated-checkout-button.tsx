@@ -153,11 +153,11 @@ export default function ValidatedCheckoutButton({
     return (
       <div className="space-y-4">
         <div className="space-y-2">
-          <h3 className="font-semibold text-lg">Enter Your Email</h3>
-          <p className="text-sm text-gray-600">
+          <h3 className="font-semibold text-lg text-gray-900">Enter Your Email</h3>
+          <p className="text-sm text-gray-900 font-medium">
             We'll check if you already have an account before proceeding to payment
           </p>
-          <p className="text-xs text-gray-500">
+          <p className="text-xs text-gray-800 font-medium bg-white/80 px-2 py-1 rounded">
             Access is created automatically after successful payment
           </p>
         </div>
