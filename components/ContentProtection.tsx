@@ -55,7 +55,7 @@ export default function ContentProtection({ children, tier = 'mistake' }: Conten
     // TODO: Implement more reliable devtools detection or remove entirely
 
     const devtools = { open: false }
-    let checkDevTools: NodeJS.Timeout | null = null
+    const checkDevTools: NodeJS.Timeout | null = null
 
     // DEVTOOLS DETECTION DISABLED - TOO MANY FALSE POSITIVES
     // Watermarks and content protection still active
