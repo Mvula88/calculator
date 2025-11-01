@@ -33,8 +33,7 @@ export default function PublicImportGuide() {
   const [estimatedCost, setEstimatedCost] = useState<number | null>(null)
 
   // Replace with your actual WhatsApp number
-  const whatsappNumber = "264816683276
-  " // Namibia format
+  const whatsappNumber = "264816683276" // Namibia format
   const whatsappMessage = "Hi! I'm interested in learning more about importing cars from Japan."
 
   const calculateQuickEstimate = () => {
