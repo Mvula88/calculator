@@ -452,10 +452,10 @@ export default function SouthAfricaGuidePage() {
                 <CardTitle className="text-lg sm:text-xl lg:text-2xl font-bold">Complete Import Mastery</CardTitle>
                 <div className="mt-3 sm:mt-4">
                   <div className="flex items-center gap-2 sm:gap-3">
-                    <span className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-400 line-through">$79</span>
+                    <span className="text-3xl sm:text-4xl font-bold text-purple-600">$87</span>
                     <span className="text-3xl sm:text-4xl font-bold text-green-600">$49</span>
                   </div>
-                  <span className="text-green-600 font-semibold text-xs sm:text-sm lg:text-base">Save $30 - Ends October 31!</span>
+                  <span className="text-green-600 font-semibold text-xs sm:text-sm lg:text-base">One-time payment • Lifetime access</span>
                 </div>
               </CardHeader>
               <CardContent className="space-y-3 sm:space-y-4 px-4 sm:px-6">
