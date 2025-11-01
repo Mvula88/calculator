@@ -20,11 +20,31 @@ import {
   DollarSign,
   Globe,
   Package,
-  ChevronDown
+  ChevronDown,
+  MessageCircle
 } from 'lucide-react'
 
 export default function PublicImportGuide() {
   const [showPDF, setShowPDF] = useState(false)
+  const [carPrice, setCarPrice] = useState('')
+  const [estimatedCost, setEstimatedCost] = useState<number | null>(null)
+
+  // Replace with your actual WhatsApp number
+  const whatsappNumber = "264814756919" // Namibia format
+  const whatsappMessage = "Hi! I'm interested in learning more about importing cars from Japan."
+
+  const calculateQuickEstimate = () => {
+    const price = parseFloat(carPrice)
+    if (isNaN(price) || price <= 0) {
+      setEstimatedCost(null)
+      return
+    }
+
+    // Quick estimation formula for Namibia
+    // Auction price + ~50% Japan costs + ~45% shipping/duties/VAT
+    const estimate = price * 1.95
+    setEstimatedCost(Math.round(estimate))
+  }
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-white via-slate-50/30 to-white">
@@ -84,6 +104,15 @@ export default function PublicImportGuide() {
               Free Import Guide
             </div>
 
+            {/* Social Proof Badge - Mobile Optimized */}
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-0 mb-6 sm:mb-8">
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-500/90 backdrop-blur-md border border-green-400/50 rounded-full text-xs sm:text-sm font-bold text-white shadow-lg animate-pulse">
+                <Users className="h-4 w-4" />
+                <span className="hidden sm:inline">5 Namibians already saving thousands - join them</span>
+                <span className="sm:hidden">5 Namibians joined this week!</span>
+              </div>
+            </div>
+
             {/* Main Heading */}
             <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white mb-5 sm:mb-7 leading-tight tracking-tight drop-shadow-2xl">
               Import Your Dream Car<br className="hidden sm:block" />
@@ -106,6 +135,72 @@ export default function PublicImportGuide() {
       </section>
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
+
+        {/* Quick Calculator - NEW */}
+        <section className="mb-16 sm:mb-24 -mt-20 sm:-mt-24 relative z-10">
+          <Card className="border-2 border-orange-200/60 overflow-hidden shadow-2xl bg-gradient-to-br from-orange-50/80 to-amber-50/50">
+            <div className="p-6 sm:p-8 lg:p-10">
+              <div className="text-center mb-6">
+                <div className="inline-flex items-center gap-2 px-4 py-2 bg-orange-100 border-2 border-orange-200 rounded-full text-xs sm:text-sm font-bold text-orange-700 mb-4 shadow-sm">
+                  <Calculator className="h-4 w-4" />
+                  Free Quick Estimate
+                </div>
+                <h3 className="text-xl sm:text-3xl font-extrabold text-slate-900 mb-2">
+                  How Much Will Your Import Cost?
+                </h3>
+                <p className="text-sm sm:text-base text-slate-600">
+                  Get an instant ballpark estimate for Namibia imports
+                </p>
+              </div>
+
+              <div className="max-w-md mx-auto">
+                <div className="space-y-4">
+                  <div>
+                    <label className="block text-sm font-bold text-slate-700 mb-2">
+                      Japan Auction Price (in N$)
+                    </label>
+                    <input
+                      type="number"
+                      value={carPrice}
+                      onChange={(e) => {
+                        setCarPrice(e.target.value)
+                        setEstimatedCost(null)
+                      }}
+                      placeholder="e.g., 50000"
+                      className="w-full px-4 py-3 border-2 border-slate-300 rounded-lg focus:border-orange-500 focus:ring-2 focus:ring-orange-200 outline-none transition-all text-base"
+                    />
+                  </div>
+
+                  <Button
+                    onClick={calculateQuickEstimate}
+                    className="w-full bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-bold py-4 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02]"
+                  >
+                    <Calculator className="h-5 w-5 mr-2" />
+                    Calculate Estimate
+                  </Button>
+
+                  {estimatedCost !== null && (
+                    <div className="bg-white rounded-xl p-5 border-2 border-green-200 shadow-lg animate-in fade-in duration-300">
+                      <div className="text-center">
+                        <p className="text-sm text-slate-600 mb-2">Estimated Total Landed Cost:</p>
+                        <p className="text-4xl sm:text-5xl font-extrabold text-green-600 mb-3">
+                          N${estimatedCost.toLocaleString()}
+                        </p>
+                        <p className="text-xs text-slate-500 leading-relaxed">
+                          This is a rough estimate. Get the <strong>exact breakdown</strong> with our advanced calculator (includes all fees, taxes, and options).
+                        </p>
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                <p className="text-xs text-center text-slate-500 mt-4">
+                  <strong>Note:</strong> This is a simplified estimate. For accurate calculations including specific vehicle details, duties, and port charges, upgrade to the full calculator.
+                </p>
+              </div>
+            </div>
+          </Card>
+        </section>
 
         {/* Quick Navigation Cards - Enhanced */}
         <section id="navigation" className="mb-16 sm:mb-24 scroll-mt-20">
@@ -249,7 +344,7 @@ export default function PublicImportGuide() {
                     <Sparkles className="h-4 w-4" />
                     This is 1 of 4 real vehicle examples
                   </strong>
-                  Get full access to all imports (Golf 7R, Audi A3, Audi A4) + advanced calculator + 20+ documents for N$850 lifetime.
+                  Get full access to all imports (Golf 7R, Audi A3, Audi A4) + advanced calculator + 20+ documents for N$1,500 lifetime.
                 </p>
               </div>
             </div>
@@ -324,7 +419,7 @@ export default function PublicImportGuide() {
                 className="bg-purple-600 hover:bg-purple-700 text-white text-base sm:text-lg font-bold px-6 sm:px-10 py-4 sm:py-6 shadow-lg hover:shadow-xl transition-all hover:scale-105"
               >
                 <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
-                Get Full Access to All 70+ Terms - N$850
+                Get Full Access to All 70+ Terms - N$1,500
               </ValidatedCheckoutButton>
 
               <p className="mt-4 sm:mt-5 text-xs sm:text-sm text-slate-600">
@@ -568,6 +663,72 @@ export default function PublicImportGuide() {
           </Card>
         </section>
 
+        {/* Testimonials Section - NEW */}
+        <section className="mb-16 sm:mb-24">
+          <div className="mb-8 sm:mb-10 text-center">
+            <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-900 mb-3 sm:mb-4 tracking-tight">
+              What Our Members Are Saying
+            </h2>
+            <p className="text-base sm:text-lg text-slate-600">
+              Real feedback from Namibians using IMPOTA
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+            {/* Dalton's Testimonial */}
+            <Card className="p-5 sm:p-6 border-2 border-blue-100/60 hover:border-blue-300 transition-all duration-300 hover:shadow-xl bg-gradient-to-br from-white to-blue-50/30">
+              <div className="flex items-start gap-3 mb-4">
+                <div className="flex-shrink-0">
+                  <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center font-bold text-blue-600 text-lg">
+                    D
+                  </div>
+                </div>
+                <div>
+                  <h4 className="font-bold text-slate-900">Dalton Coetzee</h4>
+                  <p className="text-sm text-slate-600">Namibia • Recent Member</p>
+                </div>
+              </div>
+              <div className="flex gap-1 mb-3">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                ))}
+              </div>
+              <p className="text-sm sm:text-base text-slate-700 leading-relaxed italic">
+                "Thank you so much for the site and helpful information, I really appreciate it. I am cautious of using any agent because it looks like there are many scams. The education we really appreciate it."
+              </p>
+              <p className="text-xs text-slate-500 mt-3">
+                Looking to import: Mazda CX-5
+              </p>
+            </Card>
+
+            {/* Olivia's Testimonial */}
+            <Card className="p-5 sm:p-6 border-2 border-purple-100/60 hover:border-purple-300 transition-all duration-300 hover:shadow-xl bg-gradient-to-br from-white to-purple-50/30">
+              <div className="flex items-start gap-3 mb-4">
+                <div className="flex-shrink-0">
+                  <div className="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center font-bold text-purple-600 text-lg">
+                    O
+                  </div>
+                </div>
+                <div>
+                  <h4 className="font-bold text-slate-900">Olivia S Louw</h4>
+                  <p className="text-sm text-slate-600">Namibia • First Online Customer</p>
+                </div>
+              </div>
+              <div className="flex gap-1 mb-3">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                ))}
+              </div>
+              <p className="text-sm sm:text-base text-slate-700 leading-relaxed italic">
+                "Checking in to let you know guide is well written and structured. I still need to go through when I have more uninterrupted time. Will forward any questions after."
+              </p>
+              <p className="text-xs text-slate-500 mt-3">
+                Verified Purchase • Oct 2025
+              </p>
+            </Card>
+          </div>
+        </section>
+
         {/* CTA Section - Enhanced */}
         <section id="get-access" className="mb-12 sm:mb-16 scroll-mt-20">
           <Card className="border-2 border-blue-200/60 overflow-hidden shadow-2xl">
@@ -585,7 +746,7 @@ export default function PublicImportGuide() {
                 </h2>
 
                 <div className="mb-6 sm:mb-8">
-                  <div className="text-4xl sm:text-6xl lg:text-7xl font-extrabold mb-2 sm:mb-3 drop-shadow-lg">N$850</div>
+                  <div className="text-4xl sm:text-6xl lg:text-7xl font-extrabold mb-2 sm:mb-3 drop-shadow-lg">N$1,500</div>
                   <div className="text-sm sm:text-base text-blue-100">One-time payment • No subscription</div>
                 </div>
 
@@ -617,11 +778,11 @@ export default function PublicImportGuide() {
                   className="bg-white text-blue-600 hover:bg-blue-50 text-base sm:text-lg lg:text-xl font-extrabold px-8 sm:px-12 py-4 sm:py-6 lg:py-7 transition-all duration-300 hover:shadow-2xl hover:scale-105 shadow-xl"
                 >
                   <Sparkles className="h-5 w-5 sm:h-6 sm:w-6 mr-2" />
-                  Get Instant Access - $49 USD
+                  Get Instant Access - $87 USD
                 </ValidatedCheckoutButton>
 
                 <p className="mt-6 sm:mt-8 text-xs sm:text-sm text-blue-100 leading-relaxed">
-                  Join hundreds of successful importers • 7-day refund if you haven't accessed content
+                  <strong className="text-white">5 Namibians already joined this week</strong> • 7-day refund if you haven't accessed content
                 </p>
               </div>
             </div>
@@ -639,6 +800,20 @@ export default function PublicImportGuide() {
           documentUrl="https://oehiirawkmwvxworhizb.supabase.co/storage/v1/object/sign/documents/2015%20AUDI%20A5%20SPORTBACK%20INVOICE.pdf?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hNTFhMDQ5OS0yNTBmLTQwNDQtYmJiZS01YTA1MGE3MGMzNWYiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJkb2N1bWVudHMvMjAxNSBBVURJIEE1IFNQT1JUQkFDSyBJTlZPSUNFLnBkZiIsImlhdCI6MTc2MDAzNzY0MSwiZXhwIjoyMzkwNzU3NjQxfQ.7Olz4T093bK6OZy8RNZpYvjmVzptfwPffu0XCb8yrOA"
         />
       )}
+
+      {/* Floating WhatsApp Button */}
+      <a
+        href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="fixed bottom-6 right-6 z-50 bg-green-500 hover:bg-green-600 text-white rounded-full p-4 shadow-2xl hover:shadow-3xl transition-all duration-300 hover:scale-110 flex items-center gap-2 group"
+        aria-label="Chat on WhatsApp"
+      >
+        <MessageCircle className="h-6 w-6" />
+        <span className="hidden sm:inline-block group-hover:inline-block text-sm font-bold pr-2">
+          Questions? Chat with us
+        </span>
+      </a>
     </main>
   )
 }
