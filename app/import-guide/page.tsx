@@ -21,7 +21,10 @@ import {
   Globe,
   Package,
   ChevronDown,
-  MessageCircle
+  MessageCircle,
+  Users,
+  Calculator,
+  Star
 } from 'lucide-react'
 
 export default function PublicImportGuide() {
