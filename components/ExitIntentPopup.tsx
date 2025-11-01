@@ -35,10 +35,10 @@ export default function ExitIntentPopup({ country: propCountry }: ExitIntentPopu
 
   // Universal USD pricing for all countries
   const currencies = {
-    na: { symbol: '$', price: '49', originalPrice: '79' },
-    za: { symbol: '$', price: '49', originalPrice: '79' },
-    bw: { symbol: '$', price: '49', originalPrice: '79' },
-    zm: { symbol: '$', price: '49', originalPrice: '79' }
+    na: { symbol: '$', price: '87', originalPrice: '87' },
+    za: { symbol: '$', price: '87', originalPrice: '87' },
+    bw: { symbol: '$', price: '87', originalPrice: '87' },
+    zm: { symbol: '$', price: '87', originalPrice: '87' }
   }
 
   const currency = country ? currencies[country as keyof typeof currencies] : currencies.na
@@ -163,10 +163,10 @@ export default function ExitIntentPopup({ country: propCountry }: ExitIntentPopu
 
             {/* Main Heading */}
             <h2 className="text-2xl sm:text-3xl font-bold mb-2">
-              Save 50% Today
+              Get Lifetime Access
             </h2>
             <p className="text-white/90 text-base sm:text-lg">
-              Launch pricing ends {timeLeft.includes('day') ? `in ${timeLeft.split(',')[0]}` : 'soon'}
+              Professional import tools and guides
             </p>
           </div>
 
@@ -175,12 +175,10 @@ export default function ExitIntentPopup({ country: propCountry }: ExitIntentPopu
             {/* Price Display - Mobile Optimized */}
             <div className="text-center">
               <div className="flex items-center justify-center gap-3 sm:gap-4 mb-2">
-                <span className="text-2xl sm:text-3xl text-gray-400 line-through font-light">{currency.symbol}{currency.originalPrice}</span>
-                <span className="text-4xl sm:text-5xl font-bold text-gray-900">{currency.symbol}{currency.price}</span>
+                <span className="text-4xl sm:text-5xl font-bold text-gray-900">{currency.symbol}{currency.price} USD</span>
               </div>
-              <p className="text-xs sm:text-sm text-gray-600 flex items-center justify-center gap-1">
-                <Clock className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
-                Offer expires October 31, 2025
+              <p className="text-xs sm:text-sm text-gray-600">
+                One-time payment • Lifetime access
               </p>
             </div>
 
