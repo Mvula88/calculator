@@ -276,6 +276,7 @@ export default function ValidatedCheckoutButton({
               setEmailError('')
             }}
             disabled={checkingEmail || loading}
+            className="bg-white hover:bg-gray-100 text-gray-900 border-gray-300"
           >
             Cancel
           </Button>
