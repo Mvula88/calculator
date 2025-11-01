@@ -11,6 +11,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Alert, AlertDescription } from '@/components/ui/alert'
 import { AlertTriangle, Mail, Lock, Loader2, Eye, EyeOff } from 'lucide-react'
 import { AuthSkeleton } from '@/components/skeletons/AuthSkeleton'
+import Image from 'next/image'
 
 function LoginForm() {
   const router = useRouter()
@@ -99,12 +100,22 @@ function LoginForm() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white flex items-center justify-center px-4">
       <Card className="w-full max-w-md">
-        <CardHeader className="space-y-1">
+        <CardHeader className="space-y-4">
+          <div className="flex justify-center">
+            <Image
+              src="/impota-logo.png"
+              alt="IMPOTA Logo"
+              width={180}
+              height={60}
+              className="h-12 w-auto"
+              priority
+            />
+          </div>
           <CardTitle className="text-2xl font-bold text-center">
-            Welcome to IMPOTA
+            Welcome Back
           </CardTitle>
-          <CardDescription className="text-center">
-            Sign in to access your import calculator
+          <CardDescription className="text-center text-base">
+            Access your complete import mastery platform - calculators, guides, documents, and expert knowledge
           </CardDescription>
         </CardHeader>
 
