@@ -55,6 +55,7 @@ import {
   Briefcase
 } from 'lucide-react'
 import GuideHeader from '@/components/GuideHeader'
+import WhatsAppButton from '@/components/WhatsAppButton'
 
 // Function to get static Tailwind classes for colors
 const getColorClasses = (color: string) => {
@@ -503,7 +504,7 @@ export default function SouthAfricaGuidePage() {
                     size="lg"
                     className="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-bold py-3.5 sm:py-4 text-sm sm:text-base lg:text-lg rounded-lg transition-all duration-300 hover:shadow-xl min-h-[48px] active:scale-95 touch-manipulation"
                   >
-                    Get Lifetime Access - $49 USD
+                    Get Lifetime Access - $87 USD
                     <Sparkles className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
                   </ValidatedCheckoutButton>
                   <p className="text-xs text-gray-600 mt-3 text-center">

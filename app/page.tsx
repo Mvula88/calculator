@@ -29,7 +29,8 @@ import {
   TrendingUp,
   Package,
   LogIn,
-  BookOpen
+  BookOpen,
+  MessageCircle
 } from 'lucide-react'
 import GuideHeader from '@/components/GuideHeader'
 import ValidatedCheckoutButton from '@/components/validated-checkout-button'
@@ -39,6 +40,9 @@ export default function HomePage() {
   const [currentSlide, setCurrentSlide] = useState(0)
   const [user, setUser] = useState<any>(null)
   const carouselRef = useRef<HTMLDivElement>(null)
+
+  const whatsappNumber = "264814756919"
+  const whatsappMessage = "Hi! I'm interested in learning more about importing cars from Japan."
   useEffect(() => {
     // Check user authentication
     async function checkUser() {
@@ -371,10 +375,9 @@ export default function HomePage() {
           <div className="text-center mt-12 px-4">
             <div className="mb-6">
               <div className="mb-4">
-                <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">LIMITED TIME: $49 USD</h3>
-                <p className="text-sm text-gray-600 mb-4">Save $30 - Regular Price $79</p>
+                <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">GET ACCESS: $87 USD</h3>
+                <p className="text-sm text-gray-600 mb-4">Lifetime access • N$1,500 (Namibia)</p>
               </div>
-              <PricingCountdown />
             </div>
             <ValidatedCheckoutButton
               tier="mastery"
@@ -383,7 +386,7 @@ export default function HomePage() {
               className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold py-4 sm:py-6 px-6 sm:px-12 text-base sm:text-lg rounded-lg transition-all duration-300 hover:shadow-xl w-full sm:w-auto"
             >
               <Sparkles className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
-              <span className="truncate">Get Lifetime Access - $49 USD</span>
+              <span className="truncate">Get Lifetime Access - $87 USD</span>
               <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
             </ValidatedCheckoutButton>
             <p className="text-xs sm:text-sm text-gray-600 mt-4">
@@ -395,6 +398,20 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* Floating WhatsApp Button */}
+      <a
+        href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="fixed bottom-6 right-6 z-50 bg-green-500 hover:bg-green-600 text-white rounded-full p-4 shadow-2xl hover:shadow-3xl transition-all duration-300 hover:scale-110 flex items-center gap-2 group"
+        aria-label="Chat on WhatsApp"
+      >
+        <MessageCircle className="h-6 w-6" />
+        <span className="hidden sm:inline-block group-hover:inline-block text-sm font-bold pr-2">
+          Questions? Chat with us
+        </span>
+      </a>
     </>
   )
 }
