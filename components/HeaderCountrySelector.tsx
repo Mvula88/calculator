@@ -4,10 +4,10 @@ import { useState, useEffect, useRef } from 'react'
 import { ChevronDown, Globe } from 'lucide-react'
 
 const countries = [
-  { code: 'na', name: 'Namibia', flag: '🇳🇦', currency: '$49 USD' },
-  { code: 'za', name: 'South Africa', flag: '🇿🇦', currency: '$49 USD' },
-  { code: 'bw', name: 'Botswana', flag: '🇧🇼', currency: '$49 USD' },
-  { code: 'zm', name: 'Zambia', flag: '🇿🇲', currency: '$49 USD' },
+  { code: 'na', name: 'Namibia', flag: '🇳🇦', currency: '$87 USD' },
+  { code: 'za', name: 'South Africa', flag: '🇿🇦', currency: '$87 USD' },
+  { code: 'bw', name: 'Botswana', flag: '🇧🇼', currency: '$87 USD' },
+  { code: 'zm', name: 'Zambia', flag: '🇿🇲', currency: '$87 USD' },
 ]
 
 interface HeaderCountrySelectorProps {

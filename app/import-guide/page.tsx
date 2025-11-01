@@ -687,7 +687,7 @@ export default function PublicImportGuide() {
                   </div>
                 </div>
                 <div>
-                  <h4 className="font-bold text-slate-900">Dalton Coetzee</h4>
+                  <h4 className="font-bold text-slate-900">D. Coetzee</h4>
                   <p className="text-sm text-slate-600">Namibia • Recent Member</p>
                 </div>
               </div>
@@ -698,9 +698,6 @@ export default function PublicImportGuide() {
               </div>
               <p className="text-sm sm:text-base text-slate-700 leading-relaxed italic">
                 "Thank you so much for the site and helpful information, I really appreciate it. I am cautious of using any agent because it looks like there are many scams. The education we really appreciate it."
-              </p>
-              <p className="text-xs text-slate-500 mt-3">
-                Looking to import: Mazda CX-5
               </p>
             </Card>
 
@@ -713,7 +710,7 @@ export default function PublicImportGuide() {
                   </div>
                 </div>
                 <div>
-                  <h4 className="font-bold text-slate-900">Olivia S Louw</h4>
+                  <h4 className="font-bold text-slate-900">Olivia S.L.</h4>
                   <p className="text-sm text-slate-600">Namibia • First Online Customer</p>
                 </div>
               </div>
