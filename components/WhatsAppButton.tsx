@@ -11,7 +11,7 @@ export default function WhatsAppButton({
   phoneNumber = "264816683276",
   message = "Hi! I'm interested in learning more about importing cars from Japan."
 }: WhatsAppButtonProps) {
-  return (.
+  return (
     <a
       href={`https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`}
       target="_blank"
