@@ -1,30 +1,30 @@
 export const pricingConfig = {
   na: {
     currency: 'N$',
-    masteryOriginal: '2,999',
-    masteryPrice: '1,499',
-    masterySaving: '1,500',
-    masteryDiscount: '50%'
+    masteryOriginal: '1,500',
+    masteryPrice: '550',
+    masterySaving: '950',
+    masteryDiscount: '63%'
   },
   za: {
     currency: 'R',
-    masteryOriginal: '2,999',
-    masteryPrice: '1,499',
-    masterySaving: '1,500',
-    masteryDiscount: '50%'
+    masteryOriginal: '1,500',
+    masteryPrice: '550',
+    masterySaving: '950',
+    masteryDiscount: '63%'
   },
   bw: {
     currency: 'P',
-    masteryOriginal: '2,302',
-    masteryPrice: '1,151',
-    masterySaving: '1,151',
-    masteryDiscount: '50%'
+    masteryOriginal: '1,151',
+    masteryPrice: '422',
+    masterySaving: '729',
+    masteryDiscount: '63%'
   },
   zm: {
     currency: 'K',
-    masteryOriginal: '4,087',
-    masteryPrice: '2,043',
-    masterySaving: '2,044',
-    masteryDiscount: '50%'
+    masteryOriginal: '2,043',
+    masteryPrice: '750',
+    masterySaving: '1,293',
+    masteryDiscount: '63%'
   }
 }

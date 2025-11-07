@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import WelcomeOnboarding from '@/components/portal/WelcomeOnboarding'
 import SupportContact from '@/components/portal/SupportContact'
+import TestimonialRequest from '@/components/TestimonialRequest'
 import {
   BookOpen,
   FileText,
@@ -33,6 +34,7 @@ export default function PortalPage() {
   const router = useRouter()
   const { user, userEmail, hasAccess, loading, userTier } = useAuthImmediate()
   const [showWelcome, setShowWelcome] = useState(false)
+  const [showTestimonial, setShowTestimonial] = useState(false)
 
   const displayEmail = userEmail || 'user@example.com'
   const cleanEmail = displayEmail.startsWith('user_cs_test_') ? 'Portal User' : displayEmail
@@ -58,6 +60,19 @@ export default function PortalPage() {
       const hasSeenWelcome = localStorage.getItem(`welcome_seen_${userEmail}`)
       if (!hasSeenWelcome) {
         setShowWelcome(true)
+      }
+
+      // Show testimonial request after 3 days if not submitted
+      const hasSubmittedTestimonial = localStorage.getItem('impota_testimonial_submitted')
+      const firstLoginDate = localStorage.getItem(`first_login_${userEmail}`)
+
+      if (!firstLoginDate) {
+        localStorage.setItem(`first_login_${userEmail}`, new Date().toISOString())
+      } else if (!hasSubmittedTestimonial) {
+        const daysSinceFirstLogin = (new Date().getTime() - new Date(firstLoginDate).getTime()) / (1000 * 60 * 60 * 24)
+        if (daysSinceFirstLogin >= 3) {
+          setShowTestimonial(true)
+        }
       }
     }
   }, [user, userEmail])
@@ -300,6 +315,13 @@ export default function PortalPage() {
             </div>
           </div>
         </Card>
+
+        {/* Testimonial Request (shows after 3 days) */}
+        {showTestimonial && (
+          <div className="mb-4 sm:mb-6">
+            <TestimonialRequest onClose={() => setShowTestimonial(false)} />
+          </div>
+        )}
 
         {/* Support Section */}
         <div className="mb-4 sm:mb-6">

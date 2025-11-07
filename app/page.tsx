@@ -375,8 +375,15 @@ export default function HomePage() {
           <div className="text-center mt-12 px-4">
             <div className="mb-6">
               <div className="mb-4">
-                <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">GET ACCESS: $87 USD</h3>
-                <p className="text-sm text-gray-600 mb-4">Lifetime access • N$1,500 (Namibia)</p>
+                <div className="inline-block bg-gradient-to-r from-orange-500 to-red-500 text-white px-4 py-2 rounded-lg mb-3 font-bold text-sm">
+                  BLACK NOVEMBER SALE - 63% OFF
+                </div>
+                <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">
+                  <span className="line-through text-gray-400 text-lg">$87 USD</span>{' '}
+                  <span className="text-green-600">$32 USD</span>
+                </h3>
+                <p className="text-sm text-gray-600 mb-4">Lifetime access • N$550 (Namibia) • <span className="line-through">N$1,500</span></p>
+                <PricingCountdown endDate="2025-11-30T23:59:59" />
               </div>
             </div>
             <ValidatedCheckoutButton
@@ -386,7 +393,7 @@ export default function HomePage() {
               className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold py-4 sm:py-6 px-6 sm:px-12 text-base sm:text-lg rounded-lg transition-all duration-300 hover:shadow-xl w-full sm:w-auto"
             >
               <Sparkles className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
-              <span className="truncate">Get Lifetime Access - $87 USD</span>
+              <span className="truncate">Get Lifetime Access - $32 USD</span>
               <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
             </ValidatedCheckoutButton>
             <p className="text-xs sm:text-sm text-gray-600 mt-4">

@@ -4,17 +4,30 @@
 
 The following prices are displayed in the application and must be configured in your Stripe dashboard:
 
-### Mistake Guide Prices
+### BLACK NOVEMBER SALE PRICES (Valid until Nov 30, 2025)
+
+#### Import Mastery (Current Sale Prices)
+- **Namibia (NA)**: N$550 / $32 USD (BLACK NOVEMBER - was N$1,500)
+- **South Africa (ZA)**: R550 / $32 USD (BLACK NOVEMBER - was R1,500)
+- **Botswana (BW)**: P422 / $32 USD (BLACK NOVEMBER - was P1,151)
+- **Zambia (ZM)**: K750 / $32 USD (BLACK NOVEMBER - was K2,043)
+
+**IMPORTANT**: You need to create new Stripe products/prices for these sale prices OR update existing ones:
+- Create new price: $32 USD (3200 cents) for each country
+- Or update existing Mastery prices temporarily
+- Remember to revert back to $87 USD on December 1, 2025
+
+### Previous Prices (to restore Dec 1, 2025)
+- **Namibia (NA)**: N$1,500 / $87 USD
+- **South Africa (ZA)**: R1,500 / $87 USD
+- **Botswana (BW)**: P1,151 / $87 USD
+- **Zambia (ZM)**: K2,043 / $87 USD
+
+### Mistake Guide Prices (PAUSED - not actively used)
 - **Namibia (NA)**: N$499 (price_1S3tjDK8Avs5uFkK6aBQNdWx)
 - **South Africa (ZA)**: R499 (price_1S3tkXK8Avs5uFkKTXRCJJuk)
 - **Botswana (BW)**: P404 (price_1S3toYK8Avs5uFkKKRXTeM0g)
 - **Zambia (ZM)**: K500 (price_1S3txCK8Avs5uFkKcxVrjVWP)
-
-### Import Mastery Prices
-- **Namibia (NA)**: N$1,999 (price_1S3u8ZK8Avs5uFkKvpjaeLYA)
-- **South Africa (ZA)**: R1,999 (price_1S3u9pK8Avs5uFkKNAxA1GdK)
-- **Botswana (BW)**: P1,618 (price_1S3uC8K8Avs5uFkKxL54iq8Q)
-- **Zambia (ZM)**: K2,000 (price_1S3uDaK8Avs5uFkKusc8RdlK)
 
 ## Stripe Dashboard Configuration
 

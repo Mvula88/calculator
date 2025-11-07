@@ -524,10 +524,14 @@ export default function BotswanaGuidePage() {
                 </div>
                 <CardTitle className="text-lg sm:text-xl lg:text-2xl font-bold">Complete Import Mastery</CardTitle>
                 <div className="mt-3 sm:mt-4">
-                  <div className="flex items-center gap-2 sm:gap-3">
-                    <span className="text-3xl sm:text-4xl font-bold text-blue-600">$87</span>
+                  <div className="inline-block bg-gradient-to-r from-orange-500 to-red-500 text-white px-3 py-1 rounded-lg mb-2 font-bold text-xs">
+                    BLACK NOVEMBER - 63% OFF
                   </div>
-                  <span className="text-gray-600 font-semibold text-xs sm:text-sm lg:text-base">One-time payment • Lifetime access</span>
+                  <div className="flex items-center gap-2 sm:gap-3">
+                    <span className="line-through text-gray-400 text-xl sm:text-2xl">$87</span>
+                    <span className="text-3xl sm:text-4xl font-bold text-green-600">$32</span>
+                  </div>
+                  <span className="text-gray-600 font-semibold text-xs sm:text-sm lg:text-base">One-time payment • Lifetime access • Ends Nov 30</span>
                 </div>
               </CardHeader>
               <CardContent className="space-y-3 sm:space-y-4 px-4 sm:px-6">
@@ -576,7 +580,7 @@ export default function BotswanaGuidePage() {
                     size="lg"
                     className="w-full bg-gradient-to-r from-blue-600 to-sky-600 hover:from-blue-700 hover:to-sky-700 text-white font-bold py-3.5 sm:py-4 text-sm sm:text-base lg:text-lg rounded-lg transition-all duration-300 hover:shadow-xl min-h-[48px] active:scale-95 touch-manipulation"
                   >
-                    Get Lifetime Access - $87 USD
+                    Get Lifetime Access - $32 USD
                     <Sparkles className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
                   </ValidatedCheckoutButton>
                   <p className="text-xs text-gray-600 mt-3 text-center">

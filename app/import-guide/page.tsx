@@ -347,7 +347,7 @@ export default function PublicImportGuide() {
                     <Sparkles className="h-4 w-4" />
                     This is 1 of 4 real vehicle examples
                   </strong>
-                  Get full access to all imports (Golf 7R, Audi A3, Audi A4) + advanced calculator + 20+ documents for N$1,500 lifetime.
+                  Get full access to all imports (Golf 7R, Audi A3, Audi A4) + advanced calculator + 20+ documents for N$550 lifetime (BLACK NOVEMBER SALE - was N$1,500).
                 </p>
               </div>
             </div>
@@ -422,7 +422,7 @@ export default function PublicImportGuide() {
                 className="bg-purple-600 hover:bg-purple-700 text-white text-base sm:text-lg font-bold px-6 sm:px-10 py-4 sm:py-6 shadow-lg hover:shadow-xl transition-all hover:scale-105"
               >
                 <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
-                Get Full Access to All 70+ Terms - N$1,500
+                Get Full Access to All 70+ Terms - N$550
               </ValidatedCheckoutButton>
 
               <p className="mt-4 sm:mt-5 text-xs sm:text-sm text-slate-600">
@@ -746,8 +746,14 @@ export default function PublicImportGuide() {
                 </h2>
 
                 <div className="mb-6 sm:mb-8">
-                  <div className="text-4xl sm:text-6xl lg:text-7xl font-extrabold mb-2 sm:mb-3 drop-shadow-lg">N$1,500</div>
-                  <div className="text-sm sm:text-base text-blue-100">One-time payment • No subscription</div>
+                  <div className="inline-block bg-gradient-to-r from-orange-500 to-red-500 text-white px-4 py-2 rounded-lg mb-3 font-bold text-sm">
+                    BLACK NOVEMBER SALE - 63% OFF
+                  </div>
+                  <div className="text-4xl sm:text-6xl lg:text-7xl font-extrabold mb-2 sm:mb-3 drop-shadow-lg">
+                    <span className="line-through text-blue-200 text-3xl sm:text-4xl lg:text-5xl mr-3">N$1,500</span>
+                    N$550
+                  </div>
+                  <div className="text-sm sm:text-base text-blue-100">One-time payment • No subscription • Ends Nov 30</div>
                 </div>
 
                 <div className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-5 sm:p-8 lg:p-10 mb-8 sm:mb-10 text-left max-w-2xl mx-auto shadow-2xl">
@@ -778,7 +784,7 @@ export default function PublicImportGuide() {
                   className="bg-white text-blue-600 hover:bg-blue-50 text-base sm:text-lg lg:text-xl font-extrabold px-8 sm:px-12 py-4 sm:py-6 lg:py-7 transition-all duration-300 hover:shadow-2xl hover:scale-105 shadow-xl"
                 >
                   <Sparkles className="h-5 w-5 sm:h-6 sm:w-6 mr-2" />
-                  Get Instant Access - $87 USD
+                  Get Instant Access - $32 USD
                 </ValidatedCheckoutButton>
 
                 <p className="mt-6 sm:mt-8 text-xs sm:text-sm text-blue-100 leading-relaxed">
