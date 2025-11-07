@@ -33,12 +33,12 @@ export default function ExitIntentPopup({ country: propCountry }: ExitIntentPopu
   // Don't show popup on landing page or pages without a country
   const isLandingPage = pathname === '/' || (!country && !pathname.includes('/guide'))
 
-  // Universal USD pricing for all countries
+  // Black November Sale pricing for all countries
   const currencies = {
-    na: { symbol: '$', price: '87', originalPrice: '87' },
-    za: { symbol: '$', price: '87', originalPrice: '87' },
-    bw: { symbol: '$', price: '87', originalPrice: '87' },
-    zm: { symbol: '$', price: '87', originalPrice: '87' }
+    na: { symbol: '$', price: '32', originalPrice: '87' },
+    za: { symbol: '$', price: '32', originalPrice: '87' },
+    bw: { symbol: '$', price: '32', originalPrice: '87' },
+    zm: { symbol: '$', price: '32', originalPrice: '87' }
   }
 
   const currency = country ? currencies[country as keyof typeof currencies] : currencies.na
@@ -75,9 +75,9 @@ export default function ExitIntentPopup({ country: propCountry }: ExitIntentPopu
       return
     }
 
-    // Calculate time left for sale
+    // Calculate time left for Black November sale
     const calculateTimeLeft = () => {
-      const saleEndDate = new Date('2025-10-31T23:59:59')
+      const saleEndDate = new Date('2025-11-30T23:59:59')
       const now = new Date()
       const difference = saleEndDate.getTime() - now.getTime()
 
@@ -156,9 +156,9 @@ export default function ExitIntentPopup({ country: propCountry }: ExitIntentPopu
             </button>
 
             {/* Discount Badge */}
-            <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-3 py-1.5 rounded-full text-xs sm:text-sm font-medium mb-3 sm:mb-4">
+            <div className="inline-flex items-center gap-2 bg-gradient-to-r from-orange-500 to-red-500 px-3 py-1.5 rounded-full text-xs sm:text-sm font-bold mb-3 sm:mb-4 shadow-lg">
               <Sparkles className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
-              <span>LIMITED TIME OFFER</span>
+              <span>BLACK NOVEMBER - 63% OFF</span>
             </div>
 
             {/* Main Heading */}
@@ -175,10 +175,11 @@ export default function ExitIntentPopup({ country: propCountry }: ExitIntentPopu
             {/* Price Display - Mobile Optimized */}
             <div className="text-center">
               <div className="flex items-center justify-center gap-3 sm:gap-4 mb-2">
-                <span className="text-4xl sm:text-5xl font-bold text-gray-900">{currency.symbol}{currency.price} USD</span>
+                <span className="text-2xl sm:text-3xl font-bold text-gray-400 line-through">{currency.symbol}{currency.originalPrice}</span>
+                <span className="text-4xl sm:text-5xl font-bold text-green-600">{currency.symbol}{currency.price} USD</span>
               </div>
               <p className="text-xs sm:text-sm text-gray-600">
-                One-time payment • Lifetime access
+                One-time payment • Lifetime access • Ends Nov 30
               </p>
             </div>
 
