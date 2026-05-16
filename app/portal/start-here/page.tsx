@@ -1,9 +1,10 @@
 'use client'
 
+import { useEffect } from 'react'
+import { useRouter } from 'next/navigation'
+import { Loader2 } from 'lucide-react'
 import WelcomeOnboarding from '@/components/portal/WelcomeOnboarding'
 import { useAuthImmediate } from '@/lib/hooks/use-auth-immediate'
-import { useRouter } from 'next/navigation'
-import { useEffect } from 'react'
 
 export default function StartHerePage() {
   const router = useRouter()
@@ -17,10 +18,10 @@ export default function StartHerePage() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-          <p className="mt-4 text-gray-600">Loading...</p>
+      <div className="min-h-screen bg-gradient-to-br from-white via-stone-50 to-zinc-100 flex items-center justify-center">
+        <div className="flex flex-col items-center gap-4">
+          <Loader2 className="h-7 w-7 text-amber-500 animate-spin" strokeWidth={1.75} />
+          <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-zinc-500">Loading</p>
         </div>
       </div>
     )
@@ -28,19 +29,20 @@ export default function StartHerePage() {
 
   if (!user) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="text-center">
-          <p className="text-gray-600">Redirecting to login...</p>
+      <div className="min-h-screen bg-gradient-to-br from-white via-stone-50 to-zinc-100 flex items-center justify-center">
+        <div className="flex flex-col items-center gap-4">
+          <Loader2 className="h-7 w-7 text-amber-500 animate-spin" strokeWidth={1.75} />
+          <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-zinc-500">
+            Redirecting to login
+          </p>
         </div>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <WelcomeOnboarding
-        userEmail={userEmail || 'Portal User'}
-      />
+    <div className="min-h-screen bg-stone-50">
+      <WelcomeOnboarding userEmail={userEmail || 'Portal User'} />
     </div>
   )
 }

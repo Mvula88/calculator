@@ -2,10 +2,9 @@
 
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { useAuthImmediate } from '@/lib/hooks/use-auth-immediate'
-import { Card } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
 import Link from 'next/link'
+import { useAuthImmediate } from '@/lib/hooks/use-auth-immediate'
+import { Button } from '@/components/ui/button'
 import WelcomeOnboarding from '@/components/portal/WelcomeOnboarding'
 import SupportContact from '@/components/portal/SupportContact'
 import TestimonialRequest from '@/components/TestimonialRequest'
@@ -15,325 +14,298 @@ import {
   Calculator,
   Ship,
   Users,
-  Star,
-  TrendingUp,
-  CheckCircle,
-  ArrowRight,
-  Clock,
-  Shield,
-  Globe,
-  DollarSign,
-  Award,
-  Zap,
   Gavel,
   Lock,
-  Rocket
+  Rocket,
+  Zap,
+  ArrowUpRight,
+  ArrowRight,
+  Loader2,
 } from 'lucide-react'
 
 export default function PortalPage() {
   const router = useRouter()
-  const { user, userEmail, hasAccess, loading, userTier } = useAuthImmediate()
+  const { user, userEmail, loading, userTier } = useAuthImmediate()
   const [showWelcome, setShowWelcome] = useState(false)
   const [showTestimonial, setShowTestimonial] = useState(false)
 
   const displayEmail = userEmail || 'user@example.com'
   const cleanEmail = displayEmail.startsWith('user_cs_test_') ? 'Portal User' : displayEmail
+  const isMastery = true
 
-  // SIMPLIFIED: If user is authenticated, they have access (they paid to create account)
-  const entitlement = user ? {
-    country: 'na',
-    tier: userTier || 'mastery', // Default to mastery if tier not found
-    email: cleanEmail
-  } : null
-  const isMastery = true // Since we only have one tier now
-
-  // Handle redirect in useEffect to avoid hydration issues
   useEffect(() => {
     if (!loading && !user) {
       router.push('/auth/login?redirectTo=/portal')
     }
   }, [loading, user, router])
 
-  // Check if this is the user's first login
   useEffect(() => {
     if (user && userEmail) {
       const hasSeenWelcome = localStorage.getItem(`welcome_seen_${userEmail}`)
-      if (!hasSeenWelcome) {
-        setShowWelcome(true)
-      }
+      if (!hasSeenWelcome) setShowWelcome(true)
 
-      // Show testimonial request after 3 days if not submitted
       const hasSubmittedTestimonial = localStorage.getItem('impota_testimonial_submitted')
       const firstLoginDate = localStorage.getItem(`first_login_${userEmail}`)
 
       if (!firstLoginDate) {
         localStorage.setItem(`first_login_${userEmail}`, new Date().toISOString())
       } else if (!hasSubmittedTestimonial) {
-        const daysSinceFirstLogin = (new Date().getTime() - new Date(firstLoginDate).getTime()) / (1000 * 60 * 60 * 24)
-        if (daysSinceFirstLogin >= 3) {
-          setShowTestimonial(true)
-        }
+        const daysSinceFirstLogin =
+          (new Date().getTime() - new Date(firstLoginDate).getTime()) / (1000 * 60 * 60 * 24)
+        if (daysSinceFirstLogin >= 3) setShowTestimonial(true)
       }
     }
   }, [user, userEmail])
 
   const handleCloseWelcome = () => {
-    if (userEmail) {
-      localStorage.setItem(`welcome_seen_${userEmail}`, 'true')
-    }
+    if (userEmail) localStorage.setItem(`welcome_seen_${userEmail}`, 'true')
     setShowWelcome(false)
   }
 
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-          <p className="mt-4 text-gray-600">Loading your dashboard...</p>
+        <div className="flex flex-col items-center gap-4">
+          <Loader2 className="h-7 w-7 text-amber-500 animate-spin" strokeWidth={1.75} />
+          <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-zinc-500">
+            Loading your dashboard
+          </p>
         </div>
       </div>
     )
   }
 
-  // If no user, show redirecting message
   if (!user) {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-          <p className="mt-4 text-gray-600">Redirecting to login...</p>
+        <div className="flex flex-col items-center gap-4">
+          <Loader2 className="h-7 w-7 text-amber-500 animate-spin" strokeWidth={1.75} />
+          <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-zinc-500">
+            Redirecting to login
+          </p>
         </div>
       </div>
     )
   }
 
-  // USER IS AUTHENTICATED - SHOW PORTAL
-  // No need to check entitlements - if they're logged in, they paid
-
-  const currency = 'N$'
-  const countryName = 'Namibia'
-
-  // Quick access cards
   const quickAccessCards = [
-    {
-      title: '🚀 Start Here',
-      description: 'New? Start your learning journey',
-      icon: Rocket,
-      href: '/portal/start-here',
-      color: 'bg-gradient-to-br from-blue-100 to-purple-100 text-blue-600',
-      available: true,
-      featured: true
-    },
-    {
-      title: '🆕 Beginner Journey',
-      description: 'Complete import process & simple calculator',
-      icon: Zap,
-      href: '/portal/beginner',
-      color: 'bg-yellow-100 text-yellow-600',
-      available: true
-    },
-    {
-      title: 'Import Guide',
-      description: 'Step-by-step instructions',
-      icon: BookOpen,
-      href: '/portal/guide',
-      color: 'bg-blue-100 text-blue-600',
-      available: true
-    },
-    {
-      title: 'Documents',
-      description: 'Real import examples',
-      icon: FileText,
-      href: '/portal/documents',
-      color: 'bg-green-100 text-green-600',
-      available: true
-    },
-    {
-      title: 'Calculator',
-      description: 'Advanced duty calculator',
-      icon: Calculator,
-      href: '/portal/calculator',
-      color: 'bg-purple-100 text-purple-600',
-      available: isMastery
-    },
-    {
-      title: 'Auctions',
-      description: 'Japan bidding guide',
-      icon: Gavel,
-      href: '/portal/japan-auctions',
-      color: 'bg-yellow-100 text-yellow-600',
-      available: isMastery
-    },
-    {
-      title: 'Shipping',
-      description: 'Companies & booking',
-      icon: Ship,
-      href: '/portal/book-slot',
-      color: 'bg-indigo-100 text-indigo-600',
-      available: isMastery
-    },
-    {
-      title: 'Agents',
-      description: 'Verified clearing agents',
-      icon: Users,
-      href: '/portal/agents',
-      color: 'bg-rose-100 text-rose-600',
-      available: isMastery
-    }
+    { title: 'Start here', description: 'New? Start your learning journey', icon: Rocket, href: '/portal/start-here', available: true, featured: true },
+    { title: 'Beginner journey', description: 'Complete import process & simple calculator', icon: Zap, href: '/portal/beginner', available: true, featured: false },
+    { title: 'Import guide', description: 'Step-by-step instructions', icon: BookOpen, href: '/portal/guide', available: true, featured: false },
+    { title: 'Documents', description: 'Real import examples', icon: FileText, href: '/portal/documents', available: true, featured: false },
+    { title: 'Calculator', description: 'Advanced duty calculator', icon: Calculator, href: '/portal/calculator', available: isMastery, featured: false },
+    { title: 'Auctions', description: 'Japan bidding guide', icon: Gavel, href: '/portal/japan-auctions', available: isMastery, featured: false },
+    { title: 'Shipping', description: 'Companies & booking', icon: Ship, href: '/portal/book-slot', available: isMastery, featured: false },
+    { title: 'Agents', description: 'Verified clearing agents', icon: Users, href: '/portal/agents', available: isMastery, featured: false },
   ]
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-gray-50 to-white pb-20">
-      {/* Welcome Modal for First-Time Users */}
-      {showWelcome && (
-        <WelcomeOnboarding
-          userEmail={cleanEmail}
-          onClose={handleCloseWelcome}
-        />
-      )}
+    <main className="bg-white">
+      {/* Welcome Modal */}
+      {showWelcome && <WelcomeOnboarding userEmail={cleanEmail} onClose={handleCloseWelcome} />}
 
-      <div className="w-full">
-        {/* Welcome Header - Mobile Optimized */}
-        <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg p-4 sm:p-6 lg:p-8 mb-4 sm:mb-6 text-white">
-          <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 sm:gap-4">
-            <div className="flex-1">
-              <h1 className="text-lg sm:text-xl lg:text-2xl font-bold mb-1 sm:mb-2">
-                Welcome back!
-              </h1>
-              <p className="text-xs sm:text-sm lg:text-base text-blue-100 mb-2 sm:mb-3">
-                {isMastery ? 'Import Mastery Member' : 'Mistake Guide Member'}
-              </p>
-              <div className="flex flex-wrap gap-1.5 sm:gap-2">
-                <div className="inline-flex items-center gap-1 bg-white/20 px-2 py-1 rounded-full text-xs">
-                  <CheckCircle className="h-3 w-3" />
-                  <span>Active Access</span>
-                </div>
-                <div className="inline-flex items-center gap-1 bg-white/20 px-2 py-1 rounded-full text-xs">
-                  <Award className="h-3 w-3" />
-                  <span>Lifetime</span>
-                </div>
-              </div>
-            </div>
-            {!isMastery && (
-              <Button
-                size="sm"
-                className="w-full sm:w-auto bg-white text-purple-600 hover:bg-gray-100 min-h-[44px] px-4 py-2.5 font-semibold"
-                onClick={() => {
-                  // Store the user's email before redirecting
-                  if (userEmail) {
-                    localStorage.setItem('checkout_email', userEmail)
-                  }
-                  window.location.href = '/na/upsell'
-                }}
-              >
-                <Zap className="h-4 w-4 mr-1.5" />
-                Upgrade
-              </Button>
-            )}
+      {/* PAGE HEADER */}
+      <div className="mb-12 pb-8 border-b border-zinc-200">
+        <div className="flex items-center justify-between mb-3">
+          <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-amber-600 font-semibold">
+            Dashboard
+          </p>
+          <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.22em] text-emerald-700">
+            <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+            {isMastery ? 'Import Mastery' : 'Mistake Guide'} · Lifetime
           </div>
         </div>
-
-        {/* Quick Access - Mobile Optimized */}
-        <div className="mb-4 sm:mb-6">
-          <div className="flex items-center justify-between mb-3 sm:mb-4">
-            <h2 className="text-base sm:text-lg font-bold text-gray-900">Quick Access</h2>
-            {!isMastery && (
-              <span className="text-xs text-gray-500">
-                {quickAccessCards.filter(c => c.available).length}/{quickAccessCards.length}
-              </span>
-            )}
-          </div>
-
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2.5 sm:gap-3 lg:gap-4">
-            {quickAccessCards.map((card) => (
-              <div key={card.title} className="relative">
-                {card.available ? (
-                  <Link href={card.href}>
-                    <Card className="p-3 sm:p-4 hover:shadow-lg transition-all active:scale-95 touch-manipulation h-full min-h-[120px] sm:min-h-[140px]">
-                      <div className="flex flex-col items-center text-center h-full justify-center">
-                        <div className={`${card.color} rounded-lg p-2.5 sm:p-3 mb-2`}>
-                          <card.icon className="h-5 w-5 sm:h-6 sm:w-6" />
-                        </div>
-                        <h3 className="font-semibold text-xs sm:text-sm mb-1 leading-tight">{card.title}</h3>
-                        <p className="text-[10px] sm:text-xs text-gray-600 line-clamp-2">{card.description}</p>
-                      </div>
-                    </Card>
-                  </Link>
-                ) : (
-                  <Card className="p-3 sm:p-4 opacity-60 relative h-full min-h-[120px] sm:min-h-[140px]">
-                    <div className="absolute inset-0 bg-gray-100/50 rounded-lg flex items-center justify-center">
-                      <Lock className="h-4 w-4 sm:h-5 sm:w-5 text-gray-400" />
-                    </div>
-                    <div className="flex flex-col items-center text-center h-full justify-center">
-                      <div className={`bg-gray-100 rounded-lg p-2.5 sm:p-3 mb-2`}>
-                        <card.icon className="h-5 w-5 sm:h-6 sm:w-6 text-gray-400" />
-                      </div>
-                      <h3 className="font-semibold text-xs sm:text-sm mb-1 text-gray-400 leading-tight">{card.title}</h3>
-                      <p className="text-[10px] sm:text-xs text-gray-400 line-clamp-2">{card.description}</p>
-                    </div>
-                  </Card>
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Learning Path Highlight - Mobile Optimized */}
-        <Card className="p-3 sm:p-4 bg-gradient-to-br from-purple-50 to-blue-50 border-purple-200 mb-4 sm:mb-6">
-          <div className="flex items-start gap-2.5 sm:gap-3">
-            <Star className="h-4 w-4 sm:h-5 sm:w-5 text-purple-600 flex-shrink-0 mt-0.5" />
-            <div className="flex-1 min-w-0">
-              <h3 className="font-semibold text-purple-900 mb-1.5 sm:mb-2 text-xs sm:text-sm">Suggested Learning Path</h3>
-              <ol className="space-y-0.5 sm:space-y-1 text-[11px] sm:text-xs text-purple-800 mb-2">
-                <li>1. Start with Beginner Journey (15-20 min)</li>
-                <li>2. Study the Complete Guide (30-45 min)</li>
-                <li>3. Review Real Documents (20-30 min)</li>
-                <li>4. Use the Calculator before buying</li>
-              </ol>
-              <Link href="/portal/start-here">
-                <Button size="sm" className="bg-purple-600 hover:bg-purple-700 text-xs">
-                  <Rocket className="h-3 w-3 mr-1" />
-                  View Full Learning Path
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </Card>
-
-        {/* Quick Tips - Mobile Optimized */}
-        <Card className="p-3 sm:p-4 bg-blue-50 border-blue-200 mb-4 sm:mb-6">
-          <div className="flex items-start gap-2.5 sm:gap-3">
-            <Shield className="h-4 w-4 sm:h-5 sm:w-5 text-blue-600 flex-shrink-0 mt-0.5" />
-            <div className="flex-1 min-w-0">
-              <h3 className="font-semibold text-blue-900 mb-1.5 sm:mb-2 text-xs sm:text-sm">Quick Tips</h3>
-              <ul className="space-y-0.5 sm:space-y-1 text-[11px] sm:text-xs text-blue-800">
-                <li>• Start with Beginner Journey</li>
-                <li>• Check Documents for examples</li>
-                {isMastery && <li>• Use Calculator before buying</li>}
-                {isMastery && <li>• Compare shipping rates</li>}
-              </ul>
-            </div>
-          </div>
-        </Card>
-
-        {/* Testimonial Request (shows after 3 days) */}
-        {showTestimonial && (
-          <div className="mb-4 sm:mb-6">
-            <TestimonialRequest onClose={() => setShowTestimonial(false)} />
-          </div>
-        )}
-
-        {/* Support Section */}
-        <div className="mb-4 sm:mb-6">
-          <SupportContact />
-        </div>
-
-        {/* Mobile-Only Bottom Navigation Hint */}
-        <div className="mt-6 sm:mt-8 text-center lg:hidden">
-          <p className="text-[11px] sm:text-xs text-gray-500">
-            Tap the menu icon to explore all features
+        <h1 className="text-3xl sm:text-4xl font-medium tracking-tight text-zinc-900 leading-[1.05]">
+          Welcome
+          <span className="block italic font-light text-amber-600 pl-6 sm:pl-10">back.</span>
+        </h1>
+        <div className="mt-4 flex items-start gap-2.5 max-w-xl">
+          <span className="text-amber-500 text-xl leading-none mt-0.5" aria-hidden>↳</span>
+          <p className="text-sm sm:text-base text-zinc-600 leading-snug italic font-light">
+            Pick up where you left off, or start a new chapter.
           </p>
         </div>
+
+        {!isMastery && (
+          <div className="mt-6">
+            <Button
+              size="sm"
+              onClick={() => {
+                if (userEmail) localStorage.setItem('checkout_email', userEmail)
+                window.location.href = '/na/upsell'
+              }}
+              className="group h-10 px-5 bg-amber-400 text-zinc-900 hover:bg-amber-300 font-semibold rounded-full shadow-[0_0_0_1px_rgba(0,0,0,0.04),0_8px_24px_-8px_rgba(251,191,36,0.5)] transition-colors text-sm"
+            >
+              <Zap className="h-3.5 w-3.5 mr-1.5" strokeWidth={1.75} />
+              Upgrade to Mastery
+              <ArrowRight className="ml-1.5 h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+            </Button>
+          </div>
+        )}
+      </div>
+
+      {/* QUICK ACCESS */}
+      <section className="mb-12">
+        <div className="flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.22em] border-b border-zinc-200 pb-2.5 mb-6">
+          <span className="text-blue-600 font-semibold">Quick access</span>
+          <span className="text-zinc-500">
+            {String(quickAccessCards.filter((c) => c.available).length).padStart(2, '0')} /{' '}
+            {String(quickAccessCards.length).padStart(2, '0')} available
+          </span>
+        </div>
+
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-px bg-zinc-200 border border-zinc-200 rounded-2xl overflow-hidden">
+          {quickAccessCards.map((card, idx) => {
+            const Icon = card.icon
+            return card.available ? (
+              <Link
+                key={card.title}
+                href={card.href}
+                className={`group bg-white p-5 sm:p-6 transition-colors flex flex-col min-h-[140px] ${
+                  card.featured ? 'hover:bg-amber-50/40' : 'hover:bg-stone-50/60'
+                }`}
+              >
+                <div className="flex items-center justify-between mb-4">
+                  <div
+                    className={`inline-flex h-10 w-10 items-center justify-center rounded-lg ring-1 ring-inset ${
+                      card.featured
+                        ? 'bg-amber-50 text-amber-700 ring-amber-200'
+                        : 'bg-blue-50 text-blue-600 ring-blue-100'
+                    }`}
+                  >
+                    <Icon className="h-4 w-4" strokeWidth={1.75} />
+                  </div>
+                  <span className="font-mono text-[10px] text-zinc-400 tracking-[0.2em]">
+                    {String(idx + 1).padStart(2, '0')}
+                  </span>
+                </div>
+                <h3
+                  className={`text-sm font-medium leading-snug transition-colors ${
+                    card.featured
+                      ? 'text-zinc-900 group-hover:text-amber-700'
+                      : 'text-zinc-900 group-hover:text-amber-700'
+                  }`}
+                >
+                  {card.title}
+                </h3>
+                <p className="mt-1 text-xs text-zinc-600 leading-snug">{card.description}</p>
+                <div className="mt-auto pt-3 flex items-center gap-1 text-xs font-semibold text-zinc-900 group-hover:text-amber-700 transition-colors">
+                  Open
+                  <ArrowUpRight className="h-3 w-3 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </div>
+              </Link>
+            ) : (
+              <div
+                key={card.title}
+                className="bg-stone-50/60 p-5 sm:p-6 flex flex-col min-h-[140px] relative"
+              >
+                <div className="flex items-center justify-between mb-4">
+                  <div className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-zinc-100 text-zinc-400 ring-1 ring-inset ring-zinc-200">
+                    <Icon className="h-4 w-4" strokeWidth={1.75} />
+                  </div>
+                  <Lock className="h-3 w-3 text-zinc-400" strokeWidth={1.75} />
+                </div>
+                <h3 className="text-sm font-medium text-zinc-500 leading-snug">{card.title}</h3>
+                <p className="mt-1 text-xs text-zinc-400 leading-snug">{card.description}</p>
+                <div className="mt-auto pt-3 font-mono text-[10px] uppercase tracking-[0.22em] text-zinc-400">
+                  Locked
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      </section>
+
+      {/* LEARNING PATH */}
+      <section className="mb-12 border border-zinc-200 rounded-2xl bg-stone-50/60 p-6 sm:p-8">
+        <div className="flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.22em] border-b border-zinc-200 pb-2.5 mb-5">
+          <span className="text-amber-600 font-semibold">Suggested learning path</span>
+          <span className="text-zinc-500">1–2h total</span>
+        </div>
+
+        <div className="grid sm:grid-cols-[1fr_auto] gap-6 sm:gap-8 items-start">
+          <ol className="space-y-2.5 max-w-2xl">
+            {[
+              { step: 'Start with Beginner Journey', duration: '15–20 min' },
+              { step: 'Study the Complete Guide', duration: '30–45 min' },
+              { step: 'Review Real Documents', duration: '20–30 min' },
+              { step: 'Use the Calculator before buying', duration: 'As needed' },
+            ].map((item, i) => (
+              <li key={item.step} className="flex items-start gap-4 text-sm">
+                <span className="font-mono text-[10px] text-amber-600 tracking-[0.2em] w-6 flex-shrink-0 pt-1 font-semibold">
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+                <div className="flex-1 flex items-baseline justify-between gap-3 border-b border-zinc-200/80 pb-2">
+                  <span className="text-zinc-800">{item.step}</span>
+                  <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-zinc-500 whitespace-nowrap">
+                    {item.duration}
+                  </span>
+                </div>
+              </li>
+            ))}
+          </ol>
+
+          <Link href="/portal/start-here" className="sm:self-end">
+            <Button
+              size="sm"
+              className="group h-11 px-5 bg-amber-400 text-zinc-900 hover:bg-amber-300 font-semibold rounded-full shadow-[0_0_0_1px_rgba(0,0,0,0.04),0_12px_32px_-8px_rgba(251,191,36,0.5)] transition-colors text-sm whitespace-nowrap"
+            >
+              <Rocket className="h-3.5 w-3.5 mr-1.5" strokeWidth={1.75} />
+              View full path
+              <ArrowRight className="ml-1.5 h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+            </Button>
+          </Link>
+        </div>
+      </section>
+
+      {/* QUICK TIPS */}
+      <section className="mb-12">
+        <div className="flex items-start gap-3 border-t border-b border-zinc-200 py-6">
+          <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-blue-600 font-semibold mt-0.5 whitespace-nowrap">
+            [ Quick tips ]
+          </span>
+          <ul className="space-y-2 text-sm text-zinc-700 max-w-2xl">
+            <li className="flex items-start gap-2.5">
+              <span className="mt-2 h-1 w-1 rounded-full bg-amber-500 flex-shrink-0" aria-hidden />
+              <span>Start with Beginner Journey</span>
+            </li>
+            <li className="flex items-start gap-2.5">
+              <span className="mt-2 h-1 w-1 rounded-full bg-amber-500 flex-shrink-0" aria-hidden />
+              <span>Check Documents for real examples</span>
+            </li>
+            {isMastery && (
+              <>
+                <li className="flex items-start gap-2.5">
+                  <span className="mt-2 h-1 w-1 rounded-full bg-amber-500 flex-shrink-0" aria-hidden />
+                  <span>Use Calculator before buying</span>
+                </li>
+                <li className="flex items-start gap-2.5">
+                  <span className="mt-2 h-1 w-1 rounded-full bg-amber-500 flex-shrink-0" aria-hidden />
+                  <span>Compare shipping rates</span>
+                </li>
+              </>
+            )}
+          </ul>
+        </div>
+      </section>
+
+      {/* TESTIMONIAL REQUEST */}
+      {showTestimonial && (
+        <div className="mb-12">
+          <TestimonialRequest onClose={() => setShowTestimonial(false)} />
+        </div>
+      )}
+
+      {/* SUPPORT */}
+      <div className="mb-8">
+        <SupportContact />
+      </div>
+
+      {/* Mobile nav hint */}
+      <div className="lg:hidden text-center pb-8">
+        <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-zinc-400">
+          Tap the menu icon to explore all features
+        </p>
       </div>
     </main>
   )

@@ -1,9 +1,8 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useAuthImmediate } from '@/lib/hooks/use-auth-immediate'
-import { Card } from '@/components/ui/card'
 import { GuideNavigation } from '@/components/guide/guide-navigation'
 import { QuickStartOverview } from '@/components/guide/quick-start-overview'
 import { PreImportEssentials } from '@/components/guide/pre-import-essentials'
@@ -22,218 +21,25 @@ import { namibiaTimelineSteps } from '@/lib/guide-data/namibia-timeline'
 import { southAfricaTimelineSteps } from '@/lib/guide-data/south-africa-timeline'
 import { botswanaTimelineSteps } from '@/lib/guide-data/botswana-timeline'
 import { zambiaTimelineSteps } from '@/lib/guide-data/zambia-timeline'
-import { AlertTriangle, CheckCircle, Info, TrendingDown, Lock, Shield } from 'lucide-react'
+import { CheckCircle2, Lock, Shield, Loader2 } from 'lucide-react'
 
-// Country-specific data
 const countryData = {
-  'namibia': {
-    name: 'Namibia',
-    port: 'Walvis Bay',
-    currency: 'N$',
-    timeline: namibiaTimelineSteps,
-    daysRange: '60-75'
-  },
-  'south-africa': {
-    name: 'South Africa',
-    port: 'Walvis Bay or Durban',
-    currency: 'R',
-    timeline: southAfricaTimelineSteps,
-    daysRange: '65-90'
-  },
-  'botswana': {
-    name: 'Botswana',
-    port: 'Walvis Bay',
-    currency: 'P',
-    timeline: botswanaTimelineSteps,
-    daysRange: '60-80'
-  },
-  'zambia': {
-    name: 'Zambia',
-    port: 'Walvis Bay',
-    currency: 'K',
-    timeline: zambiaTimelineSteps,
-    daysRange: '70-95'
-  }
+  namibia: { name: 'Namibia', port: 'Walvis Bay', currency: 'N$', timeline: namibiaTimelineSteps, daysRange: '60–75' },
+  'south-africa': { name: 'South Africa', port: 'Walvis Bay or Durban', currency: 'R', timeline: southAfricaTimelineSteps, daysRange: '65–90' },
+  botswana: { name: 'Botswana', port: 'Walvis Bay', currency: 'P', timeline: botswanaTimelineSteps, daysRange: '60–80' },
+  zambia: { name: 'Zambia', port: 'Walvis Bay', currency: 'K', timeline: zambiaTimelineSteps, daysRange: '70–95' },
 } as const
-
-// Old timeline data - kept for backward compatibility, will be removed
-const _oldNamibiaTimelineSteps = [
-  {
-    title: 'Pre-Import Planning',
-    duration: '7–14 days',
-    urgencyLevel: 'critical' as 'low' | 'medium' | 'high' | 'critical',
-    required: [
-      'Pick a car that meets import rules (max 12 years old for Namibia)',
-      'Get seller to photograph VIN and engine number on the car',
-      'Confirm who will appear as Consignee on Bill of Lading',
-      'Choose clearing approach: DIY + clearing firm (recommended) vs full agent'
-    ],
-    tips: [
-      '🔍 Match everything to VIN/engine number. One wrong character = days of delay',
-      '🧾 Invoice must show: VIN, engine number, make/model, year, engine capacity, color',
-      '🎯 If sharing container, agree in writing who pays if someone drops out'
-    ],
-    commonDelays: [
-      {
-        delay: 'Wrong vehicle age calculation',
-        cost: 'Total loss of vehicle',
-        prevention: 'Check manufacturing date, not registration date'
-      },
-      {
-        delay: 'Consignee account blocked',
-        cost: 'N$500+/day storage',
-        prevention: 'Verify consignee good standing before purchase'
-      }
-    ],
-    checklist: [
-      { label: 'VIN photo', id: 'vin-photo' },
-      { label: 'Engine photo', id: 'engine-photo' },
-      { label: 'Correct invoice', id: 'invoice' },
-      { label: 'Consignee confirmed', id: 'consignee' },
-      { label: 'Clearing plan', id: 'clearing' }
-    ]
-  },
-  {
-    title: 'Documentation Preparation',
-    duration: '3–5 days',
-    urgencyLevel: 'high' as 'low' | 'medium' | 'high' | 'critical',
-    required: [
-      'SAD 500 form (clearing firm prepares)',
-      'Assessment Notice (official duty/VAT computation)',
-      'Payment Receipts for all duties and levies',
-      'Customs Release Order and Clearance Certificate',
-      'Police Clearance for VIN/engine verification',
-      'ID and Driver\'s License copies'
-    ],
-    tips: [
-      '⚡ Complete SAD 500 immediately when Bill of Lading arrives',
-      '📋 Triple-check VIN/engine numbers before submission',
-      '💰 Keep all payment receipts - you need them for registration'
-    ],
-    commonDelays: [
-      {
-        delay: 'Missing certified translation',
-        cost: 'N$300+/day storage',
-        prevention: 'Start translation process 2-3 weeks early'
-      },
-      {
-        delay: 'VIN/Engine number errors',
-        cost: 'N$2,500+ delays',
-        prevention: 'Triple-check all numbers against photos'
-      }
-    ],
-    checklist: [
-      { label: 'SAD 500 form', id: 'sad-500' },
-      { label: 'All receipts', id: 'receipts' },
-      { label: 'ID documents', id: 'id-docs' },
-      { label: 'Vehicle photos', id: 'photos' }
-    ]
-  },
-  {
-    title: 'Shipping & Arrival',
-    duration: '35–45 days',
-    urgencyLevel: 'medium' as 'low' | 'medium' | 'high' | 'critical',
-    required: [
-      'Track container location weekly',
-      'Prepare clearing agent documents',
-      'Arrange port storage if needed',
-      'Book transporter in advance'
-    ],
-    tips: [
-      '🚢 Container arrives 2-3 days before scheduled date usually',
-      '📅 Book clearing agent 1 week before arrival',
-      '🚚 Pre-book transporter to avoid storage fees'
-    ],
-    commonDelays: [
-      {
-        delay: 'Port congestion',
-        cost: 'N$200+/day extra storage',
-        prevention: 'Monitor port status and plan for delays'
-      }
-    ],
-    checklist: [
-      { label: 'Container tracked', id: 'tracking' },
-      { label: 'Agent booked', id: 'agent' },
-      { label: 'Transport ready', id: 'transport' }
-    ]
-  },
-  {
-    title: 'Clearance & Collection',
-    duration: '5–10 days',
-    urgencyLevel: 'critical' as 'low' | 'medium' | 'high' | 'critical',
-    required: [
-      'Submit documents to clearing agent',
-      'Pay all duties and fees',
-      'Pass police clearance inspection',
-      'Arrange collection from port'
-    ],
-    tips: [
-      '💡 Use clearing firm for first import - DIY is risky',
-      '⏰ Start clearance immediately to avoid storage fees',
-      '🔐 Get temporary insurance before driving'
-    ],
-    commonDelays: [
-      {
-        delay: 'HS code disputes',
-        cost: 'N$15,000+ extra duty',
-        prevention: 'Research correct classification beforehand'
-      },
-      {
-        delay: 'Payment processing delays',
-        cost: 'N$500+/day storage',
-        prevention: 'Have all payment methods ready and verified'
-      }
-    ],
-    checklist: [
-      { label: 'Duties paid', id: 'duties' },
-      { label: 'Police cleared', id: 'police' },
-      { label: 'Car collected', id: 'collected' }
-    ]
-  },
-  {
-    title: 'Registration',
-    duration: '7–14 days',
-    urgencyLevel: 'medium' as 'low' | 'medium' | 'high' | 'critical',
-    required: [
-      'Roadworthy certificate',
-      'NaTIS registration',
-      'License plates',
-      'Insurance policy'
-    ],
-    tips: [
-      '🛠️ Book roadworthy test immediately after collection',
-      '📝 Submit NaTIS papers same day as roadworthy',
-      '🎯 Full process can be done in 3 days if organized'
-    ],
-    commonDelays: [
-      {
-        delay: 'Roadworthy test backlogs',
-        cost: 'N$1,500+ delays',
-        prevention: 'Book appointment immediately after collection'
-      }
-    ],
-    checklist: [
-      { label: 'Roadworthy', id: 'roadworthy' },
-      { label: 'NaTIS done', id: 'natis' },
-      { label: 'Plates fitted', id: 'plates' },
-      { label: 'Insurance active', id: 'insurance' }
-    ]
-  }
-]
 
 export default function GuidePage() {
   const router = useRouter()
-  const { user, userEmail, hasAccess, loading, userTier } = useAuthImmediate()
+  const { user, userEmail, loading } = useAuthImmediate()
   const [currentSection, setCurrentSection] = useState<string>('overview')
   const [selectedCountry, setSelectedCountry] = useState<Country>('namibia')
 
-  // Get current country data
   const currentCountryData = countryData[selectedCountry]
 
-  // Handle country change - scroll to timeline section
   const handleCountryChange = (country: Country) => {
     setSelectedCountry(country)
-    // Scroll to timeline section after country change
     setTimeout(() => {
       const timelineElement = document.getElementById('timeline')
       if (timelineElement) {
@@ -242,221 +48,241 @@ export default function GuidePage() {
     }, 100)
   }
 
-  // Clean up email display
   const displayEmail = userEmail || 'Portal User'
-  const cleanEmail = displayEmail.startsWith('user_cs_test_') ||
+  const cleanEmail =
+    displayEmail.startsWith('user_cs_test_') ||
     (displayEmail.startsWith('user_') && displayEmail.endsWith('@impota.com'))
-    ? 'Portal User'
-    : displayEmail
+      ? 'Portal User'
+      : displayEmail
 
-  // Navigation handler
   const handleNavigateToSection = (sectionId: string) => {
     setCurrentSection(sectionId)
     const element = document.getElementById(sectionId)
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' })
-    }
+    if (element) element.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
 
-  // Loading state
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-          <p className="mt-4 text-gray-600">Loading guide...</p>
+      <div className="min-h-[60vh] flex items-center justify-center">
+        <div className="flex flex-col items-center gap-4">
+          <Loader2 className="h-7 w-7 text-amber-500 animate-spin" strokeWidth={1.75} />
+          <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-zinc-500">
+            Loading guide
+          </p>
         </div>
       </div>
     )
   }
 
-  // No access - redirect to portal home or show message
   if (!user) {
     router.replace('/portal')
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <p className="text-gray-600">Redirecting to portal...</p>
+      <div className="min-h-[60vh] flex items-center justify-center">
+        <div className="flex flex-col items-center gap-4">
+          <Loader2 className="h-7 w-7 text-amber-500 animate-spin" strokeWidth={1.75} />
+          <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-zinc-500">
+            Redirecting to portal
+          </p>
         </div>
       </div>
     )
   }
 
-  // Has access - show the guide
   return (
-    <main className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
-      <div className="w-full">
-        {/* Header with protection notice - Mobile Optimized */}
-        <div className="mb-8 px-4 sm:px-6 max-w-6xl mx-auto">
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
-            <div>
-              <div className="flex items-center gap-2 mb-2">
-                <h1 className="text-3xl sm:text-4xl font-bold">Complete Vehicle Import Guide</h1>
-                <span className="px-3 py-1 bg-blue-100 text-blue-700 text-sm font-semibold rounded-full">
-                  {currentCountryData.name}
-                </span>
-              </div>
-              <p className="text-gray-600 mb-3">Your step-by-step roadmap to importing vehicles via {currentCountryData.port}</p>
-              <LastUpdated date="October 2025" note="Multi-country verified" />
-            </div>
-            <div className="flex items-center gap-2 text-xs sm:text-sm text-gray-600">
-              <Shield className="h-3 w-3 sm:h-4 sm:w-4" />
-              <span className="truncate max-w-[200px]">Licensed to: {cleanEmail}</span>
-            </div>
+    <main className="bg-white">
+      <div className="max-w-6xl mx-auto">
+        {/* PAGE HEADER */}
+        <div className="mb-10 pb-8 border-b border-zinc-200">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
+            <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-amber-600 font-semibold">
+              Import guide · {currentCountryData.name}
+            </p>
+            <LastUpdated date="October 2025" note="Multi-country verified" />
           </div>
 
-          {/* Support Section */}
-          <div className="mb-6">
-            <SupportContact />
-          </div>
-          <div className="bg-red-50 border border-red-200 rounded-lg p-3 sm:p-4">
-            <div className="flex items-start gap-2">
-              <Lock className="h-4 w-4 sm:h-5 sm:w-5 text-red-600 flex-shrink-0 mt-0.5" />
-              <div>
-                <p className="text-xs sm:text-sm text-red-800 font-medium">Content Protection Active</p>
-                <p className="text-xs text-red-700 mt-1">
-                  This guide is licensed to {cleanEmail}. Sharing or redistributing this content violates the terms of service.
-                </p>
-              </div>
-            </div>
+          <h1 className="text-3xl sm:text-4xl font-medium tracking-tight text-zinc-900 leading-[1.05]">
+            Complete vehicle
+            <span className="block italic font-light text-amber-600 pl-6 sm:pl-10">
+              import guide.
+            </span>
+          </h1>
+
+          <div className="mt-4 flex items-start gap-2.5 max-w-2xl">
+            <span className="text-amber-500 text-xl leading-none mt-0.5" aria-hidden>↳</span>
+            <p className="text-sm sm:text-base text-zinc-600 leading-snug italic font-light">
+              Your step-by-step roadmap to importing vehicles via {currentCountryData.port}.
+            </p>
           </div>
 
-          {/* Country Selector */}
-          <div className="mt-6">
-            <CountrySelector
-              selectedCountry={selectedCountry}
-              onCountryChange={handleCountryChange}
-            />
+          <div className="mt-6 flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.22em] text-zinc-500">
+            <Shield className="h-3 w-3" strokeWidth={1.75} />
+            <span>Licensed to · {cleanEmail}</span>
           </div>
         </div>
 
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 space-y-16">
+        {/* SUPPORT */}
+        <div className="mb-8">
+          <SupportContact />
+        </div>
+
+        {/* CONTENT PROTECTION NOTICE — editorial */}
+        <div className="mb-10 border-t border-b border-zinc-200 py-5 flex items-start gap-3">
+          <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-red-600 font-semibold mt-0.5 whitespace-nowrap">
+            [ Protected ]
+          </span>
+          <div className="flex-1">
+            <p className="text-sm font-medium text-zinc-900 mb-1 inline-flex items-center gap-2">
+              <Lock className="h-3.5 w-3.5 text-red-500" strokeWidth={1.75} />
+              Content protection active
+            </p>
+            <p className="text-sm text-zinc-600 leading-relaxed">
+              This guide is licensed to{' '}
+              <span className="font-medium text-zinc-800">{cleanEmail}</span>. Sharing or redistributing
+              this content violates the terms of service.
+            </p>
+          </div>
+        </div>
+
+        {/* COUNTRY SELECTOR */}
+        <div className="mb-12">
+          <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-blue-600 font-semibold pb-2.5 mb-4 border-b border-zinc-200">
+            Choose country
+          </p>
+          <CountrySelector
+            selectedCountry={selectedCountry}
+            onCountryChange={handleCountryChange}
+          />
+        </div>
+
+        <div className="space-y-16">
           {/* Navigation */}
           <GuideNavigation
             currentSection={currentSection}
             onNavigate={handleNavigateToSection}
           />
 
-          {/* 1. Quick Start Overview */}
           <section id="overview">
             <QuickStartOverview onNavigateToSection={handleNavigateToSection} />
           </section>
 
-          {/* 2. Pre-Import Essentials */}
           <section id="essentials">
             <PreImportEssentials onNavigateToSection={handleNavigateToSection} />
           </section>
 
-          {/* Critical Warnings Section */}
           <section id="warnings">
             <CriticalImportWarnings />
           </section>
 
-          {/* 3. Cost Breakdown */}
           <section id="costs">
             <CostBreakdown showTimelineIntegration={true} />
           </section>
 
-          {/* 4. Step-by-Step Timeline */}
           <section id="timeline" key={`timeline-${selectedCountry}`}>
             <TimelineSection steps={currentCountryData.timeline} />
           </section>
 
-          {/* 5. Common Mistakes */}
           <section id="mistakes">
             <MistakeCards />
           </section>
 
-          {/* 6. Documents & Templates */}
           <section id="templates">
             <TemplatesSection />
           </section>
 
-          {/* 7. Practical Tools */}
           <section id="tools">
             <PracticalTools />
           </section>
 
-          {/* 8. Emergency Help */}
           <section id="emergency">
             <EmergencyQuickReference />
           </section>
 
-          {/* Success Summary */}
+          {/* SUCCESS SUMMARY — editorial */}
           <section className="pt-8">
-            <Card className="p-6 sm:p-8 bg-gradient-to-r from-green-50 to-blue-50 border-green-200">
-              <div className="text-center">
-                <CheckCircle className="h-16 w-16 text-green-600 mx-auto mb-4" />
-                <h2 className="text-2xl font-bold mb-4">Your Import Success Formula</h2>
+            <div className="border border-zinc-200 rounded-2xl bg-stone-50/60 p-6 sm:p-10">
+              <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-amber-600 font-semibold mb-3">
+                Success formula
+              </p>
+              <h2 className="text-2xl sm:text-3xl font-medium tracking-tight text-zinc-900">
+                Your import success.
+              </h2>
+              <div className="mt-4 h-px w-14 bg-amber-500/70" />
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                  <div className="p-4 bg-white rounded-lg border">
-                    <div className="text-3xl font-bold text-blue-600 mb-2">95%</div>
-                    <p className="text-sm text-gray-600">Success rate when following all steps</p>
-                  </div>
-                  <div className="p-4 bg-white rounded-lg border">
-                    <div className="text-3xl font-bold text-purple-600 mb-2">{currentCountryData.daysRange}</div>
-                    <p className="text-sm text-gray-600">Days from purchase to registration</p>
-                  </div>
+              {/* Stats */}
+              <div className="mt-8 grid grid-cols-2 gap-px bg-zinc-200 border border-zinc-200 rounded-xl overflow-hidden max-w-md">
+                <div className="bg-white p-5">
+                  <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-zinc-500">Success rate</p>
+                  <p className="mt-2 text-3xl font-medium tracking-tight bg-gradient-to-br from-amber-500 via-amber-600 to-amber-700 bg-clip-text text-transparent">
+                    95%
+                  </p>
+                  <p className="mt-1 text-xs text-zinc-500">When following all steps</p>
                 </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-left">
-                  <div>
-                    <h3 className="font-semibold mb-3">Critical Success Factors:</h3>
-                    <ul className="space-y-2 text-sm">
-                      <li className="flex items-start gap-2">
-                        <CheckCircle className="h-4 w-4 text-green-600 mt-0.5 flex-shrink-0" />
-                        <span>Follow the eligibility rules exactly - no exceptions</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <CheckCircle className="h-4 w-4 text-green-600 mt-0.5 flex-shrink-0" />
-                        <span>Verify consignee good standing before paying anything</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <CheckCircle className="h-4 w-4 text-green-600 mt-0.5 flex-shrink-0" />
-                        <span>Triple-check all VIN and engine numbers</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <CheckCircle className="h-4 w-4 text-green-600 mt-0.5 flex-shrink-0" />
-                        <span>Keep 15% budget buffer for unexpected costs</span>
-                      </li>
-                    </ul>
-                  </div>
-
-                  <div>
-                    <h3 className="font-semibold mb-3">Your Next Steps:</h3>
-                    <ul className="space-y-2 text-sm">
-                      <li className="flex items-start gap-2">
-                        <span className="flex-shrink-0 w-5 h-5 bg-blue-100 text-blue-700 rounded-full text-xs flex items-center justify-center font-semibold">1</span>
-                        <span>Use the eligibility checker above to confirm you can import</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <span className="flex-shrink-0 w-5 h-5 bg-blue-100 text-blue-700 rounded-full text-xs flex items-center justify-center font-semibold">2</span>
-                        <span>Calculate your total budget including buffer</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <span className="flex-shrink-0 w-5 h-5 bg-blue-100 text-blue-700 rounded-full text-xs flex items-center justify-center font-semibold">3</span>
-                        <span>Find suitable vehicles and verify eligibility before purchasing</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <span className="flex-shrink-0 w-5 h-5 bg-blue-100 text-blue-700 rounded-full text-xs flex items-center justify-center font-semibold">4</span>
-                        <span>Use the progress tracker to stay organized throughout the process</span>
-                      </li>
-                    </ul>
-                  </div>
+                <div className="bg-white p-5">
+                  <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-zinc-500">Days</p>
+                  <p className="mt-2 text-3xl font-medium tracking-tight text-zinc-900">
+                    {currentCountryData.daysRange}
+                  </p>
+                  <p className="mt-1 text-xs text-zinc-500">Purchase to registration</p>
                 </div>
               </div>
-            </Card>
+
+              {/* Two-column lists */}
+              <div className="mt-10 grid sm:grid-cols-2 gap-px bg-zinc-200 border border-zinc-200 rounded-xl overflow-hidden">
+                <div className="bg-white p-5 sm:p-6">
+                  <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-emerald-700 font-semibold border-b border-zinc-200 pb-2.5 mb-3">
+                    Critical success factors
+                  </p>
+                  <ul className="space-y-2.5">
+                    {[
+                      'Follow the eligibility rules exactly — no exceptions',
+                      'Verify consignee good standing before paying anything',
+                      'Triple-check all VIN and engine numbers',
+                      'Keep 15% budget buffer for unexpected costs',
+                    ].map((item, i) => (
+                      <li key={i} className="flex items-start gap-2.5 text-sm text-zinc-700">
+                        <CheckCircle2 className="h-4 w-4 mt-0.5 text-emerald-600 flex-shrink-0" strokeWidth={1.75} />
+                        <span className="leading-relaxed">{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="bg-white p-5 sm:p-6">
+                  <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-blue-600 font-semibold border-b border-zinc-200 pb-2.5 mb-3">
+                    Your next steps
+                  </p>
+                  <ol className="space-y-2.5">
+                    {[
+                      'Use the eligibility checker above to confirm you can import',
+                      'Calculate your total budget including buffer',
+                      'Find suitable vehicles and verify eligibility before purchasing',
+                      'Use the progress tracker to stay organized throughout',
+                    ].map((item, i) => (
+                      <li key={i} className="flex items-start gap-3 text-sm text-zinc-700">
+                        <span className="font-mono text-[10px] text-zinc-400 tracking-[0.2em] w-5 flex-shrink-0 pt-1 font-semibold">
+                          {String(i + 1).padStart(2, '0')}
+                        </span>
+                        <span className="leading-relaxed">{item}</span>
+                      </li>
+                    ))}
+                  </ol>
+                </div>
+              </div>
+            </div>
           </section>
         </div>
 
-        {/* Support Notice */}
-        <div className="mt-16 text-center text-xs sm:text-sm text-gray-600 px-4 sm:px-6 pb-8">
-          <p>Need help? Use the emergency contacts section or consult with your clearing agent.</p>
-          <p className="mt-2">This guide is specifically for {currentCountryData.port} port imports to {currentCountryData.name}. Other ports may have different procedures.</p>
+        {/* Support footnote */}
+        <div className="mt-16 pt-8 border-t border-zinc-200 text-center">
+          <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-zinc-500">
+            Need help? Use the emergency contacts section or consult your clearing agent.
+          </p>
+          <p className="mt-2 text-xs text-zinc-500">
+            This guide is specifically for {currentCountryData.port} port imports to{' '}
+            {currentCountryData.name}. Other ports may have different procedures.
+          </p>
         </div>
 
-        {/* Portal Page Navigation */}
         <PortalPageNavigation currentPath="/portal/guide" />
       </div>
     </main>
