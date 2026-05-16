@@ -1,30 +1,25 @@
 'use client'
 
 import { useState } from 'react'
-import { Card } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import Image from 'next/image'
 import PDFViewer from '@/components/PDFViewer'
 import ValidatedCheckoutButton from '@/components/validated-checkout-button'
+import { Button } from '@/components/ui/button'
 import {
   AlertTriangle,
   BookOpen,
-  CheckCircle,
+  CheckCircle2,
   Clock,
   Ship,
   ArrowRight,
+  ArrowUpRight,
   FileText,
-  Sparkles,
-  Shield,
-  DollarSign,
   Globe,
   Package,
-  ChevronDown,
   MessageCircle,
-  Users,
   Calculator,
-  Star
+  Star,
 } from 'lucide-react'
 
 export default function PublicImportGuide() {
@@ -32,8 +27,7 @@ export default function PublicImportGuide() {
   const [carPrice, setCarPrice] = useState('')
   const [estimatedCost, setEstimatedCost] = useState<number | null>(null)
 
-  // Replace with your actual WhatsApp number
-  const whatsappNumber = "264816683276" // Namibia format
+  const whatsappNumber = '264816683276'
   const whatsappMessage = "Hi! I'm interested in learning more about importing cars from Japan."
 
   const calculateQuickEstimate = () => {
@@ -42,756 +36,965 @@ export default function PublicImportGuide() {
       setEstimatedCost(null)
       return
     }
-
-    // Quick estimation formula for Namibia
-    // Auction price + ~50% Japan costs + ~45% shipping/duties/VAT
-    const estimate = price * 1.95
-    setEstimatedCost(Math.round(estimate))
+    setEstimatedCost(Math.round(price * 1.95))
   }
 
-  return (
-    <main className="min-h-screen bg-gradient-to-b from-white via-slate-50/30 to-white">
-      {/* Sticky Navigation - Enhanced */}
-      <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-slate-200/60 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16 sm:h-18">
-            {/* Logo */}
-            <Link href="/" className="flex items-center hover:opacity-80 transition-opacity">
-              <Image
-                src="/impota-logo.png"
-                alt="IMPOTA"
-                width={150}
-                height={40}
-                className="h-8 sm:h-10 w-auto"
-                priority
-              />
-            </Link>
+  const sectionNav = [
+    { title: 'Real Import Example', desc: 'Actual costs & invoice', icon: FileText, href: '#real-example' },
+    { title: 'Import Terms', desc: 'Essential vocabulary', icon: BookOpen, href: '#import-terms' },
+    { title: 'Country Rules', desc: 'Import regulations', icon: Globe, href: '#country-rules' },
+    { title: 'Critical Warnings', desc: 'Avoid costly mistakes', icon: AlertTriangle, href: '#warning' },
+    { title: 'Timeline', desc: 'Realistic expectations', icon: Clock, href: '#timeline' },
+    { title: 'Container Sharing', desc: 'Save N$40,000+', icon: Package, href: '#container-sharing' },
+  ]
 
-            {/* Navigation */}
-            <div className="flex items-center gap-3 sm:gap-4">
+  const costBreakdown = [
+    { label: 'Japan auction price', amount: 'N$27,012', sub: '¥231,000' },
+    { label: 'Japan-side costs', amount: 'N$14,551', sub: '¥124,440' },
+    { label: 'Ocean freight (shared container)', amount: 'N$16,020', sub: '¥137,000' },
+  ]
+
+  const namibianTaxes = [
+    { label: 'ICD (Import Customs Duty)', amount: 'N$10,862' },
+    { label: 'ENV Levy', amount: 'N$3,960' },
+    { label: 'ADV (Ad Valorem)', amount: 'N$653' },
+    { label: 'VAT (15%)', amount: 'N$7,169' },
+  ]
+
+  const importTerms = [
+    { term: 'FOB Price', definition: "Free On Board — the car's price in Japan up to loading on ship" },
+    { term: 'CIF Value', definition: 'Cost, Insurance & Freight — car price + shipping + insurance to destination' },
+    { term: 'ICD', definition: 'Import Customs Duty — main import tax (25% in Namibia)' },
+    { term: 'Landed Cost', definition: 'Total cost to get the car out of port, before registration' },
+    { term: 'Bill of Lading (B/L)', definition: 'Key shipping document and proof of shipment/ownership' },
+    { term: 'Clearing Agent', definition: 'Licensed professional handling customs processes' },
+  ]
+
+  const countries = [
+    {
+      country: 'Namibia',
+      flag: '🇳🇦',
+      rules: [
+        { text: 'Age Limit: 12 years maximum', tone: 'warn' as const },
+        { text: 'Only right-hand drive allowed', tone: 'warn' as const },
+        { text: 'Extended from 8 years in July 2022', tone: 'note' as const },
+      ],
+    },
+    {
+      country: 'South Africa',
+      flag: '🇿🇦',
+      rules: [
+        { text: 'NO general used vehicle imports', tone: 'warn' as const },
+        { text: 'Exceptions for:', tone: 'note' as const },
+        { text: '— Returning residents (6+ months abroad)', tone: 'note' as const },
+        { text: '— Immigrants with permanent residence', tone: 'note' as const },
+        { text: '— Vintage vehicles (40+ years)', tone: 'note' as const },
+      ],
+    },
+    {
+      country: 'Botswana',
+      flag: '🇧🇼',
+      rules: [
+        { text: 'NO age restrictions', tone: 'ok' as const },
+        { text: 'No engine size restrictions', tone: 'ok' as const },
+        { text: 'Both left and right-hand drive allowed', tone: 'ok' as const },
+      ],
+    },
+    {
+      country: 'Zambia',
+      flag: '🇿🇲',
+      rules: [
+        { text: 'NO age restrictions', tone: 'ok' as const },
+        { text: 'Vehicles over 5 years = higher surtaxes', tone: 'warn' as const },
+        { text: 'Only right-hand drive (except emergency vehicles)', tone: 'warn' as const },
+      ],
+    },
+  ]
+
+  const timeline = [
+    {
+      label: 'Best case',
+      range: '7–8 weeks · 51–57 days',
+      desc: 'Direct shipping, no delays, documents ready, quick customs clearance.',
+      tone: 'ok' as const,
+    },
+    {
+      label: 'Realistic',
+      range: '9–10 weeks · 60–70 days',
+      desc: 'Standard processing, minor port delays, average customs time.',
+      note: 'Most imports fall in this range',
+      tone: 'standard' as const,
+    },
+    {
+      label: 'Extended',
+      range: '11–13 weeks · 75–90 days',
+      desc: 'Vessel delays, port congestion, documentation issues, inspection delays.',
+      tone: 'warn' as const,
+    },
+  ]
+
+  const memberFeatures = [
+    '3 more vehicle examples (Golf 7R, A3, A4)',
+    'All 20+ import documents (PDFs)',
+    'Advanced multi-country calculator',
+    'Complete step-by-step guide',
+    'Verified clearing agents directory',
+    'Japan auction bidding guide',
+    'Shipping companies comparison',
+    '15+ common mistakes guide',
+  ]
+
+  const marqueeItems = [
+    'Walvis Bay',
+    'Trans-Kalahari',
+    'NRCS certification',
+    'ICD · VAT · ADV',
+    'Auction sourcing',
+    'Container sharing',
+    'Bill of Lading',
+    'Free guide · No signup',
+  ]
+
+  return (
+    <main className="bg-white">
+      {/* TOP NAV */}
+      <nav className="sticky top-0 z-50 bg-white/85 backdrop-blur-md border-b border-zinc-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-14 sm:h-16">
+            <div className="flex items-center gap-4 min-w-0">
+              <Link href="/" className="flex-shrink-0 active:opacity-70 transition-opacity">
+                <Image src="/impota-logo.png" alt="IMPOTA" width={120} height={32} className="h-6 sm:h-7 w-auto" priority />
+              </Link>
+              <span className="hidden md:inline-flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.22em] text-zinc-500">
+                <span className="h-px w-6 bg-zinc-300" />
+                Free import guide
+              </span>
+            </div>
+            <div className="flex items-center gap-2 sm:gap-4">
               <Link
                 href="/contact"
-                className="hidden sm:inline-flex text-slate-600 hover:text-blue-600 transition-colors text-sm font-medium"
+                className="hidden sm:inline-flex items-center gap-1 text-sm font-medium text-zinc-700 hover:text-zinc-900 transition-colors px-2"
               >
                 Contact
+                <ArrowUpRight className="h-3.5 w-3.5" />
               </Link>
-              <Link
-                href="/auth/login"
-                className="px-3 sm:px-5 py-2 sm:py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-all duration-200 hover:shadow-lg hover:scale-105 text-sm"
-              >
-                Login
+              <Link href="/auth/login">
+                <Button
+                  size="sm"
+                  className="h-9 px-4 sm:h-10 sm:px-5 bg-amber-400 text-zinc-900 hover:bg-amber-300 font-semibold rounded-full shadow-[0_0_0_1px_rgba(0,0,0,0.04),0_8px_24px_-8px_rgba(251,191,36,0.5)] transition-colors text-xs sm:text-sm"
+                >
+                  Login
+                  <ArrowRight className="ml-1.5 h-3.5 w-3.5" />
+                </Button>
               </Link>
             </div>
           </div>
         </div>
       </nav>
 
-      {/* Hero Section - Enhanced */}
-      <section className="relative overflow-hidden">
-        {/* Professional Background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-blue-900 to-purple-900"></div>
-        <div className="absolute inset-0 bg-[url('/japan-cars-hero.png')] bg-cover bg-center opacity-20"></div>
-        <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-transparent to-black/50"></div>
+      {/* HERO — Nº 01 */}
+      <section className="relative isolate overflow-hidden bg-zinc-950 text-white flex flex-col min-h-[80vh]">
+        <div
+          className="absolute inset-0 -z-20"
+          style={{ backgroundImage: 'url(/japan-cars-hero.png)', backgroundSize: 'cover', backgroundPosition: 'center 30%' }}
+          aria-hidden
+        />
+        <div className="absolute inset-x-0 top-0 h-40 -z-10 bg-gradient-to-b from-zinc-950 via-zinc-950/70 to-transparent" aria-hidden />
+        <div className="absolute inset-0 -z-10 bg-gradient-to-r from-zinc-950 via-zinc-950/75 to-zinc-950/15 sm:via-zinc-950/60" aria-hidden />
+        <div className="absolute inset-x-0 bottom-0 h-72 -z-10 bg-gradient-to-t from-zinc-950 via-zinc-950/80 to-transparent" aria-hidden />
+        <div className="absolute -bottom-40 -left-40 -z-10 h-[32rem] w-[32rem] rounded-full bg-amber-500/[0.08] blur-3xl" aria-hidden />
+        <div className="absolute top-1/4 right-1/4 -z-10 h-[24rem] w-[24rem] rounded-full bg-blue-500/[0.05] blur-3xl" aria-hidden />
 
-        {/* Animated Background Elements */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute -top-1/2 -left-1/2 w-full h-full bg-gradient-to-br from-blue-500/10 to-transparent rounded-full animate-pulse"></div>
-          <div className="absolute -bottom-1/2 -right-1/2 w-full h-full bg-gradient-to-tl from-purple-500/10 to-transparent rounded-full animate-pulse delay-1000"></div>
+        <div className="hidden md:block absolute top-20 left-6 lg:left-8 h-px w-12 bg-amber-400/40" aria-hidden />
+        <div className="hidden md:block absolute top-20 left-6 lg:left-8 h-12 w-px bg-amber-400/40" aria-hidden />
+        <div className="hidden md:block absolute top-20 right-6 lg:right-8 h-px w-12 bg-amber-400/40" aria-hidden />
+        <div className="hidden md:block absolute top-20 right-6 lg:right-8 h-12 w-px bg-amber-400/40" aria-hidden />
+
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-6 lg:px-8 pt-20 sm:pt-24">
+          <div className="flex items-center justify-between text-[10px] sm:text-[11px] uppercase tracking-[0.28em] text-zinc-400 font-medium">
+            <div className="flex items-center gap-3">
+              <span className="text-amber-300 font-semibold">Nº 01</span>
+              <span className="h-px w-8 bg-zinc-600" />
+              <span>Free import guide</span>
+            </div>
+            <span className="hidden md:inline-block text-zinc-500">No signup · Instant access</span>
+          </div>
         </div>
 
-        <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20 lg:py-28 z-20">
-          <div className="text-center mb-10 sm:mb-14">
-            {/* Badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-sm font-semibold text-white mb-6 sm:mb-8 shadow-lg">
-              <BookOpen className="h-4 w-4" />
-              Free Import Guide
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-6 lg:px-8 flex-1 flex items-center pt-10 pb-16 sm:pt-14">
+          <div className="w-full max-w-4xl">
+            <div className="inline-flex items-center gap-3 text-[11px] uppercase tracking-[0.24em] text-amber-300 font-semibold">
+              <span className="inline-block h-1.5 w-1.5 rounded-full bg-amber-400" />
+              Free guide for first-time importers
             </div>
 
-            {/* Social Proof Badge - Mobile Optimized */}
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-0 mb-6 sm:mb-8">
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-500/90 backdrop-blur-md border border-green-400/50 rounded-full text-xs sm:text-sm font-bold text-white shadow-lg animate-pulse">
-                <Users className="h-4 w-4" />
-                <span className="hidden sm:inline">5 Namibians already saving thousands - join them</span>
-                <span className="sm:hidden">5 Namibians joined this week!</span>
-              </div>
-            </div>
-
-            {/* Main Heading */}
-            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white mb-5 sm:mb-7 leading-tight tracking-tight drop-shadow-2xl">
-              Import Your Dream Car<br className="hidden sm:block" />
-              <span className="bg-gradient-to-r from-emerald-400 via-blue-400 to-purple-400 bg-clip-text text-transparent drop-shadow-2xl"> Without the Costly Mistakes</span>
+            <h1 className="mt-8 sm:mt-10 font-medium tracking-tight text-white leading-[0.92] text-[clamp(2.5rem,7.5vw,6rem)]">
+              <span className="block">Import your dream car</span>
+              <span className="block pl-[10vw] sm:pl-[8vw] lg:pl-[12vw] italic font-light text-amber-300/95">
+                without the costly mistakes.
+              </span>
             </h1>
 
-            {/* Subheading */}
-            <p className="text-lg sm:text-xl text-white/90 max-w-2xl mx-auto leading-relaxed drop-shadow-lg">
-              Learn how importing from Japan can save you thousands—or cost you everything if done wrong.
-            </p>
-          </div>
+            <div className="mt-8 flex items-start gap-3 sm:gap-4 max-w-2xl">
+              <span className="text-amber-400 text-2xl sm:text-3xl leading-none mt-1" aria-hidden>↳</span>
+              <p className="text-base sm:text-lg lg:text-xl text-zinc-200 leading-snug">
+                Learn how importing from Japan can save you thousands — or cost you everything if done wrong.
+              </p>
+            </div>
 
-          {/* Scroll Indicator */}
-          <div className="flex justify-center mt-12 sm:mt-16">
-            <a href="#navigation" className="animate-bounce">
-              <ChevronDown className="h-6 w-6 text-white/60" />
-            </a>
+            <div className="mt-12 h-px w-20 bg-amber-400/60" />
+
+            <dl className="mt-10 grid grid-cols-3 gap-6 sm:gap-10 max-w-2xl font-mono text-[11px] sm:text-xs uppercase tracking-[0.14em]">
+              <div>
+                <dt className="text-zinc-500">Countries</dt>
+                <dd className="mt-2 font-sans not-italic text-xl sm:text-2xl font-medium tracking-tight text-white">4</dd>
+              </div>
+              <div>
+                <dt className="text-zinc-500">Port</dt>
+                <dd className="mt-2 font-sans not-italic text-xl sm:text-2xl font-medium tracking-tight text-white">Walvis Bay</dd>
+              </div>
+              <div>
+                <dt className="text-zinc-500">Read time</dt>
+                <dd className="mt-2 font-sans not-italic text-xl sm:text-2xl font-medium tracking-tight text-white">15 min</dd>
+              </div>
+            </dl>
           </div>
         </div>
+
+        {/* Marquee */}
+        <div className="relative z-10 border-t border-white/10 bg-zinc-950/60 backdrop-blur-md overflow-hidden">
+          <div className="flex animate-[heroMarquee_60s_linear_infinite] whitespace-nowrap py-5 text-[11px] uppercase tracking-[0.3em] font-medium select-none">
+            {[...marqueeItems, ...marqueeItems].map((item, i) => (
+              <span key={i} className="inline-flex items-center gap-4 px-8">
+                <span className="h-1 w-1 rounded-full bg-amber-400 flex-shrink-0" />
+                <span className="text-zinc-300">{item}</span>
+              </span>
+            ))}
+          </div>
+        </div>
+
+        <style>{`
+          @keyframes heroMarquee {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
+          }
+        `}</style>
       </section>
 
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* QUICK ESTIMATE — floating over hero */}
+        <section className="-mt-12 sm:-mt-16 relative z-20 mb-24 sm:mb-32">
+          <div className="max-w-2xl mx-auto bg-white border border-zinc-200 rounded-2xl shadow-[0_24px_64px_-16px_rgba(0,0,0,0.18)] overflow-hidden">
+            <div className="px-6 sm:px-8 pt-7 pb-6">
+              <div className="flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.22em] border-b border-zinc-200 pb-2.5">
+                <span className="text-amber-600 font-semibold">Quick estimate</span>
+                <span className="text-zinc-500">Namibia</span>
+              </div>
 
-        {/* Quick Calculator - NEW */}
-        <section className="mb-16 sm:mb-24 -mt-20 sm:-mt-24 relative z-10">
-          <Card className="border-2 border-orange-200/60 overflow-hidden shadow-2xl bg-gradient-to-br from-orange-50/80 to-amber-50/50">
-            <div className="p-6 sm:p-8 lg:p-10">
-              <div className="text-center mb-6">
-                <div className="inline-flex items-center gap-2 px-4 py-2 bg-orange-100 border-2 border-orange-200 rounded-full text-xs sm:text-sm font-bold text-orange-700 mb-4 shadow-sm">
-                  <Calculator className="h-4 w-4" />
-                  Free Quick Estimate
-                </div>
-                <h3 className="text-xl sm:text-3xl font-extrabold text-slate-900 mb-2">
-                  How Much Will Your Import Cost?
-                </h3>
-                <p className="text-sm sm:text-base text-slate-600">
-                  Get an instant ballpark estimate for Namibia imports
+              <h3 className="mt-6 text-xl sm:text-2xl font-medium tracking-tight text-zinc-900">
+                How much will your import cost?
+              </h3>
+              <div className="mt-3 flex items-start gap-2.5 max-w-md">
+                <span className="text-amber-500 text-base leading-none mt-0.5" aria-hidden>↳</span>
+                <p className="text-sm text-zinc-600 leading-snug italic font-light">
+                  Instant ballpark estimate based on auction price.
                 </p>
               </div>
 
-              <div className="max-w-md mx-auto">
-                <div className="space-y-4">
-                  <div>
-                    <label className="block text-sm font-bold text-slate-700 mb-2">
-                      Japan Auction Price (in N$)
-                    </label>
-                    <input
-                      type="number"
-                      value={carPrice}
-                      onChange={(e) => {
-                        setCarPrice(e.target.value)
-                        setEstimatedCost(null)
-                      }}
-                      placeholder="e.g., 50000"
-                      className="w-full px-4 py-3 border-2 border-slate-300 rounded-lg focus:border-orange-500 focus:ring-2 focus:ring-orange-200 outline-none transition-all text-base"
-                    />
-                  </div>
-
-                  <Button
-                    onClick={calculateQuickEstimate}
-                    className="w-full bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-bold py-4 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02]"
+              <div className="mt-6 space-y-4">
+                <div className="space-y-2">
+                  <label
+                    htmlFor="auction-price"
+                    className="block font-mono text-[10px] uppercase tracking-[0.22em] text-zinc-500 font-semibold"
                   >
-                    <Calculator className="h-5 w-5 mr-2" />
-                    Calculate Estimate
-                  </Button>
-
-                  {estimatedCost !== null && (
-                    <div className="bg-white rounded-xl p-5 border-2 border-green-200 shadow-lg animate-in fade-in duration-300">
-                      <div className="text-center">
-                        <p className="text-sm text-slate-600 mb-2">Estimated Total Landed Cost:</p>
-                        <p className="text-4xl sm:text-5xl font-extrabold text-green-600 mb-3">
-                          N${estimatedCost.toLocaleString()}
-                        </p>
-                        <p className="text-xs text-slate-500 leading-relaxed">
-                          This is a rough estimate. Get the <strong>exact breakdown</strong> with our advanced calculator (includes all fees, taxes, and options).
-                        </p>
-                      </div>
-                    </div>
-                  )}
+                    Japan auction price (N$)
+                  </label>
+                  <input
+                    id="auction-price"
+                    type="number"
+                    value={carPrice}
+                    onChange={(e) => {
+                      setCarPrice(e.target.value)
+                      setEstimatedCost(null)
+                    }}
+                    placeholder="e.g., 50000"
+                    className="w-full h-12 px-4 text-base border border-zinc-200 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 transition-colors"
+                  />
                 </div>
 
-                <p className="text-xs text-center text-slate-500 mt-4">
-                  <strong>Note:</strong> This is a simplified estimate. For accurate calculations including specific vehicle details, duties, and port charges, upgrade to the full calculator.
+                <Button
+                  onClick={calculateQuickEstimate}
+                  className="group w-full h-12 bg-amber-400 text-zinc-900 hover:bg-amber-300 font-semibold rounded-full shadow-[0_0_0_1px_rgba(0,0,0,0.06),0_16px_40px_-12px_rgba(251,191,36,0.55)] transition-colors"
+                >
+                  <Calculator className="mr-2 h-4 w-4" strokeWidth={1.75} />
+                  Calculate estimate
+                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                </Button>
+
+                {estimatedCost !== null && (
+                  <div className="border-t border-zinc-200 pt-5 animate-in fade-in duration-300">
+                    <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-zinc-500">
+                      Estimated landed cost
+                    </p>
+                    <p className="mt-2 font-medium tracking-tight bg-gradient-to-br from-amber-500 via-amber-600 to-amber-700 bg-clip-text text-transparent text-[clamp(2.5rem,6vw,4rem)] leading-none">
+                      N${estimatedCost.toLocaleString()}
+                    </p>
+                    <p className="mt-3 text-xs text-zinc-500 leading-relaxed">
+                      Rough estimate. Get the exact breakdown with the advanced calculator
+                      (all fees, taxes, options).
+                    </p>
+                  </div>
+                )}
+
+                <p className="text-[11px] text-zinc-500 leading-relaxed">
+                  <span className="font-mono uppercase tracking-[0.18em] text-zinc-600">Note —</span>{' '}
+                  Simplified estimate. Specific vehicle details, duties, and port charges require
+                  the full calculator.
                 </p>
               </div>
             </div>
-          </Card>
+          </div>
         </section>
 
-        {/* Quick Navigation Cards - Enhanced */}
-        <section id="navigation" className="mb-16 sm:mb-24 scroll-mt-20">
-          <div className="mb-10 sm:mb-12 text-center">
-            <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-900 mb-3 sm:mb-4 tracking-tight">
-              Jump to Section
+        {/* SECTION NAVIGATION */}
+        <section id="navigation" className="mb-24 sm:mb-32 scroll-mt-20">
+          <div className="max-w-2xl">
+            <p className="text-xs uppercase tracking-[0.18em] text-blue-600 font-semibold">Contents</p>
+            <h2 className="mt-4 text-3xl sm:text-4xl font-semibold tracking-tight text-zinc-900 text-balance">
+              Jump to section.
             </h2>
-            <p className="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto">
-              Quick shortcuts to different parts of the guide
+            <p className="mt-4 text-zinc-600 leading-relaxed">
+              Six chapters covering the full import journey.
             </p>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
-            {[
-              { title: 'Real Import Example', desc: 'Actual costs & invoice', icon: FileText, color: 'blue', href: '#real-example' },
-              { title: 'Import Terms', desc: 'Essential vocabulary', icon: BookOpen, color: 'purple', href: '#import-terms' },
-              { title: 'Country Rules', desc: 'Import regulations', icon: Globe, color: 'green', href: '#country-rules' },
-              { title: 'Critical Warnings', desc: 'Avoid costly mistakes', icon: AlertTriangle, color: 'red', href: '#warning' },
-              { title: 'Timeline', desc: 'Realistic expectations', icon: Clock, color: 'orange', href: '#timeline' },
-              { title: 'Container Sharing', desc: 'Save N$40,000+', icon: Package, color: 'teal', href: '#container-sharing' }
-            ].map((item, idx) => {
+          <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-zinc-200 border border-zinc-200 rounded-2xl overflow-hidden">
+            {sectionNav.map((item, idx) => {
               const Icon = item.icon
               return (
-                <a key={idx} href={item.href} className="group">
-                  <Card className="p-4 sm:p-6 border-2 border-slate-200/60 hover:border-${item.color}-500 hover:shadow-2xl transition-all duration-300 cursor-pointer h-full bg-white/50 backdrop-blur-sm hover:bg-white">
-                    <div className="flex flex-col items-center text-center">
-                      <div className={`p-2.5 sm:p-3 bg-${item.color}-50 rounded-xl mb-3 group-hover:scale-110 group-hover:bg-${item.color}-100 transition-all duration-300 shadow-sm`}>
-                        <Icon className={`h-5 w-5 sm:h-6 sm:w-6 text-${item.color}-600`} />
-                      </div>
-                      <h3 className={`font-bold text-sm sm:text-base text-slate-900 mb-1.5 sm:mb-2 group-hover:text-${item.color}-600 transition-colors leading-tight`}>
-                        {item.title}
-                      </h3>
-                      <p className="text-xs sm:text-sm text-slate-600 leading-snug">{item.desc}</p>
+                <a key={idx} href={item.href} className="group bg-white p-6 sm:p-7 hover:bg-stone-50/60 transition-colors">
+                  <div className="flex items-center justify-between mb-5">
+                    <div className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-blue-50 text-blue-600 ring-1 ring-inset ring-blue-100">
+                      <Icon className="h-4 w-4" strokeWidth={1.75} />
                     </div>
-                  </Card>
+                    <span className="font-mono text-[10px] text-zinc-400 tracking-[0.2em]">
+                      {String(idx + 1).padStart(2, '0')}
+                    </span>
+                  </div>
+                  <h3 className="text-base font-medium text-zinc-900 group-hover:text-amber-700 transition-colors">
+                    {item.title}
+                  </h3>
+                  <p className="mt-1.5 text-sm text-zinc-600 leading-snug">{item.desc}</p>
+                  <div className="mt-4 flex items-center gap-1 text-xs font-semibold text-zinc-900 group-hover:text-amber-700 transition-colors">
+                    Read
+                    <ArrowUpRight className="h-3 w-3" />
+                  </div>
                 </a>
               )
             })}
           </div>
         </section>
 
-        {/* Real Vehicle Example - Enhanced */}
-        <section id="real-example" className="mb-16 sm:mb-24 scroll-mt-20">
-          <div className="mb-8 sm:mb-10">
-            <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-900 mb-3 sm:mb-4 tracking-tight">
-              Real Import Example
+        {/* REAL EXAMPLE */}
+        <section id="real-example" className="mb-24 sm:mb-32 scroll-mt-20">
+          <div className="max-w-3xl">
+            <p className="text-xs uppercase tracking-[0.18em] text-blue-600 font-semibold">Case study</p>
+            <h2 className="mt-4 text-3xl sm:text-4xl font-semibold tracking-tight text-zinc-900 text-balance">
+              Real import example.
             </h2>
-            <p className="text-base sm:text-lg text-slate-600">
-              Actual vehicle import with complete cost breakdown and invoice
-            </p>
+            <div className="mt-4 flex items-start gap-2.5">
+              <span className="text-amber-500 text-xl leading-none mt-0.5" aria-hidden>↳</span>
+              <p className="italic font-light text-base sm:text-lg text-zinc-600 leading-snug">
+                Actual vehicle import with complete cost breakdown and invoice.
+              </p>
+            </div>
           </div>
 
-          <Card className="border-2 border-blue-100/80 overflow-hidden shadow-xl hover:shadow-2xl transition-shadow duration-300">
-            <div className="bg-gradient-to-br from-blue-50/80 to-slate-50/50 p-6 sm:p-10">
-              {/* Header */}
-              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-6 mb-8">
+          <div className="mt-12 border border-zinc-200 rounded-2xl overflow-hidden bg-white">
+            {/* Header strip */}
+            <div className="px-6 sm:px-10 pt-8 pb-6 border-b border-zinc-200">
+              <div className="flex flex-col sm:flex-row justify-between items-start gap-6">
                 <div>
-                  <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-slate-900 mb-2">
+                  <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-zinc-500">Vehicle · Route</p>
+                  <h3 className="mt-2 text-xl sm:text-2xl lg:text-3xl font-medium tracking-tight text-zinc-900">
                     2015 Audi A5 Sportback 2.0L Quattro
                   </h3>
-                  <p className="text-sm sm:text-base text-slate-600">Complete import to Namibia via Walvis Bay</p>
+                  <p className="mt-1.5 text-sm text-zinc-500">Japan → Walvis Bay → Namibia</p>
                 </div>
                 <div className="text-left sm:text-right">
-                  <div className="text-3xl sm:text-5xl font-extrabold text-blue-600">N$80,229</div>
-                  <div className="text-xs sm:text-sm text-slate-600 mt-1">Total Landed Cost</div>
-                </div>
-              </div>
-
-              {/* Cost Breakdown */}
-              <div className="bg-white rounded-2xl p-5 sm:p-8 shadow-lg">
-                <h4 className="font-bold text-base sm:text-lg text-slate-900 mb-5 sm:mb-6">Complete Cost Breakdown:</h4>
-                <div className="space-y-4">
-                  {[
-                    { label: 'Japan Auction Price', amount: 'N$27,012', sub: '¥231,000' },
-                    { label: 'Japan-side Costs', amount: 'N$14,551', sub: '¥124,440' },
-                    { label: 'Ocean Freight (Shared container)', amount: 'N$16,020', sub: '¥137,000' }
-                  ].map((item, idx) => (
-                    <div key={idx} className="flex justify-between items-center pb-4 border-b border-slate-100 last:border-0">
-                      <span className="text-sm sm:text-base text-slate-700 font-medium">{item.label}</span>
-                      <div className="text-right">
-                        <div className="font-bold text-sm sm:text-base text-slate-900">{item.amount}</div>
-                        <div className="text-xs text-slate-500">{item.sub}</div>
-                      </div>
-                    </div>
-                  ))}
-
-                  <div className="pt-4">
-                    <p className="font-bold text-sm sm:text-base text-slate-900 mb-4">Namibian Customs Duties & Taxes:</p>
-                    <div className="space-y-2.5 pl-4 sm:pl-6">
-                      {[
-                        { label: 'ICD (Import Customs Duty)', amount: 'N$10,862' },
-                        { label: 'ENV Levy', amount: 'N$3,960' },
-                        { label: 'ADV (Ad Valorem)', amount: 'N$653' },
-                        { label: 'VAT (15%)', amount: 'N$7,169' }
-                      ].map((tax, idx) => (
-                        <div key={idx} className="flex justify-between text-sm">
-                          <span className="text-slate-600">{tax.label}</span>
-                          <span className="font-semibold text-slate-900">{tax.amount}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div className="flex justify-between items-center pt-6 border-t-2 border-blue-200 mt-4">
-                    <span className="text-base sm:text-lg font-bold text-slate-900">Total Landed Cost</span>
-                    <span className="text-2xl sm:text-4xl font-extrabold text-blue-600">N$80,229</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Invoice CTA */}
-              <div className="mt-6 sm:mt-8">
-                <Card className="bg-white border-2 border-blue-200/60 p-5 sm:p-6 shadow-lg">
-                  <div className="flex items-center gap-3 sm:gap-4 mb-4 sm:mb-5">
-                    <div className="p-2.5 sm:p-3 bg-blue-100 rounded-xl flex-shrink-0">
-                      <FileText className="h-5 w-5 sm:h-6 sm:w-6 text-blue-600" />
-                    </div>
-                    <div>
-                      <h4 className="font-bold text-sm sm:text-base text-slate-900">View the Actual Invoice</h4>
-                      <p className="text-xs sm:text-sm text-slate-600">Real invoice from Japanese auction</p>
-                    </div>
-                  </div>
-                  <Button
-                    className="w-full bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-bold py-4 sm:py-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] text-sm sm:text-base"
-                    onClick={() => setShowPDF(true)}
-                  >
-                    <FileText className="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
-                    View Invoice Document
-                  </Button>
-                  <p className="text-xs text-slate-500 mt-3 text-center flex items-center justify-center gap-1">
-                    <Shield className="h-3 w-3" />
-                    Protected viewing • No downloads
-                  </p>
-                </Card>
-              </div>
-
-              {/* Upsell */}
-              <div className="mt-6 sm:mt-8 p-4 sm:p-5 bg-gradient-to-r from-amber-50 to-orange-50 border-2 border-amber-200/60 rounded-xl shadow-md">
-                <p className="text-xs sm:text-sm text-amber-900">
-                  <strong className="flex items-center gap-2 mb-2 text-sm sm:text-base">
-                    <Sparkles className="h-4 w-4" />
-                    This is 1 of 4 real vehicle examples
-                  </strong>
-                  Get full access to all imports (Golf 7R, Audi A3, Audi A4) + advanced calculator + 20+ documents for $6.06 USD lifetime (≈ N$100 / R100).
-                </p>
-              </div>
-            </div>
-          </Card>
-        </section>
-
-        {/* Import Terms - Enhanced */}
-        <section id="import-terms" className="mb-16 sm:mb-24 scroll-mt-20">
-          <div className="mb-8 sm:mb-10">
-            <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-900 mb-3 sm:mb-4 tracking-tight">
-              Essential Import Terms
-            </h2>
-            <p className="text-base sm:text-lg text-slate-600">
-              Understanding these terms is your first defense against costly mistakes
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mb-6 sm:mb-8">
-            {[
-              { term: 'FOB Price', definition: "Free On Board - the car's price in Japan up to loading on ship" },
-              { term: 'CIF Value', definition: 'Cost, Insurance & Freight - car price + shipping + insurance to destination' },
-              { term: 'ICD', definition: 'Import Customs Duty - main import tax (25% in Namibia)' },
-              { term: 'Landed Cost', definition: 'Total cost to get the car out of port, before registration' },
-              { term: 'Bill of Lading (B/L)', definition: 'Key shipping document and proof of shipment/ownership' },
-              { term: 'Clearing Agent', definition: 'Licensed professional handling customs processes' }
-            ].map((item, idx) => (
-              <Card
-                key={idx}
-                className="p-4 sm:p-5 border-2 border-slate-200/60 hover:border-blue-400 hover:shadow-xl transition-all duration-300 cursor-pointer group hover:scale-[1.02] bg-white/50 backdrop-blur-sm hover:bg-white"
-              >
-                <h4 className="font-bold text-sm sm:text-base text-slate-900 mb-1.5 sm:mb-2 group-hover:text-blue-600 transition-colors">
-                  {item.term}
-                </h4>
-                <p className="text-xs sm:text-sm text-slate-600 group-hover:text-slate-700 transition-colors leading-relaxed">
-                  {item.definition}
-                </p>
-              </Card>
-            ))}
-          </div>
-
-          {/* CTA - Enhanced */}
-          <Card className="border-2 border-purple-200/60 overflow-hidden shadow-xl hover:shadow-2xl transition-shadow duration-300">
-            <div className="bg-gradient-to-br from-purple-50/80 to-pink-50/50 p-6 sm:p-10 text-center">
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-purple-100 border-2 border-purple-200 rounded-full text-xs sm:text-sm font-bold text-purple-700 mb-5 sm:mb-6 shadow-sm">
-                <BookOpen className="h-4 w-4" />
-                Complete Import Terms Dictionary
-              </div>
-              <h3 className="text-xl sm:text-3xl font-extrabold text-slate-900 mb-3 sm:mb-4 tracking-tight">
-                60+ Additional Import Terms Inside
-              </h3>
-              <p className="text-sm sm:text-base text-slate-700 max-w-2xl mx-auto mb-6 sm:mb-8 leading-relaxed">
-                Get full access to our comprehensive dictionary covering <strong>Auction Reports, Shipping Logistics, Customs Documentation, Port Handling,</strong> and more—organized by category for easy learning.
-              </p>
-
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8 sm:mb-10 max-w-3xl mx-auto">
-                {[
-                  { title: 'Auction Terms', desc: 'Japanese auction terminology and vehicle grading' },
-                  { title: 'Shipping & Logistics', desc: 'Ocean freight and transportation methods' },
-                  { title: 'Customs & Docs', desc: 'Import documentation and clearance requirements' }
-                ].map((cat, idx) => (
-                  <div key={idx} className="bg-white rounded-xl p-4 sm:p-5 border-2 border-purple-100 shadow-md hover:shadow-lg transition-shadow">
-                    <div className="text-lg sm:text-xl font-bold text-purple-600 mb-1.5">{cat.title}</div>
-                    <div className="text-xs sm:text-sm text-slate-600 leading-relaxed">{cat.desc}</div>
-                  </div>
-                ))}
-              </div>
-
-              <ValidatedCheckoutButton
-                tier="mastery"
-                country="na"
-                size="lg"
-                className="bg-purple-600 hover:bg-purple-700 text-white text-base sm:text-lg font-bold px-6 sm:px-10 py-4 sm:py-6 shadow-lg hover:shadow-xl transition-all hover:scale-105"
-              >
-                <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
-                Get Full Access to All 70+ Terms - $6.06 USD
-              </ValidatedCheckoutButton>
-
-              <p className="mt-4 sm:mt-5 text-xs sm:text-sm text-slate-600">
-                Includes: Complete terms dictionary + 4 vehicle examples + advanced calculator + 20+ documents
-              </p>
-            </div>
-          </Card>
-        </section>
-
-        {/* Country Rules - Enhanced */}
-        <section id="country-rules" className="mb-16 sm:mb-24 scroll-mt-20">
-          <div className="mb-8 sm:mb-10">
-            <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-900 mb-4 sm:mb-5 tracking-tight">
-              Country Import Rules
-            </h2>
-            <Card className="p-5 sm:p-6 bg-gradient-to-r from-red-50 to-orange-50 border-2 border-red-200/60 shadow-lg">
-              <div className="flex items-start gap-3 sm:gap-4">
-                <AlertTriangle className="h-6 w-6 sm:h-7 sm:w-7 text-red-600 flex-shrink-0 mt-0.5" />
-                <div>
-                  <p className="font-bold text-sm sm:text-base text-red-900 mb-1">Critical: Wrong vehicle age = Total Loss</p>
-                  <p className="text-xs sm:text-sm text-red-800 leading-relaxed">
-                    Each country has strict rules. Import the wrong age vehicle and lose everything.
+                  <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-zinc-500">Total landed</p>
+                  <p className="mt-2 font-medium tracking-tight bg-gradient-to-br from-amber-500 via-amber-600 to-amber-700 bg-clip-text text-transparent text-[clamp(2rem,5vw,3rem)] leading-none">
+                    N$80,229
                   </p>
                 </div>
               </div>
-            </Card>
-          </div>
+            </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
-            {[
-              {
-                country: 'Namibia',
-                flag: '🇳🇦',
-                color: 'blue',
-                rules: [
-                  { text: 'Age Limit: 12 years maximum', critical: true },
-                  { text: 'Only right-hand drive allowed', critical: true },
-                  { text: 'Extended from 8 years in July 2022', critical: false }
-                ]
-              },
-              {
-                country: 'South Africa',
-                flag: '🇿🇦',
-                color: 'amber',
-                rules: [
-                  { text: 'NO general used vehicle imports', critical: true },
-                  { text: 'Exceptions for:', critical: false },
-                  { text: '• Returning residents (6+ months abroad)', critical: false },
-                  { text: '• Immigrants with permanent residence', critical: false },
-                  { text: '• Vintage vehicles (40+ years)', critical: false }
-                ]
-              },
-              {
-                country: 'Botswana',
-                flag: '🇧🇼',
-                color: 'green',
-                rules: [
-                  { text: 'NO age restrictions', positive: true },
-                  { text: 'No engine size restrictions', positive: true },
-                  { text: 'Both left and right-hand drive allowed', positive: true }
-                ]
-              },
-              {
-                country: 'Zambia',
-                flag: '🇿🇲',
-                color: 'orange',
-                rules: [
-                  { text: 'NO age restrictions', positive: true },
-                  { text: 'Vehicles over 5 years = higher surtaxes', warning: true },
-                  { text: 'Only right-hand drive (except emergency vehicles)', critical: true }
-                ]
-              }
-            ].map((item, idx) => (
-              <Card
-                key={idx}
-                className={`border-l-4 border-l-${item.color}-600 p-5 sm:p-6 transition-all duration-300 hover:shadow-2xl hover:scale-[1.02] cursor-pointer group bg-white/50 backdrop-blur-sm hover:bg-white`}
-              >
-                <div className="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-5">
-                  <span className="text-3xl sm:text-4xl group-hover:scale-110 transition-transform duration-300">
-                    {item.flag}
-                  </span>
-                  <h3 className={`font-bold text-lg sm:text-xl group-hover:text-${item.color}-600 transition-colors`}>
-                    {item.country}
-                  </h3>
-                </div>
-                <ul className="space-y-2 sm:space-y-2.5 text-xs sm:text-sm text-slate-700">
-                  {item.rules.map((rule, rIdx) => (
-                    <li key={rIdx} className="flex items-start gap-2">
-                      {rule.positive && <CheckCircle className="h-4 w-4 text-green-600 mt-0.5 flex-shrink-0" />}
-                      {rule.critical && <span className="text-red-500 font-bold flex-shrink-0">•</span>}
-                      {rule.warning && <span className="text-orange-500 font-bold flex-shrink-0">⚠️</span>}
-                      {!rule.positive && !rule.critical && !rule.warning && <span className="text-slate-400 flex-shrink-0">•</span>}
-                      <span className={`${rule.critical ? 'font-semibold' : ''} ${rule.positive ? 'text-green-700 font-semibold' : ''}`}>
-                        {rule.text}
+            {/* Breakdown */}
+            <div className="px-6 sm:px-10 py-8">
+              <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-zinc-500 pb-3 mb-2 border-b border-zinc-200">
+                Cost breakdown
+              </p>
+              <ul className="divide-y divide-zinc-200/80">
+                {costBreakdown.map((item, i) => (
+                  <li key={item.label} className="flex items-center justify-between gap-4 py-4">
+                    <span className="flex items-baseline gap-4 sm:gap-6">
+                      <span className="font-mono text-[10px] text-zinc-400 tracking-[0.2em] flex-shrink-0 w-6">
+                        {String(i + 1).padStart(2, '0')}
                       </span>
-                    </li>
-                  ))}
-                </ul>
-              </Card>
-            ))}
-          </div>
-        </section>
-
-        {/* Warning Banner - Enhanced */}
-        <section id="warning" className="mb-16 sm:mb-24 scroll-mt-20">
-          <div className="relative bg-gradient-to-r from-red-600 via-red-500 to-orange-600 rounded-2xl p-6 sm:p-8 lg:p-10 shadow-2xl border-2 border-red-400/50 overflow-hidden">
-            <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10" />
-            <div className="relative flex items-start gap-4 sm:gap-6">
-              <AlertTriangle className="hidden sm:block h-8 w-8 sm:h-10 sm:w-10 text-white flex-shrink-0 animate-pulse drop-shadow-lg" />
-              <div className="text-white">
-                <h3 className="text-lg sm:text-2xl font-extrabold mb-3 sm:mb-4 drop-shadow">
-                  Real Case: Container Held 7 Months - Massive Fees Accumulated
-                </h3>
-                <div className="space-y-2 sm:space-y-3 mb-4 sm:mb-5">
-                  <p className="text-sm sm:text-base">
-                    <strong className="font-bold">The Problem:</strong> A single wrong choice made before shipping
-                  </p>
-                  <p className="text-sm sm:text-base">
-                    <strong className="font-bold">The Solution:</strong> Proper vetting process (included in guide)
-                  </p>
-                </div>
-                <div className="inline-block bg-white/20 backdrop-blur-md border border-white/30 rounded-xl px-4 sm:px-5 py-3 sm:py-4 font-bold text-sm sm:text-base shadow-xl">
-                  Learn the 9 deal-breaker mistakes that can cost you everything
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Timeline - Enhanced */}
-        <section id="timeline" className="mb-16 sm:mb-24 scroll-mt-20">
-          <div className="mb-8 sm:mb-10">
-            <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-900 mb-3 sm:mb-4 tracking-tight">
-              Realistic Timeline
-            </h2>
-            <p className="text-base sm:text-lg text-slate-600">
-              Know what to expect for imports via Walvis Bay
-            </p>
-          </div>
-
-          <div className="space-y-4">
-            {[
-              {
-                title: 'Best Case: 7-8 weeks (51-57 days)',
-                desc: 'Direct shipping, no delays, documents ready, quick customs clearance.',
-                color: 'green',
-                highlight: false
-              },
-              {
-                title: 'Realistic: 9-10 weeks (60-70 days)',
-                desc: 'Standard processing, minor port delays, average customs time.',
-                note: 'Most imports fall in this range',
-                color: 'blue',
-                highlight: true
-              },
-              {
-                title: 'Extended: 11-13 weeks (75-90 days)',
-                desc: 'Vessel delays, port congestion, documentation issues, inspection delays.',
-                color: 'orange',
-                highlight: false
-              }
-            ].map((item, idx) => (
-              <Card
-                key={idx}
-                className={`border-l-4 border-l-${item.color}-500 p-5 sm:p-6 ${item.highlight ? `bg-${item.color}-50/50` : 'bg-white/50'} backdrop-blur-sm transition-all duration-300 hover:shadow-xl hover:scale-[1.01] cursor-pointer group hover:bg-white`}
-              >
-                <h4 className={`font-bold text-sm sm:text-base text-slate-900 mb-2 sm:mb-3 flex items-center gap-2 sm:gap-3 group-hover:text-${item.color}-600 transition-colors`}>
-                  <Clock className={`h-5 w-5 sm:h-6 sm:w-6 text-${item.color}-600 group-hover:scale-110 transition-transform flex-shrink-0`} />
-                  {item.title}
-                </h4>
-                <p className="text-xs sm:text-sm text-slate-600 group-hover:text-slate-700 transition-colors leading-relaxed">
-                  {item.desc}
-                </p>
-                {item.note && (
-                  <p className={`text-xs sm:text-sm font-bold text-${item.color}-700 mt-2 sm:mt-3`}>
-                    {item.note}
-                  </p>
-                )}
-              </Card>
-            ))}
-          </div>
-        </section>
-
-        {/* Container Sharing - Enhanced */}
-        <section id="container-sharing" className="mb-16 sm:mb-24 scroll-mt-20">
-          <div className="mb-8 sm:mb-10">
-            <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-900 mb-3 sm:mb-4 tracking-tight">
-              Save N$40,000+ on Shipping
-            </h2>
-            <p className="text-base sm:text-lg text-slate-600">
-              Container sharing cuts your ocean freight cost by more than half
-            </p>
-          </div>
-
-          <Card className="border-2 border-green-100/60 p-6 sm:p-10 bg-gradient-to-br from-green-50/60 to-emerald-50/40 backdrop-blur-sm shadow-xl hover:shadow-2xl transition-shadow">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mb-6 sm:mb-8">
-              <div className="bg-white rounded-2xl p-5 sm:p-6 border-2 border-red-200/60 transition-all duration-300 hover:shadow-xl hover:scale-[1.02] cursor-pointer group">
-                <div className="flex items-center gap-2 sm:gap-3 mb-3">
-                  <Ship className="h-5 w-5 sm:h-6 sm:w-6 text-red-600 group-hover:scale-110 transition-transform" />
-                  <div className="text-xs sm:text-sm font-bold text-red-600">Solo Shipping</div>
-                </div>
-                <div className="text-3xl sm:text-5xl font-extrabold text-red-600 mb-2 group-hover:scale-105 transition-transform">
-                  N$75,000
-                </div>
-                <p className="text-xs sm:text-sm text-slate-600 group-hover:text-slate-700 transition-colors">
-                  40ft container • 1 vehicle
-                </p>
-              </div>
-
-              <div className="bg-white rounded-2xl p-5 sm:p-6 border-2 border-green-500 shadow-lg transition-all duration-300 hover:shadow-2xl hover:scale-[1.02] cursor-pointer group">
-                <div className="flex items-center gap-2 sm:gap-3 mb-3">
-                  <Ship className="h-5 w-5 sm:h-6 sm:w-6 text-green-600 group-hover:scale-110 transition-transform" />
-                  <div className="text-xs sm:text-sm font-bold text-green-600">Container Sharing</div>
-                </div>
-                <div className="text-3xl sm:text-5xl font-extrabold text-green-600 mb-2 group-hover:scale-105 transition-transform">
-                  N$18,750
-                </div>
-                <p className="text-xs sm:text-sm text-slate-600 mb-2 group-hover:text-slate-700 transition-colors">
-                  40ft container ÷ 4 cars
-                </p>
-                <p className="text-xs sm:text-sm font-bold text-green-700">Save N$56,250!</p>
-              </div>
-            </div>
-
-            <div className="bg-white rounded-2xl p-5 sm:p-6 shadow-md">
-              <h4 className="font-bold text-base sm:text-lg text-slate-900 mb-4 sm:mb-5">How It Works:</h4>
-              <ul className="space-y-3 sm:space-y-4 text-sm sm:text-base text-slate-700">
-                {[
-                  'A 40ft container fits 4-5 cars comfortably',
-                  'Total container cost: N$75,000',
-                  'Split 4 ways = N$18,750 each',
-                  <>Find container partners via <a href="https://contshare.com" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline font-bold hover:no-underline transition-all">ContShare.com</a></>
-                ].map((text, idx) => (
-                  <li key={idx} className="flex items-start gap-3">
-                    <CheckCircle className="h-5 w-5 sm:h-6 sm:w-6 text-green-600 mt-0.5 flex-shrink-0" />
-                    <span className="leading-relaxed">{text}</span>
+                      <span className="text-sm sm:text-base text-zinc-800">{item.label}</span>
+                    </span>
+                    <span className="text-right">
+                      <span className="block text-sm sm:text-base font-medium text-zinc-900">{item.amount}</span>
+                      <span className="block font-mono text-[10px] uppercase tracking-[0.18em] text-zinc-500">{item.sub}</span>
+                    </span>
                   </li>
                 ))}
               </ul>
+
+              <div className="mt-8 border border-zinc-200 rounded-xl bg-stone-50/60 p-5">
+                <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-zinc-500 pb-2.5 mb-3 border-b border-zinc-200">
+                  Namibian customs duties & taxes
+                </p>
+                <ul className="space-y-2.5">
+                  {namibianTaxes.map((tax) => (
+                    <li key={tax.label} className="flex justify-between text-sm">
+                      <span className="text-zinc-600">{tax.label}</span>
+                      <span className="font-medium text-zinc-900">{tax.amount}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="mt-8 flex items-center justify-between pt-6 border-t border-amber-500/40">
+                <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-zinc-500 font-semibold">
+                  Total landed cost
+                </span>
+                <span className="text-xl sm:text-2xl font-medium tracking-tight text-zinc-900">N$80,229</span>
+              </div>
             </div>
-          </Card>
+
+            {/* Invoice CTA */}
+            <div className="px-6 sm:px-10 pb-8">
+              <div className="border border-zinc-200 rounded-xl p-5 sm:p-6 bg-white">
+                <div className="flex items-start gap-3 sm:gap-4 mb-4">
+                  <div className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-blue-50 text-blue-600 ring-1 ring-inset ring-blue-100 flex-shrink-0">
+                    <FileText className="h-4 w-4" strokeWidth={1.75} />
+                  </div>
+                  <div>
+                    <p className="text-sm font-medium text-zinc-900">View the actual invoice</p>
+                    <p className="text-xs text-zinc-500 mt-0.5">Real invoice from Japanese auction</p>
+                  </div>
+                </div>
+                <Button
+                  onClick={() => setShowPDF(true)}
+                  className="group w-full h-12 bg-amber-400 text-zinc-900 hover:bg-amber-300 font-semibold rounded-full shadow-[0_0_0_1px_rgba(0,0,0,0.06),0_16px_40px_-12px_rgba(251,191,36,0.55)] transition-colors"
+                >
+                  <FileText className="mr-2 h-4 w-4" strokeWidth={1.75} />
+                  View invoice document
+                  <ArrowUpRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </Button>
+                <p className="mt-3 text-center font-mono text-[10px] uppercase tracking-[0.22em] text-zinc-500">
+                  Protected viewing · No downloads
+                </p>
+              </div>
+
+              {/* Upsell strip */}
+              <div className="mt-6 border-t border-b border-zinc-200 py-5 flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between">
+                <div>
+                  <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-amber-600 font-semibold mb-1">
+                    1 of 4 vehicle examples
+                  </p>
+                  <p className="text-sm text-zinc-700">
+                    Get full access to all imports (Golf 7R, Audi A3, Audi A4) + calculator + 20+ documents.
+                  </p>
+                </div>
+                <a
+                  href="#get-access"
+                  className="group inline-flex items-center gap-1.5 text-sm font-semibold text-zinc-900 hover:text-amber-700 transition-colors whitespace-nowrap"
+                >
+                  $6.06 USD
+                  <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </a>
+              </div>
+            </div>
+          </div>
         </section>
 
-        {/* Testimonials Section - NEW */}
-        <section className="mb-16 sm:mb-24">
-          <div className="mb-8 sm:mb-10 text-center">
-            <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-900 mb-3 sm:mb-4 tracking-tight">
-              What Our Members Are Saying
+        {/* IMPORT TERMS */}
+        <section id="import-terms" className="mb-24 sm:mb-32 scroll-mt-20">
+          <div className="max-w-3xl">
+            <p className="text-xs uppercase tracking-[0.18em] text-blue-600 font-semibold">Glossary</p>
+            <h2 className="mt-4 text-3xl sm:text-4xl font-semibold tracking-tight text-zinc-900 text-balance">
+              Essential import terms.
             </h2>
-            <p className="text-base sm:text-lg text-slate-600">
-              Real feedback from Namibians using IMPOTA
+            <div className="mt-4 flex items-start gap-2.5">
+              <span className="text-amber-500 text-xl leading-none mt-0.5" aria-hidden>↳</span>
+              <p className="italic font-light text-base sm:text-lg text-zinc-600 leading-snug">
+                Your first defense against costly mistakes.
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-12 border-t border-b border-zinc-200">
+            {importTerms.map((item, i) => (
+              <div key={item.term} className="grid sm:grid-cols-[10rem_1fr] gap-x-8 gap-y-2 py-5 border-b border-zinc-200 last:border-b-0">
+                <div className="flex items-baseline gap-4">
+                  <span className="font-mono text-[10px] text-zinc-400 tracking-[0.2em] flex-shrink-0 w-6">
+                    {String(i + 1).padStart(2, '0')}
+                  </span>
+                  <h4 className="font-medium text-zinc-900">{item.term}</h4>
+                </div>
+                <p className="text-sm sm:text-base text-zinc-600 leading-relaxed sm:pl-0 pl-10">
+                  {item.definition}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          {/* Glossary CTA */}
+          <div className="mt-12 border border-zinc-200 rounded-2xl bg-stone-50/60 p-8 sm:p-10">
+            <div className="max-w-3xl">
+              <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-amber-600 font-semibold">
+                Complete dictionary
+              </p>
+              <h3 className="mt-4 text-2xl sm:text-3xl font-medium tracking-tight text-zinc-900">
+                60+ additional import terms inside.
+              </h3>
+              <p className="mt-3 text-sm text-zinc-600 leading-relaxed">
+                Full access to auction reports, shipping logistics, customs documentation, and port
+                handling — organized by category for easy learning.
+              </p>
+            </div>
+
+            <div className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-px bg-zinc-200 border border-zinc-200 rounded-xl overflow-hidden">
+              {[
+                { title: 'Auction terms', desc: 'Japanese auction terminology and vehicle grading' },
+                { title: 'Shipping & logistics', desc: 'Ocean freight and transportation methods' },
+                { title: 'Customs & docs', desc: 'Import documentation and clearance requirements' },
+              ].map((cat) => (
+                <div key={cat.title} className="bg-white p-5">
+                  <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-amber-600 font-semibold">
+                    {cat.title}
+                  </p>
+                  <p className="mt-2 text-sm text-zinc-600 leading-relaxed">{cat.desc}</p>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-8">
+              <ValidatedCheckoutButton
+                tier="mastery"
+                country="na"
+                className="group inline-flex h-12 px-7 items-center bg-amber-400 text-zinc-900 hover:bg-amber-300 font-semibold rounded-full shadow-[0_0_0_1px_rgba(0,0,0,0.06),0_16px_40px_-12px_rgba(251,191,36,0.55)] transition-colors"
+              >
+                Get full access — $6.06 USD
+                <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+              </ValidatedCheckoutButton>
+              <p className="mt-4 text-xs text-zinc-500">
+                Includes: complete terms dictionary + 4 vehicle examples + advanced calculator + 20+ documents.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* COUNTRY RULES */}
+        <section id="country-rules" className="mb-24 sm:mb-32 scroll-mt-20">
+          <div className="max-w-3xl">
+            <p className="text-xs uppercase tracking-[0.18em] text-blue-600 font-semibold">Regulations</p>
+            <h2 className="mt-4 text-3xl sm:text-4xl font-semibold tracking-tight text-zinc-900 text-balance">
+              Country import rules.
+            </h2>
+            <div className="mt-4 flex items-start gap-2.5">
+              <span className="text-amber-500 text-xl leading-none mt-0.5" aria-hidden>↳</span>
+              <p className="italic font-light text-base sm:text-lg text-zinc-600 leading-snug">
+                Wrong vehicle age = total loss. Each country has strict rules.
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 gap-px bg-zinc-200 border border-zinc-200 rounded-2xl overflow-hidden">
+            {countries.map((c) => (
+              <div key={c.country} className="bg-white p-6 sm:p-8">
+                <div className="flex items-center justify-between mb-5">
+                  <div className="flex items-center gap-3">
+                    <span className="text-3xl">{c.flag}</span>
+                    <h3 className="text-lg font-medium tracking-tight text-zinc-900">{c.country}</h3>
+                  </div>
+                  <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-zinc-400">Rules</span>
+                </div>
+                <ul className="space-y-2.5">
+                  {c.rules.map((rule, rIdx) => {
+                    const Icon =
+                      rule.tone === 'ok' ? CheckCircle2 : rule.tone === 'warn' ? AlertTriangle : null
+                    const iconColor =
+                      rule.tone === 'ok'
+                        ? 'text-emerald-600'
+                        : rule.tone === 'warn'
+                          ? 'text-red-500'
+                          : 'text-zinc-400'
+                    const textColor =
+                      rule.tone === 'ok' ? 'text-zinc-800' : rule.tone === 'warn' ? 'text-zinc-800' : 'text-zinc-600'
+                    return (
+                      <li key={rIdx} className="flex items-start gap-2.5">
+                        {Icon ? (
+                          <Icon className={`h-4 w-4 mt-0.5 flex-shrink-0 ${iconColor}`} strokeWidth={1.75} />
+                        ) : (
+                          <span className="mt-2 h-1 w-1 rounded-full bg-zinc-300 flex-shrink-0" aria-hidden />
+                        )}
+                        <span className={`text-sm leading-snug ${textColor}`}>{rule.text}</span>
+                      </li>
+                    )
+                  })}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* WARNING — editorial */}
+        <section id="warning" className="mb-24 sm:mb-32 scroll-mt-20">
+          <div className="border border-zinc-200 rounded-2xl bg-stone-50/60 p-8 sm:p-12">
+            <div className="flex items-start gap-3 mb-6">
+              <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-red-600 font-semibold">
+                [ Warning ]
+              </span>
+              <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-zinc-400">
+                Real case
+              </span>
+            </div>
+
+            <h3 className="text-2xl sm:text-3xl font-medium tracking-tight text-zinc-900 leading-tight max-w-3xl">
+              Container held 7 months.
+              <span className="block italic font-light text-red-600 sm:pl-12 mt-1">
+                Massive fees accumulated.
+              </span>
+            </h3>
+
+            <div className="mt-8 h-px w-16 bg-red-500/60" />
+
+            <div className="mt-8 grid sm:grid-cols-2 gap-8 sm:gap-12 max-w-4xl">
+              <div>
+                <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-zinc-500 font-semibold mb-2">
+                  The problem
+                </p>
+                <p className="text-sm sm:text-base text-zinc-700 leading-relaxed">
+                  A single wrong choice made before shipping.
+                </p>
+              </div>
+              <div>
+                <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-emerald-700 font-semibold mb-2">
+                  The solution
+                </p>
+                <p className="text-sm sm:text-base text-zinc-700 leading-relaxed">
+                  Proper vetting process (included in the full guide).
+                </p>
+              </div>
+            </div>
+
+            <div className="mt-8 pt-6 border-t border-zinc-200">
+              <p className="text-sm text-zinc-700 leading-relaxed max-w-2xl">
+                Learn the{' '}
+                <span className="font-semibold text-zinc-900">9 deal-breaker mistakes</span> that
+                can cost you everything.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* TIMELINE */}
+        <section id="timeline" className="mb-24 sm:mb-32 scroll-mt-20">
+          <div className="max-w-3xl">
+            <p className="text-xs uppercase tracking-[0.18em] text-blue-600 font-semibold">Timeline</p>
+            <h2 className="mt-4 text-3xl sm:text-4xl font-semibold tracking-tight text-zinc-900 text-balance">
+              Realistic expectations.
+            </h2>
+            <div className="mt-4 flex items-start gap-2.5">
+              <span className="text-amber-500 text-xl leading-none mt-0.5" aria-hidden>↳</span>
+              <p className="italic font-light text-base sm:text-lg text-zinc-600 leading-snug">
+                Imports via Walvis Bay — what to expect.
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-12 divide-y divide-zinc-200/80 border-y border-zinc-200/80">
+            {timeline.map((item, i) => {
+              const accent =
+                item.tone === 'ok'
+                  ? 'text-emerald-600'
+                  : item.tone === 'warn'
+                    ? 'text-amber-700'
+                    : 'text-amber-600'
+              return (
+                <article
+                  key={item.range}
+                  className="grid grid-cols-1 sm:grid-cols-12 gap-4 sm:gap-8 py-8 sm:py-10"
+                >
+                  <div className="sm:col-span-2">
+                    <p className={`font-mono text-xs uppercase tracking-[0.22em] font-semibold ${accent}`}>
+                      Phase {String(i + 1).padStart(2, '0')}
+                    </p>
+                  </div>
+                  <div className="sm:col-span-3">
+                    <p className="text-base font-medium text-zinc-900">{item.label}</p>
+                    <p className="mt-1 font-mono text-[11px] uppercase tracking-[0.18em] text-zinc-500">
+                      {item.range}
+                    </p>
+                  </div>
+                  <div className="sm:col-span-7">
+                    <p className="text-sm sm:text-base text-zinc-600 leading-relaxed max-w-2xl">{item.desc}</p>
+                    {item.note && (
+                      <p className={`mt-3 text-sm font-medium ${accent}`}>↳ {item.note}</p>
+                    )}
+                  </div>
+                </article>
+              )
+            })}
+          </div>
+        </section>
+
+        {/* CONTAINER SHARING */}
+        <section id="container-sharing" className="mb-24 sm:mb-32 scroll-mt-20">
+          <div className="max-w-3xl">
+            <p className="text-xs uppercase tracking-[0.18em] text-blue-600 font-semibold">Shipping</p>
+            <h2 className="mt-4 text-3xl sm:text-4xl font-semibold tracking-tight text-zinc-900 text-balance">
+              Save N$40,000+ on shipping.
+            </h2>
+            <div className="mt-4 flex items-start gap-2.5">
+              <span className="text-amber-500 text-xl leading-none mt-0.5" aria-hidden>↳</span>
+              <p className="italic font-light text-base sm:text-lg text-zinc-600 leading-snug">
+                Container sharing cuts your ocean freight cost by more than half.
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 gap-px bg-zinc-200 border border-zinc-200 rounded-2xl overflow-hidden">
+            <div className="bg-white p-6 sm:p-8">
+              <div className="flex items-center justify-between mb-5">
+                <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-zinc-500 font-semibold">
+                  Solo shipping
+                </p>
+                <Ship className="h-4 w-4 text-zinc-400" strokeWidth={1.75} />
+              </div>
+              <p className="font-medium tracking-tight text-zinc-900 text-[clamp(2.5rem,6vw,4rem)] leading-none">
+                N$75,000
+              </p>
+              <p className="mt-3 text-sm text-zinc-500">40ft container · 1 vehicle</p>
+            </div>
+
+            <div className="bg-white p-6 sm:p-8 relative">
+              <div className="flex items-center justify-between mb-5">
+                <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-amber-600 font-semibold">
+                  Container sharing
+                </p>
+                <Ship className="h-4 w-4 text-amber-600" strokeWidth={1.75} />
+              </div>
+              <p className="font-medium tracking-tight bg-gradient-to-br from-amber-500 via-amber-600 to-amber-700 bg-clip-text text-transparent text-[clamp(2.5rem,6vw,4rem)] leading-none">
+                N$18,750
+              </p>
+              <p className="mt-3 text-sm text-zinc-500">40ft container ÷ 4 cars</p>
+              <p className="mt-2 text-sm font-semibold text-emerald-700">Save N$56,250</p>
+            </div>
+          </div>
+
+          <div className="mt-8 border-t border-b border-zinc-200 py-8">
+            <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-zinc-500 font-semibold mb-5">
+              How it works
+            </p>
+            <ul className="space-y-3 max-w-2xl">
+              {[
+                'A 40ft container fits 4–5 cars comfortably',
+                'Total container cost: N$75,000',
+                'Split 4 ways = N$18,750 each',
+              ].map((text, idx) => (
+                <li key={idx} className="flex items-start gap-3 text-sm sm:text-base text-zinc-700">
+                  <span className="font-mono text-[10px] text-zinc-400 tracking-[0.2em] w-6 flex-shrink-0 pt-1.5">
+                    {String(idx + 1).padStart(2, '0')}
+                  </span>
+                  <span className="leading-relaxed">{text}</span>
+                </li>
+              ))}
+              <li className="flex items-start gap-3 text-sm sm:text-base text-zinc-700">
+                <span className="font-mono text-[10px] text-zinc-400 tracking-[0.2em] w-6 flex-shrink-0 pt-1.5">04</span>
+                <span className="leading-relaxed">
+                  Find container partners via{' '}
+                  <a
+                    href="https://contshare.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-medium text-zinc-900 hover:text-amber-700 underline-offset-2 hover:underline transition-colors"
+                  >
+                    ContShare.com
+                  </a>
+                </span>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        {/* TESTIMONIALS */}
+        <section className="mb-24 sm:mb-32">
+          <div className="max-w-3xl">
+            <p className="text-xs uppercase tracking-[0.18em] text-blue-600 font-semibold">Testimony</p>
+            <h2 className="mt-4 text-3xl sm:text-4xl font-semibold tracking-tight text-zinc-900 text-balance">
+              From members.
+            </h2>
+          </div>
+
+          <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 gap-px bg-zinc-200 border border-zinc-200 rounded-2xl overflow-hidden">
+            {[
+              {
+                initial: 'D',
+                name: 'D. Coetzee',
+                role: 'Namibia · Recent member',
+                quote:
+                  "Thank you so much for the site and helpful information, I really appreciate it. I am cautious of using any agent because it looks like there are many scams. The education we really appreciate it.",
+                date: null,
+              },
+              {
+                initial: 'O',
+                name: 'Olivia S.L.',
+                role: 'Namibia · First online customer',
+                quote:
+                  'Checking in to let you know guide is well written and structured. I still need to go through when I have more uninterrupted time. Will forward any questions after.',
+                date: 'Verified · Oct 2025',
+              },
+            ].map((t) => (
+              <div key={t.name} className="bg-white p-8 sm:p-10">
+                <div className="flex items-center gap-3 mb-5">
+                  <div className="h-10 w-10 rounded-full bg-amber-50 ring-1 ring-amber-200 flex items-center justify-center font-medium text-amber-700">
+                    {t.initial}
+                  </div>
+                  <div>
+                    <p className="text-sm font-medium text-zinc-900">{t.name}</p>
+                    <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-zinc-500 mt-0.5">{t.role}</p>
+                  </div>
+                </div>
+                <div className="flex gap-0.5 mb-4">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="h-3.5 w-3.5 fill-amber-500 text-amber-500" />
+                  ))}
+                </div>
+                <p className="text-sm sm:text-base text-zinc-700 leading-relaxed italic font-light">
+                  "{t.quote}"
+                </p>
+                {t.date && (
+                  <p className="mt-4 font-mono text-[10px] uppercase tracking-[0.22em] text-zinc-400">
+                    {t.date}
+                  </p>
+                )}
+              </div>
+            ))}
+          </div>
+        </section>
+      </div>
+
+      {/* CTA — Nº 02 Membership */}
+      <section id="get-access" className="relative isolate overflow-hidden bg-zinc-950 text-white flex flex-col">
+        <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_15%_85%,rgba(251,191,36,0.14),transparent_45%),radial-gradient(circle_at_85%_15%,rgba(37,99,235,0.10),transparent_45%)]" aria-hidden />
+        <div className="absolute -top-40 -right-40 -z-10 h-[32rem] w-[32rem] rounded-full bg-amber-500/[0.06] blur-3xl" aria-hidden />
+        <div className="absolute bottom-1/4 left-1/4 -z-10 h-[24rem] w-[24rem] rounded-full bg-blue-500/[0.05] blur-3xl" aria-hidden />
+
+        <div className="hidden md:block absolute top-24 left-6 lg:left-8 h-px w-12 bg-amber-400/40" aria-hidden />
+        <div className="hidden md:block absolute top-24 left-6 lg:left-8 h-12 w-px bg-amber-400/40" aria-hidden />
+        <div className="hidden md:block absolute top-24 right-6 lg:right-8 h-px w-12 bg-amber-400/40" aria-hidden />
+        <div className="hidden md:block absolute top-24 right-6 lg:right-8 h-12 w-px bg-amber-400/40" aria-hidden />
+
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-6 lg:px-8 pt-24 sm:pt-28">
+          <div className="flex items-center justify-between text-[10px] sm:text-[11px] uppercase tracking-[0.28em] text-zinc-400 font-medium">
+            <div className="flex items-center gap-3">
+              <span className="text-amber-300 font-semibold">Nº 02</span>
+              <span className="h-px w-8 bg-zinc-600" />
+              <span>Membership</span>
+            </div>
+            <span className="hidden md:inline-block text-zinc-500">Lifetime · One payment</span>
+          </div>
+        </div>
+
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-6 lg:px-8 py-16 sm:py-20 lg:py-24">
+          <div className="inline-flex items-center gap-3 text-[11px] uppercase tracking-[0.24em] text-amber-300 font-semibold">
+            <span className="inline-block h-1.5 w-1.5 rounded-full bg-amber-400" />
+            Get the complete import system
+          </div>
+
+          <h2 className="mt-10 sm:mt-12 font-medium tracking-tight text-white leading-[0.9] text-[clamp(2.5rem,7.5vw,5.5rem)]">
+            <span className="block">One payment.</span>
+            <span className="block pl-[10vw] sm:pl-[8vw] lg:pl-[12vw] italic font-light text-amber-300/95">
+              Lifetime access.
+            </span>
+          </h2>
+
+          <div className="mt-8 flex items-start gap-3 sm:gap-4 max-w-3xl">
+            <span className="text-amber-400 text-2xl sm:text-3xl leading-none mt-1" aria-hidden>↳</span>
+            <p className="text-lg sm:text-xl lg:text-2xl text-amber-100/90 leading-snug tracking-tight">
+              Everything you need to import cars successfully — for as long as the platform exists.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
-            {/* Dalton's Testimonial */}
-            <Card className="p-5 sm:p-6 border-2 border-blue-100/60 hover:border-blue-300 transition-all duration-300 hover:shadow-xl bg-gradient-to-br from-white to-blue-50/30">
-              <div className="flex items-start gap-3 mb-4">
-                <div className="flex-shrink-0">
-                  <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center font-bold text-blue-600 text-lg">
-                    D
-                  </div>
-                </div>
-                <div>
-                  <h4 className="font-bold text-slate-900">D. Coetzee</h4>
-                  <p className="text-sm text-slate-600">Namibia • Recent Member</p>
-                </div>
+          <div className="mt-14 sm:mt-16 h-px w-20 bg-amber-400/60" />
+
+          <div className="mt-12 grid lg:grid-cols-12 gap-12 lg:gap-16">
+            <div className="lg:col-span-5">
+              <p className="font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.22em] text-zinc-500">Investment</p>
+              <div className="mt-4 flex items-baseline gap-3 flex-wrap">
+                <span className="font-medium tracking-tight bg-gradient-to-br from-amber-200 via-amber-300 to-amber-400 bg-clip-text text-transparent text-[clamp(4rem,9vw,7rem)] leading-none">
+                  $6.06
+                </span>
+                <span className="font-mono text-sm sm:text-base text-zinc-400 uppercase tracking-[0.2em]">USD</span>
               </div>
-              <div className="flex gap-1 mb-3">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                ))}
-              </div>
-              <p className="text-sm sm:text-base text-slate-700 leading-relaxed italic">
-                "Thank you so much for the site and helpful information, I really appreciate it. I am cautious of using any agent because it looks like there are many scams. The education we really appreciate it."
+              <p className="mt-5 text-sm text-zinc-400 leading-relaxed max-w-xs">
+                Approximately N$100 / R100 — one-time payment, instant access.
               </p>
-            </Card>
 
-            {/* Olivia's Testimonial */}
-            <Card className="p-5 sm:p-6 border-2 border-purple-100/60 hover:border-purple-300 transition-all duration-300 hover:shadow-xl bg-gradient-to-br from-white to-purple-50/30">
-              <div className="flex items-start gap-3 mb-4">
-                <div className="flex-shrink-0">
-                  <div className="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center font-bold text-purple-600 text-lg">
-                    O
-                  </div>
-                </div>
-                <div>
-                  <h4 className="font-bold text-slate-900">Olivia S.L.</h4>
-                  <p className="text-sm text-slate-600">Namibia • First Online Customer</p>
-                </div>
-              </div>
-              <div className="flex gap-1 mb-3">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                ))}
-              </div>
-              <p className="text-sm sm:text-base text-slate-700 leading-relaxed italic">
-                "Checking in to let you know guide is well written and structured. I still need to go through when I have more uninterrupted time. Will forward any questions after."
-              </p>
-              <p className="text-xs text-slate-500 mt-3">
-                Verified Purchase • Oct 2025
-              </p>
-            </Card>
-          </div>
-        </section>
-
-        {/* CTA Section - Enhanced */}
-        <section id="get-access" className="mb-12 sm:mb-16 scroll-mt-20">
-          <Card className="border-2 border-blue-200/60 overflow-hidden shadow-2xl">
-            <div className="relative bg-gradient-to-br from-blue-600 via-blue-600 to-blue-700 text-white p-6 sm:p-12 lg:p-16 text-center overflow-hidden">
-              <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10" />
-
-              <div className="relative">
-                <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/20 backdrop-blur-md border border-white/30 rounded-full text-xs sm:text-sm font-bold mb-6 sm:mb-8 shadow-lg">
-                  <Sparkles className="h-4 w-4" />
-                  Lifetime Access
-                </div>
-
-                <h2 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold mb-4 sm:mb-6 drop-shadow-lg tracking-tight">
-                  Get the Complete Import System
-                </h2>
-
-                <div className="mb-6 sm:mb-8">
-                  <div className="text-4xl sm:text-6xl lg:text-7xl font-extrabold mb-2 sm:mb-3 drop-shadow-lg">
-                    $6.06 USD
-                  </div>
-                  <div className="text-sm sm:text-base text-blue-100">One-time payment • No subscription • ≈ N$100 / R100</div>
-                </div>
-
-                <div className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-5 sm:p-8 lg:p-10 mb-8 sm:mb-10 text-left max-w-2xl mx-auto shadow-2xl">
-                  <h3 className="text-lg sm:text-xl lg:text-2xl font-bold mb-4 sm:mb-6 text-center">Everything You Get:</h3>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 text-xs sm:text-sm">
-                    {[
-                      '3 More Vehicle Examples (Golf 7R, A3, A4)',
-                      'All 20+ Import Documents (PDFs)',
-                      'Advanced Multi-Country Calculator',
-                      'Complete Step-by-Step Guide',
-                      'Verified Clearing Agents Directory',
-                      'Japan Auction Bidding Guide',
-                      'Shipping Companies Comparison',
-                      '15+ Common Mistakes Guide'
-                    ].map((feature, idx) => (
-                      <div key={idx} className="flex items-start gap-2 sm:gap-3">
-                        <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5 flex-shrink-0 mt-0.5" />
-                        <span className="leading-relaxed">{feature}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
+              <div className="mt-10 flex flex-col items-start gap-4">
                 <ValidatedCheckoutButton
                   tier="mastery"
                   country="na"
                   size="lg"
-                  className="bg-white text-blue-600 hover:bg-blue-50 text-base sm:text-lg lg:text-xl font-extrabold px-8 sm:px-12 py-4 sm:py-6 lg:py-7 transition-all duration-300 hover:shadow-2xl hover:scale-105 shadow-xl"
+                  className="group h-14 px-8 bg-amber-400 text-zinc-900 hover:bg-amber-300 font-semibold rounded-full shadow-[0_0_0_1px_rgba(0,0,0,0.08),0_16px_40px_-12px_rgba(251,191,36,0.55)] transition-colors text-base"
                 >
-                  <Sparkles className="h-5 w-5 sm:h-6 sm:w-6 mr-2" />
-                  Get Instant Access - $6.06 USD
+                  Get instant access
+                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-0.5" />
                 </ValidatedCheckoutButton>
-
-                <p className="mt-6 sm:mt-8 text-xs sm:text-sm text-blue-100 leading-relaxed">
-                  <strong className="text-white">5 Namibians already joined this week</strong> • 7-day refund if you haven't accessed content
+                <p className="text-xs text-zinc-500 max-w-xs leading-relaxed">
+                  <span className="text-white font-medium">5 Namibians joined this week</span> · 7-day refund if no content accessed.
                 </p>
               </div>
             </div>
-          </Card>
-        </section>
 
-      </div>
+            <div className="lg:col-span-7">
+              <div className="flex items-center justify-between font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.22em] border-b border-white/10 pb-3">
+                <span className="text-zinc-500">Everything you get</span>
+                <span className="text-amber-300">08 items</span>
+              </div>
+              <ul className="divide-y divide-white/[0.06]">
+                {memberFeatures.map((item, i) => (
+                  <li key={item} className="flex items-center justify-between gap-4 py-4">
+                    <span className="flex items-baseline gap-4 sm:gap-6">
+                      <span className="font-mono text-[10px] text-zinc-600 tracking-[0.2em] flex-shrink-0 w-6">
+                        {String(i + 1).padStart(2, '0')}
+                      </span>
+                      <span className="text-sm sm:text-base text-zinc-200 leading-snug">{item}</span>
+                    </span>
+                    <span className="h-1 w-1 rounded-full bg-amber-400/60 flex-shrink-0" aria-hidden />
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div className="relative z-10 border-t border-white/10 bg-zinc-950/40">
+          <div className="mx-auto max-w-7xl px-6 lg:px-8 py-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-[10px] sm:text-[11px] uppercase tracking-[0.28em] text-zinc-400 font-medium">
+            <div className="flex items-center gap-3">
+              <span className="font-semibold text-amber-300">Payment</span>
+              <span className="h-px w-8 bg-zinc-600" />
+              <span>Visa · Mastercard · Amex</span>
+            </div>
+            <span className="text-zinc-500">Secure checkout · Stripe</span>
+          </div>
+        </div>
+      </section>
 
       {/* PDF Viewer Modal */}
       {showPDF && (
@@ -808,13 +1011,11 @@ export default function PublicImportGuide() {
         href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`}
         target="_blank"
         rel="noopener noreferrer"
-        className="fixed bottom-6 right-6 z-50 bg-green-500 hover:bg-green-600 text-white rounded-full p-4 shadow-2xl hover:shadow-3xl transition-all duration-300 hover:scale-110 flex items-center gap-2 group"
+        className="fixed bottom-6 right-6 z-50 inline-flex items-center gap-2 bg-[#25D366] hover:bg-[#1da851] text-white rounded-full px-4 py-3 shadow-lg shadow-green-600/30 transition-colors"
         aria-label="Chat on WhatsApp"
       >
-        <MessageCircle className="h-6 w-6" />
-        <span className="hidden sm:inline-block group-hover:inline-block text-sm font-bold pr-2">
-          Questions? Chat with us
-        </span>
+        <MessageCircle className="h-4 w-4" strokeWidth={1.75} />
+        <span className="hidden sm:inline text-sm font-medium">Questions? Chat with us</span>
       </a>
     </main>
   )
