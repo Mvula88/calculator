@@ -1,163 +1,103 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import Link from 'next/link'
-import Script from 'next/script'
 import { createClient } from '@/lib/supabase/client'
+import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import ValidatedCheckoutButton from '@/components/validated-checkout-button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { GuidePageSkeleton } from '@/components/skeletons/GuidePageSkeleton'
 import {
-  CheckCircle,
-  AlertTriangle,
-  Ship,
-  TrendingDown,
-  Clock,
-  Shield,
-  Star,
-  Lock,
-  DollarSign,
-  Users,
-  User,
   Calculator,
   FileText,
-  Phone,
-  Award,
-  ArrowRight,
-  Zap,
-  Target,
-  BookOpen,
-  Sparkles,
-  TrendingUp,
-  ChevronRight,
-  ChevronDown,
-  BadgeCheck,
-  Package,
+  Ship,
   Globe,
-  MessageCircle,
-  Rocket,
-  Trophy,
-  Crown,
-  AlertCircle,
-  Check,
-  MapPin,
-  Truck,
-  Building,
-  GraduationCap,
-  Heart,
-  PlayCircle,
-  Download,
-  Eye,
-  BarChart3,
-  Settings,
-  Compass,
-  Briefcase
+  Lock,
+  BookOpen,
+  User,
+  ArrowRight,
+  ArrowUpRight,
+  ChevronDown,
 } from 'lucide-react'
 import GuideHeader from '@/components/GuideHeader'
 import WhatsAppButton from '@/components/WhatsAppButton'
 
-// Function to get static Tailwind classes for colors
-const getColorClasses = (color: string) => {
-  const colorMap: { [key: string]: { background: string; shadow: string } } = {
-    blue: {
-      background: 'bg-gradient-to-br from-blue-500 to-blue-600',
-      shadow: 'group-hover:shadow-blue-500/25'
-    },
-    green: {
-      background: 'bg-gradient-to-br from-green-500 to-green-600',
-      shadow: 'group-hover:shadow-green-500/25'
-    },
-    purple: {
-      background: 'bg-gradient-to-br from-purple-500 to-purple-600',
-      shadow: 'group-hover:shadow-purple-500/25'
-    },
-    amber: {
-      background: 'bg-gradient-to-br from-amber-500 to-amber-600',
-      shadow: 'group-hover:shadow-amber-500/25'
-    },
-    rose: {
-      background: 'bg-gradient-to-br from-rose-500 to-rose-600',
-      shadow: 'group-hover:shadow-rose-500/25'
-    },
-    teal: {
-      background: 'bg-gradient-to-br from-teal-500 to-teal-600',
-      shadow: 'group-hover:shadow-teal-500/25'
-    },
-    emerald: {
-      background: 'bg-gradient-to-br from-emerald-500 to-emerald-600',
-      shadow: 'group-hover:shadow-emerald-500/25'
-    },
-    yellow: {
-      background: 'bg-gradient-to-br from-yellow-500 to-yellow-600',
-      shadow: 'group-hover:shadow-yellow-500/25'
-    },
-    sky: {
-      background: 'bg-gradient-to-br from-sky-500 to-sky-600',
-      shadow: 'group-hover:shadow-sky-500/25'
-    },
-    orange: {
-      background: 'bg-gradient-to-br from-orange-500 to-orange-600',
-      shadow: 'group-hover:shadow-orange-500/25'
-    }
-  }
-
-  return colorMap[color] || colorMap.blue // Default to blue if color not found
-}
-
-// SEO-optimized FAQ data - General info only, specifics in paid guide
 const faqs = [
   {
     question: 'How much does it cost to import a car from Japan to Botswana?',
-    answer: 'Import costs vary significantly based on vehicle type, shipping method, and current regulations. Our guide provides comprehensive cost breakdowns and reveals hidden fees to help you make informed decisions.'
+    answer:
+      'Import costs vary significantly based on vehicle type, shipping method, and current regulations. Our guide provides comprehensive cost breakdowns and reveals hidden fees to help you make informed decisions.',
   },
   {
     question: 'What are the benefits of importing directly from Japan?',
-    answer: 'Importing directly gives you access to a wider selection of quality vehicles, transparent pricing, and detailed vehicle history. Our guide includes a comprehensive calculator to help you understand all costs involved.'
+    answer:
+      "Importing directly gives you access to a wider selection of quality vehicles, transparent pricing, and detailed vehicle history. Our guide includes a comprehensive calculator to help you understand all costs involved.",
   },
   {
     question: 'What are the biggest mistakes first-time importers make?',
-    answer: 'First-time importers often make costly mistakes. Our complete guide addresses the top 5 pitfalls with step-by-step solutions based on real import experiences.'
+    answer:
+      'First-time importers often make costly mistakes. Our complete guide addresses the top 5 pitfalls with step-by-step solutions based on real import experiences.',
   },
   {
     question: 'Do I need connections or experience to import?',
-    answer: 'No prior experience needed! Our comprehensive guides provide everything from verified agent contacts to exact forms and procedures. You\'ll import like a pro from day one.'
-  }
+    answer:
+      "No prior experience needed. Our comprehensive guides provide everything from verified agent contacts to exact forms and procedures. You'll import like a pro from day one.",
+  },
+]
+
+const processSteps = [
+  {
+    icon: Globe,
+    title: 'Source premium vehicles',
+    description:
+      "Access Japan's auction system with 50,000+ quality vehicles daily. Learn insider strategies for finding the best deals.",
+  },
+  {
+    icon: Calculator,
+    title: 'Calculate true costs',
+    description:
+      'Master our comprehensive cost calculator. Know exact duties, VAT, shipping, and hidden fees before you buy.',
+  },
+  {
+    icon: Ship,
+    title: 'Secure professional shipping',
+    description:
+      'Connect with verified shipping lines and clearing agents. Access container sharing opportunities to split costs with other importers.',
+  },
+]
+
+const marqueeItems = [
+  'Via Walvis Bay',
+  'Trans-Kalahari corridor',
+  'BURS duties',
+  'BOS certification',
+  'Auction sourcing',
+  'Container sharing',
+  'Lifetime access',
+  'Step-by-step program',
 ]
 
 export default function BotswanaGuidePage() {
-  const [expandedFaq, setExpandedFaq] = useState<number | null>(null)
-  const [isLoading, setIsLoading] = useState(false)
   const [user, setUser] = useState<any>(null)
-  const [loading, setLoading] = useState(true)
   const [pageLoading, setPageLoading] = useState(true)
+  const [expandedFaq, setExpandedFaq] = useState<number | null>(null)
 
   useEffect(() => {
     async function checkUser() {
       const supabase = createClient()
       const { data: { user } } = await supabase.auth.getUser()
-      if (user) {
-        setUser(user)
-      }
-      setLoading(false)
-
-      // Simulate page content loading
-      setTimeout(() => {
-        setPageLoading(false)
-      }, 500)
+      if (user) setUser(user)
+      setTimeout(() => setPageLoading(false), 500)
     }
     checkUser()
   }, [])
 
-  // Show skeleton while loading
-  if (pageLoading) {
-    return <GuidePageSkeleton />
-  }
+  if (pageLoading) return <GuidePageSkeleton />
 
   return (
     <>
-      {/* Hidden H1 for SEO */}
-      <h1 className="sr-only">Import Cars from Japan to Botswana 2024 - Complete Durban/Walvis Bay Port Guide | Save P52,000</h1>
+      <h1 className="sr-only">
+        Import Cars from Japan to Botswana 2024 — Complete Trans-Kalahari Guide
+      </h1>
 
       <GuideHeader
         country="bw"
@@ -166,434 +106,434 @@ export default function BotswanaGuidePage() {
         secondaryColor="cyan-600"
       />
 
-      <main className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-50 overflow-x-hidden pt-14 sm:pt-16" itemScope itemType="https://schema.org/Guide">
+      <main className="bg-white" itemScope itemType="https://schema.org/Guide">
+        {/* HERO — Nº 01 */}
+        <section className="relative isolate overflow-hidden bg-zinc-950 flex flex-col min-h-[92vh]">
+          <div
+            className="absolute inset-0 -z-20"
+            style={{
+              backgroundImage: 'url(/japan-cars-hero.png)',
+              backgroundSize: 'cover',
+              backgroundPosition: 'center 30%',
+            }}
+            aria-hidden
+          />
+          <div className="absolute inset-x-0 top-0 h-40 -z-10 bg-gradient-to-b from-zinc-950 via-zinc-950/70 to-transparent" aria-hidden />
+          <div className="absolute inset-0 -z-10 bg-gradient-to-r from-zinc-950 via-zinc-950/75 to-zinc-950/15 sm:via-zinc-950/60" aria-hidden />
+          <div className="absolute inset-x-0 bottom-0 h-72 -z-10 bg-gradient-to-t from-zinc-950 via-zinc-950/80 to-transparent" aria-hidden />
+          <div className="absolute -bottom-40 -left-40 -z-10 h-[32rem] w-[32rem] rounded-full bg-amber-500/[0.08] blur-3xl" aria-hidden />
+          <div className="absolute top-1/4 right-1/4 -z-10 h-[24rem] w-[24rem] rounded-full bg-blue-500/[0.05] blur-3xl" aria-hidden />
 
-      {/* Modern Hero Section - Mobile Optimized */}
-      <section className="relative overflow-hidden w-full min-h-0 md:min-h-screen flex items-center py-16 md:py-0">
-        {/* Professional Background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-sky-900 to-cyan-900"></div>
-        <div className="absolute inset-0 bg-[url('/japan-cars-hero.png')] bg-cover bg-center opacity-20"></div>
-        <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-transparent to-black/50"></div>
+          <div className="hidden md:block absolute top-28 left-6 lg:left-8 h-px w-12 bg-amber-400/40" aria-hidden />
+          <div className="hidden md:block absolute top-28 left-6 lg:left-8 h-12 w-px bg-amber-400/40" aria-hidden />
+          <div className="hidden md:block absolute top-28 right-6 lg:right-8 h-px w-12 bg-amber-400/40" aria-hidden />
+          <div className="hidden md:block absolute top-28 right-6 lg:right-8 h-12 w-px bg-amber-400/40" aria-hidden />
 
-        {/* Animated Background Elements */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute -top-1/2 -left-1/2 w-full h-full bg-gradient-to-br from-sky-500/10 to-transparent rounded-full animate-pulse"></div>
-          <div className="absolute -bottom-1/2 -right-1/2 w-full h-full bg-gradient-to-tl from-cyan-500/10 to-transparent rounded-full animate-pulse delay-1000"></div>
-        </div>
-
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-16 z-20">
-          {/* Modern Typography - Mobile Optimized */}
-          <div className="text-center mb-8 sm:mb-12">
-            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-black mb-4 sm:mb-6 leading-tight tracking-tight">
-              <span className="text-white drop-shadow-2xl block">
-                Learn How to Import Cars
-              </span>
-              <span className="text-white drop-shadow-2xl block mb-2">
-                from Japan
-              </span>
-              <span className="bg-gradient-to-r from-blue-400 via-sky-400 to-cyan-400 bg-clip-text text-transparent drop-shadow-2xl text-2xl sm:text-3xl">
-                Step-by-Step Guide for Botswana
-              </span>
-            </h1>
-
-            <p className="text-sm sm:text-base md:text-lg lg:text-xl text-white mb-4 sm:mb-6 leading-relaxed bg-black/30 backdrop-blur-sm rounded-lg p-4 max-w-3xl mx-auto">
-              <strong>What we provide:</strong> Educational resources and guides to help you understand the process of importing a quality used car from Japan to Botswana. From research to documentation.
-            </p>
+          <div className="relative z-10 mx-auto w-full max-w-7xl px-6 lg:px-8 pt-28 sm:pt-32">
+            <div className="flex items-center justify-between text-[10px] sm:text-[11px] uppercase tracking-[0.28em] text-zinc-400 font-medium">
+              <div className="flex items-center gap-3">
+                <span className="text-amber-300 font-semibold">Nº 01</span>
+                <span className="h-px w-8 bg-zinc-600" />
+                <span>Botswana · Country guide</span>
+              </div>
+              <span className="hidden md:inline-block text-zinc-500">Trans-Kalahari · 2024 — 2025</span>
+            </div>
           </div>
 
-          {/* Premium CTA Section - Mobile Optimized */}
-          <div className="text-center mb-6 sm:mb-10" id="signup">
-            <div className="bg-white/5 backdrop-blur-md rounded-lg sm:rounded-xl p-4 sm:p-6 border border-white/10 max-w-3xl mx-auto">
-              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center">
-                {user ? (
-                  // User is logged in - show portal access only
-                  <Link href="/portal" className="group">
-                    <Button
-                      size="lg"
-                      className="w-full sm:w-auto font-bold text-sm sm:text-base md:text-lg px-4 py-2 sm:px-6 sm:py-3 md:px-8 md:py-4 h-auto bg-gradient-to-r from-blue-600 via-sky-600 to-cyan-600 hover:from-blue-700 hover:via-sky-700 hover:to-cyan-700 shadow-2xl group-hover:scale-105 transition-all duration-300 group-hover:shadow-sky-500/25 min-h-[44px]"
-                    >
-                      <Crown className="mr-2 sm:mr-3 h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6" />
-                      Access Member Portal
-                      <Sparkles className="ml-2 sm:ml-3 h-3 w-3 sm:h-4 sm:w-4 md:h-5 md:w-5 group-hover:rotate-12 transition-transform" />
-                    </Button>
-                  </Link>
-                ) : (
-                  // Not logged in - show Free Guide, Member Login and Get Started buttons
-                  <div className="flex flex-col gap-3 sm:gap-4 w-full sm:w-auto">
-                    {/* Free Import Guide Button - Yellow */}
-                    <Link href="/import-guide" className="group w-full">
+          <div className="relative z-10 mx-auto w-full max-w-7xl px-6 lg:px-8 flex-1 flex items-center pt-12 pb-20 sm:pt-16">
+            <div className="w-full">
+              <div className="inline-flex items-center gap-3 text-[11px] uppercase tracking-[0.24em] text-amber-300 font-semibold">
+                <span className="inline-block h-1.5 w-1.5 rounded-full bg-amber-400" />
+                Import education for Botswana
+              </div>
+
+              <h2 className="mt-10 sm:mt-12 font-medium tracking-tight text-white leading-[0.9] text-[clamp(2.75rem,8.5vw,7rem)]">
+                <span className="block">Import cars</span>
+                <span className="block pl-[12vw] sm:pl-[10vw] lg:pl-[14vw]">from Japan.</span>
+              </h2>
+
+              <div className="mt-8 sm:mt-10 flex items-start gap-3 sm:gap-4 max-w-3xl">
+                <span className="text-amber-400 text-3xl sm:text-4xl leading-none mt-1" aria-hidden>↳</span>
+                <p className="italic font-light text-2xl sm:text-3xl lg:text-4xl text-amber-100/95 leading-[1.1] tracking-tight">
+                  A step-by-step guide for Botswana.
+                </p>
+              </div>
+
+              <div className="mt-12 sm:mt-14 h-px w-20 bg-amber-400/60" />
+
+              <div className="mt-8 sm:mt-10 grid lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+                <div className="lg:col-span-7">
+                  <p className="text-base sm:text-lg text-zinc-200 leading-relaxed max-w-xl">
+                    Educational resources and guides to help you understand the process of
+                    importing a quality used car from Japan to Botswana — from research to
+                    documentation.
+                  </p>
+
+                  <div className="mt-10 flex flex-col sm:flex-row gap-3" id="signup">
+                    {user ? (
                       <Button
                         size="lg"
-                        className="w-full font-bold text-sm sm:text-base md:text-lg px-4 py-2 sm:px-6 sm:py-3 md:px-8 md:py-4 h-auto bg-yellow-500 hover:bg-yellow-600 text-gray-900 border-2 border-yellow-300 shadow-xl group-hover:scale-105 transition-all duration-300 min-h-[44px]"
+                        className="group h-12 px-7 bg-amber-400 text-zinc-900 hover:bg-amber-300 font-semibold rounded-full shadow-[0_0_0_1px_rgba(0,0,0,0.04),0_16px_40px_-12px_rgba(251,191,36,0.55)] transition-colors"
+                        asChild
                       >
-                        <BookOpen className="mr-2 sm:mr-3 h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6" />
-                        See Free Import Guide
+                        <Link href="/portal">
+                          <Lock className="mr-2 h-4 w-4" />
+                          Access member portal
+                          <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                        </Link>
                       </Button>
-                    </Link>
-
-                    <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full">
-                      {/* Member Login Button for returning customers */}
-                      <Link href="/auth/login" className="group flex-1">
+                    ) : (
+                      <>
                         <Button
                           size="lg"
-                          variant="outline"
-                          className="w-full font-bold text-sm sm:text-base md:text-lg px-4 py-2 sm:px-6 sm:py-3 md:px-6 md:py-4 h-auto border-2 border-blue-600 text-blue-600 hover:bg-blue-50 hover:border-blue-700 shadow-lg group-hover:scale-105 transition-all duration-300 min-h-[44px]"
+                          className="group h-12 px-7 bg-amber-400 text-zinc-900 hover:bg-amber-300 font-semibold rounded-full shadow-[0_0_0_1px_rgba(0,0,0,0.04),0_16px_40px_-12px_rgba(251,191,36,0.55)] transition-colors"
+                          asChild
                         >
-                          <User className="mr-2 sm:mr-3 h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6" />
-                          Member Login
+                          <Link href="/import-guide">
+                            <BookOpen className="mr-2 h-4 w-4" />
+                            Read the free guide
+                            <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                          </Link>
                         </Button>
-                      </Link>
+                        <Link
+                          href="/auth/login"
+                          className="inline-flex h-12 items-center justify-center gap-2 px-6 rounded-full border border-white/25 bg-white/[0.04] backdrop-blur-sm text-white hover:bg-white/10 hover:border-white/40 transition-colors text-sm font-medium"
+                        >
+                          <User className="h-4 w-4" />
+                          Member login
+                          <ArrowUpRight className="h-4 w-4" />
+                        </Link>
+                      </>
+                    )}
+                  </div>
+                </div>
 
-                      {/* Get Started Button for new customers */}
-                      <a href="#pricing" className="group flex-1">
-                        <Button
-                          size="lg"
-                          className="w-full font-bold text-sm sm:text-base md:text-lg px-4 py-2 sm:px-6 sm:py-3 md:px-8 md:py-4 h-auto bg-gradient-to-r from-purple-600 via-pink-600 to-purple-600 hover:from-purple-700 hover:via-pink-700 hover:to-purple-700 shadow-2xl group-hover:scale-105 transition-all duration-300 group-hover:shadow-purple-500/25 min-h-[44px]"
-                        >
-                          <Crown className="mr-2 sm:mr-3 h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6" />
-                          Get Started
-                          <Sparkles className="ml-2 sm:ml-3 h-3 w-3 sm:h-4 sm:w-4 md:h-5 md:w-5 group-hover:rotate-12 transition-transform" />
-                        </Button>
-                      </a>
+                <dl className="lg:col-span-5 grid grid-cols-3 gap-x-6 sm:gap-x-8 max-w-md lg:max-w-none lg:justify-self-end font-mono text-[11px] sm:text-xs uppercase tracking-[0.14em]">
+                  <div>
+                    <dt className="text-zinc-500">Country</dt>
+                    <dd className="mt-2 font-sans not-italic text-2xl sm:text-3xl font-medium tracking-tight text-white">Botswana</dd>
+                  </div>
+                  <div>
+                    <dt className="text-zinc-500">Port</dt>
+                    <dd className="mt-2 font-sans not-italic text-2xl sm:text-3xl font-medium tracking-tight text-white">Walvis Bay</dd>
+                  </div>
+                  <div>
+                    <dt className="text-zinc-500">Access</dt>
+                    <dd className="mt-2 font-sans not-italic text-2xl sm:text-3xl font-medium tracking-tight text-white">Lifetime</dd>
+                  </div>
+                </dl>
+              </div>
+            </div>
+          </div>
+
+          <div className="relative z-10 border-t border-white/10 bg-zinc-950/60 backdrop-blur-md overflow-hidden">
+            <div className="flex animate-[heroMarquee_60s_linear_infinite] whitespace-nowrap py-5 text-[11px] uppercase tracking-[0.3em] font-medium select-none">
+              {[...marqueeItems, ...marqueeItems].map((item, i) => (
+                <span key={i} className="inline-flex items-center gap-4 px-8">
+                  <span className="h-1 w-1 rounded-full bg-amber-400 flex-shrink-0" />
+                  <span className="text-zinc-300">{item}</span>
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <style>{`
+            @keyframes heroMarquee {
+              from { transform: translateX(0); }
+              to { transform: translateX(-50%); }
+            }
+          `}</style>
+        </section>
+
+        {/* PILLARS */}
+        <section className="bg-white">
+          <div className="mx-auto max-w-7xl px-6 lg:px-8 py-24 sm:py-32">
+            <div className="max-w-2xl">
+              <p className="text-xs uppercase tracking-[0.18em] text-blue-600 font-semibold">What we provide</p>
+              <h2 className="mt-4 text-3xl sm:text-4xl font-semibold tracking-tight text-zinc-900 text-balance">
+                Everything you need to import successfully.
+              </h2>
+              <p className="mt-4 text-zinc-600 leading-relaxed">
+                Professional tools and resources covering every stage of the process.
+              </p>
+            </div>
+
+            <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-px bg-zinc-200 border border-zinc-200 rounded-2xl overflow-hidden">
+              {[
+                { icon: Calculator, title: 'Cost calculator', copy: 'Calculate every import cost — duties, VAT, shipping, clearing — before you commit.' },
+                { icon: FileText, title: 'Complete guides', copy: 'Step-by-step process documentation from auction bid to driveway.' },
+                { icon: Ship, title: 'Container sharing', copy: 'Connect with trusted platforms to share container space and cut shipping costs.' },
+              ].map(({ icon: Icon, title, copy }) => (
+                <div key={title} className="bg-white p-8 sm:p-10">
+                  <div className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-blue-50 text-blue-600 ring-1 ring-inset ring-blue-100">
+                    <Icon className="h-5 w-5" strokeWidth={1.75} />
+                  </div>
+                  <h3 className="mt-6 text-lg font-semibold text-zinc-900">{title}</h3>
+                  <p className="mt-2 text-sm text-zinc-600 leading-relaxed">{copy}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* PROCESS */}
+        <section className="bg-gradient-to-b from-stone-50 to-stone-100/50 border-y border-stone-200" aria-labelledby="learn-section">
+          <div className="mx-auto max-w-7xl px-6 lg:px-8 py-24 sm:py-32">
+            <div className="max-w-3xl">
+              <p className="text-xs uppercase tracking-[0.18em] text-blue-600 font-semibold">The process</p>
+              <h2 id="learn-section" className="mt-4 text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-zinc-900 text-balance leading-[1.05]">
+                Master every step of the import process.
+              </h2>
+              <p className="mt-5 text-base sm:text-lg text-zinc-600 leading-relaxed max-w-2xl">
+                Professional guidance for importing vehicles from Japan to Botswana through the
+                Trans-Kalahari corridor via Walvis Bay. No experience required — our comprehensive
+                system covers everything.
+              </p>
+            </div>
+
+            <div className="mt-16 sm:mt-20 divide-y divide-zinc-200/80">
+              {processSteps.map(({ icon: Icon, title, description }, i) => (
+                <article key={title} className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 py-10 sm:py-12">
+                  <div className="md:col-span-2">
+                    <p className="font-mono text-xs uppercase tracking-[0.22em] text-amber-600 font-semibold">
+                      Step {String(i + 1).padStart(2, '0')}
+                    </p>
+                  </div>
+                  <div className="md:col-span-2">
+                    <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-white text-blue-600 ring-1 ring-zinc-200 shadow-sm">
+                      <Icon className="h-5 w-5" strokeWidth={1.75} />
                     </div>
                   </div>
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Service Highlights */}
-      <section className="py-16 bg-gradient-to-b from-white to-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-10">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              Everything You Need to Import Successfully
-            </h2>
-            <p className="text-xl text-gray-600">
-              Professional tools and comprehensive resources
-            </p>
-          </div>
-          <div className="grid sm:grid-cols-3 gap-6 max-w-5xl mx-auto">
-            <Card className="bg-white border-2 border-emerald-100 hover:border-emerald-300 hover:shadow-xl transition-all duration-300">
-              <CardContent className="p-6">
-                <div className="bg-emerald-500 w-12 h-12 rounded-lg flex items-center justify-center mb-4">
-                  <Calculator className="h-6 w-6 text-white" />
-                </div>
-                <h3 className="font-bold text-lg mb-2 text-gray-900">Cost Calculator</h3>
-                <p className="text-gray-600 text-sm">Calculate all import costs upfront with our comprehensive calculator tool</p>
-              </CardContent>
-            </Card>
-            <Card className="bg-white border-2 border-blue-100 hover:border-blue-300 hover:shadow-xl transition-all duration-300">
-              <CardContent className="p-6">
-                <div className="bg-blue-500 w-12 h-12 rounded-lg flex items-center justify-center mb-4">
-                  <BookOpen className="h-6 w-6 text-white" />
-                </div>
-                <h3 className="font-bold text-lg mb-2 text-gray-900">Complete Guides</h3>
-                <p className="text-gray-600 text-sm">Step-by-step guidance through the entire import process</p>
-              </CardContent>
-            </Card>
-            <Card className="bg-white border-2 border-purple-100 hover:border-purple-300 hover:shadow-xl transition-all duration-300">
-              <CardContent className="p-6">
-                <div className="bg-purple-500 w-12 h-12 rounded-lg flex items-center justify-center mb-4">
-                  <Ship className="h-6 w-6 text-white" />
-                </div>
-                <h3 className="font-bold text-lg mb-2 text-gray-900">Container Sharing</h3>
-                <p className="text-gray-600 text-sm">Find platforms to share containers and reduce shipping costs</p>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* Professional Process Section - Mobile Optimized */}
-      <section className="py-12 sm:py-24 bg-gradient-to-b from-white to-gray-50" aria-labelledby="learn-section">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          {/* Section Header */}
-          <div className="text-center mb-12 sm:mb-20">
-            <div className="inline-flex items-center gap-2 bg-blue-100 text-blue-700 px-3 sm:px-4 py-2 rounded-full font-semibold text-xs sm:text-sm mb-4">
-              <GraduationCap className="h-3 w-3 sm:h-4 sm:w-4" />
-              Complete Import Mastery
-            </div>
-            <h2 id="learn-section" className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-black mb-4 sm:mb-6">
-              <span className="bg-gradient-to-r from-slate-800 via-blue-600 to-purple-600 bg-clip-text text-transparent">
-                Master Every Step of 
-              </span>
-              <br />
-              <span className="bg-gradient-to-r from-emerald-600 to-blue-600 bg-clip-text text-transparent">
-                The Import Process
-              </span>
-            </h2>
-            <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed px-4">
-              Professional guidance for importing vehicles from Japan to Botswana through Durban/Walvis Bay ports. 
-              <span className="font-semibold text-gray-800">No experience required</span> — our comprehensive system covers everything.
-            </p>
-          </div>
-
-          {/* Process Steps Grid - Mobile Optimized */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-            {[
-              {
-                icon: Globe,
-                title: "Source Premium Vehicles",
-                description: "Access Japan's auction system with 50,000+ quality vehicles daily. Learn insider strategies for finding the best deals.",
-                color: "emerald",
-                step: "01"
-              },
-              {
-                icon: Calculator,
-                title: "Calculate True Costs",
-                description: "Master our comprehensive cost calculator. Know exact duties, VAT, shipping, and hidden fees before you buy.",
-                color: "blue",
-                step: "02"
-              },
-              {
-                icon: Ship,
-                title: "Secure Professional Shipping",
-                description: "Connect with verified shipping lines and clearing agents. Access container sharing opportunities to split costs with other importers.",
-                color: "purple",
-                step: "03"
-              }
-            ].map((item, index) => (
-              <div key={index} className="group">
-                <Card className="h-full border-2 border-gray-100 hover:border-blue-300 hover:shadow-2xl transition-all duration-300 bg-white group-hover:bg-gradient-to-br group-hover:from-white group-hover:to-blue-50">
-                  <CardContent className="p-6 sm:p-8 relative">
-                    {/* Step Number */}
-                    <div className="absolute top-2 sm:top-4 right-2 sm:right-4 text-4xl sm:text-5xl lg:text-6xl font-black text-gray-100 group-hover:text-blue-100 transition-colors">
-                      {item.step}
-                    </div>
-
-                    {/* Icon */}
-                    <div className={`relative ${getColorClasses(item.color).background} w-12 h-12 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl flex items-center justify-center mb-4 sm:mb-6 shadow-lg ${getColorClasses(item.color).shadow} group-hover:scale-110 transition-all duration-300`}>
-                      <item.icon className="h-6 w-6 sm:h-8 sm:w-8 text-white" />
-                    </div>
-
-                    {/* Content */}
-                    <h3 className="font-bold text-lg sm:text-xl mb-3 sm:mb-4 text-gray-900 group-hover:text-blue-900 transition-colors">
-                      {item.title}
+                  <div className="md:col-span-8">
+                    <h3 className="text-xl sm:text-2xl font-medium tracking-tight text-zinc-900 leading-tight">
+                      {title}
                     </h3>
-                    <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
-                      {item.description}
+                    <p className="mt-3 text-base text-zinc-600 leading-relaxed max-w-2xl">
+                      {description}
                     </p>
-
-                    {/* Learn More Link */}
-                    <div className="flex items-center gap-2 mt-4 sm:mt-6 text-blue-600 font-semibold opacity-0 group-hover:opacity-100 transition-opacity">
-                      <span className="text-sm sm:text-base">Learn the details</span>
-                      <ArrowRight className="h-3 w-3 sm:h-4 sm:w-4 group-hover:translate-x-1 transition-transform" />
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-            ))}
-          </div>
-
-        </div>
-      </section>
-
-      {/* Professional FAQ Section - Mobile Optimized */}
-      <section className="py-12 sm:py-24 bg-gradient-to-b from-white to-gray-50" aria-labelledby="faq-heading">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6">
-          {/* Section Header */}
-          <div className="text-center mb-12 sm:mb-16">
-            <div className="inline-flex items-center gap-2 bg-amber-100 text-amber-700 px-3 sm:px-4 py-2 rounded-full font-semibold text-xs sm:text-sm mb-4">
-              <MessageCircle className="h-3 w-3 sm:h-4 sm:w-4" />
-              Common Questions
+                  </div>
+                </article>
+              ))}
             </div>
-            <h2 id="faq-heading" className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black mb-4 sm:mb-6">
-              <span className="bg-gradient-to-r from-gray-900 to-blue-600 bg-clip-text text-transparent">
-                Import Questions
-              </span>
-              <br />
-              <span className="bg-gradient-to-r from-emerald-600 to-purple-600 bg-clip-text text-transparent">
-                Expert Answers
-              </span>
-            </h2>
-            <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-3xl mx-auto px-4">
-              Get instant answers to the most common questions about importing cars from Japan to Botswana.
-            </p>
           </div>
+        </section>
 
-          {/* FAQ Cards - Mobile Optimized */}
-          <div className="space-y-3 sm:space-y-4" itemScope itemType="https://schema.org/FAQPage">
-            {faqs.map((faq, index) => (
-              <Card 
-                key={index} 
-                className="border-2 border-gray-100 hover:border-blue-300 transition-all duration-300 overflow-hidden"
-                itemScope 
-                itemProp="mainEntity" 
-                itemType="https://schema.org/Question"
-              >
-                <button
-                  onClick={() => setExpandedFaq(expandedFaq === index ? null : index)}
-                  className="w-full text-left min-h-[44px]"
+        {/* FAQ */}
+        <section className="bg-white" aria-labelledby="faq-heading">
+          <div className="mx-auto max-w-5xl px-6 lg:px-8 py-24 sm:py-32">
+            <div className="max-w-3xl">
+              <p className="text-xs uppercase tracking-[0.18em] text-blue-600 font-semibold">Common questions</p>
+              <h2 id="faq-heading" className="mt-4 text-3xl sm:text-4xl font-semibold tracking-tight text-zinc-900 text-balance leading-[1.05]">
+                Questions, answered.
+              </h2>
+              <p className="mt-4 text-zinc-600 leading-relaxed">
+                The most common questions about importing cars from Japan to Botswana.
+              </p>
+            </div>
+
+            <div className="mt-14 sm:mt-16 border-t border-zinc-200" itemScope itemType="https://schema.org/FAQPage">
+              {faqs.map((faq, index) => (
+                <div
+                  key={index}
+                  className="border-b border-zinc-200"
+                  itemScope
+                  itemProp="mainEntity"
+                  itemType="https://schema.org/Question"
                 >
-                  <CardContent className="p-4 sm:p-6 hover:bg-gray-50 transition-colors">
-                    <div className="flex items-center justify-between">
-                      <h3 
-                        className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900 pr-4 leading-tight" 
-                        itemProp="name"
-                      >
-                        {faq.question}
-                      </h3>
-                      <div className={`flex-shrink-0 transition-transform duration-300 ${expandedFaq === index ? 'rotate-180' : ''} ml-2`}>
-                        <ChevronDown className="h-5 w-5 sm:h-6 sm:w-6 text-blue-600" />
+                  <button
+                    onClick={() => setExpandedFaq(expandedFaq === index ? null : index)}
+                    className="w-full text-left py-6 sm:py-8 flex items-start gap-6 group"
+                    aria-expanded={expandedFaq === index}
+                  >
+                    <span className="font-mono text-xs uppercase tracking-[0.22em] text-amber-600 font-semibold flex-shrink-0 pt-1.5">
+                      Q.{String(index + 1).padStart(2, '0')}
+                    </span>
+                    <h3
+                      className="flex-1 text-lg sm:text-xl font-medium text-zinc-900 leading-snug pr-4"
+                      itemProp="name"
+                    >
+                      {faq.question}
+                    </h3>
+                    <ChevronDown
+                      className={`flex-shrink-0 h-5 w-5 text-zinc-400 transition-transform duration-300 mt-1 ${expandedFaq === index ? 'rotate-180 text-zinc-900' : ''}`}
+                    />
+                  </button>
+                  {expandedFaq === index && (
+                    <div
+                      className="pb-8 pl-[3.75rem] sm:pl-[4.5rem] pr-4"
+                      itemScope
+                      itemProp="acceptedAnswer"
+                      itemType="https://schema.org/Answer"
+                    >
+                      <div className="flex items-start gap-3 max-w-3xl">
+                        <span className="text-amber-500 text-xl leading-none mt-1" aria-hidden>↳</span>
+                        <p
+                          className="italic font-light text-base sm:text-lg text-zinc-600 leading-relaxed"
+                          itemProp="text"
+                        >
+                          {faq.answer}
+                        </p>
                       </div>
                     </div>
-                  </CardContent>
-                </button>
-
-                {expandedFaq === index && (
-                  <div 
-                    className="border-t border-gray-100 bg-gradient-to-r from-blue-50 to-purple-50"
-                    itemScope 
-                    itemProp="acceptedAnswer" 
-                    itemType="https://schema.org/Answer"
-                  >
-                    <CardContent className="p-4 sm:p-6">
-                      <p 
-                        className="text-gray-700 text-base sm:text-lg leading-relaxed" 
-                        itemProp="text"
-                      >
-                        {faq.answer}
-                      </p>
-                    </CardContent>
-                  </div>
-                )}
-              </Card>
-            ))}
-          </div>
-
-        </div>
-      </section>
-
-      {/* Free Guide CTA - Before Pricing */}
-      {!user && (
-      <section className="py-8 sm:py-12 bg-gradient-to-b from-white to-gray-50">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6">
-          <Card className="p-6 bg-gradient-to-r from-yellow-50 to-orange-50 border-2 border-yellow-300">
-            <p className="text-gray-900 font-semibold mb-3 text-center">
-              🎁 Not sure yet? <strong>View our FREE Import Guide</strong> first
-            </p>
-            <p className="text-sm text-gray-600 mb-4 text-center">
-              See a real vehicle import example with actual costs and invoice before buying
-            </p>
-            <div className="flex justify-center">
-              <Link href="/import-guide">
-                <Button
-                  variant="outline"
-                  className="border-2 border-yellow-600 text-yellow-800 hover:bg-yellow-600 hover:text-white font-bold"
-                >
-                  <BookOpen className="mr-2 h-4 w-4" />
-                  View Free Guide
-                </Button>
-              </Link>
+                  )}
+                </div>
+              ))}
             </div>
-          </Card>
-        </div>
-      </section>
-      )}
-
-      {/* Pricing Section */}
-      {!user && (
-      <section id="pricing" className="py-12 sm:py-16 lg:py-20 bg-gradient-to-b from-gray-50 to-white overflow-x-hidden">
-        <div className="container mx-auto px-3 sm:px-4 max-w-7xl">
-          <div className="text-center mb-8 sm:mb-10 lg:mb-12">
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold mb-3 sm:mb-4 text-gray-800 px-2">
-              Complete Import Package
-            </h2>
-            <p className="text-sm sm:text-base lg:text-lg xl:text-xl text-gray-600 max-w-3xl mx-auto px-4">
-              Everything you need to import cars successfully - one comprehensive package with lifetime access.
-            </p>
           </div>
+        </section>
 
-          {/* Single Comprehensive Package */}
-          <div className="max-w-xl mx-auto">
-            {/* Complete Import Mastery - Single Comprehensive Package */}
-            <Card className="relative overflow-hidden hover:shadow-2xl transition-all duration-300 border-2 hover:border-blue-500">
-              <div className="absolute top-0 right-0 bg-gradient-to-r from-blue-600 to-sky-600 text-white text-[10px] sm:text-xs font-bold px-2 py-1 sm:px-4 sm:py-2 rounded-bl-lg">
-                EVERYTHING INCLUDED
+        {/* INTERMISSION */}
+        {!user && (
+          <section className="bg-white">
+            <div className="mx-auto max-w-7xl px-6 lg:px-8 pb-24">
+              <div className="max-w-5xl mx-auto">
+                <div className="grid sm:grid-cols-[8rem_1fr] gap-x-10 gap-y-6 items-start border-t border-b border-zinc-200 py-10 sm:py-12">
+                  <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-zinc-500 flex sm:flex-col gap-3 sm:gap-2">
+                    <span className="text-amber-600 font-semibold">Nº 01·5</span>
+                    <span className="hidden sm:block h-px w-8 bg-zinc-300" />
+                    <span>Preview</span>
+                  </div>
+                  <div>
+                    <h3 className="font-medium text-zinc-900 text-2xl sm:text-3xl lg:text-4xl tracking-tight leading-[1.1]">
+                      Not sure yet?
+                    </h3>
+                    <div className="mt-4 flex items-start gap-3">
+                      <span className="text-amber-500 text-xl sm:text-2xl leading-none mt-1" aria-hidden>↳</span>
+                      <p className="italic font-light text-base sm:text-lg text-zinc-600 leading-relaxed max-w-xl">
+                        See a real vehicle import — actual costs and invoice — before deciding.
+                      </p>
+                    </div>
+                    <Link
+                      href="/import-guide"
+                      className="mt-6 group inline-flex items-center gap-1.5 text-sm font-semibold text-zinc-900 hover:text-amber-700 transition-colors"
+                    >
+                      View free guide
+                      <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                    </Link>
+                  </div>
+                </div>
               </div>
-              <div className="absolute top-0 left-0 w-32 h-32 bg-blue-500 opacity-10 rounded-full -ml-16 -mt-16"></div>
-              <CardHeader className="pb-4 sm:pb-6 pt-8 sm:pt-6">
-                <div className="flex items-center justify-between mb-3 sm:mb-4">
-                  <Crown className="h-8 w-8 sm:h-10 sm:w-10 lg:h-12 lg:w-12 text-blue-500" />
-                  <span className="text-xs sm:text-sm font-semibold bg-blue-100 text-blue-700 px-2 py-1 sm:px-3 sm:py-1 rounded-full">
-                    Complete Solution
-                  </span>
+            </div>
+          </section>
+        )}
+
+        {/* PRICING — Nº 02 */}
+        {!user && (
+          <section id="pricing" className="relative isolate overflow-hidden bg-zinc-950 text-white flex flex-col">
+            <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_15%_85%,rgba(251,191,36,0.14),transparent_45%),radial-gradient(circle_at_85%_15%,rgba(37,99,235,0.10),transparent_45%)]" aria-hidden />
+            <div className="absolute -top-40 -right-40 -z-10 h-[32rem] w-[32rem] rounded-full bg-amber-500/[0.06] blur-3xl" aria-hidden />
+            <div className="absolute bottom-1/4 left-1/4 -z-10 h-[24rem] w-[24rem] rounded-full bg-blue-500/[0.05] blur-3xl" aria-hidden />
+
+            <div className="hidden md:block absolute top-24 left-6 lg:left-8 h-px w-12 bg-amber-400/40" aria-hidden />
+            <div className="hidden md:block absolute top-24 left-6 lg:left-8 h-12 w-px bg-amber-400/40" aria-hidden />
+            <div className="hidden md:block absolute top-24 right-6 lg:right-8 h-px w-12 bg-amber-400/40" aria-hidden />
+            <div className="hidden md:block absolute top-24 right-6 lg:right-8 h-12 w-px bg-amber-400/40" aria-hidden />
+
+            <div className="relative z-10 mx-auto w-full max-w-7xl px-6 lg:px-8 pt-24 sm:pt-28">
+              <div className="flex items-center justify-between text-[10px] sm:text-[11px] uppercase tracking-[0.28em] text-zinc-400 font-medium">
+                <div className="flex items-center gap-3">
+                  <span className="text-amber-300 font-semibold">Nº 02</span>
+                  <span className="h-px w-8 bg-zinc-600" />
+                  <span>Membership</span>
                 </div>
-                <CardTitle className="text-lg sm:text-xl lg:text-2xl font-bold">Complete Import Mastery</CardTitle>
-                <div className="mt-3 sm:mt-4">
-                  <div className="inline-block bg-gradient-to-r from-orange-500 to-red-500 text-white px-3 py-1 rounded-lg mb-2 font-bold text-xs">
-                    BLACK NOVEMBER - 63% OFF
+                <span className="hidden md:inline-block text-zinc-500">Lifetime · One payment</span>
+              </div>
+            </div>
+
+            <div className="relative z-10 mx-auto w-full max-w-7xl px-6 lg:px-8 py-16 sm:py-20 lg:py-24">
+              <div className="inline-flex items-center gap-3 text-[11px] uppercase tracking-[0.24em] text-amber-300 font-semibold">
+                <span className="inline-block h-1.5 w-1.5 rounded-full bg-amber-400" />
+                Complete import mastery
+              </div>
+
+              <h2 className="mt-10 sm:mt-12 font-medium tracking-tight text-white leading-[0.9] text-[clamp(2.5rem,7.5vw,5.5rem)]">
+                <span className="block">One payment.</span>
+                <span className="block pl-[10vw] sm:pl-[8vw] lg:pl-[12vw] italic font-light text-amber-300/95">Lifetime access.</span>
+              </h2>
+
+              <div className="mt-8 sm:mt-10 flex items-start gap-3 sm:gap-4 max-w-3xl">
+                <span className="text-amber-400 text-2xl sm:text-3xl leading-none mt-1" aria-hidden>↳</span>
+                <p className="text-lg sm:text-xl lg:text-2xl text-amber-100/90 leading-snug tracking-tight">
+                  Everything you need to import cars successfully — for as long as the platform exists.
+                </p>
+              </div>
+
+              <div className="mt-14 sm:mt-16 h-px w-20 bg-amber-400/60" />
+
+              <div className="mt-12 grid lg:grid-cols-12 gap-12 lg:gap-16">
+                <div className="lg:col-span-5">
+                  <p className="font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.22em] text-zinc-500">Investment</p>
+                  <div className="mt-4 flex items-baseline gap-3 flex-wrap">
+                    <span className="font-medium tracking-tight bg-gradient-to-br from-amber-200 via-amber-300 to-amber-400 bg-clip-text text-transparent text-[clamp(4rem,9vw,7rem)] leading-none">$6.06</span>
+                    <span className="font-mono text-sm sm:text-base text-zinc-400 uppercase tracking-[0.2em]">USD</span>
                   </div>
-                  <div className="flex items-center gap-2 sm:gap-3">
-                    <span className="line-through text-gray-400 text-xl sm:text-2xl">$87</span>
-                    <span className="text-3xl sm:text-4xl font-bold text-green-600">$32</span>
-                  </div>
-                  <span className="text-gray-600 font-semibold text-xs sm:text-sm lg:text-base">One-time payment • Lifetime access • Ends Nov 30</span>
-                </div>
-              </CardHeader>
-              <CardContent className="space-y-3 sm:space-y-4 px-4 sm:px-6">
-                <ul className="space-y-2 sm:space-y-3">
-                  <li className="flex items-start gap-2 sm:gap-3">
-                    <Star className="h-4 w-4 sm:h-5 sm:w-5 text-blue-500 mt-0.5 flex-shrink-0" />
-                    <span className="text-gray-700 font-semibold text-sm sm:text-base">Complete import timeline & process</span>
-                  </li>
-                  <li className="flex items-start gap-2 sm:gap-3">
-                    <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                    <span className="text-gray-700 text-sm sm:text-base">Comprehensive mistake avoidance checklist</span>
-                  </li>
-                  <li className="flex items-start gap-2 sm:gap-3">
-                    <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                    <span className="text-gray-700 text-sm sm:text-base">Live duty & tax calculator</span>
-                  </li>
-                  <li className="flex items-start gap-2 sm:gap-3">
-                    <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                    <span className="text-gray-700 text-sm sm:text-base">Document templates & email samples</span>
-                  </li>
-                  <li className="flex items-start gap-2 sm:gap-3">
-                    <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                    <span className="text-gray-700 text-sm sm:text-base">Japan auction bidding guide</span>
-                  </li>
-                  <li className="flex items-start gap-2 sm:gap-3">
-                    <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                    <span className="text-gray-700 text-sm sm:text-base">Agent contact directory (not our services)</span>
-                  </li>
-                  <li className="flex items-start gap-2 sm:gap-3">
-                    <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                    <span className="text-gray-700 text-sm sm:text-base">Container sharing network</span>
-                  </li>
-                  <li className="flex items-start gap-2 sm:gap-3">
-                    <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                    <span className="text-gray-700 text-sm sm:text-base">Priority WhatsApp support</span>
-                  </li>
-                  <li className="flex items-start gap-2 sm:gap-3">
-                    <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                    <span className="text-gray-700 text-sm sm:text-base">Monthly updates & new features</span>
-                  </li>
-                </ul>
-                <div className="pt-4 sm:pt-6">
-                  <ValidatedCheckoutButton
-                    tier="mastery"
-                    country="bw"
-                    size="lg"
-                    className="w-full bg-gradient-to-r from-blue-600 to-sky-600 hover:from-blue-700 hover:to-sky-700 text-white font-bold py-3.5 sm:py-4 text-sm sm:text-base lg:text-lg rounded-lg transition-all duration-300 hover:shadow-xl min-h-[48px] active:scale-95 touch-manipulation"
-                  >
-                    Get Lifetime Access - $32 USD
-                    <Sparkles className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
-                  </ValidatedCheckoutButton>
-                  <p className="text-xs text-gray-600 mt-3 text-center">
-                    Educational materials only • 7-day refund if no content accessed
+                  <p className="mt-5 text-sm text-zinc-400 leading-relaxed max-w-xs">
+                    Approximately P85 — one-time payment, instant access.
                   </p>
+
+                  <div className="mt-10 flex flex-col items-start gap-4">
+                    <ValidatedCheckoutButton
+                      tier="mastery"
+                      country="bw"
+                      size="lg"
+                      className="h-14 px-8 bg-amber-400 text-zinc-900 hover:bg-amber-300 font-semibold rounded-full shadow-[0_0_0_1px_rgba(0,0,0,0.08),0_16px_40px_-12px_rgba(251,191,36,0.55)] transition-colors text-base"
+                    >
+                      Get lifetime access
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </ValidatedCheckoutButton>
+                    <p className="text-xs text-zinc-500 max-w-xs leading-relaxed">
+                      Educational materials only. 7-day refund if no content has been accessed.
+                    </p>
+                  </div>
                 </div>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
-      )}
-    </main>
+
+                <div className="lg:col-span-7">
+                  <div className="flex items-center justify-between font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.22em] border-b border-white/10 pb-3">
+                    <span className="text-zinc-500">Included</span>
+                    <span className="text-amber-300">09 items</span>
+                  </div>
+                  <ul className="divide-y divide-white/[0.06]">
+                    {[
+                      'Complete import timeline & process',
+                      'Comprehensive mistake avoidance checklist',
+                      'Live duty & tax calculator',
+                      'Document templates & email samples',
+                      'Japan auction bidding guide',
+                      'Agent contact directory',
+                      'Container sharing network',
+                      'Priority WhatsApp support',
+                      'Monthly updates & new features',
+                    ].map((item, i) => (
+                      <li key={item} className="flex items-center justify-between gap-4 py-4">
+                        <span className="flex items-baseline gap-4 sm:gap-6">
+                          <span className="font-mono text-[10px] text-zinc-600 tracking-[0.2em] flex-shrink-0 w-6">
+                            {String(i + 1).padStart(2, '0')}
+                          </span>
+                          <span className="text-sm sm:text-base text-zinc-200 leading-snug">{item}</span>
+                        </span>
+                        <span className="h-1 w-1 rounded-full bg-amber-400/60 flex-shrink-0" aria-hidden />
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div className="relative z-10 border-t border-white/10 bg-zinc-950/40">
+              <div className="mx-auto max-w-7xl px-6 lg:px-8 py-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-[10px] sm:text-[11px] uppercase tracking-[0.28em] text-zinc-400 font-medium">
+                <div className="flex items-center gap-3">
+                  <span className="font-semibold text-amber-300">Payment</span>
+                  <span className="h-px w-8 bg-zinc-600" />
+                  <span>Visa · Mastercard · Amex</span>
+                </div>
+                <span className="text-zinc-500">Secure checkout · Stripe</span>
+              </div>
+            </div>
+          </section>
+        )}
+
+        <WhatsAppButton />
+      </main>
     </>
   )
 }

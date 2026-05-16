@@ -1,13 +1,13 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
-import { ChevronDown, Globe } from 'lucide-react'
+import { ChevronDown } from 'lucide-react'
 
 const countries = [
-  { code: 'na', name: 'Namibia', flag: '🇳🇦', currency: '$32 USD' },
-  { code: 'za', name: 'South Africa', flag: '🇿🇦', currency: '$32 USD' },
-  { code: 'bw', name: 'Botswana', flag: '🇧🇼', currency: '$32 USD' },
-  { code: 'zm', name: 'Zambia', flag: '🇿🇲', currency: '$32 USD' },
+  { code: 'na', name: 'Namibia', flag: '🇳🇦', currency: '$6.06 USD' },
+  { code: 'za', name: 'South Africa', flag: '🇿🇦', currency: '$6.06 USD' },
+  { code: 'bw', name: 'Botswana', flag: '🇧🇼', currency: '$6.06 USD' },
+  { code: 'zm', name: 'Zambia', flag: '🇿🇲', currency: '$6.06 USD' },
 ]
 
 interface HeaderCountrySelectorProps {
@@ -20,30 +20,25 @@ export default function HeaderCountrySelector({ country }: HeaderCountrySelector
   const dropdownRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    // Get current country from URL or cookie
     const pathSegments = window.location.pathname.split('/')
     const countryCode = pathSegments[1]
     if (['na', 'za', 'bw', 'zm'].includes(countryCode)) {
       setCurrentCountry(countryCode)
     } else {
-      // Try to get from cookie
       const cookie = document.cookie
         .split('; ')
-        .find(row => row.startsWith('user-country='))
+        .find((row) => row.startsWith('user-country='))
       if (cookie) {
         const country = cookie.split('=')[1]
-        const validCountry = countries.find(c => 
-          country.includes(c.name.toLowerCase()) || country.includes(c.code)
+        const validCountry = countries.find(
+          (c) => country.includes(c.name.toLowerCase()) || country.includes(c.code)
         )
-        if (validCountry) {
-          setCurrentCountry(validCountry.code)
-        }
+        if (validCountry) setCurrentCountry(validCountry.code)
       }
     }
   }, [])
 
   useEffect(() => {
-    // Close dropdown when clicking outside
     function handleClickOutside(event: MouseEvent) {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setIsOpen(false)
@@ -54,82 +49,89 @@ export default function HeaderCountrySelector({ country }: HeaderCountrySelector
   }, [])
 
   const handleCountryChange = (countryCode: string) => {
-    // Set cookie for persistence
     document.cookie = `user-country=${countryCode}; max-age=${60 * 60 * 24 * 30}; path=/; SameSite=Lax`
-
-    // Redirect to the country-specific guide page
     window.location.href = `/${countryCode}/guide`
   }
 
-  const current = countries.find(c => c.code === currentCountry) || countries[0]
-
-  // Dynamic gradient based on country
-  const gradients = {
-    na: 'from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600',
-    za: 'from-green-500 to-yellow-500 hover:from-green-600 hover:to-yellow-600',
-    bw: 'from-blue-500 to-sky-500 hover:from-blue-600 hover:to-sky-600',
-    zm: 'from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600'
-  }
-
-  const currentGradient = gradients[currentCountry as keyof typeof gradients] || gradients.na
+  const current = countries.find((c) => c.code === currentCountry) || countries[0]
 
   return (
     <div className="relative" ref={dropdownRef}>
-      {/* Circular Dropdown Button */}
+      {/* Pill button — flag + code + chevron */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className={`relative flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-r ${currentGradient} text-white rounded-full shadow-xl hover:shadow-2xl transform hover:scale-110 transition-all duration-200 border-2 border-white ring-2 ring-white/30 hover:ring-4 hover:ring-white/40`}
+        className="inline-flex h-9 sm:h-10 items-center gap-1.5 sm:gap-2 pl-2 pr-2.5 sm:pl-2.5 sm:pr-3 rounded-full border border-zinc-200 bg-white hover:border-zinc-300 hover:bg-zinc-50 active:bg-zinc-100 transition-colors"
+        aria-label={`Select country, current: ${current.name}`}
       >
-        {/* Pulsing indicator for attention */}
-        <div className="absolute -top-1 -right-1 h-3 w-3">
-          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-yellow-400 opacity-75"></span>
-          <span className="relative inline-flex rounded-full h-3 w-3 bg-yellow-500 border-2 border-white"></span>
-        </div>
-
-        {/* Flag in center */}
-        <span className="text-xl sm:text-2xl">{current.flag}</span>
-
-        {/* Small chevron indicator at bottom */}
-        <ChevronDown className={`absolute bottom-1 h-3 w-3 text-white/80 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+        <span className="text-base sm:text-lg leading-none">{current.flag}</span>
+        <span className="hidden sm:inline-block font-mono text-[10px] uppercase tracking-[0.18em] text-zinc-700 font-semibold">
+          {current.code}
+        </span>
+        <ChevronDown
+          className={`h-3.5 w-3.5 text-zinc-500 transition-transform ${isOpen ? 'rotate-180' : ''}`}
+          strokeWidth={1.75}
+        />
       </button>
 
-      {/* Dropdown Menu - Professional design */}
+      {/* Dropdown */}
       {isOpen && (
-        <div className="absolute right-0 mt-3 w-56 sm:w-64 bg-white rounded-xl shadow-2xl border border-gray-200 overflow-hidden z-50 animate-fadeIn">
-          <div className="px-4 py-3 border-b bg-gradient-to-r from-gray-50 to-gray-100">
-            <p className="text-xs text-gray-700 font-bold uppercase tracking-wider">
-              Select Your Country
-            </p>
+        <div className="absolute right-0 mt-2 w-64 bg-white rounded-2xl border border-zinc-200 shadow-[0_8px_32px_-8px_rgba(0,0,0,0.12)] overflow-hidden z-50 animate-fadeIn">
+          {/* Header */}
+          <div className="px-4 py-3 border-b border-zinc-100 flex items-center justify-between">
+            <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-zinc-500 font-semibold">
+              Select country
+            </span>
+            <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-amber-600 font-semibold">
+              04
+            </span>
           </div>
-          {countries.map((country) => {
-            const isActive = currentCountry === country.code
-            const countryGradient = gradients[country.code as keyof typeof gradients] || gradients.na
 
-            return (
-              <button
-                key={country.code}
-                onClick={() => handleCountryChange(country.code)}
-                className={`w-full flex items-center gap-3 px-4 py-3 transition-all duration-200 ${
-                  isActive 
-                    ? 'bg-gradient-to-r from-gray-50 to-gray-100 border-l-4 border-blue-600' 
-                    : 'hover:bg-gray-50 border-l-4 border-transparent'
-                }`}
-              >
-                <span className="text-xl sm:text-2xl">{country.flag}</span>
-                <div className="flex-1 text-left">
-                  <div className="font-bold text-gray-900 text-sm sm:text-base">{country.name}</div>
-                  <div className="text-xs text-gray-600 font-medium">Guide Price: {country.currency}</div>
-                </div>
-                {isActive && (
-                  <div className={`text-xs bg-gradient-to-r ${countryGradient} text-white px-3 py-1 rounded-full font-semibold shadow-sm`}>
-                    Active
+          {/* Country list */}
+          <div className="py-1">
+            {countries.map((c) => {
+              const isActive = currentCountry === c.code
+              return (
+                <button
+                  key={c.code}
+                  onClick={() => handleCountryChange(c.code)}
+                  className={`w-full flex items-center gap-3 px-4 py-3 transition-colors ${
+                    isActive
+                      ? 'bg-amber-50/60'
+                      : 'hover:bg-zinc-50'
+                  }`}
+                >
+                  <span className="text-xl leading-none flex-shrink-0">{c.flag}</span>
+                  <div className="flex-1 text-left min-w-0">
+                    <div className="text-sm font-medium text-zinc-900">{c.name}</div>
+                    <div className="font-mono text-[10px] uppercase tracking-[0.18em] text-zinc-500 mt-0.5">
+                      {c.currency}
+                    </div>
                   </div>
-                )}
-              </button>
-            )
-          })}
+                  {isActive && (
+                    <span className="h-1.5 w-1.5 rounded-full bg-amber-400 flex-shrink-0" aria-hidden />
+                  )}
+                </button>
+              )
+            })}
+          </div>
         </div>
       )}
+
+      <style jsx>{`
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+            transform: translateY(-4px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        .animate-fadeIn {
+          animation: fadeIn 0.15s ease-out;
+        }
+      `}</style>
     </div>
   )
 }
