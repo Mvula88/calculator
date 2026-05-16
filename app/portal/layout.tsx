@@ -1,7 +1,9 @@
 'use client'
-import { useEffect, useState } from 'react'
-import { useRouter, usePathname } from 'next/navigation'
+
+import { useState } from 'react'
+import { usePathname } from 'next/navigation'
 import Link from 'next/link'
+import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { useAuthImmediate } from '@/lib/hooks/use-auth-immediate'
 import SimpleContentProtection from '@/components/SimpleContentProtection'
@@ -11,269 +13,286 @@ import {
   Calculator,
   Users,
   BookOpen,
-  Package,
   Home,
   LogOut,
-  Star,
   FileText,
   Ship,
   Menu,
   X,
-  Gavel
+  Gavel,
+  Loader2,
 } from 'lucide-react'
-import Image from 'next/image'
+
 export default function SimplePortalLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
-  const router = useRouter()
   const pathname = usePathname()
-  const { user, userEmail, hasAccess, loading, error, signOut } = useAuthImmediate()
+  const { user, userEmail, loading, error } = useAuthImmediate()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  useEffect(() => {
-    // Don't check auth for activation or login pages
-    if (pathname === '/portal/login' || 
-        pathname === '/portal/activate' || 
-        pathname === '/portal/activate-simple' ||
-        pathname === '/portal/debug') {
-      return
-    }
-    // Don't auto-redirect - let the user click the login button
-    // This prevents redirect loops
-  }, [pathname])
+
   const handleSignOut = async () => {
-    // Clear all auth-related storage first
     localStorage.clear()
     sessionStorage.clear()
-    // Sign out from Supabase
     const supabase = createClient()
     await supabase.auth.signOut()
-    // Force redirect to home page with a full page reload
     window.location.href = '/'
   }
-  // For activation/login pages, just render the content
-  if (pathname === '/portal/login' || 
-      pathname === '/portal/activate' || 
-      pathname === '/portal/activate-simple') {
+
+  // Bypass shell for activation/login pages
+  if (
+    pathname === '/portal/login' ||
+    pathname === '/portal/activate' ||
+    pathname === '/portal/activate-simple'
+  ) {
     return <>{children}</>
   }
-  // Show loading state briefly
+
+  // Loading state — editorial
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-          <p className="mt-4 text-gray-600">Loading portal...</p>
+      <div className="min-h-screen bg-gradient-to-br from-white via-stone-50 to-zinc-100 flex items-center justify-center">
+        <div className="flex flex-col items-center gap-4">
+          <Loader2 className="h-7 w-7 text-amber-500 animate-spin" strokeWidth={1.75} />
+          <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-zinc-500">
+            Loading portal
+          </p>
         </div>
       </div>
     )
   }
-  // If there's an error or no user, redirect to login
+
+  // Auth error — redirect
   if (error || !user) {
     if (typeof window !== 'undefined') {
       window.location.href = '/auth/login?redirectTo=/portal'
     }
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-          <p className="mt-4 text-gray-600">Redirecting to login...</p>
+      <div className="min-h-screen bg-gradient-to-br from-white via-stone-50 to-zinc-100 flex items-center justify-center">
+        <div className="flex flex-col items-center gap-4">
+          <Loader2 className="h-7 w-7 text-amber-500 animate-spin" strokeWidth={1.75} />
+          <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-zinc-500">
+            Redirecting to login
+          </p>
         </div>
       </div>
     )
   }
+
   const navigation = [
-    {
-      name: 'Dashboard',
-      href: '/portal',
-      icon: Home,
-      description: 'Portal overview'
-    },
-    {
-      name: 'Beginner Journey',
-      href: '/portal/beginner',
-      icon: BookOpen,
-      description: 'Complete import journey'
-    },
-    {
-      name: 'Import Guide',
-      href: '/portal/guide',
-      icon: BookOpen,
-      description: 'Step-by-step guide'
-    },
-    {
-      name: 'Documents',
-      href: '/portal/documents',
-      icon: FileText,
-      description: 'Real import docs'
-    },
-    {
-      name: 'Calculator',
-      href: '/portal/calculator',
-      icon: Calculator,
-      description: 'Cost calculator'
-    },
-    {
-      name: 'Japan Auctions',
-      href: '/portal/japan-auctions',
-      icon: Gavel,
-      description: 'Auction guide'
-    },
-    {
-      name: 'Shipping',
-      href: '/portal/book-slot',
-      icon: Ship,
-      description: 'Shipping companies'
-    },
-    {
-      name: 'Agents',
-      href: '/portal/agents',
-      icon: Users,
-      description: 'Verified agents'
-    },
+    { name: 'Dashboard', href: '/portal', icon: Home, description: 'Portal overview' },
+    { name: 'Beginner Journey', href: '/portal/beginner', icon: BookOpen, description: 'Complete import journey' },
+    { name: 'Import Guide', href: '/portal/guide', icon: BookOpen, description: 'Step-by-step guide' },
+    { name: 'Documents', href: '/portal/documents', icon: FileText, description: 'Real import docs' },
+    { name: 'Calculator', href: '/portal/calculator', icon: Calculator, description: 'Cost calculator' },
+    { name: 'Japan Auctions', href: '/portal/japan-auctions', icon: Gavel, description: 'Auction guide' },
+    { name: 'Shipping', href: '/portal/book-slot', icon: Ship, description: 'Shipping companies' },
+    { name: 'Agents', href: '/portal/agents', icon: Users, description: 'Verified agents' },
   ]
+
+  const isActive = (href: string) =>
+    href === '/portal' ? pathname === '/portal' : pathname?.startsWith(href)
+
   return (
     <SimpleContentProtection userEmail={userEmail}>
-        <div className="min-h-screen bg-gray-50">
-      {/* Top Header Bar */}
-      <header className="bg-white border-b border-gray-200 fixed top-0 left-0 right-0 z-40">
-        <div className="px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            {/* Logo and Brand */}
-            <div className="flex items-center">
-              <button 
-                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="lg:hidden p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500"
-              >
-                {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-              </button>
-              <div className="flex items-center ml-2 lg:ml-0">
-                <Link href="/portal" className="flex items-center gap-2 sm:gap-3">
-                  <Image 
-                    src="/impota-logo.png" 
-                    alt="IMPOTA" 
-                    width={120} 
+      <div className="min-h-screen bg-stone-50">
+        {/* Top header */}
+        <header className="fixed top-0 left-0 right-0 z-40 bg-white/85 backdrop-blur-md border-b border-zinc-200">
+          <div className="px-4 sm:px-6 lg:px-8">
+            <div className="flex items-center justify-between h-14 sm:h-16">
+              {/* Logo + portal mono tag */}
+              <div className="flex items-center gap-3 min-w-0">
+                <button
+                  onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                  className="lg:hidden h-9 w-9 rounded-full border border-zinc-200 hover:bg-zinc-50 flex items-center justify-center transition-colors"
+                  aria-label="Toggle menu"
+                >
+                  {mobileMenuOpen ? (
+                    <X className="h-4 w-4 text-zinc-700" strokeWidth={1.75} />
+                  ) : (
+                    <Menu className="h-4 w-4 text-zinc-700" strokeWidth={1.75} />
+                  )}
+                </button>
+
+                <Link
+                  href="/portal"
+                  className="flex items-center gap-3 active:opacity-70 transition-opacity"
+                >
+                  <Image
+                    src="/impota-logo.png"
+                    alt="IMPOTA"
+                    width={120}
                     height={32}
-                    className="h-6 sm:h-8 w-auto"
+                    className="h-6 sm:h-7 w-auto"
                     priority
                   />
-                  <span className="hidden sm:inline-flex text-xs font-medium px-2 py-1 rounded-full bg-green-100 text-green-700">
-                    PORTAL
-                  </span>
                 </Link>
+
+                <span className="hidden sm:inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.22em] text-zinc-500">
+                  <span className="h-px w-5 bg-zinc-300" />
+                  <span className="text-amber-600 font-semibold">Portal</span>
+                </span>
               </div>
-            </div>
-            {/* User Menu */}
-            <div className="flex items-center space-x-2 sm:space-x-4">
-              <div className="hidden md:flex items-center space-x-3">
-                <div className="text-right">
-                  <p className="text-sm font-medium text-gray-900">
-                    {userEmail ? userEmail.split('@')[0] : 'User'}
-                  </p>
-                  <p className="text-xs text-gray-500">Account</p>
+
+              {/* User + sign out */}
+              <div className="flex items-center gap-3">
+                <div className="hidden md:flex items-center gap-3">
+                  <div className="text-right">
+                    <p className="text-sm font-medium text-zinc-900 truncate max-w-[140px]">
+                      {userEmail ? userEmail.split('@')[0] : 'User'}
+                    </p>
+                    <p className="font-mono text-[9px] uppercase tracking-[0.22em] text-zinc-500">
+                      Account
+                    </p>
+                  </div>
+                  <div className="h-9 w-9 rounded-full bg-amber-50 ring-1 ring-amber-200 flex items-center justify-center">
+                    <span className="text-sm font-semibold text-amber-700">
+                      {userEmail ? userEmail.charAt(0).toUpperCase() : 'U'}
+                    </span>
+                  </div>
                 </div>
-                <div className="h-10 w-10 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center">
-                  <span className="text-sm font-semibold text-white">
-                    {userEmail ? userEmail.charAt(0).toUpperCase() : 'U'}
-                  </span>
-                </div>
+
+                <Button
+                  onClick={handleSignOut}
+                  size="sm"
+                  variant="ghost"
+                  className="h-9 px-3 rounded-full border border-zinc-200 hover:bg-zinc-50 text-zinc-700 hover:text-zinc-900 text-xs sm:text-sm font-medium"
+                >
+                  <LogOut className="h-3.5 w-3.5 sm:mr-1.5" strokeWidth={1.75} />
+                  <span className="hidden sm:inline">Sign out</span>
+                </Button>
               </div>
-              <Button onClick={handleSignOut} variant="outline" size="sm" className="text-xs sm:text-sm text-gray-600 hover:text-gray-900">
-                <LogOut className="h-4 w-4 mr-1 sm:mr-2" />
-                <span className="hidden sm:inline">Sign Out</span>
-                <span className="sm:hidden">Exit</span>
-              </Button>
             </div>
           </div>
+        </header>
+
+        {/* Mobile menu drawer */}
+        {mobileMenuOpen && (
+          <div className="lg:hidden fixed inset-0 z-50 pt-14 sm:pt-16">
+            <div
+              className="fixed inset-0 bg-zinc-900/45 backdrop-blur-md"
+              onClick={() => setMobileMenuOpen(false)}
+            />
+            <nav className="fixed left-0 top-14 sm:top-16 bottom-0 w-full sm:w-80 bg-white border-r border-zinc-200 overflow-y-auto">
+              <div className="px-4 py-6">
+                <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-zinc-500 pb-3 mb-3 border-b border-zinc-200">
+                  Sections
+                </p>
+                <div className="space-y-1">
+                  {navigation.map((item) => {
+                    const Icon = item.icon
+                    const active = isActive(item.href)
+                    return (
+                      <Link
+                        key={item.name}
+                        href={item.href}
+                        onClick={() => setMobileMenuOpen(false)}
+                        className={`flex items-center gap-3 px-3 py-3 rounded-lg transition-colors ${
+                          active
+                            ? 'bg-amber-50 text-zinc-900 ring-1 ring-amber-200'
+                            : 'hover:bg-zinc-50 text-zinc-700'
+                        }`}
+                      >
+                        <Icon
+                          className={`h-4 w-4 flex-shrink-0 ${active ? 'text-amber-600' : 'text-zinc-400'}`}
+                          strokeWidth={1.75}
+                        />
+                        <div className="flex-1 min-w-0">
+                          <div className="text-sm font-medium">{item.name}</div>
+                          <div className="text-[11px] text-zinc-500">{item.description}</div>
+                        </div>
+                        {active && (
+                          <span className="h-1.5 w-1.5 rounded-full bg-amber-500 flex-shrink-0" aria-hidden />
+                        )}
+                      </Link>
+                    )
+                  })}
+                </div>
+
+                {/* Footer */}
+                <div className="mt-8 pt-6 border-t border-zinc-200 space-y-3">
+                  <div className="inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.22em] text-emerald-700">
+                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                    Access active
+                  </div>
+                  <div>
+                    <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-zinc-500">Licensed to</p>
+                    <p className="mt-1 text-sm text-zinc-800 truncate">{userEmail || 'Portal User'}</p>
+                  </div>
+                </div>
+              </div>
+            </nav>
+          </div>
+        )}
+
+        <div className="flex h-screen pt-14 sm:pt-16">
+          {/* Desktop sidebar */}
+          <aside className="hidden lg:flex lg:flex-shrink-0">
+            <div className="flex flex-col w-64 bg-white border-r border-zinc-200">
+              <div className="flex-1 px-3 py-6 overflow-y-auto">
+                <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-zinc-500 px-3 pb-3 mb-3 border-b border-zinc-200">
+                  Sections
+                </p>
+                <nav className="space-y-0.5">
+                  {navigation.map((item) => {
+                    const Icon = item.icon
+                    const active = isActive(item.href)
+                    return (
+                      <Link
+                        key={item.name}
+                        href={item.href}
+                        className={`group flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors ${
+                          active
+                            ? 'bg-amber-50 text-zinc-900 ring-1 ring-inset ring-amber-200'
+                            : 'hover:bg-zinc-50 text-zinc-700'
+                        }`}
+                      >
+                        <Icon
+                          className={`h-4 w-4 flex-shrink-0 ${
+                            active ? 'text-amber-600' : 'text-zinc-400 group-hover:text-zinc-600'
+                          }`}
+                          strokeWidth={1.75}
+                        />
+                        <div className="flex-1 min-w-0">
+                          <div className={`text-sm ${active ? 'font-semibold' : 'font-medium'}`}>
+                            {item.name}
+                          </div>
+                          <div className="text-[11px] text-zinc-500 truncate">{item.description}</div>
+                        </div>
+                        {active && (
+                          <span className="h-1.5 w-1.5 rounded-full bg-amber-500 flex-shrink-0" aria-hidden />
+                        )}
+                      </Link>
+                    )
+                  })}
+                </nav>
+              </div>
+
+              {/* Sidebar footer */}
+              <div className="flex-shrink-0 px-4 py-4 border-t border-zinc-200 bg-stone-50/40 space-y-3">
+                <div className="inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.22em] text-emerald-700">
+                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                  Access active
+                </div>
+                <div>
+                  <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-zinc-500">Licensed to</p>
+                  <p className="mt-1 text-sm text-zinc-800 truncate">{userEmail || 'Portal User'}</p>
+                </div>
+              </div>
+            </div>
+          </aside>
+
+          {/* Main */}
+          <main className="flex-1 overflow-y-auto">
+            <div className="py-4 sm:py-6">
+              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">{children}</div>
+            </div>
+          </main>
         </div>
-      </header>
-      {/* Mobile Navigation Menu */}
-      {mobileMenuOpen && (
-        <div className="lg:hidden fixed inset-0 z-50 pt-16">
-          <div className="fixed inset-0 bg-black/30" onClick={() => setMobileMenuOpen(false)} />
-          <nav className="fixed left-0 top-16 bottom-0 w-full sm:w-80 bg-white shadow-xl overflow-y-auto">
-            <div className="p-4">
-              <div className="space-y-1">
-                {navigation.map((item) => (
-                  <Link
-                    key={item.name}
-                    href={item.href}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="flex items-center px-4 py-3 text-base font-medium rounded-lg hover:bg-gray-50 active:bg-gray-100 transition-colors"
-                  >
-                    <item.icon className="mr-3 h-5 w-5 text-gray-400" />
-                    <div className="flex-1">
-                      <div className="text-gray-700">{item.name}</div>
-                      <div className="text-xs text-gray-500">{item.description}</div>
-                    </div>
-                  </Link>
-                ))}
-              </div>
-              {/* Mobile Menu Footer */}
-              <div className="mt-8 pt-8 border-t border-gray-200">
-                <div className="space-y-4">
-                  <div className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                    ✅ Portal Access Active
-                  </div>
-                  <div className="text-sm text-gray-500">
-                    <p>Licensed to:</p>
-                    <p className="font-medium text-gray-700 truncate">{userEmail || 'Portal User'}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </nav>
-        </div>
-      )}
-      <div className="flex h-screen pt-16">
-        {/* Sidebar Navigation */}
-        <aside className="hidden lg:flex lg:flex-shrink-0">
-          <div className="flex flex-col w-64">
-            <div className="flex flex-col flex-grow bg-white border-r border-gray-200 pt-5 pb-4">
-              <nav className="mt-5 flex-1 px-2 space-y-1">
-                {navigation.map((item) => (
-                  <Link
-                    key={item.name}
-                    href={item.href}
-                    className="group flex items-center px-3 py-2.5 text-sm font-medium rounded-lg hover:bg-gray-50 hover:text-gray-900 transition-colors duration-150"
-                  >
-                    <item.icon className="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500" />
-                    <div className="flex-1">
-                      <div className="text-gray-700 group-hover:text-gray-900">{item.name}</div>
-                      <div className="text-xs text-gray-500">{item.description}</div>
-                    </div>
-                  </Link>
-                ))}
-              </nav>
-              {/* Sidebar Footer */}
-              <div className="flex-shrink-0 px-4 py-4 border-t border-gray-200">
-                <div className="space-y-3">
-                  {/* Access Badge */}
-                  <div className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                    ✅ Portal Access Active
-                  </div>
-                  {/* User Info */}
-                  <div className="text-xs text-gray-500">
-                    <p>Licensed to:</p>
-                    <p className="font-medium text-gray-700 truncate">{userEmail || 'Portal User'}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </aside>
-        {/* Main Content Area */}
-        <main className="flex-1 overflow-y-auto">
-          <div className="py-4 sm:py-6">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              {children}
-            </div>
-          </div>
-        </main>
+
+        <PortalScrollToTop />
       </div>
-      <PortalScrollToTop />
-    </div>
     </SimpleContentProtection>
   )
 }
