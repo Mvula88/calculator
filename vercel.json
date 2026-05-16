@@ -1,8 +1,5 @@
 {
   "buildCommand": "npm run build",
   "framework": "nextjs",
-  "cleanUrls": true,
-  "env": {
-    "FORCE_BUILDER_TAG": "canary"
-  }
+  "cleanUrls": true
 }
