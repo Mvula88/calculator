@@ -2,30 +2,13 @@
 
 import { useState } from 'react'
 import { useAuth } from '@/lib/hooks/use-auth'
-import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import Link from 'next/link'
 import PortalPageNavigation from '@/components/portal/PortalPageNavigation'
 import {
-  AlertCircle,
-  CheckCircle,
-  Globe,
-  DollarSign,
-  FileText,
-  Shield,
-  ExternalLink,
-  AlertTriangle,
-  Users,
-  Gavel,
-  Building2,
-  TrendingUp,
-  X,
-  Info,
-  Lock,
-  Star,
-  Clock,
+  CheckCircle2,
   XCircle,
-  Package
+  Loader2,
+  ArrowUpRight,
 } from 'lucide-react'
 
 interface Exporter {
@@ -36,1382 +19,1128 @@ interface Exporter {
   highlight?: string
 }
 
+const exporters: Exporter[] = [
+  { name: 'Integrity Exports', website: 'integrityexports.com', auctionAccess: 'Yes', description: '120+ auction access, invoice transparency', highlight: 'Top pick' },
+  { name: 'SAT Japan', website: 'satjapan.com', auctionAccess: 'Yes', description: 'Hybrid stock & auction, Africa focus', highlight: 'Africa' },
+  { name: 'AAA Japan', website: 'aaajapan.com', auctionAccess: 'Yes', description: '70,000+ lots daily from 120+ auctions' },
+  { name: 'Provide Cars', website: 'providecars.co.jp', auctionAccess: 'Yes', description: 'Est. 1997, bilingual support' },
+  { name: 'CSOJapan', website: 'csojapan.com', auctionAccess: 'Yes', description: '50,000+ lots daily online' },
+  { name: 'Japan Tradings', website: 'japan-tradings.com', auctionAccess: 'Yes', description: 'Very low fees (~¥60,000)', highlight: 'Low fees' },
+  { name: 'Karmen Ltd', website: 'kar-men.com', auctionAccess: 'Likely', description: 'Est. 1995, 31,255+ vehicles, worldwide export' },
+  { name: 'Nikkyo Cars', website: 'nikkyocars.com', auctionAccess: 'Yes', description: 'Stock & auction, Namibia focus, Walvis Bay shipping', highlight: 'Namibia' },
+  { name: 'Autocom Japan', website: 'autocj.co.jp', auctionAccess: 'Likely', description: 'Large inventory, 360° views, comprehensive platform' },
+]
+
+const processSteps = [
+  { title: 'Register', desc: 'Sign up with exporter' },
+  { title: 'Deposit', desc: '¥100–200K deposit' },
+  { title: 'Browse', desc: 'View auction cars' },
+  { title: 'Check', desc: 'Read auction sheets' },
+  { title: 'Bid', desc: 'Set max price' },
+  { title: 'Win', desc: 'Pay balance' },
+  { title: 'Ship', desc: 'Export to port' },
+  { title: 'Receive', desc: 'Get documents' },
+]
+
+const auctionGrades = [
+  { grade: '6', desc: 'Brand new vehicle', quality: 'Perfect', tone: 'ok' as const },
+  { grade: '5', desc: 'Almost new, pristine condition', quality: 'Excellent', tone: 'ok' as const },
+  { grade: '4.5', desc: 'Very clean with minimal wear', quality: 'Excellent', tone: 'ok' as const },
+  { grade: '4', desc: 'Good condition, common for imports', quality: 'Very Good', tone: 'good' as const },
+  { grade: '3.5', desc: 'Average condition, some wear', quality: 'Good', tone: 'warn' as const },
+  { grade: '3', desc: 'Below average, noticeable issues', quality: 'Fair', tone: 'warn' as const },
+  { grade: '2', desc: 'Poor condition, major issues', quality: 'Poor', tone: 'bad' as const },
+  { grade: 'R/RA', desc: 'Repaired accident damage', quality: 'Accident', tone: 'bad' as const },
+]
+
+const interiorGrades = [
+  { grade: 'A', desc: 'Excellent — Like new, no issues', tone: 'ok' as const },
+  { grade: 'B', desc: 'Good — Minor wear, clean overall', tone: 'good' as const },
+  { grade: 'C', desc: 'Fair — Noticeable wear, some stains', tone: 'warn' as const },
+  { grade: 'D', desc: 'Poor — Heavy wear, needs cleaning', tone: 'bad' as const },
+]
+
+const conditionCodes = [
+  { code: 'A1', meaning: 'Small scratch (< 10cm)' },
+  { code: 'A2', meaning: 'Medium scratch (10–20cm)' },
+  { code: 'A3', meaning: 'Large scratch (> 20cm)' },
+  { code: 'U1', meaning: 'Small dent (< golf ball)' },
+  { code: 'U2', meaning: 'Medium dent (golf ball size)' },
+  { code: 'U3', meaning: 'Large dent (> tennis ball)' },
+  { code: 'W1', meaning: 'Repaired/replaced panel' },
+  { code: 'S1', meaning: 'Rust present' },
+  { code: 'C1', meaning: 'Corrosion' },
+  { code: 'X', meaning: 'Needs replacement' },
+  { code: 'XX', meaning: 'Replaced part' },
+  { code: 'P', meaning: 'Paint work done' },
+]
+
+const mustAskQuestions = [
+  'Licensed auction member (USS, JU, TAA)?',
+  'JUMVEA member?',
+  'Deposit amount & refund policy?',
+  'Service/commission fee?',
+  'English auction sheets?',
+  'Total cost estimate?',
+  'Which documents included?',
+  'Time from win to shipment?',
+]
+
+const redFlags = [
+  'Personal account payments',
+  'No real auction sheets',
+  'No Japan address/registration',
+  'Too cheap promises',
+  'Pressure tactics',
+  'No refund policy',
+  'No references',
+]
+
+const tabs = [
+  { id: 'guide' as const, label: 'Guide' },
+  { id: 'auction-sheet' as const, label: 'Auction sheet' },
+  { id: 'exporters' as const, label: 'Exporters' },
+]
+
+const toneRing = (tone: 'ok' | 'good' | 'warn' | 'bad') => {
+  switch (tone) {
+    case 'ok':
+      return 'bg-emerald-50 text-emerald-700 ring-emerald-200'
+    case 'good':
+      return 'bg-blue-50 text-blue-700 ring-blue-200'
+    case 'warn':
+      return 'bg-amber-50 text-amber-700 ring-amber-200'
+    case 'bad':
+      return 'bg-red-50 text-red-700 ring-red-200'
+  }
+}
+
 export default function JapanAuctionsClientPage() {
-  const { user, loading, userTier, userEmail } = useAuth()
+  const { user, loading } = useAuth()
   const [selectedTab, setSelectedTab] = useState<'guide' | 'exporters' | 'auction-sheet'>('guide')
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-[60vh]">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-          <p className="mt-4 text-gray-600">Loading auction guide...</p>
+      <div className="min-h-[60vh] flex items-center justify-center">
+        <div className="flex flex-col items-center gap-4">
+          <Loader2 className="h-7 w-7 text-amber-500 animate-spin" strokeWidth={1.75} />
+          <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-zinc-500">
+            Loading auction guide
+          </p>
         </div>
       </div>
     )
   }
 
-  // Remove tier check - all portal users have access
   if (!user) {
     return (
-      <div className="px-4 sm:px-6 py-8 sm:py-12">
-        <Card className="p-6 sm:p-8 text-center max-w-2xl mx-auto">
-          <div className="inline-flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 bg-yellow-100 rounded-full mb-4">
-            <Gavel className="h-6 w-6 sm:h-8 sm:w-8 text-yellow-600" />
-          </div>
-          <h2 className="text-xl sm:text-2xl font-bold mb-2">Loading Japan Auctions...</h2>
-          <p className="text-sm sm:text-base text-gray-600">
-            Please wait while we verify your access.
+      <div className="min-h-[60vh] flex items-center justify-center">
+        <div className="flex flex-col items-center gap-4">
+          <Loader2 className="h-7 w-7 text-amber-500 animate-spin" strokeWidth={1.75} />
+          <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-zinc-500">
+            Verifying your access
           </p>
-        </Card>
+        </div>
       </div>
     )
   }
 
-  const currency = 'N$'
-
-  // Exporters list
-  const exporters: Exporter[] = [
-    {
-      name: 'Integrity Exports',
-      website: 'integrityexports.com',
-      auctionAccess: 'Yes',
-      description: '120+ auction access, invoice transparency',
-      highlight: 'Top Pick'
-    },
-    {
-      name: 'SAT Japan',
-      website: 'satjapan.com',
-      auctionAccess: 'Yes',
-      description: 'Hybrid stock & auction, Africa focus',
-      highlight: 'Africa'
-    },
-    {
-      name: 'AAA Japan',
-      website: 'aaajapan.com',
-      auctionAccess: 'Yes',
-      description: '70,000+ lots daily from 120+ auctions'
-    },
-    {
-      name: 'Provide Cars',
-      website: 'providecars.co.jp',
-      auctionAccess: 'Yes',
-      description: 'Est. 1997, bilingual support'
-    },
-    {
-      name: 'CSOJapan',
-      website: 'csojapan.com',
-      auctionAccess: 'Yes',
-      description: '50,000+ lots daily online'
-    },
-    {
-      name: 'Japan Tradings',
-      website: 'japan-tradings.com',
-      auctionAccess: 'Yes',
-      description: 'Very low fees (~¥60,000)',
-      highlight: 'Low Fees'
-    },
-    {
-      name: 'Karmen Ltd',
-      website: 'kar-men.com',
-      auctionAccess: 'Likely',
-      description: 'Est. 1995, 31,255+ vehicles, worldwide export'
-    },
-    {
-      name: 'Nikkyo Cars',
-      website: 'nikkyocars.com',
-      auctionAccess: 'Yes',
-      description: 'Stock & auction, Namibia focus, Walvis Bay shipping',
-      highlight: 'Namibia'
-    },
-    {
-      name: 'Autocom Japan',
-      website: 'autocj.co.jp',
-      auctionAccess: 'Likely',
-      description: 'Large inventory, 360° views, comprehensive platform'
-    }
-  ]
-
-  // Process steps - Mobile optimized
-  const processSteps = [
-    { step: 1, title: 'Register', icon: '📝', desc: 'Sign up with exporter' },
-    { step: 2, title: 'Deposit', icon: '💰', desc: '¥100-200K deposit' },
-    { step: 3, title: 'Browse', icon: '🔍', desc: 'View auction cars' },
-    { step: 4, title: 'Check', icon: '📋', desc: 'Read auction sheets' },
-    { step: 5, title: 'Bid', icon: '🎯', desc: 'Set max price' },
-    { step: 6, title: 'Win', icon: '🎉', desc: 'Pay balance' },
-    { step: 7, title: 'Ship', icon: '🚢', desc: 'Export to port' },
-    { step: 8, title: 'Receive', icon: '✅', desc: 'Get documents' }
-  ]
-
-  // Auction Sheet Grade Definitions
-  const auctionGrades = [
-    { grade: '6', description: 'Brand new vehicle', quality: 'Perfect', color: 'bg-green-100 text-green-800' },
-    { grade: '5', description: 'Almost new, pristine condition', quality: 'Excellent', color: 'bg-green-100 text-green-800' },
-    { grade: '4.5', description: 'Very clean with minimal wear', quality: 'Excellent', color: 'bg-green-100 text-green-800' },
-    { grade: '4', description: 'Good condition, common for imports', quality: 'Very Good', color: 'bg-blue-100 text-blue-800' },
-    { grade: '3.5', description: 'Average condition, some wear', quality: 'Good', color: 'bg-yellow-100 text-yellow-800' },
-    { grade: '3', description: 'Below average, noticeable issues', quality: 'Fair', color: 'bg-orange-100 text-orange-800' },
-    { grade: '2', description: 'Poor condition, major issues', quality: 'Poor', color: 'bg-red-100 text-red-800' },
-    { grade: 'R/RA', description: 'Repaired accident damage', quality: 'Accident', color: 'bg-red-100 text-red-800' },
-  ]
-
-  const interiorGrades = [
-    { grade: 'A', description: 'Excellent - Like new, no issues', color: 'text-green-600' },
-    { grade: 'B', description: 'Good - Minor wear, clean overall', color: 'text-blue-600' },
-    { grade: 'C', description: 'Fair - Noticeable wear, some stains', color: 'text-yellow-600' },
-    { grade: 'D', description: 'Poor - Heavy wear, needs cleaning', color: 'text-red-600' },
-  ]
-
-  const conditionCodes = [
-    { code: 'A1', meaning: 'Small scratch (< 10cm)', icon: '➖' },
-    { code: 'A2', meaning: 'Medium scratch (10-20cm)', icon: '➖' },
-    { code: 'A3', meaning: 'Large scratch (> 20cm)', icon: '➖' },
-    { code: 'U1', meaning: 'Small dent (< golf ball)', icon: '🔵' },
-    { code: 'U2', meaning: 'Medium dent (golf ball size)', icon: '🔵' },
-    { code: 'U3', meaning: 'Large dent (> tennis ball)', icon: '🔵' },
-    { code: 'W1', meaning: 'Repaired/replaced panel', icon: '🔧' },
-    { code: 'S1', meaning: 'Rust present', icon: '🟤' },
-    { code: 'C1', meaning: 'Corrosion', icon: '🟫' },
-    { code: 'X', meaning: 'Needs replacement', icon: '❌' },
-    { code: 'XX', meaning: 'Replaced part', icon: '✅' },
-    { code: 'P', meaning: 'Paint work done', icon: '🎨' },
-  ]
-
-  // Must-ask questions - shortened for mobile
-  const questions = [
-    'Licensed auction member (USS, JU, TAA)?',
-    'JUMVEA member?',
-    'Deposit amount & refund policy?',
-    'Service/commission fee?',
-    'English auction sheets?',
-    'Total cost estimate?',
-    'Which documents included?',
-    'Time from win to shipment?'
-  ]
-
-  // Red flags - shortened for mobile
-  const redFlags = [
-    'Personal account payments',
-    'No real auction sheets',
-    'No Japan address/registration',
-    'Too cheap promises',
-    'Pressure tactics',
-    'No refund policy',
-    'No references'
-  ]
-
   return (
-    <div className="w-full pb-20">
-      {/* Header - Mobile Optimized */}
-      <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg sm:rounded-2xl p-4 sm:p-8 text-white shadow-xl mb-6">
-        <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
-          <div>
-            <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-2">
-              🚘 Japan Auction Guide
-            </h1>
-            <p className="text-sm sm:text-base lg:text-lg text-blue-100 mb-3 sm:mb-4">
-              Buy cars directly from Japanese auctions
+    <main className="bg-white">
+      <div className="max-w-6xl mx-auto">
+        {/* PAGE HEADER */}
+        <div className="mb-10 pb-8 border-b border-zinc-200">
+          <div className="flex items-center justify-between mb-3">
+            <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-amber-600 font-semibold">
+              Japan auctions
             </p>
-            <div className="flex flex-wrap gap-2">
-              <div className="flex items-center gap-1 bg-white/20 px-2 py-1 rounded-full">
-                <Shield className="h-3 w-3 sm:h-4 sm:w-4" />
-                <span className="text-xs sm:text-sm font-medium">MASTERY</span>
-              </div>
-              <div className="flex items-center gap-1 bg-white/20 px-2 py-1 rounded-full">
-                <Users className="h-3 w-3 sm:h-4 sm:w-4" />
-                <span className="text-xs sm:text-sm">20+ Exporters</span>
-              </div>
-            </div>
+            <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-zinc-500">
+              Mastery · 20+ exporters
+            </span>
           </div>
-          <Gavel className="hidden sm:block h-12 w-12 lg:h-16 lg:w-16 text-yellow-300 opacity-50" />
+          <h1 className="text-3xl sm:text-4xl font-medium tracking-tight text-zinc-900 leading-[1.05]">
+            Buy cars from
+            <span className="block italic font-light text-amber-600 pl-6 sm:pl-10">
+              Japanese auctions.
+            </span>
+          </h1>
+          <div className="mt-4 flex items-start gap-2.5 max-w-2xl">
+            <span className="text-amber-500 text-xl leading-none mt-0.5" aria-hidden>↳</span>
+            <p className="text-sm sm:text-base text-zinc-600 leading-snug italic font-light">
+              Explore the three sections below to get the complete picture: guide, auction sheet,
+              and verified exporters.
+            </p>
+          </div>
         </div>
-      </div>
 
-      {/* Explore Sections Notice */}
-      <Card className="mb-4 bg-gradient-to-r from-blue-50 to-purple-50 border-2 border-blue-200">
-        <div className="p-3 sm:p-4">
-          <div className="flex items-start gap-2 sm:gap-3">
-            <div className="bg-blue-600 text-white rounded-full p-1.5 sm:p-2 flex-shrink-0">
-              <Info className="h-4 w-4 sm:h-5 sm:w-5" />
-            </div>
-            <div className="flex-1">
-              <h3 className="font-bold text-sm sm:text-base text-blue-900 mb-1">
-                Explore All 3 Sections Below
-              </h3>
-              <p className="text-xs sm:text-sm text-blue-800 mb-2">
-                This guide is organized into three comprehensive sections. Make sure to explore each tab to get the complete picture.
+        {/* TAB NAVIGATION */}
+        <div className="mb-10">
+          <div className="flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.22em] border-b border-zinc-200 pb-2.5 mb-4">
+            <span className="text-blue-600 font-semibold">Sections</span>
+            <span className="text-zinc-500">
+              {tabs.findIndex((t) => t.id === selectedTab) + 1} / {tabs.length}
+            </span>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {tabs.map((t, i) => {
+              const isActive = selectedTab === t.id
+              return (
+                <button
+                  key={t.id}
+                  onClick={() => setSelectedTab(t.id)}
+                  className={`group inline-flex items-center gap-2 h-10 px-5 rounded-full text-sm transition-colors ${
+                    isActive
+                      ? 'bg-amber-400 text-zinc-900 font-semibold shadow-[0_0_0_1px_rgba(0,0,0,0.06),0_8px_24px_-8px_rgba(251,191,36,0.5)]'
+                      : 'bg-white border border-zinc-200 text-zinc-700 hover:bg-zinc-50 hover:border-zinc-300 font-medium'
+                  }`}
+                >
+                  <span className={`font-mono text-[10px] tracking-[0.18em] ${isActive ? 'text-zinc-700' : 'text-zinc-400'}`}>
+                    {String(i + 1).padStart(2, '0')}
+                  </span>
+                  {t.label}
+                </button>
+              )
+            })}
+          </div>
+        </div>
+
+        {/* GUIDE TAB */}
+        {selectedTab === 'guide' && (
+          <div className="space-y-12">
+            {/* How it works */}
+            <section>
+              <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-blue-600 font-semibold pb-2.5 mb-5 border-b border-zinc-200">
+                How it works
               </p>
-              <div className="flex flex-wrap gap-2 text-xs">
-                <span className="flex items-center gap-1 bg-white/70 px-2 py-1 rounded-full">
-                  <Info className="h-3 w-3 text-blue-600" />
-                  <span className="font-medium">1. Guide</span>
-                </span>
-                <span className="flex items-center gap-1 bg-white/70 px-2 py-1 rounded-full">
-                  <FileText className="h-3 w-3 text-purple-600" />
-                  <span className="font-medium">2. Auction Sheet</span>
-                </span>
-                <span className="flex items-center gap-1 bg-white/70 px-2 py-1 rounded-full">
-                  <Building2 className="h-3 w-3 text-green-600" />
-                  <span className="font-medium">3. Exporters</span>
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </Card>
-
-      {/* Tab Navigation - Enhanced Visibility */}
-      <div className="mb-6">
-        <div className="flex items-center justify-between mb-2">
-          <p className="text-xs sm:text-sm font-medium text-gray-600">
-            Select a section to explore:
-          </p>
-          <span className="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full font-medium">
-            {selectedTab === 'guide' ? '1' : selectedTab === 'auction-sheet' ? '2' : '3'} of 3
-          </span>
-        </div>
-        <div className="flex gap-2 bg-gradient-to-r from-gray-100 to-gray-200 p-2 rounded-xl shadow-sm border border-gray-300">
-          <Button
-            variant={selectedTab === 'guide' ? 'default' : 'ghost'}
-            onClick={() => setSelectedTab('guide')}
-            className={`flex-1 text-xs sm:text-sm transition-all duration-200 ${
-              selectedTab === 'guide'
-                ? 'shadow-md scale-105'
-                : 'hover:bg-white/70 hover:scale-102'
-            }`}
-          >
-            <Info className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
-            <span className="hidden sm:inline">Guide</span>
-            <span className="sm:hidden">Guide</span>
-          </Button>
-          <Button
-            variant={selectedTab === 'auction-sheet' ? 'default' : 'ghost'}
-            onClick={() => setSelectedTab('auction-sheet')}
-            className={`flex-1 text-xs sm:text-sm transition-all duration-200 ${
-              selectedTab === 'auction-sheet'
-                ? 'shadow-md scale-105'
-                : 'hover:bg-white/70 hover:scale-102'
-            }`}
-          >
-            <FileText className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
-            <span className="hidden sm:inline">Auction Sheet</span>
-            <span className="sm:hidden">Sheet</span>
-          </Button>
-          <Button
-            variant={selectedTab === 'exporters' ? 'default' : 'ghost'}
-            onClick={() => setSelectedTab('exporters')}
-            className={`flex-1 text-xs sm:text-sm transition-all duration-200 ${
-              selectedTab === 'exporters'
-                ? 'shadow-md scale-105'
-                : 'hover:bg-white/70 hover:scale-102'
-            }`}
-          >
-            <Building2 className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
-            <span className="hidden sm:inline">Exporters</span>
-            <span className="sm:hidden">Exporters</span>
-          </Button>
-        </div>
-      </div>
-
-      {selectedTab === 'guide' ? (
-        <div className="space-y-4 sm:space-y-6">
-          {/* How It Works - Mobile Optimized */}
-          <Card className="p-4 sm:p-6">
-            <h2 className="text-base sm:text-lg lg:text-xl font-bold mb-3 sm:mb-4 flex items-center gap-2">
-              <Info className="h-4 w-4 sm:h-5 sm:w-5 text-blue-600" />
-              How It Works
-            </h2>
-            <div className="space-y-3">
-              <div className="flex items-start gap-2 sm:gap-3">
-                <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5 text-green-600 flex-shrink-0 mt-0.5" />
-                <div>
-                  <strong className="text-sm sm:text-base">Big Auctions</strong>
-                  <p className="text-xs sm:text-sm text-gray-600">Only licensed dealers can bid</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-2 sm:gap-3">
-                <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5 text-green-600 flex-shrink-0 mt-0.5" />
-                <div>
-                  <strong className="text-sm sm:text-base">You need an agent</strong>
-                  <p className="text-xs sm:text-sm text-gray-600">Exporter bids on your behalf</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-2 sm:gap-3">
-                <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5 text-green-600 flex-shrink-0 mt-0.5" />
-                <div>
-                  <strong className="text-sm sm:text-base">Full service</strong>
-                  <p className="text-xs sm:text-sm text-gray-600">They handle export & shipping</p>
-                </div>
-              </div>
-            </div>
-          </Card>
-
-          {/* Stock vs Auction - Mobile Optimized */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-            <Card className="p-3 sm:p-4 border-2 border-gray-200">
-              <h3 className="font-bold text-sm sm:text-base mb-2">📦 Stock Dealers</h3>
-              <p className="text-xs sm:text-sm text-gray-600 mb-2">e.g., SBT, BE FORWARD</p>
-              <ul className="space-y-1 text-xs sm:text-sm">
-                <li>• Pre-bought cars</li>
-                <li>• Easier but pricier</li>
-                <li>• No auction access</li>
-              </ul>
-            </Card>
-
-            <Card className="p-3 sm:p-4 border-2 border-green-200 bg-green-50">
-              <h3 className="font-bold text-sm sm:text-base mb-2">🔨 Auction Exporters</h3>
-              <p className="text-xs sm:text-sm text-gray-600 mb-2">e.g., Integrity, SAT</p>
-              <ul className="space-y-1 text-xs sm:text-sm">
-                <li className="flex items-start gap-1">
-                  <CheckCircle className="h-3 w-3 text-green-600 flex-shrink-0 mt-0.5" />
-                  <span>Real-time auctions</span>
-                </li>
-                <li className="flex items-start gap-1">
-                  <CheckCircle className="h-3 w-3 text-green-600 flex-shrink-0 mt-0.5" />
-                  <span>You set max bid</span>
-                </li>
-                <li className="flex items-start gap-1">
-                  <CheckCircle className="h-3 w-3 text-green-600 flex-shrink-0 mt-0.5" />
-                  <span>Cheaper & transparent</span>
-                </li>
-              </ul>
-            </Card>
-          </div>
-
-          {/* Process Steps - Mobile Optimized Grid */}
-          <Card className="p-4 sm:p-6">
-            <h2 className="text-base sm:text-lg lg:text-xl font-bold mb-4 flex items-center gap-2">
-              <TrendingUp className="h-4 w-4 sm:h-5 sm:w-5 text-blue-600" />
-              Auction Process
-            </h2>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
-              {processSteps.map((step) => (
-                <div key={step.step} className="text-center">
-                  <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-full flex items-center justify-center text-xs sm:text-sm font-bold mx-auto mb-2">
-                    {step.step}
+              <div className="grid sm:grid-cols-3 gap-px bg-zinc-200 border border-zinc-200 rounded-2xl overflow-hidden">
+                {[
+                  { title: 'Big auctions', desc: 'Only licensed dealers can bid' },
+                  { title: 'You need an agent', desc: 'Exporter bids on your behalf' },
+                  { title: 'Full service', desc: 'They handle export & shipping' },
+                ].map((item, i) => (
+                  <div key={item.title} className="bg-white p-6">
+                    <p className="font-mono text-[10px] text-zinc-400 tracking-[0.2em]">
+                      {String(i + 1).padStart(2, '0')}
+                    </p>
+                    <h3 className="mt-3 text-base font-medium text-zinc-900">{item.title}</h3>
+                    <p className="mt-1 text-sm text-zinc-600 leading-relaxed">{item.desc}</p>
                   </div>
-                  <div className="text-lg sm:text-xl mb-1">{step.icon}</div>
-                  <h4 className="font-semibold text-xs sm:text-sm">{step.title}</h4>
-                  <p className="text-xs text-gray-600 hidden sm:block">{step.desc}</p>
+                ))}
+              </div>
+            </section>
+
+            {/* Stock vs Auction */}
+            <section>
+              <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-blue-600 font-semibold pb-2.5 mb-5 border-b border-zinc-200">
+                Two paths
+              </p>
+              <div className="grid sm:grid-cols-2 gap-px bg-zinc-200 border border-zinc-200 rounded-2xl overflow-hidden">
+                <div className="bg-white p-6">
+                  <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-zinc-500">
+                    Stock dealers
+                  </p>
+                  <p className="mt-2 text-xs text-zinc-500">e.g., SBT, BE FORWARD</p>
+                  <ul className="mt-4 space-y-1.5 text-sm text-zinc-700">
+                    <li>· Pre-bought cars</li>
+                    <li>· Easier but pricier</li>
+                    <li>· No auction access</li>
+                  </ul>
                 </div>
-              ))}
-            </div>
-          </Card>
+                <div className="bg-white p-6">
+                  <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-amber-600 font-semibold">
+                    Auction exporters
+                  </p>
+                  <p className="mt-2 text-xs text-zinc-500">e.g., Integrity, SAT</p>
+                  <ul className="mt-4 space-y-1.5 text-sm text-zinc-700">
+                    <li className="flex items-start gap-2"><CheckCircle2 className="h-3.5 w-3.5 text-emerald-600 mt-0.5 flex-shrink-0" strokeWidth={1.75} />Real-time auctions</li>
+                    <li className="flex items-start gap-2"><CheckCircle2 className="h-3.5 w-3.5 text-emerald-600 mt-0.5 flex-shrink-0" strokeWidth={1.75} />You set max bid</li>
+                    <li className="flex items-start gap-2"><CheckCircle2 className="h-3.5 w-3.5 text-emerald-600 mt-0.5 flex-shrink-0" strokeWidth={1.75} />Cheaper & transparent</li>
+                  </ul>
+                </div>
+              </div>
+            </section>
 
-          {/* Costs - Mobile Optimized */}
-          <Card className="p-4 sm:p-6">
-            <h2 className="text-base sm:text-lg font-bold mb-3 flex items-center gap-2">
-              <DollarSign className="h-4 w-4 sm:h-5 sm:w-5 text-green-600" />
-              Cost Breakdown
-            </h2>
-            <div className="space-y-2 text-xs sm:text-sm">
-              <div className="flex justify-between py-2 border-b">
-                <span>Auction Price</span>
-                <span className="font-mono">Variable</span>
-              </div>
-              <div className="flex justify-between py-2 border-b">
-                <span>Service Fee</span>
-                <span className="font-mono">¥70-120K</span>
-              </div>
-              <div className="flex justify-between py-2 border-b">
-                <span>Inland Transport</span>
-                <span className="font-mono">¥10-30K</span>
-              </div>
-              <div className="flex justify-between py-2 border-b">
-                <span>Export Fees</span>
-                <span className="font-mono">~¥16K</span>
-              </div>
-              <div className="flex justify-between py-2">
-                <span>Ocean Shipping</span>
-                <span className="font-mono">$1-1.4K</span>
-              </div>
-            </div>
-            <div className="mt-3 p-2 bg-blue-50 rounded text-xs sm:text-sm">
-              💡 Total: Auction + {currency}15-25K fees + shipping
-            </div>
-          </Card>
-
-          {/* Questions and Red Flags - Mobile Optimized */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-            <Card className="p-3 sm:p-4">
-              <h3 className="font-bold text-sm sm:text-base mb-3 flex items-center gap-2">
-                <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5 text-green-600" />
-                Must Ask
-              </h3>
-              <ul className="space-y-1 text-xs sm:text-sm">
-                {questions.map((q, i) => (
-                  <li key={i} className="flex items-start gap-1">
-                    <span className="text-green-600">✓</span>
-                    <span>{q}</span>
-                  </li>
+            {/* Process Steps */}
+            <section>
+              <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-blue-600 font-semibold pb-2.5 mb-5 border-b border-zinc-200">
+                Auction process · 8 steps
+              </p>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-px bg-zinc-200 border border-zinc-200 rounded-2xl overflow-hidden">
+                {processSteps.map((s, i) => (
+                  <div key={s.title} className="bg-white p-5">
+                    <p className="font-mono text-[10px] text-amber-600 tracking-[0.2em] font-semibold">
+                      Step {String(i + 1).padStart(2, '0')}
+                    </p>
+                    <h4 className="mt-2 text-sm font-medium text-zinc-900">{s.title}</h4>
+                    <p className="mt-1 text-xs text-zinc-500">{s.desc}</p>
+                  </div>
                 ))}
-              </ul>
-            </Card>
+              </div>
+            </section>
 
-            <Card className="p-3 sm:p-4 border-2 border-red-200 bg-red-50">
-              <h3 className="font-bold text-sm sm:text-base mb-3 flex items-center gap-2">
-                <AlertTriangle className="h-4 w-4 sm:h-5 sm:w-5 text-red-600" />
-                Red Flags 🚨
-              </h3>
-              <ul className="space-y-1 text-xs sm:text-sm">
-                {redFlags.map((flag, i) => (
-                  <li key={i} className="flex items-start gap-1">
-                    <X className="h-3 w-3 text-red-600 flex-shrink-0 mt-0.5" />
-                    <span className="text-red-800">{flag}</span>
-                  </li>
+            {/* Cost Breakdown */}
+            <section>
+              <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-blue-600 font-semibold pb-2.5 mb-5 border-b border-zinc-200">
+                Cost breakdown
+              </p>
+              <div className="border-y border-zinc-200 divide-y divide-zinc-200/80">
+                {[
+                  ['Auction price', 'Variable'],
+                  ['Service fee', '¥70–120K'],
+                  ['Inland transport', '¥10–30K'],
+                  ['Export fees', '~¥16K'],
+                  ['Ocean shipping', '$1–1.4K'],
+                ].map(([label, amount]) => (
+                  <div key={label} className="grid grid-cols-[1fr_auto] gap-4 py-3.5 items-baseline">
+                    <span className="text-sm text-zinc-700">{label}</span>
+                    <span className="font-mono text-sm text-zinc-900 font-medium">{amount}</span>
+                  </div>
                 ))}
-              </ul>
-            </Card>
+              </div>
+              <div className="mt-4 flex items-start gap-3">
+                <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-amber-700 font-semibold mt-0.5">
+                  [ Total ]
+                </span>
+                <p className="text-sm text-zinc-700">
+                  Auction + ¥15–25K fees + shipping
+                </p>
+              </div>
+            </section>
+
+            {/* Must Ask / Red Flags */}
+            <section className="grid sm:grid-cols-2 gap-px bg-zinc-200 border border-zinc-200 rounded-2xl overflow-hidden">
+              <div className="bg-white p-6">
+                <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-emerald-700 font-semibold pb-2.5 mb-3 border-b border-zinc-200">
+                  Must ask
+                </p>
+                <ul className="space-y-2">
+                  {mustAskQuestions.map((q, i) => (
+                    <li key={i} className="flex items-start gap-2.5 text-sm text-zinc-700">
+                      <CheckCircle2 className="h-3.5 w-3.5 mt-0.5 text-emerald-600 flex-shrink-0" strokeWidth={1.75} />
+                      <span>{q}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="bg-white p-6">
+                <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-red-600 font-semibold pb-2.5 mb-3 border-b border-zinc-200">
+                  Red flags
+                </p>
+                <ul className="space-y-2">
+                  {redFlags.map((f, i) => (
+                    <li key={i} className="flex items-start gap-2.5 text-sm text-zinc-700">
+                      <XCircle className="h-3.5 w-3.5 mt-0.5 text-red-500 flex-shrink-0" strokeWidth={1.75} />
+                      <span>{f}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </section>
           </div>
-        </div>
-      ) : selectedTab === 'auction-sheet' ? (
-        <div className="space-y-4 sm:space-y-6">
-          {/* Auction Sheet Overview */}
-          <Card className="p-4 sm:p-6">
-            <h2 className="text-base sm:text-lg lg:text-xl font-bold mb-3 sm:mb-4 flex items-center gap-2">
-              <FileText className="h-4 w-4 sm:h-5 sm:w-5 text-blue-600" />
-              🚘 What is an Auction Sheet?
-            </h2>
-            <div className="space-y-3">
-              <p className="text-sm sm:text-base text-gray-700">
+        )}
+
+        {/* AUCTION SHEET TAB */}
+        {selectedTab === 'auction-sheet' && (
+          <div className="space-y-12">
+            <section>
+              <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-blue-600 font-semibold pb-2.5 mb-5 border-b border-zinc-200">
+                What is an auction sheet
+              </p>
+              <p className="text-sm sm:text-base text-zinc-700 leading-relaxed max-w-3xl">
                 An inspection report created by Japanese auction houses for every vehicle sold.
               </p>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                <div className="flex items-start gap-2">
-                  <CheckCircle className="h-4 w-4 text-green-600 mt-1" />
-                  <div>
-                    <p className="text-sm font-semibold">Professional Inspection</p>
-                    <p className="text-xs text-gray-600">By certified inspectors</p>
+              <div className="mt-6 grid sm:grid-cols-3 gap-px bg-zinc-200 border border-zinc-200 rounded-2xl overflow-hidden">
+                {[
+                  { title: 'Professional inspection', desc: 'By certified inspectors' },
+                  { title: 'True condition', desc: 'Before bidding' },
+                  { title: 'Detailed report', desc: 'All issues documented' },
+                ].map((item, i) => (
+                  <div key={item.title} className="bg-white p-5">
+                    <p className="font-mono text-[10px] text-zinc-400 tracking-[0.2em]">
+                      {String(i + 1).padStart(2, '0')}
+                    </p>
+                    <h3 className="mt-3 text-sm font-medium text-zinc-900">{item.title}</h3>
+                    <p className="mt-1 text-xs text-zinc-500">{item.desc}</p>
                   </div>
-                </div>
-                <div className="flex items-start gap-2">
-                  <Shield className="h-4 w-4 text-blue-600 mt-1" />
-                  <div>
-                    <p className="text-sm font-semibold">True Condition</p>
-                    <p className="text-xs text-gray-600">Before bidding</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-2">
-                  <FileText className="h-4 w-4 text-purple-600 mt-1" />
-                  <div>
-                    <p className="text-sm font-semibold">Detailed Report</p>
-                    <p className="text-xs text-gray-600">All issues documented</p>
-                  </div>
-                </div>
+                ))}
               </div>
-            </div>
-          </Card>
+            </section>
 
-          {/* Key Information Section */}
-          <Card className="p-4 sm:p-6">
-            <h3 className="font-bold text-sm sm:text-base mb-3 flex items-center gap-2">
-              📑 Key Information on an Auction Sheet
-            </h3>
-            <div className="space-y-4">
-              <div className="border-l-4 border-blue-500 pl-3">
-                <h4 className="font-semibold text-sm mb-1">Vehicle Details</h4>
-                <p className="text-xs text-gray-600">
-                  Make, model, year, chassis number, engine size, mileage, fuel type
-                </p>
-              </div>
-              <div className="border-l-4 border-green-500 pl-3">
-                <h4 className="font-semibold text-sm mb-1">Overall Auction Grade</h4>
-                <p className="text-xs text-gray-600">
-                  Quality rating of the entire vehicle (6 to R)
-                </p>
-              </div>
-              <div className="border-l-4 border-yellow-500 pl-3">
-                <h4 className="font-semibold text-sm mb-1">Interior Grade</h4>
-                <p className="text-xs text-gray-600">
-                  Interior condition rating (A to D)
-                </p>
-              </div>
-              <div className="border-l-4 border-purple-500 pl-3">
-                <h4 className="font-semibold text-sm mb-1">Condition Diagram</h4>
-                <p className="text-xs text-gray-600">
-                  Car outline with marks for dents, scratches, rust, repairs
-                </p>
-              </div>
-              <div className="border-l-4 border-red-500 pl-3">
-                <h4 className="font-semibold text-sm mb-1">Inspector's Notes</h4>
-                <p className="text-xs text-gray-600">
-                  Japanese text comments on mechanical issues, modifications, warnings
-                </p>
-              </div>
-            </div>
-          </Card>
-
-          {/* Auction Grades Table */}
-          <Card className="p-4 sm:p-6">
-            <h3 className="font-bold text-sm sm:text-base mb-3 flex items-center gap-2">
-              ⭐ Overall Auction Grades
-            </h3>
-            <div className="overflow-x-auto">
-              <div className="space-y-2">
-                {auctionGrades.map((grade) => (
-                  <div key={grade.grade} className="flex items-center gap-3">
-                    <span className={`px-2 py-1 rounded font-bold text-sm min-w-[3rem] text-center ${grade.color}`}>
-                      {grade.grade}
+            {/* Key Information */}
+            <section>
+              <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-blue-600 font-semibold pb-2.5 mb-5 border-b border-zinc-200">
+                Key information on a sheet
+              </p>
+              <div className="border-y border-zinc-200 divide-y divide-zinc-200/80">
+                {[
+                  { title: 'Vehicle details', desc: 'Make, model, year, chassis number, engine size, mileage, fuel type' },
+                  { title: 'Overall auction grade', desc: 'Quality rating of the entire vehicle (6 to R)' },
+                  { title: 'Interior grade', desc: 'Interior condition rating (A to D)' },
+                  { title: 'Condition diagram', desc: 'Car outline with marks for dents, scratches, rust, repairs' },
+                  { title: "Inspector's notes", desc: 'Japanese text comments on mechanical issues, modifications, warnings' },
+                ].map((item, i) => (
+                  <div key={item.title} className="grid sm:grid-cols-[4rem_1fr] gap-4 py-4 items-baseline">
+                    <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-amber-600 font-semibold">
+                      {String(i + 1).padStart(2, '0')}
                     </span>
-                    <div className="flex-1">
-                      <span className="text-sm font-medium">{grade.quality}</span>
-                      <span className="text-xs text-gray-600 ml-2">{grade.description}</span>
+                    <div>
+                      <p className="text-sm font-medium text-zinc-900">{item.title}</p>
+                      <p className="mt-1 text-sm text-zinc-600 leading-relaxed">{item.desc}</p>
                     </div>
                   </div>
                 ))}
               </div>
-            </div>
-            <div className="mt-4 p-3 bg-blue-50 rounded-lg">
-              <p className="text-xs text-blue-800">
-                💡 <strong>Tip:</strong> Grade 4 and above are excellent for imports. Grade 3.5 is acceptable if priced well.
+            </section>
+
+            {/* Auction Grades */}
+            <section>
+              <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-blue-600 font-semibold pb-2.5 mb-5 border-b border-zinc-200">
+                Overall auction grades
               </p>
-            </div>
-          </Card>
-
-          {/* Interior Grades */}
-          <Card className="p-4 sm:p-6">
-            <h3 className="font-bold text-sm sm:text-base mb-3 flex items-center gap-2">
-              🚗 Interior Grades
-            </h3>
-            <div className="grid grid-cols-2 gap-3">
-              {interiorGrades.map((grade) => (
-                <div key={grade.grade} className="flex items-start gap-2">
-                  <span className={`font-bold text-lg ${grade.color}`}>
-                    {grade.grade}
-                  </span>
-                  <p className="text-xs sm:text-sm">{grade.description}</p>
-                </div>
-              ))}
-            </div>
-          </Card>
-
-          {/* Condition Codes */}
-          <Card className="p-4 sm:p-6">
-            <h3 className="font-bold text-sm sm:text-base mb-3 flex items-center gap-2">
-              🗺️ Condition Diagram Codes
-            </h3>
-            <p className="text-xs text-gray-600 mb-3">
-              These codes appear on the car outline to mark specific issues:
-            </p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-              {conditionCodes.map((code) => (
-                <div key={code.code} className="flex items-center gap-2 text-sm">
-                  <span className="text-lg">{code.icon}</span>
-                  <span className="font-mono font-bold text-blue-600">{code.code}</span>
-                  <span className="text-xs text-gray-600">= {code.meaning}</span>
-                </div>
-              ))}
-            </div>
-          </Card>
-
-          {/* Important Tips */}
-          <Card className="p-4 sm:p-6 bg-yellow-50 border-yellow-200">
-            <h3 className="font-bold text-sm sm:text-base mb-3 flex items-center gap-2 text-yellow-900">
-              <AlertTriangle className="h-4 w-4 text-yellow-600" />
-              Important Tips
-            </h3>
-            <ul className="space-y-2 text-xs sm:text-sm text-yellow-800">
-              <li className="flex items-start gap-2">
-                <span className="text-yellow-600">•</span>
-                <span>Always get the auction sheet translated if you don't read Japanese</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-yellow-600">•</span>
-                <span>R or RA grades indicate accident history - avoid unless very cheap</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-yellow-600">•</span>
-                <span>Check for matching chassis numbers between sheet and vehicle</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-yellow-600">•</span>
-                <span>Low mileage with poor grade might indicate odometer tampering</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-yellow-600">•</span>
-                <span>Ask your exporter for high-resolution auction sheet images</span>
-              </li>
-            </ul>
-          </Card>
-
-          {/* How to Read Section */}
-          <Card className="p-4 sm:p-6">
-            <h3 className="font-bold text-sm sm:text-base mb-3 flex items-center gap-2">
-              🔍 How to Read an Auction Sheet
-            </h3>
-            <div className="space-y-3">
-              <div className="flex items-start gap-3">
-                <div className="bg-blue-100 text-blue-600 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold flex-shrink-0">1</div>
-                <div>
-                  <p className="text-sm font-semibold">Check the Grade First</p>
-                  <p className="text-xs text-gray-600">Look for the large number/letter in a box (4, 4.5, 5, etc.)</p>
-                </div>
+              <div className="border-y border-zinc-200 divide-y divide-zinc-200/80">
+                {auctionGrades.map((g) => (
+                  <div key={g.grade} className="grid grid-cols-[4rem_8rem_1fr] gap-4 py-3.5 items-center">
+                    <span className={`inline-flex items-center justify-center h-7 px-3 rounded-full font-mono text-xs font-semibold ring-1 ring-inset ${toneRing(g.tone)}`}>
+                      {g.grade}
+                    </span>
+                    <span className="text-sm font-medium text-zinc-900">{g.quality}</span>
+                    <span className="text-sm text-zinc-600">{g.desc}</span>
+                  </div>
+                ))}
               </div>
-              <div className="flex items-start gap-3">
-                <div className="bg-blue-100 text-blue-600 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold flex-shrink-0">2</div>
-                <div>
-                  <p className="text-sm font-semibold">Verify Mileage</p>
-                  <p className="text-xs text-gray-600">Usually shown in kilometers, check if it matches the age</p>
-                </div>
+              <div className="mt-4 flex items-start gap-3">
+                <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-amber-700 font-semibold mt-0.5">
+                  [ Tip ]
+                </span>
+                <p className="text-sm text-zinc-700 leading-relaxed">
+                  Grade 4 and above are excellent for imports. Grade 3.5 is acceptable if priced well.
+                </p>
               </div>
-              <div className="flex items-start gap-3">
-                <div className="bg-blue-100 text-blue-600 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold flex-shrink-0">3</div>
-                <div>
-                  <p className="text-sm font-semibold">Examine the Car Map</p>
-                  <p className="text-xs text-gray-600">Look for concentration of marks in specific areas</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <div className="bg-blue-100 text-blue-600 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold flex-shrink-0">4</div>
-                <div>
-                  <p className="text-sm font-semibold">Interior Grade Check</p>
-                  <p className="text-xs text-gray-600">Letter grade (A-D) indicates cabin condition</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <div className="bg-blue-100 text-blue-600 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold flex-shrink-0">5</div>
-                <div>
-                  <p className="text-sm font-semibold">Get Translation</p>
-                  <p className="text-xs text-gray-600">Inspector notes often contain crucial mechanical info</p>
-                </div>
-              </div>
-            </div>
-          </Card>
-        </div>
-      ) : (
-        <div className="space-y-4 sm:space-y-6">
-          {/* Exporters Directory - Mobile Optimized */}
-          <Card className="p-4 sm:p-6">
-            <h2 className="text-base sm:text-lg lg:text-xl font-bold mb-3 sm:mb-4 flex items-center gap-2">
-              <Building2 className="h-4 w-4 sm:h-5 sm:w-5 text-blue-600" />
-              Verified Exporters
-            </h2>
-            <p className="text-xs sm:text-sm text-gray-600 mb-4">
-              Companies with real auction access. Verify before engaging.
-            </p>
+            </section>
 
-            <div className="space-y-3">
-              {exporters.map((exporter, index) => (
-                <Card key={index} className="p-3 sm:p-4">
-                  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
-                    <div className="flex-1">
-                      <div className="flex items-center gap-2 mb-1">
-                        <h3 className="font-semibold text-sm sm:text-base">{exporter.name}</h3>
-                        {exporter.highlight && (
-                          <span className="px-2 py-0.5 bg-green-100 text-green-700 text-xs font-bold rounded-full">
-                            {exporter.highlight}
+            {/* Interior Grades */}
+            <section>
+              <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-blue-600 font-semibold pb-2.5 mb-5 border-b border-zinc-200">
+                Interior grades
+              </p>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-px bg-zinc-200 border border-zinc-200 rounded-2xl overflow-hidden">
+                {interiorGrades.map((g) => (
+                  <div key={g.grade} className="bg-white p-5">
+                    <span className={`inline-flex items-center justify-center h-7 w-7 rounded-full font-mono text-xs font-semibold ring-1 ring-inset ${toneRing(g.tone)}`}>
+                      {g.grade}
+                    </span>
+                    <p className="mt-3 text-xs text-zinc-700 leading-relaxed">{g.desc}</p>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            {/* Condition Codes */}
+            <section>
+              <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-blue-600 font-semibold pb-2.5 mb-5 border-b border-zinc-200">
+                Condition diagram codes
+              </p>
+              <p className="text-sm text-zinc-600 mb-5">
+                These codes appear on the car outline to mark specific issues.
+              </p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-px bg-zinc-200 border border-zinc-200 rounded-2xl overflow-hidden">
+                {conditionCodes.map((c) => (
+                  <div key={c.code} className="bg-white grid grid-cols-[4rem_1fr] gap-3 px-5 py-3 items-baseline">
+                    <span className="font-mono text-sm font-semibold text-amber-700">{c.code}</span>
+                    <span className="text-sm text-zinc-700">{c.meaning}</span>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            {/* Important Tips */}
+            <section className="border-y border-zinc-200 py-6">
+              <div className="flex items-start gap-3">
+                <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-amber-700 font-semibold mt-1 whitespace-nowrap">
+                  [ Important tips ]
+                </span>
+                <ul className="space-y-2 flex-1 max-w-3xl">
+                  {[
+                    "Always get the auction sheet translated if you don't read Japanese",
+                    'R or RA grades indicate accident history — avoid unless very cheap',
+                    'Check for matching chassis numbers between sheet and vehicle',
+                    'Low mileage with poor grade might indicate odometer tampering',
+                    'Ask your exporter for high-resolution auction sheet images',
+                  ].map((tip, i) => (
+                    <li key={i} className="flex items-start gap-2.5 text-sm text-zinc-700">
+                      <span className="mt-2 h-1 w-1 rounded-full bg-amber-500 flex-shrink-0" aria-hidden />
+                      <span>{tip}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </section>
+
+            {/* How to Read */}
+            <section>
+              <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-blue-600 font-semibold pb-2.5 mb-5 border-b border-zinc-200">
+                How to read an auction sheet
+              </p>
+              <div className="border-y border-zinc-200 divide-y divide-zinc-200/80">
+                {[
+                  { title: 'Check the grade first', desc: 'Look for the large number/letter in a box (4, 4.5, 5, etc.)' },
+                  { title: 'Verify mileage', desc: 'Usually shown in kilometers, check if it matches the age' },
+                  { title: 'Examine the car map', desc: 'Look for concentration of marks in specific areas' },
+                  { title: 'Interior grade check', desc: 'Letter grade (A–D) indicates cabin condition' },
+                  { title: 'Get translation', desc: 'Inspector notes often contain crucial mechanical info' },
+                ].map((s, i) => (
+                  <div key={s.title} className="grid sm:grid-cols-[4rem_1fr] gap-4 py-4 items-baseline">
+                    <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-amber-600 font-semibold">
+                      Step {String(i + 1).padStart(2, '0')}
+                    </span>
+                    <div>
+                      <p className="text-sm font-medium text-zinc-900">{s.title}</p>
+                      <p className="mt-1 text-sm text-zinc-600 leading-relaxed">{s.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
+          </div>
+        )}
+
+        {/* EXPORTERS TAB */}
+        {selectedTab === 'exporters' && (
+          <div className="space-y-12">
+            {/* Verified exporters list */}
+            <section>
+              <div className="flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.22em] border-b border-zinc-200 pb-2.5 mb-5">
+                <span className="text-blue-600 font-semibold">Verified exporters</span>
+                <span className="text-zinc-500">{String(exporters.length).padStart(2, '0')} companies</span>
+              </div>
+              <p className="text-sm text-zinc-600 mb-5">
+                Companies with real auction access. Verify before engaging.
+              </p>
+              <div className="border border-zinc-200 rounded-2xl overflow-hidden divide-y divide-zinc-200/80">
+                {exporters.map((e, i) => (
+                  <div key={e.name} className="bg-white p-5 grid sm:grid-cols-[3rem_1fr_auto] gap-4 items-start">
+                    <span className="font-mono text-[10px] text-zinc-400 tracking-[0.2em]">
+                      {String(i + 1).padStart(2, '0')}
+                    </span>
+                    <div>
+                      <div className="flex flex-wrap items-center gap-2">
+                        <h3 className="text-base font-medium text-zinc-900">{e.name}</h3>
+                        {e.highlight && (
+                          <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-amber-700 font-semibold bg-amber-50 ring-1 ring-inset ring-amber-200 px-2 py-0.5 rounded-full">
+                            {e.highlight}
                           </span>
                         )}
                       </div>
-                      <p className="text-xs sm:text-sm text-gray-600 mb-2">{exporter.description}</p>
-                      <div className="flex items-center gap-1 text-xs sm:text-sm">
-                        <CheckCircle className="h-3 w-3 sm:h-4 sm:w-4 text-green-600" />
-                        <span className="text-green-600">Auction Access</span>
-                      </div>
+                      <p className="mt-1 text-sm text-zinc-600 leading-relaxed">{e.description}</p>
+                      <p className="mt-1.5 flex items-center gap-1.5 text-xs text-emerald-700">
+                        <CheckCircle2 className="h-3 w-3" strokeWidth={1.75} />
+                        Auction access · {e.auctionAccess}
+                      </p>
                     </div>
                     <a
-                      href={`https://${exporter.website}`}
+                      href={`https://${e.website}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center justify-center gap-1 text-blue-600 hover:text-blue-700 text-xs sm:text-sm font-medium w-full sm:w-auto mt-2 sm:mt-0 py-1 sm:py-0"
+                      className="group inline-flex h-10 items-center gap-1.5 px-4 rounded-full border border-zinc-200 bg-white hover:bg-zinc-50 hover:border-zinc-300 text-sm font-medium text-zinc-900 transition-colors whitespace-nowrap"
                     >
-                      Visit Site
-                      <ExternalLink className="h-3 w-3 sm:h-4 sm:w-4" />
+                      Visit site
+                      <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                     </a>
                   </div>
-                </Card>
-              ))}
-            </div>
-          </Card>
+                ))}
+              </div>
+            </section>
 
-          {/* Advanced Auction Strategies Section - From Mastery */}
-          <Card className="p-4 sm:p-6 border-2 border-green-200">
-            <h2 className="text-base sm:text-lg lg:text-xl font-bold mb-3 sm:mb-4 flex items-center gap-2 text-green-800">
-              <Globe className="h-4 w-4 sm:h-5 sm:w-5" />
-              Japanese Auction Mastery
-            </h2>
-            <p className="text-xs sm:text-sm text-gray-600 mb-4">
-              Advanced strategies for buying directly from Japanese auctions
-            </p>
+            {/* Auction Mastery: Grading + Times + Bidding + Platforms */}
+            <section>
+              <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-blue-600 font-semibold pb-2.5 mb-5 border-b border-zinc-200">
+                Auction mastery
+              </p>
 
-            {/* Auction Grading Deep Dive */}
-            <div className="bg-green-50 p-4 sm:p-6 rounded-lg mb-4">
-              <h3 className="font-bold text-sm sm:text-base lg:text-lg mb-3">📊 Understanding Auction Grades</h3>
-              <div className="grid md:grid-cols-2 gap-4">
-                <div>
-                  <h4 className="font-semibold text-sm mb-2">Grade System Details:</h4>
-                  <ul className="text-xs sm:text-sm space-y-1">
-                    <li><strong>S:</strong> Brand new / Nearly new (rare)</li>
-                    <li><strong>6:</strong> Extremely low mileage, mint condition</li>
-                    <li><strong>5:</strong> Excellent, minimal wear</li>
-                    <li><strong>4.5:</strong> Very good, light use visible</li>
-                    <li><strong>4:</strong> Good condition, normal wear</li>
-                    <li><strong>3.5:</strong> Average, visible wear</li>
-                    <li><strong>3:</strong> Below average, issues present</li>
-                  </ul>
+              <div className="space-y-8">
+                {/* Grade System */}
+                <div className="grid sm:grid-cols-2 gap-px bg-zinc-200 border border-zinc-200 rounded-2xl overflow-hidden">
+                  <div className="bg-white p-6">
+                    <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-amber-600 font-semibold pb-2.5 mb-3 border-b border-zinc-200">
+                      Grade system
+                    </p>
+                    <dl className="space-y-1.5 text-sm">
+                      {[
+                        ['S', 'Brand new / Nearly new (rare)'],
+                        ['6', 'Extremely low mileage, mint condition'],
+                        ['5', 'Excellent, minimal wear'],
+                        ['4.5', 'Very good, light use visible'],
+                        ['4', 'Good condition, normal wear'],
+                        ['3.5', 'Average, visible wear'],
+                        ['3', 'Below average, issues present'],
+                      ].map(([k, v]) => (
+                        <div key={k} className="grid grid-cols-[2rem_1fr] gap-3">
+                          <dt className="font-mono text-amber-700 font-semibold">{k}</dt>
+                          <dd className="text-zinc-700">{v}</dd>
+                        </div>
+                      ))}
+                    </dl>
+                  </div>
+                  <div className="bg-white p-6">
+                    <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-amber-600 font-semibold pb-2.5 mb-3 border-b border-zinc-200">
+                      Interior grades
+                    </p>
+                    <dl className="space-y-1.5 text-sm">
+                      {[
+                        ['A', 'Like new, pristine'],
+                        ['B', 'Clean, minimal wear'],
+                        ['C', 'Average wear, usable'],
+                        ['D', 'Poor, needs work'],
+                      ].map(([k, v]) => (
+                        <div key={k} className="grid grid-cols-[2rem_1fr] gap-3">
+                          <dt className="font-mono text-amber-700 font-semibold">{k}</dt>
+                          <dd className="text-zinc-700">{v}</dd>
+                        </div>
+                      ))}
+                    </dl>
+                    <p className="mt-4 pt-3 border-t border-zinc-200 text-xs text-emerald-700">
+                      <span className="font-mono uppercase tracking-[0.22em] font-semibold mr-1">[ Pro tip ]</span>
+                      Grade 4/B offers best value for money.
+                    </p>
+                  </div>
                 </div>
+
+                {/* Optimal Buying Times */}
+                <div className="grid sm:grid-cols-2 gap-px bg-zinc-200 border border-zinc-200 rounded-2xl overflow-hidden">
+                  <div className="bg-white p-6">
+                    <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-emerald-700 font-semibold pb-2.5 mb-3 border-b border-zinc-200">
+                      Seasonal opportunities
+                    </p>
+                    <ul className="space-y-1.5 text-sm text-zinc-700">
+                      <li>· March–April · Financial year-end deals</li>
+                      <li>· September · Model year clearance</li>
+                      <li>· December · Year-end inventory clear</li>
+                      <li>· Avoid May · Golden Week holidays</li>
+                    </ul>
+                  </div>
+                  <div className="bg-white p-6">
+                    <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-blue-600 font-semibold pb-2.5 mb-3 border-b border-zinc-200">
+                      Weekly patterns
+                    </p>
+                    <ul className="space-y-1.5 text-sm text-zinc-700">
+                      <li>· Tuesday · Most inventory available</li>
+                      <li>· Thursday · Best deals typically</li>
+                      <li>· Friday · Higher competition</li>
+                      <li>· Monday · Leftover bargains</li>
+                    </ul>
+                  </div>
+                </div>
+
+                {/* Bidding Tactics */}
                 <div>
-                  <h4 className="font-semibold text-sm mb-2">Interior Grades Explained:</h4>
-                  <ul className="text-xs sm:text-sm space-y-1">
-                    <li><strong>A:</strong> Like new, pristine</li>
-                    <li><strong>B:</strong> Clean, minimal wear</li>
-                    <li><strong>C:</strong> Average wear, usable</li>
-                    <li><strong>D:</strong> Poor, needs work</li>
-                  </ul>
-                  <p className="text-xs text-green-700 mt-2">
-                    💡 Pro Tip: Grade 4/B offers best value for money
+                  <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-amber-600 font-semibold pb-2.5 mb-4 border-b border-zinc-200">
+                    Professional bidding tactics
+                  </p>
+                  <ol className="border-y border-zinc-200 divide-y divide-zinc-200/80">
+                    {[
+                      { title: 'Calculate maximum', desc: 'Total budget ÷ 2.2 − shipping = max bid' },
+                      { title: 'Research history', desc: "Check same model's prices over 30 days" },
+                      { title: 'Stay disciplined', desc: 'Lost auction = saved mistake. More cars tomorrow' },
+                      { title: 'Read USS sheets', desc: 'Master auction sheets to spot hidden damage' },
+                    ].map((t, i) => (
+                      <li key={t.title} className="grid sm:grid-cols-[4rem_1fr] gap-4 py-3.5 items-baseline">
+                        <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-amber-600 font-semibold">
+                          {String(i + 1).padStart(2, '0')}
+                        </span>
+                        <div>
+                          <p className="text-sm font-medium text-zinc-900">{t.title}</p>
+                          <p className="mt-1 text-sm text-zinc-600">{t.desc}</p>
+                        </div>
+                      </li>
+                    ))}
+                  </ol>
+                </div>
+
+                {/* Platform Comparison */}
+                <div className="grid sm:grid-cols-2 gap-px bg-zinc-200 border border-zinc-200 rounded-2xl overflow-hidden">
+                  <div className="bg-white p-6">
+                    <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-blue-600 font-semibold pb-2.5 mb-3 border-b border-zinc-200">
+                      Direct purchase sites
+                    </p>
+                    <ul className="space-y-2 text-sm text-zinc-700">
+                      <li><a href="https://www.sbtjapan.com" target="_blank" rel="noopener noreferrer" className="font-medium text-zinc-900 hover:text-amber-700 underline-offset-2 hover:underline">SBT Japan</a> — Fixed prices, beginner-friendly, English support</li>
+                      <li><a href="https://www.beforward.jp" target="_blank" rel="noopener noreferrer" className="font-medium text-zinc-900 hover:text-amber-700 underline-offset-2 hover:underline">BE FORWARD</a> — Large inventory, negotiable prices</li>
+                      <li><a href="https://www.japan-partner.com" target="_blank" rel="noopener noreferrer" className="font-medium text-zinc-900 hover:text-amber-700 underline-offset-2 hover:underline">Japan Partner</a> — Good for parts and accessories</li>
+                    </ul>
+                  </div>
+                  <div className="bg-white p-6">
+                    <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-amber-600 font-semibold pb-2.5 mb-3 border-b border-zinc-200">
+                      Auction access (agent required)
+                    </p>
+                    <ul className="space-y-2 text-sm text-zinc-700">
+                      <li><a href="https://www.ussnet.co.jp" target="_blank" rel="noopener noreferrer" className="font-medium text-zinc-900 hover:text-amber-700 underline-offset-2 hover:underline">USS Auctions</a> — Largest, 150,000+ cars weekly</li>
+                      <li><a href="https://www.jaa.co.jp" target="_blank" rel="noopener noreferrer" className="font-medium text-zinc-900 hover:text-amber-700 underline-offset-2 hover:underline">JAA</a> — Luxury/sports car focus</li>
+                      <li><a href="https://www.taag.co.jp" target="_blank" rel="noopener noreferrer" className="font-medium text-zinc-900 hover:text-amber-700 underline-offset-2 hover:underline">TAA</a> — Toyota specialist auctions</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            {/* Reality of Auctions */}
+            <section className="border border-zinc-200 rounded-2xl bg-stone-50/60 p-6 sm:p-8">
+              <div className="flex items-start gap-3 mb-5">
+                <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-red-600 font-semibold mt-1 whitespace-nowrap">
+                  [ Reality ]
+                </span>
+                <div>
+                  <h3 className="text-xl font-medium tracking-tight text-zinc-900">
+                    The reality of Japanese car auctions.
+                  </h3>
+                  <p className="mt-1 text-sm text-zinc-600">
+                    What actually happens — critical information most exporters won't tell you.
                   </p>
                 </div>
               </div>
-            </div>
 
-            {/* Best Times to Buy */}
-            <div className="bg-blue-50 p-4 sm:p-6 rounded-lg mb-4">
-              <h3 className="font-bold text-sm sm:text-base lg:text-lg mb-3">⏰ Optimal Buying Times</h3>
-              <div className="grid md:grid-cols-2 gap-4">
-                <div>
-                  <h4 className="font-semibold text-sm mb-2">Seasonal Opportunities:</h4>
-                  <ul className="text-xs sm:text-sm space-y-1">
-                    <li>• <strong>March-April:</strong> Financial year-end deals</li>
-                    <li>• <strong>September:</strong> Model year clearance</li>
-                    <li>• <strong>December:</strong> Year-end inventory clear</li>
-                    <li>• <strong>Avoid May:</strong> Golden Week holidays</li>
-                  </ul>
-                </div>
-                <div>
-                  <h4 className="font-semibold text-sm mb-2">Weekly Patterns:</h4>
-                  <ul className="text-xs sm:text-sm space-y-1">
-                    <li>• <strong>Tuesday:</strong> Most inventory available</li>
-                    <li>• <strong>Thursday:</strong> Best deals typically</li>
-                    <li>• <strong>Friday:</strong> Higher competition</li>
-                    <li>• <strong>Monday:</strong> Leftover bargains</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-
-            {/* Smart Bidding Tactics */}
-            <div className="bg-purple-50 p-4 sm:p-6 rounded-lg mb-4">
-              <h3 className="font-bold text-sm sm:text-base lg:text-lg mb-3">🎯 Professional Bidding Tactics</h3>
-              <ol className="space-y-2 text-xs sm:text-sm">
-                <li className="flex gap-2">
-                  <span className="font-bold">1.</span>
-                  <div>
-                    <strong>Calculate Maximum:</strong> Total budget ÷ 2.2 - shipping = max bid
-                  </div>
-                </li>
-                <li className="flex gap-2">
-                  <span className="font-bold">2.</span>
-                  <div>
-                    <strong>Research History:</strong> Check same model's prices over 30 days
-                  </div>
-                </li>
-                <li className="flex gap-2">
-                  <span className="font-bold">3.</span>
-                  <div>
-                    <strong>Stay Disciplined:</strong> Lost auction = saved mistake. More cars tomorrow
-                  </div>
-                </li>
-                <li className="flex gap-2">
-                  <span className="font-bold">4.</span>
-                  <div>
-                    <strong>Read USS Sheets:</strong> Master auction sheets to spot hidden damage
-                  </div>
-                </li>
-              </ol>
-            </div>
-
-            {/* Platform Comparison */}
-            <div className="bg-gray-50 p-4 sm:p-6 rounded-lg">
-              <h3 className="font-bold text-sm sm:text-base lg:text-lg mb-3">🌐 Platform Comparison</h3>
-              <div className="space-y-3">
-                <div className="border-l-4 border-blue-500 pl-4">
-                  <h4 className="font-semibold text-sm">Direct Purchase Sites:</h4>
-                  <ul className="text-xs sm:text-sm space-y-1">
-                    <li>• <a href="https://www.sbtjapan.com" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline"><strong>SBT Japan:</strong></a> Fixed prices, beginner-friendly, English support</li>
-                    <li>• <a href="https://www.beforward.jp" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline"><strong>BE FORWARD:</strong></a> Large inventory, negotiable prices</li>
-                    <li>• <a href="https://www.japan-partner.com" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline"><strong>Japan Partner:</strong></a> Good for parts and accessories</li>
-                  </ul>
-                </div>
-                <div className="border-l-4 border-green-500 pl-4">
-                  <h4 className="font-semibold text-sm">Auction Access (Agent Required):</h4>
-                  <ul className="text-xs sm:text-sm space-y-1">
-                    <li>• <a href="https://www.ussnet.co.jp" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline"><strong>USS Auctions:</strong></a> Largest, 150,000+ cars weekly</li>
-                    <li>• <a href="https://www.jaa.co.jp" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline"><strong>JAA:</strong></a> Luxury/sports car focus</li>
-                    <li>• <a href="https://www.taag.co.jp" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline"><strong>TAA:</strong></a> Toyota specialist auctions</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </Card>
-
-          {/* Critical Auction House Reality - Based on Japan Tradings Experience */}
-          <Card className="p-4 sm:p-6 border-2 border-red-200">
-            <h2 className="text-base sm:text-lg lg:text-xl font-bold mb-3 sm:mb-4 flex items-center gap-2 text-red-800">
-              <AlertTriangle className="h-4 w-4 sm:h-5 sm:w-5" />
-              The Reality of Japanese Car Auctions
-            </h2>
-            <p className="text-xs sm:text-sm text-gray-600 mb-4">
-              What actually happens at auction houses - critical information most exporters won't tell you
-            </p>
-
-            {/* How Auctions Really Work */}
-            <div className="bg-yellow-50 p-4 rounded-lg mb-4">
-              <h3 className="font-bold text-sm sm:text-base mb-3">⚡ The Speed Problem</h3>
-              <div className="space-y-2 text-xs sm:text-sm">
-                <p className="text-gray-700">
-                  <strong>Reality Check:</strong> 1,200-8,000 cars are auctioned DAILY at each location
+              <div className="mt-4 pt-4 border-t border-zinc-200">
+                <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-amber-700 font-semibold mb-3">
+                  The speed problem
                 </p>
-                <ul className="space-y-1 text-gray-600">
-                  <li>• Each car sells in about <strong>15 seconds</strong></li>
-                  <li>• Inspectors have less than <strong>1 minute per car</strong> for checking</li>
-                  <li>• Auction starts 9:30am, inspectors arrive 7:00am</li>
-                  <li>• 100+ target cars to check in 2-3 hours</li>
-                  <li>• One button push = ¥3,000-6,000 bid increase</li>
+                <p className="text-sm text-zinc-700 mb-3">
+                  <span className="font-medium">Reality check —</span> 1,200–8,000 cars are
+                  auctioned <span className="font-semibold">daily</span> at each location.
+                </p>
+                <ul className="space-y-1.5 text-sm text-zinc-700">
+                  <li>· Each car sells in about <span className="font-semibold">15 seconds</span></li>
+                  <li>· Inspectors have less than <span className="font-semibold">1 minute per car</span> for checking</li>
+                  <li>· Auction starts 9:30am, inspectors arrive 7:00am</li>
+                  <li>· 100+ target cars to check in 2–3 hours</li>
+                  <li>· One button push = ¥3,000–6,000 bid increase</li>
                 </ul>
-                <p className="text-red-700 font-semibold mt-2">
-                  ⚠️ This is why cars often arrive different than described!
+                <p className="mt-3 text-sm text-red-700 font-medium">
+                  ↳ This is why cars often arrive different than described.
                 </p>
               </div>
-            </div>
 
-            {/* Auction Sheet Symbols Explained */}
-            <div className="bg-blue-50 p-4 rounded-lg mb-4">
-              <h3 className="font-bold text-sm sm:text-base mb-3">📋 Auction Sheet Symbol Guide</h3>
-              <div className="grid md:grid-cols-2 gap-4 text-xs sm:text-sm">
+              {/* Symbol guide */}
+              <div className="mt-8 pt-6 border-t border-zinc-200 grid sm:grid-cols-2 gap-x-8 gap-y-4">
                 <div>
-                  <h4 className="font-semibold mb-2">Scratch Codes:</h4>
-                  <ul className="space-y-1 text-gray-700">
-                    <li><strong>A:</strong> Minor scratch</li>
-                    <li><strong>A1:</strong> Small scratch (&lt; 10cm)</li>
-                    <li><strong>A2:</strong> Medium scratch (10-20cm)</li>
-                    <li><strong>A3:</strong> Large scratch - needs paint</li>
+                  <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-zinc-500 mb-2">
+                    Scratch codes
+                  </p>
+                  <ul className="space-y-1 text-sm text-zinc-700">
+                    <li><span className="font-mono text-amber-700 font-semibold mr-2">A</span>Minor scratch</li>
+                    <li><span className="font-mono text-amber-700 font-semibold mr-2">A1</span>Small scratch (&lt; 10cm)</li>
+                    <li><span className="font-mono text-amber-700 font-semibold mr-2">A2</span>Medium scratch (10–20cm)</li>
+                    <li><span className="font-mono text-amber-700 font-semibold mr-2">A3</span>Large scratch — needs paint</li>
                   </ul>
                 </div>
                 <div>
-                  <h4 className="font-semibold mb-2">Dent Codes:</h4>
-                  <ul className="space-y-1 text-gray-700">
-                    <li><strong>D:</strong> Pin dent</li>
-                    <li><strong>D2:</strong> Multiple dents</li>
-                    <li><strong>D3:</strong> Needs panel work</li>
-                    <li><strong>D4:</strong> Major panel work required</li>
+                  <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-zinc-500 mb-2">
+                    Dent codes
+                  </p>
+                  <ul className="space-y-1 text-sm text-zinc-700">
+                    <li><span className="font-mono text-amber-700 font-semibold mr-2">D</span>Pin dent</li>
+                    <li><span className="font-mono text-amber-700 font-semibold mr-2">D2</span>Multiple dents</li>
+                    <li><span className="font-mono text-amber-700 font-semibold mr-2">D3</span>Needs panel work</li>
+                    <li><span className="font-mono text-amber-700 font-semibold mr-2">D4</span>Major panel work required</li>
                   </ul>
                 </div>
               </div>
-              <p className="text-xs text-blue-700 mt-3">
-                💡 Higher numbers = more damage. Position on diagram shows exact location.
-              </p>
-            </div>
 
-            {/* Grade Reality Check */}
-            <div className="bg-gray-50 p-4 rounded-lg mb-4">
-              <h3 className="font-bold text-sm sm:text-base mb-3">🎯 What Grades REALLY Mean</h3>
-              <div className="space-y-2 text-xs sm:text-sm">
-                <div className="border-l-4 border-green-500 pl-3">
-                  <p><strong>Grade 5:</strong> No repairs needed, most expensive</p>
-                </div>
-                <div className="border-l-4 border-green-500 pl-3">
-                  <p><strong>Grade 4.5:</strong> Minor panel work or bumper repair</p>
-                </div>
-                <div className="border-l-4 border-blue-500 pl-3">
-                  <p><strong>Grade 4:</strong> 1-2 panels + 1 bumper repair (Most cost-effective)</p>
-                </div>
-                <div className="border-l-4 border-yellow-500 pl-3">
-                  <p><strong>Grade 3.5:</strong> 3-4 panels + 1-2 bumpers (Average condition)</p>
-                </div>
-                <div className="border-l-4 border-orange-500 pl-3">
-                  <p><strong>Grade 3:</strong> 4-5 panels + bumpers (Not recommended)</p>
-                </div>
-                <div className="border-l-4 border-red-500 pl-3">
-                  <p><strong>A or R:</strong> Accident history (Some buyers accept for sports cars)</p>
-                </div>
-              </div>
-              <div className="mt-3 p-3 bg-green-100 rounded">
-                <p className="text-xs font-semibold text-green-800">
-                  💰 Sweet Spot: Grade 4 cars offer best value - mostly clean with minor fixes
+              {/* Grade reality */}
+              <div className="mt-8 pt-6 border-t border-zinc-200">
+                <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-amber-700 font-semibold mb-3">
+                  What grades really mean
+                </p>
+                <ul className="space-y-2 text-sm text-zinc-700">
+                  <li><span className="font-semibold text-zinc-900">Grade 5</span> — No repairs needed, most expensive</li>
+                  <li><span className="font-semibold text-zinc-900">Grade 4.5</span> — Minor panel work or bumper repair</li>
+                  <li><span className="font-semibold text-emerald-700">Grade 4</span> — 1–2 panels + 1 bumper repair (most cost-effective)</li>
+                  <li><span className="font-semibold text-zinc-900">Grade 3.5</span> — 3–4 panels + 1–2 bumpers (average condition)</li>
+                  <li><span className="font-semibold text-amber-700">Grade 3</span> — 4–5 panels + bumpers (not recommended)</li>
+                  <li><span className="font-semibold text-red-600">A or R</span> — Accident history (some buyers accept for sports cars)</li>
+                </ul>
+                <p className="mt-3 text-sm text-emerald-700 font-medium">
+                  ↳ Sweet spot — Grade 4 cars offer best value, mostly clean with minor fixes.
                 </p>
               </div>
-            </div>
 
-            {/* Interior Grades */}
-            <div className="bg-purple-50 p-4 rounded-lg mb-4">
-              <h3 className="font-bold text-sm sm:text-base mb-3">🚗 Interior Condition Grades</h3>
-              <div className="grid grid-cols-2 gap-2 text-xs sm:text-sm">
-                <div className="bg-white p-2 rounded">
-                  <p><strong className="text-green-600">A:</strong> Very clean</p>
-                </div>
-                <div className="bg-white p-2 rounded">
-                  <p><strong className="text-blue-600">B:</strong> Needs cleaning</p>
-                </div>
-                <div className="bg-white p-2 rounded">
-                  <p><strong className="text-yellow-600">C:</strong> Cigarette burns/defects</p>
-                </div>
-                <div className="bg-white p-2 rounded">
-                  <p><strong className="text-red-600">D:</strong> Needs work (avoid)</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Critical Warning */}
-            <div className="p-4 bg-red-50 border-2 border-red-300 rounded-lg">
-              <h3 className="font-bold text-red-900 mb-2">🚨 Why Cars Arrive Different Than Expected</h3>
-              <ul className="space-y-1 text-xs sm:text-sm text-red-800">
-                <li>• Big exporters check 100+ cars in 2-3 hours</li>
-                <li>• No time for double-checking after purchase</li>
-                <li>• Cars shipped to port without re-inspection</li>
-                <li>• Auction finishes late - no power to check cars at night</li>
-                <li>• Small buyers have no power to complain</li>
-              </ul>
-              <p className="font-bold text-red-900 mt-2">
-                Solution: Use agents who check max 40 cars/day and spend 5+ minutes per inspection
-              </p>
-            </div>
-          </Card>
-
-          {/* Major Auction Houses */}
-          <Card className="p-4 sm:p-6 border-2 border-blue-200">
-            <h2 className="text-base sm:text-lg lg:text-xl font-bold mb-3 sm:mb-4 flex items-center gap-2 text-blue-800">
-              <Building2 className="h-4 w-4 sm:h-5 sm:w-5" />
-              Major Japanese Auction Houses
-            </h2>
-            <div className="grid md:grid-cols-2 gap-4 text-xs sm:text-sm">
-              <div>
-                <h3 className="font-semibold mb-2">Largest Auction Groups:</h3>
-                <ul className="space-y-1 text-gray-700">
-                  <li>• <a href="https://www.ussnet.co.jp" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline"><strong>USS:</strong></a> 150,000+ cars weekly, 19 locations</li>
-                  <li>• <a href="https://www.jaa.co.jp" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline"><strong>JAA:</strong></a> Premium/luxury focus</li>
-                  <li>• <a href="https://www.taag.co.jp" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline"><strong>TAA:</strong></a> Toyota specialized</li>
-                  <li>• <a href="https://www.haa.co.jp" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline"><strong>HAA:</strong></a> Honda/Nissan focus</li>
+              {/* Critical warning */}
+              <div className="mt-8 pt-6 border-t border-zinc-200">
+                <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-red-600 font-semibold mb-3">
+                  Why cars arrive different than expected
+                </p>
+                <ul className="space-y-1.5 text-sm text-zinc-700">
+                  <li>· Big exporters check 100+ cars in 2–3 hours</li>
+                  <li>· No time for double-checking after purchase</li>
+                  <li>· Cars shipped to port without re-inspection</li>
+                  <li>· Auction finishes late — no power to check cars at night</li>
+                  <li>· Small buyers have no power to complain</li>
                 </ul>
+                <p className="mt-3 text-sm text-zinc-900 font-medium">
+                  ↳ Solution — Use agents who check max 40 cars/day and spend 5+ minutes per inspection.
+                </p>
               </div>
-              <div>
-                <h3 className="font-semibold mb-2">Daily Volume:</h3>
-                <ul className="space-y-1 text-gray-700">
-                  <li>• Small location: 1,200 cars/day</li>
-                  <li>• Large location: 8,000 cars/day</li>
-                  <li>• Total Japan: 50,000+ cars/day</li>
-                  <li>• Bidding speed: 15 seconds/car</li>
-                </ul>
-              </div>
-            </div>
-            <div className="mt-3 p-3 bg-blue-100 rounded">
-              <p className="text-xs font-semibold text-blue-800">
-                📌 Note: Only licensed members can enter - you need an agent with proper access
+            </section>
+
+            {/* Major Auction Houses */}
+            <section>
+              <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-blue-600 font-semibold pb-2.5 mb-5 border-b border-zinc-200">
+                Major Japanese auction houses
               </p>
-            </div>
-          </Card>
-
-          {/* Best Times to Buy & Auction Schedule */}
-          <Card className="p-4 sm:p-6 border-2 border-green-200">
-            <h2 className="text-base sm:text-lg lg:text-xl font-bold mb-3 sm:mb-4 flex items-center gap-2 text-green-800">
-              <Clock className="h-4 w-4 sm:h-5 sm:w-5" />
-              When to Buy & Weekly Auction Schedule
-            </h2>
-
-            {/* Best Times to Visit Japan */}
-            <div className="bg-green-50 p-4 rounded-lg mb-4">
-              <h3 className="font-bold text-sm sm:text-base mb-3">📅 Best Times to Buy in Japan</h3>
-              <div className="grid md:grid-cols-2 gap-4 text-xs sm:text-sm">
-                <div>
-                  <p className="font-semibold text-green-700 mb-2">✅ Best Months:</p>
-                  <ul className="space-y-1 text-gray-700">
-                    <li>• <strong>March-May:</strong> Spring, good weather</li>
-                    <li>• <strong>September-December:</strong> Fall, ideal conditions</li>
+              <div className="grid sm:grid-cols-2 gap-px bg-zinc-200 border border-zinc-200 rounded-2xl overflow-hidden">
+                <div className="bg-white p-6">
+                  <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-amber-600 font-semibold pb-2.5 mb-3 border-b border-zinc-200">
+                    Largest groups
+                  </p>
+                  <ul className="space-y-2 text-sm text-zinc-700">
+                    <li><a href="https://www.ussnet.co.jp" target="_blank" rel="noopener noreferrer" className="font-medium text-zinc-900 hover:text-amber-700 underline-offset-2 hover:underline">USS</a> — 150,000+ cars weekly, 19 locations</li>
+                    <li><a href="https://www.jaa.co.jp" target="_blank" rel="noopener noreferrer" className="font-medium text-zinc-900 hover:text-amber-700 underline-offset-2 hover:underline">JAA</a> — Premium/luxury focus</li>
+                    <li><a href="https://www.taag.co.jp" target="_blank" rel="noopener noreferrer" className="font-medium text-zinc-900 hover:text-amber-700 underline-offset-2 hover:underline">TAA</a> — Toyota specialized</li>
+                    <li><a href="https://www.haa.co.jp" target="_blank" rel="noopener noreferrer" className="font-medium text-zinc-900 hover:text-amber-700 underline-offset-2 hover:underline">HAA</a> — Honda/Nissan focus</li>
                   </ul>
                 </div>
-                <div>
-                  <p className="font-semibold text-red-700 mb-2">❌ Avoid These Times:</p>
-                  <ul className="space-y-1 text-gray-700">
-                    <li>• <strong>Golden Week (May 3-5):</strong> Massive crowds</li>
-                    <li>• <strong>Obon (mid-August):</strong> Prices 2-3x normal</li>
-                    <li>• <strong>June-July:</strong> Non-stop rain</li>
-                    <li>• <strong>August:</strong> Unbearable heat/humidity</li>
+                <div className="bg-white p-6">
+                  <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-blue-600 font-semibold pb-2.5 mb-3 border-b border-zinc-200">
+                    Daily volume
+                  </p>
+                  <ul className="space-y-1.5 text-sm text-zinc-700">
+                    <li>· Small location · 1,200 cars/day</li>
+                    <li>· Large location · 8,000 cars/day</li>
+                    <li>· Total Japan · 50,000+ cars/day</li>
+                    <li>· Bidding speed · 15 seconds/car</li>
                   </ul>
                 </div>
               </div>
-            </div>
-
-            {/* Weekly Auction Schedule */}
-            <div className="bg-blue-50 p-4 rounded-lg mb-4">
-              <h3 className="font-bold text-sm sm:text-base mb-3">📆 Weekly Auction Schedule (Nagoya Area)</h3>
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-2 text-xs sm:text-sm">
-                <div className="bg-white p-2 rounded">
-                  <p className="font-semibold">Monday</p>
-                  <p className="text-gray-600">USS R-Nagoya</p>
-                </div>
-                <div className="bg-white p-2 rounded">
-                  <p className="font-semibold">Tuesday</p>
-                  <p className="text-gray-600">CAA Gifu</p>
-                </div>
-                <div className="bg-white p-2 rounded">
-                  <p className="font-semibold">Wednesday</p>
-                  <p className="text-gray-600">CAA Chubu</p>
-                </div>
-                <div className="bg-white p-2 rounded">
-                  <p className="font-semibold">Thursday</p>
-                  <p className="text-gray-600">TAA (Toyota)</p>
-                </div>
-                <div className="bg-white p-2 rounded">
-                  <p className="font-semibold">Friday</p>
-                  <p className="text-gray-600">USS Nagoya</p>
-                </div>
-                <div className="bg-white p-2 rounded">
-                  <p className="font-semibold">Saturday</p>
-                  <p className="text-gray-600">GCA</p>
-                </div>
-              </div>
-              <p className="text-xs text-gray-600 mt-2">
-                Note: Different regions have different schedules. This is central Japan (most active area).
+              <p className="mt-4 font-mono text-[10px] uppercase tracking-[0.22em] text-zinc-500">
+                ↳ Note · Only licensed members can enter — you need an agent with proper access.
               </p>
-            </div>
+            </section>
 
-            {/* Expected Costs */}
-            <div className="bg-yellow-50 p-4 rounded-lg">
-              <h3 className="font-bold text-sm sm:text-base mb-3">💴 Typical Fee Structure (Varies by Agent)</h3>
-              <div className="space-y-2 text-xs sm:text-sm">
-                <div className="flex justify-between items-center">
-                  <span className="text-gray-700">Deposit Required:</span>
-                  <span className="font-semibold">¥80,000-150,000 per car</span>
+            {/* When to Buy */}
+            <section>
+              <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-blue-600 font-semibold pb-2.5 mb-5 border-b border-zinc-200">
+                When to buy · weekly schedule
+              </p>
+              <div className="space-y-6">
+                <div className="grid sm:grid-cols-2 gap-px bg-zinc-200 border border-zinc-200 rounded-2xl overflow-hidden">
+                  <div className="bg-white p-5">
+                    <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-emerald-700 font-semibold mb-3">
+                      Best months
+                    </p>
+                    <ul className="space-y-1.5 text-sm text-zinc-700">
+                      <li>· March–May · Spring, good weather</li>
+                      <li>· September–December · Fall, ideal conditions</li>
+                    </ul>
+                  </div>
+                  <div className="bg-white p-5">
+                    <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-red-600 font-semibold mb-3">
+                      Avoid
+                    </p>
+                    <ul className="space-y-1.5 text-sm text-zinc-700">
+                      <li>· Golden Week (May 3–5) · Massive crowds</li>
+                      <li>· Obon (mid-August) · Prices 2–3x normal</li>
+                      <li>· June–July · Non-stop rain</li>
+                      <li>· August · Unbearable heat/humidity</li>
+                    </ul>
+                  </div>
                 </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-gray-700">Agent Fee:</span>
-                  <span className="font-semibold">¥50,000-100,000 per car</span>
+
+                <div>
+                  <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-amber-600 font-semibold mb-3">
+                    Weekly auction schedule (Nagoya area)
+                  </p>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-px bg-zinc-200 border border-zinc-200 rounded-2xl overflow-hidden">
+                    {[
+                      ['Monday', 'USS R-Nagoya'],
+                      ['Tuesday', 'CAA Gifu'],
+                      ['Wednesday', 'CAA Chubu'],
+                      ['Thursday', 'TAA (Toyota)'],
+                      ['Friday', 'USS Nagoya'],
+                      ['Saturday', 'GCA'],
+                    ].map(([day, house]) => (
+                      <div key={day} className="bg-white p-4">
+                        <p className="text-sm font-medium text-zinc-900">{day}</p>
+                        <p className="text-xs text-zinc-500 mt-0.5">{house}</p>
+                      </div>
+                    ))}
+                  </div>
+                  <p className="mt-3 font-mono text-[10px] uppercase tracking-[0.22em] text-zinc-500">
+                    Different regions have different schedules · This is central Japan
+                  </p>
                 </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-gray-700">Payment Deadline:</span>
-                  <span className="font-semibold text-red-600">3-5 business days</span>
-                </div>
-                <div className="p-2 bg-red-100 rounded mt-2">
-                  <p className="text-xs text-red-800">
-                    ⚠️ Missing payment deadline = lose deposit + automatic cancellation
+
+                {/* Typical Fees */}
+                <div>
+                  <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-amber-600 font-semibold mb-3">
+                    Typical fee structure
+                  </p>
+                  <div className="border-y border-zinc-200 divide-y divide-zinc-200/80">
+                    {[
+                      ['Deposit required', '¥80,000–150,000 per car'],
+                      ['Agent fee', '¥50,000–100,000 per car'],
+                      ['Payment deadline', '3–5 business days'],
+                    ].map(([k, v]) => (
+                      <div key={k} className="grid grid-cols-[1fr_auto] gap-4 py-3.5 items-baseline">
+                        <span className="text-sm text-zinc-700">{k}</span>
+                        <span className="font-mono text-sm text-zinc-900 font-medium">{v}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <p className="mt-3 text-sm text-red-600">
+                    ↳ Missing payment deadline = lose deposit + automatic cancellation
                   </p>
                 </div>
               </div>
-            </div>
-          </Card>
+            </section>
 
-          {/* Critical Warnings & Rules */}
-          <Card className="p-4 sm:p-6 border-2 border-red-200">
-            <h2 className="text-base sm:text-lg lg:text-xl font-bold mb-3 sm:mb-4 flex items-center gap-2 text-red-800">
-              <AlertTriangle className="h-4 w-4 sm:h-5 sm:w-5" />
-              Critical Warnings & Rules
-            </h2>
-            <div className="p-4 bg-red-50 rounded-lg">
-              <ul className="space-y-2 text-xs sm:text-sm text-red-800">
-                <li>• Check import restrictions BEFORE bidding (YOUR responsibility)</li>
-                <li>• Cancellation after purchase = lose entire deposit</li>
-                <li>• Bank charges are YOUR responsibility</li>
-                <li>• Missing payment deadline = automatic cancellation</li>
-                <li>• No exceptions to these rules - agents are strict</li>
-              </ul>
-            </div>
-          </Card>
-
-          {/* Pricing Strategy */}
-          <Card className="p-4 sm:p-6 border-2 border-blue-200">
-            <h2 className="text-base sm:text-lg lg:text-xl font-bold mb-3 sm:mb-4 flex items-center gap-2 text-blue-800">
-              <TrendingUp className="h-4 w-4 sm:h-5 sm:w-5" />
-              Smart Pricing Strategy
-            </h2>
-            <div className="bg-blue-50 p-4 rounded-lg">
-              <ol className="space-y-2 text-xs sm:text-sm">
-                <li className="flex gap-2">
-                  <span className="font-bold text-blue-600">1.</span>
-                  <div>Check your local market price for the same model</div>
-                </li>
-                <li className="flex gap-2">
-                  <span className="font-bold text-blue-600">2.</span>
-                  <div>Convert to JPY and bid LOWER than local price</div>
-                </li>
-                <li className="flex gap-2">
-                  <span className="font-bold text-blue-600">3.</span>
-                  <div>Remember: 66,000 cars auctioned weekly = plenty of options</div>
-                </li>
-                <li className="flex gap-2">
-                  <span className="font-bold text-blue-600">4.</span>
-                  <div>Your agent will provide recent auction prices for comparison</div>
-                </li>
-              </ol>
-              <div className="mt-3 p-2 bg-green-100 rounded">
-                <p className="text-xs font-semibold text-green-800">
-                  💡 Pro Tip: Don't rush - if you miss one, another similar car comes next week
-                </p>
-              </div>
-            </div>
-          </Card>
-
-          {/* Documentation You'll Receive */}
-          <Card className="p-4 sm:p-6 border-2 border-green-200">
-            <h2 className="text-base sm:text-lg lg:text-xl font-bold mb-3 sm:mb-4 flex items-center gap-2 text-green-800">
-              <FileText className="h-4 w-4 sm:h-5 sm:w-5" />
-              Documentation You'll Receive
-            </h2>
-            <div className="bg-green-50 p-4 rounded-lg">
-              <div className="grid md:grid-cols-2 gap-3 text-xs sm:text-sm">
-                <div className="flex items-start gap-2">
-                  <CheckCircle className="h-4 w-4 text-green-600 flex-shrink-0 mt-0.5" />
-                  <div>
-                    <p className="font-semibold">Auction Sheet</p>
-                    <p className="text-gray-600">Proves car condition & history</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-2">
-                  <CheckCircle className="h-4 w-4 text-green-600 flex-shrink-0 mt-0.5" />
-                  <div>
-                    <p className="font-semibold">Invoice from Auction</p>
-                    <p className="text-gray-600">Proves actual price paid</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-2">
-                  <CheckCircle className="h-4 w-4 text-green-600 flex-shrink-0 mt-0.5" />
-                  <div>
-                    <p className="font-semibold">Deregistration Papers</p>
-                    <p className="text-gray-600">Required for your registration</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-2">
-                  <CheckCircle className="h-4 w-4 text-green-600 flex-shrink-0 mt-0.5" />
-                  <div>
-                    <p className="font-semibold">Bill of Lading</p>
-                    <p className="text-gray-600">Needed to collect car at port</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-2">
-                  <CheckCircle className="h-4 w-4 text-green-600 flex-shrink-0 mt-0.5" />
-                  <div>
-                    <p className="font-semibold">Service/Warranty Books</p>
-                    <p className="text-gray-600">If available with the car</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-2">
-                  <CheckCircle className="h-4 w-4 text-green-600 flex-shrink-0 mt-0.5" />
-                  <div>
-                    <p className="font-semibold">Inspection Certificate</p>
-                    <p className="text-gray-600">Japanese inspection record</p>
-                  </div>
-                </div>
-              </div>
-              <p className="text-xs text-gray-600 mt-3">
-                📌 Keep all originals safe - customs often keeps them permanently
-              </p>
-            </div>
-          </Card>
-        </div>
-      )}
-
-      {/* Exporter Insights Section */}
-      <div className="mt-8">
-        <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
-          <TrendingUp className="h-6 w-6 text-purple-600" />
-          Real Exporter Insights & Communication Tips
-        </h2>
-
-        <div className="grid md:grid-cols-2 gap-6">
-          {/* Communication Best Practices */}
-          <Card className="p-6 bg-gradient-to-br from-blue-50 to-indigo-50">
-            <h3 className="text-lg font-semibold mb-4 text-blue-900">
-              How to Communicate with Japanese Exporters
-            </h3>
-            <div className="space-y-3 text-sm">
-              <div className="bg-white/80 p-3 rounded">
-                <p className="font-medium text-blue-800 mb-1">Always Include:</p>
-                <ul className="space-y-1 text-gray-700">
-                  <li>• Your full name and country</li>
-                  <li>• Specific car model and auction grade</li>
-                  <li>• Your budget in USD or JPY</li>
-                  <li>• Port of destination (Walvis Bay)</li>
+            {/* Critical Warnings */}
+            <section className="border-y border-zinc-200 py-6">
+              <div className="flex items-start gap-3">
+                <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-red-600 font-semibold mt-1 whitespace-nowrap">
+                  [ Critical rules ]
+                </span>
+                <ul className="space-y-2 flex-1 max-w-3xl">
+                  {[
+                    'Check import restrictions BEFORE bidding (YOUR responsibility)',
+                    'Cancellation after purchase = lose entire deposit',
+                    'Bank charges are YOUR responsibility',
+                    'Missing payment deadline = automatic cancellation',
+                    'No exceptions to these rules — agents are strict',
+                  ].map((rule, i) => (
+                    <li key={i} className="flex items-start gap-2.5 text-sm text-zinc-700">
+                      <XCircle className="h-3.5 w-3.5 mt-0.5 text-red-500 flex-shrink-0" strokeWidth={1.75} />
+                      <span>{rule}</span>
+                    </li>
+                  ))}
                 </ul>
               </div>
-              <div className="bg-white/80 p-3 rounded">
-                <p className="font-medium text-amber-800 mb-1">Response Times:</p>
-                <p className="text-gray-700">
-                  Expect 12-24 hour delays due to timezone. Japanese business hours:
-                  9 AM - 6 PM JST (2 AM - 11 AM Namibian time)
-                </p>
+            </section>
+
+            {/* Pricing Strategy */}
+            <section>
+              <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-blue-600 font-semibold pb-2.5 mb-5 border-b border-zinc-200">
+                Smart pricing strategy
+              </p>
+              <ol className="border-y border-zinc-200 divide-y divide-zinc-200/80">
+                {[
+                  'Check your local market price for the same model',
+                  'Convert to JPY and bid LOWER than local price',
+                  'Remember — 66,000 cars auctioned weekly = plenty of options',
+                  'Your agent will provide recent auction prices for comparison',
+                ].map((s, i) => (
+                  <li key={i} className="grid grid-cols-[3rem_1fr] gap-4 py-3.5 items-baseline">
+                    <span className="font-mono text-[10px] text-amber-600 tracking-[0.2em] font-semibold">
+                      {String(i + 1).padStart(2, '0')}
+                    </span>
+                    <span className="text-sm text-zinc-700">{s}</span>
+                  </li>
+                ))}
+              </ol>
+              <p className="mt-4 text-sm text-emerald-700">
+                ↳ Pro tip — Don't rush. If you miss one, another similar car comes next week.
+              </p>
+            </section>
+
+            {/* Documentation */}
+            <section>
+              <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-blue-600 font-semibold pb-2.5 mb-5 border-b border-zinc-200">
+                Documentation you'll receive
+              </p>
+              <div className="grid sm:grid-cols-2 gap-px bg-zinc-200 border border-zinc-200 rounded-2xl overflow-hidden">
+                {[
+                  ['Auction sheet', 'Proves car condition & history'],
+                  ['Invoice from auction', 'Proves actual price paid'],
+                  ['Deregistration papers', 'Required for your registration'],
+                  ['Bill of Lading', 'Needed to collect car at port'],
+                  ['Service/warranty books', 'If available with the car'],
+                  ['Inspection certificate', 'Japanese inspection record'],
+                ].map(([title, desc], i) => (
+                  <div key={title} className="bg-white p-5">
+                    <div className="flex items-start gap-2.5">
+                      <CheckCircle2 className="h-4 w-4 mt-0.5 text-emerald-600 flex-shrink-0" strokeWidth={1.75} />
+                      <div>
+                        <p className="text-sm font-medium text-zinc-900">{title}</p>
+                        <p className="mt-0.5 text-xs text-zinc-500">{desc}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
               </div>
-              <div className="bg-white/80 p-3 rounded">
-                <p className="font-medium text-green-800 mb-1">Pro Tip:</p>
-                <p className="text-gray-700">
-                  Use simple, clear English. Avoid slang. Number your questions for clear answers.
-                </p>
+              <p className="mt-3 font-mono text-[10px] uppercase tracking-[0.22em] text-zinc-500">
+                ↳ Keep all originals safe — customs often keeps them permanently
+              </p>
+            </section>
+          </div>
+        )}
+
+        {/* EXPORTER INSIGHTS — always visible */}
+        <section className="mt-16">
+          <div className="mb-6">
+            <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-blue-600 font-semibold mb-3">
+              Exporter insights
+            </p>
+            <h2 className="text-2xl sm:text-3xl font-medium tracking-tight text-zinc-900">
+              Communication tips &amp; insider knowledge.
+            </h2>
+          </div>
+
+          <div className="space-y-8">
+            {/* Communication */}
+            <div className="border border-zinc-200 rounded-2xl bg-white p-6 sm:p-7">
+              <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-amber-600 font-semibold pb-2.5 mb-4 border-b border-zinc-200">
+                How to communicate with Japanese exporters
+              </p>
+              <div className="space-y-4 text-sm text-zinc-700">
+                <div>
+                  <p className="font-medium text-zinc-900 mb-1">Always include:</p>
+                  <ul className="space-y-1 pl-4">
+                    <li>· Your full name and country</li>
+                    <li>· Specific car model and auction grade</li>
+                    <li>· Your budget in USD or JPY</li>
+                    <li>· Port of destination (Walvis Bay)</li>
+                  </ul>
+                </div>
+                <div>
+                  <p className="font-medium text-zinc-900 mb-1">Response times:</p>
+                  <p>Expect 12–24 hour delays due to timezone. Japanese business hours: 9 AM – 6 PM JST (2 AM – 11 AM Namibian time).</p>
+                </div>
+                <div>
+                  <p className="font-medium text-emerald-700 mb-1">↳ Pro tip</p>
+                  <p>Use simple, clear English. Avoid slang. Number your questions for clear answers.</p>
+                </div>
               </div>
             </div>
-          </Card>
 
-          {/* Hidden Costs Revealed */}
-          <Card className="p-6 bg-gradient-to-br from-amber-50 to-orange-50">
-            <h3 className="text-lg font-semibold mb-4 text-amber-900">
-              Hidden Japan-Side Costs (Often Not Mentioned)
-            </h3>
-            <div className="space-y-2 text-sm">
-              <div className="flex justify-between p-2 bg-white/80 rounded">
-                <span className="text-gray-700">Radiation inspection (2011 models)</span>
-                <span className="font-medium">¥15,000</span>
-              </div>
-              <div className="flex justify-between p-2 bg-white/80 rounded">
-                <span className="text-gray-700">Recycling fee</span>
-                <span className="font-medium">¥8,000-18,000</span>
-              </div>
-              <div className="flex justify-between p-2 bg-white/80 rounded">
-                <span className="text-gray-700">Inland transport (auction to port)</span>
-                <span className="font-medium">¥30,000-60,000</span>
-              </div>
-              <div className="flex justify-between p-2 bg-white/80 rounded">
-                <span className="text-gray-700">Pre-export inspection</span>
-                <span className="font-medium">¥10,000</span>
-              </div>
-              <div className="flex justify-between p-2 bg-white/80 rounded">
-                <span className="text-gray-700">Document handling</span>
-                <span className="font-medium">¥5,000</span>
-              </div>
-              <div className="p-3 bg-red-50 border border-red-200 rounded mt-3">
-                <p className="text-xs text-red-800">
-                  <strong>Total hidden costs:</strong> ¥68,000-108,000 (R8,840-14,040)
-                </p>
-              </div>
-            </div>
-          </Card>
-
-          {/* Negotiation Tactics */}
-          <Card className="p-6">
-            <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
-              <DollarSign className="h-5 w-5 text-green-600" />
-              Smart Negotiation Tactics
-            </h3>
-            <div className="space-y-3 text-sm">
-              <div className="border-l-4 border-green-500 pl-3">
-                <p className="font-medium text-green-800">Bundle Discount</p>
-                <p className="text-gray-600">
-                  Buying 2+ cars? Ask for 5-10% discount on FOB prices
-                </p>
-              </div>
-              <div className="border-l-4 border-blue-500 pl-3">
-                <p className="font-medium text-blue-800">Free Shipping Arrangement</p>
-                <p className="text-gray-600">
-                  Some exporters waive inland transport if you buy 3+ cars
-                </p>
-              </div>
-              <div className="border-l-4 border-purple-500 pl-3">
-                <p className="font-medium text-purple-800">Payment Terms</p>
-                <p className="text-gray-600">
-                  Ask for 50% deposit, 50% on Bill of Lading receipt
-                </p>
-              </div>
-              <div className="border-l-4 border-amber-500 pl-3">
-                <p className="font-medium text-amber-800">Inspection Inclusion</p>
-                <p className="text-gray-600">
-                  Request free detailed inspection report with underbody photos
-                </p>
-              </div>
-            </div>
-          </Card>
-
-          {/* Red Flags */}
-          <Card className="p-6 bg-red-50 border-red-200">
-            <h3 className="text-lg font-semibold mb-4 text-red-900 flex items-center gap-2">
-              <AlertTriangle className="h-5 w-5" />
-              Exporter Red Flags
-            </h3>
-            <div className="space-y-2 text-sm">
-              <div className="flex items-start gap-2">
-                <XCircle className="h-4 w-4 text-red-600 mt-0.5 flex-shrink-0" />
-                <p className="text-red-800">Refuses to provide company registration details</p>
-              </div>
-              <div className="flex items-start gap-2">
-                <XCircle className="h-4 w-4 text-red-600 mt-0.5 flex-shrink-0" />
-                <p className="text-red-800">Asks for 100% payment before shipping</p>
-              </div>
-              <div className="flex items-start gap-2">
-                <XCircle className="h-4 w-4 text-red-600 mt-0.5 flex-shrink-0" />
-                <p className="text-red-800">No physical office address in Japan</p>
-              </div>
-              <div className="flex items-start gap-2">
-                <XCircle className="h-4 w-4 text-red-600 mt-0.5 flex-shrink-0" />
-                <p className="text-red-800">Unusually low prices (30%+ below market)</p>
-              </div>
-              <div className="flex items-start gap-2">
-                <XCircle className="h-4 w-4 text-red-600 mt-0.5 flex-shrink-0" />
-                <p className="text-red-800">Won't provide auction sheet translation</p>
-              </div>
-              <div className="flex items-start gap-2">
-                <XCircle className="h-4 w-4 text-red-600 mt-0.5 flex-shrink-0" />
-                <p className="text-red-800">Pressures for immediate payment</p>
-              </div>
-            </div>
-          </Card>
-        </div>
-
-        {/* Container Loading Intelligence */}
-        <Card className="p-6 mt-6 bg-gradient-to-r from-purple-50 to-pink-50">
-          <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
-            <Package className="h-5 w-5 text-purple-600" />
-            Container Loading Intelligence from Exporters
-          </h3>
-          <div className="grid md:grid-cols-2 gap-4 text-sm">
-            <div>
-              <h4 className="font-medium text-purple-800 mb-2">Typical 40ft Container Capacity:*</h4>
-              <ul className="space-y-1 text-gray-700">
-                <li>• <strong>3-4 sedans:</strong> 3 guaranteed (Camry size), 4 if compact</li>
-                <li>• <strong>4-5 small cars:</strong> 4 standard, 5 with special arrangement</li>
-                <li>• <strong>3 SUVs:</strong> Standard for RAV4, CRV size vehicles</li>
-                <li>• <strong>2 large vans:</strong> Noah, Voxy, Alphard (3 if smaller)</li>
-                <li>• <strong>3 pickups:</strong> Hilux, Navara, D-Max standard</li>
+            {/* Hidden costs */}
+            <div className="border border-zinc-200 rounded-2xl bg-white p-6 sm:p-7">
+              <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-amber-600 font-semibold pb-2.5 mb-4 border-b border-zinc-200">
+                Hidden Japan-side costs (often not mentioned)
+              </p>
+              <ul className="divide-y divide-zinc-200/80">
+                {[
+                  ['Radiation inspection (2011 models)', '¥15,000'],
+                  ['Recycling fee', '¥8,000–18,000'],
+                  ['Inland transport (auction to port)', '¥30,000–60,000'],
+                  ['Pre-export inspection', '¥10,000'],
+                  ['Document handling', '¥5,000'],
+                ].map(([k, v]) => (
+                  <li key={k} className="grid grid-cols-[1fr_auto] gap-4 py-3 items-baseline">
+                    <span className="text-sm text-zinc-700">{k}</span>
+                    <span className="font-mono text-sm text-zinc-900 font-medium">{v}</span>
+                  </li>
+                ))}
               </ul>
-              <p className="text-xs text-amber-600 mt-2 italic">
-                *Always confirm with exporter - actual capacity varies by specific models
+              <p className="mt-4 pt-3 border-t border-red-500/40 text-sm text-red-700">
+                <span className="font-mono text-[10px] uppercase tracking-[0.22em] font-semibold mr-1.5">[ Total ]</span>
+                Hidden costs ¥68,000–108,000 (R8,840–14,040)
               </p>
             </div>
-            <div>
-              <h4 className="font-medium text-pink-800 mb-2">Loading Day Checklist:</h4>
-              <ul className="space-y-1 text-gray-700">
-                <li>✓ Request loading photos from multiple angles</li>
-                <li>✓ Confirm all VINs match your documents</li>
-                <li>✓ Get container number and seal number</li>
-                <li>✓ Verify fumigation certificate issued</li>
-                <li>✓ Ensure fuel level: 1/8 tank or less (check shipper requirements)</li>
+
+            {/* Negotiation */}
+            <div className="border border-zinc-200 rounded-2xl bg-white p-6 sm:p-7">
+              <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-amber-600 font-semibold pb-2.5 mb-4 border-b border-zinc-200">
+                Smart negotiation tactics
+              </p>
+              <div className="grid sm:grid-cols-2 gap-x-8 gap-y-4 text-sm">
+                {[
+                  ['Bundle discount', 'Buying 2+ cars? Ask for 5–10% discount on FOB prices'],
+                  ['Free shipping arrangement', 'Some exporters waive inland transport if you buy 3+ cars'],
+                  ['Payment terms', 'Ask for 50% deposit, 50% on Bill of Lading receipt'],
+                  ['Inspection inclusion', 'Request free detailed inspection report with underbody photos'],
+                ].map(([title, desc]) => (
+                  <div key={title}>
+                    <p className="font-medium text-zinc-900">{title}</p>
+                    <p className="mt-0.5 text-zinc-600">{desc}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Exporter Red Flags */}
+            <div className="border border-red-200 rounded-2xl bg-red-50/40 p-6 sm:p-7">
+              <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-red-600 font-semibold pb-2.5 mb-4 border-b border-red-200">
+                Exporter red flags
+              </p>
+              <ul className="space-y-2">
+                {[
+                  'Refuses to provide company registration details',
+                  'Asks for 100% payment before shipping',
+                  'No physical office address in Japan',
+                  'Unusually low prices (30%+ below market)',
+                  "Won't provide auction sheet translation",
+                  'Pressures for immediate payment',
+                ].map((flag, i) => (
+                  <li key={i} className="flex items-start gap-2.5 text-sm text-zinc-700">
+                    <XCircle className="h-3.5 w-3.5 mt-0.5 text-red-500 flex-shrink-0" strokeWidth={1.75} />
+                    <span>{flag}</span>
+                  </li>
+                ))}
               </ul>
             </div>
-          </div>
-          <div className="mt-4 p-3 bg-white/80 rounded">
-            <p className="text-xs text-gray-700">
-              <strong>Money Saver:</strong> Japanese exporters can arrange "consolidation" -
-              they'll find other buyers to share your container. This service usually costs
-              ¥20,000 but saves you R55,000+ on shipping.
-            </p>
-          </div>
-        </Card>
 
-        {/* Best Months to Buy */}
-        <Card className="p-6 mt-6">
-          <h3 className="text-lg font-semibold mb-4">
-            📅 Best Times to Buy (Insider Knowledge)
-          </h3>
-          <div className="grid md:grid-cols-3 gap-4 text-sm">
-            <div className="p-3 bg-green-50 rounded">
-              <p className="font-medium text-green-800 mb-1">April-May (Golden Week)</p>
-              <p className="text-gray-700">Auction prices drop 10-15% during Japanese holidays</p>
+            {/* Container Loading */}
+            <div className="border border-zinc-200 rounded-2xl bg-white p-6 sm:p-7">
+              <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-amber-600 font-semibold pb-2.5 mb-4 border-b border-zinc-200">
+                Container loading intelligence
+              </p>
+              <div className="grid sm:grid-cols-2 gap-x-8 gap-y-4 text-sm">
+                <div>
+                  <p className="font-medium text-zinc-900 mb-2">Typical 40ft container capacity *</p>
+                  <ul className="space-y-1 text-zinc-700">
+                    <li>· 3–4 sedans · 3 guaranteed (Camry size), 4 if compact</li>
+                    <li>· 4–5 small cars · 4 standard, 5 with special arrangement</li>
+                    <li>· 3 SUVs · Standard for RAV4, CRV size vehicles</li>
+                    <li>· 2 large vans · Noah, Voxy, Alphard (3 if smaller)</li>
+                    <li>· 3 pickups · Hilux, Navara, D-Max standard</li>
+                  </ul>
+                  <p className="mt-2 font-mono text-[10px] uppercase tracking-[0.18em] text-amber-700">
+                    * Always confirm with exporter — actual capacity varies by specific models
+                  </p>
+                </div>
+                <div>
+                  <p className="font-medium text-zinc-900 mb-2">Loading day checklist</p>
+                  <ul className="space-y-1 text-zinc-700">
+                    <li>✓ Request loading photos from multiple angles</li>
+                    <li>✓ Confirm all VINs match your documents</li>
+                    <li>✓ Get container number and seal number</li>
+                    <li>✓ Verify fumigation certificate issued</li>
+                    <li>✓ Ensure fuel level — 1/8 tank or less (check shipper requirements)</li>
+                  </ul>
+                </div>
+              </div>
+              <p className="mt-4 pt-3 border-t border-zinc-200 text-sm text-emerald-700">
+                <span className="font-mono text-[10px] uppercase tracking-[0.22em] font-semibold mr-1.5">[ Money saver ]</span>
+                Japanese exporters can arrange "consolidation" — they'll find other buyers to share
+                your container. Usually costs ¥20,000 but saves R55,000+ on shipping.
+              </p>
             </div>
-            <div className="p-3 bg-blue-50 rounded">
-              <p className="font-medium text-blue-800 mb-1">December-January</p>
-              <p className="text-gray-700">Year-end clearance, dealers dumping inventory</p>
-            </div>
-            <div className="p-3 bg-amber-50 rounded">
-              <p className="font-medium text-amber-800 mb-1">August (Obon)</p>
-              <p className="text-gray-700">Another holiday period with reduced competition</p>
+
+            {/* Best months */}
+            <div className="border border-zinc-200 rounded-2xl bg-white p-6 sm:p-7">
+              <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-amber-600 font-semibold pb-2.5 mb-4 border-b border-zinc-200">
+                Best times to buy (insider knowledge)
+              </p>
+              <div className="grid sm:grid-cols-3 gap-px bg-zinc-200 border border-zinc-200 rounded-xl overflow-hidden">
+                {[
+                  ['April–May (Golden Week)', 'Auction prices drop 10–15% during Japanese holidays'],
+                  ['December–January', 'Year-end clearance, dealers dumping inventory'],
+                  ['August (Obon)', 'Another holiday period with reduced competition'],
+                ].map(([k, v]) => (
+                  <div key={k} className="bg-white p-4">
+                    <p className="text-sm font-medium text-zinc-900">{k}</p>
+                    <p className="mt-1 text-xs text-zinc-600">{v}</p>
+                  </div>
+                ))}
+              </div>
+              <p className="mt-4 text-sm text-red-700">
+                <span className="font-mono text-[10px] uppercase tracking-[0.22em] font-semibold mr-1.5">[ Avoid ]</span>
+                March (fiscal year end) and September (half-year close) — prices spike 20–30% as
+                dealers stock up.
+              </p>
             </div>
           </div>
-          <div className="mt-4 p-3 bg-red-50 rounded">
-            <p className="text-xs text-red-800">
-              <strong>Avoid:</strong> March (fiscal year end) and September (half-year close) -
-              prices spike 20-30% as dealers stock up.
-            </p>
-          </div>
-        </Card>
+        </section>
       </div>
 
-      {/* Portal Page Navigation */}
       <PortalPageNavigation currentPath="/portal/japan-auctions" />
-    </div>
+    </main>
   )
 }
