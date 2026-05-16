@@ -93,7 +93,7 @@ const scamWarnings = [
 ]
 
 const costSavingTips = [
-  'Use ContShare.com to save R55,500 on ocean freight by sharing container space',
+  'Ask your exporter about other buyers shipping to your port — splitting a 40ft container can save R55,500 on ocean freight',
   'Import 4 cars at once to maximize container usage and split clearing costs',
   'Choose vehicles with engines under 1200cc (petrol) or 1400cc (diesel) to avoid ENV levy',
   'Buy Grade 4 or higher vehicles to avoid surprise repair costs',
@@ -231,9 +231,10 @@ export default function CriticalImportWarnings() {
         <div className="mt-6 p-4 bg-white/80 rounded-lg">
           <h4 className="font-semibold text-gray-900 mb-2">Biggest Money Saver:</h4>
           <p className="text-sm text-gray-700">
-            Combining ContShare.com container sharing with group imports (4 cars) can save each
-            importer over <span className="font-bold text-green-600">R75,000</span> compared to
-            importing a single vehicle alone. This represents a 32% reduction in total import costs!
+            Asking your exporter to consolidate your shipment with other buyers heading to the same
+            port (e.g., Walvis Bay) — splitting a 40ft container 4 ways — can save each importer
+            over <span className="font-bold text-green-600">R75,000</span> compared to shipping a
+            single vehicle alone. This represents a 32% reduction in total import costs.
           </p>
         </div>
       </div>

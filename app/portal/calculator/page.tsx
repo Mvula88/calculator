@@ -541,59 +541,46 @@ export default function DutyCalculator() {
                   />
                   <p className="text-xs text-zinc-500 mt-1.5">
                     {useContainerSharing
-                      ? `ContShare rate · ${countryReqs.currency} 18,500 × ${parseInt(carsInContainer) || 1} car(s)`
+                      ? `Shared rate · ${countryReqs.currency} 18,500 × ${parseInt(carsInContainer) || 1} car(s)`
                       : 'Total cost for your cars (will be divided by 4 cars in container)'}
                   </p>
                 </div>
 
                 <div className="border border-amber-200 bg-amber-50/40 rounded-xl p-4">
-                  <div className="flex items-start justify-between gap-3 mb-3">
-                    <label className="flex items-start gap-2.5 cursor-pointer flex-1">
-                      <input
-                        type="checkbox"
-                        checked={useContainerSharing}
-                        onChange={(e) => {
-                          setUseContainerSharing(e.target.checked)
-                          if (e.target.checked) {
-                            const userCars = parseInt(carsInContainer) || 1
-                            setOceanFreightCost((18500 * userCars).toString())
-                          } else {
-                            setOceanFreightCost('')
-                          }
-                        }}
-                        className="mt-0.5 rounded border-zinc-300 text-amber-500 focus:ring-amber-500/20"
-                      />
-                      <div>
-                        <p className="text-sm font-medium text-zinc-900">Use ContShare platform</p>
-                        <p className="text-xs text-zinc-600 mt-0.5">Save up to 75% on ocean freight costs.</p>
-                      </div>
-                    </label>
-                    <Link
-                      href="https://www.contshare.com"
-                      target="_blank"
-                      className="group inline-flex items-center gap-1 text-xs font-semibold text-zinc-900 hover:text-amber-700 transition-colors"
-                    >
-                      Learn more
-                      <ArrowUpRight className="h-3 w-3" />
-                    </Link>
-                  </div>
+                  <label className="flex items-start gap-2.5 cursor-pointer mb-3">
+                    <input
+                      type="checkbox"
+                      checked={useContainerSharing}
+                      onChange={(e) => {
+                        setUseContainerSharing(e.target.checked)
+                        if (e.target.checked) {
+                          const userCars = parseInt(carsInContainer) || 1
+                          setOceanFreightCost((18500 * userCars).toString())
+                        } else {
+                          setOceanFreightCost('')
+                        }
+                      }}
+                      className="mt-0.5 rounded border-zinc-300 text-amber-500 focus:ring-amber-500/20"
+                    />
+                    <div>
+                      <p className="text-sm font-medium text-zinc-900">Use shared container rate</p>
+                      <p className="text-xs text-zinc-600 mt-0.5">
+                        Save up to 75% by splitting a 40ft container with other importers.
+                      </p>
+                    </div>
+                  </label>
 
                   {useContainerSharing && (
                     <div className="text-xs text-zinc-700 bg-white border border-zinc-200 rounded-lg p-3 space-y-1.5">
                       <p className="font-medium text-emerald-700">
-                        ✓ ContShare rate · {countryReqs.currency} 18,500 per car
+                        ✓ Shared rate · {countryReqs.currency} 18,500 per car
                       </p>
-                      <p>Share container space with other importers for massive savings.</p>
                       <p>
-                        Visit{' '}
-                        <Link
-                          href="https://www.contshare.com"
-                          target="_blank"
-                          className="font-medium text-zinc-900 hover:text-amber-700 underline-offset-2 hover:underline"
-                        >
-                          contshare.com
-                        </Link>{' '}
-                        to find container partners.
+                        <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-amber-700 font-semibold mr-1.5">
+                          [ How to find ]
+                        </span>
+                        Ask your exporter if other clients are shipping cars to your port
+                        (e.g., Walvis Bay) — they often consolidate buyers into one 40ft container.
                       </p>
                     </div>
                   )}
@@ -815,14 +802,14 @@ export default function DutyCalculator() {
                     <div className="flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.22em] border-b border-zinc-200 pb-2.5 mb-3">
                       <span className="text-blue-600 font-semibold">Ocean freight</span>
                       {useContainerSharing && (
-                        <span className="text-emerald-700 font-semibold">ContShare</span>
+                        <span className="text-emerald-700 font-semibold">Shared</span>
                       )}
                     </div>
                     <div className="space-y-1.5 text-sm">
                       {useContainerSharing ? (
                         <>
                           <div className="flex justify-between text-zinc-700">
-                            <span>ContShare rate per car</span>
+                            <span>Shared rate per car</span>
                             <span className="font-mono">{countryReqs.currency} 18,500</span>
                           </div>
                           <div className="flex justify-between text-zinc-700">

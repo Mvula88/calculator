@@ -252,8 +252,7 @@ const journeySteps = [
     ],
     extra: {
       label: 'Save on shipping',
-      text: 'Use ContShare to find container sharing partners',
-      href: 'https://www.contshare.com/',
+      text: 'Ask your exporter if other clients are shipping to your port — they often consolidate buyers into a shared 40ft container.',
     },
   },
   {
@@ -438,11 +437,9 @@ export default function BeginnerGuidePage() {
             Save {currency}{Math.round(shippingLocal * 2.5).toLocaleString()} on shipping
           </p>
           <p className="text-xs text-amber-900">
-            Share a 40ft container via{' '}
-            <a href="https://contshare.com" target="_blank" className="font-semibold underline hover:text-amber-800">
-              ContShare.com
-            </a>
-            . Solo shipping costs {currency}{Math.round(shippingLocal * 3.5).toLocaleString()}+.
+            Ask your exporter to consolidate your car with other buyers shipping to the same port —
+            a shared 40ft container splits the cost. Solo shipping costs {currency}
+            {Math.round(shippingLocal * 3.5).toLocaleString()}+.
           </p>
         </div>
         <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-zinc-500">
@@ -790,16 +787,7 @@ export default function BeginnerGuidePage() {
                       <span className="font-mono text-[10px] uppercase tracking-[0.22em] font-semibold mr-1.5">
                         [ {step.extra.label} ]
                       </span>
-                      {step.extra.text}{' '}
-                      <a
-                        href={step.extra.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="font-medium text-zinc-900 hover:text-amber-700 underline-offset-2 hover:underline"
-                      >
-                        ContShare
-                        <ArrowUpRight className="inline h-3 w-3 ml-0.5" />
-                      </a>
+                      {step.extra.text}
                     </p>
                   )}
                 </div>

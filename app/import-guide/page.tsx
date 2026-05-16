@@ -817,15 +817,8 @@ export default function PublicImportGuide() {
               <li className="flex items-start gap-3 text-sm sm:text-base text-zinc-700">
                 <span className="font-mono text-[10px] text-zinc-400 tracking-[0.2em] w-6 flex-shrink-0 pt-1.5">04</span>
                 <span className="leading-relaxed">
-                  Find container partners via{' '}
-                  <a
-                    href="https://contshare.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="font-medium text-zinc-900 hover:text-amber-700 underline-offset-2 hover:underline transition-colors"
-                  >
-                    ContShare.com
-                  </a>
+                  Ask your exporter if other clients are shipping cars to your port
+                  (e.g., Walvis Bay) — they often consolidate buyers into a shared 40ft container.
                 </span>
               </li>
             </ul>

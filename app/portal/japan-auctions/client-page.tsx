@@ -29,6 +29,8 @@ const exporters: Exporter[] = [
   { name: 'Karmen Ltd', website: 'kar-men.com', auctionAccess: 'Likely', description: 'Est. 1995, 31,255+ vehicles, worldwide export' },
   { name: 'Nikkyo Cars', website: 'nikkyocars.com', auctionAccess: 'Yes', description: 'Stock & auction, Namibia focus, Walvis Bay shipping', highlight: 'Namibia' },
   { name: 'Autocom Japan', website: 'autocj.co.jp', auctionAccess: 'Likely', description: 'Large inventory, 360° views, comprehensive platform' },
+  { name: 'Hanamaru (Sococara)', website: 'sococara.com/sococara/', auctionAccess: 'Yes', description: 'Budget-friendly stock + accident-damaged vehicles for parts/rebuilds', highlight: 'Salvage' },
+  { name: 'TAU Trade', website: 'tau-trade.com/sal_frt/', auctionAccess: 'Yes', description: 'Salvage & accident-damaged car specialist — very low prices', highlight: 'Salvage' },
 ]
 
 const processSteps = [

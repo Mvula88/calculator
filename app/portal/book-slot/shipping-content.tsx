@@ -139,7 +139,7 @@ const choiceGuide = [
   },
   {
     title: 'For budget imports',
-    text: 'Consider COSCO for the lowest rates, or use ContShare to share container space and save significantly.',
+    text: 'Consider COSCO for the lowest rates, and ask your exporter to consolidate your car with other buyers shipping to the same port — splitting a 40ft container saves significantly.',
   },
 ]
 
@@ -196,16 +196,15 @@ export default function ShippingContent() {
             ))}
           </ul>
 
-          <div className="mt-6">
-            <a
-              href="https://www.contshare.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group inline-flex h-11 items-center gap-2 px-5 rounded-full bg-amber-400 text-zinc-900 hover:bg-amber-300 font-semibold text-sm shadow-[0_0_0_1px_rgba(0,0,0,0.06),0_12px_32px_-8px_rgba(251,191,36,0.5)] transition-colors"
-            >
-              Visit ContShare
-              <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-            </a>
+          <div className="mt-6 border-t border-zinc-200 pt-5 flex items-start gap-3">
+            <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-amber-700 font-semibold mt-1 whitespace-nowrap">
+              [ How to find ]
+            </span>
+            <p className="text-sm text-zinc-700 leading-relaxed max-w-2xl">
+              Ask your exporter if other clients are shipping cars to your port (e.g., Walvis Bay).
+              Most exporters consolidate buyers into shared 40ft containers — splitting the cost
+              four ways saves up to N$56,000 per shipment.
+            </p>
           </div>
         </section>
 
@@ -411,22 +410,7 @@ export default function ShippingContent() {
                   {String(i + 1).padStart(2, '0')} · {g.title}
                 </p>
                 <p className="text-sm text-zinc-700 leading-relaxed">
-                  {i === 2 ? (
-                    <>
-                      Consider COSCO for the lowest rates, or use{' '}
-                      <a
-                        href="https://www.contshare.com"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="font-medium text-zinc-900 hover:text-amber-700 underline-offset-2 hover:underline"
-                      >
-                        ContShare
-                      </a>{' '}
-                      to share container space and save significantly.
-                    </>
-                  ) : (
-                    g.text
-                  )}
+                  {g.text}
                 </p>
               </div>
             ))}

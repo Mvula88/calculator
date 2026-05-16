@@ -298,8 +298,8 @@ export default function ContainerCapacityGuide() {
           <p className="text-sm text-gray-600">
             Container sharing can save significant costs but requires careful coordination.
             Success depends on matching destinations, timing compatibility, and vehicle
-            dimensions. Not always feasible but worth exploring through platforms like
-            ContShare.com or your exporter's consolidation service.
+            dimensions. Ask your exporter if other buyers are shipping cars to your port
+            (e.g., Walvis Bay) — most exporters consolidate clients into shared 40ft containers.
           </p>
           <p className="text-xs text-amber-600 mt-2">
             <strong>Note:</strong> Requires legal agreements between parties and may face
