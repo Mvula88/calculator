@@ -1,44 +1,29 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import Link from 'next/link'
 import { useAuthDebug } from '@/lib/hooks/use-auth-debug'
-import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import Link from 'next/link'
 import VehiclePricingDatabase from '@/components/portal/VehiclePricingDatabase'
 import PortalPageNavigation from '@/components/portal/PortalPageNavigation'
 import {
   Calculator,
-  DollarSign,
-  TrendingDown,
-  TrendingUp,
-  Info,
-  Shield,
   AlertTriangle,
-  CheckCircle,
-  FileText,
-  Award,
-  Lock,
-  Star,
-  Car,
-  Ship,
-  Globe,
+  CheckCircle2,
+  Loader2,
   Zap,
-  HelpCircle,
-  Building,
-  Package
+  ArrowRight,
+  ArrowUpRight,
 } from 'lucide-react'
 import {
   Country,
   VehicleType,
   calculateImportDuties,
   getCountryRequirements,
-  type FullOutput
+  type FullOutput,
 } from '@/lib/calc/countries'
 
-// Japan-side costs (in JPY)
 const japanCosts = {
   biddingCharge: 11000,
   recyclingFee: 440,
@@ -46,83 +31,64 @@ const japanCosts = {
   thc: 18000,
   operationFee: 33000,
   loadingCharges: 40000,
-  specialHandlingFee: 0 // Optional, user can input
+  specialHandlingFee: 0,
 }
 
-// Default clearing costs by country (in local currency)
 const defaultClearingCosts: Record<Country, number> = {
-  'NA': 26255.65,  // Namibia clearing costs
-  'ZA': 35000.00,  // South Africa clearing costs (estimate)
-  'BW': 18000.00,  // Botswana clearing costs (estimate)
-  'ZM': 45000.00   // Zambia clearing costs (estimate)
+  NA: 26255.65,
+  ZA: 35000.0,
+  BW: 18000.0,
+  ZM: 45000.0,
 }
 
-// Namibia-side cost breakdown
 const namibiaSideCosts = {
-  portCharges: 8500.00,
-  handlingFees: 4200.00,
-  documentation: 2800.00,
-  agentFees: 6500.00,
-  inspection: 1800.00,
-  storage: 1500.00,
-  miscFees: 955.65
+  portCharges: 8500.0,
+  handlingFees: 4200.0,
+  documentation: 2800.0,
+  agentFees: 6500.0,
+  inspection: 1800.0,
+  storage: 1500.0,
+  miscFees: 955.65,
 }
 
-// Other countries' local cost breakdowns (estimates)
 const localCostBreakdowns: Record<Country, typeof namibiaSideCosts> = {
-  'NA': namibiaSideCosts,
-  'ZA': {
-    portCharges: 12000.00,
-    handlingFees: 6000.00,
-    documentation: 3500.00,
-    agentFees: 8000.00,
-    inspection: 2500.00,
-    storage: 2000.00,
-    miscFees: 1000.00
-  },
-  'BW': {
-    portCharges: 6000.00,
-    handlingFees: 3000.00,
-    documentation: 2000.00,
-    agentFees: 4500.00,
-    inspection: 1200.00,
-    storage: 800.00,
-    miscFees: 500.00
-  },
-  'ZM': {
-    portCharges: 15000.00,
-    handlingFees: 7500.00,
-    documentation: 5000.00,
-    agentFees: 10000.00,
-    inspection: 3500.00,
-    storage: 2500.00,
-    miscFees: 1500.00
-  }
+  NA: namibiaSideCosts,
+  ZA: { portCharges: 12000.0, handlingFees: 6000.0, documentation: 3500.0, agentFees: 8000.0, inspection: 2500.0, storage: 2000.0, miscFees: 1000.0 },
+  BW: { portCharges: 6000.0, handlingFees: 3000.0, documentation: 2000.0, agentFees: 4500.0, inspection: 1200.0, storage: 800.0, miscFees: 500.0 },
+  ZM: { portCharges: 15000.0, handlingFees: 7500.0, documentation: 5000.0, agentFees: 10000.0, inspection: 3500.0, storage: 2500.0, miscFees: 1500.0 },
 }
 
-// Country display names
 const countryNames: Record<Country, string> = {
-  'NA': 'Namibia',
-  'ZA': 'South Africa',
-  'BW': 'Botswana',
-  'ZM': 'Zambia'
+  NA: 'Namibia',
+  ZA: 'South Africa',
+  BW: 'Botswana',
+  ZM: 'Zambia',
 }
 
-// Exchange rates to NAD (for display purposes)
-const exchangeRates: Record<Country, number> = {
-  'NA': 1.00,      // NAD to NAD
-  'ZA': 1.00,      // ZAR to NAD (roughly 1:1)
-  'BW': 1.35,      // BWP to NAD
-  'ZM': 0.68       // ZMW to NAD
+const exchangeRates: Record<Country, number> = { NA: 1.0, ZA: 1.0, BW: 1.35, ZM: 0.68 }
+
+// Editorial label component
+function MonoLabel({ children }: { children: React.ReactNode }) {
+  return (
+    <label className="block font-mono text-[10px] uppercase tracking-[0.22em] text-zinc-500 font-semibold mb-2">
+      {children}
+    </label>
+  )
+}
+
+function SectionHeader({ label, count }: { label: string; count?: string }) {
+  return (
+    <div className="flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.22em] border-b border-zinc-200 pb-2.5">
+      <span className="text-amber-600 font-semibold">{label}</span>
+      {count && <span className="text-zinc-500">{count}</span>}
+    </div>
+  )
 }
 
 export default function DutyCalculator() {
-  const { user, loading, userTier, debugInfo, userEmail } = useAuthDebug()
+  const { user, loading, debugInfo } = useAuthDebug()
 
-  // Country selection
   const [country, setCountry] = useState<Country>('NA')
-
-  // Vehicle details
   const [cifValue, setCifValue] = useState<string>('')
   const [jpyToLocalRate, setJpyToLocalRate] = useState<string>('0.13')
   const [co2Emissions, setCo2Emissions] = useState<string>('')
@@ -131,7 +97,6 @@ export default function DutyCalculator() {
   const [carsInContainer, setCarsInContainer] = useState<string>('1')
   const [isNewVehicle, setIsNewVehicle] = useState<boolean>(false)
 
-  // Zambia-specific fields
   const [vehicleType, setVehicleType] = useState<VehicleType>('passenger')
   const [engineCC, setEngineCC] = useState<string>('')
   const [vehicleAge, setVehicleAge] = useState<string>('')
@@ -139,7 +104,6 @@ export default function DutyCalculator() {
   const [isEV, setIsEV] = useState<boolean>(false)
   const [isHybrid, setIsHybrid] = useState<boolean>(false)
 
-  // Optional costs
   const [specialHandlingFee, setSpecialHandlingFee] = useState<string>('0')
   const [localClearingTotal, setLocalClearingTotal] = useState<string>('')
   const [oceanFreightCost, setOceanFreightCost] = useState<string>('')
@@ -149,19 +113,15 @@ export default function DutyCalculator() {
   const [errors, setErrors] = useState<Record<string, string>>({})
   const [useContainerSharing, setUseContainerSharing] = useState<boolean>(false)
 
-  // Get country-specific requirements
   const countryReqs = getCountryRequirements(country)
 
-  // Update clearing costs when country changes
   useEffect(() => {
     setLocalClearingTotal(defaultClearingCosts[country].toFixed(2))
-    // Update exchange rate based on country
-    const baseJpyRate = 0.13 // JPY to NAD
+    const baseJpyRate = 0.13
     const countryRate = baseJpyRate / exchangeRates[country]
     setJpyToLocalRate(countryRate.toFixed(4))
   }, [country])
 
-  // Update ContShare rate when number of cars changes
   useEffect(() => {
     if (useContainerSharing) {
       const userCars = parseInt(carsInContainer) || 1
@@ -169,40 +129,37 @@ export default function DutyCalculator() {
     }
   }, [carsInContainer, useContainerSharing])
 
-  // Check if user has mastery tier
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-[60vh]">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-          <p className="mt-4 text-gray-600">Loading calculator...</p>
-          <div className="mt-4 text-xs text-gray-500">
-            <p>Debug Info:</p>
-            <p>User Checked: {debugInfo.userChecked ? 'Yes' : 'No'}</p>
-            <p>Entitlements Checked: {debugInfo.entitlementsChecked ? 'Yes' : 'No'}</p>
-            {debugInfo.error && <p className="text-red-500">Error: {debugInfo.error}</p>}
-          </div>
+      <div className="min-h-[60vh] flex items-center justify-center">
+        <div className="flex flex-col items-center gap-4">
+          <Loader2 className="h-7 w-7 text-amber-500 animate-spin" strokeWidth={1.75} />
+          <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-zinc-500">
+            Loading calculator
+          </p>
+          {debugInfo?.error && (
+            <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-red-600">
+              Error · {debugInfo.error}
+            </p>
+          )}
         </div>
       </div>
     )
   }
 
-  // Remove tier check - all portal users have access
-  // Only check if user is authenticated, not tier
   if (!user && !loading) {
     return (
-      <div className="max-w-4xl mx-auto px-6 py-12">
-        <Card className="p-8">
-          <div className="text-center">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-yellow-100 rounded-full mb-4">
-              <AlertTriangle className="h-8 w-8 text-yellow-600" />
-            </div>
-            <h2 className="text-2xl font-bold mb-2">Please Sign In</h2>
-            <p className="text-gray-600">
-              You need to be signed in to use the Namibian Car Import Calculator.
-            </p>
-          </div>
-        </Card>
+      <div className="max-w-2xl mx-auto px-6 py-12">
+        <div className="border border-zinc-200 rounded-2xl bg-stone-50/60 p-10 text-center">
+          <AlertTriangle className="h-7 w-7 text-amber-600 mx-auto mb-3" strokeWidth={1.75} />
+          <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-amber-700 font-semibold mb-3">
+            [ Sign in required ]
+          </p>
+          <h2 className="text-xl font-medium tracking-tight text-zinc-900 mb-2">Please sign in.</h2>
+          <p className="text-sm text-zinc-600">
+            You need to be signed in to use the multi-country import calculator.
+          </p>
+        </div>
       </div>
     )
   }
@@ -210,84 +167,48 @@ export default function DutyCalculator() {
   const validateInputs = (): boolean => {
     const newErrors: Record<string, string> = {}
 
-    // Validate vehicle price
     const cif = parseFloat(cifValue)
-    if (!cifValue) {
-      newErrors.cifValue = `Vehicle price in ${countryReqs.currency} is required`
-    } else if (isNaN(cif) || cif <= 0) {
-      newErrors.cifValue = 'Please enter a valid positive amount'
-    }
+    if (!cifValue) newErrors.cifValue = `Vehicle price in ${countryReqs.currency} is required`
+    else if (isNaN(cif) || cif <= 0) newErrors.cifValue = 'Please enter a valid positive amount'
 
-    // Validate exchange rate
     const rate = parseFloat(jpyToLocalRate)
-    if (!jpyToLocalRate) {
-      newErrors.jpyToLocalRate = 'Exchange rate is required'
-    } else if (isNaN(rate) || rate <= 0) {
-      newErrors.jpyToLocalRate = 'Please enter a valid exchange rate'
-    }
+    if (!jpyToLocalRate) newErrors.jpyToLocalRate = 'Exchange rate is required'
+    else if (isNaN(rate) || rate <= 0) newErrors.jpyToLocalRate = 'Please enter a valid exchange rate'
 
-    // Validate CO2 emissions or engine CC (if required)
     if (countryReqs.requiresCO2 || (country === 'ZA' && isNewVehicle)) {
       const co2 = parseFloat(co2Emissions)
-      if (!co2Emissions) {
-        newErrors.co2Emissions = country === 'NA' ? 'Engine size in CC is required' : 'CO₂ emissions are required for this country'
-      } else if (isNaN(co2) || co2 < 0) {
-        newErrors.co2Emissions = country === 'NA' ? 'Please enter valid engine CC (e.g., 1400, 2000)' : 'Please enter valid CO₂ emissions'
-      }
+      if (!co2Emissions) newErrors.co2Emissions = country === 'NA' ? 'Engine size in CC is required' : 'CO₂ emissions are required for this country'
+      else if (isNaN(co2) || co2 < 0) newErrors.co2Emissions = country === 'NA' ? 'Please enter valid engine CC (e.g., 1400, 2000)' : 'Please enter valid CO₂ emissions'
     }
 
-    // RRP is now calculated automatically (1.5x CIF) - no validation needed
-
-    // Zambia-specific validations
     if (country === 'ZM') {
       const cc = parseFloat(engineCC)
-      if (!engineCC) {
-        newErrors.engineCC = 'Engine capacity is required for Zambia'
-      } else if (isNaN(cc) || cc <= 0) {
-        newErrors.engineCC = 'Please enter valid engine capacity'
-      }
+      if (!engineCC) newErrors.engineCC = 'Engine capacity is required for Zambia'
+      else if (isNaN(cc) || cc <= 0) newErrors.engineCC = 'Please enter valid engine capacity'
 
       const age = parseFloat(vehicleAge)
-      if (!vehicleAge) {
-        newErrors.vehicleAge = 'Vehicle age is required for Zambia'
-      } else if (isNaN(age) || age < 0) {
-        newErrors.vehicleAge = 'Please enter valid vehicle age'
-      }
+      if (!vehicleAge) newErrors.vehicleAge = 'Vehicle age is required for Zambia'
+      else if (isNaN(age) || age < 0) newErrors.vehicleAge = 'Please enter valid vehicle age'
 
       const excise = parseFloat(exciseRate)
-      if (!exciseRate) {
-        newErrors.exciseRate = 'Excise rate is required'
-      } else if (isNaN(excise) || excise < 0 || excise > 100) {
-        newErrors.exciseRate = 'Please enter a valid percentage (0-100)'
-      }
+      if (!exciseRate) newErrors.exciseRate = 'Excise rate is required'
+      else if (isNaN(excise) || excise < 0 || excise > 100) newErrors.exciseRate = 'Please enter a valid percentage (0-100)'
     }
 
-    // Validate cars in container
     const cars = parseInt(carsInContainer)
-    if (!carsInContainer) {
-      newErrors.carsInContainer = 'Number of cars is required'
-    } else if (isNaN(cars) || cars < 1) {
-      newErrors.carsInContainer = 'Please enter at least 1 car'
-    }
+    if (!carsInContainer) newErrors.carsInContainer = 'Number of cars is required'
+    else if (isNaN(cars) || cars < 1) newErrors.carsInContainer = 'Please enter at least 1 car'
 
     setErrors(newErrors)
     return Object.keys(newErrors).length === 0
   }
 
   const calculateDuty = () => {
-    if (!validateInputs()) {
-      return
-    }
+    if (!validateInputs()) return
 
-    // For Namibia, user enters FOB, we calculate CIF
-    // For other countries, user enters CIF directly
     const inputValue = parseFloat(cifValue)
-    const cif = country === 'NA' ? inputValue * 1.10 : inputValue
-
+    const cif = country === 'NA' ? inputValue * 1.1 : inputValue
     const rate = parseFloat(jpyToLocalRate)
-    // For Namibia, if user entered engine CC, convert to estimated CO2
-    // Otherwise use the entered value as CO2
-    // For Namibia, co2Emissions represents engine size in cc
     const co2 = parseFloat(co2Emissions) || 0
     const rrp = parseFloat(rrpValue) || cif * 1.5
     const cars = parseInt(carsInContainer)
@@ -295,11 +216,9 @@ export default function DutyCalculator() {
     const localClearing = parseFloat(localClearingTotal) || defaultClearingCosts[country]
     const inland = parseFloat(inlandDelivery) || 0
 
-    // Calculate Japan-side costs
-    const japanSideTotalJPY = Object.values(japanCosts).reduce((sum, cost) => sum + cost, 0) + specialHandling
+    const japanSideTotalJPY = Object.values(japanCosts).reduce((s, c) => s + c, 0) + specialHandling
     const japanSideCosts = japanSideTotalJPY * rate
 
-    // Prepare input parameters
     const params = {
       country,
       cif,
@@ -311,19 +230,20 @@ export default function DutyCalculator() {
       japanSideCosts,
       localClearingCosts: localClearing,
       inlandDelivery: inland,
-      zm: country === 'ZM' ? {
-        type: vehicleType,
-        cc: parseFloat(engineCC) || 1500,
-        ageYears: parseFloat(vehicleAge) || 3,
-        exciseRate: parseFloat(exciseRate) || 30,
-        isEV,
-        isHybrid
-      } : undefined
+      zm:
+        country === 'ZM'
+          ? {
+              type: vehicleType,
+              cc: parseFloat(engineCC) || 1500,
+              ageYears: parseFloat(vehicleAge) || 3,
+              exciseRate: parseFloat(exciseRate) || 30,
+              isEV,
+              isHybrid,
+            }
+          : undefined,
     }
 
-    // Calculate using the appropriate country function
-    const calculationResult = calculateImportDuties(params)
-    setResult(calculationResult)
+    setResult(calculateImportDuties(params))
   }
 
   const resetCalculator = () => {
@@ -348,56 +268,68 @@ export default function DutyCalculator() {
     setErrors({})
   }
 
+  const inputCls = '!h-11 !px-3.5 !text-base border-zinc-200 bg-white focus-visible:ring-amber-500/20 focus-visible:border-amber-500 rounded-xl'
+  const selectCls = 'mt-1 w-full h-11 px-3.5 text-sm border border-zinc-200 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 transition-colors'
+  const errCls = '!border-red-300 focus-visible:ring-red-500/20 focus-visible:!border-red-500'
+
+  const renderError = (field: keyof typeof errors, fallback: string) =>
+    errors[field] ? (
+      <p className="text-xs text-red-600 mt-1.5">{errors[field]}</p>
+    ) : (
+      <p className="text-xs text-zinc-500 mt-1.5">{fallback}</p>
+    )
+
   return (
-    <div className="w-full pb-20">
-      {/* Header - Mobile Optimized */}
-      <div className="mb-6 px-4 sm:px-6">
-        <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
-          <div className="flex items-center gap-2">
-            <Calculator className="h-6 w-6 sm:h-8 sm:w-8 text-blue-600" />
-            <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900">
-              Multi-Country Car Import Calculator
-            </h1>
+    <main className="bg-white">
+      <div className="max-w-7xl mx-auto">
+        {/* PAGE HEADER */}
+        <div className="mb-10 pb-8 border-b border-zinc-200">
+          <div className="flex items-center justify-between mb-3">
+            <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-amber-600 font-semibold">
+              Calculator
+            </p>
+            <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-zinc-500">
+              Mastery · Professional tool
+            </span>
           </div>
-          <div className="flex items-center gap-1">
-            <Award className="h-4 w-4 sm:h-5 sm:w-5 text-purple-600" />
-            <span className="text-xs sm:text-sm font-medium text-purple-600">MASTERY ONLY</span>
+          <h1 className="text-3xl sm:text-4xl font-medium tracking-tight text-zinc-900 leading-[1.05]">
+            Multi-country import
+            <span className="block italic font-light text-amber-600 pl-6 sm:pl-10">duty calculator.</span>
+          </h1>
+          <div className="mt-4 flex items-start gap-2.5 max-w-2xl">
+            <span className="text-amber-500 text-xl leading-none mt-0.5" aria-hidden>↳</span>
+            <p className="text-sm sm:text-base text-zinc-600 leading-snug italic font-light">
+              Calculate import duties and fees for vehicles imported from Japan to Southern Africa.
+            </p>
+          </div>
+
+          <div className="mt-6 border-t border-b border-zinc-200 py-4 flex items-start gap-3">
+            <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-amber-700 font-semibold mt-0.5 whitespace-nowrap">
+              [ Professional tool ]
+            </span>
+            <p className="text-sm text-zinc-700 leading-relaxed">
+              Estimates only. Consult a clearing agent for final calculations.
+            </p>
           </div>
         </div>
-        <p className="text-sm sm:text-base lg:text-lg text-gray-600">
-          Calculate import duties and fees for vehicles imported from Japan to Southern Africa.
-        </p>
-        <div className="mt-3 sm:mt-4 p-3 sm:p-4 bg-amber-50 border border-amber-200 rounded-lg">
-          <div className="flex items-center gap-2">
-            <Shield className="h-4 w-4 sm:h-5 sm:w-5 text-amber-600" />
-            <span className="text-xs sm:text-sm font-semibold text-amber-900">PROFESSIONAL TOOL</span>
-          </div>
-          <p className="text-amber-800 text-xs sm:text-sm mt-1">
-            Estimates only. Consult a clearing agent for final calculations.
-          </p>
-        </div>
-      </div>
 
-      <div className="px-4 sm:px-6 max-w-6xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
-          {/* Calculator Form - Mobile Optimized */}
-          <Card className="p-4 sm:p-6">
-            <h2 className="text-lg sm:text-xl font-bold mb-4 sm:mb-6">Vehicle & Import Details</h2>
-            <div className="space-y-6">
-              {/* Country Selection */}
-              <div className="space-y-4">
-                <h3 className="font-semibold text-sm text-gray-700 flex items-center gap-2">
-                  <Globe className="h-4 w-4" />
-                  Destination Country
-                </h3>
+        <div className="grid lg:grid-cols-2 gap-6 lg:gap-8 mb-12">
+          {/* ───── CALCULATOR FORM ───── */}
+          <div className="border border-zinc-200 rounded-2xl bg-white p-6 sm:p-8">
+            <h2 className="text-xl font-medium tracking-tight text-zinc-900 mb-6">
+              Vehicle &amp; import details
+            </h2>
 
+            <div className="space-y-8">
+              {/* Country */}
+              <section className="space-y-3">
+                <SectionHeader label="Destination country" />
                 <div>
-                  <Label htmlFor="country">Import Destination</Label>
+                  <MonoLabel>Import destination</MonoLabel>
                   <select
-                    id="country"
                     value={country}
                     onChange={(e) => setCountry(e.target.value as Country)}
-                    className="mt-2 w-full p-2 border rounded-md border-gray-300"
+                    className={selectCls}
                   >
                     {Object.entries(countryNames).map(([code, name]) => (
                       <option key={code} value={code}>
@@ -405,40 +337,32 @@ export default function DutyCalculator() {
                       </option>
                     ))}
                   </select>
-                  <p className="text-xs text-gray-500 mt-1">
-                    Select the country where the vehicle will be imported
+                  <p className="text-xs text-zinc-500 mt-1.5">
+                    Select the country where the vehicle will be imported.
                   </p>
                 </div>
 
-                {/* South Africa Used Vehicle Warning */}
                 {country === 'ZA' && !isNewVehicle && (
-                  <div className="p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
-                    <div className="flex items-start gap-2">
-                      <AlertTriangle className="h-4 w-4 text-yellow-600 mt-0.5" />
-                      <div>
-                        <p className="text-xs font-semibold text-yellow-900">ITAC Permit Required</p>
-                        <p className="text-xs text-yellow-800 mt-1">
-                          Used vehicle imports to South Africa generally require an ITAC import permit
-                          under limited categories (returning resident, inherited, vintage, etc.).
-                          These calculations are estimates only.
-                        </p>
-                      </div>
+                  <div className="border border-amber-200 bg-amber-50/60 rounded-xl px-3.5 py-3 flex items-start gap-2.5">
+                    <AlertTriangle className="h-4 w-4 text-amber-600 flex-shrink-0 mt-0.5" strokeWidth={1.75} />
+                    <div>
+                      <p className="text-xs font-semibold text-amber-900">ITAC permit required</p>
+                      <p className="text-xs text-amber-800 mt-1 leading-relaxed">
+                        Used vehicle imports to South Africa generally require an ITAC import permit
+                        under limited categories (returning resident, inherited, vintage, etc.).
+                        These calculations are estimates only.
+                      </p>
                     </div>
                   </div>
                 )}
-              </div>
+              </section>
 
-              {/* Basic Vehicle Info */}
-              <div className="space-y-4 pt-4 border-t">
-                <h3 className="font-semibold text-sm text-gray-700 flex items-center gap-2">
-                  <Car className="h-4 w-4" />
-                  Vehicle Information
-                </h3>
+              {/* Vehicle */}
+              <section className="space-y-4">
+                <SectionHeader label="Vehicle information" />
 
                 <div>
-                  <Label htmlFor="cifValue" className="text-sm sm:text-base">
-                    Vehicle Price ({countryReqs.currency})
-                  </Label>
+                  <MonoLabel>Vehicle price ({countryReqs.currency})</MonoLabel>
                   <Input
                     id="cifValue"
                     type="number"
@@ -446,953 +370,811 @@ export default function DutyCalculator() {
                     value={cifValue}
                     onChange={(e) => {
                       setCifValue(e.target.value)
-                      if (errors.cifValue) {
-                        setErrors(prev => ({ ...prev, cifValue: '' }))
-                      }
+                      if (errors.cifValue) setErrors((prev) => ({ ...prev, cifValue: '' }))
                     }}
-                    className={`mt-1 sm:mt-2 text-sm sm:text-base ${errors.cifValue ? 'border-red-500' : ''}`}
+                    className={`${inputCls} ${errors.cifValue ? errCls : ''}`}
                   />
-                  {errors.cifValue ? (
-                    <p className="text-xs text-red-500 mt-1">{errors.cifValue}</p>
-                  ) : (
-                    <p className="text-xs text-gray-500 mt-1">
-                      Purchase price of the vehicle at auction (before shipping costs)
-                    </p>
-                  )}
+                  {renderError('cifValue', 'Purchase price of the vehicle at auction (before shipping costs)')}
                 </div>
-
-                {/* AD Valorem is calculated automatically - no input needed */}
 
                 {(countryReqs.requiresCO2 || (country === 'ZA' && isNewVehicle)) && (
                   <div>
-                    <Label htmlFor="co2Emissions">
-                      {country === 'NA' ? 'Engine Size (CC)' : 'CO₂ Emissions (g/km)'}
-                    </Label>
-                  <Input
-                    id="co2Emissions"
-                    type="number"
-                    placeholder={country === 'NA' ? "e.g. 1400 for 1.4L, 2000 for 2.0L" : "e.g. 150"}
-                    value={co2Emissions}
-                    onChange={(e) => {
-                      setCo2Emissions(e.target.value)
-                      if (errors.co2Emissions) {
-                        setErrors(prev => ({ ...prev, co2Emissions: '' }))
-                      }
-                    }}
-                    className={`mt-2 ${errors.co2Emissions ? 'border-red-500' : ''}`}
-                  />
-                  {errors.co2Emissions ? (
-                    <p className="text-xs text-red-500 mt-1">{errors.co2Emissions}</p>
-                  ) : (
-                    <p className="text-xs text-gray-500 mt-1">
-                      {country === 'NA' ? 'Enter engine capacity in CC (e.g., 1.4L = 1400, 1.8L = 1800, 2.0L = 2000)' :
-                       country === 'ZA' ? 'For CO₂ levy on new vehicles' :
-                       'For environmental calculations'}
-                    </p>
-                  )}
+                    <MonoLabel>{country === 'NA' ? 'Engine size (cc)' : 'CO₂ emissions (g/km)'}</MonoLabel>
+                    <Input
+                      type="number"
+                      placeholder={country === 'NA' ? 'e.g. 1400 for 1.4L, 2000 for 2.0L' : 'e.g. 150'}
+                      value={co2Emissions}
+                      onChange={(e) => {
+                        setCo2Emissions(e.target.value)
+                        if (errors.co2Emissions) setErrors((prev) => ({ ...prev, co2Emissions: '' }))
+                      }}
+                      className={`${inputCls} ${errors.co2Emissions ? errCls : ''}`}
+                    />
+                    {renderError(
+                      'co2Emissions',
+                      country === 'NA'
+                        ? 'Enter engine capacity in CC (e.g., 1.4L = 1400, 1.8L = 1800, 2.0L = 2000)'
+                        : country === 'ZA'
+                          ? 'For CO₂ levy on new vehicles'
+                          : 'For environmental calculations'
+                    )}
                   </div>
                 )}
 
                 <div>
-                  <Label htmlFor="fuelType">Fuel Type</Label>
+                  <MonoLabel>Fuel type</MonoLabel>
                   <select
-                    id="fuelType"
                     value={fuelType}
                     onChange={(e) => setFuelType(e.target.value as 'petrol' | 'diesel')}
-                    className="mt-2 w-full p-2 border rounded-md border-gray-300"
+                    className={selectCls}
                   >
                     <option value="petrol">Petrol</option>
                     <option value="diesel">Diesel</option>
                   </select>
-                  <p className="text-xs text-gray-500 mt-1">
+                  <p className="text-xs text-zinc-500 mt-1.5">
                     {country === 'NA'
-                      ? (fuelType === 'petrol' ? 'ENV levy applies if engine > 1200cc' : 'ENV levy applies if engine > 1400cc')
-                      : 'Select fuel type for vehicle'
-                    }
+                      ? fuelType === 'petrol'
+                        ? 'ENV levy applies if engine > 1200cc'
+                        : 'ENV levy applies if engine > 1400cc'
+                      : 'Select fuel type for vehicle'}
                   </p>
                 </div>
 
-                {/* South Africa New Vehicle Toggle */}
                 {country === 'ZA' && (
-                  <div className="flex items-center space-x-2">
+                  <label className="flex items-center gap-2.5 text-sm text-zinc-700 cursor-pointer">
                     <input
                       type="checkbox"
-                      id="isNewVehicle"
                       checked={isNewVehicle}
                       onChange={(e) => setIsNewVehicle(e.target.checked)}
-                      className="rounded"
+                      className="rounded border-zinc-300 text-amber-500 focus:ring-amber-500/20"
                     />
-                    <Label htmlFor="isNewVehicle">New Vehicle (enables CO₂ levy)</Label>
-                  </div>
+                    New vehicle (enables CO₂ levy)
+                  </label>
                 )}
 
-                {/* Zambia-specific fields */}
                 {country === 'ZM' && (
                   <>
                     <div>
-                      <Label htmlFor="vehicleType">Vehicle Type</Label>
+                      <MonoLabel>Vehicle type</MonoLabel>
                       <select
-                        id="vehicleType"
                         value={vehicleType}
                         onChange={(e) => setVehicleType(e.target.value as VehicleType)}
-                        className="mt-2 w-full p-2 border rounded-md border-gray-300"
+                        className={selectCls}
                       >
-                        <option value="passenger">Passenger Car</option>
+                        <option value="passenger">Passenger car</option>
                         <option value="suv">SUV</option>
-                        <option value="pickup">Pickup Truck</option>
+                        <option value="pickup">Pickup truck</option>
                         <option value="van">Van</option>
                         <option value="truck">Truck</option>
                       </select>
                     </div>
 
                     <div>
-                      <Label htmlFor="engineCC">Engine Capacity (cc)</Label>
+                      <MonoLabel>Engine capacity (cc)</MonoLabel>
                       <Input
-                        id="engineCC"
                         type="number"
                         placeholder="e.g. 1800"
                         value={engineCC}
                         onChange={(e) => {
                           setEngineCC(e.target.value)
-                          if (errors.engineCC) {
-                            setErrors(prev => ({ ...prev, engineCC: '' }))
-                          }
+                          if (errors.engineCC) setErrors((prev) => ({ ...prev, engineCC: '' }))
                         }}
-                        className={`mt-2 ${errors.engineCC ? 'border-red-500' : ''}`}
+                        className={`${inputCls} ${errors.engineCC ? errCls : ''}`}
                       />
-                      {errors.engineCC ? (
-                        <p className="text-xs text-red-500 mt-1">{errors.engineCC}</p>
-                      ) : (
-                        <p className="text-xs text-gray-500 mt-1">
-                          Engine size for specific duty lookup
-                        </p>
-                      )}
+                      {renderError('engineCC', 'Engine size for specific duty lookup')}
                     </div>
 
                     <div>
-                      <Label htmlFor="vehicleAge">Vehicle Age (years)</Label>
+                      <MonoLabel>Vehicle age (years)</MonoLabel>
                       <Input
-                        id="vehicleAge"
                         type="number"
                         placeholder="e.g. 3"
                         value={vehicleAge}
                         onChange={(e) => {
                           setVehicleAge(e.target.value)
-                          if (errors.vehicleAge) {
-                            setErrors(prev => ({ ...prev, vehicleAge: '' }))
-                          }
+                          if (errors.vehicleAge) setErrors((prev) => ({ ...prev, vehicleAge: '' }))
                         }}
-                        className={`mt-2 ${errors.vehicleAge ? 'border-red-500' : ''}`}
+                        className={`${inputCls} ${errors.vehicleAge ? errCls : ''}`}
                       />
-                      {errors.vehicleAge ? (
-                        <p className="text-xs text-red-500 mt-1">{errors.vehicleAge}</p>
-                      ) : (
-                        <p className="text-xs text-gray-500 mt-1">
-                          Age affects specific duty amount
-                        </p>
-                      )}
+                      {renderError('vehicleAge', 'Age affects specific duty amount')}
                     </div>
 
                     <div>
-                      <Label htmlFor="exciseRate">Excise Rate (%)</Label>
+                      <MonoLabel>Excise rate (%)</MonoLabel>
                       <Input
-                        id="exciseRate"
                         type="number"
                         placeholder="e.g. 30"
                         value={exciseRate}
                         onChange={(e) => {
                           setExciseRate(e.target.value)
-                          if (errors.exciseRate) {
-                            setErrors(prev => ({ ...prev, exciseRate: '' }))
-                          }
+                          if (errors.exciseRate) setErrors((prev) => ({ ...prev, exciseRate: '' }))
                         }}
-                        className={`mt-2 ${errors.exciseRate ? 'border-red-500' : ''}`}
+                        className={`${inputCls} ${errors.exciseRate ? errCls : ''}`}
                       />
-                      {errors.exciseRate ? (
-                        <p className="text-xs text-red-500 mt-1">{errors.exciseRate}</p>
-                      ) : (
-                        <p className="text-xs text-gray-500 mt-1">
-                          Excise duty percentage (varies by vehicle category)
-                        </p>
-                      )}
+                      {renderError('exciseRate', 'Excise duty percentage (varies by vehicle category)')}
                     </div>
 
                     <div className="space-y-2">
-                      <div className="flex items-center space-x-2">
+                      <label className="flex items-center gap-2.5 text-sm text-zinc-700 cursor-pointer">
                         <input
                           type="checkbox"
-                          id="isEV"
                           checked={isEV}
                           onChange={(e) => {
                             setIsEV(e.target.checked)
                             if (e.target.checked) setIsHybrid(false)
                           }}
-                          className="rounded"
+                          className="rounded border-zinc-300 text-amber-500 focus:ring-amber-500/20"
                         />
-                        <Label htmlFor="isEV">
-                          <Zap className="inline h-3 w-3 mr-1" />
-                          Electric Vehicle (zero duty)
-                        </Label>
-                      </div>
-
-                      <div className="flex items-center space-x-2">
+                        <Zap className="h-3.5 w-3.5 text-emerald-600" strokeWidth={1.75} />
+                        Electric vehicle (zero duty)
+                      </label>
+                      <label className="flex items-center gap-2.5 text-sm text-zinc-700 cursor-pointer">
                         <input
                           type="checkbox"
-                          id="isHybrid"
                           checked={isHybrid}
                           onChange={(e) => {
                             setIsHybrid(e.target.checked)
                             if (e.target.checked) setIsEV(false)
                           }}
-                          className="rounded"
+                          className="rounded border-zinc-300 text-amber-500 focus:ring-amber-500/20"
                         />
-                        <Label htmlFor="isHybrid">Hybrid Vehicle (reduced excise)</Label>
-                      </div>
+                        Hybrid vehicle (reduced excise)
+                      </label>
                     </div>
                   </>
                 )}
-              </div>
+              </section>
 
-              {/* Ocean Freight / Container Sharing Option */}
-              <div className="space-y-4 pt-4 border-t">
-                <h3 className="font-semibold text-sm text-gray-700 flex items-center gap-2">
-                  <Ship className="h-4 w-4" />
-                  Ocean Freight
-                </h3>
+              {/* Ocean Freight */}
+              <section className="space-y-4">
+                <SectionHeader label="Ocean freight" />
 
                 <div>
-                  <Label htmlFor="oceanFreightCost">Ocean Freight Cost ({countryReqs.currency})</Label>
+                  <MonoLabel>Ocean freight cost ({countryReqs.currency})</MonoLabel>
                   <Input
-                    id="oceanFreightCost"
                     type="number"
-                    placeholder={useContainerSharing ? `${18500 * (parseInt(carsInContainer) || 1)}` : "e.g. 35000"}
+                    placeholder={useContainerSharing ? `${18500 * (parseInt(carsInContainer) || 1)}` : 'e.g. 35000'}
                     value={oceanFreightCost}
                     onChange={(e) => setOceanFreightCost(e.target.value)}
-                    className="mt-2"
+                    className={inputCls}
                     disabled={useContainerSharing}
                   />
-                  <p className="text-xs text-gray-500 mt-1">
-                    {useContainerSharing ?
-                      `ContShare rate: ${countryReqs.currency} 18,500 × ${parseInt(carsInContainer) || 1} car(s)` :
-                      "Total cost for your cars (will be divided by 4 cars in container)"}
+                  <p className="text-xs text-zinc-500 mt-1.5">
+                    {useContainerSharing
+                      ? `ContShare rate · ${countryReqs.currency} 18,500 × ${parseInt(carsInContainer) || 1} car(s)`
+                      : 'Total cost for your cars (will be divided by 4 cars in container)'}
                   </p>
                 </div>
 
-                <div className="bg-gradient-to-r from-blue-50 to-green-50 p-4 rounded-lg border border-blue-200">
-                  <div className="flex items-start justify-between mb-3">
-                    <div className="flex items-center gap-2">
+                <div className="border border-amber-200 bg-amber-50/40 rounded-xl p-4">
+                  <div className="flex items-start justify-between gap-3 mb-3">
+                    <label className="flex items-start gap-2.5 cursor-pointer flex-1">
                       <input
                         type="checkbox"
-                        id="useContainerSharing"
                         checked={useContainerSharing}
                         onChange={(e) => {
                           setUseContainerSharing(e.target.checked)
                           if (e.target.checked) {
-                            // Set to ContShare rate per car * number of cars
                             const userCars = parseInt(carsInContainer) || 1
                             setOceanFreightCost((18500 * userCars).toString())
                           } else {
-                            // Reset to empty when unchecked
                             setOceanFreightCost('')
                           }
                         }}
-                        className="mt-1 rounded border-gray-300"
+                        className="mt-0.5 rounded border-zinc-300 text-amber-500 focus:ring-amber-500/20"
                       />
-                      <label htmlFor="useContainerSharing" className="cursor-pointer">
-                        <span className="font-medium text-sm">Use ContShare Platform</span>
-                        <span className="text-xs text-gray-600 block">
-                          Save up to 75% on ocean freight costs!
-                        </span>
-                      </label>
-                    </div>
+                      <div>
+                        <p className="text-sm font-medium text-zinc-900">Use ContShare platform</p>
+                        <p className="text-xs text-zinc-600 mt-0.5">Save up to 75% on ocean freight costs.</p>
+                      </div>
+                    </label>
                     <Link
                       href="https://www.contshare.com"
                       target="_blank"
-                      className="text-xs text-blue-600 hover:text-blue-700 font-medium flex items-center gap-1"
+                      className="group inline-flex items-center gap-1 text-xs font-semibold text-zinc-900 hover:text-amber-700 transition-colors"
                     >
-                      Learn More
-                      <Globe className="h-3 w-3" />
+                      Learn more
+                      <ArrowUpRight className="h-3 w-3" />
                     </Link>
                   </div>
 
                   {useContainerSharing && (
-                    <div className="text-xs space-y-2 text-gray-700 bg-white/70 p-3 rounded">
-                      <p className="font-medium text-green-700">✓ ContShare Rate: {countryReqs.currency} 18,500 per car</p>
-                      <p>Share container space with other importers for massive savings!</p>
-                      <p>Visit <Link href="https://www.contshare.com" target="_blank" className="text-blue-600 font-medium hover:underline">contshare.com</Link> to find container partners.</p>
+                    <div className="text-xs text-zinc-700 bg-white border border-zinc-200 rounded-lg p-3 space-y-1.5">
+                      <p className="font-medium text-emerald-700">
+                        ✓ ContShare rate · {countryReqs.currency} 18,500 per car
+                      </p>
+                      <p>Share container space with other importers for massive savings.</p>
+                      <p>
+                        Visit{' '}
+                        <Link
+                          href="https://www.contshare.com"
+                          target="_blank"
+                          className="font-medium text-zinc-900 hover:text-amber-700 underline-offset-2 hover:underline"
+                        >
+                          contshare.com
+                        </Link>{' '}
+                        to find container partners.
+                      </p>
                     </div>
                   )}
                 </div>
-              </div>
+              </section>
 
-              {/* Exchange Rate & Container Details */}
-              <div className="space-y-4 pt-4 border-t">
-                <h3 className="font-semibold text-sm text-gray-700 flex items-center gap-2">
-                  <DollarSign className="h-4 w-4" />
-                  Exchange & Container Info
-                </h3>
+              {/* Exchange + Container */}
+              <section className="space-y-4">
+                <SectionHeader label="Exchange & container" />
 
                 <div>
-                  <Label htmlFor="jpyToLocalRate">Exchange Rate (JPY to {countryReqs.currency})</Label>
+                  <MonoLabel>Exchange rate (JPY to {countryReqs.currency})</MonoLabel>
                   <Input
-                    id="jpyToLocalRate"
                     type="number"
                     step="0.01"
                     placeholder="e.g. 1.30"
                     value={jpyToLocalRate}
                     onChange={(e) => {
                       setJpyToLocalRate(e.target.value)
-                      if (errors.jpyToLocalRate) {
-                        setErrors(prev => ({ ...prev, jpyToLocalRate: '' }))
-                      }
+                      if (errors.jpyToLocalRate) setErrors((prev) => ({ ...prev, jpyToLocalRate: '' }))
                     }}
-                    className={`mt-2 ${errors.jpyToLocalRate ? 'border-red-500' : ''}`}
+                    className={`${inputCls} ${errors.jpyToLocalRate ? errCls : ''}`}
                   />
-                  {errors.jpyToLocalRate ? (
-                    <p className="text-xs text-red-500 mt-1">{errors.jpyToLocalRate}</p>
-                  ) : (
-                    <p className="text-xs text-gray-500 mt-1">
-                      Current JPY to {countryReqs.currency} conversion rate
-                    </p>
-                  )}
+                  {renderError('jpyToLocalRate', `Current JPY to ${countryReqs.currency} conversion rate`)}
                 </div>
 
                 <div>
-                  <Label htmlFor="carsInContainer">Your Cars in Container</Label>
+                  <MonoLabel>Your cars in container</MonoLabel>
                   <Input
-                    id="carsInContainer"
                     type="number"
                     placeholder="e.g. 1"
                     value={carsInContainer}
                     onChange={(e) => {
                       setCarsInContainer(e.target.value)
-                      if (errors.carsInContainer) {
-                        setErrors(prev => ({ ...prev, carsInContainer: '' }))
-                      }
+                      if (errors.carsInContainer) setErrors((prev) => ({ ...prev, carsInContainer: '' }))
                     }}
-                    className={`mt-2 ${errors.carsInContainer ? 'border-red-500' : ''}`}
+                    className={`${inputCls} ${errors.carsInContainer ? errCls : ''}`}
                   />
-                  {errors.carsInContainer ? (
-                    <p className="text-xs text-red-500 mt-1">{errors.carsInContainer}</p>
-                  ) : (
-                    <p className="text-xs text-gray-500 mt-1">
-                      How many cars are you importing? (Container holds 4 cars total)
-                    </p>
-                  )}
+                  {renderError('carsInContainer', 'How many cars are you importing? (Container holds 4 cars total)')}
                 </div>
-              </div>
+              </section>
 
-              {/* Japan-Side Costs (Prefilled) */}
-              <div className="space-y-4 pt-4 border-t">
-                <h3 className="font-semibold text-sm text-gray-700 flex items-center gap-2">
-                  <Ship className="h-4 w-4" />
-                  Japan-Side Costs (Prefilled)
-                </h3>
+              {/* Japan-side Costs */}
+              <section className="space-y-4">
+                <SectionHeader label="Japan-side costs · prefilled" />
 
-                <div className="bg-blue-50 p-3 rounded-lg text-xs space-y-1">
-                  <div className="flex justify-between">
-                    <span>Bidding Charge:</span>
-                    <span className="text-gray-600">¥{japanCosts.biddingCharge.toLocaleString()}</span>
-                    <span className="font-medium">{countryReqs.currency} {(japanCosts.biddingCharge * parseFloat(jpyToLocalRate || '0.13')).toFixed(2)}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>Recycling Fee:</span>
-                    <span className="text-gray-600">¥{japanCosts.recyclingFee.toLocaleString()}</span>
-                    <span className="font-medium">{countryReqs.currency} {(japanCosts.recyclingFee * parseFloat(jpyToLocalRate || '0.13')).toFixed(2)}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>Delivery Fee:</span>
-                    <span className="text-gray-600">¥{japanCosts.deliveryFee.toLocaleString()}</span>
-                    <span className="font-medium">{countryReqs.currency} {(japanCosts.deliveryFee * parseFloat(jpyToLocalRate || '0.13')).toFixed(2)}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>THC:</span>
-                    <span className="text-gray-600">¥{japanCosts.thc.toLocaleString()}</span>
-                    <span className="font-medium">{countryReqs.currency} {(japanCosts.thc * parseFloat(jpyToLocalRate || '0.13')).toFixed(2)}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>Operation Fee:</span>
-                    <span className="text-gray-600">¥{japanCosts.operationFee.toLocaleString()}</span>
-                    <span className="font-medium">{countryReqs.currency} {(japanCosts.operationFee * parseFloat(jpyToLocalRate || '0.13')).toFixed(2)}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>Loading Charges:</span>
-                    <span className="text-gray-600">¥{japanCosts.loadingCharges.toLocaleString()}</span>
-                    <span className="font-medium">{countryReqs.currency} {(japanCosts.loadingCharges * parseFloat(jpyToLocalRate || '0.13')).toFixed(2)}</span>
-                  </div>
-                  <div className="flex justify-between font-semibold border-t pt-1">
-                    <span>Total Japan Costs:</span>
-                    <span className="text-blue-900">{countryReqs.currency} {(Object.values(japanCosts).reduce((a, b) => a + b, 0) * parseFloat(jpyToLocalRate || '0.13')).toFixed(2)}</span>
+                <div className="border border-zinc-200 rounded-xl bg-stone-50/60 p-4 space-y-1">
+                  {[
+                    ['Bidding charge', japanCosts.biddingCharge],
+                    ['Recycling fee', japanCosts.recyclingFee],
+                    ['Delivery fee', japanCosts.deliveryFee],
+                    ['THC', japanCosts.thc],
+                    ['Operation fee', japanCosts.operationFee],
+                    ['Loading charges', japanCosts.loadingCharges],
+                  ].map(([label, value]) => (
+                    <div key={label} className="grid grid-cols-[1fr_auto_auto] gap-3 text-xs items-baseline">
+                      <span className="text-zinc-700">{label}</span>
+                      <span className="font-mono text-zinc-500">¥{(value as number).toLocaleString()}</span>
+                      <span className="font-mono font-medium text-zinc-900 text-right min-w-[5rem]">
+                        {countryReqs.currency} {((value as number) * parseFloat(jpyToLocalRate || '0.13')).toFixed(2)}
+                      </span>
+                    </div>
+                  ))}
+                  <div className="grid grid-cols-[1fr_auto] gap-3 text-sm items-baseline border-t border-zinc-200 pt-2 mt-2">
+                    <span className="font-medium text-zinc-900">Total Japan costs</span>
+                    <span className="font-mono font-semibold text-amber-700">
+                      {countryReqs.currency}{' '}
+                      {(Object.values(japanCosts).reduce((a, b) => a + b, 0) * parseFloat(jpyToLocalRate || '0.13')).toFixed(2)}
+                    </span>
                   </div>
                 </div>
 
                 <div>
-                  <Label htmlFor="specialHandlingFee">Additional Handling (JPY)</Label>
+                  <MonoLabel>Additional handling (JPY)</MonoLabel>
                   <Input
-                    id="specialHandlingFee"
                     type="number"
                     placeholder="Optional"
                     value={specialHandlingFee}
                     onChange={(e) => setSpecialHandlingFee(e.target.value)}
-                    className="mt-2"
+                    className={inputCls}
                   />
                 </div>
-              </div>
+              </section>
 
-              {/* Namibia-Side Costs (Prefilled) */}
-              <div className="space-y-4 pt-4 border-t">
-                <h3 className="font-semibold text-sm text-gray-700 flex items-center gap-2">
-                  <Building className="h-4 w-4" />
-                  {countryNames[country]}-Side Costs
-                </h3>
+              {/* Local-side Costs */}
+              <section className="space-y-4">
+                <SectionHeader label={`${countryNames[country]}-side costs`} />
 
-                <div className="bg-amber-50 p-3 rounded-lg">
-                  <Label htmlFor="localClearingTotal">Local Clearing Total ({countryReqs.currency})</Label>
+                <div>
+                  <MonoLabel>Local clearing total ({countryReqs.currency})</MonoLabel>
                   <Input
-                    id="localClearingTotal"
                     type="number"
                     step="0.01"
                     value={localClearingTotal}
                     onChange={(e) => setLocalClearingTotal(e.target.value)}
-                    className="mt-2"
+                    className={inputCls}
                   />
-                  <p className="text-xs text-gray-600 mt-2">
-                    Default prefilled: {countryReqs.currency} {defaultClearingCosts[country].toFixed(2)}
-                  </p>
-                  <p className="text-xs text-gray-500 mt-1">
-                    Includes: Port charges, handling, documentation, agent fees
+                  <p className="text-xs text-zinc-500 mt-1.5">
+                    Default · {countryReqs.currency} {defaultClearingCosts[country].toFixed(2)} · Includes port
+                    charges, handling, documentation, agent fees
                   </p>
                 </div>
 
                 <div>
-                  <Label htmlFor="inlandDelivery">Inland Delivery ({countryReqs.currency})</Label>
+                  <MonoLabel>Inland delivery ({countryReqs.currency})</MonoLabel>
                   <Input
-                    id="inlandDelivery"
                     type="number"
                     placeholder="Optional trucking cost"
                     value={inlandDelivery}
                     onChange={(e) => setInlandDelivery(e.target.value)}
-                    className="mt-2"
+                    className={inputCls}
                   />
-                  <p className="text-xs text-gray-500 mt-1">
-                    Trucking from port to final destination
-                  </p>
+                  <p className="text-xs text-zinc-500 mt-1.5">Trucking from port to final destination.</p>
                 </div>
-              </div>
+              </section>
 
-              <div className="flex gap-3 sm:gap-4">
-                <Button onClick={calculateDuty} className="flex-1 text-sm sm:text-base">
-                  <Calculator className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
+              <div className="flex gap-3 pt-2">
+                <Button
+                  onClick={calculateDuty}
+                  className="group flex-1 h-12 bg-amber-400 text-zinc-900 hover:bg-amber-300 font-semibold rounded-full shadow-[0_0_0_1px_rgba(0,0,0,0.06),0_16px_40px_-12px_rgba(251,191,36,0.55)] transition-colors"
+                >
+                  <Calculator className="h-4 w-4 mr-2" strokeWidth={1.75} />
                   Calculate
+                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-0.5" />
                 </Button>
-                <Button variant="outline" onClick={resetCalculator} className="text-sm sm:text-base">
+                <Button
+                  onClick={resetCalculator}
+                  variant="outline"
+                  className="h-12 px-6 rounded-full border-zinc-200 bg-white hover:bg-zinc-50 hover:border-zinc-300 text-sm font-medium text-zinc-900"
+                >
                   Reset
                 </Button>
               </div>
             </div>
-          </Card>
+          </div>
 
-          {/* Results - Mobile Optimized */}
+          {/* ───── RESULTS ───── */}
           {result ? (
-            <Card className="p-4 sm:p-6">
-              <h2 className="text-lg sm:text-xl font-bold mb-4 sm:mb-6 flex items-center gap-2">
-                <FileText className="h-4 w-4 sm:h-5 sm:w-5" />
-                Import Cost Breakdown - {countryNames[country]}
-              </h2>
+            <div className="border border-zinc-200 rounded-2xl bg-white p-6 sm:p-8 self-start">
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-xl font-medium tracking-tight text-zinc-900">
+                  Cost breakdown
+                </h2>
+                <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-amber-600 font-semibold">
+                  {countryNames[country]}
+                </span>
+              </div>
 
-              {/* Quick Summary for Namibia */}
+              {/* Namibia Quick Summary */}
               {country === 'NA' && (
-                <div className="bg-gradient-to-r from-blue-50 to-purple-50 p-4 rounded-lg mb-6">
-                  <h3 className="font-semibold text-gray-900 mb-3">Quick Calculation Summary</h3>
-                  <div className="grid grid-cols-2 gap-3 text-sm">
-                    <div>
-                      <span className="text-gray-600">Vehicle Price:</span>
-                      <div className="font-bold text-gray-900">{countryReqs.currency} {(result.cif / 1.10).toFixed(2)}</div>
-                    </div>
-                    <div>
-                      <span className="text-gray-600">ICD (25% × Price):</span>
-                      <div className="font-bold text-gray-900">{countryReqs.currency} {result.duty.toFixed(2)}</div>
-                    </div>
-                    <div>
-                      <span className="text-gray-600">ENV Levy:</span>
-                      <div className="font-bold text-gray-900">{countryReqs.currency} {result.env.toFixed(2)}</div>
-                    </div>
-                    <div>
-                      <span className="text-gray-600">AD Valorem:</span>
-                      <div className="font-bold text-gray-900">{countryReqs.currency} {result.adv.toFixed(2)}</div>
-                    </div>
-                    <div>
-                      <span className="text-gray-600">Import VAT (16.5%):</span>
-                      <div className="font-bold text-gray-900">{countryReqs.currency} {result.vat.toFixed(2)}</div>
-                    </div>
-                    <div>
-                      <span className="text-gray-600">Total Taxes:</span>
-                      <div className="font-bold text-red-700">{countryReqs.currency} {result.totalTaxes.toFixed(2)}</div>
-                    </div>
+                <div className="border border-zinc-200 rounded-xl bg-stone-50/60 p-5 mb-6">
+                  <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-amber-600 font-semibold pb-2.5 mb-3 border-b border-zinc-200">
+                    Quick summary
+                  </p>
+                  <div className="grid grid-cols-2 gap-4 text-sm">
+                    {[
+                      ['Vehicle price', `${countryReqs.currency} ${(result.cif / 1.1).toFixed(2)}`],
+                      ['ICD (25%)', `${countryReqs.currency} ${result.duty.toFixed(2)}`],
+                      ['ENV levy', `${countryReqs.currency} ${result.env.toFixed(2)}`],
+                      ['Ad Valorem', `${countryReqs.currency} ${result.adv.toFixed(2)}`],
+                      ['Import VAT (16.5%)', `${countryReqs.currency} ${result.vat.toFixed(2)}`],
+                      ['Total taxes', `${countryReqs.currency} ${result.totalTaxes.toFixed(2)}`],
+                    ].map(([k, v], i) => (
+                      <div key={i}>
+                        <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-zinc-500">{k}</p>
+                        <p className={`mt-1 font-medium ${i === 5 ? 'text-red-600' : 'text-zinc-900'}`}>{v}</p>
+                      </div>
+                    ))}
                   </div>
                 </div>
               )}
 
               <div className="space-y-6">
-                {/* Japan-side Costs Breakdown */}
-                <div className="bg-blue-50 p-4 rounded-lg">
-                  <h3 className="font-semibold text-blue-900 mb-3 flex items-center gap-2">
-                    <Ship className="h-4 w-4" />
-                    Japan-Side Costs Breakdown
-                  </h3>
-                  <div className="space-y-1 text-xs mb-2">
-                    <div className="flex justify-between">
-                      <span>Bidding Charge:</span>
-                      <span className="font-medium">{countryReqs.currency} {(japanCosts.biddingCharge * parseFloat(jpyToLocalRate)).toFixed(2)}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span>Recycling Fee:</span>
-                      <span className="font-medium">{countryReqs.currency} {(japanCosts.recyclingFee * parseFloat(jpyToLocalRate)).toFixed(2)}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span>Delivery Fee:</span>
-                      <span className="font-medium">{countryReqs.currency} {(japanCosts.deliveryFee * parseFloat(jpyToLocalRate)).toFixed(2)}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span>THC:</span>
-                      <span className="font-medium">{countryReqs.currency} {(japanCosts.thc * parseFloat(jpyToLocalRate)).toFixed(2)}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span>Operation Fee:</span>
-                      <span className="font-medium">{countryReqs.currency} {(japanCosts.operationFee * parseFloat(jpyToLocalRate)).toFixed(2)}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span>Loading Charges:</span>
-                      <span className="font-medium">{countryReqs.currency} {(japanCosts.loadingCharges * parseFloat(jpyToLocalRate)).toFixed(2)}</span>
-                    </div>
+                {/* Japan-side Breakdown */}
+                <div>
+                  <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-blue-600 font-semibold pb-2.5 mb-3 border-b border-zinc-200">
+                    Japan-side costs
+                  </p>
+                  <div className="space-y-1.5 text-xs">
+                    {[
+                      ['Bidding charge', japanCosts.biddingCharge],
+                      ['Recycling fee', japanCosts.recyclingFee],
+                      ['Delivery fee', japanCosts.deliveryFee],
+                      ['THC', japanCosts.thc],
+                      ['Operation fee', japanCosts.operationFee],
+                      ['Loading charges', japanCosts.loadingCharges],
+                    ].map(([label, value]) => (
+                      <div key={label} className="flex justify-between text-zinc-700">
+                        <span>{label}</span>
+                        <span className="font-mono">
+                          {countryReqs.currency} {((value as number) * parseFloat(jpyToLocalRate)).toFixed(2)}
+                        </span>
+                      </div>
+                    ))}
                     {parseFloat(specialHandlingFee) > 0 && (
-                      <div className="flex justify-between">
-                        <span>Special Handling:</span>
-                        <span className="font-medium">{countryReqs.currency} {(parseFloat(specialHandlingFee) * parseFloat(jpyToLocalRate)).toFixed(2)}</span>
+                      <div className="flex justify-between text-zinc-700">
+                        <span>Special handling</span>
+                        <span className="font-mono">
+                          {countryReqs.currency} {(parseFloat(specialHandlingFee) * parseFloat(jpyToLocalRate)).toFixed(2)}
+                        </span>
                       </div>
                     )}
                   </div>
-                  <div className="border-t pt-2 space-y-1">
-                    <div className="flex justify-between text-sm">
-                      <span className="text-gray-700 font-medium">Total Japan Costs</span>
-                      <span className="font-medium">¥{(result.japanSideCosts / parseFloat(jpyToLocalRate)).toLocaleString('en', {maximumFractionDigits: 0})}</span>
+                  <div className="border-t border-zinc-200 pt-2.5 mt-2.5 space-y-1.5 text-sm">
+                    <div className="flex justify-between text-zinc-700">
+                      <span>Total Japan costs</span>
+                      <span className="font-mono">¥{(result.japanSideCosts / parseFloat(jpyToLocalRate)).toLocaleString('en', { maximumFractionDigits: 0 })}</span>
                     </div>
-                    <div className="flex justify-between font-semibold text-sm">
+                    <div className="flex justify-between font-semibold">
                       <span>Converted to {countryReqs.currency}</span>
-                      <span className="text-blue-900">{countryReqs.currency} {result.japanSideCosts.toFixed(2)}</span>
+                      <span className="font-mono text-amber-700">{countryReqs.currency} {result.japanSideCosts.toFixed(2)}</span>
                     </div>
                   </div>
                 </div>
 
-                {/* Ocean Freight Cost */}
+                {/* Ocean Freight */}
                 {oceanFreightCost && parseFloat(oceanFreightCost) > 0 && (
-                  <div className="bg-green-50 p-4 rounded-lg">
-                    <h3 className="font-semibold text-green-900 mb-3 flex items-center justify-between">
-                      <span className="flex items-center gap-2">
-                        <Ship className="h-4 w-4" />
-                        Ocean Freight
-                      </span>
+                  <div>
+                    <div className="flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.22em] border-b border-zinc-200 pb-2.5 mb-3">
+                      <span className="text-blue-600 font-semibold">Ocean freight</span>
                       {useContainerSharing && (
-                        <span className="text-xs bg-green-600 text-white px-2 py-1 rounded-full flex items-center gap-1">
-                          <CheckCircle className="h-3 w-3" />
-                          ContShare
-                        </span>
+                        <span className="text-emerald-700 font-semibold">ContShare</span>
                       )}
-                    </h3>
-                    <div className="space-y-2 text-sm">
+                    </div>
+                    <div className="space-y-1.5 text-sm">
                       {useContainerSharing ? (
                         <>
-                          <div className="flex justify-between">
-                            <span className="text-gray-700">ContShare Rate per Car</span>
-                            <span>{countryReqs.currency} 18,500</span>
+                          <div className="flex justify-between text-zinc-700">
+                            <span>ContShare rate per car</span>
+                            <span className="font-mono">{countryReqs.currency} 18,500</span>
                           </div>
-                          <div className="flex justify-between">
-                            <span className="text-gray-700">Number of Cars</span>
-                            <span>{parseInt(carsInContainer) || 1}</span>
+                          <div className="flex justify-between text-zinc-700">
+                            <span>Number of cars</span>
+                            <span className="font-mono">{parseInt(carsInContainer) || 1}</span>
                           </div>
-                          <div className="flex justify-between font-semibold border-t pt-2">
-                            <span>Total Ocean Freight</span>
-                            <span className="text-green-900">{countryReqs.currency} {parseFloat(oceanFreightCost).toFixed(2)}</span>
+                          <div className="flex justify-between font-semibold border-t border-zinc-200 pt-2 mt-2">
+                            <span>Total ocean freight</span>
+                            <span className="font-mono text-emerald-700">
+                              {countryReqs.currency} {parseFloat(oceanFreightCost).toFixed(2)}
+                            </span>
                           </div>
                         </>
                       ) : (
                         <>
-                          <div className="flex justify-between">
-                            <span className="text-gray-700">Total Container Cost</span>
-                            <span className="font-medium">{countryReqs.currency} {parseFloat(oceanFreightCost).toFixed(2)}</span>
+                          <div className="flex justify-between text-zinc-700">
+                            <span>Total container cost</span>
+                            <span className="font-mono">{countryReqs.currency} {parseFloat(oceanFreightCost).toFixed(2)}</span>
                           </div>
-                          <div className="flex justify-between">
-                            <span className="text-gray-700">Your Cars / Total</span>
-                            <span>{parseInt(carsInContainer) || 1} / 4</span>
+                          <div className="flex justify-between text-zinc-700">
+                            <span>Your cars / total</span>
+                            <span className="font-mono">{parseInt(carsInContainer) || 1} / 4</span>
                           </div>
-                          <div className="flex justify-between font-semibold border-t pt-2">
-                            <span>Your Share ({parseInt(carsInContainer) || 1}/4)</span>
-                            <span className="text-green-900">
-                              {countryReqs.currency} {((parseFloat(oceanFreightCost) / 4) * (parseInt(carsInContainer) || 1)).toFixed(2)}
+                          <div className="flex justify-between font-semibold border-t border-zinc-200 pt-2 mt-2">
+                            <span>Your share ({parseInt(carsInContainer) || 1}/4)</span>
+                            <span className="font-mono text-emerald-700">
+                              {countryReqs.currency}{' '}
+                              {((parseFloat(oceanFreightCost) / 4) * (parseInt(carsInContainer) || 1)).toFixed(2)}
                             </span>
                           </div>
                         </>
                       )}
                     </div>
-                    {useContainerSharing && (
-                      <p className="text-xs text-green-700 mt-2">
-                        * Using ContShare platform - Visit{' '}
-                        <Link href="https://www.contshare.com" target="_blank" className="text-blue-600 font-medium hover:underline">
-                          contshare.com
-                        </Link>{' '}
-                        to find partners
-                      </p>
-                    )}
                   </div>
                 )}
 
-                {/* Local Clearing Costs */}
-                <div className="bg-amber-50 p-4 rounded-lg">
-                  <h3 className="font-semibold text-amber-900 mb-3">
-                    <span>Local Clearing Agent Costs</span>
-                  </h3>
-                  <div className="space-y-2 text-sm">
-                    {/* Detailed breakdown based on country */}
-                    {(() => {
-                      // Select the appropriate local costs based on country
-                      const localCosts = localCostBreakdowns[country];
-
-                      const userCars = parseInt(carsInContainer) || 1;
-                      const totalCarsInContainer = 4; // Standard container holds 4 cars
-                      const userShare = userCars / totalCarsInContainer;
-
-                      return (
-                        <div className="space-y-1.5 text-xs">
-                          <div className="flex justify-between">
-                            <span>Port Charges:</span>
-                            <span className="font-medium">{countryReqs.currency} {(localCosts.portCharges * userShare).toFixed(2)}</span>
+                {/* Local Clearing */}
+                <div>
+                  <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-amber-600 font-semibold pb-2.5 mb-3 border-b border-zinc-200">
+                    Local clearing agent costs
+                  </p>
+                  {(() => {
+                    const localCosts = localCostBreakdowns[country]
+                    const userCars = parseInt(carsInContainer) || 1
+                    const userShare = userCars / 4
+                    return (
+                      <div className="space-y-1.5 text-xs">
+                        {[
+                          ['Port charges', localCosts.portCharges],
+                          ['Handling fees', localCosts.handlingFees],
+                          ['Documentation', localCosts.documentation],
+                          ['Agent fees', localCosts.agentFees],
+                          ['Inspection', localCosts.inspection],
+                          ['Storage (7 days)', localCosts.storage],
+                          ['Miscellaneous', localCosts.miscFees],
+                        ].map(([k, v]) => (
+                          <div key={k as string} className="flex justify-between text-zinc-700">
+                            <span>{k}</span>
+                            <span className="font-mono">
+                              {countryReqs.currency} {((v as number) * userShare).toFixed(2)}
+                            </span>
                           </div>
-                          <div className="flex justify-between">
-                            <span>Handling Fees:</span>
-                            <span className="font-medium">{countryReqs.currency} {(localCosts.handlingFees * userShare).toFixed(2)}</span>
-                          </div>
-                          <div className="flex justify-between">
-                            <span>Documentation:</span>
-                            <span className="font-medium">{countryReqs.currency} {(localCosts.documentation * userShare).toFixed(2)}</span>
-                          </div>
-                          <div className="flex justify-between">
-                            <span>Agent Fees:</span>
-                            <span className="font-medium">{countryReqs.currency} {(localCosts.agentFees * userShare).toFixed(2)}</span>
-                          </div>
-                          <div className="flex justify-between">
-                            <span>Inspection:</span>
-                            <span className="font-medium">{countryReqs.currency} {(localCosts.inspection * userShare).toFixed(2)}</span>
-                          </div>
-                          <div className="flex justify-between">
-                            <span>Storage (7 days):</span>
-                            <span className="font-medium">{countryReqs.currency} {(localCosts.storage * userShare).toFixed(2)}</span>
-                          </div>
-                          <div className="flex justify-between">
-                            <span>Miscellaneous:</span>
-                            <span className="font-medium">{countryReqs.currency} {(localCosts.miscFees * userShare).toFixed(2)}</span>
-                          </div>
-                        </div>
-                      );
-                    })()}
-                    <div className="border-t pt-2 space-y-1">
-                      <div className="flex justify-between text-sm">
-                        <span className="text-gray-700">Total Container Cost</span>
-                        <span>{countryReqs.currency} {(result.localClearingShare * 4).toFixed(2)}</span>
+                        ))}
                       </div>
-                      <div className="flex justify-between text-sm">
-                        <span className="text-gray-700">Your Cars / Total</span>
-                        <span>{parseInt(carsInContainer) || 1} / 4</span>
-                      </div>
-                      <div className="flex justify-between font-semibold border-t pt-2">
-                        <span>Your Share ({parseInt(carsInContainer) || 1}/4)</span>
-                        <span className="text-amber-900">{countryReqs.currency} {result.localClearingShare.toFixed(2)}</span>
-                      </div>
+                    )
+                  })()}
+                  <div className="border-t border-zinc-200 pt-2.5 mt-2.5 space-y-1.5 text-sm">
+                    <div className="flex justify-between text-zinc-700">
+                      <span>Total container cost</span>
+                      <span className="font-mono">{countryReqs.currency} {(result.localClearingShare * 4).toFixed(2)}</span>
+                    </div>
+                    <div className="flex justify-between text-zinc-700">
+                      <span>Your cars / total</span>
+                      <span className="font-mono">{parseInt(carsInContainer) || 1} / 4</span>
+                    </div>
+                    <div className="flex justify-between font-semibold">
+                      <span>Your share ({parseInt(carsInContainer) || 1}/4)</span>
+                      <span className="font-mono text-amber-700">{countryReqs.currency} {result.localClearingShare.toFixed(2)}</span>
                     </div>
                   </div>
-                  <p className="text-xs text-amber-700 mt-2">
-                    * You pay {parseInt(carsInContainer) || 1}/4 of total clearing costs
-                  </p>
                 </div>
 
                 {/* Customs Duties */}
-                <div className="bg-red-50 p-4 rounded-lg">
-                  <h3 className="font-semibold text-red-900 mb-3">Customs Duties & Taxes</h3>
-                  <div className="space-y-2">
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm">Vehicle Price</span>
-                      <span className="text-sm">{countryReqs.currency} {(result.cif / 1.10).toFixed(2)}</span>
+                <div>
+                  <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-red-600 font-semibold pb-2.5 mb-3 border-b border-zinc-200">
+                    Customs duties &amp; taxes
+                  </p>
+                  <div className="space-y-1.5 text-sm">
+                    <div className="flex justify-between text-zinc-700">
+                      <span>Vehicle price</span>
+                      <span className="font-mono">{countryReqs.currency} {(result.cif / 1.1).toFixed(2)}</span>
                     </div>
                     {country === 'NA' && (
-                      <div className="flex justify-between items-center text-xs text-gray-600">
-                        <span>CIF Value (Price + 10% shipping)</span>
-                        <span>{countryReqs.currency} {result.cif.toFixed(2)}</span>
+                      <div className="flex justify-between text-xs text-zinc-500">
+                        <span>CIF value (price + 10% shipping)</span>
+                        <span className="font-mono">{countryReqs.currency} {result.cif.toFixed(2)}</span>
                       </div>
                     )}
                     {result.duty > 0 && (
-                      <div className="flex justify-between items-center">
-                        <span className="text-sm font-medium">
-                          {country === 'ZM' ? 'Specific Duty' :
-                           country === 'NA' ? 'ICD (25% × Vehicle Price)' : 'Customs Duty'}
-                        </span>
-                        <span className="font-medium">{countryReqs.currency} {result.duty.toFixed(2)}</span>
+                      <div className="flex justify-between text-zinc-900 font-medium">
+                        <span>{country === 'ZM' ? 'Specific duty' : country === 'NA' ? 'ICD (25% × vehicle price)' : 'Customs duty'}</span>
+                        <span className="font-mono">{countryReqs.currency} {result.duty.toFixed(2)}</span>
                       </div>
                     )}
                     {country === 'NA' && (
-                      <div className="flex justify-between items-center">
-                        <span className="text-sm font-medium">
-                          ENV Levy
-                        </span>
-                        <span className="font-medium">{countryReqs.currency} {result.env.toFixed(2)}</span>
-                      </div>
-                    )}
-                    {country === 'NA' && parseFloat(co2Emissions) > 0 && (
-                      <div className="text-xs text-gray-600 ml-4">
-                        Formula: {co2Emissions}cc × 0.05 × {fuelType === 'petrol' ? '40' : '45'} = N${result.env.toFixed(2)}
-                      </div>
+                      <>
+                        <div className="flex justify-between text-zinc-900 font-medium">
+                          <span>ENV levy</span>
+                          <span className="font-mono">{countryReqs.currency} {result.env.toFixed(2)}</span>
+                        </div>
+                        {parseFloat(co2Emissions) > 0 && (
+                          <p className="text-xs text-zinc-500 pl-4">
+                            Formula · {co2Emissions}cc × 0.05 × {fuelType === 'petrol' ? '40' : '45'} = N${result.env.toFixed(2)}
+                          </p>
+                        )}
+                      </>
                     )}
                     {result.adv > 0 && (
                       <>
-                        <div className="flex justify-between items-center">
-                          <span className="text-sm font-medium">ADV (Ad Valorem Tax)</span>
-                          <span className="font-medium">{countryReqs.currency} {result.adv.toFixed(2)}</span>
+                        <div className="flex justify-between text-zinc-900 font-medium">
+                          <span>ADV (Ad Valorem)</span>
+                          <span className="font-mono">{countryReqs.currency} {result.adv.toFixed(2)}</span>
                         </div>
-                        <div className="text-xs text-gray-600 ml-4">
-                          Formula: ((0.00003 × {(parseFloat(cifValue || '0') * (country === 'NA' ? 1.65 : 1.5)).toFixed(0)}) - 0.75)% × value
-                        </div>
+                        <p className="text-xs text-zinc-500 pl-4">
+                          Formula · ((0.00003 × {(parseFloat(cifValue || '0') * (country === 'NA' ? 1.65 : 1.5)).toFixed(0)}) − 0.75)% × value
+                        </p>
                       </>
                     )}
                     {result.excise > 0 && (
-                      <div className="flex justify-between items-center">
-                        <span className="text-sm font-medium">Excise Duty</span>
-                        <span className="font-medium">{countryReqs.currency} {result.excise.toFixed(2)}</span>
+                      <div className="flex justify-between text-zinc-900 font-medium">
+                        <span>Excise duty</span>
+                        <span className="font-mono">{countryReqs.currency} {result.excise.toFixed(2)}</span>
                       </div>
                     )}
                     {result.co2Levy > 0 && (
-                      <div className="flex justify-between items-center">
-                        <span className="text-sm font-medium">CO₂ Levy (New Vehicle)</span>
-                        <span className="font-medium">{countryReqs.currency} {result.co2Levy.toFixed(2)}</span>
+                      <div className="flex justify-between text-zinc-900 font-medium">
+                        <span>CO₂ levy (new vehicle)</span>
+                        <span className="font-mono">{countryReqs.currency} {result.co2Levy.toFixed(2)}</span>
                       </div>
                     )}
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm font-medium">VAT ({countryReqs.vatRate}%)</span>
-                      <span className="font-medium">{countryReqs.currency} {result.vat.toFixed(2)}</span>
+                    <div className="flex justify-between text-zinc-900 font-medium">
+                      <span>VAT ({countryReqs.vatRate}%)</span>
+                      <span className="font-mono">{countryReqs.currency} {result.vat.toFixed(2)}</span>
                     </div>
-                    <div className="flex justify-between items-center pt-2 border-t font-semibold">
-                      <span>Total Duties & Taxes</span>
-                      <span className="text-red-700">{countryReqs.currency} {result.totalTaxes.toFixed(2)}</span>
+                    <div className="flex justify-between font-semibold border-t border-zinc-200 pt-2.5 mt-2.5">
+                      <span>Total duties &amp; taxes</span>
+                      <span className="font-mono text-red-600">{countryReqs.currency} {result.totalTaxes.toFixed(2)}</span>
                     </div>
                   </div>
                 </div>
 
                 {/* Summary */}
                 <div className="space-y-3">
-                  <div className="flex justify-between items-center py-3 px-4 bg-gray-100 rounded-lg font-bold">
-                    <span>Landed Cost (without ocean freight)</span>
-                    <span className="text-lg">{countryReqs.currency} {result.landedCost.toFixed(2)}</span>
+                  <div className="flex justify-between items-center px-5 py-3.5 bg-stone-50 border border-zinc-200 rounded-xl">
+                    <span className="font-medium text-zinc-900">Landed cost (no ocean freight)</span>
+                    <span className="font-mono text-lg font-semibold text-zinc-900">
+                      {countryReqs.currency} {result.landedCost.toFixed(2)}
+                    </span>
                   </div>
 
                   {oceanFreightCost && parseFloat(oceanFreightCost) > 0 && (
-                    <div className="flex justify-between items-center px-4">
-                      <span>+ Ocean Freight</span>
-                      <span>
-                        {countryReqs.currency} {
-                          useContainerSharing
-                            ? parseFloat(oceanFreightCost).toFixed(2)
-                            : ((parseFloat(oceanFreightCost) / 4) * (parseInt(carsInContainer) || 1)).toFixed(2)
-                        }
+                    <div className="flex justify-between items-center px-5 text-sm text-zinc-700">
+                      <span>+ Ocean freight</span>
+                      <span className="font-mono">
+                        {countryReqs.currency}{' '}
+                        {useContainerSharing
+                          ? parseFloat(oceanFreightCost).toFixed(2)
+                          : ((parseFloat(oceanFreightCost) / 4) * (parseInt(carsInContainer) || 1)).toFixed(2)}
                       </span>
                     </div>
                   )}
 
                   {result.inlandDelivery > 0 && (
-                    <div className="flex justify-between items-center px-4">
-                      <span>+ Inland Delivery</span>
-                      <span>{countryReqs.currency} {result.inlandDelivery.toFixed(2)}</span>
+                    <div className="flex justify-between items-center px-5 text-sm text-zinc-700">
+                      <span>+ Inland delivery</span>
+                      <span className="font-mono">{countryReqs.currency} {result.inlandDelivery.toFixed(2)}</span>
                     </div>
                   )}
 
-                  <div className="flex justify-between items-center py-3 px-4 bg-green-100 rounded-lg font-bold">
-                    <span className="text-green-900">Final Total</span>
-                    <span className="text-lg text-green-900">
-                      {countryReqs.currency} {(
+                  <div className="flex justify-between items-center px-5 py-4 bg-zinc-950 text-white rounded-xl">
+                    <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-amber-300 font-semibold">
+                      Final total
+                    </span>
+                    <span className="font-medium tracking-tight bg-gradient-to-br from-amber-200 via-amber-300 to-amber-400 bg-clip-text text-transparent text-2xl">
+                      {countryReqs.currency}{' '}
+                      {(
                         result.landedCost +
                         result.inlandDelivery +
-                        (oceanFreightCost && parseFloat(oceanFreightCost) > 0 ? (
-                          useContainerSharing
+                        (oceanFreightCost && parseFloat(oceanFreightCost) > 0
+                          ? useContainerSharing
                             ? parseFloat(oceanFreightCost)
-                            : ((parseFloat(oceanFreightCost) / 4) * (parseInt(carsInContainer) || 1))
-                        ) : 0)
+                            : (parseFloat(oceanFreightCost) / 4) * (parseInt(carsInContainer) || 1)
+                          : 0)
                       ).toFixed(2)}
                     </span>
                   </div>
                 </div>
 
-                {/* Calculation Details */}
-                <div className="mt-6 p-4 bg-gray-50 rounded-lg text-xs text-gray-600">
-                  <h4 className="font-semibold text-gray-800 mb-2">Calculation Notes for {countryNames[country]}:</h4>
-                  <ul className="space-y-1">
+                {/* Notes */}
+                <div className="border border-zinc-200 rounded-xl bg-stone-50/60 p-4">
+                  <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-zinc-500 font-semibold mb-2">
+                    Calculation notes · {countryNames[country]}
+                  </p>
+                  <ul className="space-y-1 text-xs text-zinc-700">
                     {country === 'NA' && (
                       <>
-                        <li>• ICD = 25% × Vehicle Price (auction price, shipping excluded)</li>
-                        <li>• ENV = Engine Size (cc) × 0.05 × {fuelType === 'petrol' ? '40' : '45'}</li>
-                        <li>• ADV = ((0.00003 × RRP) - 0.75)% × RRP (capped at 30%)</li>
-                        <li>• Import VAT = 15% × [(Vehicle Price + 10%) + Duty + ADV + ENV]</li>
+                        <li>· ICD = 25% × vehicle price (auction price, shipping excluded)</li>
+                        <li>· ENV = engine size (cc) × 0.05 × {fuelType === 'petrol' ? '40' : '45'}</li>
+                        <li>· ADV = ((0.00003 × RRP) − 0.75)% × RRP (capped at 30%)</li>
+                        <li>· Import VAT = 15% × [(vehicle price + 10%) + duty + ADV + ENV]</li>
                       </>
                     )}
                     {country === 'ZA' && (
                       <>
-                        <li>• Duty = 25% × CIF (HS 8703)</li>
-                        <li>• ADV = ((0.00003 × RRP) - 0.75)% × RRP (capped at 30%)</li>
-                        {isNewVehicle && <li>• CO₂ Levy applies to new vehicles only</li>}
-                        <li>• Import VAT = 15% × [(CIF + 10%) + Duty + ADV {isNewVehicle ? '+ CO₂ Levy' : ''}]</li>
+                        <li>· Duty = 25% × CIF (HS 8703)</li>
+                        <li>· ADV = ((0.00003 × RRP) − 0.75)% × RRP (capped at 30%)</li>
+                        {isNewVehicle && <li>· CO₂ levy applies to new vehicles only</li>}
+                        <li>· Import VAT = 15% × [(CIF + 10%) + duty + ADV {isNewVehicle ? '+ CO₂ levy' : ''}]</li>
                       </>
                     )}
                     {country === 'BW' && (
                       <>
-                        <li>• Duty = 25% × CIF (HS 8703 default)</li>
-                        <li>• ADV = ((0.00003 × RRP) - 0.75)% × RRP (capped at 30%)</li>
-                        <li>• Import VAT = 12% × [CIF + Duty + ADV] (no uplift)</li>
+                        <li>· Duty = 25% × CIF (HS 8703 default)</li>
+                        <li>· ADV = ((0.00003 × RRP) − 0.75)% × RRP (capped at 30%)</li>
+                        <li>· Import VAT = 12% × [CIF + duty + ADV] (no uplift)</li>
                       </>
                     )}
                     {country === 'ZM' && (
                       <>
-                        <li>• Specific Duty from ZRA table by type/cc/age</li>
-                        <li>• Excise = {exciseRate}% × (CIF + Duty)</li>
-                        <li>• Import VAT = 16% × [CIF + Duty + Excise]</li>
-                        {isEV && <li>• EVs receive zero duty and reduced excise</li>}
-                        {isHybrid && <li>• Hybrids receive reduced excise duty</li>}
+                        <li>· Specific duty from ZRA table by type/cc/age</li>
+                        <li>· Excise = {exciseRate}% × (CIF + duty)</li>
+                        <li>· Import VAT = 16% × [CIF + duty + excise]</li>
+                        {isEV && <li>· EVs receive zero duty and reduced excise</li>}
+                        {isHybrid && <li>· Hybrids receive reduced excise duty</li>}
                       </>
                     )}
                   </ul>
                 </div>
 
-                {/* Breakdown Notes */}
+                {/* Breakdown notes */}
                 {result.breakdownNotes && result.breakdownNotes.length > 0 && (
-                  <div className="mt-4 p-4 bg-yellow-50 rounded-lg">
-                    <h4 className="font-semibold text-yellow-900 mb-2 text-sm flex items-center gap-2">
-                      <AlertTriangle className="h-4 w-4 text-yellow-600" />
-                      Important Information
-                    </h4>
-                    <ul className="text-xs text-yellow-800 space-y-1">
+                  <div className="border-t border-b border-zinc-200 py-4 flex items-start gap-3">
+                    <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-amber-700 font-semibold mt-0.5 whitespace-nowrap">
+                      [ Important ]
+                    </span>
+                    <ul className="space-y-1 text-xs text-zinc-700 flex-1">
                       {result.breakdownNotes.map((note, idx) => (
-                        <li key={idx}>• {note}</li>
+                        <li key={idx} className="flex items-start gap-2">
+                          <span className="mt-1.5 h-1 w-1 rounded-full bg-amber-500 flex-shrink-0" aria-hidden />
+                          <span>{note}</span>
+                        </li>
                       ))}
                     </ul>
                   </div>
                 )}
               </div>
-            </Card>
+            </div>
           ) : (
-            <Card className="p-4 sm:p-6">
-              <div className="text-center text-gray-500">
-                <Calculator className="h-12 w-12 sm:h-16 sm:w-16 mx-auto mb-3 sm:mb-4 text-gray-300" />
-                <h3 className="text-base sm:text-lg font-semibold mb-2">Ready to Calculate</h3>
-                <p className="text-sm sm:text-base">Enter vehicle details to see full import cost breakdown.</p>
-                <div className="mt-6 text-left bg-blue-50 p-4 rounded-lg">
-                  <h4 className="font-semibold text-blue-900 mb-2 text-sm">What's Included:</h4>
-                  <ul className="text-xs text-blue-800 space-y-1">
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="h-3 w-3 text-blue-600 mt-0.5 flex-shrink-0" />
-                      Japan-side costs (auction fees, handling)
+            <div className="border border-zinc-200 rounded-2xl bg-stone-50/60 p-8 sm:p-10 text-center self-start">
+              <Calculator className="h-10 w-10 text-zinc-300 mx-auto mb-4" strokeWidth={1.5} />
+              <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-zinc-500 font-semibold mb-2">
+                Ready to calculate
+              </p>
+              <h3 className="text-lg font-medium tracking-tight text-zinc-900 mb-2">
+                Enter vehicle details.
+              </h3>
+              <p className="text-sm text-zinc-600 mb-6">
+                See the full import cost breakdown.
+              </p>
+
+              <div className="text-left border-t border-zinc-200 pt-5">
+                <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-blue-600 font-semibold mb-3">
+                  What's included
+                </p>
+                <ul className="space-y-2 text-sm text-zinc-700">
+                  {[
+                    'Japan-side costs (auction fees, handling)',
+                    'Ocean freight (if entered)',
+                    'Local clearing agent costs',
+                    'All customs duties (ICD, ENV, ADV, VAT)',
+                    'Optional inland delivery costs',
+                  ].map((item) => (
+                    <li key={item} className="flex items-start gap-2.5">
+                      <CheckCircle2 className="h-3.5 w-3.5 mt-0.5 text-emerald-600 flex-shrink-0" strokeWidth={1.75} />
+                      <span>{item}</span>
                     </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="h-3 w-3 text-blue-600 mt-0.5 flex-shrink-0" />
-                      Ocean freight (if entered)
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="h-3 w-3 text-blue-600 mt-0.5 flex-shrink-0" />
-                      Local clearing agent costs
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="h-3 w-3 text-blue-600 mt-0.5 flex-shrink-0" />
-                      All customs duties (ICD, ENV, ADV, VAT)
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="h-3 w-3 text-blue-600 mt-0.5 flex-shrink-0" />
-                      Optional inland delivery costs
-                    </li>
-                  </ul>
-                </div>
+                  ))}
+                </ul>
               </div>
-            </Card>
+            </div>
           )}
         </div>
-      </div>
 
-      {/* Vehicle Pricing Database */}
-      <div className="mt-8 sm:mt-12 px-4 sm:px-6 max-w-6xl mx-auto">
-        <VehiclePricingDatabase />
-      </div>
+        {/* VEHICLE PRICING DATABASE */}
+        <div className="mb-12">
+          <VehiclePricingDatabase />
+        </div>
 
-      {/* Additional Information - Mobile Optimized */}
-      <div className="mt-8 sm:mt-12 px-4 sm:px-6 max-w-6xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
-          <Card className="p-4 sm:p-6">
-            <h3 className="font-bold text-base sm:text-lg mb-3 sm:mb-4 flex items-center gap-2">
-              <Info className="h-4 w-4 sm:h-5 sm:w-5 text-blue-600" />
-              How It Works
-            </h3>
-            <ul className="space-y-2 text-xs sm:text-sm">
-              <li className="flex items-start gap-2">
-                <CheckCircle className="h-3 w-3 sm:h-4 sm:w-4 text-green-600 mt-0.5 flex-shrink-0" />
-                Multi-country support (NA, ZA, BW, ZM)
-              </li>
-              <li className="flex items-start gap-2">
-                <CheckCircle className="h-3 w-3 sm:h-4 sm:w-4 text-green-600 mt-0.5 flex-shrink-0" />
-                Japan auction & shipping costs
-              </li>
-              <li className="flex items-start gap-2">
-                <CheckCircle className="h-3 w-3 sm:h-4 sm:w-4 text-green-600 mt-0.5 flex-shrink-0" />
-                Container cost sharing
-              </li>
-              <li className="flex items-start gap-2">
-                <CheckCircle className="h-3 w-3 sm:h-4 sm:w-4 text-green-600 mt-0.5 flex-shrink-0" />
-                Country-specific duty formulas
-              </li>
-              <li className="flex items-start gap-2">
-                <CheckCircle className="h-3 w-3 sm:h-4 sm:w-4 text-green-600 mt-0.5 flex-shrink-0" />
-                ADV & environmental levies
-              </li>
+        {/* INFO CARDS */}
+        <div className="mb-12 grid grid-cols-1 md:grid-cols-3 gap-px bg-zinc-200 border border-zinc-200 rounded-2xl overflow-hidden">
+          <div className="bg-white p-6 sm:p-7">
+            <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-blue-600 font-semibold pb-2.5 mb-4 border-b border-zinc-200">
+              How it works
+            </p>
+            <ul className="space-y-2 text-sm text-zinc-700">
+              {[
+                'Multi-country support (NA, ZA, BW, ZM)',
+                'Japan auction & shipping costs',
+                'Container cost sharing',
+                'Country-specific duty formulas',
+                'ADV & environmental levies',
+              ].map((item) => (
+                <li key={item} className="flex items-start gap-2.5">
+                  <CheckCircle2 className="h-3.5 w-3.5 mt-0.5 text-emerald-600 flex-shrink-0" strokeWidth={1.75} />
+                  <span>{item}</span>
+                </li>
+              ))}
             </ul>
-          </Card>
+          </div>
 
-          <Card className="p-4 sm:p-6 bg-amber-50 border-amber-200">
-            <h3 className="font-bold text-base sm:text-lg mb-3 sm:mb-4 flex items-center gap-2 text-amber-900">
-              <Shield className="h-4 w-4 sm:h-5 sm:w-5 text-amber-600" />
-              Important Notes
-            </h3>
-            <ul className="space-y-1 sm:space-y-2 text-xs sm:text-sm text-amber-800">
-              <li>• Local clearing costs shared per container</li>
-              <li>• Customs duties are per vehicle</li>
-              <li>• Exchange rates fluctuate daily</li>
-              {country === 'NA' && <li>• CO₂ thresholds: Petrol 120, Diesel 140</li>}
-              {country === 'ZA' && <li>• Used imports need ITAC permit</li>}
-              {country === 'BW' && <li>• VAT calculated without uplift</li>}
-              {country === 'ZM' && <li>• Uses specific duty table by cc/age</li>}
-              <li>• ADV capped at 30% of value</li>
+          <div className="bg-white p-6 sm:p-7">
+            <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-amber-700 font-semibold pb-2.5 mb-4 border-b border-zinc-200">
+              Important notes
+            </p>
+            <ul className="space-y-1.5 text-sm text-zinc-700">
+              <li>· Local clearing costs shared per container</li>
+              <li>· Customs duties are per vehicle</li>
+              <li>· Exchange rates fluctuate daily</li>
+              {country === 'NA' && <li>· CO₂ thresholds · Petrol 120, Diesel 140</li>}
+              {country === 'ZA' && <li>· Used imports need ITAC permit</li>}
+              {country === 'BW' && <li>· VAT calculated without uplift</li>}
+              {country === 'ZM' && <li>· Uses specific duty table by cc/age</li>}
+              <li>· ADV capped at 30% of value</li>
             </ul>
-          </Card>
+          </div>
 
-          <Card className="p-4 sm:p-6 bg-red-50 border-red-200">
-            <h3 className="font-bold text-base sm:text-lg mb-3 sm:mb-4 flex items-center gap-2 text-red-900">
-              <AlertTriangle className="h-4 w-4 sm:h-5 sm:w-5 text-red-600" />
+          <div className="bg-white p-6 sm:p-7">
+            <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-red-600 font-semibold pb-2.5 mb-4 border-b border-zinc-200">
               Disclaimers
-            </h3>
-            <ul className="space-y-1 sm:space-y-2 text-xs sm:text-sm text-red-800">
-              <li>• Estimates only - not final values</li>
-              <li>• Customs may adjust declared values</li>
-              <li>• Additional fees may apply</li>
-              <li>• Consult clearing agent for accuracy</li>
-              <li>• Port charges subject to change</li>
+            </p>
+            <ul className="space-y-1.5 text-sm text-zinc-700">
+              <li>· Estimates only — not final values</li>
+              <li>· Customs may adjust declared values</li>
+              <li>· Additional fees may apply</li>
+              <li>· Consult clearing agent for accuracy</li>
+              <li>· Port charges subject to change</li>
             </ul>
-          </Card>
+          </div>
         </div>
       </div>
 
-      {/* Portal Page Navigation */}
-      <div className="px-4 sm:px-6">
-        <PortalPageNavigation currentPath="/portal/calculator" />
-      </div>
-    </div>
+      <PortalPageNavigation currentPath="/portal/calculator" />
+    </main>
   )
 }
