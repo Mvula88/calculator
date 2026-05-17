@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>IMPOTA — Design Studio</title>
+<link rel="icon" type="image/png" href="/favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+:root{--primary:#18181b;--secondary:#fbbf24;--bg:#fafaf9;--card:#fff;--border:#e4e4e7;--text:#18181b;--text-light:#71717a}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text)}
+
+.topbar{background:#fff;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border)}
+.topbar-left{display:flex;align-items:center;gap:14px}
+.topbar-left img{height:42px}
+.topbar-left h1{font-size:1rem;font-weight:700;color:var(--text)}
+.topbar-left h1 span{color:var(--secondary)}
+.topbar a{color:var(--primary);font-weight:600;font-size:0.9rem;text-decoration:none}
+
+.container{max-width:1200px;margin:0 auto;padding:32px 24px}
+
+.intro{text-align:center;margin-bottom:40px}
+.intro h2{font-size:1.6rem;margin-bottom:8px}
+.intro p{color:var(--text-light);font-size:0.95rem;max-width:560px;margin:0 auto}
+
+/* Platform tabs */
+.platform-tabs{display:flex;justify-content:center;gap:8px;margin-bottom:32px;flex-wrap:wrap}
+.platform-tab{padding:8px 18px;border:1.5px solid var(--border);border-radius:20px;font-size:0.85rem;font-weight:600;cursor:pointer;background:var(--card);color:var(--text-light);transition:all 0.15s;font-family:inherit}
+.platform-tab.active{background:var(--primary);color:#fff;border-color:var(--primary)}
+
+/* Design grid */
+.design-grid{display:grid;grid-template-columns:repeat(auto-fill, minmax(320px, 1fr));gap:24px}
+
+.design-item{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:box-shadow 0.2s}
+.design-item:hover{box-shadow:0 6px 24px rgba(0,0,0,0.08)}
+.design-preview{position:relative;background:#000;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.design-preview iframe{border:none;width:100%;transform-origin:top left}
+.design-info{padding:16px}
+.design-info h3{font-size:0.95rem;margin-bottom:4px}
+.design-info .meta{font-size:0.78rem;color:var(--text-light);margin-bottom:12px}
+.design-info .tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.design-info .tag{padding:3px 10px;background:var(--bg);border-radius:12px;font-size:0.72rem;font-weight:500;color:var(--text-light)}
+.design-actions{display:flex;gap:8px}
+.design-actions a,.design-actions button{padding:8px 16px;border-radius:6px;font-size:0.82rem;font-weight:600;cursor:pointer;font-family:inherit;text-decoration:none;border:none;display:inline-flex;align-items:center;gap:6px}
+.btn-view{background:var(--primary);color:#fff}
+.btn-download{background:var(--secondary);color:var(--primary)}
+.btn-view:hover{opacity:0.9}
+.btn-download:hover{opacity:0.9}
+
+.empty{text-align:center;padding:60px 20px;color:var(--text-light)}
+.empty h3{margin-bottom:8px;color:var(--text)}
+
+/* Sizes legend */
+.sizes{display:flex;justify-content:center;gap:20px;margin-bottom:24px;font-size:0.78rem;color:var(--text-light);flex-wrap:wrap}
+.sizes span{display:flex;align-items:center;gap:6px}
+.sizes .dot{width:8px;height:8px;border-radius:50%}
+
+@media(max-width:768px){
+    .design-grid{grid-template-columns:1fr}
+    .container{padding:20px 16px}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+    <div class="topbar-left">
+        <img src="/impota-logo.png" alt="IMPOTA">
+        <h1>Design <span>Studio</span></h1>
+    </div>
+    <a href="/">&larr; Back to site</a>
+</div>
+
+<div class="container">
+    <div class="intro">
+        <h2>Social Media Designs</h2>
+        <p>Ready-to-use branded designs for your social media. Open any design, screenshot or download, and post.</p>
+    </div>
+
+    <div class="sizes">
+        <span><span class="dot" style="background:var(--primary)"></span> Instagram Post: 1080x1080</span>
+        <span><span class="dot" style="background:var(--secondary)"></span> Facebook Cover: 820x312</span>
+        <span><span class="dot" style="background:#E74C3C"></span> Story/TikTok: 1080x1920</span>
+        <span><span class="dot" style="background:#3498DB"></span> Facebook Post: 1200x630</span>
+    </div>
+
+    <div class="platform-tabs">
+        <button class="platform-tab active" onclick="filterDesigns('all')">All</button>
+        <button class="platform-tab" onclick="filterDesigns('instagram')">Instagram</button>
+        <button class="platform-tab" onclick="filterDesigns('facebook')">Facebook</button>
+        <button class="platform-tab" onclick="filterDesigns('tiktok')">TikTok</button>
+        <button class="platform-tab" onclick="filterDesigns('story')">Stories</button>
+        <button class="platform-tab" onclick="filterDesigns('cover')">Covers</button>
+    </div>
+
+    <div class="design-grid" id="designGrid">
+        <div class="empty">
+            <h3>Loading designs...</h3>
+        </div>
+    </div>
+</div>
+
+<script>
+// Design registry — each entry points to an HTML file in /designs/
+const designs = [
+    {
+        file: 'designs/ig-full-package.html',
+        title: 'Full Package Promo',
+        platform: 'instagram',
+        type: 'Promo',
+        size: '1080x1080',
+        date: '2026-04-08',
+    },
+    {
+        file: 'designs/ig-dont-buy-blind.html',
+        title: "Don't Buy Blind",
+        platform: 'instagram',
+        type: 'Awareness',
+        size: '1080x1080',
+        date: '2026-04-08',
+    },
+    {
+        file: 'designs/ig-testimonial.html',
+        title: 'Client Testimonial',
+        platform: 'instagram',
+        type: 'Testimonial',
+        size: '1080x1080',
+        date: '2026-04-08',
+    },
+    {
+        file: 'designs/fb-cover.html',
+        title: 'Facebook Cover Image',
+        platform: 'cover',
+        type: 'Cover',
+        size: '820x312',
+        date: '2026-04-08',
+    },
+    {
+        file: 'designs/fb-profile.html',
+        title: 'Facebook Profile Photo',
+        platform: 'facebook',
+        type: 'Profile',
+        size: '1080x1080',
+        date: '2026-04-12',
+    },
+    {
+        file: 'designs/fb-cover-wecheck.html',
+        title: 'Facebook Cover — We Check Cars',
+        platform: 'cover',
+        type: 'Cover',
+        size: '820x312',
+        date: '2026-04-12',
+    },
+    {
+        file: 'designs/fb-01-shocking-stat.html',
+        title: '01 · 7 out of 10 Used Cars',
+        platform: 'facebook',
+        type: 'Awareness',
+        size: '1080x1080',
+        date: '2026-04-12',
+    },
+    {
+        file: 'designs/fb-02-cost-math.html',
+        title: '02 · N$950 vs N$50,000',
+        platform: 'facebook',
+        type: 'Value',
+        size: '1080x1080',
+        date: '2026-04-12',
+    },
+    {
+        file: 'designs/fb-03-red-flags.html',
+        title: '03 · 5 Red Flags Sellers Hide',
+        platform: 'facebook',
+        type: 'Educational',
+        size: '1080x1080',
+        date: '2026-04-12',
+    },
+    {
+        file: 'designs/fb-04-natis-codes.html',
+        title: '04 · NaTIS Code Guide',
+        platform: 'facebook',
+        type: 'Educational',
+        size: '1080x1080',
+        date: '2026-04-12',
+    },
+    {
+        file: 'designs/fb-05-how-it-works.html',
+        title: '05 · How ViewNam Works',
+        platform: 'facebook',
+        type: 'Process',
+        size: '1080x1080',
+        date: '2026-04-12',
+    },
+    {
+        file: 'designs/fb-06-what-we-check.html',
+        title: '06 · 150+ Checks Every Time',
+        platform: 'facebook',
+        type: 'Service',
+        size: '1080x1080',
+        date: '2026-04-12',
+    },
+    {
+        file: 'designs/fb-07-buyer-first.html',
+        title: '07 · We Work for the Buyer',
+        platform: 'facebook',
+        type: 'Positioning',
+        size: '1080x1080',
+        date: '2026-04-12',
+    },
+    {
+        file: 'designs/fb-08-nationwide.html',
+        title: '08 · Nationwide Coverage',
+        platform: 'facebook',
+        type: 'Reach',
+        size: '1080x1080',
+        date: '2026-04-12',
+    },
+    {
+        file: 'designs/fb-09-question.html',
+        title: '09 · Would You Buy a House Blind?',
+        platform: 'facebook',
+        type: 'Engagement',
+        size: '1080x1080',
+        date: '2026-04-12',
+    },
+    {
+        file: 'designs/fb-10-mission.html',
+        title: '10 · Why We Built ViewNam',
+        platform: 'facebook',
+        type: 'Brand Story',
+        size: '1080x1080',
+        date: '2026-04-12',
+    },
+    {
+        file: 'designs/fb-11-seller-lies.html',
+        title: '11 · Four Lies Sellers Tell',
+        platform: 'facebook',
+        type: 'Awareness',
+        size: '1080x1080',
+        date: '2026-04-12',
+    },
+    {
+        file: 'designs/fb-12-code3-story.html',
+        title: '12 · He Almost Bought a Code 3',
+        platform: 'facebook',
+        type: 'Story',
+        size: '1080x1080',
+        date: '2026-04-12',
+    },
+    {
+        file: 'designs/fb-13-from-your-couch.html',
+        title: '13 · Check From Your Couch',
+        platform: 'facebook',
+        type: 'Convenience',
+        size: '1080x1080',
+        date: '2026-04-12',
+    },
+    {
+        file: 'designs/fb-14-family-savings.html',
+        title: '14 · Your Family\u2019s Savings',
+        platform: 'facebook',
+        type: 'Emotional',
+        size: '1080x1080',
+        date: '2026-04-12',
+    },
+    {
+        file: 'designs/fb-15-imports.html',
+        title: '15 · That Import Has A Story',
+        platform: 'facebook',
+        type: 'Segment',
+        size: '1080x1080',
+        date: '2026-04-12',
+    },
+    {
+        file: 'designs/fb-16-cousin.html',
+        title: '16 · "My Cousin Knows Cars"',
+        platform: 'facebook',
+        type: 'Positioning',
+        size: '1080x1080',
+        date: '2026-04-12',
+    },
+    {
+        file: 'designs/fb-17-pricing.html',
+        title: '17 · Transparent Pricing Menu',
+        platform: 'facebook',
+        type: 'Pricing',
+        size: '1080x1080',
+        date: '2026-04-12',
+    },
+    {
+        file: 'designs/fb-18-checks-buyers-skip.html',
+        title: '18 · 5 Checks Buyers Skip',
+        platform: 'facebook',
+        type: 'Educational',
+        size: '1080x1080',
+        date: '2026-04-12',
+    },
+    {
+        file: 'designs/fb-19-what-sellers-hide.html',
+        title: '19 · What Sellers Won\u2019t Mention',
+        platform: 'facebook',
+        type: 'Awareness',
+        size: '1080x1080',
+        date: '2026-04-12',
+    },
+    {
+        file: 'designs/fb-20-first-car.html',
+        title: '20 · First Car? Don\u2019t Rush.',
+        platform: 'facebook',
+        type: 'Segment',
+        size: '1080x1080',
+        date: '2026-04-12',
+    },
+    {
+        file: 'designs/fb-21-the-report.html',
+        title: '21 · What You Receive',
+        platform: 'facebook',
+        type: 'Deliverable',
+        size: '1080x1080',
+        date: '2026-04-12',
+    },
+    {
+        file: 'designs/fb-22-inspectors.html',
+        title: '22 · Real People, Real Expertise',
+        platform: 'facebook',
+        type: 'Team',
+        size: '1080x1080',
+        date: '2026-04-12',
+    },
+    {
+        file: 'designs/fb-23-no-commission.html',
+        title: '23 · Nothing From The Seller',
+        platform: 'facebook',
+        type: 'Integrity',
+        size: '1080x1080',
+        date: '2026-04-12',
+    },
+    {
+        file: 'designs/fb-24-same-day.html',
+        title: '24 · One Call, One Verdict',
+        platform: 'facebook',
+        type: 'Speed',
+        size: '1080x1080',
+        date: '2026-04-12',
+    },
+    {
+        file: 'designs/fb-25-walk-away.html',
+        title: '25 · Sometimes We Say Don\u2019t Buy',
+        platform: 'facebook',
+        type: 'Integrity',
+        size: '1080x1080',
+        date: '2026-04-12',
+    },
+    {
+        file: 'designs/fb-26-negotiate.html',
+        title: '26 · Save N$10,000+ Off Asking',
+        platform: 'facebook',
+        type: 'Value',
+        size: '1080x1080',
+        date: '2026-04-12',
+    },
+    {
+        file: 'designs/fb-27-marketplace.html',
+        title: '27 · Found It On Marketplace?',
+        platform: 'facebook',
+        type: 'Segment',
+        size: '1080x1080',
+        date: '2026-04-12',
+    },
+    {
+        file: 'designs/fb-28-obd-scan.html',
+        title: '28 · The Computer Doesn\u2019t Lie',
+        platform: 'facebook',
+        type: 'Authority',
+        size: '1080x1080',
+        date: '2026-04-12',
+    },
+    {
+        file: 'designs/fb-29-testimonial.html',
+        title: '29 · Client Voice',
+        platform: 'facebook',
+        type: 'Social Proof',
+        size: '1080x1080',
+        date: '2026-04-12',
+    },
+    {
+        file: 'designs/fb-30-second-opinion.html',
+        title: '30 · The Second Opinion',
+        platform: 'facebook',
+        type: 'Engagement',
+        size: '1080x1080',
+        date: '2026-04-12',
+    },
+    {
+        file: 'designs/fb-31-thinking-of-buying.html',
+        title: '31 · Thinking Of Buying A Car?',
+        platform: 'facebook',
+        type: 'Awareness',
+        size: '1080x1080',
+        date: '2026-04-12',
+    },
+    {
+        file: 'designs/fb-32-before-you-call.html',
+        title: '32 · Before You Call The Seller',
+        platform: 'facebook',
+        type: 'Timing',
+        size: '1080x1080',
+        date: '2026-04-12',
+    },
+    {
+        file: 'designs/fb-33-looks-good.html',
+        title: '33 · The Car Looks Good. But Is It?',
+        platform: 'facebook',
+        type: 'Awareness',
+        size: '1080x1080',
+        date: '2026-04-12',
+    },
+    {
+        file: 'designs/fb-34-every-buyer-wishes.html',
+        title: '34 · Every Buyer Wishes They Knew',
+        platform: 'facebook',
+        type: 'FOMO',
+        size: '1080x1080',
+        date: '2026-04-12',
+    },
+    {
+        file: 'designs/fb-35-check-not-deposit.html',
+        title: '35 · Start With The Check',
+        platform: 'facebook',
+        type: 'CTA',
+        size: '1080x1080',
+        date: '2026-04-12',
+    },
+    {
+        file: 'designs/fb-36-tiny-cost.html',
+        title: '36 · N$1,200 Today, N$200,000 Tomorrow',
+        platform: 'facebook',
+        type: 'Math',
+        size: '1080x1080',
+        date: '2026-05-04',
+    },
+    {
+        file: 'designs/fb-37-insurance-gap.html',
+        title: '37 · Insurance Won\'t Cover It',
+        platform: 'facebook',
+        type: 'Insight',
+        size: '1080x1080',
+        date: '2026-05-04',
+    },
+    {
+        file: 'designs/fb-38-dealer-conflict.html',
+        title: '38 · Who Works For You?',
+        platform: 'facebook',
+        type: 'Independence',
+        size: '1080x1080',
+        date: '2026-05-04',
+    },
+    {
+        file: 'designs/fb-39-four-minutes.html',
+        title: '39 · Four Minutes To Book',
+        platform: 'facebook',
+        type: 'Speed',
+        size: '1080x1080',
+        date: '2026-05-04',
+    },
+    {
+        file: 'designs/fb-40-caveat-emptor.html',
+        title: '40 · Buyer Beware. Until Now.',
+        platform: 'facebook',
+        type: 'Brand',
+        size: '1080x1080',
+        date: '2026-05-04',
+    },
+    {
+        file: 'designs/fb-41-fifty-photos.html',
+        title: '41 · 50 Photos. One Verdict.',
+        platform: 'facebook',
+        type: 'Deliverable',
+        size: '1080x1080',
+        date: '2026-05-04',
+    },
+    {
+        file: 'designs/fb-42-never-trust.html',
+        title: '42 · Never Trust These Three',
+        platform: 'facebook',
+        type: 'Awareness',
+        size: '1080x1080',
+        date: '2026-05-04',
+    },
+    {
+        file: 'designs/fb-43-average-saved.html',
+        title: '43 · Average Buyer Saves N$8,400',
+        platform: 'facebook',
+        type: 'Proof',
+        size: '1080x1080',
+        date: '2026-05-04',
+    },
+    {
+        file: 'designs/fb-44-walkaround.html',
+        title: '44 · 5 Minutes vs 5 Years',
+        platform: 'facebook',
+        type: 'Awareness',
+        size: '1080x1080',
+        date: '2026-05-04',
+    },
+    {
+        file: 'designs/fb-45-ask-the-car.html',
+        title: '45 · Ask The Car, Not The Seller',
+        platform: 'facebook',
+        type: 'Positioning',
+        size: '1080x1080',
+        date: '2026-05-04',
+    },
+    {
+        file: 'designs/story-checklist.html',
+        title: 'What We Check — Story',
+        platform: 'story',
+        type: 'Educational',
+        size: '1080x1920',
+        date: '2026-04-08',
+    },
+    {
+        file: 'designs/fb-post-pricing.html',
+        title: 'Pricing Post',
+        platform: 'facebook',
+        type: 'Promo',
+        size: '1200x630',
+        date: '2026-04-08',
+    },
+];
+
+let currentFilter = 'all';
+
+function filterDesigns(platform) {
+    currentFilter = platform;
+    document.querySelectorAll('.platform-tab').forEach(t => t.classList.remove('active'));
+    event.target.classList.add('active');
+    renderDesigns();
+}
+
+function renderDesigns() {
+    const grid = document.getElementById('designGrid');
+    const filtered = currentFilter === 'all' ? designs : designs.filter(d => d.platform === currentFilter);
+
+    if (!filtered.length) {
+        grid.innerHTML = '<div class="empty"><h3>No designs in this category yet</h3><p>Ask Claude Code to generate one!</p></div>';
+        return;
+    }
+
+    // Calculate preview dimensions
+    grid.innerHTML = filtered.map(d => {
+        const [w, h] = d.size.split('x').map(Number);
+        const previewWidth = 340;
+        const scale = previewWidth / w;
+        const previewHeight = Math.min(h * scale, 400);
+
+        return `
+        <div class="design-item" data-platform="${d.platform}">
+            <div class="design-preview" style="height:${previewHeight}px">
+                <iframe src="${d.file}" style="width:${w}px;height:${h}px;transform:scale(${scale});pointer-events:none;" scrolling="no"></iframe>
+            </div>
+            <div class="design-info">
+                <h3>${d.title}</h3>
+                <div class="meta">${d.size} &middot; ${d.date}</div>
+                <div class="tags">
+                    <span class="tag">${d.platform}</span>
+                    <span class="tag">${d.type}</span>
+                </div>
+                <div class="design-actions">
+                    <a href="${d.file}" target="_blank" class="btn-view">Open Full Size</a>
+                    <button class="btn-download" onclick="downloadDesign(${JSON.stringify(d).replace(/"/g, '&quot;')}, this)">Download PNG</button>
+                </div>
+            </div>
+        </div>`;
+    }).join('');
+}
+
+renderDesigns();
+
+// --- Download design as PNG at native resolution ---
+async function downloadDesign(d, btn) {
+    const originalText = btn.textContent;
+    btn.disabled = true;
+    btn.textContent = 'Rendering...';
+    btn.style.opacity = '0.6';
+    btn.style.cursor = 'wait';
+
+    const [w, h] = d.size.split('x').map(Number);
+
+    // Create a hidden, full-size iframe so the design renders at native resolution
+    const frame = document.createElement('iframe');
+    frame.src = d.file;
+    frame.style.cssText = `position:fixed;top:-10000px;left:-10000px;width:${w}px;height:${h}px;border:0;`;
+    document.body.appendChild(frame);
+
+    try {
+        // Wait for the iframe to fully load
+        await new Promise((resolve, reject) => {
+            frame.onload = resolve;
+            frame.onerror = reject;
+            setTimeout(reject, 15000); // 15s safety timeout
+        });
+
+        // Wait a short moment for fonts and images inside the iframe
+        const innerDoc = frame.contentDocument;
+        if (innerDoc.fonts && innerDoc.fonts.ready) {
+            await innerDoc.fonts.ready;
+        }
+        // Let any inline images (logo) settle
+        const images = Array.from(innerDoc.images || []);
+        await Promise.all(images.map(img => img.complete ? Promise.resolve() : new Promise(r => {
+            img.onload = img.onerror = r;
+        })));
+        await new Promise(r => setTimeout(r, 300));
+
+        // Render via html2canvas against the iframe body
+        const canvas = await html2canvas(innerDoc.body, {
+            width: w,
+            height: h,
+            windowWidth: w,
+            windowHeight: h,
+            backgroundColor: null,
+            useCORS: true,
+            allowTaint: true,
+            scale: 1,
+            logging: false,
+        });
+
+        // Trigger download
+        const link = document.createElement('a');
+        const safeTitle = d.title.replace(/[^a-z0-9]+/gi, '-').toLowerCase().replace(/^-|-$/g, '');
+        link.download = `impota-${safeTitle}-${w}x${h}.png`;
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+
+        btn.textContent = 'Downloaded ✓';
+        btn.style.background = '#27AE60';
+        btn.style.color = '#fff';
+    } catch (e) {
+        console.error('Download failed:', e);
+        btn.textContent = 'Failed — retry';
+        btn.style.background = '#E74C3C';
+        btn.style.color = '#fff';
+    } finally {
+        document.body.removeChild(frame);
+        setTimeout(() => {
+            btn.disabled = false;
+            btn.textContent = originalText;
+            btn.style.background = '';
+            btn.style.color = '';
+            btn.style.opacity = '';
+            btn.style.cursor = '';
+        }, 2400);
+    }
+}
+</script>
+</body>
+</html>
