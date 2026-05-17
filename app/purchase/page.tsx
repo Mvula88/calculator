@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
-import Image from 'next/image'
+import Wordmark from '@/components/Wordmark'
 import { Shield, Clock, CheckCircle, Star, TrendingUp, Users, Award } from 'lucide-react'
 import FloatingSignupButton from '@/components/FloatingSignupButton'
 import QuickSignupForm from '@/components/QuickSignupForm'
@@ -23,14 +23,7 @@ export default function PurchasePage() {
         <div className="max-w-7xl mx-auto px-4 py-3 sm:py-4">
           <div className="flex items-center justify-between">
             <Link href="/" className="flex items-center">
-              <Image 
-                src="/impota-logo.png" 
-                alt="IMPOTA" 
-                width={120} 
-                height={32}
-                className="h-6 sm:h-8 w-auto"
-                priority
-              />
+              <Wordmark className="text-2xl sm:text-4xl" />
             </Link>
             <Link href="/auth/login">
               <Button variant="outline" size="sm" className="text-xs sm:text-sm px-3 sm:px-4">

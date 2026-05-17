@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
+import Wordmark from '@/components/Wordmark'
 import PDFViewer from '@/components/PDFViewer'
 import ValidatedCheckoutButton from '@/components/validated-checkout-button'
 import { Button } from '@/components/ui/button'
@@ -163,7 +163,7 @@ export default function PublicImportGuide() {
           <div className="flex items-center justify-between h-14 sm:h-16">
             <div className="flex items-center gap-4 min-w-0">
               <Link href="/" className="flex-shrink-0 active:opacity-70 transition-opacity">
-                <Image src="/impota-logo.png" alt="IMPOTA" width={120} height={32} className="h-6 sm:h-7 w-auto" priority />
+                <Wordmark className="text-2xl sm:text-3xl" />
               </Link>
               <span className="hidden md:inline-flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.22em] text-zinc-500">
                 <span className="h-px w-6 bg-zinc-300" />

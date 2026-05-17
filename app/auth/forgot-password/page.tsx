@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
+import Wordmark from '@/components/Wordmark'
 import { createClient } from '@/lib/supabase/client'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -50,14 +50,7 @@ export default function ForgotPasswordPage() {
         {/* Logo */}
         <div className="flex justify-center mb-8">
           <Link href="/" className="inline-block">
-            <Image
-              src="/impota-logo.png"
-              alt="IMPOTA"
-              width={140}
-              height={40}
-              className="h-9 w-auto"
-              priority
-            />
+            <Wordmark className="text-4xl" />
           </Link>
         </div>
 

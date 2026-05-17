@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import Image from 'next/image'
+import Wordmark from '@/components/Wordmark'
 import { createClient } from '@/lib/supabase/client'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -141,7 +141,7 @@ export default function SetupAccountPage() {
 
         <div className="w-full max-w-md">
           <div className="flex justify-center mb-8">
-            <Image src="/impota-logo.png" alt="IMPOTA" width={140} height={40} className="h-9 w-auto" priority />
+            <Wordmark className="text-4xl" />
           </div>
 
           <div className="relative bg-white border border-zinc-200 rounded-2xl shadow-[0_24px_64px_-16px_rgba(0,0,0,0.12)] overflow-hidden">
@@ -197,7 +197,7 @@ export default function SetupAccountPage() {
         {/* Logo */}
         <div className="flex justify-center mb-8">
           <Link href="/" className="inline-block">
-            <Image src="/impota-logo.png" alt="IMPOTA" width={140} height={40} className="h-9 w-auto" priority />
+            <Wordmark className="text-4xl" />
           </Link>
         </div>
 

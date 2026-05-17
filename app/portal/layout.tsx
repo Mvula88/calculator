@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
-import Image from 'next/image'
+import Wordmark from '@/components/Wordmark'
 import { Button } from '@/components/ui/button'
 import { useAuthImmediate } from '@/lib/hooks/use-auth-immediate'
 import SimpleContentProtection from '@/components/SimpleContentProtection'
@@ -119,14 +119,7 @@ export default function SimplePortalLayout({
                   href="/portal"
                   className="flex items-center gap-3 active:opacity-70 transition-opacity"
                 >
-                  <Image
-                    src="/impota-logo.png"
-                    alt="IMPOTA"
-                    width={120}
-                    height={32}
-                    className="h-6 sm:h-7 w-auto"
-                    priority
-                  />
+                  <Wordmark className="text-2xl sm:text-3xl" />
                 </Link>
 
                 <span className="hidden sm:inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.22em] text-zinc-500">

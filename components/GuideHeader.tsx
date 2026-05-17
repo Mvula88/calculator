@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { User, ArrowRight, ArrowUpRight } from 'lucide-react'
 import Link from 'next/link'
-import Image from 'next/image'
+import Wordmark from '@/components/Wordmark'
 import { Button } from '@/components/ui/button'
 import HeaderCountrySelector from '@/components/HeaderCountrySelector'
 import { createClient } from '@/lib/supabase/client'
@@ -45,14 +45,7 @@ export default function GuideHeader({
               href="/"
               className="flex items-center flex-shrink-0 active:opacity-70 transition-opacity"
             >
-              <Image
-                src="/impota-logo.png"
-                alt="IMPOTA"
-                width={120}
-                height={32}
-                className="h-6 sm:h-7 md:h-8 w-auto"
-                priority
-              />
+              <Wordmark className="text-2xl sm:text-3xl md:text-4xl" />
             </Link>
             <span className="hidden md:inline-flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.22em] text-zinc-500 truncate">
               <span className="h-px w-6 bg-zinc-300" />
