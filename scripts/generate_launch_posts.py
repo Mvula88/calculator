@@ -82,7 +82,7 @@ POSTS = [
         "headline": 'Hello,<br><span class="it">Southern Africa.</span>',
         "lede": "We're IMPOTA — independent car-import education for <em>first-time importers</em> in Namibia, South Africa, Botswana and Zambia.",
         "meta": "NA · ZA · BW · ZM · Built by importers",
-        "bg": "pexels-tomfisk-3856433.jpg",
+        "bg": "pexels-tomfisk-5972211.jpg",
         "h1_size": 130,
     },
     {
@@ -93,7 +93,7 @@ POSTS = [
         "headline": 'Built by<br><span class="it">an importer.</span>',
         "lede": "Not a dealer. Not a broker. Not a marketer. <em>Just someone who shipped through Walvis Bay</em> and wrote down what worked — and what didn't.",
         "meta": "Independent · First-hand · No commissions",
-        "bg": "pexels-mikhail-nilov-6964174.jpg",
+        "bg": "pexels-silverkblack-36729864 (1).jpg",
         "h1_size": 140,
     },
     {
@@ -104,7 +104,7 @@ POSTS = [
         "headline": '<span class="it">N$200.</span><br>Once.<br><span class="it">Forever.</span>',
         "lede": "Calculator. Guides. Agents. Documents. Across <em>4 countries.</em> One payment, lifetime access. <b>7-day refund if it's not worth it.</b>",
         "meta": "One-time · Lifetime · 7-day refund",
-        "bg": "pexels-n-voitkevich-7172786.jpg",
+        "bg": "pexels-ersin-1398102958-31689192.jpg",
         "h1_size": 130,
     },
 ]
