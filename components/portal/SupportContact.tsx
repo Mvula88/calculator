@@ -2,92 +2,117 @@
 
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import {
-  MessageCircle,
-  Mail,
-  Phone,
-  Clock,
-  CheckCircle
-} from 'lucide-react'
+import { MessageCircle, Mail, Clock, ArrowUpRight } from 'lucide-react'
+
+const WHATSAPP = '264836757958'
+const SUPPORT_EMAIL = 'support@impota.com'
+
+const channels = [
+  {
+    icon: MessageCircle,
+    label: 'WhatsApp',
+    value: '+264 83 675 7958',
+    sub: 'Fastest — replies within hours.',
+  },
+  {
+    icon: Mail,
+    label: 'Email',
+    value: SUPPORT_EMAIL,
+    sub: 'Reply within 24 hours.',
+  },
+  {
+    icon: Clock,
+    label: 'Hours',
+    value: 'Mon–Fri · 08:00–18:00 WAT',
+    sub: 'Weekends closed.',
+  },
+]
+
+const helpWith = [
+  'Understanding the import process',
+  'Using the calculator correctly',
+  'Interpreting documents and forms',
+  'Country-specific requirements',
+  'General import questions',
+]
 
 export default function SupportContact() {
   return (
-    <Card className="p-4 sm:p-6 bg-gradient-to-br from-blue-50 to-green-50 border-blue-200">
-      <div className="flex items-start gap-3">
-        <MessageCircle className="h-6 w-6 text-blue-600 flex-shrink-0" />
-        <div className="flex-1">
-          <h3 className="font-bold text-blue-900 mb-2 text-base sm:text-lg">Need Help?</h3>
-          <p className="text-sm text-blue-800 mb-4">
-            We're here to support your import journey. Get answers to your questions quickly!
+    <Card className="overflow-hidden bg-white border-zinc-200 shadow-none rounded-2xl">
+      {/* Header */}
+      <div className="p-6 sm:p-8 border-b border-zinc-200">
+        <div className="flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.24em] text-zinc-500 font-semibold mb-4">
+          <span className="text-amber-600">Support</span>
+          <span className="h-px flex-1 max-w-[40px] bg-zinc-200" />
+        </div>
+        <h3 className="font-serif text-2xl sm:text-3xl font-medium tracking-tight text-zinc-900">
+          Need help?
+        </h3>
+        <p className="mt-2 text-sm text-zinc-600 leading-relaxed">
+          Get answers from someone who has actually imported a car.
+        </p>
+      </div>
+
+      {/* Channels */}
+      <div className="divide-y divide-zinc-200">
+        {channels.map((c, i) => (
+          <div key={c.label} className="p-6 sm:p-8 flex items-start gap-5">
+            <div className="flex-shrink-0 w-12">
+              <div className="font-mono text-[10px] uppercase tracking-[0.24em] text-amber-600 font-semibold">
+                Nº 0{i + 1}
+              </div>
+              <c.icon className="mt-3 h-4 w-4 text-zinc-300" strokeWidth={1.5} />
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-zinc-500 mb-1">
+                {c.label}
+              </p>
+              <p className="font-serif text-lg font-medium tracking-tight text-zinc-900 break-all">
+                {c.value}
+              </p>
+              <p className="mt-1 text-xs text-zinc-500">{c.sub}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Actions */}
+      <div className="p-6 sm:p-8 border-t border-zinc-200 bg-stone-50/40">
+        <div className="flex flex-col sm:flex-row gap-3">
+          <a
+            href={`https://wa.me/${WHATSAPP}?text=${encodeURIComponent('Hi, I need help with my IMPOTA import.')}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex-1"
+          >
+            <Button className="w-full h-11 bg-amber-400 text-zinc-900 hover:bg-amber-300 font-semibold rounded-full">
+              <MessageCircle className="mr-2 h-4 w-4" strokeWidth={1.75} />
+              WhatsApp us
+              <ArrowUpRight className="ml-1.5 h-3.5 w-3.5" />
+            </Button>
+          </a>
+          <a href={`mailto:${SUPPORT_EMAIL}?subject=IMPOTA%20portal%20support`} className="flex-1">
+            <Button variant="outline" className="w-full h-11 border-zinc-300 bg-white hover:bg-stone-50 font-medium rounded-full text-zinc-900">
+              <Mail className="mr-2 h-4 w-4" strokeWidth={1.75} />
+              Email us
+            </Button>
+          </a>
+        </div>
+
+        {/* What we help with */}
+        <div className="mt-6 pt-6 border-t border-zinc-200">
+          <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-zinc-500 mb-3 flex items-center gap-2">
+            <span aria-hidden>↳</span>
+            What we help with
           </p>
-
-          <div className="space-y-3 mb-4">
-            {/* WhatsApp Support */}
-            <div className="flex items-start gap-2">
-              <CheckCircle className="h-4 w-4 text-green-600 mt-0.5 flex-shrink-0" />
-              <div className="flex-1">
-                <p className="text-sm font-semibold text-gray-900">WhatsApp Support</p>
-                <p className="text-xs text-gray-600">+264 83 675 7958</p>
-                <p className="text-xs text-gray-500">Fastest response - usually within hours</p>
-              </div>
-            </div>
-
-            {/* Email Support */}
-            <div className="flex items-start gap-2">
-              <Mail className="h-4 w-4 text-blue-600 mt-0.5 flex-shrink-0" />
-              <div className="flex-1">
-                <p className="text-sm font-semibold text-gray-900">Email Support</p>
-                <p className="text-xs text-gray-600">support@impota.com</p>
-                <p className="text-xs text-gray-500">Response within 24 hours</p>
-              </div>
-            </div>
-
-            {/* Response Time */}
-            <div className="flex items-start gap-2">
-              <Clock className="h-4 w-4 text-purple-600 mt-0.5 flex-shrink-0" />
-              <div className="flex-1">
-                <p className="text-sm font-semibold text-gray-900">Response Time</p>
-                <p className="text-xs text-gray-600">Mon-Fri: 8AM - 6PM WAT</p>
-                <p className="text-xs text-gray-500">We typically respond within a few hours</p>
-              </div>
-            </div>
-          </div>
-
-          {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-2">
-            <a
-              href="https://wa.me/264836757958?text=Hi,%20I%20need%20help%20with%20the%20Import%20Mastery%20portal"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex-1"
-            >
-              <Button size="sm" className="w-full bg-green-600 hover:bg-green-700">
-                <MessageCircle className="h-4 w-4 mr-2" />
-                WhatsApp Us
-              </Button>
-            </a>
-            <a
-              href="mailto:support@impota.com?subject=Import%20Mastery%20Portal%20Support"
-              className="flex-1"
-            >
-              <Button size="sm" variant="outline" className="w-full">
-                <Mail className="h-4 w-4 mr-2" />
-                Email Us
-              </Button>
-            </a>
-          </div>
-
-          {/* What We Can Help With */}
-          <div className="mt-4 p-3 bg-white/60 rounded-lg">
-            <p className="text-xs font-semibold text-gray-700 mb-2">We can help with:</p>
-            <ul className="text-xs text-gray-600 space-y-1">
-              <li>• Understanding the import process</li>
-              <li>• Using the calculator correctly</li>
-              <li>• Interpreting documents and forms</li>
-              <li>• Country-specific requirements</li>
-              <li>• General import questions</li>
-            </ul>
-          </div>
+          <ul className="space-y-1.5">
+            {helpWith.map((item) => (
+              <li key={item} className="flex items-start gap-2 text-sm text-zinc-700">
+                <span className="mt-1.5 h-1 w-1 rounded-full bg-amber-500 flex-shrink-0" aria-hidden />
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </Card>
