@@ -1,524 +1,336 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import Link from 'next/link'
 import {
   ArrowLeft,
+  ArrowRight,
+  ArrowUpRight,
   Mail,
+  MessageCircle,
   Clock,
   MapPin,
   Send,
-  MessageCircle,
-  Phone,
-  Globe,
-  Sparkles,
-  Star,
-  CheckCircle,
-  Headphones,
-  Zap,
-  Shield
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
-import { Card } from '@/components/ui/card'
 import { toast } from 'sonner'
+import Wordmark from '@/components/Wordmark'
+import Footer from '@/components/Footer'
+
+const WHATSAPP = '264836757958'
+const SUPPORT_EMAIL = 'support@impota.com'
+
+const offices = [
+  {
+    title: 'Namibian office',
+    lines: ['Independence Avenue', 'Windhoek, Namibia'],
+  },
+  {
+    title: 'Registered office',
+    lines: ['8195, 1021 E Lincolnway', 'Cheyenne, WY 82001', 'United States'],
+  },
+]
 
 export default function ContactPage() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: ''
-  })
-  const [activeOffice, setActiveOffice] = useState(0)
+  const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' })
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [hoveredCard, setHoveredCard] = useState<number | null>(null)
-
-  useEffect(() => {
-    // Rotate active office every 3 seconds
-    const interval = setInterval(() => {
-      setActiveOffice((prev) => (prev + 1) % 2)
-    }, 3000)
-    return () => clearInterval(interval)
-  }, [])
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
-
-    // Simulate submission
     setTimeout(() => {
-      const mailtoLink = `mailto:info@impota.com?subject=${encodeURIComponent(formData.subject)}&body=${encodeURIComponent(`From: ${formData.name} (${formData.email})\n\n${formData.message}`)}`
-      window.location.href = mailtoLink
+      const mailto = `mailto:${SUPPORT_EMAIL}?subject=${encodeURIComponent(formData.subject)}&body=${encodeURIComponent(
+        `From: ${formData.name} (${formData.email})\n\n${formData.message}`,
+      )}`
+      window.location.href = mailto
       setIsSubmitting(false)
-      toast.success('Opening your email client...')
-    }, 1000)
+      toast.success('Opening your email client…')
+    }, 600)
   }
 
-  const offices = [
-    {
-      title: 'US Office',
-      lines: [
-        '8195, 1021 E Lincolnway',
-        'Cheyenne, WY, 82001',
-        'United States'
-      ],
-      color: 'from-blue-500 to-indigo-500',
-      icon: '🇺🇸'
-    },
-    {
-      title: 'Namibian Office',
-      lines: [
-        'Independence Avenue',
-        'Windhoek, Namibia'
-      ],
-      color: 'from-green-500 to-emerald-500',
-      icon: '🇳🇦'
-    }
-  ]
-
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 via-white to-gray-50">
-      {/* Animated Background */}
-      <div className="fixed inset-0 -z-10 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 via-purple-50/30 to-pink-50/50">
-          <div className="absolute top-0 -left-4 w-96 h-96 bg-gradient-to-r from-cyan-300 to-blue-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-float"></div>
-          <div className="absolute top-0 -right-4 w-96 h-96 bg-gradient-to-r from-purple-300 to-pink-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-float animation-delay-2000"></div>
-          <div className="absolute -bottom-8 left-20 w-96 h-96 bg-gradient-to-r from-yellow-300 to-orange-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-float animation-delay-4000"></div>
-          <div className="absolute bottom-0 right-0 w-72 h-72 bg-gradient-to-r from-green-300 to-emerald-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-float animation-delay-6000"></div>
+    <main className="bg-white text-zinc-900">
+      {/* TOP NAV */}
+      <nav className="sticky top-0 z-50 bg-white/85 backdrop-blur-md border-b border-zinc-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-14 sm:h-16">
+            <div className="flex items-center gap-4 min-w-0">
+              <Link href="/" className="flex-shrink-0 active:opacity-70 transition-opacity">
+                <Wordmark className="text-2xl sm:text-3xl" />
+              </Link>
+              <span className="hidden md:inline-flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.22em] text-zinc-500">
+                <span className="h-px w-6 bg-zinc-300" />
+                Send word
+              </span>
+            </div>
+            <div className="flex items-center gap-2 sm:gap-4">
+              <Link href="/about" className="hidden sm:inline-flex items-center gap-1 text-sm font-medium text-zinc-700 hover:text-zinc-900 transition-colors px-2">
+                About
+                <ArrowUpRight className="h-3.5 w-3.5" />
+              </Link>
+              <Link href="/auth/login">
+                <Button size="sm" className="h-9 px-4 sm:h-10 sm:px-5 bg-amber-400 text-zinc-900 hover:bg-amber-300 font-semibold rounded-full shadow-[0_0_0_1px_rgba(0,0,0,0.04),0_8px_24px_-8px_rgba(251,191,36,0.5)] transition-colors text-xs sm:text-sm">
+                  Login
+                  <ArrowRight className="ml-1.5 h-3.5 w-3.5" />
+                </Button>
+              </Link>
+            </div>
+          </div>
         </div>
-      </div>
+      </nav>
 
-      {/* Hero Section */}
-      <div className="relative">
-        <div className="absolute inset-0 bg-gradient-to-b from-blue-50/50 to-transparent h-96"></div>
-        <div className="relative max-w-7xl mx-auto px-6 pt-12 pb-8">
-          {/* Back Button */}
-          <Link
-            href="/"
-            className="inline-flex items-center text-gray-600 hover:text-gray-900 mb-8 group transition-all duration-300"
-          >
-            <ArrowLeft className="h-4 w-4 mr-2 group-hover:-translate-x-1 transition-transform" />
-            Back to Home
+      {/* HERO — Nº 01 */}
+      <section className="relative isolate overflow-hidden bg-zinc-950 text-white">
+        <div className="absolute -bottom-40 -left-40 -z-10 h-[32rem] w-[32rem] rounded-full bg-amber-500/[0.08] blur-3xl" aria-hidden />
+        <div className="absolute top-1/4 right-1/4 -z-10 h-[24rem] w-[24rem] rounded-full bg-blue-500/[0.05] blur-3xl" aria-hidden />
+
+        <div className="hidden md:block absolute top-20 left-6 lg:left-8 h-px w-12 bg-amber-400/40" aria-hidden />
+        <div className="hidden md:block absolute top-20 left-6 lg:left-8 h-12 w-px bg-amber-400/40" aria-hidden />
+        <div className="hidden md:block absolute top-20 right-6 lg:right-8 h-px w-12 bg-amber-400/40" aria-hidden />
+        <div className="hidden md:block absolute top-20 right-6 lg:right-8 h-12 w-px bg-amber-400/40" aria-hidden />
+
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-6 lg:px-8 pt-20 sm:pt-24 pb-16 sm:pb-24">
+          <div className="flex items-center justify-between text-[10px] sm:text-[11px] uppercase tracking-[0.28em] text-zinc-400 font-medium">
+            <div className="flex items-center gap-3">
+              <span className="text-amber-300 font-semibold">Nº 01</span>
+              <span className="h-px w-8 bg-zinc-600" />
+              <span>Send word</span>
+            </div>
+            <span className="hidden md:inline-block text-zinc-500">Mon–Fri · 08:00–18:00 WAT</span>
+          </div>
+
+          <Link href="/" className="mt-10 inline-flex items-center text-zinc-400 hover:text-white text-xs uppercase tracking-[0.24em] group transition-colors">
+            <ArrowLeft className="h-3.5 w-3.5 mr-2 group-hover:-translate-x-1 transition-transform" />
+            Back to home
           </Link>
 
-          {/* Hero Content */}
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-2 rounded-full text-sm font-medium mb-6 animate-bounceIn shadow-lg">
-              <MessageCircle className="h-4 w-4 animate-pulse" />
-              We're Here to Help
-              <Sparkles className="h-4 w-4 animate-pulse" />
-            </div>
+          <h1 className="mt-10 sm:mt-12 font-serif font-medium tracking-tight text-white leading-[0.92] text-[clamp(2.5rem,7vw,5.5rem)]">
+            <span className="block">Questions about the import?</span>
+            <span className="block pl-[8vw] sm:pl-[6vw] lg:pl-[10vw] italic font-light text-amber-300/95">
+              We answer them.
+            </span>
+          </h1>
 
-            <h1 className="text-5xl md:text-7xl font-black mb-6 bg-gradient-to-r from-gray-900 via-blue-800 to-purple-900 bg-clip-text text-transparent animate-fadeInUp">
-              Contact Us
-            </h1>
+          <p className="mt-10 max-w-2xl text-base sm:text-lg text-zinc-300 leading-relaxed">
+            WhatsApp is fastest — usually within a few hours during working days. Email works too. Either way, the person reading your message has actually imported a car.
+          </p>
+        </div>
+      </section>
 
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed animate-fadeInUp animation-delay-200">
-              Have questions about importing cars? Need help with your account?
-              We're here to help you succeed in your import journey.
-            </p>
+      {/* QUICK CONTACT — Nº 02 */}
+      <section className="border-t border-zinc-200">
+        <div className="mx-auto w-full max-w-7xl px-6 lg:px-8 py-20 sm:py-24">
+          <div className="flex items-center gap-3 text-[10px] sm:text-[11px] uppercase tracking-[0.28em] text-zinc-500 font-medium mb-12">
+            <span className="text-amber-600 font-semibold">Nº 02</span>
+            <span className="h-px w-8 bg-zinc-300" />
+            <span>Reach us</span>
+          </div>
 
-            {/* Quick Stats */}
-            <div className="flex justify-center gap-8 mt-8">
-              <div className="text-center animate-fadeInUp animation-delay-400">
-                <div className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">24/7</div>
-                <div className="text-sm text-gray-500">Support</div>
+          <div className="grid sm:grid-cols-3 gap-px bg-zinc-200 border border-zinc-200">
+            {/* WhatsApp */}
+            <a
+              href={`https://wa.me/${WHATSAPP}?text=${encodeURIComponent('Hi, I have a question about importing a car with IMPOTA.')}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-white p-8 sm:p-10 hover:bg-stone-50 transition-colors group"
+            >
+              <div className="flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.24em] text-zinc-500 mb-6">
+                <MessageCircle className="h-4 w-4 text-amber-500" />
+                <span className="text-amber-700 font-semibold">01</span>
+                <span className="h-px w-6 bg-zinc-300" />
+                <span>WhatsApp</span>
               </div>
-              <div className="text-center animate-fadeInUp animation-delay-600">
-                <div className="text-3xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">&lt;2h</div>
-                <div className="text-sm text-gray-500">Response</div>
+              <p className="font-serif text-2xl font-medium tracking-tight text-zinc-900">
+                +264 83 675 7958
+              </p>
+              <p className="mt-3 text-sm text-zinc-600">
+                Fastest. Replies within hours, Mon–Fri.
+              </p>
+              <span className="mt-6 inline-flex items-center gap-1 text-xs font-mono uppercase tracking-[0.24em] text-amber-700 group-hover:text-amber-900 transition-colors">
+                Open chat
+                <ArrowUpRight className="h-3.5 w-3.5" />
+              </span>
+            </a>
+
+            {/* Email */}
+            <a
+              href={`mailto:${SUPPORT_EMAIL}?subject=${encodeURIComponent('IMPOTA support')}`}
+              className="bg-white p-8 sm:p-10 hover:bg-stone-50 transition-colors group"
+            >
+              <div className="flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.24em] text-zinc-500 mb-6">
+                <Mail className="h-4 w-4 text-amber-500" />
+                <span className="text-amber-700 font-semibold">02</span>
+                <span className="h-px w-6 bg-zinc-300" />
+                <span>Email</span>
               </div>
-              <div className="text-center animate-fadeInUp animation-delay-800">
-                <div className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">100%</div>
-                <div className="text-sm text-gray-500">Satisfaction</div>
+              <p className="font-serif text-2xl font-medium tracking-tight text-zinc-900">
+                {SUPPORT_EMAIL}
+              </p>
+              <p className="mt-3 text-sm text-zinc-600">
+                Reply within 24 hours.
+              </p>
+              <span className="mt-6 inline-flex items-center gap-1 text-xs font-mono uppercase tracking-[0.24em] text-amber-700 group-hover:text-amber-900 transition-colors">
+                Compose
+                <ArrowUpRight className="h-3.5 w-3.5" />
+              </span>
+            </a>
+
+            {/* Hours */}
+            <div className="bg-white p-8 sm:p-10">
+              <div className="flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.24em] text-zinc-500 mb-6">
+                <Clock className="h-4 w-4 text-amber-500" />
+                <span className="text-amber-700 font-semibold">03</span>
+                <span className="h-px w-6 bg-zinc-300" />
+                <span>Hours</span>
               </div>
+              <p className="font-serif text-2xl font-medium tracking-tight text-zinc-900">
+                Mon–Fri
+                <span className="italic font-light text-zinc-500"> · 08:00–18:00 WAT</span>
+              </p>
+              <p className="mt-3 text-sm text-zinc-600">
+                Weekends closed. Messages still go through.
+              </p>
             </div>
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-6 pb-20">
-        <div className="grid lg:grid-cols-2 gap-12">
-          {/* Contact Information */}
-          <div className="space-y-8">
-            {/* Quick Contact Cards */}
-            <div className="grid gap-6">
-              <Card
-                className="relative p-6 hover:shadow-2xl transition-all duration-500 border-2 hover:border-blue-300 group overflow-hidden cursor-pointer transform hover:-translate-y-1"
-                onMouseEnter={() => setHoveredCard(0)}
-                onMouseLeave={() => setHoveredCard(null)}
-              >
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-cyan-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                <div className="relative flex items-start gap-4">
-                  <div className="p-3 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-xl text-white group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-lg">
-                    <Mail className="h-6 w-6" />
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="font-bold text-lg mb-1 flex items-center gap-2">
-                      Email
-                      {hoveredCard === 0 && <Zap className="h-4 w-4 text-blue-500 animate-pulse" />}
-                    </h3>
-                    <p className="text-gray-600 font-medium">info@impota.com</p>
-                    <p className="text-sm text-blue-600 mt-2 flex items-center gap-2">
-                      <CheckCircle className="h-3 w-3" />
-                      Usually responds within 24 hours
-                    </p>
-                  </div>
-                </div>
-              </Card>
-
-              <Card
-                className="relative p-6 hover:shadow-2xl transition-all duration-500 border-2 hover:border-purple-300 group overflow-hidden cursor-pointer transform hover:-translate-y-1"
-                onMouseEnter={() => setHoveredCard(1)}
-                onMouseLeave={() => setHoveredCard(null)}
-              >
-                <div className="absolute inset-0 bg-gradient-to-r from-purple-500/5 to-pink-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                <div className="relative flex items-start gap-4">
-                  <div className="p-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl text-white group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-lg">
-                    <Clock className="h-6 w-6" />
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="font-bold text-lg mb-1 flex items-center gap-2">
-                      Support Hours
-                      {hoveredCard === 1 && <Headphones className="h-4 w-4 text-purple-500 animate-pulse" />}
-                    </h3>
-                    <p className="text-gray-600">Monday - Friday: 8AM - 6PM CAT</p>
-                    <p className="text-gray-600">Saturday - Sunday: Closed</p>
-                    <div className="flex items-center gap-2 mt-3 p-2 bg-green-50 rounded-lg inline-flex">
-                      <div className="h-2 w-2 bg-green-500 rounded-full animate-ping"></div>
-                      <div className="h-2 w-2 bg-green-500 rounded-full absolute"></div>
-                      <span className="text-sm text-green-700 font-medium ml-1">Currently Open</span>
-                    </div>
-                  </div>
-                </div>
-              </Card>
-            </div>
-
-            {/* Office Locations */}
-            <div>
-              <h2 className="text-2xl font-bold mb-6 flex items-center gap-3">
-                <div className="p-2 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg text-white">
-                  <Globe className="h-5 w-5" />
-                </div>
-                Our Global Offices
-              </h2>
-
-              <div className="grid gap-6">
-                {offices.map((office, index) => (
-                  <Card
-                    key={index}
-                    className={`relative p-6 transition-all duration-700 cursor-pointer overflow-hidden transform ${
-                      activeOffice === index
-                        ? 'ring-2 ring-offset-2 ring-blue-500 shadow-2xl scale-105'
-                        : 'hover:shadow-xl hover:scale-102'
-                    }`}
-                    onClick={() => setActiveOffice(index)}
-                  >
-                    <div className="absolute inset-0 bg-gradient-to-r ${office.color} opacity-0 group-hover:opacity-5 transition-opacity duration-500"></div>
-                    <div className="relative flex items-start gap-4">
-                      <div className={`p-4 bg-gradient-to-br ${office.color} rounded-2xl text-white text-3xl shadow-lg transform ${
-                        activeOffice === index ? 'rotate-6 scale-110' : 'group-hover:rotate-3'
-                      } transition-all duration-300`}>
-                        {office.icon}
-                      </div>
-                      <div className="flex-1">
-                        <h3 className="font-bold text-lg mb-2 flex items-center gap-2">
-                          <MapPin className={`h-4 w-4 ${activeOffice === index ? 'text-blue-600 animate-bounce' : 'text-gray-400'}`} />
-                          {office.title}
-                          {activeOffice === index && (
-                            <span className="ml-2 px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded-full font-medium">
-                              Active
-                            </span>
-                          )}
-                        </h3>
-                        <div className="space-y-1">
-                          {office.lines.map((line, i) => (
-                            <p key={i} className={`text-gray-600 transition-colors duration-300 ${
-                              activeOffice === index ? 'text-gray-800 font-medium' : ''
-                            }`}>{line}</p>
-                          ))}
-                        </div>
-                      </div>
-                      {activeOffice === index && (
-                        <div className="absolute top-3 right-3">
-                          <CheckCircle className="h-6 w-6 text-blue-600 animate-scaleIn" />
-                        </div>
-                      )}
-                    </div>
-                  </Card>
-                ))}
-              </div>
-            </div>
-
-            {/* Trust Metrics */}
-            <div>
-              <h3 className="text-lg font-semibold mb-4 text-gray-700">Why Choose Us</h3>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="group text-center p-6 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl hover:shadow-lg transition-all duration-300 cursor-pointer hover:scale-105">
-                  <div className="text-4xl font-black bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent group-hover:scale-110 transition-transform">24h</div>
-                  <div className="text-sm text-gray-600 mt-1">Response Time</div>
-                  <div className="mt-2 h-1 w-12 mx-auto bg-gradient-to-r from-blue-600 to-indigo-600 rounded-full transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></div>
-                </div>
-                <div className="group text-center p-6 bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl hover:shadow-lg transition-all duration-300 cursor-pointer hover:scale-105">
-                  <div className="text-4xl font-black bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent group-hover:scale-110 transition-transform">100%</div>
-                  <div className="text-sm text-gray-600 mt-1">Support Rate</div>
-                  <div className="mt-2 h-1 w-12 mx-auto bg-gradient-to-r from-green-600 to-emerald-600 rounded-full transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></div>
-                </div>
-              </div>
-            </div>
+      {/* FORM + OFFICES — Nº 03 */}
+      <section className="border-t border-zinc-200 bg-stone-50">
+        <div className="mx-auto w-full max-w-7xl px-6 lg:px-8 py-20 sm:py-24">
+          <div className="flex items-center gap-3 text-[10px] sm:text-[11px] uppercase tracking-[0.28em] text-zinc-500 font-medium mb-12">
+            <span className="text-amber-600 font-semibold">Nº 03</span>
+            <span className="h-px w-8 bg-zinc-300" />
+            <span>Or send a message</span>
           </div>
 
-          {/* Contact Form */}
-          <div>
-            <Card className="relative p-8 shadow-2xl border-2 overflow-hidden group hover:border-purple-200 transition-all duration-500">
-              <div className="absolute inset-0 bg-gradient-to-br from-purple-50/50 to-blue-50/50 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+          <div className="grid lg:grid-cols-12 gap-10 lg:gap-16">
+            {/* Form */}
+            <div className="lg:col-span-7">
+              <p className="font-mono text-[11px] uppercase tracking-[0.24em] text-amber-700 mb-6">
+                <span aria-hidden className="mr-2">↳</span> Use the form
+              </p>
+              <h2 className="font-serif text-3xl sm:text-4xl font-medium tracking-tight leading-tight">
+                Tell us what you need.
+              </h2>
+              <p className="mt-4 text-zinc-600 max-w-md">
+                Submit opens your email client with the message pre-filled — we reply within 24 hours.
+              </p>
 
-              <div className="relative">
-                <div className="mb-6">
-                  <h2 className="text-2xl font-bold mb-2 flex items-center gap-3">
-                    <div className="p-2 bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg text-white animate-pulse">
-                      <Send className="h-5 w-5" />
-                    </div>
-                    Send us a Message
-                  </h2>
-                  <p className="text-gray-600">We'll get back to you as soon as possible</p>
-                </div>
-
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div className="group">
-                    <label className="block text-sm font-semibold mb-2 text-gray-700 group-focus-within:text-blue-600 transition-colors">
-                      Name <span className="text-red-500">*</span>
+              <form onSubmit={handleSubmit} className="mt-10 space-y-6">
+                <div className="grid sm:grid-cols-2 gap-6">
+                  <div>
+                    <label className="block font-mono text-[10px] uppercase tracking-[0.24em] text-zinc-600 mb-2">
+                      Name <span className="text-amber-600">*</span>
                     </label>
-                    <div className="relative">
-                      <Input
-                        type="text"
-                        value={formData.name}
-                        onChange={(e) => setFormData({...formData, name: e.target.value})}
-                        className="pl-4 pr-10 py-3 border-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-300 hover:border-gray-300"
-                        placeholder="Your name"
-                        required
-                      />
-                      <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">
-                        <Star className={`h-4 w-4 transition-colors duration-300 ${
-                          formData.name ? 'text-blue-500' : 'text-gray-300'
-                        }`} />
-                      </div>
-                    </div>
+                    <Input
+                      type="text"
+                      value={formData.name}
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      placeholder="Your name"
+                      required
+                      className="!h-12 !px-4 !text-base bg-white border-zinc-300 focus-visible:ring-amber-400"
+                    />
                   </div>
-
-                  <div className="group">
-                    <label className="block text-sm font-semibold mb-2 text-gray-700 group-focus-within:text-blue-600 transition-colors">
-                      Email <span className="text-red-500">*</span>
+                  <div>
+                    <label className="block font-mono text-[10px] uppercase tracking-[0.24em] text-zinc-600 mb-2">
+                      Email <span className="text-amber-600">*</span>
                     </label>
-                    <div className="relative">
-                      <Input
-                        type="email"
-                        value={formData.email}
-                        onChange={(e) => setFormData({...formData, email: e.target.value})}
-                        className="pl-4 pr-10 py-3 border-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-300 hover:border-gray-300"
-                        placeholder="your@email.com"
-                        required
-                      />
-                      <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">
-                        <Mail className={`h-4 w-4 transition-colors duration-300 ${
-                          formData.email ? 'text-blue-500' : 'text-gray-300'
-                        }`} />
-                      </div>
-                    </div>
+                    <Input
+                      type="email"
+                      value={formData.email}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      placeholder="your@email.com"
+                      required
+                      className="!h-12 !px-4 !text-base bg-white border-zinc-300 focus-visible:ring-amber-400"
+                    />
                   </div>
                 </div>
 
-                <div className="group">
-                  <label className="block text-sm font-semibold mb-2 text-gray-700 group-focus-within:text-blue-600 transition-colors">
-                    Subject <span className="text-red-500">*</span>
+                <div>
+                  <label className="block font-mono text-[10px] uppercase tracking-[0.24em] text-zinc-600 mb-2">
+                    Subject <span className="text-amber-600">*</span>
                   </label>
                   <Input
                     type="text"
                     value={formData.subject}
-                    onChange={(e) => setFormData({...formData, subject: e.target.value})}
-                    className="pl-4 py-3 border-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-300 hover:border-gray-300"
+                    onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
                     placeholder="How can we help?"
                     required
+                    className="!h-12 !px-4 !text-base bg-white border-zinc-300 focus-visible:ring-amber-400"
                   />
                 </div>
 
-                <div className="group">
-                  <label className="block text-sm font-semibold mb-2 text-gray-700 group-focus-within:text-blue-600 transition-colors">
-                    Message <span className="text-red-500">*</span>
+                <div>
+                  <label className="block font-mono text-[10px] uppercase tracking-[0.24em] text-zinc-600 mb-2">
+                    Message <span className="text-amber-600">*</span>
                   </label>
                   <Textarea
                     value={formData.message}
-                    onChange={(e) => setFormData({...formData, message: e.target.value})}
-                    rows={5}
-                    className="pl-4 py-3 border-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-300 hover:border-gray-300 resize-none"
-                    placeholder="Tell us more about your inquiry..."
+                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                    rows={6}
+                    placeholder="Tell us about your import question…"
                     required
+                    className="bg-white border-zinc-300 focus-visible:ring-amber-400 text-base resize-none"
                   />
-                  <div className="flex justify-between items-center mt-2">
-                    <p className={`text-xs transition-colors duration-300 ${
-                      formData.message.length > 400 ? 'text-orange-500' : 'text-gray-500'
-                    }`}>
-                      {formData.message.length}/500 characters
-                    </p>
-                    <div className="flex gap-1">
-                      {[...Array(5)].map((_, i) => (
-                        <div
-                          key={i}
-                          className={`h-1 w-8 rounded-full transition-all duration-300 ${
-                            i < Math.floor(formData.message.length / 100)
-                              ? 'bg-gradient-to-r from-blue-500 to-purple-500'
-                              : 'bg-gray-200'
-                          }`}
-                        />
-                      ))}
-                    </div>
-                  </div>
                 </div>
 
                 <Button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold py-4 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105 relative overflow-hidden group"
+                  className="bg-amber-400 text-zinc-900 hover:bg-amber-300 font-semibold rounded-full h-12 px-7"
                 >
-                  <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                  <span className="relative flex items-center justify-center">
-                    {isSubmitting ? (
-                      <>
-                        <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2" />
-                        Sending...
-                      </>
-                    ) : (
-                      <>
-                        <Send className="mr-2 h-5 w-5 group-hover:rotate-12 transition-transform duration-300" />
-                        Send Message
-                      </>
-                    )}
-                  </span>
+                  {isSubmitting ? (
+                    <>
+                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-zinc-900 mr-2" />
+                      Sending…
+                    </>
+                  ) : (
+                    <>
+                      <Send className="mr-2 h-4 w-4" />
+                      Send message
+                    </>
+                  )}
                 </Button>
               </form>
+            </div>
 
-              {/* Trust Indicators */}
-              <div className="mt-6 pt-6 border-t border-gray-100">
-                <div className="flex items-center justify-center gap-6 text-sm">
-                  <div className="flex items-center gap-2 group cursor-pointer">
-                    <div className="p-1 bg-green-100 rounded-full group-hover:bg-green-200 transition-colors">
-                      <Zap className="h-4 w-4 text-green-600" />
+            {/* Offices */}
+            <div className="lg:col-span-4 lg:col-start-9">
+              <p className="font-mono text-[11px] uppercase tracking-[0.24em] text-amber-700 mb-6">
+                <span aria-hidden className="mr-2">↳</span> Or our addresses
+              </p>
+              <h3 className="font-serif text-2xl font-medium tracking-tight leading-tight">
+                Where we operate from.
+              </h3>
+
+              <div className="mt-8 divide-y divide-zinc-200 border-y border-zinc-200">
+                {offices.map((office, i) => (
+                  <div key={i} className="py-6">
+                    <div className="flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.24em] text-zinc-500 mb-3">
+                      <MapPin className="h-3.5 w-3.5 text-amber-500" />
+                      <span className="text-amber-700 font-semibold">0{i + 1}</span>
+                      <span className="h-px w-6 bg-zinc-300" />
+                      <span>{office.title}</span>
                     </div>
-                    <span className="text-gray-600 group-hover:text-gray-900 transition-colors">Fast Response</span>
-                  </div>
-                  <div className="flex items-center gap-2 group cursor-pointer">
-                    <div className="p-1 bg-blue-100 rounded-full group-hover:bg-blue-200 transition-colors">
-                      <Shield className="h-4 w-4 text-blue-600" />
+                    <div className="space-y-1">
+                      {office.lines.map((line, j) => (
+                        <p key={j} className="text-base text-zinc-800">
+                          {line}
+                        </p>
+                      ))}
                     </div>
-                    <span className="text-gray-600 group-hover:text-gray-900 transition-colors">Secure</span>
                   </div>
-                  <div className="flex items-center gap-2 group cursor-pointer">
-                    <div className="p-1 bg-purple-100 rounded-full group-hover:bg-purple-200 transition-colors">
-                      <Headphones className="h-4 w-4 text-purple-600" />
-                    </div>
-                    <span className="text-gray-600 group-hover:text-gray-900 transition-colors">24/7 Support</span>
-                  </div>
-                </div>
+                ))}
               </div>
-              </div>
-            </Card>
+            </div>
           </div>
         </div>
-      </div>
+      </section>
 
-      <style jsx>{`
-        @keyframes float {
-          0%, 100% {
-            transform: translate(0px, 0px) scale(1) rotate(0deg);
-          }
-          25% {
-            transform: translate(30px, -30px) scale(1.05) rotate(1deg);
-          }
-          50% {
-            transform: translate(-20px, 20px) scale(0.95) rotate(-1deg);
-          }
-          75% {
-            transform: translate(20px, -10px) scale(1.02) rotate(1deg);
-          }
-        }
-        .animate-float {
-          animation: float 20s infinite ease-in-out;
-        }
-        .animation-delay-2000 {
-          animation-delay: 2s;
-        }
-        .animation-delay-4000 {
-          animation-delay: 4s;
-        }
-        .animation-delay-6000 {
-          animation-delay: 6s;
-        }
-        .animation-delay-200 {
-          animation-delay: 0.2s;
-        }
-        .animation-delay-400 {
-          animation-delay: 0.4s;
-        }
-        .animation-delay-600 {
-          animation-delay: 0.6s;
-        }
-        .animation-delay-800 {
-          animation-delay: 0.8s;
-        }
-        @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        .animate-fadeInUp {
-          animation: fadeInUp 0.8s ease-out forwards;
-          opacity: 0;
-        }
-        @keyframes bounceIn {
-          0% {
-            opacity: 0;
-            transform: scale(0.3) translateY(-20px);
-          }
-          50% {
-            opacity: 1;
-            transform: scale(1.05) translateY(0);
-          }
-          70% {
-            transform: scale(0.9) translateY(0);
-          }
-          100% {
-            transform: scale(1) translateY(0);
-          }
-        }
-        .animate-bounceIn {
-          animation: bounceIn 0.8s ease-out;
-        }
-        @keyframes scaleIn {
-          from {
-            transform: scale(0);
-            opacity: 0;
-          }
-          to {
-            transform: scale(1);
-            opacity: 1;
-          }
-        }
-        .animate-scaleIn {
-          animation: scaleIn 0.3s ease-out;
-        }
-        .hover\:scale-102:hover {
-          transform: scale(1.02);
-        }
-      `}</style>
-    </div>
+      <Footer />
+    </main>
   )
 }

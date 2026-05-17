@@ -1,332 +1,336 @@
 'use client'
 
-import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import {
   ArrowLeft,
+  ArrowRight,
+  ArrowUpRight,
   Target,
-  Globe,
   Shield,
   Users,
-  Rocket,
-  Heart,
-  Award,
   BookOpen,
-  Zap,
-  CheckCircle,
-  Sparkles,
+  Award,
   TrendingUp,
-  Star
+  Heart,
+  Globe,
+  CheckCircle,
 } from 'lucide-react'
-import { Card } from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
+import Wordmark from '@/components/Wordmark'
+import Footer from '@/components/Footer'
+
+const values = [
+  {
+    icon: Shield,
+    title: 'Transparency',
+    description: 'Every duty, every fee, every margin — on the page, in the math, no fine print.',
+  },
+  {
+    icon: BookOpen,
+    title: 'Education',
+    description: 'Knowledge is power. We teach the process instead of gatekeeping it.',
+  },
+  {
+    icon: Users,
+    title: 'Community',
+    description: 'Importers helping importers — across Namibia, South Africa, Botswana, Zambia.',
+  },
+]
+
+const features = [
+  {
+    icon: Globe,
+    title: 'Experience',
+    description: 'Built by an importer who shipped through Walvis Bay first-hand, before writing a line of the guide.',
+  },
+  {
+    icon: TrendingUp,
+    title: 'Savings',
+    description: 'Members typically save tens of thousands of Rand on their first import versus local dealer prices.',
+  },
+  {
+    icon: Heart,
+    title: 'Support',
+    description: 'WhatsApp + email support from someone who has actually imported a car — not a script reader.',
+  },
+  {
+    icon: Award,
+    title: 'Outcomes',
+    description: 'Country playbooks, agent lists, duty calculators — everything a first-timer needs to finish the job.',
+  },
+]
+
+const services = [
+  'Step-by-step country guides for NA, ZA, BW, ZM',
+  'Real-time landed-cost calculator with live duty rates',
+  'Vetted exporters and clearing agents',
+  'Japan auction-house playbook and grade decoder',
+  'Document templates and per-country checklists',
+]
 
 export default function AboutPage() {
-  const [activeValue, setActiveValue] = useState(0)
-  const [scrolled, setScrolled] = useState(false)
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 100)
-    }
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
-
-  const values = [
-    {
-      icon: Shield,
-      title: 'Transparency',
-      description: 'We believe in complete transparency in pricing and processes.',
-      color: 'from-blue-500 to-cyan-500'
-    },
-    {
-      icon: BookOpen,
-      title: 'Education',
-      description: 'Knowledge is power. We educate rather than gatekeep information.',
-      color: 'from-purple-500 to-pink-500'
-    },
-    {
-      icon: Users,
-      title: 'Community',
-      description: 'We foster a supportive community of importers helping each other succeed.',
-      color: 'from-green-500 to-emerald-500'
-    }
-  ]
-
-  const features = [
-    {
-      icon: Globe,
-      title: 'Experience',
-      description: 'Over 5 years of real import experience providing real guidance across Southern Africa.',
-      gradient: 'from-orange-400 to-red-500'
-    },
-    {
-      icon: TrendingUp,
-      title: 'Savings',
-      description: 'Our members save significantly compared to local dealership prices.',
-      gradient: 'from-green-400 to-emerald-500'
-    },
-    {
-      icon: Heart,
-      title: 'Support',
-      description: 'Dedicated support team to guide you through every step of your import journey.',
-      gradient: 'from-pink-400 to-purple-500'
-    },
-    {
-      icon: Award,
-      title: 'Success Rate',
-      description: 'Our members successfully complete their imports with our comprehensive guidance.',
-      gradient: 'from-blue-400 to-indigo-500'
-    }
-  ]
-
-  const services = [
-    { text: 'Comprehensive import guides tailored to each country', icon: CheckCircle },
-    { text: 'Real-time duty and tax calculators', icon: CheckCircle },
-    { text: 'Access to verified shipping agents and companies', icon: CheckCircle },
-    { text: 'Japan auction house guidance and strategies', icon: CheckCircle },
-    { text: 'Documentation templates and checklists', icon: CheckCircle }
-  ]
-
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 via-white to-gray-50">
-      {/* Hero Section with Animated Background */}
-      <div className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
-          <div className="absolute inset-0">
-            {/* Animated gradient orbs */}
-            <div className="absolute top-0 -left-4 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
-            <div className="absolute top-0 -right-4 w-72 h-72 bg-yellow-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
-            <div className="absolute -bottom-8 left-20 w-72 h-72 bg-pink-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
+    <main className="bg-white text-zinc-900">
+      {/* TOP NAV */}
+      <nav className="sticky top-0 z-50 bg-white/85 backdrop-blur-md border-b border-zinc-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-14 sm:h-16">
+            <div className="flex items-center gap-4 min-w-0">
+              <Link href="/" className="flex-shrink-0 active:opacity-70 transition-opacity">
+                <Wordmark className="text-2xl sm:text-3xl" />
+              </Link>
+              <span className="hidden md:inline-flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.22em] text-zinc-500">
+                <span className="h-px w-6 bg-zinc-300" />
+                About the brief
+              </span>
+            </div>
+            <div className="flex items-center gap-2 sm:gap-4">
+              <Link href="/contact" className="hidden sm:inline-flex items-center gap-1 text-sm font-medium text-zinc-700 hover:text-zinc-900 transition-colors px-2">
+                Contact
+                <ArrowUpRight className="h-3.5 w-3.5" />
+              </Link>
+              <Link href="/auth/login">
+                <Button size="sm" className="h-9 px-4 sm:h-10 sm:px-5 bg-amber-400 text-zinc-900 hover:bg-amber-300 font-semibold rounded-full shadow-[0_0_0_1px_rgba(0,0,0,0.04),0_8px_24px_-8px_rgba(251,191,36,0.5)] transition-colors text-xs sm:text-sm">
+                  Login
+                  <ArrowRight className="ml-1.5 h-3.5 w-3.5" />
+                </Button>
+              </Link>
+            </div>
           </div>
         </div>
+      </nav>
 
-        <div className="relative max-w-7xl mx-auto px-6 py-20">
-          {/* Back Button */}
-          <Link
-            href="/"
-            className="inline-flex items-center text-gray-600 hover:text-gray-900 mb-8 group transition-all duration-300"
-          >
-            <ArrowLeft className="h-4 w-4 mr-2 group-hover:-translate-x-1 transition-transform" />
-            Back to Home
+      {/* HERO — Nº 01 */}
+      <section className="relative isolate overflow-hidden bg-zinc-950 text-white">
+        <div className="absolute -bottom-40 -left-40 -z-10 h-[32rem] w-[32rem] rounded-full bg-amber-500/[0.08] blur-3xl" aria-hidden />
+        <div className="absolute top-1/4 right-1/4 -z-10 h-[24rem] w-[24rem] rounded-full bg-blue-500/[0.05] blur-3xl" aria-hidden />
+
+        <div className="hidden md:block absolute top-20 left-6 lg:left-8 h-px w-12 bg-amber-400/40" aria-hidden />
+        <div className="hidden md:block absolute top-20 left-6 lg:left-8 h-12 w-px bg-amber-400/40" aria-hidden />
+        <div className="hidden md:block absolute top-20 right-6 lg:right-8 h-px w-12 bg-amber-400/40" aria-hidden />
+        <div className="hidden md:block absolute top-20 right-6 lg:right-8 h-12 w-px bg-amber-400/40" aria-hidden />
+
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-6 lg:px-8 pt-20 sm:pt-24 pb-16 sm:pb-24">
+          <div className="flex items-center justify-between text-[10px] sm:text-[11px] uppercase tracking-[0.28em] text-zinc-400 font-medium">
+            <div className="flex items-center gap-3">
+              <span className="text-amber-300 font-semibold">Nº 01</span>
+              <span className="h-px w-8 bg-zinc-600" />
+              <span>The brief</span>
+            </div>
+            <span className="hidden md:inline-block text-zinc-500">Built by an importer</span>
+          </div>
+
+          <Link href="/" className="mt-10 inline-flex items-center text-zinc-400 hover:text-white text-xs uppercase tracking-[0.24em] group transition-colors">
+            <ArrowLeft className="h-3.5 w-3.5 mr-2 group-hover:-translate-x-1 transition-transform" />
+            Back to home
           </Link>
 
-          {/* Hero Content */}
-          <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-2 rounded-full text-sm font-medium mb-6">
-              <Sparkles className="h-4 w-4" />
-              Southern Africa's #1 Import Platform
-              <Sparkles className="h-4 w-4" />
-            </div>
+          <h1 className="mt-10 sm:mt-12 font-serif font-medium tracking-tight text-white leading-[0.92] text-[clamp(2.5rem,7vw,5.5rem)]">
+            <span className="block">A car import platform,</span>
+            <span className="block pl-[8vw] sm:pl-[6vw] lg:pl-[10vw] italic font-light text-amber-300/95">
+              for the people doing it themselves.
+            </span>
+          </h1>
 
-            <h1 className="text-5xl md:text-7xl font-black mb-6 bg-gradient-to-r from-gray-900 via-blue-800 to-purple-900 bg-clip-text text-transparent">
-              About IMPOTA
-            </h1>
-
-            <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto">
-              Empowering Southern Africans to import vehicles from Japan with confidence
-            </p>
-          </div>
+          <p className="mt-10 max-w-2xl text-base sm:text-lg text-zinc-300 leading-relaxed">
+            IMPOTA is independent education for first-time importers across Southern Africa. No dealer markups, no commissions, no upsells — just the math, the documents, and the people you need to finish the job.
+          </p>
         </div>
-      </div>
+      </section>
 
-      {/* Mission Section */}
-      <section className="py-20 px-6">
-        <div className="max-w-6xl mx-auto">
-          <Card className="relative overflow-hidden bg-gradient-to-br from-blue-600 to-purple-600 text-white p-12 shadow-2xl">
-            <div className="relative z-10">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="p-3 bg-white/20 backdrop-blur rounded-xl">
-                  <Target className="h-8 w-8" />
-                </div>
-                <h2 className="text-3xl font-bold">Our Mission</h2>
+      {/* MISSION — Nº 02 */}
+      <section className="border-t border-zinc-200">
+        <div className="mx-auto w-full max-w-7xl px-6 lg:px-8 py-20 sm:py-24">
+          <div className="flex items-center gap-3 text-[10px] sm:text-[11px] uppercase tracking-[0.28em] text-zinc-500 font-medium mb-10">
+            <span className="text-amber-600 font-semibold">Nº 02</span>
+            <span className="h-px w-8 bg-zinc-300" />
+            <span>Mission</span>
+          </div>
+
+          <div className="grid lg:grid-cols-12 gap-10">
+            <div className="lg:col-span-4">
+              <div className="inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.24em] text-amber-700">
+                <Target className="h-3.5 w-3.5" />
+                Why we exist
               </div>
-              <p className="text-xl leading-relaxed text-white/90">
-                IMPOTA is Southern Africa's leading car import education platform. We empower individuals
-                with comprehensive knowledge and tools to import vehicles from Japan safely, legally, and profitably.
-              </p>
-            </div>
-            <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
-            <div className="absolute bottom-0 left-0 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl"></div>
-          </Card>
-        </div>
-      </section>
-
-      {/* Our Story Section */}
-      <section className="py-20 px-6 bg-white">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-black mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              Our Story
-            </h2>
-          </div>
-          <Card className="p-8 md:p-12 shadow-lg border-2 border-gray-100">
-            <p className="text-lg md:text-xl text-gray-700 leading-relaxed text-center">
-              Impota was created by someone who personally imported cars from Japan through Walvis Bay and learned the process step by step. Having experienced the challenges, we built Impota to make the process clear for others in Namibia, South Africa, Botswana, and Zambia.
-            </p>
-          </Card>
-        </div>
-      </section>
-
-      {/* What We Do Section */}
-      <section className="py-20 px-6 bg-gray-50/50">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-black mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              What We Do
-            </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              We provide step-by-step guides, cost calculators, and expert insights that demystify the car
-              import process. Our platform serves importers in Namibia, South Africa, Botswana, and Zambia.
-            </p>
-          </div>
-
-          {/* Services Grid */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {services.map((service, index) => (
-              <Card
-                key={index}
-                className="group p-6 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border-2 hover:border-blue-200"
-              >
-                <div className="flex items-start gap-4">
-                  <div className="p-2 bg-gradient-to-br from-blue-500 to-purple-500 rounded-lg text-white flex-shrink-0 group-hover:scale-110 transition-transform">
-                    <service.icon className="h-5 w-5" />
-                  </div>
-                  <p className="text-gray-700 group-hover:text-gray-900 transition-colors">
-                    {service.text}
-                  </p>
-                </div>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Why Choose IMPOTA Section */}
-      <section className="py-20 px-6">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-black mb-4">
-              Why Choose <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">IMPOTA</span>
-            </h2>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-8">
-            {features.map((feature, index) => (
-              <Card
-                key={index}
-                className="group relative overflow-hidden p-8 hover:shadow-2xl transition-all duration-500"
-              >
-                <div className="relative z-10">
-                  <div className={`inline-flex p-3 rounded-2xl bg-gradient-to-r ${feature.gradient} text-white mb-4 group-hover:scale-110 transition-transform`}>
-                    <feature.icon className="h-8 w-8" />
-                  </div>
-                  <h3 className="text-2xl font-bold mb-3">{feature.title}</h3>
-                  <p className="text-gray-600">
-                    {feature.description}
-                  </p>
-                </div>
-                <div className={`absolute -bottom-20 -right-20 w-40 h-40 bg-gradient-to-r ${feature.gradient} opacity-10 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-700`}></div>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Our Values Section */}
-      <section className="py-20 px-6 bg-gradient-to-b from-gray-50 to-white">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-black mb-4">Our Values</h2>
-            <p className="text-lg text-gray-600">The principles that guide everything we do</p>
-          </div>
-
-          <div className="grid lg:grid-cols-3 gap-8">
-            {values.map((value, index) => (
-              <Card
-                key={index}
-                className={`group relative overflow-hidden p-8 cursor-pointer transform transition-all duration-500 ${
-                  activeValue === index ? 'scale-105 shadow-2xl' : 'hover:scale-105 hover:shadow-xl'
-                }`}
-                onClick={() => setActiveValue(index)}
-              >
-                <div className="relative z-10">
-                  <div className={`inline-flex p-4 rounded-2xl bg-gradient-to-r ${value.color} text-white mb-4`}>
-                    <value.icon className="h-8 w-8" />
-                  </div>
-                  <h3 className="text-2xl font-bold mb-3">{value.title}</h3>
-                  <p className="text-gray-600">
-                    {value.description}
-                  </p>
-                </div>
-                {activeValue === index && (
-                  <div className={`absolute inset-0 bg-gradient-to-r ${value.color} opacity-5`}></div>
-                )}
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-20 px-6">
-        <div className="max-w-4xl mx-auto text-center">
-          <Card className="relative overflow-hidden bg-gradient-to-r from-blue-600 to-purple-600 p-12 shadow-2xl">
-            <div className="relative z-10">
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-                Ready to Start Your Import Journey?
+              <h2 className="mt-6 font-serif text-3xl sm:text-4xl font-medium tracking-tight leading-tight">
+                Cheaper imports,
+                <br />
+                <span className="italic font-light text-amber-600">for everyone.</span>
               </h2>
-              <p className="text-xl text-white/90 mb-8">
-                Join thousands of successful importers across Southern Africa
+            </div>
+            <div className="lg:col-span-7 lg:col-start-6">
+              <p className="font-serif text-xl sm:text-2xl leading-relaxed text-zinc-700">
+                We empower importers with the knowledge, tools, and contacts to bring vehicles from Japan to Southern Africa <span className="italic text-zinc-900 font-medium">safely, legally, and at half the dealer price.</span>
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link
-                  href="/na/guide"
-                  className="inline-flex items-center justify-center px-8 py-4 bg-white text-blue-600 rounded-xl font-bold hover:bg-gray-100 transition-all hover:scale-105 shadow-xl"
-                >
-                  <Rocket className="mr-2 h-5 w-5" />
-                  Get Started Now
-                </Link>
-                <Link
-                  href="/contact"
-                  className="inline-flex items-center justify-center px-8 py-4 bg-white/20 backdrop-blur text-white rounded-xl font-bold hover:bg-white/30 transition-all hover:scale-105"
-                >
-                  Contact Us
-                </Link>
+              <div className="mt-8 flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.24em] text-zinc-500">
+                <span className="h-px w-8 bg-zinc-300" />
+                NA · ZA · BW · ZM
               </div>
             </div>
-            <Star className="absolute top-10 right-10 h-8 w-8 text-white/20 animate-pulse" />
-            <Star className="absolute bottom-10 left-10 h-6 w-6 text-white/20 animate-pulse animation-delay-2000" />
-            <Star className="absolute top-20 left-20 h-5 w-5 text-white/20 animate-pulse animation-delay-4000" />
-          </Card>
+          </div>
         </div>
       </section>
 
-      <style jsx>{`
-        @keyframes blob {
-          0% {
-            transform: translate(0px, 0px) scale(1);
-          }
-          33% {
-            transform: translate(30px, -50px) scale(1.1);
-          }
-          66% {
-            transform: translate(-20px, 20px) scale(0.9);
-          }
-          100% {
-            transform: translate(0px, 0px) scale(1);
-          }
-        }
-        .animate-blob {
-          animation: blob 7s infinite;
-        }
-        .animation-delay-2000 {
-          animation-delay: 2s;
-        }
-        .animation-delay-4000 {
-          animation-delay: 4s;
-        }
-      `}</style>
-    </div>
+      {/* STORY — Nº 03 */}
+      <section className="border-t border-zinc-200 bg-stone-50">
+        <div className="mx-auto w-full max-w-7xl px-6 lg:px-8 py-20 sm:py-24">
+          <div className="flex items-center gap-3 text-[10px] sm:text-[11px] uppercase tracking-[0.28em] text-zinc-500 font-medium mb-10">
+            <span className="text-amber-600 font-semibold">Nº 03</span>
+            <span className="h-px w-8 bg-zinc-300" />
+            <span>Our story</span>
+          </div>
+
+          <div className="max-w-3xl">
+            <p className="font-mono text-[11px] uppercase tracking-[0.24em] text-amber-700 mb-6">
+              <span aria-hidden className="mr-2">↳</span> Where this came from
+            </p>
+            <h2 className="font-serif text-3xl sm:text-4xl font-medium tracking-tight leading-tight">
+              IMPOTA was built by an importer,
+              <br />
+              <span className="italic font-light text-zinc-500">not a salesperson.</span>
+            </h2>
+            <p className="mt-8 font-serif text-lg sm:text-xl leading-relaxed text-zinc-700">
+              The founder personally imported cars from Japan through Walvis Bay — paid the wrong duties the first time, missed a NaTIS deadline, found the right exporter only after the wrong one had already taken a deposit.
+            </p>
+            <p className="mt-6 font-serif text-lg sm:text-xl leading-relaxed text-zinc-700">
+              IMPOTA is the playbook he wished existed before that first import. <span className="italic text-zinc-900 font-medium">Now it does.</span>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* WHAT WE DO — Nº 04 */}
+      <section className="border-t border-zinc-200">
+        <div className="mx-auto w-full max-w-7xl px-6 lg:px-8 py-20 sm:py-24">
+          <div className="flex items-center justify-between mb-12">
+            <div className="flex items-center gap-3 text-[10px] sm:text-[11px] uppercase tracking-[0.28em] text-zinc-500 font-medium">
+              <span className="text-amber-600 font-semibold">Nº 04</span>
+              <span className="h-px w-8 bg-zinc-300" />
+              <span>What's inside</span>
+            </div>
+            <span className="hidden md:inline-block font-mono text-[10px] uppercase tracking-[0.24em] text-zinc-500">
+              5 modules · 4 countries
+            </span>
+          </div>
+
+          <h2 className="font-serif text-3xl sm:text-4xl font-medium tracking-tight leading-tight max-w-3xl">
+            Step-by-step guides, real calculators,
+            <span className="italic font-light text-amber-600"> and the contacts that matter.</span>
+          </h2>
+
+          <div className="mt-12 divide-y divide-zinc-200 border-y border-zinc-200">
+            {services.map((service, i) => (
+              <div key={i} className="grid grid-cols-12 items-center gap-4 py-5 sm:py-6">
+                <div className="col-span-2 sm:col-span-1 font-mono text-[10px] uppercase tracking-[0.24em] text-zinc-400">
+                  {String(i + 1).padStart(2, '0')}
+                </div>
+                <div className="col-span-1 hidden sm:block">
+                  <CheckCircle className="h-4 w-4 text-amber-500" />
+                </div>
+                <p className="col-span-10 sm:col-span-10 text-base sm:text-lg text-zinc-800">
+                  {service}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* WHY CHOOSE — Nº 05 */}
+      <section className="border-t border-zinc-200 bg-stone-50">
+        <div className="mx-auto w-full max-w-7xl px-6 lg:px-8 py-20 sm:py-24">
+          <div className="flex items-center gap-3 text-[10px] sm:text-[11px] uppercase tracking-[0.28em] text-zinc-500 font-medium mb-12">
+            <span className="text-amber-600 font-semibold">Nº 05</span>
+            <span className="h-px w-8 bg-zinc-300" />
+            <span>Why IMPOTA</span>
+          </div>
+
+          <h2 className="font-serif text-3xl sm:text-4xl font-medium tracking-tight leading-tight max-w-3xl">
+            Four reasons importers stay.
+          </h2>
+
+          <div className="mt-12 grid sm:grid-cols-2 gap-px bg-zinc-200 border border-zinc-200">
+            {features.map((feature, i) => (
+              <div key={i} className="bg-white p-8 sm:p-10">
+                <div className="flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.24em] text-zinc-500 mb-6">
+                  <feature.icon className="h-4 w-4 text-amber-500" />
+                  <span className="text-amber-700 font-semibold">{String(i + 1).padStart(2, '0')}</span>
+                  <span className="h-px w-6 bg-zinc-300" />
+                  <span>{feature.title}</span>
+                </div>
+                <p className="font-serif text-xl sm:text-2xl leading-snug text-zinc-800">
+                  {feature.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* VALUES — Nº 06 */}
+      <section className="border-t border-zinc-200">
+        <div className="mx-auto w-full max-w-7xl px-6 lg:px-8 py-20 sm:py-24">
+          <div className="flex items-center gap-3 text-[10px] sm:text-[11px] uppercase tracking-[0.28em] text-zinc-500 font-medium mb-12">
+            <span className="text-amber-600 font-semibold">Nº 06</span>
+            <span className="h-px w-8 bg-zinc-300" />
+            <span>Values</span>
+          </div>
+
+          <div className="grid lg:grid-cols-3 gap-10 lg:gap-16">
+            {values.map((value, i) => (
+              <div key={i} className="relative">
+                <div className="absolute -top-2 -left-2 text-[10px] font-mono uppercase tracking-[0.24em] text-amber-600">
+                  0{i + 1}
+                </div>
+                <div className="pt-6 border-t border-zinc-200">
+                  <value.icon className="h-5 w-5 text-amber-500 mb-4" />
+                  <h3 className="font-serif text-2xl font-medium tracking-tight">{value.title}</h3>
+                  <p className="mt-4 text-base text-zinc-700 leading-relaxed">{value.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="border-t border-zinc-200 bg-zinc-950 text-white">
+        <div className="mx-auto w-full max-w-7xl px-6 lg:px-8 py-20 sm:py-24">
+          <div className="grid lg:grid-cols-12 gap-10 items-end">
+            <div className="lg:col-span-7">
+              <div className="flex items-center gap-3 text-[10px] sm:text-[11px] uppercase tracking-[0.28em] text-zinc-400 font-medium mb-8">
+                <span className="text-amber-300 font-semibold">Coda</span>
+                <span className="h-px w-8 bg-zinc-600" />
+                <span>Your move</span>
+              </div>
+              <h2 className="font-serif text-3xl sm:text-5xl font-medium tracking-tight leading-tight">
+                Ready to import your
+                <br />
+                <span className="italic font-light text-amber-300">first car?</span>
+              </h2>
+              <p className="mt-6 text-base sm:text-lg text-zinc-300 max-w-xl">
+                N$200 one-time. Lifetime access. 7-day refund if it's not worth it.
+              </p>
+            </div>
+            <div className="lg:col-span-5 flex flex-col sm:flex-row lg:flex-col gap-3 lg:items-end">
+              <Link href="/na/guide" className="w-full sm:w-auto">
+                <Button className="w-full bg-amber-400 text-zinc-900 hover:bg-amber-300 font-semibold rounded-full h-12 px-7">
+                  Start with the free guide
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </Link>
+              <Link href="/contact" className="w-full sm:w-auto">
+                <Button variant="outline" className="w-full bg-transparent border-zinc-700 text-white hover:bg-zinc-900 hover:text-white font-medium rounded-full h-12 px-7">
+                  Talk to us first
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <Footer />
+    </main>
   )
 }
