@@ -23,7 +23,7 @@ export default function HomePage() {
   const [loading, setLoading] = useState(true)
   const [user, setUser] = useState<any>(null)
 
-  const whatsappNumber = '264814756919'
+  const whatsappNumber = '264836757958'
   const whatsappMessage = "Hi! I'm interested in learning more about importing cars from Japan."
 
   useEffect(() => {

@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { ArrowUpRight } from 'lucide-react'
 
-const WHATSAPP_NUMBER = '264814756919'
+const WHATSAPP_NUMBER = '264836757958'
 const WHATSAPP_MESSAGE = "Hi! I'm interested in learning more about importing cars from Japan."
 
 export default function Footer() {

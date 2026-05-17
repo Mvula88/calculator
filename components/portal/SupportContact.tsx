@@ -27,7 +27,7 @@ export default function SupportContact() {
               <CheckCircle className="h-4 w-4 text-green-600 mt-0.5 flex-shrink-0" />
               <div className="flex-1">
                 <p className="text-sm font-semibold text-gray-900">WhatsApp Support</p>
-                <p className="text-xs text-gray-600">+264 81 668 3276</p>
+                <p className="text-xs text-gray-600">+264 83 675 7958</p>
                 <p className="text-xs text-gray-500">Fastest response - usually within hours</p>
               </div>
             </div>
@@ -56,7 +56,7 @@ export default function SupportContact() {
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-2">
             <a
-              href="https://wa.me/264816683276?text=Hi,%20I%20need%20help%20with%20the%20Import%20Mastery%20portal"
+              href="https://wa.me/264836757958?text=Hi,%20I%20need%20help%20with%20the%20Import%20Mastery%20portal"
               target="_blank"
               rel="noopener noreferrer"
               className="flex-1"

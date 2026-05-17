@@ -27,7 +27,7 @@ export default function PublicImportGuide() {
   const [carPrice, setCarPrice] = useState('')
   const [estimatedCost, setEstimatedCost] = useState<number | null>(null)
 
-  const whatsappNumber = '264816683276'
+  const whatsappNumber = '264836757958'
   const whatsappMessage = "Hi! I'm interested in learning more about importing cars from Japan."
 
   const calculateQuickEstimate = () => {

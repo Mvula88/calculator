@@ -33,7 +33,7 @@ export default function TestimonialRequest({ onClose }: TestimonialRequestProps)
 
     try {
       // Send to your WhatsApp or email endpoint
-      const whatsappNumber = "264814756919"
+      const whatsappNumber = "264836757958"
       const message = `NEW TESTIMONIAL ⭐\n\nRating: ${rating}/5 stars\nName: ${name || 'Anonymous'}\nTestimonial: ${testimonial}\n\nDate: ${new Date().toLocaleDateString()}`
 
       // Open WhatsApp with pre-filled message (alternative: send to backend)

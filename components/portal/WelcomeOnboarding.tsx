@@ -317,7 +317,7 @@ export default function WelcomeOnboarding({ userEmail, onClose }: WelcomeOnboard
               </p>
             </div>
             <a
-              href="https://wa.me/264816683276?text=Hi,%20I%20need%20help%20with%20the%20Import%20Mastery%20portal"
+              href="https://wa.me/264836757958?text=Hi,%20I%20need%20help%20with%20the%20Import%20Mastery%20portal"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex h-11 items-center gap-2 px-5 rounded-full border border-zinc-200 bg-white hover:bg-zinc-50 hover:border-zinc-300 text-sm font-medium text-zinc-900 transition-colors whitespace-nowrap"
