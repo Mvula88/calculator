@@ -614,6 +614,21 @@ async function downloadDesign(d, btn) {
         await Promise.all(images.map(img => img.complete ? Promise.resolve() : new Promise(r => {
             img.onload = img.onerror = r;
         })));
+
+        // Pre-load CSS background images with crossorigin so html2canvas
+        // can read them onto an un-tainted canvas
+        const bgUrls = new Set();
+        innerDoc.querySelectorAll('*').forEach(el => {
+            const bg = innerDoc.defaultView.getComputedStyle(el).backgroundImage;
+            const m = bg && bg.match(/url\(["']?([^"')]+)["']?\)/);
+            if (m && !m[1].startsWith('data:')) bgUrls.add(m[1]);
+        });
+        await Promise.all([...bgUrls].map(url => new Promise(r => {
+            const img = new Image();
+            img.crossOrigin = 'anonymous';
+            img.onload = img.onerror = r;
+            img.src = url;
+        })));
         await new Promise(r => setTimeout(r, 300));
 
         // Render via html2canvas against the iframe body
@@ -624,7 +639,7 @@ async function downloadDesign(d, btn) {
             windowHeight: h,
             backgroundColor: null,
             useCORS: true,
-            allowTaint: true,
+            allowTaint: false,
             scale: 1,
             logging: false,
         });
@@ -641,7 +656,9 @@ async function downloadDesign(d, btn) {
         btn.style.color = '#fff';
     } catch (e) {
         console.error('Download failed:', e);
-        btn.textContent = 'Failed — retry';
+        const msg = (e && (e.name || e.message)) ? `${e.name || ''} ${e.message || ''}`.trim() : 'Failed';
+        btn.textContent = `Failed: ${msg.slice(0, 40)}`;
+        btn.title = (e && e.stack) || String(e);
         btn.style.background = '#E74C3C';
         btn.style.color = '#fff';
     } finally {
