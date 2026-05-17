@@ -36,6 +36,17 @@ const nextConfig: NextConfig = {
           },
         ],
       },
+      {
+        // Allow design-studio.html to embed /designs/*.html in iframes
+        // (needed for previews and html2canvas PNG export)
+        source: '/designs/:path*',
+        headers: [
+          {
+            key: 'X-Frame-Options',
+            value: 'SAMEORIGIN',
+          },
+        ],
+      },
     ];
   },
   // Suppress hydration warnings from browser extensions
