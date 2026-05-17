@@ -165,19 +165,22 @@ export default function PortalPage() {
                   card.featured ? 'hover:bg-amber-50/40' : 'hover:bg-stone-50/60'
                 }`}
               >
-                <div className="flex items-center justify-between mb-4">
-                  <div
-                    className={`inline-flex h-10 w-10 items-center justify-center rounded-lg ring-1 ring-inset ${
-                      card.featured
-                        ? 'bg-amber-50 text-amber-700 ring-amber-200'
-                        : 'bg-blue-50 text-blue-600 ring-blue-100'
+                <div className="flex items-center justify-between pb-3 mb-4 border-b border-zinc-100">
+                  <span
+                    className={`font-mono text-[10px] uppercase tracking-[0.24em] font-semibold ${
+                      card.featured ? 'text-amber-600' : 'text-amber-600'
                     }`}
                   >
-                    <Icon className="h-4 w-4" strokeWidth={1.75} />
-                  </div>
-                  <span className="font-mono text-[10px] text-zinc-400 tracking-[0.2em]">
-                    {String(idx + 1).padStart(2, '0')}
+                    Nº {String(idx + 1).padStart(2, '0')}
                   </span>
+                  <Icon
+                    className={`h-4 w-4 transition-colors ${
+                      card.featured
+                        ? 'text-amber-400 group-hover:text-amber-600'
+                        : 'text-zinc-300 group-hover:text-amber-500'
+                    }`}
+                    strokeWidth={1.5}
+                  />
                 </div>
                 <h3
                   className={`text-sm font-medium leading-snug transition-colors ${
@@ -199,11 +202,11 @@ export default function PortalPage() {
                 key={card.title}
                 className="bg-stone-50/60 p-5 sm:p-6 flex flex-col min-h-[140px] relative"
               >
-                <div className="flex items-center justify-between mb-4">
-                  <div className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-zinc-100 text-zinc-400 ring-1 ring-inset ring-zinc-200">
-                    <Icon className="h-4 w-4" strokeWidth={1.75} />
-                  </div>
-                  <Lock className="h-3 w-3 text-zinc-400" strokeWidth={1.75} />
+                <div className="flex items-center justify-between pb-3 mb-4 border-b border-zinc-100">
+                  <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-zinc-400 font-semibold">
+                    Nº {String(idx + 1).padStart(2, '0')}
+                  </span>
+                  <Lock className="h-3.5 w-3.5 text-zinc-300" strokeWidth={1.5} />
                 </div>
                 <h3 className="text-sm font-medium text-zinc-500 leading-snug">{card.title}</h3>
                 <p className="mt-1 text-xs text-zinc-400 leading-snug">{card.description}</p>

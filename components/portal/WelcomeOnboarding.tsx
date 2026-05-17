@@ -239,11 +239,9 @@ export default function WelcomeOnboarding({ userEmail, onClose }: WelcomeOnboard
                       </p>
                     </div>
 
-                    {/* Icon chip */}
-                    <div className="sm:col-span-1">
-                      <div className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-white text-blue-600 ring-1 ring-zinc-200 shadow-sm">
-                        <Icon className="h-4 w-4" strokeWidth={1.75} />
-                      </div>
+                    {/* Icon — bare, no container */}
+                    <div className="sm:col-span-1 flex items-center sm:justify-start">
+                      <Icon className="h-5 w-5 text-zinc-400" strokeWidth={1.5} />
                     </div>
 
                     {/* Content */}
