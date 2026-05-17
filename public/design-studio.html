@@ -4,13 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
-<script>
-  // Force www origin so iframes (which the server redirects apex -> www)
-  // stay same-origin with this page. Otherwise frame.contentDocument is null.
-  if (location.hostname === 'impota.com') {
-    location.replace(location.href.replace('://impota.com', '://www.impota.com'));
-  }
-</script>
 <title>IMPOTA — Design Studio</title>
 <link rel="icon" type="image/png" href="/favicon.png">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -597,24 +590,36 @@ async function downloadDesign(d, btn) {
 
     const [w, h] = d.size.split('x').map(Number);
 
-    // Create a hidden, full-size iframe so the design renders at native resolution
+    // Create a hidden, full-size iframe rendered via srcdoc so it stays
+    // same-origin with the parent regardless of any apex<->www redirects
+    // or service-worker interception.
     const frame = document.createElement('iframe');
-    frame.src = d.file;
     frame.style.cssText = `position:fixed;top:-10000px;left:-10000px;width:${w}px;height:${h}px;border:0;`;
     document.body.appendChild(frame);
 
     try {
-        // Wait for the iframe to fully load
+        // Fetch the design HTML and inject a <base> tag so its absolute
+        // paths (/Background%20Images/..., /impota-logo.png) resolve
+        // against the parent's origin instead of about:srcdoc.
+        const fileUrl = new URL(d.file, window.location.href).href;
+        let html = await fetch(fileUrl).then(r => {
+            if (!r.ok) throw new Error(`fetch ${r.status} for ${d.file}`);
+            return r.text();
+        });
+        const baseTag = `<base href="${window.location.origin}/">`;
+        html = html.replace(/<head([^>]*)>/i, `<head$1>${baseTag}`);
+
+        // Load via srcdoc and wait for the iframe to fully load
         await new Promise((resolve, reject) => {
             frame.onload = resolve;
             frame.onerror = reject;
-            setTimeout(reject, 15000); // 15s safety timeout
+            setTimeout(reject, 15000);
+            frame.srcdoc = html;
         });
 
-        // Wait a short moment for fonts and images inside the iframe
         const innerDoc = frame.contentDocument;
         if (!innerDoc) {
-            throw new Error('iframe contentDocument null — likely cross-origin redirect');
+            throw new Error('iframe contentDocument null after srcdoc load');
         }
         if (innerDoc.fonts && innerDoc.fonts.ready) {
             await innerDoc.fonts.ready;
