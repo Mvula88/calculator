@@ -17,7 +17,6 @@ import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { toast } from 'sonner'
 import Wordmark from '@/components/Wordmark'
-import Footer from '@/components/Footer'
 
 const WHATSAPP = '264836757958'
 const SUPPORT_EMAIL = 'support@impota.com'
@@ -330,7 +329,6 @@ export default function ContactPage() {
         </div>
       </section>
 
-      <Footer />
     </main>
   )
 }

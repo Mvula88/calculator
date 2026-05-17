@@ -17,7 +17,6 @@ import {
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import Wordmark from '@/components/Wordmark'
-import Footer from '@/components/Footer'
 
 const values = [
   {
@@ -330,7 +329,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <Footer />
     </main>
   )
 }
