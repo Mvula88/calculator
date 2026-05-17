@@ -2,34 +2,52 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700;1,900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700;1,900&display=swap" rel="stylesheet">
 <title>IMPOTA — Profile</title>
 <style>
   *{margin:0;padding:0;box-sizing:border-box}
-  :root{--green-deep:#09090b;--gold:#fbbf24;--cream:#fafaf9}
-  body{width:1080px;height:1080px;overflow:hidden;font-family:'Inter',sans-serif;background:var(--green-deep);color:var(--cream);position:relative;display:flex;align-items:center;justify-content:center}
-  body::before{content:'';position:absolute;inset:0;background-image:radial-gradient(rgba(251,191,36,0.05) 1px,transparent 1px);background-size:28px 28px;opacity:0.7;pointer-events:none}
-  body::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,rgba(251,191,36,0.14) 0%,transparent 55%);pointer-events:none}
+  :root{--zinc-950:#09090b;--zinc-900:#18181b;--amber-500:#f59e0b;--gold:#fbbf24;--cream:#fafaf9}
+  body{width:1080px;height:1080px;overflow:hidden;font-family:'Inter',sans-serif;background:var(--zinc-950);color:var(--cream);position:relative;display:flex;align-items:center;justify-content:center}
 
-  /* Safe circle zone: everything inside 880x880 inscribed circle */
-  .safe{position:relative;z-index:2;width:880px;height:880px;border-radius:50%;display:flex;align-items:center;justify-content:center;padding:60px}
+  /* Layered ambient background */
+  .grain{position:absolute;inset:0;background-image:radial-gradient(rgba(251,191,36,0.06) 1px,transparent 1px);background-size:28px 28px;opacity:0.7;pointer-events:none;z-index:1}
+  .glow{position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,rgba(245,158,11,0.22) 0%,rgba(245,158,11,0.08) 30%,transparent 60%);pointer-events:none;z-index:1}
+  .vignette{position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,transparent 40%,rgba(9,9,11,0.55) 80%,rgba(9,9,11,0.85) 100%);pointer-events:none;z-index:2}
 
-  .tile{background:#fff;padding:40px 54px;border-radius:22px;box-shadow:0 20px 60px rgba(0,0,0,0.28);display:inline-flex;align-items:center;justify-content:center}
-  .tile img{width:520px;height:auto;display:block}
+  /* Safe circle: everything inside the 880x880 inscribed circle that Facebook keeps */
+  .safe{position:relative;z-index:5;width:880px;height:880px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center}
 
-  /* Subtle corner flourish inside the safe circle */
-  .flourish{position:absolute;font-family:'Playfair Display',serif;font-style:italic;font-weight:900;font-size:340px;line-height:0.8;color:rgba(251,191,36,0.07);letter-spacing:-10px;pointer-events:none;z-index:1}
-  .fl-top{top:110px;left:140px}
-  .fl-bot{bottom:110px;right:140px;transform:scale(-1,-1)}
+  /* Concentric gold rings */
+  .ring{position:absolute;border-radius:50%;border:1px solid rgba(251,191,36,0.16);pointer-events:none}
+  .ring-1{inset:30px}
+  .ring-2{inset:80px;border-color:rgba(251,191,36,0.10)}
+  .ring-3{inset:140px;border-color:rgba(251,191,36,0.06)}
+
+  /* Logo — white via brightness/invert filter so it pops against the dark */
+  .logo{width:540px;height:auto;display:block;filter:brightness(0) invert(1) drop-shadow(0 6px 24px rgba(0,0,0,0.55));z-index:6;position:relative}
+
+  /* Wordmark / tagline pieces under the logo */
+  .tag{margin-top:32px;font-size:14px;font-weight:700;letter-spacing:5px;text-transform:uppercase;color:var(--gold);opacity:0.85;z-index:6;position:relative}
+  .tag::before,.tag::after{content:'';display:inline-block;width:36px;height:1px;background:var(--gold);vertical-align:middle;opacity:0.6;margin:0 18px 4px}
+
+  /* Decorative quote-mark flourishes inside the safe circle */
+  .flourish{position:absolute;font-family:'Playfair Display',serif;font-style:italic;font-weight:900;font-size:340px;line-height:0.8;color:rgba(251,191,36,0.06);letter-spacing:-10px;pointer-events:none;z-index:3}
+  .fl-top{top:90px;left:120px}
+  .fl-bot{bottom:90px;right:120px;transform:scale(-1,-1)}
 </style>
 </head>
 <body>
-  <div class="flourish fl-top">"</div>
-  <div class="flourish fl-bot">"</div>
+  <div class="grain"></div>
+  <div class="glow"></div>
+  <div class="vignette"></div>
+  <div class="flourish fl-top">&ldquo;</div>
+  <div class="flourish fl-bot">&ldquo;</div>
   <div class="safe">
-    <div class="tile">
-      <img src="/impota-logo.png" alt="IMPOTA">
-    </div>
+    <div class="ring ring-1"></div>
+    <div class="ring ring-2"></div>
+    <div class="ring ring-3"></div>
+    <img class="logo" src="/impota-logo.png" alt="IMPOTA">
+    <div class="tag">Car Import Guide</div>
   </div>
 </body>
 </html>
