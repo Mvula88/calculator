@@ -410,11 +410,11 @@ export default function HomePage() {
             <div className="lg:col-span-5">
               <p className="font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.22em] text-zinc-500">Investment</p>
               <div className="mt-4 flex items-baseline gap-3 flex-wrap">
-                <span className="font-medium tracking-tight bg-gradient-to-br from-amber-200 via-amber-300 to-amber-400 bg-clip-text text-transparent text-[clamp(4rem,9vw,7rem)] leading-none">$6.06</span>
+                <span className="font-medium tracking-tight bg-gradient-to-br from-amber-200 via-amber-300 to-amber-400 bg-clip-text text-transparent text-[clamp(4rem,9vw,7rem)] leading-none">$12</span>
                 <span className="font-mono text-sm sm:text-base text-zinc-400 uppercase tracking-[0.2em]">USD</span>
               </div>
               <p className="mt-5 text-sm text-zinc-400 leading-relaxed max-w-xs">
-                Approximately N$100 / R100 — one-time payment, instant access.
+                Approximately N$200 / R200 — one-time payment, instant access.
               </p>
 
               <div className="mt-10 flex flex-col items-start gap-4">

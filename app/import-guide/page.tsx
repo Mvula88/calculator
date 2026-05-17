@@ -513,7 +513,7 @@ export default function PublicImportGuide() {
                   href="#get-access"
                   className="group inline-flex items-center gap-1.5 text-sm font-semibold text-zinc-900 hover:text-amber-700 transition-colors whitespace-nowrap"
                 >
-                  $6.06 USD
+                  $12 USD
                   <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </a>
               </div>
@@ -588,7 +588,7 @@ export default function PublicImportGuide() {
                 country="na"
                 className="group inline-flex h-12 px-7 items-center bg-amber-400 text-zinc-900 hover:bg-amber-300 font-semibold rounded-full shadow-[0_0_0_1px_rgba(0,0,0,0.06),0_16px_40px_-12px_rgba(251,191,36,0.55)] transition-colors"
               >
-                Get full access — $6.06 USD
+                Get full access — $12 USD
                 <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-0.5" />
               </ValidatedCheckoutButton>
               <p className="mt-4 text-xs text-zinc-500">
@@ -931,12 +931,12 @@ export default function PublicImportGuide() {
               <p className="font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.22em] text-zinc-500">Investment</p>
               <div className="mt-4 flex items-baseline gap-3 flex-wrap">
                 <span className="font-medium tracking-tight bg-gradient-to-br from-amber-200 via-amber-300 to-amber-400 bg-clip-text text-transparent text-[clamp(4rem,9vw,7rem)] leading-none">
-                  $6.06
+                  $12
                 </span>
                 <span className="font-mono text-sm sm:text-base text-zinc-400 uppercase tracking-[0.2em]">USD</span>
               </div>
               <p className="mt-5 text-sm text-zinc-400 leading-relaxed max-w-xs">
-                Approximately N$100 / R100 — one-time payment, instant access.
+                Approximately N$200 / R200 — one-time payment, instant access.
               </p>
 
               <div className="mt-10 flex flex-col items-start gap-4">

@@ -11,10 +11,10 @@ interface ExitIntentPopupProps {
 }
 
 const currencies = {
-  na: { symbol: '$', price: '6.06', local: 'N$100' },
-  za: { symbol: '$', price: '6.06', local: 'R100' },
-  bw: { symbol: '$', price: '6.06', local: 'P85' },
-  zm: { symbol: '$', price: '6.06', local: 'K140' },
+  na: { symbol: '$', price: '12', local: 'N$200' },
+  za: { symbol: '$', price: '12', local: 'R200' },
+  bw: { symbol: '$', price: '12', local: 'P170' },
+  zm: { symbol: '$', price: '12', local: 'K280' },
 }
 
 export default function ExitIntentPopup({ country: propCountry }: ExitIntentPopupProps) {
