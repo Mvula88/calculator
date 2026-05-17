@@ -618,11 +618,16 @@ async function downloadDesign(d, btn) {
         // Pre-load CSS background images with crossorigin so html2canvas
         // can read them onto an un-tainted canvas
         const bgUrls = new Set();
-        innerDoc.querySelectorAll('*').forEach(el => {
-            const bg = innerDoc.defaultView.getComputedStyle(el).backgroundImage;
-            const m = bg && bg.match(/url\(["']?([^"')]+)["']?\)/);
-            if (m && !m[1].startsWith('data:')) bgUrls.add(m[1]);
-        });
+        const win = innerDoc.defaultView || frame.contentWindow;
+        if (win && typeof win.getComputedStyle === 'function') {
+            innerDoc.querySelectorAll('*').forEach(el => {
+                try {
+                    const bg = win.getComputedStyle(el).backgroundImage;
+                    const m = bg && bg.match(/url\(["']?([^"')]+)["']?\)/);
+                    if (m && !m[1].startsWith('data:')) bgUrls.add(m[1]);
+                } catch (_) { /* ignore per-element style failures */ }
+            });
+        }
         await Promise.all([...bgUrls].map(url => new Promise(r => {
             const img = new Image();
             img.crossOrigin = 'anonymous';
@@ -656,11 +661,14 @@ async function downloadDesign(d, btn) {
         btn.style.color = '#fff';
     } catch (e) {
         console.error('Download failed:', e);
-        const msg = (e && (e.name || e.message)) ? `${e.name || ''} ${e.message || ''}`.trim() : 'Failed';
-        btn.textContent = `Failed: ${msg.slice(0, 40)}`;
+        const msg = (e && (e.name || e.message)) ? `${e.name || ''}: ${e.message || ''}`.trim() : 'Failed';
+        btn.textContent = msg.slice(0, 120);
         btn.title = (e && e.stack) || String(e);
         btn.style.background = '#E74C3C';
         btn.style.color = '#fff';
+        btn.style.fontSize = '0.7rem';
+        btn.style.whiteSpace = 'normal';
+        btn.style.lineHeight = '1.2';
     } finally {
         document.body.removeChild(frame);
         setTimeout(() => {
