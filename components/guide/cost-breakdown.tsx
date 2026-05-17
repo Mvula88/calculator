@@ -1,8 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Card } from '@/components/ui/card'
-import { DollarSign, AlertTriangle, Info } from 'lucide-react'
+import { AlertTriangle, Info } from 'lucide-react'
 
 interface CostItem {
   category: string
@@ -23,7 +22,7 @@ const costData: CostItem[] = [
     stage: 'Shipping',
     priority: 'critical',
     paymentTiming: 'At booking or before sailing',
-    commonDelays: ['Container sharing partner drops out', 'Shipping line capacity issues']
+    commonDelays: ['Container sharing partner drops out', 'Shipping line capacity issues'],
   },
   {
     category: 'Port/terminal handling',
@@ -32,7 +31,7 @@ const costData: CostItem[] = [
     stage: 'Arrival',
     priority: 'critical',
     paymentTiming: 'Before container release',
-    commonDelays: ['Document errors cause storage fees', 'Port congestion']
+    commonDelays: ['Document errors cause storage fees', 'Port congestion'],
   },
   {
     category: 'Import duty & VAT',
@@ -41,7 +40,7 @@ const costData: CostItem[] = [
     stage: 'Clearance',
     priority: 'critical',
     paymentTiming: 'Before customs release',
-    commonDelays: ['Valuation disputes', 'HS code classification issues']
+    commonDelays: ['Valuation disputes', 'HS code classification issues'],
   },
   {
     category: 'Clearing agent fee',
@@ -50,7 +49,7 @@ const costData: CostItem[] = [
     stage: 'Clearance',
     priority: 'critical',
     paymentTiming: 'Upon completion of clearance',
-    commonDelays: ['Agent overbooked', 'Document preparation delays']
+    commonDelays: ['Agent overbooked', 'Document preparation delays'],
   },
   {
     category: 'Unpacking materials',
@@ -60,7 +59,7 @@ const costData: CostItem[] = [
     stage: 'Collection',
     priority: 'important',
     paymentTiming: 'Day of collection',
-    commonDelays: ['Materials not available at port']
+    commonDelays: ['Materials not available at port'],
   },
   {
     category: 'Inland transport',
@@ -69,7 +68,7 @@ const costData: CostItem[] = [
     stage: 'Delivery',
     priority: 'critical',
     paymentTiming: 'Upon delivery',
-    commonDelays: ['Transporter not available', 'Bad weather delays']
+    commonDelays: ['Transporter not available', 'Bad weather delays'],
   },
   {
     category: 'Potential staff travel',
@@ -79,7 +78,7 @@ const costData: CostItem[] = [
     stage: 'Collection',
     priority: 'optional',
     paymentTiming: 'If location changes',
-    commonDelays: ['Last-minute location changes by agent']
+    commonDelays: ['Last-minute location changes by agent'],
   },
   {
     category: 'Bank/PayPal/TT fees',
@@ -88,31 +87,37 @@ const costData: CostItem[] = [
     stage: 'Pre-Purchase',
     priority: 'important',
     paymentTiming: 'With each transfer',
-    commonDelays: ['Bank processing delays', 'Foreign exchange delays']
+    commonDelays: ['Bank processing delays', 'Foreign exchange delays'],
   },
   {
     category: 'Storage/detention',
-    range: 'N$200-500/day',
+    range: 'N$200–500/day',
     notes: 'Avoid by having docs perfect + consignee cleared',
     isHidden: true,
     stage: 'Emergency',
     priority: 'optional',
     paymentTiming: 'Daily until resolved',
-    commonDelays: ['Document errors', 'Consignee blocks', 'Payment delays']
+    commonDelays: ['Document errors', 'Consignee blocks', 'Payment delays'],
   },
   {
     category: 'Registration & roadworthy',
     range: 'N$2,500–N$4,500',
-    notes: 'NATIS fees vary',
+    notes: 'NaTIS fees vary',
     stage: 'Registration',
     priority: 'critical',
     paymentTiming: 'After delivery',
-    commonDelays: ['Roadworthy test failures', 'NATIS system downtime']
-  }
+    commonDelays: ['Roadworthy test failures', 'NaTIS system downtime'],
+  },
 ]
 
 interface CostBreakdownProps {
   showTimelineIntegration?: boolean
+}
+
+function priorityClass(priority: CostItem['priority']) {
+  if (priority === 'critical') return 'text-red-600'
+  if (priority === 'important') return 'text-amber-600'
+  return 'text-zinc-500'
 }
 
 export function CostBreakdown({ showTimelineIntegration = true }: CostBreakdownProps) {
@@ -120,237 +125,232 @@ export function CostBreakdown({ showTimelineIntegration = true }: CostBreakdownP
   const [selectedStage, setSelectedStage] = useState<string>('all')
   const [showBufferCalculator, setShowBufferCalculator] = useState(false)
 
-  const toggleItem = (category: string) => {
-    setSelectedItems(prev => {
-      const newSet = new Set(prev)
-      if (newSet.has(category)) {
-        newSet.delete(category)
-      } else {
-        newSet.add(category)
-      }
-      return newSet
+  const toggleItem = (category: string) =>
+    setSelectedItems((prev) => {
+      const next = new Set(prev)
+      next.has(category) ? next.delete(category) : next.add(category)
+      return next
     })
-  }
 
   const calculateEstimate = () => {
     let min = 0
     let max = 0
-
-    selectedItems.forEach(category => {
-      const item = costData.find(c => c.category === category)
-      if (item) {
-        const range = item.range.replace(/[N$,]/g, '')
-        const parts = range.split('–')
-        if (parts.length === 2) {
-          min += parseInt(parts[0]) || 0
-          max += parseInt(parts[1]) || 0
-        } else {
-          const value = parseInt(range.replace('~', '').replace('Up to ', '')) || 0
-          min += value
-          max += value
-        }
+    selectedItems.forEach((category) => {
+      const item = costData.find((c) => c.category === category)
+      if (!item) return
+      const range = item.range.replace(/[N$,]/g, '')
+      const parts = range.split('–')
+      if (parts.length === 2) {
+        min += parseInt(parts[0]) || 0
+        max += parseInt(parts[1]) || 0
+      } else {
+        const value = parseInt(range.replace('~', '').replace('Up to ', '')) || 0
+        min += value
+        max += value
       }
     })
-
     return { min, max }
   }
 
-  const stages = ['all', ...Array.from(new Set(costData.map(item => item.stage)))]
-
-  const filteredCostData = selectedStage === 'all' 
-    ? costData 
-    : costData.filter(item => item.stage === selectedStage)
-
+  const stages = ['all', ...Array.from(new Set(costData.map((item) => item.stage)))]
+  const filteredCostData =
+    selectedStage === 'all' ? costData : costData.filter((item) => item.stage === selectedStage)
   const estimate = calculateEstimate()
-  const bufferAmount = Math.round((estimate.min + estimate.max) / 2 * 0.15)
-
-  const getPriorityColor = (priority: string) => {
-    switch (priority) {
-      case 'critical': return 'bg-red-100 text-red-700 border-red-300'
-      case 'important': return 'bg-orange-100 text-orange-700 border-orange-300'
-      case 'optional': return 'bg-gray-100 text-gray-700 border-gray-300'
-      default: return 'bg-gray-100 text-gray-700 border-gray-300'
-    }
-  }
+  const bufferAmount = Math.round(((estimate.min + estimate.max) / 2) * 0.15)
 
   return (
-    <div className="space-y-6">
-      <Card className="overflow-hidden">
-        <div className="bg-gradient-to-r from-blue-50 to-purple-50 p-6">
-          <h3 className="text-xl font-bold mb-2">💰 Smart Cost Calculator</h3>
-          <p className="text-sm text-gray-600">
-            Interactive calculator with timeline integration and budget planning tools
+    <div>
+      {/* Section header */}
+      <div className="flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.24em] text-zinc-500 font-semibold pb-2.5 mb-6 border-b border-zinc-200">
+        <span className="text-amber-600">Nº 04</span>
+        <span className="h-px flex-1 max-w-[40px] bg-zinc-300" />
+        <span>Cost calculator</span>
+      </div>
+
+      <h2 className="font-serif text-3xl sm:text-4xl font-medium tracking-tight text-zinc-900 leading-tight">
+        Run your numbers.
+      </h2>
+      <p className="mt-3 max-w-2xl text-sm sm:text-base text-zinc-600 leading-relaxed">
+        Tick the costs that apply to your import — the calculator returns your total range, suggested buffer, and where each amount is due.
+      </p>
+
+      <div className="mt-10 border border-zinc-200 rounded-2xl overflow-hidden">
+        {/* Stage filter */}
+        {showTimelineIntegration && (
+          <div className="px-6 sm:px-8 py-5 border-b border-zinc-200 bg-stone-50/60">
+            <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-zinc-500 mb-3">
+              <span aria-hidden className="mr-2">↳</span>
+              Filter by timeline stage
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {stages.map((stage) => (
+                <button
+                  key={stage}
+                  onClick={() => setSelectedStage(stage)}
+                  className={`px-4 py-1.5 text-xs font-mono uppercase tracking-[0.18em] rounded-full border transition-colors ${
+                    selectedStage === stage
+                      ? 'bg-zinc-900 border-zinc-900 text-white'
+                      : 'bg-white border-zinc-300 text-zinc-600 hover:border-zinc-500'
+                  }`}
+                >
+                  {stage === 'all' ? 'All stages' : stage}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Cost table */}
+        <div className="overflow-x-auto">
+          <table className="w-full">
+            <thead>
+              <tr className="border-b border-zinc-200 bg-white">
+                <th className="text-left py-3 px-4 sm:px-6 font-mono text-[10px] uppercase tracking-[0.24em] text-zinc-500 font-semibold w-12">
+                  Pick
+                </th>
+                <th className="text-left py-3 px-2 font-mono text-[10px] uppercase tracking-[0.24em] text-zinc-500 font-semibold">
+                  Cost item
+                </th>
+                <th className="text-left py-3 px-2 font-mono text-[10px] uppercase tracking-[0.24em] text-zinc-500 font-semibold hidden sm:table-cell">
+                  When due
+                </th>
+                <th className="text-left py-3 px-2 font-mono text-[10px] uppercase tracking-[0.24em] text-zinc-500 font-semibold hidden md:table-cell">
+                  Priority
+                </th>
+                <th className="text-left py-3 px-2 sm:px-6 font-mono text-[10px] uppercase tracking-[0.24em] text-zinc-500 font-semibold">
+                  Range
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredCostData.map((item) => (
+                <tr
+                  key={item.category}
+                  className={`border-b border-zinc-100 last:border-b-0 hover:bg-stone-50/60 transition-colors ${item.isHidden ? 'bg-amber-50/30' : ''}`}
+                >
+                  <td className="py-4 px-4 sm:px-6">
+                    <input
+                      type="checkbox"
+                      checked={selectedItems.has(item.category)}
+                      onChange={() => toggleItem(item.category)}
+                      className="h-4 w-4 rounded border-zinc-300 text-amber-600 focus:ring-amber-400"
+                    />
+                  </td>
+                  <td className="py-4 px-2">
+                    <div className="flex items-center gap-2">
+                      {item.isHidden && (
+                        <AlertTriangle className="h-3.5 w-3.5 text-amber-500 flex-shrink-0" strokeWidth={1.5} aria-label="Often overlooked" />
+                      )}
+                      <span className={`text-sm ${item.isHidden ? 'font-medium text-zinc-900' : 'text-zinc-800'}`}>
+                        {item.category}
+                      </span>
+                    </div>
+                    <div className="mt-1 font-mono text-[10px] uppercase tracking-[0.22em] text-zinc-400">
+                      {item.stage}
+                    </div>
+                    {item.commonDelays && item.commonDelays.length > 0 && (
+                      <details className="mt-2">
+                        <summary className="cursor-pointer font-mono text-[10px] uppercase tracking-[0.22em] text-red-600 hover:text-red-700">
+                          Common delays
+                        </summary>
+                        <ul className="mt-2 space-y-1">
+                          {item.commonDelays.map((delay, i) => (
+                            <li key={i} className="text-xs text-zinc-600 flex items-start gap-2">
+                              <span className="mt-1.5 h-1 w-1 rounded-full bg-red-500 flex-shrink-0" aria-hidden />
+                              {delay}
+                            </li>
+                          ))}
+                        </ul>
+                      </details>
+                    )}
+                  </td>
+                  <td className="py-4 px-2 text-sm text-zinc-600 hidden sm:table-cell">{item.paymentTiming}</td>
+                  <td className="py-4 px-2 hidden md:table-cell">
+                    <span className={`font-mono text-[10px] uppercase tracking-[0.24em] font-semibold ${priorityClass(item.priority)}`}>
+                      {item.priority}
+                    </span>
+                  </td>
+                  <td className="py-4 px-2 sm:px-6 font-mono text-sm text-zinc-900 whitespace-nowrap">{item.range}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        {/* Estimate */}
+        {selectedItems.size > 0 && (
+          <div className="border-t border-zinc-200 bg-stone-50/60 px-6 sm:px-8 py-6 space-y-6">
+            <div>
+              <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-amber-600 font-semibold mb-2">
+                Your selected total
+              </p>
+              <p className="font-serif text-3xl sm:text-4xl font-medium tracking-tight text-zinc-900">
+                N${estimate.min.toLocaleString()} <span className="text-zinc-400 italic font-light">→</span> N${estimate.max.toLocaleString()}
+              </p>
+              <p className="mt-1 text-xs text-zinc-500">Based on {selectedItems.size} selected items.</p>
+            </div>
+
+            <div className="pt-6 border-t border-zinc-200">
+              <div className="flex items-start justify-between gap-4 flex-wrap">
+                <div>
+                  <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-emerald-700 font-semibold mb-2">
+                    Recommended 15% buffer
+                  </p>
+                  <p className="font-serif text-xl font-medium tracking-tight text-zinc-900">
+                    N${bufferAmount.toLocaleString()}
+                  </p>
+                  <p className="mt-1 text-xs text-zinc-500">For delays, storage fees, and surprises.</p>
+                </div>
+                <button
+                  onClick={() => setShowBufferCalculator((s) => !s)}
+                  className="font-mono text-[10px] uppercase tracking-[0.24em] text-zinc-700 hover:text-zinc-900 underline underline-offset-4 transition-colors"
+                >
+                  {showBufferCalculator ? 'Hide breakdown' : 'Show breakdown'}
+                </button>
+              </div>
+
+              {showBufferCalculator && (
+                <dl className="mt-5 border border-zinc-200 rounded-xl divide-y divide-zinc-200 bg-white">
+                  <div className="grid grid-cols-2 gap-3 px-4 py-3 text-sm">
+                    <dt className="text-zinc-600">Selected costs (mid)</dt>
+                    <dd className="text-right font-mono text-zinc-900">
+                      N${Math.round((estimate.min + estimate.max) / 2).toLocaleString()}
+                    </dd>
+                  </div>
+                  <div className="grid grid-cols-2 gap-3 px-4 py-3 text-sm">
+                    <dt className="text-zinc-600">15% buffer</dt>
+                    <dd className="text-right font-mono text-zinc-900">N${bufferAmount.toLocaleString()}</dd>
+                  </div>
+                  <div className="grid grid-cols-2 gap-3 px-4 py-3 text-sm bg-stone-50/60">
+                    <dt className="font-medium text-zinc-900">Total budget needed</dt>
+                    <dd className="text-right font-mono font-medium text-zinc-900">
+                      N${(Math.round((estimate.min + estimate.max) / 2) + bufferAmount).toLocaleString()}
+                    </dd>
+                  </div>
+                </dl>
+              )}
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Footnotes */}
+      <div className="mt-8 space-y-4">
+        <div className="flex items-start gap-3 border-l-2 border-amber-500 pl-4 py-2">
+          <Info className="h-4 w-4 text-amber-500 mt-0.5 flex-shrink-0" strokeWidth={1.5} />
+          <p className="text-sm text-zinc-700 leading-relaxed">
+            <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-amber-700 font-semibold mr-2">Hidden costs</span>
+            Items marked with ⚠ are costs most first-time importers don't budget for — they can add N$12,000+ on their own.
           </p>
         </div>
-
-        <div className="p-6">
-          {/* Stage Filter */}
-          {showTimelineIntegration && (
-            <div className="mb-6">
-              <h4 className="font-semibold mb-3">Filter by Timeline Stage:</h4>
-              <div className="flex flex-wrap gap-2">
-                {stages.map(stage => (
-                  <button
-                    key={stage}
-                    onClick={() => setSelectedStage(stage)}
-                    className={`px-3 py-1.5 text-sm rounded-full border transition-colors ${
-                      selectedStage === stage
-                        ? 'bg-blue-100 border-blue-300 text-blue-700'
-                        : 'bg-white border-gray-300 text-gray-600 hover:border-gray-400'
-                    }`}
-                  >
-                    {stage === 'all' ? 'All Stages' : stage}
-                  </button>
-                ))}
-              </div>
-            </div>
-          )}
-
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead>
-                <tr className="border-b">
-                  <th className="text-left py-3 px-2">Select</th>
-                  <th className="text-left py-3 px-2">Cost Item</th>
-                  <th className="text-left py-3 px-2">When Due</th>
-                  <th className="text-left py-3 px-2">Priority</th>
-                  <th className="text-left py-3 px-2">Notes</th>
-                </tr>
-              </thead>
-              <tbody>
-                {filteredCostData.map((item, index) => (
-                  <tr 
-                    key={index} 
-                    className={`border-b hover:bg-gray-50 ${item.isHidden ? 'bg-yellow-50' : ''}`}
-                  >
-                    <td className="py-3 px-2">
-                      <input
-                        type="checkbox"
-                        checked={selectedItems.has(item.category)}
-                        onChange={() => toggleItem(item.category)}
-                        className="h-4 w-4 rounded border-gray-300"
-                      />
-                    </td>
-                    <td className={`py-3 px-2 ${item.isHidden ? 'font-bold' : ''}`}>
-                      <div className="flex items-center gap-2">
-                        {item.category}
-                        {item.isHidden && (
-                          <AlertTriangle className="h-4 w-4 text-yellow-600" />
-                        )}
-                      </div>
-                      <div className="text-xs text-gray-500 mt-1">{item.stage}</div>
-                    </td>
-                    <td className="py-3 px-2 text-sm text-gray-600">{item.paymentTiming}</td>
-                    <td className="py-3 px-2">
-                      <span className={`px-2 py-1 text-xs rounded-full border ${getPriorityColor(item.priority)}`}>
-                        {item.priority}
-                      </span>
-                    </td>
-                    <td className="py-3 px-2 text-sm text-gray-600">
-                      {item.notes}
-                      {item.commonDelays && item.commonDelays.length > 0 && (
-                        <div className="mt-1">
-                          <details className="text-xs">
-                            <summary className="cursor-pointer text-red-600 hover:text-red-800">
-                              Common delays ⚠️
-                            </summary>
-                            <ul className="mt-1 pl-3 space-y-1">
-                              {item.commonDelays.map((delay, i) => (
-                                <li key={i} className="list-disc text-red-600">
-                                  {delay}
-                                </li>
-                              ))}
-                            </ul>
-                          </details>
-                        </div>
-                      )}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-
-          {selectedItems.size > 0 && (
-            <div className="mt-6 space-y-4">
-              {/* Main Estimate */}
-              <div className="p-4 bg-blue-50 rounded-lg">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm text-gray-600 mb-1">Your Selected Items Total:</p>
-                    <p className="text-2xl font-bold text-blue-900">
-                      N${estimate.min.toLocaleString()} - N${estimate.max.toLocaleString()}
-                    </p>
-                  </div>
-                  <DollarSign className="h-12 w-12 text-blue-200" />
-                </div>
-              </div>
-
-              {/* Buffer Recommendation */}
-              <div className="p-4 bg-green-50 border border-green-200 rounded-lg">
-                <h4 className="font-semibold text-green-900 mb-2">💡 Recommended Budget Buffer</h4>
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm text-green-700">
-                      Add 15% buffer for delays, storage fees, and unexpected costs
-                    </p>
-                    <p className="text-lg font-bold text-green-900 mt-1">
-                      Buffer: N${bufferAmount.toLocaleString()}
-                    </p>
-                  </div>
-                  <button
-                    onClick={() => setShowBufferCalculator(!showBufferCalculator)}
-                    className="text-green-600 hover:text-green-800 text-sm underline"
-                  >
-                    {showBufferCalculator ? 'Hide' : 'Show'} Calculator
-                  </button>
-                </div>
-
-                {showBufferCalculator && (
-                  <div className="mt-4 p-3 bg-white rounded border">
-                    <h5 className="font-medium mb-2">Total Budget Breakdown:</h5>
-                    <div className="space-y-2 text-sm">
-                      <div className="flex justify-between">
-                        <span>Selected costs:</span>
-                        <span>N${Math.round((estimate.min + estimate.max) / 2).toLocaleString()}</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>15% Buffer:</span>
-                        <span>N${bufferAmount.toLocaleString()}</span>
-                      </div>
-                      <div className="border-t pt-2 flex justify-between font-bold">
-                        <span>Total Budget Needed:</span>
-                        <span>N${(Math.round((estimate.min + estimate.max) / 2) + bufferAmount).toLocaleString()}</span>
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </div>
-            </div>
-          )}
-
-          {/* Warnings */}
-          <div className="mt-6 space-y-4">
-            <div className="p-4 bg-amber-50 border border-amber-200 rounded-lg">
-              <div className="flex gap-2">
-                <Info className="h-5 w-5 text-amber-600 flex-shrink-0 mt-0.5" />
-                <div className="text-sm text-amber-800">
-                  <strong>Hidden costs warning:</strong> The highlighted items (with ⚠️) are costs that most first-time importers don't budget for. These alone can add N$12,000+ to your total.
-                </div>
-              </div>
-            </div>
-
-            <div className="p-4 bg-red-50 border border-red-200 rounded-lg">
-              <div className="flex gap-2">
-                <AlertTriangle className="h-5 w-5 text-red-600 flex-shrink-0 mt-0.5" />
-                <div className="text-sm text-red-800">
-                  <strong>Critical payments:</strong> Items marked as "critical" are non-negotiable and must be paid on time to avoid container holds and storage fees.
-                </div>
-              </div>
-            </div>
-          </div>
+        <div className="flex items-start gap-3 border-l-2 border-red-500 pl-4 py-2">
+          <AlertTriangle className="h-4 w-4 text-red-500 mt-0.5 flex-shrink-0" strokeWidth={1.5} />
+          <p className="text-sm text-zinc-700 leading-relaxed">
+            <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-red-600 font-semibold mr-2">Critical</span>
+            "Critical" items are non-negotiable. Missed deadlines mean container holds and daily storage fees.
+          </p>
         </div>
-      </Card>
+      </div>
     </div>
   )
 }
