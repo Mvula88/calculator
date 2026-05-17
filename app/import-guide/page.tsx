@@ -373,13 +373,11 @@ export default function PublicImportGuide() {
               const Icon = item.icon
               return (
                 <a key={idx} href={item.href} className="group bg-white p-6 sm:p-7 hover:bg-stone-50/60 transition-colors">
-                  <div className="flex items-center justify-between mb-5">
-                    <div className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-blue-50 text-blue-600 ring-1 ring-inset ring-blue-100">
-                      <Icon className="h-4 w-4" strokeWidth={1.75} />
-                    </div>
-                    <span className="font-mono text-[10px] text-zinc-400 tracking-[0.2em]">
-                      {String(idx + 1).padStart(2, '0')}
+                  <div className="flex items-center justify-between pb-3 mb-4 border-b border-zinc-100">
+                    <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-amber-600 font-semibold">
+                      Nº {String(idx + 1).padStart(2, '0')}
                     </span>
+                    <Icon className="h-4 w-4 text-zinc-300 group-hover:text-amber-500 transition-colors" strokeWidth={1.5} />
                   </div>
                   <h3 className="text-base font-medium text-zinc-900 group-hover:text-amber-700 transition-colors">
                     {item.title}
@@ -478,9 +476,7 @@ export default function PublicImportGuide() {
             <div className="px-6 sm:px-10 pb-8">
               <div className="border border-zinc-200 rounded-xl p-5 sm:p-6 bg-white">
                 <div className="flex items-start gap-3 sm:gap-4 mb-4">
-                  <div className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-blue-50 text-blue-600 ring-1 ring-inset ring-blue-100 flex-shrink-0">
-                    <FileText className="h-4 w-4" strokeWidth={1.75} />
-                  </div>
+                  <FileText className="h-5 w-5 text-amber-500 flex-shrink-0 mt-0.5" strokeWidth={1.5} />
                   <div>
                     <p className="text-sm font-medium text-zinc-900">View the actual invoice</p>
                     <p className="text-xs text-zinc-500 mt-0.5">Real invoice from Japanese auction</p>

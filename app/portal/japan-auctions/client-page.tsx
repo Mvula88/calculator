@@ -20,17 +20,17 @@ interface Exporter {
 }
 
 const exporters: Exporter[] = [
-  { name: 'Integrity Exports', website: 'integrityexports.com', auctionAccess: 'Yes', description: '120+ auction access, invoice transparency', highlight: 'Top pick' },
+  { name: 'AAA Japan', website: 'aaajapan.com', auctionAccess: 'Yes', description: '70,000+ lots daily from 120+ auctions', highlight: 'Top pick' },
+  { name: 'Hanamaru (Sococara)', website: 'sococara.com/sococara/', auctionAccess: 'Yes', description: 'Budget-friendly stock + accident-damaged vehicles for parts/rebuilds', highlight: 'Salvage' },
+  { name: 'TAU Trade', website: 'tau-trade.com/sal_frt/', auctionAccess: 'Yes', description: 'Salvage & accident-damaged car specialist — very low prices', highlight: 'Salvage' },
+  { name: 'Integrity Exports', website: 'integrityexports.com', auctionAccess: 'Yes', description: '120+ auction access, invoice transparency' },
   { name: 'SAT Japan', website: 'satjapan.com', auctionAccess: 'Yes', description: 'Hybrid stock & auction, Africa focus', highlight: 'Africa' },
-  { name: 'AAA Japan', website: 'aaajapan.com', auctionAccess: 'Yes', description: '70,000+ lots daily from 120+ auctions' },
   { name: 'Provide Cars', website: 'providecars.co.jp', auctionAccess: 'Yes', description: 'Est. 1997, bilingual support' },
   { name: 'CSOJapan', website: 'csojapan.com', auctionAccess: 'Yes', description: '50,000+ lots daily online' },
   { name: 'Japan Tradings', website: 'japan-tradings.com', auctionAccess: 'Yes', description: 'Very low fees (~¥60,000)', highlight: 'Low fees' },
   { name: 'Karmen Ltd', website: 'kar-men.com', auctionAccess: 'Likely', description: 'Est. 1995, 31,255+ vehicles, worldwide export' },
   { name: 'Nikkyo Cars', website: 'nikkyocars.com', auctionAccess: 'Yes', description: 'Stock & auction, Namibia focus, Walvis Bay shipping', highlight: 'Namibia' },
   { name: 'Autocom Japan', website: 'autocj.co.jp', auctionAccess: 'Likely', description: 'Large inventory, 360° views, comprehensive platform' },
-  { name: 'Hanamaru (Sococara)', website: 'sococara.com/sococara/', auctionAccess: 'Yes', description: 'Budget-friendly stock + accident-damaged vehicles for parts/rebuilds', highlight: 'Salvage' },
-  { name: 'TAU Trade', website: 'tau-trade.com/sal_frt/', auctionAccess: 'Yes', description: 'Salvage & accident-damaged car specialist — very low prices', highlight: 'Salvage' },
 ]
 
 const processSteps = [

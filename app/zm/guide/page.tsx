@@ -263,13 +263,16 @@ export default function ZambiaGuidePage() {
                 { icon: Calculator, title: 'Cost calculator', copy: 'Calculate every import cost — duties, VAT, shipping, clearing — before you commit.' },
                 { icon: FileText, title: 'Complete guides', copy: 'Step-by-step process documentation from auction bid to driveway.' },
                 { icon: Ship, title: 'Container sharing', copy: 'Connect with trusted platforms to share container space and cut shipping costs.' },
-              ].map(({ icon: Icon, title, copy }) => (
+              ].map(({ icon: Icon, title, copy }, idx) => (
                 <div key={title} className="bg-white p-8 sm:p-10">
-                  <div className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-blue-50 text-blue-600 ring-1 ring-inset ring-blue-100">
-                    <Icon className="h-5 w-5" strokeWidth={1.75} />
+                  <div className="flex items-center justify-between pb-5 mb-6 border-b border-zinc-100">
+                    <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-amber-600 font-semibold">
+                      Nº 0{idx + 1}
+                    </span>
+                    <Icon className="h-4 w-4 text-zinc-300" strokeWidth={1.5} />
                   </div>
-                  <h3 className="mt-6 text-lg font-semibold text-zinc-900">{title}</h3>
-                  <p className="mt-2 text-sm text-zinc-600 leading-relaxed">{copy}</p>
+                  <h3 className="font-serif text-xl font-medium tracking-tight text-zinc-900">{title}</h3>
+                  <p className="mt-3 text-sm text-zinc-600 leading-relaxed">{copy}</p>
                 </div>
               ))}
             </div>
