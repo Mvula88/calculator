@@ -3,21 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,700;0,800;0,900;1,400;1,700;1,900&display=swap" rel="stylesheet">
-<title>FB 37 — Insurance Gap</title>
+<title>IMPOTA 37 — Insurance</title>
 <style>
   *{margin:0;padding:0;box-sizing:border-box}
-  :root{--green-deep:#062A1F;--green-mid:#0B3D2C;--green-bright:#2EA876;--gold:#D4A843;--cream:#F5EFDE}
+  :root{--green-deep:#09090b;--green-mid:#18181b;--green-bright:#f59e0b;--gold:#fbbf24;--cream:#fafaf9}
   body{width:1080px;height:1080px;overflow:hidden;font-family:'Inter',sans-serif;background:#000;color:var(--cream);position:relative}
 
-  .photo{position:absolute;inset:0;background:url('../images/Background%20Images/pexels-karola-g-4506212.jpg') center center / cover no-repeat;filter:saturate(0.96) contrast(1.06) brightness(1.06);z-index:1}
+  .photo{position:absolute;inset:0;background:url('/Background%20Images/pexels-mikhail-nilov-6964367.jpg') center center / cover no-repeat;filter:saturate(0.96) contrast(1.06) brightness(1.06);z-index:1}
   .vignette{position:absolute;inset:0;background:radial-gradient(ellipse 95% 95% at 60% 50%, rgba(0,0,0,0) 0%, rgba(0,0,0,0.20) 78%, rgba(0,0,0,0.38) 100%);z-index:2;pointer-events:none}
-  .anchor{position:absolute;inset:0;background:linear-gradient(0deg,rgba(6,42,31,0.94) 0%,rgba(11,61,44,0.78) 18%,rgba(11,61,44,0.38) 32%,rgba(11,61,44,0) 46%),linear-gradient(125deg,rgba(11,61,44,0.94) 0%,rgba(11,61,44,0.82) 22%,rgba(11,61,44,0.45) 45%,rgba(11,61,44,0.12) 65%,rgba(11,61,44,0) 82%);z-index:3;pointer-events:none}
-  .shine{position:absolute;inset:0;background:radial-gradient(ellipse 62% 50% at 22% 60%, rgba(46,168,118,0.58) 0%, rgba(46,168,118,0.30) 28%, rgba(46,168,118,0.10) 55%, rgba(46,168,118,0) 75%);z-index:4;pointer-events:none}
-  .grain{position:absolute;inset:0;background-image:radial-gradient(rgba(212,168,67,0.06) 1px, transparent 1px);background-size:32px 32px;opacity:0.55;z-index:5;pointer-events:none}
+  .anchor{position:absolute;inset:0;background:linear-gradient(0deg,rgba(9,9,11,0.94) 0%,rgba(24,24,27,0.78) 18%,rgba(24,24,27,0.38) 32%,rgba(24,24,27,0) 46%),linear-gradient(125deg,rgba(24,24,27,0.94) 0%,rgba(24,24,27,0.82) 22%,rgba(24,24,27,0.45) 45%,rgba(24,24,27,0.12) 65%,rgba(24,24,27,0) 82%);z-index:3;pointer-events:none}
+  .shine{position:absolute;inset:0;background:radial-gradient(ellipse 62% 50% at 22% 60%, rgba(245,158,11,0.58) 0%, rgba(245,158,11,0.30) 28%, rgba(245,158,11,0.10) 55%, rgba(245,158,11,0) 75%);z-index:4;pointer-events:none}
+  .grain{position:absolute;inset:0;background-image:radial-gradient(rgba(251,191,36,0.06) 1px, transparent 1px);background-size:32px 32px;opacity:0.55;z-index:5;pointer-events:none}
 
   .shield{position:absolute;top:70px;right:70px;z-index:8;filter:drop-shadow(0 4px 20px rgba(0,0,0,0.55))}
   .shield img{height:66px;display:block}
-  .top-mast{position:absolute;top:88px;left:90px;z-index:7;font-family:'Inter',sans-serif;font-size:11px;font-weight:700;letter-spacing:3.4px;text-transform:uppercase;color:rgba(245,239,222,0.7)}
+  .top-mast{position:absolute;top:88px;left:90px;z-index:7;font-family:'Inter',sans-serif;font-size:11px;font-weight:700;letter-spacing:3.4px;text-transform:uppercase;color:rgba(250,250,249,0.7)}
   .top-mast .dot{color:var(--gold);margin:0 12px;opacity:0.8}
 
   .content{position:absolute;left:90px;bottom:130px;right:120px;z-index:7;max-width:760px}
@@ -33,9 +33,9 @@
   .lede b{color:#fff;font-weight:700;font-style:italic}
 
   .footer{position:absolute;bottom:54px;left:90px;right:90px;z-index:7;display:flex;justify-content:space-between;align-items:center}
-  .meta{font-family:'Inter',sans-serif;font-size:11px;font-weight:700;letter-spacing:3.2px;text-transform:uppercase;color:rgba(245,239,222,0.8)}
+  .meta{font-family:'Inter',sans-serif;font-size:11px;font-weight:700;letter-spacing:3.2px;text-transform:uppercase;color:rgba(250,250,249,0.8)}
   .meta span{color:var(--gold);margin:0 12px;opacity:0.7}
-  .url{font-family:'Inter',sans-serif;font-size:11px;font-weight:700;letter-spacing:3.2px;text-transform:uppercase;color:rgba(245,239,222,0.8)}
+  .url{font-family:'Inter',sans-serif;font-size:11px;font-weight:700;letter-spacing:3.2px;text-transform:uppercase;color:rgba(250,250,249,0.8)}
 
 </style>
 </head>
@@ -45,17 +45,17 @@
   <div class="anchor"></div>
   <div class="shine"></div>
   <div class="grain"></div>
-  <div class="shield"><img src="../images/ViewNam logo white.png" alt="ViewNam"></div>
-  <div class="top-mast">ViewNam <span class="dot">&middot;</span> Vehicle Inspection</div>
+  <div class="shield"><img src="/impota-logo.png" alt="IMPOTA"></div>
+  <div class="top-mast">IMPOTA <span class="dot">&middot;</span> Car Import Guide</div>
   <div class="content">
-    <div class="cat">Beyond Insurance</div>
-    <h1>Insurance won't cover<br>what we'd have <span class="it">caught.</span></h1>
+    <div class="cat">Often Missed</div>
+    <h1>Most imports arrive<br><span class="it">uninsured.</span></h1>
     <div class="rule"></div>
-    <div class="lede">Mechanical wear. Undisclosed damage. Cleared engine codes. <em>Insurance pays for accidents — not for what you bought broken.</em></div>
+    <div class="lede">We cover marine insurance, transit insurance, and <em>what happens if the ship sinks.</em></div>
   </div>
   <div class="footer">
-    <div class="meta">Inspect first <span>·</span> Insure second</div>
-    <div class="url">www.viewnam.com</div>
+    <div class="meta">Insurance <span>·</span> Liability <span>·</span> Coverage gaps</div>
+    <div class="url">impota.com</div>
   </div>
 </body>
 </html>

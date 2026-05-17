@@ -36,6 +36,9 @@ yarn-error.log*
 # vercel
 .vercel
 
+# Local-only design assets (used to generate Facebook marketing PNGs via design-studio.html)
+/public/Background Images/
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
