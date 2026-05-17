@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Copy, CheckCircle, Mail, FileText, Phone } from 'lucide-react'
 
@@ -44,7 +43,7 @@ Need written confirmation before purchase.`,
     stage: 'Pre-Import Planning',
     priority: 'required',
     submissionOrder: 1,
-    whenToUse: 'Before purchasing any vehicle to avoid costly mistakes'
+    whenToUse: 'Before purchasing any vehicle to avoid costly mistakes',
   },
   {
     id: 'consignee-check',
@@ -64,7 +63,7 @@ Thank you,
     stage: 'Shipping & Documentation',
     priority: 'required',
     submissionOrder: 2,
-    whenToUse: 'Before finalizing Bill of Lading to prevent container holds'
+    whenToUse: 'Before finalizing Bill of Lading to prevent container holds',
   },
   {
     id: 'agent-quote',
@@ -90,7 +89,7 @@ Vehicle details:
     stage: 'Pre-Import Planning',
     priority: 'required',
     submissionOrder: 3,
-    whenToUse: 'When selecting clearing agent - need written quotes to compare costs'
+    whenToUse: 'When selecting clearing agent — need written quotes to compare costs',
   },
   {
     id: 'due-diligence',
@@ -111,14 +110,14 @@ Please provide written confirmation by [date/time].`,
     stage: 'Shipping & Documentation',
     priority: 'required',
     submissionOrder: 4,
-    whenToUse: 'Before making any payments to agents or shipping lines'
+    whenToUse: 'Before making any payments to agents or shipping lines',
   },
   {
     id: 'translator-request',
     title: 'Translation Service Request',
     icon: FileText,
     subject: 'Urgent: Certified JP→EN Translation Required',
-    content: `We need a certified Japanese→English translation of export certificate by [date]. 
+    content: `We need a certified Japanese→English translation of export certificate by [date].
 
 Please confirm:
 - Certification type accepted by NamRA/MIT
@@ -131,7 +130,7 @@ Documents ready for immediate submission.`,
     stage: 'Documentation Preparation',
     priority: 'required',
     submissionOrder: 5,
-    whenToUse: 'For Japanese vehicles - start translation process early to avoid delays'
+    whenToUse: 'For Japanese vehicles — start translation process early to avoid delays',
   },
   {
     id: 'customs-inquiry',
@@ -157,31 +156,31 @@ Reference documents attached: specs, brochures, etc.`,
     stage: 'Clearance & Collection',
     priority: 'helpful',
     submissionOrder: 6,
-    whenToUse: 'If you suspect wrong HS code classification to avoid extra duty'
+    whenToUse: 'If you suspect wrong HS code classification to avoid extra duty',
   },
   {
     id: 'bl-amendment',
     title: 'B/L Amendment Request',
     icon: FileText,
     subject: 'B/L [number] – Consignee Amendment Request',
-    content: `Please amend consignee to: [New Legal Name + Registration + Address]. 
+    content: `Please amend consignee to: [New Legal Name + Registration + Address].
 
-Reason: Account block on previous consignee, preventing release. All parties consent. 
+Reason: Account block on previous consignee, preventing release. All parties consent.
 
 Attached: ID/Company docs + authorisation letter.`,
     category: 'Emergency',
     stage: 'Emergency Situations',
     priority: 'emergency',
-    whenToUse: 'When container is held due to consignee account issues'
+    whenToUse: 'When container is held due to consignee account issues',
   },
   {
     id: 'storage-negotiation',
     title: 'Storage Fee Negotiation',
     icon: Phone,
     subject: 'Storage Fee Goodwill Request - Container [#]',
-    content: `We're clearing in good faith; the hold resulted from a consignee account issue outside our control. 
+    content: `We're clearing in good faith; the hold resulted from a consignee account issue outside our control.
 
-We've resolved the account and can clear today. 
+We've resolved the account and can clear today.
 
 Please authorise a goodwill reduction on storage for this consignment.
 
@@ -191,7 +190,7 @@ Resolution date: [Today]`,
     category: 'Negotiation',
     stage: 'Emergency Situations',
     priority: 'emergency',
-    whenToUse: 'When storage fees are mounting due to issues outside your control'
+    whenToUse: 'When storage fees are mounting due to issues outside your control',
   },
   {
     id: 'document-correction',
@@ -217,7 +216,7 @@ Please advise process and timeline for correction.`,
     category: 'Correction',
     stage: 'Emergency Situations',
     priority: 'emergency',
-    whenToUse: 'When customs rejects documents due to errors'
+    whenToUse: 'When customs rejects documents due to errors',
   },
   {
     id: 'transport-booking',
@@ -243,9 +242,15 @@ Available for pickup from [Date].`,
     stage: 'Collection & Delivery',
     priority: 'helpful',
     submissionOrder: 7,
-    whenToUse: 'To book vehicle transport from port to final destination'
-  }
+    whenToUse: 'To book vehicle transport from port to final destination',
+  },
 ]
+
+function priorityText(priority: Template['priority']) {
+  if (priority === 'required') return 'text-red-600'
+  if (priority === 'emergency') return 'text-amber-600'
+  return 'text-zinc-500'
+}
 
 export function TemplatesSection() {
   const [copiedId, setCopiedId] = useState<string | null>(null)
@@ -253,87 +258,74 @@ export function TemplatesSection() {
   const [selectedPriority, setSelectedPriority] = useState<string>('All')
   const [showSubmissionOrder, setShowSubmissionOrder] = useState(false)
 
-  const stages = ['All', ...Array.from(new Set(templates.map(t => t.stage)))]
+  const stages = ['All', ...Array.from(new Set(templates.map((t) => t.stage)))]
   const priorities = ['All', 'required', 'helpful', 'emergency']
 
-  const filteredTemplates = templates.filter(template => {
+  const filteredTemplates = templates.filter((template) => {
     const stageMatch = selectedStage === 'All' || template.stage === selectedStage
     const priorityMatch = selectedPriority === 'All' || template.priority === selectedPriority
     return stageMatch && priorityMatch
   })
 
-  // Sort by submission order when showing required templates
-  const sortedTemplates = showSubmissionOrder 
+  const sortedTemplates = showSubmissionOrder
     ? [...filteredTemplates].sort((a, b) => (a.submissionOrder || 999) - (b.submissionOrder || 999))
     : filteredTemplates
 
   const copyToClipboard = async (template: Template) => {
-    const fullText = template.subject 
-      ? `Subject: ${template.subject}\n\n${template.content}`
-      : template.content
-
+    const fullText = template.subject ? `Subject: ${template.subject}\n\n${template.content}` : template.content
     await navigator.clipboard.writeText(fullText)
     setCopiedId(template.id)
     setTimeout(() => setCopiedId(null), 2000)
   }
 
-  const getPriorityColor = (priority: string) => {
-    switch (priority) {
-      case 'required': return 'bg-red-100 text-red-700 border-red-300'
-      case 'helpful': return 'bg-blue-100 text-blue-700 border-blue-300'
-      case 'emergency': return 'bg-orange-100 text-orange-700 border-orange-300'
-      default: return 'bg-gray-100 text-gray-700 border-gray-300'
-    }
-  }
-
-  const getPriorityIcon = (priority: string) => {
-    switch (priority) {
-      case 'required': return '⚡'
-      case 'helpful': return '💡'
-      case 'emergency': return '🚨'
-      default: return '📄'
-    }
-  }
-
   return (
-    <div className="space-y-6">
-      <div className="text-center mb-8">
-        <h2 className="text-2xl font-bold mb-2">📋 Documents & Communication Templates</h2>
-        <p className="text-gray-600">Ready-to-use templates organized by timeline stage with priority levels</p>
+    <div>
+      {/* Section header */}
+      <div className="flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.24em] text-zinc-500 font-semibold pb-2.5 mb-6 border-b border-zinc-200">
+        <span className="text-amber-600">Nº 07</span>
+        <span className="h-px flex-1 max-w-[40px] bg-zinc-300" />
+        <span>Templates</span>
       </div>
 
-      {/* Priority Guide */}
-      <Card className="p-4 bg-gradient-to-r from-blue-50 to-green-50 border-blue-200">
-        <h3 className="font-bold mb-3">🏷️ Template Priorities</h3>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-          <div className="flex items-center gap-2">
-            <span className="px-2 py-1 text-xs rounded-full border bg-red-100 text-red-700 border-red-300">⚡ required</span>
-            <span className="text-sm">Must use to avoid problems</span>
+      <h2 className="font-serif text-3xl sm:text-4xl font-medium tracking-tight text-zinc-900 leading-tight">
+        Copy-paste templates.
+      </h2>
+      <p className="mt-3 max-w-2xl text-sm sm:text-base text-zinc-600 leading-relaxed">
+        Email, message, and form templates organized by timeline stage and priority. Click to copy the full text including subject line.
+      </p>
+
+      {/* Priority legend */}
+      <div className="mt-8 border border-zinc-200 rounded-2xl divide-y sm:divide-y-0 sm:divide-x divide-zinc-200 grid grid-cols-1 sm:grid-cols-3 overflow-hidden">
+        {[
+          { p: 'required' as const, copy: 'Must use to avoid problems' },
+          { p: 'helpful' as const, copy: 'Useful for optimization' },
+          { p: 'emergency' as const, copy: 'For crisis situations' },
+        ].map(({ p, copy }) => (
+          <div key={p} className="px-5 py-4 bg-white">
+            <p className={`font-mono text-[10px] uppercase tracking-[0.24em] font-semibold ${priorityText(p)}`}>
+              {p}
+            </p>
+            <p className="mt-1 text-sm text-zinc-700">{copy}</p>
           </div>
-          <div className="flex items-center gap-2">
-            <span className="px-2 py-1 text-xs rounded-full border bg-blue-100 text-blue-700 border-blue-300">💡 helpful</span>
-            <span className="text-sm">Useful for optimization</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <span className="px-2 py-1 text-xs rounded-full border bg-orange-100 text-orange-700 border-orange-300">🚨 emergency</span>
-            <span className="text-sm">For crisis situations</span>
-          </div>
-        </div>
-      </Card>
+        ))}
+      </div>
 
       {/* Filters */}
-      <div className="flex flex-col lg:flex-row gap-4 mb-6">
-        <div className="flex-1">
-          <h4 className="font-medium mb-2">Filter by Timeline Stage:</h4>
+      <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <div>
+          <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-zinc-500 mb-2.5">
+            <span aria-hidden className="mr-2">↳</span>
+            Filter by stage
+          </p>
           <div className="flex flex-wrap gap-2">
-            {stages.map(stage => (
+            {stages.map((stage) => (
               <button
                 key={stage}
                 onClick={() => setSelectedStage(stage)}
-                className={`px-3 py-1.5 text-sm rounded-full border transition-colors ${
+                className={`px-3 py-1.5 text-xs font-mono uppercase tracking-[0.18em] rounded-full border transition-colors ${
                   selectedStage === stage
-                    ? 'bg-blue-100 border-blue-300 text-blue-700'
-                    : 'bg-white border-gray-300 text-gray-600 hover:border-gray-400'
+                    ? 'bg-zinc-900 border-zinc-900 text-white'
+                    : 'bg-white border-zinc-300 text-zinc-600 hover:border-zinc-500'
                 }`}
               >
                 {stage}
@@ -341,159 +333,137 @@ export function TemplatesSection() {
             ))}
           </div>
         </div>
-
-        <div className="flex-1">
-          <h4 className="font-medium mb-2">Filter by Priority:</h4>
+        <div>
+          <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-zinc-500 mb-2.5">
+            <span aria-hidden className="mr-2">↳</span>
+            Filter by priority
+          </p>
           <div className="flex flex-wrap gap-2">
-            {priorities.map(priority => (
+            {priorities.map((priority) => (
               <button
                 key={priority}
                 onClick={() => setSelectedPriority(priority)}
-                className={`px-3 py-1.5 text-sm rounded-full border transition-colors ${
+                className={`px-3 py-1.5 text-xs font-mono uppercase tracking-[0.18em] rounded-full border transition-colors ${
                   selectedPriority === priority
-                    ? getPriorityColor(priority)
-                    : 'bg-white border-gray-300 text-gray-600 hover:border-gray-400'
+                    ? 'bg-zinc-900 border-zinc-900 text-white'
+                    : 'bg-white border-zinc-300 text-zinc-600 hover:border-zinc-500'
                 }`}
               >
-                {priority === 'All' ? 'All Priorities' : `${getPriorityIcon(priority)} ${priority}`}
+                {priority === 'All' ? 'All priorities' : priority}
               </button>
             ))}
           </div>
         </div>
       </div>
 
-      {/* Submission Order Toggle */}
+      {/* Submission order toggle */}
       {selectedPriority === 'required' && (
-        <div className="flex items-center justify-between p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
+        <div className="mt-6 flex items-center justify-between border border-zinc-200 rounded-xl px-5 py-3 bg-stone-50/60">
           <div>
-            <p className="text-sm font-medium text-yellow-900">Required Templates</p>
-            <p className="text-xs text-yellow-700 mt-1">These are essential for a successful import</p>
+            <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-amber-700 font-semibold">
+              Required templates
+            </p>
+            <p className="mt-1 text-xs text-zinc-600">Essential for a successful import.</p>
           </div>
           <button
-            onClick={() => setShowSubmissionOrder(!showSubmissionOrder)}
-            className="text-yellow-600 hover:text-yellow-800 text-sm underline"
+            onClick={() => setShowSubmissionOrder((s) => !s)}
+            className="font-mono text-[10px] uppercase tracking-[0.24em] text-zinc-700 hover:text-zinc-900 underline underline-offset-4"
           >
-            {showSubmissionOrder ? 'Hide' : 'Show'} Order Guide
+            {showSubmissionOrder ? 'Hide order' : 'Show order'}
           </button>
         </div>
       )}
 
-      {/* Templates Grid */}
-      <div className="grid gap-4">
+      {/* Templates */}
+      <div className="mt-10 space-y-6">
         {sortedTemplates.map((template, index) => {
           const Icon = template.icon
           return (
-            <Card key={template.id} className="overflow-hidden">
-              <div className="p-6">
-                <div className="flex items-start justify-between mb-4">
-                  <div className="flex items-start gap-3 flex-1">
-                    <Icon className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
-                    <div className="flex-1">
-                      <div className="flex items-start justify-between mb-2">
-                        <h3 className="font-semibold">{template.title}</h3>
-                        {showSubmissionOrder && template.submissionOrder && (
-                          <span className="px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded-full font-medium">
-                            Step {template.submissionOrder}
-                          </span>
-                        )}
-                      </div>
-
-                      {/* Labels */}
-                      <div className="flex flex-wrap items-center gap-2 mb-2">
-                        <span className="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded-full">
-                          {template.stage}
+            <article
+              key={template.id}
+              className="border border-zinc-200 rounded-2xl overflow-hidden bg-white"
+            >
+              <div className="px-6 sm:px-8 py-6">
+                <div className="flex items-start gap-4">
+                  <Icon className="h-4 w-4 text-zinc-300 mt-1.5 flex-shrink-0" strokeWidth={1.5} />
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-start justify-between gap-3 mb-1">
+                      <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-amber-600 font-semibold">
+                        Template {String(index + 1).padStart(2, '0')}
+                      </p>
+                      {showSubmissionOrder && template.submissionOrder && (
+                        <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-zinc-500">
+                          Step {template.submissionOrder}
                         </span>
-                        <span className={`px-2 py-1 text-xs rounded-full border ${getPriorityColor(template.priority)}`}>
-                          {getPriorityIcon(template.priority)} {template.priority}
-                        </span>
-                      </div>
-
-                      {/* When to Use */}
-                      <div className="text-sm text-gray-600 mb-3">
-                        <strong>When to use:</strong> {template.whenToUse}
-                      </div>
+                      )}
                     </div>
+                    <h3 className="font-serif text-lg sm:text-xl font-medium tracking-tight text-zinc-900 leading-snug">
+                      {template.title}
+                    </h3>
+
+                    <div className="mt-3 flex flex-wrap items-center gap-x-5 gap-y-1.5 font-mono text-[10px] uppercase tracking-[0.22em]">
+                      <span className="text-zinc-500">{template.stage}</span>
+                      <span className={`font-semibold ${priorityText(template.priority)}`}>
+                        {template.priority}
+                      </span>
+                    </div>
+
+                    <p className="mt-3 text-sm text-zinc-700">
+                      <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-zinc-500 mr-2">When to use</span>
+                      {template.whenToUse}
+                    </p>
                   </div>
 
                   <Button
                     size="sm"
                     variant="outline"
                     onClick={() => copyToClipboard(template)}
-                    className="flex items-center gap-2 ml-4"
+                    className="border-zinc-300 bg-white hover:bg-stone-50 text-zinc-900 font-medium rounded-full h-9 px-4 ml-2 flex-shrink-0"
                   >
                     {copiedId === template.id ? (
                       <>
-                        <CheckCircle className="h-4 w-4 text-green-600" />
-                        Copied!
+                        <CheckCircle className="h-3.5 w-3.5 mr-1.5 text-emerald-600" strokeWidth={1.75} />
+                        Copied
                       </>
                     ) : (
                       <>
-                        <Copy className="h-4 w-4" />
+                        <Copy className="h-3.5 w-3.5 mr-1.5" strokeWidth={1.75} />
                         Copy
                       </>
                     )}
                   </Button>
                 </div>
-
-                {/* Template Content */}
-                <div className="bg-gray-50 p-4 rounded-lg">
-                  {template.subject && (
-                    <div className="mb-3 pb-3 border-b border-gray-200">
-                      <span className="text-sm font-medium text-gray-600">Subject: </span>
-                      <span className="text-sm text-gray-900">{template.subject}</span>
-                    </div>
-                  )}
-                  <pre className="text-sm text-gray-700 whitespace-pre-wrap font-sans">
-                    {template.content}
-                  </pre>
-                </div>
               </div>
-            </Card>
+
+              <div className="border-t border-zinc-200 bg-stone-50/60 px-6 sm:px-8 py-5">
+                {template.subject && (
+                  <div className="mb-4 pb-4 border-b border-zinc-200">
+                    <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-zinc-500 mb-1">Subject</p>
+                    <p className="text-sm text-zinc-900 font-medium">{template.subject}</p>
+                  </div>
+                )}
+                <pre className="text-sm text-zinc-700 whitespace-pre-wrap font-sans leading-relaxed">
+                  {template.content}
+                </pre>
+              </div>
+            </article>
           )
         })}
       </div>
 
-      {/* No Results */}
       {sortedTemplates.length === 0 && (
-        <div className="text-center py-8">
-          <p className="text-gray-500">No templates match your current filters.</p>
+        <div className="mt-10 border border-zinc-200 rounded-2xl px-6 py-10 text-center">
+          <p className="text-sm text-zinc-600">No templates match your current filters.</p>
           <button
             onClick={() => {
               setSelectedStage('All')
               setSelectedPriority('All')
             }}
-            className="mt-2 text-blue-600 hover:text-blue-800 underline"
+            className="mt-3 font-mono text-[10px] uppercase tracking-[0.24em] text-amber-700 hover:text-amber-900 underline underline-offset-4"
           >
             Clear all filters
           </button>
         </div>
-      )}
-
-      {/* Stage Overview */}
-      {selectedStage === 'All' && selectedPriority === 'All' && (
-        <Card className="p-4 bg-green-50 border-green-200">
-          <h3 className="font-bold mb-3">📊 Templates by Import Stage</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-            {stages.slice(1).map(stage => {
-              const stageTemplates = templates.filter(t => t.stage === stage)
-              return (
-                <div key={stage} className="p-3 bg-white rounded border">
-                  <h4 className="font-medium text-sm mb-2">{stage}</h4>
-                  <div className="space-y-1">
-                    {stageTemplates.map((template, idx) => (
-                      <div key={idx} className="flex items-center justify-between text-xs">
-                        <span className="truncate mr-2">{template.title}</span>
-                        <span className={`px-1 py-0.5 rounded ${getPriorityColor(template.priority)}`}>
-                          {getPriorityIcon(template.priority)}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )
-            })}
-          </div>
-        </Card>
       )}
     </div>
   )
