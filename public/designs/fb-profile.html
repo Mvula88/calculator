@@ -2,21 +2,23 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800;900&display=swap" rel="stylesheet">
 <title>IMPOTA — Profile</title>
 <style>
   *{margin:0;padding:0;box-sizing:border-box}
-  :root{--zinc-950:#09090b;--zinc-900:#18181b;--amber-500:#f59e0b;--gold:#fbbf24}
-  body{width:1080px;height:1080px;overflow:hidden;background:var(--zinc-950);position:relative;display:flex;align-items:center;justify-content:center}
+  :root{--zinc-950:#09090b;--amber-500:#f59e0b;--gold:#fbbf24;--cream:#fafaf9}
+  body{width:1080px;height:1080px;overflow:hidden;background:var(--zinc-950);font-family:'Inter',sans-serif;position:relative;display:flex;align-items:center;justify-content:center}
 
   /* Safe circle: Facebook crops to the 880x880 inscribed circle */
   .safe{position:relative;width:880px;height:880px;border-radius:50%;display:flex;align-items:center;justify-content:center}
 
-  .logo{width:640px;height:auto;display:block}
+  .wordmark{font-size:240px;font-weight:900;letter-spacing:-12px;color:var(--cream);line-height:1}
+  .wordmark .dot{color:var(--gold)}
 </style>
 </head>
 <body>
   <div class="safe">
-    <img class="logo" src="/impota-logo.png" alt="IMPOTA">
+    <div class="wordmark">impota<span class="dot">.</span></div>
   </div>
 </body>
 </html>
