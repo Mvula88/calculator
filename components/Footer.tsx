@@ -69,6 +69,49 @@ export default function Footer() {
                 support@impota.com
               </a>
             </p>
+
+            {/* Social */}
+            <div className="mt-8">
+              <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-zinc-500 mb-3">
+                <span aria-hidden className="mr-2">↳</span>
+                Follow
+              </p>
+              <ul className="flex flex-wrap gap-x-5 gap-y-2 text-sm">
+                <li>
+                  <a
+                    href="https://www.facebook.com/profile.php?id=61561886907035"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group inline-flex items-center gap-1.5 text-zinc-300 hover:text-amber-300 transition-colors"
+                  >
+                    Facebook
+                    <ArrowUpRight className="h-3 w-3 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.tiktok.com/@impota_imports"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group inline-flex items-center gap-1.5 text-zinc-300 hover:text-amber-300 transition-colors"
+                  >
+                    TikTok
+                    <ArrowUpRight className="h-3 w-3 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group inline-flex items-center gap-1.5 text-zinc-300 hover:text-amber-300 transition-colors"
+                  >
+                    WhatsApp
+                    <ArrowUpRight className="h-3 w-3 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
+                  </a>
+                </li>
+              </ul>
+            </div>
           </div>
 
           {/* Directory — 7 cols, 3 sub-columns */}
