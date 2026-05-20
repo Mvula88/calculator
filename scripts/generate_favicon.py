@@ -23,12 +23,15 @@ TEXT = (250, 250, 249)   # stone-50 (off-white, same as Wordmark component)
 DOT = (251, 191, 36)     # amber-400
 
 
-# Try a few bold sans-serif fonts in priority order. Falls back to PIL default.
+# Inter Black is the IMPOTA brand wordmark font (matches Wordmark.tsx,
+# which inherits Inter from app/layout.tsx + Tailwind font-black/900).
+# Local copy lives next to this script. System fonts fall back if missing.
 FONT_CANDIDATES = [
-    r"C:\Windows\Fonts\arialbd.ttf",   # Arial Bold
-    r"C:\Windows\Fonts\seguibl.ttf",   # Segoe UI Black
-    r"C:\Windows\Fonts\segoeuib.ttf",  # Segoe UI Bold
-    r"C:\Windows\Fonts\arial.ttf",     # Arial
+    str(Path(__file__).parent / "Inter-Black.ttf"),
+    r"C:\Windows\Fonts\arialbd.ttf",
+    r"C:\Windows\Fonts\seguibl.ttf",
+    r"C:\Windows\Fonts\segoeuib.ttf",
+    r"C:\Windows\Fonts\arial.ttf",
 ]
 
 
