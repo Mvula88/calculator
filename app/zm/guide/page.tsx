@@ -432,7 +432,7 @@ export default function ZambiaGuidePage() {
             <div className="hidden md:block absolute top-24 right-6 lg:right-8 h-px w-12 bg-amber-400/40" aria-hidden />
             <div className="hidden md:block absolute top-24 right-6 lg:right-8 h-12 w-px bg-amber-400/40" aria-hidden />
 
-            <div className="relative z-10 mx-auto w-full max-w-7xl px-6 lg:px-8 pt-24 sm:pt-28">
+            <div className="relative z-10 mx-auto w-full max-w-7xl px-6 lg:px-8 pt-16 sm:pt-20">
               <div className="flex items-center justify-between text-[10px] sm:text-[11px] uppercase tracking-[0.28em] text-zinc-400 font-medium">
                 <div className="flex items-center gap-3">
                   <span className="text-amber-300 font-semibold">Nº 02</span>
@@ -443,72 +443,52 @@ export default function ZambiaGuidePage() {
               </div>
             </div>
 
-            <div className="relative z-10 mx-auto w-full max-w-7xl px-6 lg:px-8 py-16 sm:py-20 lg:py-24">
-              <div className="inline-flex items-center gap-3 text-[11px] uppercase tracking-[0.24em] text-amber-300 font-semibold">
-                <span className="inline-block h-1.5 w-1.5 rounded-full bg-amber-400" />
-                Complete import mastery
-              </div>
-
-              <h2 className="mt-10 sm:mt-12 font-medium tracking-tight text-white leading-[0.9] text-[clamp(2.5rem,7.5vw,5.5rem)]">
+            <div className="relative z-10 mx-auto w-full max-w-7xl px-6 lg:px-8 py-12 sm:py-16">
+              <h2 className="font-medium tracking-tight text-white leading-[0.92] text-[clamp(2.25rem,6.5vw,4.75rem)]">
                 <span className="block">One payment.</span>
                 <span className="block pl-[10vw] sm:pl-[8vw] lg:pl-[12vw] italic font-light text-amber-300/95">Lifetime access.</span>
               </h2>
 
-              <div className="mt-8 sm:mt-10 flex items-start gap-3 sm:gap-4 max-w-3xl">
-                <span className="text-amber-400 text-2xl sm:text-3xl leading-none mt-1" aria-hidden>↳</span>
-                <p className="text-lg sm:text-xl lg:text-2xl text-amber-100/90 leading-snug tracking-tight">
-                  Everything you need to import cars successfully — for as long as the platform exists.
-                </p>
-              </div>
+              <p className="mt-6 max-w-xl text-base sm:text-lg text-zinc-300 leading-snug">
+                <span className="text-amber-400 mr-2" aria-hidden>↳</span>
+                Everything you need to import — for as long as IMPOTA exists.
+              </p>
 
-              <div className="mt-14 sm:mt-16 h-px w-20 bg-amber-400/60" />
-
-              <div className="mt-12 grid lg:grid-cols-12 gap-12 lg:gap-16">
+              <div className="mt-10 grid lg:grid-cols-12 gap-10">
                 <div className="lg:col-span-5">
-                  <p className="font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.22em] text-zinc-500">Investment</p>
-                  <div className="mt-4 flex items-baseline gap-3 flex-wrap">
-                    <span className="font-medium tracking-tight bg-gradient-to-br from-amber-200 via-amber-300 to-amber-400 bg-clip-text text-transparent text-[clamp(4rem,9vw,7rem)] leading-none">$12</span>
-                    <span className="font-mono text-sm sm:text-base text-zinc-400 uppercase tracking-[0.2em]">USD</span>
+                  <div className="flex items-baseline gap-3 flex-wrap">
+                    <span className="font-medium tracking-tight bg-gradient-to-br from-amber-200 via-amber-300 to-amber-400 bg-clip-text text-transparent text-[clamp(3.5rem,7.5vw,6rem)] leading-none">$12</span>
+                    <span className="font-mono text-sm text-zinc-400 uppercase tracking-[0.2em]">USD</span>
                   </div>
-                  <p className="mt-5 text-sm text-zinc-400 leading-relaxed max-w-xs">
-                    Approximately K280 — one-time payment, instant access.
-                  </p>
+                  <p className="mt-3 text-sm text-zinc-400">≈ K280 · one-time · instant access</p>
 
-                  <div className="mt-10 flex flex-col items-start gap-4">
-                    <ValidatedCheckoutButton
-                      tier="mastery"
-                      country="zm"
-                      size="lg"
-                      className="h-14 px-8 bg-amber-400 text-zinc-900 hover:bg-amber-300 font-semibold rounded-full shadow-[0_0_0_1px_rgba(0,0,0,0.08),0_16px_40px_-12px_rgba(251,191,36,0.55)] transition-colors text-base"
-                    >
-                      Get lifetime access
-                      <ArrowRight className="ml-2 h-4 w-4" />
-                    </ValidatedCheckoutButton>
-                    <p className="text-xs text-zinc-500 max-w-xs leading-relaxed">
-                      Educational materials only. 7-day refund if no content has been accessed.
-                    </p>
-                  </div>
+                  <ValidatedCheckoutButton
+                    tier="mastery"
+                    country="zm"
+                    size="lg"
+                    className="mt-8 h-14 px-8 bg-amber-400 text-zinc-900 hover:bg-amber-300 font-semibold rounded-full shadow-[0_0_0_1px_rgba(0,0,0,0.08),0_16px_40px_-12px_rgba(251,191,36,0.55)] transition-colors text-base"
+                  >
+                    Get lifetime access
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </ValidatedCheckoutButton>
+                  <p className="mt-3 text-xs text-zinc-500 max-w-xs">7-day refund if no content has been accessed.</p>
                 </div>
 
                 <div className="lg:col-span-7">
                   <div className="flex items-center justify-between font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.22em] border-b border-white/10 pb-3">
-                    <span className="text-zinc-500">Included</span>
-                    <span className="text-amber-300">09 items</span>
+                    <span className="text-zinc-500">What's inside</span>
+                    <span className="text-amber-300">5 essentials</span>
                   </div>
                   <ul className="divide-y divide-white/[0.06]">
                     {[
-                      'Complete import timeline & process',
-                      'Comprehensive mistake avoidance checklist',
                       'Live duty & tax calculator',
-                      'Document templates & email samples',
+                      'Complete import timeline',
                       'Japan auction bidding guide',
-                      'Agent contact directory',
-                      'Container sharing network',
-                      'Priority WhatsApp support',
-                      'Monthly updates & new features',
+                      'Vetted agent directory',
+                      'Document templates & emails',
                     ].map((item, i) => (
-                      <li key={item} className="flex items-center justify-between gap-4 py-4">
-                        <span className="flex items-baseline gap-4 sm:gap-6">
+                      <li key={item} className="flex items-center justify-between gap-4 py-3.5">
+                        <span className="flex items-baseline gap-4 sm:gap-5">
                           <span className="font-mono text-[10px] text-zinc-600 tracking-[0.2em] flex-shrink-0 w-6">
                             {String(i + 1).padStart(2, '0')}
                           </span>
@@ -518,6 +498,10 @@ export default function ZambiaGuidePage() {
                       </li>
                     ))}
                   </ul>
+                  <p className="mt-4 text-xs text-zinc-500">
+                    <span className="font-mono uppercase tracking-[0.22em] text-amber-400/80 mr-2">+ inside</span>
+                    Mistake checklist, container sharing, WhatsApp support, ongoing updates.
+                  </p>
                 </div>
               </div>
             </div>
