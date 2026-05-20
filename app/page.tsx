@@ -394,7 +394,7 @@ export default function HomePage() {
 
           <p className="mt-6 max-w-xl text-base sm:text-lg text-zinc-300 leading-snug">
             <span className="text-amber-400 mr-2" aria-hidden>↳</span>
-            Every tool, guide, and update — for as long as IMPOTA exists.
+            Everything you need to import — for as long as IMPOTA exists.
           </p>
 
           <div className="mt-10 grid lg:grid-cols-12 gap-10">
