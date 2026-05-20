@@ -27,6 +27,7 @@ DOT = (251, 191, 36)     # amber-400
 # which inherits Inter from app/layout.tsx + Tailwind font-black/900).
 # Local copy lives next to this script. System fonts fall back if missing.
 FONT_CANDIDATES = [
+    str(Path(__file__).parent / "Inter-Black.woff2"),
     str(Path(__file__).parent / "Inter-Black.ttf"),
     r"C:\Windows\Fonts\arialbd.ttf",
     r"C:\Windows\Fonts\seguibl.ttf",
