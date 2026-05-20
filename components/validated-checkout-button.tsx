@@ -43,13 +43,21 @@ export default function ValidatedCheckoutButton({
     const wantsSignup = params.get('action') === 'signup' || window.location.hash === '#email'
     if (wantsSignup) {
       setShowEmailInput(true)
-      // Wait for the email panel to mount, then scroll & focus
+      // Wait for the email panel to mount, then scroll into view
       requestAnimationFrame(() => {
         wrapperRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })
-        setTimeout(() => emailInputRef.current?.focus(), 350)
       })
     }
   }, [requireEmail])
+
+  // Whenever the email panel opens (via click OR via deep link), auto-focus
+  // the input so the user can type immediately without an extra tap.
+  useEffect(() => {
+    if (!showEmailInput) return
+    // Small delay to let the DOM swap from <Button> to the panel
+    const t = setTimeout(() => emailInputRef.current?.focus(), 50)
+    return () => clearTimeout(t)
+  }, [showEmailInput])
 
   async function checkEmailExists(emailToCheck: string): Promise<{ exists: boolean; message?: string; error?: string }> {
     try {
