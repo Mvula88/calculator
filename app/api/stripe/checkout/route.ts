@@ -164,7 +164,7 @@ export async function POST(req: NextRequest) {
     const successUrl = hasExistingEntitlement
       ? `${baseUrl}/portal?session_id={CHECKOUT_SESSION_ID}&payment_status=success`
       : `${baseUrl}/auth/register?session_id={CHECKOUT_SESSION_ID}&payment_status=success`
-    const cancelUrl = `${baseUrl}/na/guide?payment_status=canceled`
+    const cancelUrl = `${baseUrl}/${normalizedCountry}/guide?payment_status=canceled`
 
     // Create Stripe checkout session with fixed price ID
     const sessionConfig: any = {
