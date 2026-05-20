@@ -518,11 +518,11 @@ export default function NamibiaGuidePage() {
               </div>
             </div>
 
-            <div className="relative z-10 border-t border-white/10 bg-zinc-950/40">
-              <div className="mx-auto max-w-7xl px-6 lg:px-8 py-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-[10px] sm:text-[11px] uppercase tracking-[0.28em] text-zinc-400 font-medium">
+            <div className="relative z-10 border-t border-zinc-200 bg-stone-100">
+              <div className="mx-auto max-w-7xl px-6 lg:px-8 py-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-[10px] sm:text-[11px] uppercase tracking-[0.28em] text-zinc-600 font-medium">
                 <div className="flex items-center gap-3">
-                  <span className="font-semibold text-amber-300">Payment</span>
-                  <span className="h-px w-8 bg-zinc-600" />
+                  <span className="font-semibold text-amber-700">Payment</span>
+                  <span className="h-px w-8 bg-zinc-300" />
                   <span>Visa · Mastercard · Amex</span>
                 </div>
                 <span className="text-zinc-500">Secure checkout · Stripe</span>
