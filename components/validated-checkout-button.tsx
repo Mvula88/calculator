@@ -173,7 +173,7 @@ export default function ValidatedCheckoutButton({
                 setEmailError('')
               }}
               placeholder="your@email.com"
-              className="pl-10"
+              className="!h-12 !pl-10 !pr-4 !text-base !text-zinc-900 !bg-white placeholder:text-zinc-400"
               onKeyDown={(e) => {
                 if (e.key === 'Enter') {
                   handleEmailSubmit()

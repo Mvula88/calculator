@@ -103,6 +103,46 @@ function RegisterForm() {
     })
 
     if (error) {
+      // If the Stripe webhook already created this user, signUp fails with
+      // "User already registered". Fall back to the server endpoint that
+      // sets the password on the existing user using the paid session as proof.
+      const alreadyRegistered = /already registered|already exists|user_already_exists/i.test(error.message)
+      if (alreadyRegistered && isFromPayment) {
+        try {
+          const res = await fetch('/api/auth/complete-registration', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ sessionId, password, fullName }),
+          })
+          const payload = await res.json()
+          if (!res.ok) {
+            setError(payload.error || 'Could not set your password. Contact support@impota.com.')
+            setLoading(false)
+            return
+          }
+
+          // Sign the user in with the password we just set
+          const { error: signInError } = await supabase.auth.signInWithPassword({
+            email: email.toLowerCase(),
+            password,
+          })
+          if (signInError) {
+            // Account is now set up — fall through to login with a friendly message
+            setSuccess(true)
+            setTimeout(() => router.push(`/auth/login?email=${encodeURIComponent(email)}`), 1500)
+            return
+          }
+
+          setSuccess(true)
+          setTimeout(() => router.push('/portal'), 1000)
+          return
+        } catch (err: any) {
+          setError(err?.message || 'Could not set your password. Contact support@impota.com.')
+          setLoading(false)
+          return
+        }
+      }
+
       setError(error.message)
       setLoading(false)
       return
