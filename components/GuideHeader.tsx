@@ -33,7 +33,7 @@ export default function GuideHeader({
 
   const getStartedLink = !showCountrySelector
     ? '/#countries'
-    : `/${country}/guide#pricing`
+    : `/${country}/guide?action=signup#pricing`
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white/85 backdrop-blur-md border-b border-zinc-200/80 safe-padding-top">

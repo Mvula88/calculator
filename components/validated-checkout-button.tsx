@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Alert, AlertDescription } from '@/components/ui/alert'
@@ -31,6 +31,25 @@ export default function ValidatedCheckoutButton({
   const [emailError, setEmailError] = useState('')
   const [showEmailInput, setShowEmailInput] = useState(false)
   const [checkingEmail, setCheckingEmail] = useState(false)
+  const wrapperRef = useRef<HTMLDivElement>(null)
+  const emailInputRef = useRef<HTMLInputElement>(null)
+
+  // Auto-open the email input when the page is opened with ?action=signup
+  // or hashed with #email, so external CTAs (header "Get Started", anchor
+  // links from other pages) can deep-link straight to the email step.
+  useEffect(() => {
+    if (typeof window === 'undefined' || !requireEmail) return
+    const params = new URLSearchParams(window.location.search)
+    const wantsSignup = params.get('action') === 'signup' || window.location.hash === '#email'
+    if (wantsSignup) {
+      setShowEmailInput(true)
+      // Wait for the email panel to mount, then scroll & focus
+      requestAnimationFrame(() => {
+        wrapperRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+        setTimeout(() => emailInputRef.current?.focus(), 350)
+      })
+    }
+  }, [requireEmail])
 
   async function checkEmailExists(emailToCheck: string): Promise<{ exists: boolean; message?: string; error?: string }> {
     try {
@@ -151,7 +170,7 @@ export default function ValidatedCheckoutButton({
 
   if (showEmailInput && requireEmail) {
     return (
-      <div className="space-y-4">
+      <div ref={wrapperRef} className="space-y-4">
         <div className="space-y-2">
           <h3 className="font-semibold text-lg text-gray-900">Enter Your Email</h3>
           <p className="text-sm text-gray-900 font-medium">
@@ -166,6 +185,7 @@ export default function ValidatedCheckoutButton({
           <div className="relative">
             <Mail className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
             <Input
+              ref={emailInputRef}
               type="email"
               value={email}
               onChange={(e) => {
