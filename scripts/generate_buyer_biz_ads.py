@@ -192,11 +192,25 @@ BIZ_POSTS = [
     },
 ]
 
-POSTS = BUYER_POSTS + BIZ_POSTS
+# Personal story ads — founder/owner-first-person
+STORY_POSTS = [
+    {
+        "file": "ad-story-01-golf-7r.html",
+        "title": "IMPOTA Ad — Story 01 · My Golf 7R (saved N$150k)",
+        "cat": "How I Saved N$150,000",
+        "h1": 'I saved over<br><span class="it">N$150,000.</span>',
+        "sub": "Importing my <b>Golf 7R</b> direct from Japan.",
+        "lede": "No agent. No dealer markup. I wrote down exactly how I did it — the auction, the shipping, the duties, the documents. <em>N$200 · Lifetime access · impota.com</em>",
+        "meta": "Real story · Golf 7R · N$150,000 saved",
+        "bg_override": "golf-7r-white.jpg",
+    },
+]
+
+POSTS = BUYER_POSTS + BIZ_POSTS + STORY_POSTS
 
 count = 0
 for i, p in enumerate(POSTS):
-    bg = car_photos[i % len(car_photos)]
+    bg = p.get("bg_override") or car_photos[i % len(car_photos)]
     out = ROOT / p["file"]
     rendered = TEMPLATE.format(
         title=p["title"],
