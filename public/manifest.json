@@ -4,8 +4,8 @@
   "description": "Complete guide to importing cars from Japan to Southern Africa. Save thousands with our step-by-step import guide.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#09090b",
-  "theme_color": "#09090b",
+  "background_color": "#000000",
+  "theme_color": "#000000",
   "orientation": "portrait-primary",
   "icons": [
     {
