@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,700;0,800;0,900;1,400;1,700;1,900&display=swap" rel="stylesheet">
+<title>IMPOTA Ad NA 02 — Save N$70,000</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{--green-deep:#09090b;--green-mid:#18181b;--green-bright:#f59e0b;--gold:#fbbf24;--cream:#fafaf9}
+  body{width:1080px;height:1080px;overflow:hidden;font-family:'Inter',sans-serif;background:#000;color:var(--cream);position:relative}
+
+  .photo{position:absolute;inset:0;background:url('/Cars%20Imported%20Images/20241116_131720.jpg') center center / cover no-repeat;filter:saturate(0.96) contrast(1.06) brightness(1.04);z-index:1}
+  .vignette{position:absolute;inset:0;background:radial-gradient(ellipse 95% 95% at 60% 50%, rgba(0,0,0,0) 0%, rgba(0,0,0,0.20) 78%, rgba(0,0,0,0.38) 100%);z-index:2;pointer-events:none}
+  .anchor{position:absolute;inset:0;background:linear-gradient(0deg,rgba(9,9,11,0.96) 0%,rgba(24,24,27,0.85) 18%,rgba(24,24,27,0.45) 32%,rgba(24,24,27,0) 46%),linear-gradient(125deg,rgba(24,24,27,0.94) 0%,rgba(24,24,27,0.82) 22%,rgba(24,24,27,0.45) 45%,rgba(24,24,27,0.12) 65%,rgba(24,24,27,0) 82%);z-index:3;pointer-events:none}
+  .shine{position:absolute;inset:0;background:radial-gradient(ellipse 62% 50% at 22% 60%, rgba(245,158,11,0.55) 0%, rgba(245,158,11,0.28) 28%, rgba(245,158,11,0.08) 55%, rgba(245,158,11,0) 75%);z-index:4;pointer-events:none}
+  .grain{position:absolute;inset:0;background-image:radial-gradient(rgba(251,191,36,0.06) 1px, transparent 1px);background-size:32px 32px;opacity:0.5;z-index:5;pointer-events:none}
+
+  .shield{position:absolute;top:70px;right:70px;z-index:8;filter:drop-shadow(0 4px 20px rgba(0,0,0,0.55))}
+  .shield img{height:66px;display:block}
+  .top-mast{position:absolute;top:88px;left:90px;z-index:7;font-family:'Inter',sans-serif;font-size:11px;font-weight:700;letter-spacing:3.4px;text-transform:uppercase;color:rgba(250,250,249,0.8)}
+  .top-mast .dot{color:var(--gold);margin:0 12px;opacity:0.8}
+
+  .content{position:absolute;left:90px;bottom:130px;right:120px;z-index:7;max-width:820px}
+  .cat{font-family:'Inter',sans-serif;font-size:12px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:30px}
+  .cat::before{content:'';display:inline-block;width:38px;height:1px;background:var(--gold);vertical-align:middle;margin-right:18px;margin-top:-4px}
+  h1{font-family:'Playfair Display',serif;font-weight:700;font-size:88px;line-height:0.94;letter-spacing:-2.4px;color:#fff;margin-bottom:0;text-shadow:0 2px 24px rgba(0,0,0,0.55)}
+  h1 .it{font-style:italic;font-weight:700;color:var(--gold)}
+  .arrow-row{margin-top:24px;display:flex;align-items:flex-start;gap:18px;max-width:760px}
+  .arrow-row .arrow{color:var(--gold);font-size:36px;line-height:1;flex-shrink:0;margin-top:-4px}
+  .arrow-row .sub{font-family:'Playfair Display',serif;font-style:italic;font-weight:400;font-size:34px;line-height:1.25;color:#fff;letter-spacing:-0.4px;text-shadow:0 1px 14px rgba(0,0,0,0.7)}
+  .arrow-row .sub b{font-weight:700;color:var(--gold);font-style:normal}
+
+  .rule{width:48px;height:1px;background:var(--gold);margin:36px 0 24px;opacity:0.95}
+  .lede{font-family:'Inter',sans-serif;font-weight:400;font-size:20px;line-height:1.55;color:rgba(255,255,255,0.92);max-width:720px;text-shadow:0 1px 14px rgba(0,0,0,0.7)}
+  .lede em{font-style:normal;font-weight:700;color:var(--gold)}
+  .lede b{color:#fff;font-weight:700}
+
+  .footer{position:absolute;bottom:54px;left:90px;right:90px;z-index:7;display:flex;justify-content:space-between;align-items:center}
+  .meta{font-family:'Inter',sans-serif;font-size:11px;font-weight:700;letter-spacing:3.2px;text-transform:uppercase;color:rgba(250,250,249,0.85)}
+  .meta span{color:var(--gold);margin:0 12px;opacity:0.7}
+  .url{font-family:'Inter',sans-serif;font-size:11px;font-weight:700;letter-spacing:3.2px;text-transform:uppercase;color:rgba(250,250,249,0.85)}
+</style>
+</head>
+<body>
+  <div class="photo"></div>
+  <div class="vignette"></div>
+  <div class="anchor"></div>
+  <div class="shine"></div>
+  <div class="grain"></div>
+  <div class="shield"><img src="/impota-logo.png" alt="IMPOTA"></div>
+  <div class="top-mast">IMPOTA <span class="dot">&middot;</span> Car Import Guide</div>
+  <div class="content">
+    <div class="cat">Save Per Import</div>
+    <h1>Import cars<br>from <span class="it">Japan.</span></h1>
+    <div class="arrow-row">
+      <span class="arrow" aria-hidden>&#8627;</span>
+      <span class="sub">A step-by-step guide for <b>Namibia.</b></span>
+    </div>
+    <div class="rule"></div>
+    <div class="lede">The average importer saves <em>N$70,000</em> per car versus buying from a local dealer. <b>Learn how</b> with our full step-by-step guide.</div>
+  </div>
+  <div class="footer">
+    <div class="meta">Avg saving · N$70,000 · Per car</div>
+    <div class="url">impota.com</div>
+  </div>
+</body>
+</html>
