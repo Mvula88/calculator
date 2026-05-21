@@ -25,7 +25,7 @@ TEMPLATE = """<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,700;0,800;0,900;1,400;1,700;1,900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,700;0,800;0,900;1,400;1,700;1,900&display=swap" rel="stylesheet">
 <title>{title}</title>
 <style>
   *{{margin:0;padding:0;box-sizing:border-box}}
@@ -38,8 +38,8 @@ TEMPLATE = """<!DOCTYPE html>
   .shine{{position:absolute;inset:0;background:radial-gradient(ellipse 62% 50% at 22% 60%, rgba(245,158,11,0.55) 0%, rgba(245,158,11,0.28) 28%, rgba(245,158,11,0.08) 55%, rgba(245,158,11,0) 75%);z-index:4;pointer-events:none}}
   .grain{{position:absolute;inset:0;background-image:radial-gradient(rgba(251,191,36,0.06) 1px, transparent 1px);background-size:32px 32px;opacity:0.5;z-index:5;pointer-events:none}}
 
-  .shield{{position:absolute;top:70px;right:70px;z-index:8;filter:drop-shadow(0 4px 20px rgba(0,0,0,0.55))}}
-  .shield img{{height:66px;display:block}}
+  .shield{{position:absolute;top:70px;right:70px;z-index:8;font-family:'Inter',sans-serif;font-weight:900;font-size:52px;letter-spacing:-2.4px;line-height:1;color:var(--cream);filter:drop-shadow(0 4px 20px rgba(0,0,0,0.55))}}
+  .shield .dot{{color:var(--gold)}}
   .top-mast{{position:absolute;top:88px;left:90px;z-index:7;font-family:'Inter',sans-serif;font-size:11px;font-weight:700;letter-spacing:3.4px;text-transform:uppercase;color:rgba(250,250,249,0.8)}}
   .top-mast .dot{{color:var(--gold);margin:0 12px;opacity:0.8}}
 
@@ -70,7 +70,7 @@ TEMPLATE = """<!DOCTYPE html>
   <div class="anchor"></div>
   <div class="shine"></div>
   <div class="grain"></div>
-  <div class="shield"><img src="/impota-logo.png" alt="IMPOTA"></div>
+  <div class="shield" aria-label="IMPOTA">impota<span class="dot">.</span></div>
   <div class="top-mast">IMPOTA <span class="dot">&middot;</span> Car Import Guide</div>
   <div class="content">
     <div class="cat">{cat}</div>
@@ -95,71 +95,71 @@ POSTS = [
         "file": "ad-na-01-intro.html",
         "title": "IMPOTA Ad NA 01 — Intro",
         "cat": "Educational Guide",
-        "lede": "Educational resources and guides to help you understand the process of importing a <b>quality used car</b> from Japan to Namibia — from research to documentation.",
-        "meta": "Step-by-step · Namibia · Walvis Bay",
+        "lede": "Educational resources and guides to help you understand the process of importing a <b>quality used car</b> from Japan to Namibia — from research to documentation. <em>N$200 once-off · lifetime access.</em>",
+        "meta": "N$200 once-off · Lifetime · Walvis Bay",
     },
     {
         "file": "ad-na-02-save-70k.html",
         "title": "IMPOTA Ad NA 02 — Save N$70,000",
         "cat": "Save Per Import",
-        "lede": "The average importer saves <em>N$70,000</em> per car versus buying from a local dealer. <b>Learn how</b> with our full step-by-step guide.",
-        "meta": "Avg saving · N$70,000 · Per car",
+        "lede": "The average importer saves <em>N$70,000</em> per car versus buying from a local dealer. <b>Learn how</b> with our full step-by-step guide — <em>N$200 once-off.</em>",
+        "meta": "Avg saving · N$70,000 · N$200 once-off",
     },
     {
         "file": "ad-na-03-real-numbers.html",
         "title": "IMPOTA Ad NA 03 — Real Numbers",
         "cat": "Real Numbers",
-        "lede": "Auction <b>N$110,000</b>. Landed in Walvis Bay <b>N$185,000</b>. Same car at a dealer: <em>N$250,000+</em>. The full math, on every page.",
-        "meta": "Auction · Landed · Dealer · Compared",
+        "lede": "Auction <b>N$110,000</b>. Landed in Walvis Bay <b>N$185,000</b>. Same car at a dealer: <em>N$250,000+</em>. The full math, on every page. <em>N$200 once-off.</em>",
+        "meta": "Auction · Landed · Dealer · N$200 once-off",
     },
     {
         "file": "ad-na-04-no-guessing.html",
         "title": "IMPOTA Ad NA 04 — No Guessing",
         "cat": "Knowledge, Not Guesses",
-        "lede": "NaTIS codes. Duty math. Port choices. Container sharing. <b>Every step explained</b> for first-time Namibian importers — in plain English.",
-        "meta": "NaTIS · ICD · ENV · VAT · Explained",
+        "lede": "NaTIS codes. Duty math. Port choices. Container sharing. <b>Every step explained</b> for first-time Namibian importers — in plain English. <em>N$200 once-off · lifetime.</em>",
+        "meta": "NaTIS · ICD · ENV · VAT · N$200",
     },
     {
         "file": "ad-na-05-real-importer.html",
         "title": "IMPOTA Ad NA 05 — Built By An Importer",
         "cat": "Built By An Importer",
-        "lede": "Written by a Namibian who imported through Walvis Bay first — then wrote down <b>what worked</b>, what failed, and what every first-time importer should know.",
-        "meta": "Real experience · Walvis Bay · Namibia",
+        "lede": "Written by a Namibian who imported through Walvis Bay first — then wrote down <b>what worked</b>, what failed, and what every first-time importer should know. <em>N$200 once-off.</em>",
+        "meta": "Real experience · Walvis Bay · N$200 once-off",
     },
     {
         "file": "ad-na-06-4-minutes.html",
         "title": "IMPOTA Ad NA 06 — 4 Minutes",
         "cat": "Start In 4 Minutes",
-        "lede": "Open the calculator. Enter the auction price. See your full landed cost in Namibia — <em>before</em> you bid on a single car.",
-        "meta": "Calculator · 4 minutes · Free preview",
+        "lede": "Open the calculator. Enter the auction price. See your full landed cost in Namibia — <em>before</em> you bid on a single car. <em>N$200 once-off · lifetime.</em>",
+        "meta": "Calculator · 4 minutes · N$200 once-off",
     },
     {
         "file": "ad-na-07-questions.html",
         "title": "IMPOTA Ad NA 07 — Before You Bid",
         "cat": "Before You Bid",
-        "lede": "Can you import this car legally? What duty will you pay? Which exporter is honest? Which port is cheapest? <b>All answered, in one guide.</b>",
-        "meta": "Eligibility · Duty · Exporter · Port",
+        "lede": "Can you import this car legally? What duty will you pay? Which exporter is honest? Which port is cheapest? <b>All answered, in one guide.</b> <em>N$200 once-off.</em>",
+        "meta": "Eligibility · Duty · Exporter · N$200 once-off",
     },
     {
         "file": "ad-na-08-skip-dealer.html",
         "title": "IMPOTA Ad NA 08 — Skip The Dealer",
         "cat": "Skip The Middleman",
-        "lede": "A complete walkthrough from Japanese auctions to NaTIS registration. <b>Buy direct</b>, skip the dealer markup, drive your car home for less.",
-        "meta": "Auction · Shipping · Clearance · Drive",
+        "lede": "A complete walkthrough from Japanese auctions to NaTIS registration. <b>Buy direct</b>, skip the dealer markup, drive your car home for less. <em>N$200 once-off · lifetime.</em>",
+        "meta": "Auction · Shipping · Clearance · N$200 once-off",
     },
     {
         "file": "ad-na-09-whats-inside.html",
         "title": "IMPOTA Ad NA 09 — What's Inside",
         "cat": "Inside The Guide",
-        "lede": "Calculator. <b>20+ document templates.</b> 25+ verified agents. 4 country playbooks. Auction-sheet decoder. <em>Lifetime updates.</em>",
-        "meta": "Calculator · Docs · Agents · Lifetime",
+        "lede": "Calculator. <b>20+ document templates.</b> 25+ verified agents. 4 country playbooks. Auction-sheet decoder. <em>N$200 once-off · lifetime updates.</em>",
+        "meta": "Calculator · Docs · Agents · N$200 once-off",
     },
     {
         "file": "ad-na-10-risk-free.html",
-        "title": "IMPOTA Ad NA 10 — Risk-Free",
-        "cat": "Try It Risk-Free",
-        "lede": "<em>N$200 lifetime access.</em> 7-day refund if it's not worth it. Read the free guide first at <b>impota.com</b>.",
-        "meta": "N$200 · Lifetime · 7-day refund",
+        "title": "IMPOTA Ad NA 10 — One Payment, Forever",
+        "cat": "One Payment, Forever",
+        "lede": "<em>N$200 once-off · lifetime access.</em> No subscription. No expiry. Read the free guide first at <b>impota.com</b>, then upgrade when you're ready.",
+        "meta": "N$200 once-off · Lifetime · No subscription",
     },
 ]
 
