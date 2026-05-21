@@ -202,7 +202,7 @@ STORY_POSTS = [
         "sub": "Importing my <b>Golf 7R</b> direct from Japan.",
         "lede": "No agent. No dealer markup. I wrote down exactly how I did it — the auction, the shipping, the duties, the documents. <em>N$200 · Lifetime access · impota.com</em>",
         "meta": "Real story · Golf 7R · N$150,000 saved",
-        "bg_override": "golf-7r-white.jpg",
+        "bg_override": "20250329_123546.jpg",
     },
 ]
 
