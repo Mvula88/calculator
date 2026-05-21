@@ -104,6 +104,7 @@ BUYER_POSTS = [
         "sub": "Direct from auction to <b>your driveway.</b>",
         "lede": "Skip the dealer markup. Choose your own car from over <b>70,000 lots</b> on Japanese auctions. Step-by-step guide for first-time importers in Namibia. <em>N$200 once-off · lifetime access.</em>",
         "meta": "N$200 once-off · Lifetime · Walvis Bay",
+        "bg_override": "20250329_124135.jpg",
     },
     {
         "file": "ad-buyer-02-save-70k.html",
