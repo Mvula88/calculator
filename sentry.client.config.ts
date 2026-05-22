@@ -40,6 +40,12 @@ Sentry.init({
     // Facebook iOS in-app browser webkit errors (harmless)
     'window.webkit.messageHandlers',
     'webkit.messageHandlers',
+    // Meta (FB / Instagram) Android in-app browser — Java→JS bridge GC'd
+    // mid-call. Not a site bug; we just get caught in their telemetry.
+    'Java object is gone',
+    'Error invoking postMessage',
+    'Error invoking enableButtonsClickedMetaDataLogging',
+    'hxp-chat-suppression',
     // Chrome extensions
     'Non-Error promise rejection captured',
     // Network errors
